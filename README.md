@@ -1,2 +1,2 @@
 # leo-cdp-free-edition
-The binary build of Free Edition of LEO CDP for training purposes
+The binary build of LEO CDP Free Edition for training purposes
