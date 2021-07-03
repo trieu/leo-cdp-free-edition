@@ -14,10 +14,6 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 ![alt Leo CDP Flow](https://1.bp.blogspot.com/-bES8CFhQLXs/YN5xFBoKjJI/AAAAAAAAL2c/tL9J2i9PdioOjkQl-fiPmR_xjCSwKXUNwCLcBGAsYHQ/s2048/LEO%2BCDP%2Bversion%2B1.0%2BChecklist-Data%2BFlow%2BLeo%2BCDP.png)
 
-# System Architecture
-
-![LEO CDP Architecture](https://1.bp.blogspot.com/-01beYaPqeVU/X4cjQ0uSwMI/AAAAAAAAHmA/fU8Ht8eOdGkFsBm_E6R5o18wEMQeSwqVACLcBGAsYHQ/s1653/Free%2Bversion%2Bof%2BLeo%2BCDP%2B-%2BHigh-level%2BMicroservice%2BArchitecture.png)
-
 # About this LEO CDP FREE Edition
 
 * The binary build of LEO CDP Free Edition for training purposes and education only 
