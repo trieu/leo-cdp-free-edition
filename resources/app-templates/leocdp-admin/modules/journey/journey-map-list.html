@@ -1,0 +1,147 @@
+<style>
+	#key_business_action {
+		background-color: #c9cad4;
+		height: 28px;
+	}
+	pre.mermaid > textarea {
+	    -webkit-font-smoothing: initial;
+	    border-radius: 2px;
+	    color: #525252;
+	    display: block;
+	    font-family: Roboto Mono,Monaco,courier,monospace;
+	    font-size: 1.4rem;
+	    line-height: inherit;
+	    margin: 0 2px;
+	    max-width: inherit;
+	    width: 100%;
+	    height: 280px;
+	    overflow: inherit;
+	    padding: 1.2em 5px;
+	    white-space: inherit;
+	}
+	#journey_map_name {
+		margin: 25px;
+		font-size: 20px !important;
+	}
+	#customerJourneyDiv .label {
+		font-size: 18px !important;
+	}
+</style>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h4 class="page-header" id="page_breadcrumb" > </h4>
+        </div>
+    </div>
+
+    <div class="row" >
+  		<div class="row col-lg-12 text-center">
+  		<div id="customerJourneyDiv" class="experience_journey_flow row" ></div>
+  			 <pre class="mermaid" >
+			<textarea id="customer_flow_code" >
+journey
+    title from Visitor to Identified Person
+    section Visitor
+    	E-commerce Website:1: Customer
+      	E-commerce Mobile App:4: Customer
+      	Cửa hàng bán lẻ:5: Customer
+      	Đường sách : 5: Customer
+    section Identified Person
+      	Website - Customer Support:3: Customer
+      	Mobile App - Customer Support:4: Customer
+      	Social Media Fan Page:4: Customer
+      	Social Group:5: Customer
+			</textarea>
+	   	</pre>
+        </div>
+        
+        <div class="col-lg-12">
+        	<br>
+            <div class="table-responsive">
+                <div id="behavioral_metrics_table"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+var initJourneyMapList = initJourneyMapList || function(){
+	
+	 function renderCustomerJourney(){
+	        // Example of using the API
+	        var placeholderSelector = "#customerJourneyDiv";
+	        var graphDefinition = $('#customer_flow_code').val().trim();
+	        $(placeholderSelector).find('div').remove();
+	      	
+	        var gid = "customer_graph_"+ new Date().getTime(); 
+	        graph = mermaid.mermaidAPI.render(gid, graphDefinition, function(svgCode, bindFunctions){
+	        	document.querySelector(placeholderSelector).innerHTML = '<div>'+svgCode+"</div>";
+	        });
+	    }
+	 renderCustomerJourney()
+	
+    var eventDataTypes = [
+        { name: "First-party Data", id: 1 },
+        { name: "Second-party Data", id: 2 },
+        { name: "Third-party Data", id: 3 }
+    ];
+    
+    LeoAdminApiUtil.getSecuredData('/cdp/funnel/metadata',{"funnelTypes":"event_retail,customer_retail"}, function(json){ 
+		 //console.log(json.data);	
+		 var eventFunnelStages = json.data['event_retail'];
+		 var customerFunnelStages = json.data['customer_retail'];
+		 var behavioralMetricsData = json.data['behavioral_metrics'];
+		 
+		 $("#behavioral_metrics_table").jsGrid({
+		    width: "100%",
+		    height: "auto",
+
+		    inserting: true,
+		    editing: true,
+		    sorting: true,
+		    paging: false,
+		    paging:     true,
+			pageSize:   5,
+			pageButtonCount: 5,
+			pageIndex:  1,
+		    
+		    deleteConfirm: function(item) {
+	            return "The event \"" + item.eventName + "\" will be removed. Are you sure?";
+	        },
+
+		    data: behavioralMetricsData,
+		    
+		    onItemInserting: function(args) {
+		    	//console.log(args.item)
+		    	
+		    	// TODO Ajax submit data to backend here
+		    	setTimeout(function(){
+		    		args.item.id = "";
+		    		//console.log(behavioralMetricsData)
+		    	},1000);
+		    	
+		    },      
+		    onItemInserted: function(args) {
+		    	//console.log(args.item)
+		    	//console.log(behavioralMetricsData)
+		    }, 
+		    onItemDeleting: function(args) {
+		        console.log(args.item)
+		    },
+
+		    fields: [
+		        { name: "eventName", title : "Behavioral Event Name", type: "text", validate: "required" },
+		        { name: "eventStageId", title : "Event Funnel Stage", type: "select", items: eventFunnelStages, valueField: "id", textField: "name" },
+		        { name: "funnelStageId", title : "Customer Funnel Stage", type: "select", items: customerFunnelStages, valueField: "id", textField: "name" },
+		        { name: "dataType", type: "select", title : "Data Type", items: eventDataTypes, valueField: "id", textField: "name" },
+		        { type: "control" , width: 50}
+		    ]
+		});  
+	});
+}
+
+</script>
+

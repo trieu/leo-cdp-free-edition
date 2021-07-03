@@ -1,0 +1,325 @@
+img.user_profile_s {
+    width: 42px; height: 42px;
+    border: solid 1px #000;
+}
+
+main.mdl-layout__content {
+    -webkit-transform: translate3d(0,0,0)!important;
+}
+
+.page_title_text {
+    min-width:120px;text-transform: uppercase;font-weight: bold;
+}
+
+.mdl-layout-title img {
+    max-height: 60px;
+    max-width: 160px;
+    margin: auto;margin-left:100px;
+}
+
+#postMediaInfo {
+    line-height: 1.8em!important; font-size: 1.06em!important;font-family: 'Helvetica','Arial',sans-serif!important;
+}
+
+#ds_search_box_wrapper {
+    margin-left: 40px; width: 50%;
+}
+#ds_search_textbox {
+    background-color: rgba(0,0,0,0.04);color: #000!important;
+}
+
+#mb_search_wrapper {
+    margin: auto; width: 80%;
+}
+#mb_search_textbox {
+    background-color: rgba(0,0,0,0.04);color: #000!important;
+}
+
+.text_btn {
+    padding-bottom: 30px;
+    padding-top: 30px;    
+    width: 120px;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.on_left {
+    text-align: left;
+    float: left;
+}
+
+.on_right {
+    text-align: right;
+    float: right;
+}
+
+.text_btn a {
+    text-align: center;
+    background: #042a63;
+    border-radius: 6px;
+    color: white;
+    display: inline-block;
+    padding: 10px 24px;
+    transition: all 0.25s ease-out;
+    -webkit-font-smoothing: antialiased;
+}
+
+.text_btn a:hover {
+    background-color: rgb(93, 179, 236);
+    color: #33739E;
+}
+
+.portfolio-header {
+    position: relative;
+    background-color: #FFF;
+}
+
+.portfolio-header .mdl-layout__header-row {
+    padding: 0;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.mdl-layout__title {
+    font-size: 14px;
+    text-align: center;
+    font-weight: 300;
+}
+
+.mdl-layout__title:hover {
+    border: #000 1px dashed;
+    color: #000;
+}
+
+.is-compact .mdl-layout__title span {
+    display: none;
+}
+
+.portfolio-logo-row {
+    min-height: 110px;
+}
+
+.is-compact .portfolio-logo-row {
+    min-height: auto;
+}
+
+.is-compact .header-logo {
+    height: 50px;
+    width: 200px;
+    margin-top: 7px;
+}
+
+.portfolio-navigation-row {
+    background-color: #00008B;
+    text-transform: uppercase;
+    height: 45px;
+}
+
+.portfolio-navigation-row .mdl-navigation {
+    text-align: center;
+    max-width: 1680px;
+    width: 100%;
+}
+
+.portfolio-navigation-row .mdl-navigation__link {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    line-height: 42px;
+}
+
+.portfolio-navigation-row .mdl-navigation__link:hover {
+    background-color: rgba(197, 197, 197, 0.44);
+}
+
+.mdl-tabs__tab:hover {
+    background-color: rgba(197, 197, 197, 0.44);
+}
+
+.portfolio-header .mdl-layout__drawer-button {
+    background-color: #000169;
+    border-radius: 8px;
+}
+
+.portfolio-navigation-row .is-active {
+    position: relative;
+    font-weight: bold;
+    background-color: rgba(197, 197, 197, 0.44);
+}
+
+.portfolio-navigation-row .is-active:after {
+    content: "";
+    width: 70%;
+    height: 2px;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #FFF;
+    left: 15%;
+}
+
+.portfolio-card .mdl-card__title {
+    padding-bottom: 0;
+}
+
+.portfolio-blog-card-compact .mdl-card__title {
+    padding-bottom: 0;
+}
+
+.portfolio-blog-card-bg>.mdl-card__actions {
+    height: 52px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+img.article-image {
+    min-width: 150px;
+    max-width: 100%;
+    height: auto;
+}
+
+.center {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 150px !important;
+    min-height: 150px !important;
+}
+
+.portfolio-max-width {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.portfolio-copy {
+    max-width: 860px;
+    margin: auto;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.no-left-padding {
+    padding-left: 0;
+}
+
+.no-bottom-padding {
+    padding-bottom: 0;
+}
+
+.padding-top {
+    padding: 10px 0 0;
+}
+
+.portfolio-share-btn {
+    position: relative;
+    float: right;
+    top: -4px;
+}
+
+.demo-card-event>.mdl-card__actions {
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.portfolio-contact .mdl-textfield {
+    width: 100%;
+}
+
+.portfolio-contact form {
+    max-width: 550px;
+    margin: auto;
+}
+
+footer {
+    background-color: #000;
+    background-size: cover;
+}
+
+/* chips */
+
+.mdl-chipfield {
+    cursor: text;
+    padding-bottom: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid lightgrey;    
+}
+
+.mdl-chipfield .inputs {
+    margin-left: 5px;
+    float: left;
+    position: relative;
+}
+
+.mdl-chipfield .mdl-chip {
+    float: left;
+    margin-right: 5px;
+}
+
+.mdl-chipfield .mdl-textfield__input {
+    height: 38px;
+    border-bottom: none;
+}
+
+.mdl-chipfield .mdl-textfield__label {
+    top: 8px;
+}
+
+.mdl-chipfield:after {
+    /* TODO: without integration into MDL this has to be changed to your primary color */
+    background-color: #009688;
+    bottom: -1px;
+    content: '';
+    height: 2px;
+    left: 45%;
+    position: absolute;
+    transition-duration: .2s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    visibility: hidden;
+    width: 10px;
+}
+
+.mdl-chipfield.is-focused:after {
+    visibility: visible;
+    left: 0;
+    width: 100%;
+}
+
+.mdl-chipfield .mdl-textfield__label:after {
+    display: none;
+}
+
+.mdl-chipfield .results {
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    list-style: none;
+    position: absolute;
+    background-color: white;
+    z-index: 10;
+    padding: 0;
+    margin-top: 1px;
+}
+
+.mdl-chipfield .results li {
+    cursor: pointer;
+    padding: 10px 5px 10px 10px;
+}
+
+.mdl-chipfield .results li:hover,
+.mdl-chipfield .results li.is-selected {
+    background-color: #eeeeee;
+}
+
+.w100 {
+    width: 100% !important;
+}

@@ -1,0 +1,320 @@
+<div id="main_layout" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+    <header id="main_header" class="mdl-layout__header mdl-layout__header--waterfall portfolio-header">
+        <div class="mdl-layout__header-row">
+            <!-- LOGO -->
+            <div class="mdl-layout-title">                
+                <img src="public/images/logo-bookstore.png" />
+            </div>
+            
+            <div id="ds_search_box_wrapper" class="mdl-textfield mdl-js-textfield" style="display: none;">
+                <input class="mdl-textfield__input" type="text" id="ds_search_textbox" value="{{pageKeywords}}"  >
+                <label class="mdl-textfield__label" for="ds_search_textbox">Search</label>
+            </div>
+            <div id="ds_search_btn_wrapper" style="width: 10%;display: none;">
+                <button id="ds_search_btn" class="mdl-button mdl-js-button mdl-button--icon" style="background-color: rgba(0,0,0,0.42);" >
+                    <i class="material-icons">search</i>
+                </button>
+            </div>  
+        </div>
+
+        <div id="mb_search_wrapper" class="mdl-textfield mdl-js-textfield" style="display: none">
+            <input class="mdl-textfield__input" type="text" id="mb_search_textbox" value="{{pageKeywords}}" >
+            <label class="mdl-textfield__label" for="mb_search_textbox">Search</label>          
+        </div>       
+
+    </header>   
+
+    <div id="page_navigator_desktop" class="mdl-layout__header-row portfolio-navigation-row mdl-layout--large-screen-only">
+        <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+            <!-- main header pages -->
+            <a class="mdl-navigation__link " style="min-width: 120px" href="/">Trang chủ</a>
+            {{#each topPageNavigators}}
+            	<a class="mdl-navigation__link" style="min-width: 142px" href="{{uri}}" id="page_{{id}}">{{name}}</a>
+            {{/each}}
+        </nav>
+    </div>
+    <div id="page_navigator_mobile" class="mdl-layout__drawer ">
+        <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+            <!-- main header pages -->
+            {{#each topPageNavigators}}
+            <a class="mdl-navigation__link" href="{{uri}}" id="page_{{id}}">{{name}}</a>
+            {{/each}}
+        </nav>
+    </div>
+
+    <main class="mdl-layout__content">
+
+        <!-- TODO -->
+        <div class="mdl-tabs__tab-bar ">
+            <a href="/" title="Home" class="mdl-tabs__tab is-active"><i class="material-icons">home</i></a>            
+            <a href="/html/most-trending" class="mdl-tabs__tab"><i class="material-icons">trending_up</i></a>
+            <a href="/html/top-posts-by-keywords?keywords=music" class="mdl-tabs__tab"><i class="material-icons">music_video</i></a>
+
+            <a style="display: none" id="account-menu" href="javascript:" class="mdl-tabs__tab" ><i class="material-icons">account_box</i></a>
+            <!-- Menu items List , mdl-menu--bottom-right -->
+            <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="account-menu">
+                <li class="mdl-menu__item" onclick="doUserProfile()" >Profile</li>            
+                <li class="mdl-menu__item" onclick="doUserLogout()" >Log out</li>
+            </ul>    
+            <a id="user-login" href="javascript:doUserLogin()" title="Login" class="mdl-tabs__tab"><i class="material-icons">account_box</i></a>
+            
+        </div>      
+        
+        <div class="mdl-grid portfolio-max-width">
+            <!-- main content here -->
+            {{#doIf templateName '==' "index" }}
+
+                <!-- Ads -->
+                <div id="headerAdPlacement" class="mdl-card__actions mdl-card--border mdl-typography--text-center">
+                     <strong>Ads</strong>
+                     <div class="leoads-placement" data-leoads-placement="101"></div>
+                </div>
+
+                {{#each headlines}}
+                {{#renderHtmlView "content-hub/widgets/item-post" this }}{{/renderHtmlView}}
+                {{/each}}
+
+                <div style="width: 100%;">
+                    {{#doIf customData.prevStartIndex '>=' 0 }}
+                        <div class="text_btn on_left" >
+                            <a href="/?startIndex={{customData.prevStartIndex}}&numberResult=6">Previous</a>
+                        </div>
+                    {{/doIf}}
+
+                    {{#doIf customData.nextStartIndex '>' 0 }}
+                        <div class="text_btn on_right" >
+                            <a href="/?startIndex={{customData.nextStartIndex}}&numberResult=6">Next</a>
+                        </div>
+                    {{/doIf}}
+                </div>              
+
+            {{/doIf}}
+
+            <!-- ////////////// -->
+            {{#doIf templateName '==' "single-category" }}
+            {{#renderHtmlView "content-hub/single-category" this }}{{/renderHtmlView}}
+            {{/doIf}}
+
+            {{#doIf templateName '==' "single-group" }}
+                <!-- Ads -->
+                <div id="headerAdPlacement" class="mdl-card__actions mdl-card--border mdl-typography--text-center">
+                     <strong>Ads</strong>
+                     <div class="leoads-placement" data-leoads-placement="101"></div>
+                </div>
+
+                {{#each pages}}
+                {{#renderHtmlView "content-hub/single-group" this }}{{/renderHtmlView}}
+                {{/each}}
+
+                <div style="width: 100%;">
+                    {{#doIf customData.prevStartIndex '>=' 0 }}
+                        <div class="text_btn on_left" >
+                            <a href="{{customData.currentPath}}?startIndex={{customData.prevStartIndex}}&numberResult=6">Previous</a>
+                        </div>
+                    {{/doIf}}
+
+                    {{#doIf customData.nextStartIndex '>' 0 }}
+                        <div class="text_btn on_right" >
+                            <a href="{{customData.currentPath}}?startIndex={{customData.nextStartIndex}}&numberResult=6">Next</a>
+                        </div>
+                    {{/doIf}}
+                </div>        
+            {{/doIf}}
+
+            {{#doIf templateName '==' "single-post" }}
+            <!-- the list has one item only -->
+            <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+                <!-- Ads -->
+                <div  id="articleAdPlacement"
+                    class="mdl-card__actions mdl-card--border mdl-typography--text-center">
+                    <strong>Ads</strong>
+                    <div class="leoads-placement" data-leoads-placement="101"></div>
+                </div>
+
+                {{#each posts}}
+                    {{#renderHtmlView "content-hub/single-post" this }}{{/renderHtmlView}}
+                {{/each}}
+                <script>
+                    window.contextGroupId = '{{contextGroupId}}';
+                </script>
+
+                <div id="relatedPostsPlacement" class="mdl-cell mdl-cell--12-col">
+                    <h5 style="text-transform:uppercase">Có thể bạn quan tâm</h5>
+                    <ul id="recommended_posts" class="demo-list-three mdl-list">
+                        {{#each recommendedPosts}}
+                        {{#renderHtmlView "content-hub/widgets/suggested-item-post" this }}{{/renderHtmlView}}
+                        {{/each}}
+                    </ul>
+                </div>
+
+                <div style="display: none;" id="bottomAdPlacement" class="mdl-card__actions mdl-card--border mdl-typography--text-center">
+                    <!-- BottomAds -->
+                     <strong>Ad Placement</strong>
+                      
+                </div>
+            </div>
+            <!-- ////////////// -->
+            {{/doIf}}
+
+
+            {{#doIf templateName '==' "list-category" }}
+            {{#renderHtmlView "content-hub/list-category" this }}{{/renderHtmlView}}
+            {{/doIf}}
+
+            {{#doIf templateName '==' "list-group" }}
+                {{#renderHtmlView "content-hub/list-group" this }}{{/renderHtmlView}}
+            {{/doIf}}
+
+            {{#doIf templateName '==' "list-post" }}
+                <!-- Ads -->
+                <div id="headerAdPlacement" class="mdl-card__actions mdl-card--border mdl-typography--text-center">
+                    <strong>Ads</strong>
+                   <div class="leoads-placement" data-leoads-placement="101"></div>
+                </div>
+
+                {{#each posts}}
+                    {{#renderHtmlView "content-hub/widgets/item-post" this }}{{/renderHtmlView}}
+                {{else}}
+                    <div class="mdl-card__actions mdl-card--border mdl-typography--text-center">
+                        <h5>No results found</h5>
+                    </div>
+                {{/each}}
+
+                <div style="width: 100%;">
+                    {{#doIf customData.prevStartIndex '>=' 0 }}
+                        <div class="text_btn on_left" >
+                            <a href="/html/top-posts-by-keywords?keywords={{pageKeywords}}&startIndex={{customData.prevStartIndex}}&numberResult=6">Previous</a>
+                        </div>
+                    {{/doIf}}
+
+                    {{#doIf customData.nextStartIndex '>' 0 }}
+                        <div class="text_btn on_right" >
+                            <a href="/html/top-posts-by-keywords?keywords={{pageKeywords}}&startIndex={{customData.nextStartIndex}}&numberResult=6">Next</a>
+                        </div>
+                    {{/doIf}}
+                </div>       
+            {{/doIf}}
+
+            {{#doIf templateName '==' "search-post" }}               
+
+                <div class="mdl-card__actions mdl-typography--text-center">
+                    <h5>Search for "<strong>{{pageKeywords}}</strong>" </h5>
+                </div>
+                {{#each posts}}
+                    {{#renderHtmlView "content-hub/widgets/item-post" this }}{{/renderHtmlView}}
+                {{else}}                    
+                    <strong> No results found </strong>                     
+                {{/each}}
+
+                <div style="width: 100%;">
+                    {{#doIf customData.prevStartIndex '>=' 0 }}
+                        <div class="text_btn on_left" >
+                            <a href="/html/search?keywords={{pageKeywords}}&startIndex={{customData.prevStartIndex}}&numberResult=6">Previous</a>
+                        </div>
+                    {{/doIf}}
+
+                    {{#doIf customData.nextStartIndex '>' 0 }}
+                        <div class="text_btn on_right" >
+                            <a href="/html/search?keywords={{pageKeywords}}&startIndex={{customData.nextStartIndex}}&numberResult=6">Next</a>
+                        </div>
+                    {{/doIf}}
+                </div> 
+                
+                <!-- Ads -->
+                <div id="headerAdPlacement" class="mdl-card__actions mdl-card--border mdl-typography--text-center">
+                     <strong>Ad Placement</strong>
+                </div>
+            {{/doIf}}
+
+
+            <!-- ////////////// -->
+            {{#doIf templateName '==' "404" }}
+            {{#renderHtmlView "content-hub/404" this }}{{/renderHtmlView}}
+            {{/doIf}}
+
+        </div>
+
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer__left-section">
+                <div class="mdl-logo">{{pageTitle}}</div>
+            </div>
+            <div class="mdl-mini-footer__right-section">
+                <ul class="mdl-mini-footer__link-list">
+                    <!-- main bottom pages -->
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+        </footer>
+    </main>
+</div>
+
+<script>
+    //data for personalization 
+    //window.topPageNavigators = {{#toJson topPageNavigators }}{{/toJson}};      
+    window.usersession = lscache.get('usersession') || '';
+    window.currentUserProfile = false;
+
+    function loadSessionUserInfo(callback) {
+        if (window.usersession != '') {
+            var urlStr = '/user/get-info';
+            LeoAdminApiUtil.callPostAdminApi(urlStr, {}, function (json) {
+                if (json.httpCode === 0 && json.errorMessage === '') {
+                    if (json.data) {
+                        var user = json.data;
+                        window.currentUserProfile = user;
+                    }
+                    if (typeof callback === 'function') callback();
+                }
+            });
+        } else {
+            if (typeof callback === 'function') callback();
+        }
+    }
+
+    function canEditPost(postOwnerId) {
+        return window.currentUserProfile && window.currentUserProfile.key === postOwnerId;
+    }
+
+    $(document).ready(function () {
+        var isSmallScreen = $(window).width() < 640;
+
+        if(isSmallScreen){
+            $('#mb_search_wrapper').show();
+            $('#search_tab').show();
+            $('#search_filter_wrapper > div').addClass('w100'); 
+            $('#post_title').addClass('mdl-typography--title');           
+        } else {            
+            $('#ds_search_box_wrapper, #ds_search_btn_wrapper').show();
+        }
+
+        $("#ds_search_textbox,#mb_search_textbox").on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                location.href = '/html/search?keywords=' + $(this).val();
+            }
+        });
+        $('#ds_search_btn').click(function(){
+            location.href = '/html/search?keywords=' + $("#ds_search_textbox").val();
+        })
+    });
+
+    $(window).on('hashchange', function () {
+        var url = location.hash;
+        //console.log("==> hashchange url " + url);
+    });
+
+    (function () {
+        var uri = location.href.split(location.host)[1] || '';
+        uri = uri.toLowerCase();
+        if (uri === '/') {
+            $('a[href="/"]').addClass('is-active');
+        } else {
+            if (uri.indexOf('/html/post/') === 0 && window.contextGroupId) {
+                $('#page_' + window.contextGroupId).addClass('is-active');
+            } else {
+                $('a[href^="' + uri + '"]').addClass('is-active');
+            }
+        }
+        $('#page_navigator_desktop').css('visibility', 'visible')
+    }());
+</script>

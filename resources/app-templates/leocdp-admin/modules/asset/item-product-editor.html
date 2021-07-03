@@ -1,0 +1,510 @@
+<style>
+#short_link_url_holder {
+	font-size: 11.5px;
+    font-weight: bold;
+    color: #3300ff;
+}
+</style>
+<div class="container-fluid" id="post_editor_form">
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+        <div class="col-lg-10">
+	         <h5 class="page-header" id="page_breadcrumb" > </h5>
+        </div>
+       	<div class="col-lg-2 text-center">
+            
+	        <button type="button" class="btn btn-danger data-control-delete" id="btn_delete_page" style="display: none;" >
+	            <i class="fa fa-trash" aria-hidden="true"></i> Delete
+	        </button>
+	        
+	        <button type="button" class="btn btn-primary data-control-edit" id="btn_edit_page" style="display: none;"  > 
+	       		<i class="fa fa-fw fa-pencil-square-o"></i> Edit 
+	       	</button>
+           
+        </div>
+    </div>
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+        <div class="col-lg-9">
+
+            <fieldset>
+
+                <div class="form-group">
+                    <label>Slug (SEO-friendly URI)</label>
+                    <div id="slug_div" >
+                        <input type="text" name="slug" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Title</label>
+                    <input id="asset_item_title" type="text" class="form-control" placeholder="Enter title" name="title" autocomplete="off">
+                </div>
+                
+                <div class="form-group">
+	                <label>Product Type</label>
+	                <select id="productType" name="productType" data-placeholder="Select a Product Type" class="select">
+	                    <option value="general_product" selected >General Product</option>
+	                    <option value="retail_product"> Retail Product </option>
+	                    <option value="event_ticket"> Event Ticket </option>
+	                    <option value="report_research"> Report Research </option>
+	                    <option value="education_service"> Education Service </option>
+	                    <option value="saas_service"> SaaS Service </option>
+	                    <option value="consulting_service"> Consulting Service </option>
+	                    <option value="media_service"> Media Service </option>
+	                </select>
+	            </div>
+                
+                <div class="form-group">
+                    <label>Product ID Type</label>
+                    <input id="productIdType" type="text" class="form-control" placeholder="Enter Product ID Type. E.g: SKU, ISBN" name="productIdType" autocomplete="off">
+                </div>
+                
+                <div class="form-group">
+                    <label>Product ID</label>
+                    <input id="productId" type="text" class="form-control" placeholder="Enter Product ID" name="productId" autocomplete="off">
+                </div>
+                
+                <div class="form-group product_price">
+                    <label> Original Price </label>
+                    <input id="productId" type="number" class="form-control" placeholder="Enter Original PriceL" name="originalPrice" autocomplete="off" value="0">
+                </div>
+                
+                <div class="form-group product_price">
+                    <label> Sale Price </label>
+                    <input type="number" class="form-control" placeholder="Enter Sale Price" name="salePrice" autocomplete="off" value="0">
+                </div>
+                
+                <div class="form-group product_price">
+                    <label> Price Currency </label>
+                    <input type="text" class="form-control" placeholder="Enter Price Currency" name="priceCurrency" autocomplete="off" value="USD">
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <div id="description_div" style="display: block;">
+                        <textarea class="form-control" rows="2" placeholder="Enter description" name="description"></textarea>
+                    </div>
+                    <hr>
+                </div>
+                
+                <div class="form-group">
+                    <label>Product Landing page URL</label>
+                    <input type="text" class="form-control" placeholder="Enter Product Landing page URL" name="fullUrl" autocomplete="off">
+                </div>
+                
+                <div id="short_link_url_holder" class="alert alert-info" role="alert" >
+					 <i class="fa fa-qrcode" aria-hidden="true" style="font-size: 1.1em" ></i>  <b>Short Link URL</b> 
+					 <a id="short_link_url" class="small-text" href="javascript:" target="_blank" ></a> <br>
+				</div>	
+				<div class="thumbnail">
+				 	 <img id="short_link_qrcode_url" style="max-height: 200px" />
+				</div>
+
+                <div class="form-group">
+                    <label>Product Image URL</label>
+                    <input type="text" class="form-control" placeholder="Enter Product Headline Image URL" name="headlineImageUrl" autocomplete="off">
+                </div>
+                
+				<div style="display: none;">
+                	<label for="imageUploader"> Headline Image Uploader </label>
+	                <input id="imageUploader" type="file" class="filepond" name="image" multiple data-max-file-size="20MB"
+	                    data-max-files="20" />
+            	</div>
+                <div id="product-headline-images" style="display: none;" ></div>
+                <hr>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading"> <label>Product Video URL</label> </div>
+                    <div class="panel-body">
+                        <input id="headline_video" type="text" name="headlineVideoUrl" placeholder="Enter Video URL of YouTube" class="form-control">
+                        <hr>
+                        <div id="headline_video_view" class="row display-flex" style="padding: 0 50px;width: 520px;margin: auto" >                           
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" id="customData_div_wrapper" style="display: none;">
+                    <div id="customData_div">
+                        <!--customData fields -->
+                    </div>
+                </div>
+
+
+                <div class="form-group" id="content_div_wrapper">
+                    <label>Product Content</label>
+                    (
+                        <a class="modal-trigger" href="javascript:" onclick="toggleDiv(this,'#content_div')">Hide Content Editor</a> 
+                        |
+                        <a class="modal-trigger" href="javascript:" data-visibilty="hidden" onclick="toggleRawHtmlEditor(this)">Toggle Raw HTML Editor</a> 
+                    )
+                    <div id="content_div">
+                    </div>                   
+                    <div id="raw_media_container" style="width: 100%;" >
+                        <hr>
+                        <textarea id="raw_media_html"></textarea>
+                    </div>                   
+                    <hr>
+                    <div id="mediaInfoPreview" ></div>
+                </div>
+              
+
+            </fieldset>
+
+        </div>
+        <div class="col-lg-3">
+            <div id="error-on-save" class="alert alert-danger" style="display: none;"></div>
+            <div class="action-div row-centered ">
+            	<button style="display: none;" type="button" class="btn btn-success" onclick="callLeoBotForIdeasRecommender('context-page')">Hi LEO</button>
+            
+                <button type="button" class="btn btn-info" onclick="history.back()">
+                	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
+                </button>
+                <button type="button" class="btn btn-danger" onclick="LeoCdpAdmin.navFunctions.deleteItemAsset(productData)">
+                	<i class="fa fa-trash" aria-hidden="true"></i> Delete
+                </button>
+                <button type="button" class="btn btn-success data-control-edit" onclick="productEditorSave()"  > 
+	        		<i class="fa fa-fw fa-check"></i> Save 
+	        	</button>  
+            </div>
+            <hr>
+            
+            <div class="action-div">
+                <label>Content Privacy</label>
+                <div class="radio">
+                    <label><input type="radio" name="privacyStatus" value="0">Public for everyone</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="privacyStatus" value="1">Protected (for logged users)</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="privacyStatus" value="-1">Private</label>
+                </div>
+            </div>
+            <div class="action-div">
+                <label>Content Keywords</label>
+                <input id="postKeywords" name="keywords" type="text" class="tags" value="" />
+            </div>
+            <hr>
+           
+            <div class="action-div">
+                <label for="documentUploader"> Editor File Uploader </label>
+                <input id="documentUploader" type="file" class="filepond" name="document" multiple data-max-file-size="50MB"
+                    data-max-files="20" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<script>
+
+    var itemId = "";
+    var groupId = "";
+    var categoryId = "";
+    
+    var productData = false;
+    var trixElement = false;
+    var postType = 1; // HTML
+
+    //templates
+    var editorViewTpl = '<input id="mediaInfo" value="" type="hidden" name="mediaInfo"><trix-editor input="mediaInfo" class="trix-content" autofocus></trix-editor>';
+    var documentUrlViewTpl = '<input id="mediaInfo" type="text" name="mediaInfo" class="form-control" >';
+
+    //raw HTML code editor
+    var rawHtmlEditor = CodeMirror.fromTextArea(document.getElementById("raw_media_html"), {        
+        mode: "htmlmixed",           
+        lineNumbers: true ,
+        smartIndent: true ,
+        lineWrapping : true                                    
+    });
+    rawHtmlEditor.setSize($('#raw_media_container').width()-100, 1);
+
+    
+    function initProductItemEditor(params){
+    	productData = false;
+    	LeoCdpAdmin.loadView('/view/common-widgets/headline-images.html?admin=1', '#product-headline-images', function () {
+            $('#product-headline-images div.thumbnail p').editable({
+                type: 'text',
+                title: 'Enter Image Label Value'
+            },true);
+            loadProductItemEditor(params)
+        }, true);
+    }
+    
+    var showProductShortLinkUrl = function() {
+    	if(productData) {
+     		$('#short_link_url').attr('href',productData.shortLinkUrl).text(productData.shortLinkUrl);
+     		var qrCodeFullUrl = baseLeoObserverUrl + productData.qrCodeUrl.substr(1);
+     		$('#short_link_qrcode_url').attr('src',qrCodeFullUrl);
+    	}
+ 	}
+
+    function loadProductItemEditor(params) {
+        if (params) {
+            itemId = params.itemId;
+            groupId = params.groupId;
+            categoryId = params.categoryId;
+            console.log('=====> loadProductItemEditor itemId ' + itemId);
+
+            if (itemId === '') {
+                // off select post type  $('#postTypeSelectionDialog').modal({ focus: true })
+                checkPostTypeAndSetupMediaEditor(1, '');
+            }
+            var urlStr = baseAdminApi + '/item/get';
+
+            LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
+                if (json.httpCode === 0 && json.errorMessage === '') {
+                    productData = json.data;
+                    document.title = productData.title ? 'Product Item Editor - ' + productData.title : 'New Product Item';
+                    
+                 	// breadcrumb link update
+        	        updateBreadcrumbInAssetPost(productData.assetCategories, productData.assetGroups, productData.title );
+                 	
+        	        showProductShortLinkUrl();
+
+                    var form = $('#post_editor_form');
+                    for (var k in productData) {
+                        var value = productData[k];
+                        var fieldType = typeof value;
+
+                        if (fieldType === 'object') {
+                            if (k === 'keywords') {
+                                form.find("input[name='keywords']").val(value.join(","));
+                            } else if (k === 'headlineImages') {
+                                loadHeadLineImageObjectToView(value, true);
+                            } 
+                        } else if (fieldType === 'number' || fieldType === 'string') {
+                            if (k === 'mediaInfo') {
+                                checkPostTypeAndSetupMediaEditor(1, value);
+                                loadMediaInfoView(value, postType, true);
+                            } 
+                            else if (k === 'privacyStatus') {
+                                form.find("input[name='privacyStatus'][value='" + value + "']").attr('checked', 'checked');
+                            } 
+                            else if (k === 'description') {
+                                form.find("textarea[name='description']").val(value);
+                            } 
+                            else if(k === 'headlineVideoUrl') {
+                                var value = value.trim()
+                                if(value.indexOf('http') === 0){   
+                                    var placeHolderId = 'hvph_' + itemId;                                 
+                                    var html = '<div id="'+placeHolderId+'" class="videoholder" data-video-source="'+value+'"></div>';
+                                    $('#headline_video').val(value);
+                                    $('#headline_video_view').html(html);
+                                    
+                                    MediaPlayerOne.create(false, placeHolderId, value, '', [], 1, []);
+                                }                               
+                            }
+                            else if (k === 'productType') {
+                                var dom = $('#productType');
+                                dom.find("option:selected").removeAttr("selected");
+                                dom.find('option[value="' + value + '"]').attr('selected', 'selected');
+                                
+                                // init widget
+                                loadProductTypeSelector(productData.productIdType);
+                            }
+                            else {
+                                form.find("input[name='" + k + "']").val(value);
+                            }
+                        }
+                        console.log(k + " : " + value + " fieldType :" + fieldType)
+                    }
+                    loadWidgetsOfProductEditor();
+                    
+                    
+                    //focus the title
+                    $('#asset_item_title').focus();
+                } else {
+                    LeoAdminApiUtil.logErrorPayload(json);
+                }
+            });
+        }
+    }
+
+    function saveProductItem(callback) {
+        if (productData) {
+        	productData.contentClass = "product";
+            productData.itemId = itemId;
+            productData.groupId = groupId;
+            productData.categoryId = categoryId;
+           
+            console.log('=====> saveProductItem itemId ' + itemId);
+           
+            //get DOM view and set into productData
+            var form = $('#post_editor_form');
+            productData.title = form.find('input[name="title"]').val();
+            productData.productId = form.find('input[name="productId"]').val();
+            productData.productIdType = form.find('input[name="productIdType"]').val();
+            productData.productType = form.find('select[name="productType"]').val();
+            
+            productData.fullUrl = form.find('input[name="fullUrl"]').val();
+            productData.originalPrice =  parseFloat(form.find('input[name="originalPrice"]').val());
+            productData.salePrice =  parseFloat(form.find('input[name="salePrice"]').val());
+            productData.priceCurrency = form.find('input[name="priceCurrency"]').val();
+            
+            productData.slug = form.find('input[name="slug"]').val();
+            productData.privacyStatus = parseInt(form.find('input[name="privacyStatus"]:checked').val());
+            productData.keywords = form.find('input[name="keywords"]').val().split(',');            
+            productData.description = form.find('textarea[name="description"]').val();
+            
+            var headlineImageUrl = form.find('input[name="headlineImageUrl"]').val();
+            productData.headlineImageUrl = headlineImageUrl;
+            
+            var imageMap = getHeadLinesImagsObject();
+            imageMap[headlineImageUrl] = "product image";
+            productData.headlineImages = imageMap;
+            productData.headlineVideoUrl = form.find('#headline_video').val();
+            
+            productData.customData = {};
+            productData.mediaInfoUnits = [];
+
+            //normalize html data
+            if(productData.type === 1){
+                var content = form.find('input[name="mediaInfo"]').val();                             
+                productData.mediaInfo = normalizeMediaHtml(content);
+            } else {
+                productData.mediaInfo = form.find('input[name="mediaInfo"]').val();
+            }   
+            
+            if(productData.title === "" || productData.fullUrl === "" || productData.productId === "" || productData.productIdType === "") {
+            	iziToast.error({
+            	    title: 'Error',
+            	    message: 'The title, product landing page URL, product ID and product ID type can not be empty !'
+            	});
+            } else {
+            	$('#ajaxLoaderDialog').modal({
+            		backdrop: 'static',
+            		keyboard: false
+        		});
+            	
+            	//done set data model, POST to API
+                var urlStr = baseAdminApi + '/item/save';
+                LeoAdminApiUtil.callPostAdminApi(urlStr, productData, function (json) {
+                    if (json.httpCode === 0 && json.errorMessage === '') {
+                        if (typeof callback === 'function') {
+                            if(json.data === ''){
+                                $('#error-on-save').html('Data is not valid !').show().delay(6000).fadeOut('slow');
+                            } else {
+                                callback(json.data);
+                            }                        
+                        }
+                    } else {
+                        $('#error-on-save').html(json.errorMessage).show().delay(6000).fadeOut('slow');
+                        LeoAdminApiUtil.logErrorPayload(json);
+                    }
+                });
+            }
+        }
+    }
+
+    function productEditorSave() {
+        var onSaveOk = function (itemId) {
+            console.log('=====> productEditorSave ', itemId);   
+            $('#ajaxLoaderDialog').modal('hide');   
+            setTimeout(function(){
+            	//gotoAssetItemView(itemId, groupId, categoryId);
+            	history.back()
+            },1000);
+        }
+        saveProductItem(onSaveOk);
+    }
+    
+    function loadProductTypeSelector(initIdType){
+    	
+    	var check = function(v, idType) {
+    		if(v === "retail_product"){
+    			if((idType === "" || idType === "external_ID")){
+    				$('#productIdType').val("SKU")
+    			}
+         	}
+         	else {
+         		var idType = "external_ID";
+         		$('#productIdType').val(idType);
+         	}
+    	}
+    	
+    	$('#productType').change(function(){ 
+         	var v = $(this).val();
+         	var idType = $('#productIdType').val();
+         	check(v,idType);
+        }).chosen({
+             width: "100%",
+             no_results_text: "Oops, nothing found!"
+        }).trigger("chosen:updated");
+    	
+    	check($('#productType').val(), initIdType)
+    }
+
+
+    function loadWidgetsOfProductEditor() {
+        //keyword input widget with highlights
+        $('#postKeywords').tagsInput({
+            width: 'auto',
+            'defaultText': 'add a keyword',
+            onChange: function (elem, elem_tags) {
+                var productTags = ['Coated', 'Lysaght', 'Retail'];
+                $('.tag', elem_tags).each(function () {
+                    if ($(this).text().search(new RegExp('\\b(' + productTags.join('|') + ')\\b')) >=0){
+                        $(this).css('background-color', 'yellow');
+                    }                       
+                });
+            }
+        });
+
+        //document or image uploader
+        setupUploaderWidget('post', itemId, '#documentUploader', function (rs) {
+            var fileUrl = rs.data.fileUrls[0];
+            console.log('fileUrl ' + fileUrl);
+            renderPostMediaInfo(fileUrl);
+        });
+
+        //headline image uploader
+        setupUploaderWidget('post', itemId, '#imageUploader', function (rs) {
+            var imgSrc = rs.data.fileUrls[0];
+            var obj = {};
+            obj[imgSrc] = '';
+            loadHeadLineImageObjectToView(obj, false, true);
+        });
+
+        $('#headline_video').on('change', function(){
+            var $this = $(this);
+            var currentVal = $this.val();
+            
+            //$this.val(vid);
+            //var html = "<iframe width='100%' height='320' src='https://www.youtube-nocookie.com/embed/"+vid+"?rel=0&controls=1&showinfo=0' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+            
+            //init MediaPlayer
+            var placeHolderId = 'hvph_' + itemId;
+            var html = '<div id="'+placeHolderId+'" class="videoholder" data-video-source="'+currentVal+'"></div>';
+            $('#headline_video_view').html(html);
+            MediaPlayerOne.create(false, placeHolderId, currentVal, '', [], 1, []);
+            
+            //init HeadLine Images
+            var ytVideoId = getYouTubeVideoId(currentVal);
+            if(ytVideoId && ytVideoId.length > 5){
+                var headlineImage = 'https://img.youtube.com/vi/'+ytVideoId+'/hqdefault.jpg';
+                var obj = {};
+                obj[headlineImage] = '';
+                loadHeadLineImageObjectToView(obj, false, true);
+            }         
+        });
+    }
+
+    function renderPostMediaInfo(fileUrl) {
+        if(fileUrl.indexOf('http')<0){
+            fileUrl = window.baseAdminApi + fileUrl;
+        }
+        if (fileUrl.indexOf('.png') > 0 || fileUrl.indexOf('.jpg') > 0) {            
+            if (trixElement ) {
+                trixElement.editor.insertHTML('<img style="max-width:100%;max-height:600px;" src="' + fileUrl + '" />');
+                return;
+            }
+        } else {
+            loadMediaInfoView(fileUrl, postType, true);
+        }
+    }
+</script>

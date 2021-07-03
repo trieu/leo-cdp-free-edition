@@ -1,0 +1,231 @@
+
+<!-- Customer Activation with Marketing Campaigns  -->
+
+
+<!-- Data Science Jupyter Notebooks -->
+<div class="row">
+    <div class="col-lg-10">
+        <h5 class="page-header" id="page_breadcrumb" > </h5>
+    </div>
+    <div class="col-lg-2 text-center" style="padding: 10px">
+    	
+		<button type="button" class="btn btn-success data-control-insert" onclick="" disabled="disabled">
+			<i class="fa fa-plus-circle" aria-hidden="true"></i> New Campaign
+		</button>
+	</div>
+	<div class="col-lg-12">
+		<h4 > All Direct-to-Customer (D2C) Marketing Campaigns <a href="https://en.wikipedia.org/wiki/Direct-to-consumer" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i>
+		 </a> </h4> 
+		 <b class="highlight_text"> This feature is still under development </b>
+	</div>
+</div>
+
+  
+<div class="row">
+     <div class="col-lg-12">
+          <div class="table-responsive">
+               <table id="campaign-list" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Owner Name</th>
+                        
+                        <th>Updated at</th>
+                        <th>Last run </th>
+                        <th>Targeted Segments</th>
+                        <th>Cost / Revenue</th>
+                        
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    
+    var initCampaignManagement =  initCampaignManagement ||  function() {
+    	
+        var usersession = getUserSession();
+        if (usersession) {
+            $('#campaign-list').DataTable({
+            	'processing': false,
+                'serverSide': false,
+                'serverMethod': 'POST',
+                'ajax': {
+                    url: baseAdminApi + '/cdp/campaigns/filter',
+                    contentType: 'application/json',
+                    beforeSend: function (request) {
+                        request.setRequestHeader("leouss", usersession);
+                    },
+                    data: function (d) {
+                        console.log(d)
+                        return JSON.stringify(d);
+                    }
+                },
+                'columnDefs': [
+                	{
+                        "render": function (data, type, row) {
+                            var name = textTruncate(data, 60);
+                            var callJsViewStr = "javascript:campaignReportView('" + row.id + "')";
+                            return '<a title="'+row.name+'" href="' + callJsViewStr + '" >'+ name +'</a>';
+                        },
+                        "targets": 0
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	var text = "MANUALLY_CUSTOM";
+                        	if(data === 1){
+                        		text =  "LEAD_GENERATION";
+                        	}
+                        	else if(data === 2){
+                        		text =  "REMARKETING";
+                        	}
+                        	else if(data === 3){
+                        		text =  "CROSS_SELLING";
+                        	}
+                        	else if(data === 4){
+                        		text =  "UPSELLING";
+                        	}
+                        	else if(data === 5){
+                        		text =  "REFERRAL_PROGRAM";
+                        	}
+                        	return '<div class="datatable_text text-center">'  + text + '</div>';
+                        },
+                        "targets": 1
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	var statusTxt = "DRAFT";
+                        	if(data === 1){
+                        		statusTxt =  "PLANNED";
+                        	}
+                        	else if(data === 2){
+                        		statusTxt =  "IN_PROGRESS";
+                        	}
+                        	else if(data === 3){
+                        		statusTxt =  "COMPLETED";
+                        	}
+                        	else if(data === 4){
+                        		statusTxt =  "CANCELED";
+                        	}
+                        	else if(data === -1){
+                        		statusTxt =  "REMOVED";
+                        	}
+                        	return '<div class="datatable_text text-center">'  + statusTxt + '</div>';
+                        },
+                        "targets": 2
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	return '<div class="datatable_text text-center">'  + data + '</div>';
+                        },
+                        "targets": 3
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	var date = moment.utc(new Date(data)).local().format('YYYY-MM-DD HH:mm:ss');
+                            return date;
+                        },
+                        "targets": 4
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	if(data){
+                        		var date = moment.utc(new Date(data)).local().format('YYYY-MM-DD HH:mm:ss');
+                                return date;
+                        	}
+                            return "-";
+                        },
+                        "targets": 5
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	
+                            return data;
+                        },
+                        "targets": 6
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	return data;
+                        },
+                        "targets": 7
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	var callJsViewStr = "javascript:campaignReportView('" + row.id + "')";
+                            var callJsEditStr = "javascript:campaignEditor('" + row.id + "')";
+                            var callJsRunManuallyStr = "javascript:campaignRunImmediately('" + row.id + "')";
+                            var callJsRunSchedulerStr = "javascript:campaignScheduler('" + row.id + "')";
+                            
+                            var outHtml = '<div style="width:81px"> <a class="control" title="Campaign Details" href="' + callJsViewStr + '" ><i class="fa fa-line-chart" aria-hidden="true"></i> Details</a> <br>';
+                            outHtml += '<a class="control" title="Campaign Editor" href="' + callJsEditStr + '" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Edit</a> <br>';
+                            outHtml += '<a class="control" title="Schedule campaign" href="' + callJsRunSchedulerStr + '" ><i class="fa fa-clock-o" aria-hidden="true"></i> Schedule</a>  <br>';
+                            outHtml += '<a class="control" title="Run campaign immediately" href="' + callJsRunManuallyStr + '" ><i class="fa fa-play" aria-hidden="true"></i> Run </a> </div>';
+                            return outHtml;
+                        },
+                        "targets": 8
+                    }
+                ],
+                'columns': [{
+                		// 0 
+                        "data": "title"
+                    },
+                    {
+                    	// 1
+                        "data": "type"
+                    },
+                    {
+                    	// 2
+                        "data": "status"
+                    },
+                    {
+                    	// 3
+                        "data": "ownerDisplayName"
+                    },
+                    {
+                    	// 4
+                        "data": "updatedAt"
+                    },
+                    {
+                    	// 5
+                        "data": "lastRunAt"
+                    },
+                    {
+                    	// 6
+                        "data": "targetedSegmentIds"
+                    },
+                    {
+                    	// 7
+                        "data": "estimatedCost"
+                    },
+                    {
+                    	// 8
+                        "data": "activationRules"
+                    }
+                ]
+            });
+        }
+    }    
+    
+    var campaignReportView = campaignReportView || function(id){
+    	location.hash = "calljs-leoCdpRouter('Campaign_Info','" + id + "')";
+    }
+    
+    var campaignEditor = campaignEditor || function(id){
+    	location.hash = "calljs-leoCdpRouter('Campaign_Editor','" + id + "')";
+    }
+    
+    var campaignRunImmediately = campaignRunImmediately || function(id){
+    	console.log('campaignRunImmediately '+id)
+    }
+    
+    var campaignScheduler = campaignScheduler || function(id){
+    	console.log('campaignScheduler '+id)
+    }
+</script>

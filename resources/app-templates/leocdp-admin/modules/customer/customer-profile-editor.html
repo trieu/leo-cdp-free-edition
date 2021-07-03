@@ -1,0 +1,481 @@
+<div class="row">
+     <div class="col-md-9" >
+ 		<h5 class="page-header" id="page_breadcrumb" > </h5>
+ 	 </div> 
+     <div class="col-lg-3 text-center" style="padding: 10px">
+     	<button type="button" class="btn btn-info" onclick="history.back()" title="Go back"  > 
+       		<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
+       	</button>
+       	<button type="button" class="btn btn-danger data-control-delete" onclick="removeCurrentProfile()" title="Delete this profile" > 
+     		<i class="fa fa-trash" aria-hidden="true"></i> Delete 
+     	</button>
+       	<button type="button" class="btn btn-success data-control-edit" onclick="saveProfileHandler()" title="Edit this profile"  > 
+     		<i class="fa fa-check-square-o" aria-hidden="true"></i> Save 
+     	</button>
+     </div>
+</div>
+
+<div class="container-fluid" id="data_model_holder" >
+
+       <!-- MAIN BODY here -->
+       
+       <div class="row">
+    		<div class="text-center" >
+            <img id="profile_avatar_img" style="display: none;" alt="Profile Avatar" class="rounded mx-auto d-block avatar">
+            <input id="profile_avatar_input" class="form-control" type="text" style="font-size: 12px" placeholder="Primary Avatar Image URL" data-field="primaryAvatar" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+            <div style="width: 94%; margin: auto;" >
+           		<input id="profile_avatar_uploader" type="file" class="filepond" name="image" multiple data-max-file-size="2MB" data-max-files="1" />
+            </div>
+        	</div>
+       </div>
+       <hr>
+
+       <!--  Tab Navigation Items -->
+       <ul class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" >
+       		<li class="active" ><a href="javascript:" data-target-tab="panel_personal_info"  > <i class="fa fa-address-card-o" aria-hidden="true"></i> Personal Information </a></li>	
+          	<li ><a href="javascript:" data-target-tab="panel_profile_ext_data" > <i class="fa fa-info-circle" aria-hidden="true"></i> Extension Data </a></li>
+	   </ul>
+
+	   <!-- Tab Contents  -->
+       <div class="tab-content" id="profile_ext_data_tabs" >
+       
+       		<!-- tab 1 recommended items -->
+			<div class="tab-pane active" id="panel_personal_info"  >
+		     	
+		     	<!--  Begin Profile Key Information -->
+           	   	
+	           	<div class="col-md-12">
+	               
+	               <table border=0 class="underlined" style="width: 100%;">
+	                   <tr>
+	                       <td>
+	                           <ol id="personal_attributes" data-field="personal_attributes">
+	                           	   <li>
+	                           	   	   <b> <i class="fa fa-id-badge" aria-hidden="true"></i> Profile ID </b> 
+	                                   <span class="data_field" data-field="id" data-fieldholder="html" data-fieldtype="string" > - </span> <br>
+	                           	   
+	                                   <b> <i class="fa fa-id-badge" aria-hidden="true"></i> Visitor ID for Cross-Site Tracking </b> 
+			                           <span class="data_field" data-field="visitorId" data-fieldholder="html"  data-fieldtype="string" > - </span> <br>
+			                            
+	                                   <b> <i class="fa fa-id-badge" aria-hidden="true"></i> External CRM ID </b> 
+	                                   <span class="data_field" data-field="crmRefId" data-fieldholder="html" data-fieldtype="string" > - </span>
+	                               </li>
+	                               <li>
+	                           	   		<b>Current Funnel Stage (<span data-field="journeyScore" data-fieldholder="html"  data-fieldtype="int" >0</span>% funnel) </b> 
+								  		<div class="progress" style="text-transform: uppercase;font-weight: bold;" >
+										  	<div class="journeyScore progress-bar progress-bar-success progress-bar-striped active " role="progressbar"
+										  				aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%" >
+										    	<span data-field="funnelStage" data-fieldholder="html" data-fieldtype="string"  >  -  </span>
+										  	</div>
+									   	</div>
+	                           	   </li>
+	                               <li>
+	                                   <b> <i class="fa fa-clock-o" aria-hidden="true"></i> Created at </b> 
+	                                   <p class="data_field" data-field="createdAt" data-fieldholder="html"  data-fieldtype="date"  > - </p>
+	                               </li>
+	                               <li>
+	                                   <b> <i class="fa fa-clock-o" aria-hidden="true"></i> Updated at </b> 
+	                                   <p class="data_field" data-field="updatedAt" data-fieldholder="html"  data-fieldtype="date"  > -  </p>
+	                               </li>
+	                               
+	                               <li>
+	                                   <b data-persona="key" > <i class="fa fa-fw fa-envelope"></i> Primary Email <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+	                                   <input class="form-control" type="email" placeholder="Email" data-field="primaryEmail" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                               </li>
+	                               <li>
+	                                   <b data-persona="key" > <i class="fa fa-fw fa-phone-square"></i> Primary Mobile Phone <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+	                                   <input class="form-control" type="number" placeholder="Mobile Phone" data-field="primaryPhone" data-fieldholder="inputvalue" data-fieldtype="int" autocomplete="off">
+	                               </li>
+	                               <li>
+	                                   <b data-persona="key" > <i class="fa fa-fw fa-id-badge"></i> First Name </b> 
+	                                   <input class="form-control" type="text" placeholder="First Name" data-field="firstName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                               </li>
+	                               <li>
+	                                   <b data-persona="key" > <i class="fa fa-fw fa-id-badge"></i> Last Name </b> 
+	                                   <input class="form-control" type="text" placeholder="Last Name" data-field="lastName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
+	                               </li>
+	                               <li class="personal_info" >
+	                                   <b data-persona="key" > <i class="fa fa-fw fa-user-o"></i> Gender </b> 
+	                                   <div class="radio">
+										  <label><input type="radio" name="gender" value="0" data-field="gender" data-fieldholder="inputvalue" data-fieldtype="int" >Female</label>
+									   </div>
+	                                   <div class="radio">
+										  <label><input type="radio" name="gender" value="1" data-field="gender" data-fieldholder="inputvalue" data-fieldtype="int" >Male</label>
+									   </div>
+									   <div class="radio ">
+										  <label><input type="radio" name="gender" value="7" data-field="gender" data-fieldholder="inputvalue" data-fieldtype="int" >Unknown</label>
+									   </div>
+	                               </li>
+	                               <li class="personal_info" >
+	                                   <b data-persona="key"  > <i class="fa fa-fw fa-user-o"></i> Age </b> 
+	                                   <input id='profileAge' readonly="readonly" class="form-control" type="number" placeholder="Age" data-field="age" data-fieldholder="inputvalue" data-fieldtype="int" autocomplete="false" >
+	                               </li>
+	                               <li class="personal_info" >
+	                                  <b data-persona="key"  > <i class="fa fa-fw fa-user-o"></i> Date of Birth </b>      
+									  <div class='input-group date' id='profileDateOfBirth' >
+											<input type='text' class="form-control" autocomplete="off" /> 
+											<span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+									  </div>
+	       						   </li>
+	                               <li class="personal_info" >
+	                                   <b data-persona="key"  > <i class="fa fa-fw fa-map-marker"></i> Living Location  </b>
+	                                   <input class="form-control" type="text" placeholder="Living Location" data-field="livingLocation" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
+	                               </li>
+	                               <li class="personal_info" >
+	                                   <b data-persona="key"  > <i class="fa fa-fw fa-map-marker"></i> Nationality  </b>
+	                                   <input class="form-control" type="text" placeholder="Nationality" data-field="mainNationality" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
+	                               </li>
+	                              
+	                               <li>
+			                           <b> <i class="fa fa-id-card-o" aria-hidden="true"></i> Profile Type </b>  <br>
+			                           <ul class="list-group">
+										  <li class="list-group-item">
+		                                   	 <div style="font-size: 12px;">
+			                                   <div class="radio">
+												  <label><input type="radio" name="type" value="0" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >ANONYMOUS_VISITOR</label>
+											   </div>
+			                                   <div class="radio">
+												  <label><input type="radio" name="type" value="1" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >DIRECT_CONSUMER</label>
+											   </div>
+											   <div class="radio ">
+												  <label><input type="radio" name="type" value="11" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >MANUALLY_INPUT_PROFILE</label>
+											   </div>
+											   <div class="radio ">
+												  <label><input type="radio" name="type" value="2" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >INTERNAL_USER</label>
+											   </div>
+											   <div class="radio ">
+												  <label><input type="radio" name="type" value="3" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >KEY_INFLUENCER</label>
+											   </div>
+											   <div class="radio ">
+												  <label><input type="radio" name="type" value="4" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >CRM_IMPORTED_CONTACT</label>
+											   </div>
+											   <div class="radio ">
+												  <label><input type="radio" name="type" value="5" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >B2B_KEY_ACCOUNT</label>
+											   </div>
+											   <div class="radio ">
+												  <label><input type="radio" name="type" value="6" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >CLIENT_PARTNER</label>
+											   </div>
+											   <div class="radio ">
+												  <label><input type="radio" name="type" value="7" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >CLIENT_INTEGRATOR</label>
+											   </div>
+											   <div class="radio ">
+												  <label><input type="radio" name="type" value="8" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >CLIENT_COMPETITOR</label>
+											   </div>
+											   <div class="radio ">
+												  <label><input type="radio" name="type" value="9" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >CLIENT_GATEKEEPER</label>
+											   </div>
+											   <div class="radio ">
+												  <label><input type="radio" name="type" value="10" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >SOCIAL_LOGIN_USER</label>
+											   </div>
+		                                   	 </div>
+										  </li>
+									   </ul>
+	                               </li>
+	                               <li>
+	                                   <b data-persona="key" > <i class="fa fa-fw fa-user-o"></i> Status </b> 
+	                                   <div style="font-size: 12px;">
+		                                   <div class="radio">
+											  <label><input type="radio" name="status" value="1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >ACTIVE</label>
+										   </div>
+		                                   <div class="radio">
+											  <label><input type="radio" name="status" value="0" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >INACTIVE</label>
+										   </div>
+										   <div class="radio ">
+											  <label><input type="radio" name="status" value="-1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >MERGED</label>
+										   </div>
+										   <div class="radio ">
+											  <label><input type="radio" name="status" value="-4" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >REMOVED</label>
+										   </div>
+	                                   </div>
+	                               </li>
+	                               
+	                           </ol>
+	                       </td>
+	                   </tr>
+	               </table>
+	           </div>
+	           <!--  End Profile Key Information -->
+			</div>
+
+			<!-- tab 2 Personal Extension Data  -->
+			<div class="tab-pane" id="panel_profile_ext_data" >
+				
+			 	<table border=0 class="underlined" style="width: 100%;">
+                   <tr>
+                       <td>
+							<ol id="profile_ext_data" data-field="personal_attributes">
+								<li>
+                                   <b data-persona="key" > <i class="fa fa-fw fa-users"></i> Social Media Profiles <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+                                   <a href="javascript: addNewHashMapItem('socialMediaProfiles', SocialMediaIconMap) " > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+                                   <p data-field="socialMediaProfiles" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="socialMediaProfiles" > </p>
+                                </li>
+								<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Personal ID and Contacts <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+				                   <a href="javascript: addNewHashMapItem('personalContacts', PersonalContactIconsMap) " > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="personalContacts" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="personalContacts" > </p>
+				               	</li>
+				               
+				                <li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Personal Interests </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('personalInterests')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="personalInterests" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
+				               	</li>
+				               	
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Reachable Media Channels </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('mediaChannels')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="mediaChannels" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+				               	
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Education & Self-learning paths </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('learningHistory')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="learningHistory" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+				               	
+								<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Content Marketing Keywords </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('contentKeywords')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="contentKeywords" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
+				               	</li>
+				               	
+				               	<li>
+				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Personal Problems & Pain-points </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('personalProblems')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="personalProblems" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Solutions for customer </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('solutionsForCustomer')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="solutionsForCustomer" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Business Contacts <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+				                   <a href="javascript: addNewHashMapItem('businessContacts', ContactIconsMap) " > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="businessContacts" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="businessContacts" > </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Job Titles </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('jobTitles')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="jobTitles" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Company Names </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('workingHistory')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="workingHistory" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Work Experience in Business Industries </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('businessIndustries')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="businessIndustries" data-fieldholder="html_hashset"  data-fieldtype="hashset"  data-editable="true" >  </p>
+				               	</li>
+			               	</ol>
+               	  		</td>
+                   </tr>
+               </table>
+			</div>
+			
+			
+			
+	   </div>
+      
+       <div class="line"></div>
+
+</div>
+
+<script type="text/javascript">
+    ///Js code
+   
+    var editedProfileModel = '';
+    var initProfileEditor = function(profileId) {
+    	//setup editable node
+		setupTabPanels();
+		loadProfileData(profileId);
+    }
+    
+    var saveProfileHandler = function () {
+    	iziToast.info({
+    	    title: 'Profile Editor',
+    	    message: 'System is processing ...'
+    	});
+    	updateEditedProfileModel();
+    	var callback = function(rs){
+    		if(rs != null){
+    			iziToast.success({
+    	    	    title: 'Profile Editor',
+    	    	    message: 'Data is saved successfully!',
+    	    	    onClosed: function () {
+    	    	    	location.hash = "calljs-leoCdpRouter('Customer_Profile_Info','" + rs + "')";
+    	    	    }
+    	    	});
+    		}
+    		else {
+    			console.error('saveProfileHandler ', rs)
+    		}
+    	};
+    	var params = {'objectJson' : JSON.stringify(editedProfileModel) };
+    	LeoAdminApiUtil.callPostAdminApi('/cdp/profile/update', params, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+    			callback(json.data);
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+       	}, callback);
+    }
+    
+    var removeCurrentProfile = function (){
+    	LeoCdpAdmin.navFunctions.deleteCustomerProfile(editedProfileModel.id);
+    }
+    
+    var loadProfileData = function (profileId) {
+         console.log('loadProfileData profileId ' + profileId);
+         
+         var dataProcessor = function(data){
+        	// qualified lead check
+        	var hasContactInfo = data.typeAsText != 'ANONYMOUS';
+        	if( hasContactInfo  ){
+       			$('input[name="type"][value="0"]').attr('disabled','disabled');
+       			var isSocialLogin = _.size(data.socialMediaProfiles) > 0;
+       			if( ! isSocialLogin ) {
+       				$('input[name="type"][value="10"]').attr('disabled','disabled');
+       			}
+        	} else {
+        		$('input[name="type"]').attr('disabled','disabled');
+        	}
+        	
+        	var formatDateTime = 'YYYY-MM-DD';
+        	var dateOfBirth = false;
+        	if(data.dateOfBirth) {
+        		dateOfBirth = data.dateOfBirth;
+        	} else {
+        		dateOfBirth = new moment().subtract(data.age, "years").toDate();
+        	}
+    		$('#profileDateOfBirth').datetimepicker({
+    	        useCurrent: false, 
+    	        format: formatDateTime,
+    	        defaultDate: new moment(dateOfBirth).format(formatDateTime)
+    	    }).on('dp.change', function(e){ 
+    	        var age = moment().diff(e.date, 'years');
+    	        $('#profileAge').val(age);
+    	    });
+        	return data;
+         }
+         
+         loadProfileDataIntoDOM(true, profileId, dataProcessor, function(){
+        	 //console.log(LeoCdpAdmin.routerContext.dataObject);
+        	 editedProfileModel = LeoCdpAdmin.routerContext.dataObject;
+        	 // avatar
+        	 initProfileAvatarUploader(editedProfileModel);
+        	 
+        	 // Journey Data Funnel : journey percentage 
+         	 var progress = editedProfileModel.journeyScore;
+         	 $('div.journeyScore').attr('aria-valuenow',progress).css('width',progress+'%');
+         	 
+         	 // profile type
+         	 $('input[name="type"]:checked').parent().addClass('data_field');
+         	 $('input[name="type"]').click(function(){
+         		$('input[name="type"]').parent().removeClass('data_field');
+         		$(this).parent().addClass('data_field');
+         	 })
+         });
+    }
+    
+    var updateEditedProfileModel = function() {
+    	var dataHolder = $('#data_model_holder');
+    	dataHolder.find('input[data-field][type="radio"]:checked').each(function(){ 
+    		var field = $(this).data('field'); 
+    		var fieldtype = $(this).data('fieldtype'); 
+    		var val = $(this).val();
+    		
+    		if(fieldtype === 'int'){
+    			val = parseInt(val);
+    		} else if(fieldtype === 'float'){
+    			val = parseFloat(val);
+    		}
+    		
+    		editedProfileModel[field] = val;
+    	});
+    	dataHolder.find('input[data-field][type="text"],input[data-field][type="email"]').each(function(){ 
+    		var field = $(this).data('field'); 
+    		var val = $(this).val();
+    		editedProfileModel[field] = val;
+    	});
+    	dataHolder.find('input[data-field][type="number"]').each(function(){ 
+    		var field = $(this).data('field'); 
+    		var fieldtype = $(this).data('fieldtype'); 
+    		var val = $(this).val();
+    		if(fieldtype === 'int'){
+    			val = parseInt(val);
+    		} else if(fieldtype === 'float'){
+    			val = parseFloat(val);
+    		}
+    		editedProfileModel[field] = val;
+    	});
+    	dataHolder.find('p[data-field][data-editable]').each(function(){ 
+    		var pfield = $(this).data('field');  
+    		var pfieldtype = $(this).data('fieldtype'); 
+    		 
+    		if(pfieldtype === 'hashset') {
+    			var list = [];
+    			$(this).find('input[type="text"]').each(function(){
+    				var fieldtype = $(this).data('fieldtype'); 
+    				var val = $(this).val();
+    				if(fieldtype === 'int'){
+    	    			val = parseInt(val);
+    	    		} else if(fieldtype === 'float'){
+    	    			val = parseFloat(val);
+    	    		}
+    				if(val.trim() !== ''){
+    					list.push(val);
+    				}
+    				console.log(val);
+    			})
+    			editedProfileModel[pfield] = list;
+    		}
+    		else if(pfieldtype === 'hashmap') {
+    			var map = {};
+    			var nodes = $('#'+ pfield).find('li');
+    			nodes.each(function(){
+    				var key = $(this).find('select').val(); 
+    				var value = $(this).find('input').val(); 
+    				if(key.trim() != '' && value.trim() != ''){
+    					map[key] = value;
+    				}
+    			});
+    			editedProfileModel[pfield] = map;
+    		}
+    	});
+    	
+    	editedProfileModel.dateOfBirth = $('#profileDateOfBirth').data("DateTimePicker").date().format();
+    	console.log(editedProfileModel);
+    }
+    
+    var initProfileAvatarUploader = function (profileData) {
+    	
+    	var defaultAvatarUrl = baseAdminApi + '/public/images/avatars/profile-default-avatar.png';
+    	var avatarUrl = '';
+    	if(profileData.primaryAvatar === ''){
+    		 avatarUrl = defaultAvatarUrl;
+    	}
+    	else {
+    		 avatarUrl = profileData.primaryAvatar;
+    	}
+    	
+    	$('#profile_avatar_img').attr('src', avatarUrl);
+    	$('#profile_avatar_input').val(avatarUrl);
+    	$('#profile_avatar_img').show();
+    	
+		//headline image uploader
+		var refObjectClass = 'profile';
+		var refObjectKey = 'avatar-'+ profileData.id;
+		
+        setupUploaderWidget(refObjectClass, refObjectKey, '#profile_avatar_uploader', function (rs) {
+            if(rs.data.fileUrls.length > 0){
+            	var imageFileUrl = rs.data.fileUrls[0];
+            	$('#profile_avatar_img').attr('src', imageFileUrl);
+           	 	$('#profile_avatar_input').val(imageFileUrl);
+            }
+        });
+	}
+    
+</script>

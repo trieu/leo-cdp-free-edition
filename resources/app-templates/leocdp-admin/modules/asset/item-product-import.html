@@ -1,0 +1,143 @@
+
+<!-- Item Product Importer  -->
+
+<div class="row">
+	<div class="col-lg-9">
+		<h5 class="page-header" id="page_breadcrumb" > </h5>
+	</div>
+	<div class="col-lg-3 text-center" style="padding: 10px">
+		<button type="button" class="btn btn-info" onclick="history.back()">
+        	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
+        </button>
+		<button id="run_import_product_job" type="button" class="btn btn-success" disabled="disabled"  > 
+	     	<i class="fa fa-fw fa-check"></i> Run Import Job 
+	    </button>
+	</div>
+</div>
+
+<div class="row ">
+	 <div class="action-div col-lg-12">
+        
+         <div class="panel panel-info">
+         	<div class="panel-heading"> <label for="product_csv_file_uploader"> Product Data Importer for <span id="groupTitle"></span> </label> </div>
+		 	<div class="panel-body table-responsive">
+		 	 	<p style="font-weight: bold;"> 
+		 	 		The uploaded file should be in CSV data format with commas separating different entries. <br>
+	         		Header information for uploaded CSV file: <br>
+	         	</p>
+	         	<div class="datatable_text">
+	         		Category, Keywords, Store_ID, Product_ID_Type, Product_ID, Title, Description, Image_URL, Original_Price, Sale_Price, Currency, Full_URL <br>
+	         	</div>
+		 	 </div>
+		 </div>
+         <div> 
+         	<input id="product_csv_file_uploader" type="file" class="filepond" name="raw_product_data" multiple data-max-file-size="20MB" data-max-files="1" />
+         </div>
+     </div>
+</div>
+
+<div class="row ">
+	<div class="col-lg-12">
+      	<div class="panel panel-default">
+		      <div class="panel-heading">
+		      		Preview Data: Top 20 records
+		      </div>
+		      <div class="panel-body">
+		      	 <div class="table-responsive">
+		         	<div id="uploaded_products_preview_table" style="font-size: 10px;" >
+		         		...
+		         	</div>
+		         </div>
+		     </div>
+    	</div>
+	</div>
+</div>
+
+<script>
+	var initProductImporter = function (assetGroupId) {
+		var urlStr = baseAdminApi + '/group/get-info';
+        var params = { 'groupId': assetGroupId };
+        
+        LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+            	var canInsertData = json.canInsertData;
+        		
+        		if( ! canInsertData ){
+    				$('button.data-control-insert').attr('disabled','disabled');
+    			}
+        		
+        		var assetGroupModel = json.data;
+        		
+        		// title
+        		var groupTitle = assetGroupModel.title;
+        		$('#groupTitle').html(groupTitle);
+        		document.title = 'Product Data Importer for ' + groupTitle;
+        		
+        		// breadcrumb link update
+		        updateBreadcrumbInAssetGroup(assetGroupModel.assetCategories, assetGroupModel.title);
+        		
+		      	// uploader
+				var refObjectClass = 'product';
+				var refObjectKey = 'importer-'+ new Date().getTime();
+		        setupUploaderWidget(refObjectClass, refObjectKey, '#product_csv_file_uploader', function (rs) {
+		            var importFileUrl = rs.data.fileUrls[0];
+		            console.log(importFileUrl);
+		            
+		            var params = {'importFileUrl' : importFileUrl, 'groupId': assetGroupId};
+		            LeoAdminApiUtil.getSecuredData('/item/import-product-preview', params , function(json){ 
+		            	var list = json.data;
+		            	var len = list.length;
+		            	// init preview
+		            	loadPreviewProduct(list);
+		            	if(len > 0){
+		            		$('#run_import_product_job').removeAttr('disabled').click(function(){
+		            			doProductImportingJob(assetGroupId, importFileUrl)
+		            		});
+		            	}
+		            });
+		           
+		        }, ['text/csv']);
+            }
+        });
+	}
+	
+	function loadPreviewProduct(list) {
+		$("#uploaded_products_preview_table").jsGrid({
+			data: list,
+   		    width: "100%",
+   		    height: "auto",
+   		    inserting: false,
+   		    editing: false,
+   		    sorting: false,
+   		    paging: false,
+   		    fields: [
+   		    	{ name: "productIdType", title : "Product ID Type", type: "text", align: "center", width: 25 },
+   		        { name: "productId", title : "Product ID", type: "text", width: 40,align: "center" },
+   		     	{ name: "title", title : "Title", type: "text", width: 100, align: "center" },
+   		     	{ name: "originalPrice", title : "Original Price", type: "number", width: 30, align: "center" },
+   		     	{ name: "salePrice", title : "Sale Price", type: "number", width: 30, align: "center" },
+   		     	{ name: "priceCurrency", title : "Currency", type: "text", width: 20, align: "center" },
+   		     	{ name: "fullUrl", title : "Full URL", width: 100, type: "text", align: "center"}
+   		     
+   		    ]
+   		});  
+	}
+	
+	function doProductImportingJob(assetGroupId,importFileUrl){
+		var params = {'importFileUrl' : importFileUrl, 'groupId': assetGroupId};
+		LeoAdminApiUtil.callPostAdminApi('/item/import-product', params, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+    			var importedOk = json.data.importedOk;
+    			var importedFail = json.data.importedFail;
+    			iziToast.info({
+    	    	    title: 'Product Data Importer',
+    	    	    onClosed: function() { history.back() } ,
+    	    	    message: 'Total imported product successfully: ' + importedOk + ', total duplicated product: ' + importedFail
+    	    	});
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+       });
+	}
+	
+</script>

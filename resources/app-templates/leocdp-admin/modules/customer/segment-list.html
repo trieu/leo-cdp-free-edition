@@ -1,0 +1,188 @@
+
+<!-- Segment Listing -->
+
+<style>
+.segment_name { min-width: 235px; }
+</style>
+
+<div class="row">
+	<div class="col-lg-9">
+		<h5 class="page-header" id="page_breadcrumb" > </h5>
+	</div>
+	<div class="col-lg-3 text-center" style="padding: 10px">
+		<button type="button" class="btn btn-do-now" onclick="location.reload()" title="Refresh Profile List" > 
+    		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
+    	</button>
+		<button type="button" class="btn btn-goto-router data-control-insert" onclick="newSegmentBuilder()">
+			<i class="fa fa-plus-circle" aria-hidden="true"></i> New Segment
+		</button>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="top_page_header" >
+			<h4> <i class="fa fa-object-group" aria-hidden="true"></i> Segment Data List </h4>
+		</div>
+	    <div class="table-responsive">
+	        <table id="segment-list" class="display" style="width:100%">
+	            <thead>
+	                <tr>
+	                    <th>Name</th>
+	                    <th>Description</th>
+	                    <th>Total Profiles </th>
+	                    <th>Query Type</th>
+	                    <th>Created at</th>
+	                    <th>Updated at</th>
+	                    <th>Actions</th>
+	                </tr>
+	            </thead>
+	        </table>
+	    </div>
+	</div>
+</div>
+
+<script>
+	var initSegmentList = initSegmentList || function() {
+		loadSegmentList();
+	}
+	
+	var canEditData = false, canDeteteData = false, dataTable = false;
+	
+	function refreshSegmentTable() {
+	    $('#segment-list').DataTable().clear();
+	    $('#segment-list').DataTable().ajax.reload();
+	}
+	
+	function loadSegmentList() {
+        var usersession = getUserSession();
+        
+        if (usersession) {
+            $('#segment-list').DataTable({
+            	'processing': true,
+                'serverSide': true,
+                'searching': false,
+                'ordering': false,
+                'serverMethod': 'POST',
+                'ajax': {
+                    url: baseAdminApi + '/cdp/segments/filter',
+                    contentType: 'application/json',
+                    beforeSend: function (request) {
+                        request.setRequestHeader("leouss", usersession);
+                    },
+                    data: function (d) {
+                        console.log(d)
+                        return JSON.stringify(d);
+                    },
+                    dataSrc: function ( json ) {
+                    	
+                    	canEditData = json.canEditData;
+                    	canDeteteData = json.canDeleteData;
+                		
+                		if( ! json.canInsertData ){
+            				$('button.data-control-insert').attr('disabled','disabled');
+            			}
+                		return json.data;
+                     }
+                },
+                'columnDefs': [
+                	{
+                        "render": function (data, type, row) {
+                        	var callJsViewStr = "#calljs-leoCdpRouter('Segment_Details','" + row.id + "')";
+                        	var text = textTruncate(data,50);
+                            return '<div class="segment_name"><i class="fa fa-arrow-right" aria-hidden="true"></i> <a title="Segment Report: '+data+'" href="' + callJsViewStr + '" >' + text + '</a></div>';
+                        },
+                        "targets": 0
+                    },
+                	{
+                        "render": function (data, type, row) {
+                            return '<div  style="font-size:0.8em;" title="' + data + '" >' + textTruncate(data, 150) + '</div>';
+                        },
+                        "targets": 1
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            return   '<div class="segment_size" style="width:96px" >' +  data.toLocaleString() + '</div>';
+                        },
+                        "targets": 2
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	var textIcon = 'PASSIVE QUERY';
+                        	if(data === 1){
+                        		textIcon = 'ACTIVE QUERY';
+                        	}
+                        	else if(data === 2){
+                        		textIcon = 'ACTIVATED';
+                        	}
+                            return '<div class="datatable_text text-center" style="font-size:0.8em;color:#3300ff;width:96px" >' + textIcon + '</div>';
+                        },
+                        "targets": 3
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            var date = moment.utc(new Date(data)).local().format('YYYY-MM-DD HH:mm:ss');
+                            return '<div class="small text-center" style="color:#3300ff;width:80px" >'  + date + '</div>';
+                        },
+                        "targets": 4
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	if(data){
+                        		 var date = moment.utc(new Date(data)).local().format('YYYY-MM-DD HH:mm:ss');
+                        		 return '<div class="small text-center" style="color:#3300ff;width:80px" >'  + date + '</div>';
+                        	}
+                           return '-';
+                        },
+                        "targets": 5
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            var html = '';
+                        	if( canEditData ){
+                        			
+                        		var callJsEditStr = "#calljs-leoCdpRouter('Segment_Builder','" + row.id + "')";
+                        		html += ' <a class="control" title="Segment Builder" href="' + callJsEditStr + '" > <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>';
+                        		
+                        		//var callJsCopyStr = "#calljs-leoCdpRouter('Segment_Builder_Copy','" + row.id + "')";
+                        		//html += ' <br> <a class="control" title="Copy this segment" href="' + callJsCopyStr + '" > <i class="fa fa-clone" aria-hidden="true"></i> Copy</a>';
+                        		
+                        	} else {
+                        		html += '<a class="control" title="Segment Builder Editor" href="javascript:errorNoAuthorization()" > <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>';
+                        		html += ' <br> <a class="control" title="Copy this segment" href="javascript:errorNoAuthorization()" > <i class="fa fa-clone" aria-hidden="true"></i> Copy</a>';
+                        	}
+                        	var callJsViewStr = "#calljs-leoCdpRouter('Segment_Details','" + row.id + "')";
+                            html += ' <br> <a class="control" title="Segment Report" href="' + callJsViewStr + '" > <i class="fa fa-info-circle" aria-hidden="true"></i> View</a>';
+                            return html;
+                        },
+                        "targets": 6
+                    }
+                ],
+                'columns': [{
+                        "data": "name" // 0
+                    },
+                    {
+                        "data": "description" // 1
+                    },
+                    {
+                        "data": "totalCount" // 2
+                    },
+                    {
+                        "data": "status" // 3
+                    },
+                    {
+                        "data": "createdAt" // 4
+                    },
+                    {
+                        "data": "updatedAt" // 5
+                    }
+                ]
+            });
+        }
+    }
+	
+	var newSegmentBuilder = newSegmentBuilder || function() {
+	 	location.hash = "calljs-leoCdpRouter('Segment_Builder','new')";
+	}
+	
+</script>

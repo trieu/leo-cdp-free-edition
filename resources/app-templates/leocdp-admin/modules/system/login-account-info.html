@@ -1,0 +1,199 @@
+<div class="container-fluid" id="user_form">
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+		<div class="col-lg-10">
+			<h5 class="page-header" id="page_breadcrumb" > </h5>
+		</div>
+		<div class="col-lg-2 text-center" style="padding: 10px">
+	     	<button type="button" class="btn btn-info" onclick="gotoLeoCdpRouter('defaultRouter')" title="Cancel"  > 
+	       		<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Cancel
+	       	</button>
+	       	<button type="button" class="btn btn-success data-control-edit" onclick="saveMyLoginProfile()" title="Save Login Account"  > 
+	     		<i class="fa fa-check-square-o" aria-hidden="true"></i> Save 
+	     	</button>
+	     </div>
+	</div>
+	
+	<h4> Login Account Information </h4>
+	<hr>
+	<div id="error-on-save" class="alert alert-danger" style="display: none;"></div>
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+        <div class="col-lg-12">
+
+            <fieldset>
+
+                <div class="form-group">
+                    <label> Display Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Display Name" name="displayName"
+                        autocorrect="off" autocapitalize="off" autocomplete="off"  >
+                </div>
+                <div class="form-group">
+                    <label> User Name</label>
+                    <input data-validation="length alphanumeric" data-validation-length="min4" type="text" class="form-control"
+                        placeholder="Enter User Name" name="userLogin" autocomplete="nope" autocorrect="off"
+                        autocapitalize="none" spellcheck="false">
+                </div>
+                <div class="form-group">
+                    <label> Email </label>
+                    <input data-validation="email" type="email" class="form-control" placeholder="Enter Email" name="userEmail"
+                        autocorrect="off" autocapitalize="off" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label> Password </label>
+                    <input type="text" class="form-control" placeholder="Enter New Password" name="userPass" autocorrect="off"
+                        autocapitalize="off" autocomplete="nope">
+                </div>
+                <div class="form-group">
+                    <label> Department </label>
+                    <select name="customData_department" data-placeholder="Choose Department" class="select">
+                        <option value=""> No information</option>
+                        <option value="bod"> Board of Directors </option>
+                        <option value="marketing"> Marketing </option>
+                        <option value="finance"> Finance </option>
+                        <option value="operation"> Operation </option>
+                        <option value="sales"> Sales </option>
+                        <option value="tech"> IT / Tech Support </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label> Position </label>
+                    <input type="text" class="form-control" placeholder="Enter Position" name="customData_position"
+                        autocorrect="off" autocapitalize="off" autocomplete="off">
+                </div>
+                <hr>
+                <div class="action-div">
+                    <label>User Status</label>
+                    <div class="radio">
+                        <label><input type="radio" name="status" value="0" disabled="disabled" >PENDING</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="status" value="1" disabled="disabled" >ACTIVE</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="status" value="2" disabled="disabled" >DISABLED</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="status" value="3" disabled="disabled" >EXPIRED</label>
+                    </div>
+                </div>
+                <hr>
+                <div class="action-div">
+                    <label>User Role</label>
+                    <div class="radio" style="display: none;">
+                        <label><input type="radio" name="role" value="0" disabled="disabled">GUEST</label>
+                    </div>
+                    <div class="radio" style="display: none;" >
+                        <label><input type="radio" name="role" value="1" disabled="disabled">STANDARD_USER</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="role" value="2" disabled="disabled">EDITOR</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="role" value="3" disabled="disabled">ADMIN</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="role" value="6" disabled="disabled" >SUPER_ADMIN</label>
+                    </div>
+                </div>
+
+            </fieldset>
+
+        </div>
+        
+    </div>
+</div>
+
+<hr>
+
+<script>
+    var userModel = false;
+
+    function initMyLoginInfo() {
+    	 var key = currentUserProfile.key;
+         var urlStr = baseAdminApi + '/user/get-info';
+         LeoAdminApiUtil.callPostAdminApi(urlStr, {
+             'key': key || 'newuser'
+         }, function (json) {
+             if (json.httpCode === 0 && json.errorMessage === '') {
+                 if (json.data) {
+                     userModel = json.data;
+                     var date = LeoAdminApiUtil.formater.toDateString(userModel.creationTime);
+
+                     var node = $('#user_form');
+                     if (typeof userModel.key === 'string') {
+                         node.find('input[name="userLogin"]').val(userModel.userLogin).attr('disabled', '');
+                         node.find('input[name="status"][value=' + userModel.status + ']').attr('checked', '');
+                         node.find('input[name="role"][value=' + userModel.role + ']').attr('checked', '');
+                     } else {
+                         node.find('input[name="userLogin"]').val(userModel.userLogin);
+                         node.find('input[name="status"][value=1]').attr('checked', '');
+                         node.find('input[name="role"][value=1]').attr('checked', '');
+                     }
+                     node.find('input[name="displayName"]').val(userModel.displayName);
+                     node.find('input[name="userEmail"]').val(userModel.userEmail);
+
+                     //customData
+                     var position = userModel.customData.position ? userModel.customData.position : '';
+                     node.find('input[name="customData_position"]').val(position);
+
+                     var department = userModel.customData.department ? userModel.customData.department : '';
+                     node.find('select[name="customData_department"] option[value="' + department + '"]').attr('selected', 'selected');
+                     node.find('select[name="customData_department"]').chosen({
+                         width: "100%",
+                         no_results_text: "Oops, nothing found!"
+                     }).trigger("chosen:updated").change(function () {
+                         //TODO
+                     });
+
+                     //can not delete superadmin
+                     if(userModel.userLogin === 'superadmin'){
+                         $('#btn_delete').hide();                        
+                     }
+                 }
+             }
+         });
+
+    }
+
+    function saveMyLoginProfile() {
+        var node = $('#user_form');
+        
+        userModel.displayName = node.find('input[name="displayName"]').val();
+        userModel.userEmail = node.find('input[name="userEmail"]').val();
+        userModel.userPass = node.find('input[name="userPass"]').val();
+        
+        userModel.customData.position = node.find('input[name="customData_position"]').val();
+        userModel.customData.department = node.find('select[name="customData_department"]').val();
+
+        var urlStr = baseAdminApi + '/user/create';
+        if (typeof userModel.key === 'string') {
+            urlStr = baseAdminApi + '/user/update';
+        }
+
+        var onSaveOk = function (data) {
+            console.log('=====> saveMyLoginProfile ', data);
+            setTimeout(function () {
+                location.hash = "calljs-leoCdpRouter('Login_Account_List')";
+            }, 500);
+        }
+
+        LeoAdminApiUtil.callPostAdminApi(urlStr, userModel, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+                if (json.data === '') {
+                    $('#error-on-save').html('Data is not valid !').show().delay(6000).fadeOut('slow');
+                } else {
+                    onSaveOk(json.data);
+                }
+            } else {
+                $('#error-on-save').html(json.errorMessage).show().delay(6000).fadeOut('slow');
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
+        console.log(userModel);
+    }
+
+    
+</script>

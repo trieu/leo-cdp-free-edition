@@ -1,0 +1,169 @@
+<div class="row">
+    <div class="col-lg-10">
+        <h5 class="page-header" id="page_breadcrumb" > </h5>
+    </div>
+    <div class="col-lg-2 text-center" style="padding: 10px">
+    	<button type="button" class="btn btn-goto-router data-control-insert" onclick="gotoLeoCdpRouter('User_Login_Editor','newuser')" >  
+    		<i class="fa fa-plus-circle" aria-hidden="true"></i> New Login Account </button>
+    </div>
+</div>
+    
+<div class="container-fluid">
+
+	<h4> All Login Accounts </h4>
+    <div class="row gridholder">
+    	
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <table id="user-list" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                         	<th>Avatar</th>
+                            <th>Display Name</th>
+                            <th>User Login</th>
+                            <th>User Email</th>
+                            <th>Status</th>
+                            <th>Creation Time</th>
+                            <th>Modification Time</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                        	<th>Avatar</th>
+                            <th>Display Name</th>
+                            <th>User Login</th>
+                            <th>User Email</th>
+                            <th>Avatar</th>
+                            <th>Creation Time</th>
+                            <th>Modification Time</th>
+                            <th>Role</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+	//FIXME 
+	var canEditLoginData = false, canDisableLoginData = false;
+    function loadDataUserList() {
+        var usersession = lscache.get('usersession');
+        if (usersession) {
+            $('#user-list').DataTable({
+                "pageLength": 25,
+                "ajax": {
+                    "url": baseAdminApi + '/user/list-all',
+                    "type": "POST",
+                    "contentType": 'application/x-www-form-urlencoded',
+                    "data": function (d) {
+                        d.usersession = usersession;
+                    },
+                    "dataSrc": function ( json ) {
+                    	canEditLoginData = json.canEditData;
+                    	canDisableLoginData = json.canDeleteData;
+                		
+                		if( ! json.canInsertData ){
+            				$('button.data-control-insert').attr('disabled','disabled');
+            			}
+                		return json.data;
+                     }
+                },
+                "columnDefs": [
+                	{
+                         "render": function (data, type, row) {
+                        	 var img = "<img style='max-width:32px;' src='./public/images/no-image-icon-sm.png' />";
+                             if (data != "") {
+                            	 img = "<img style='max-width:32px;margin:auto' src='" + data + "' />";
+                             }
+                             return '<div style="text-align: center;" > ' + img + '';
+                         },
+                         "targets": 0
+                    },
+                	{
+                        "render": function (data, type, row) {
+                        	var callJsStr = 'javascript:errorNoAuthorization()';
+                        	if( canEditLoginData ){
+                        		callJsStr = "#calljs-leoCdpRouter('User_Login_Editor','" + row.key + "')";
+                        	}
+                            return '<a title="' + data + '" href="' + callJsStr + '" >' + data + '</a>';
+                        },
+                        "targets": 1
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            if (data == "1") {
+                                return 'ACTIVE';
+                            } else if (data == "2") {
+                                return 'DISABLED';
+                            } else if (data == "3") {
+                                return 'EXPIRED';
+                            }
+                            return 'PENDING';
+                        },
+                        "targets": 4
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            var date = LeoAdminApiUtil.formater.toDateString(data);
+                            return date;
+                        },
+                        "targets": 5
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            var date = LeoAdminApiUtil.formater.toDateString(data);
+                            return date;
+                        },
+                        "targets": 6
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            if (data == "6") {
+                                return 'ROLE_SUPER_ADMIN';
+                            } else if (data == "3") {
+                                return 'ROLE_ADMIN';
+                            } else if (data == "2") {
+                                return 'ROLE_EDITOR';
+                            } else if (data == "1") {
+                                return 'ROLE_STANDARD_USER';
+                            }
+                            return 'ROLE_GUEST';
+                        },
+                        "targets": 7
+                    }
+                   
+                ],
+                "columns": [
+                	{
+                        "data": "avatarUrl"
+                    },
+                	{
+                        "data": "displayName"
+                    },
+                    {
+                        "data": "userLogin"
+                    },
+                    {
+                        "data": "userEmail"
+                    },
+                    {
+                        "data": "status"
+                    },
+                    {
+                        "data": "creationTime"
+                    },
+                    {
+                        "data": "modificationTime"
+                    },
+                    {
+                        "data": "role"
+                    }
+                ]
+            });
+        }
+    }
+</script>

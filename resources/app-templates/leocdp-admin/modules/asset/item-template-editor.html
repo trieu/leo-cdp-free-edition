@@ -1,0 +1,272 @@
+<style>
+#webtpl_url_holder {
+	font-size: 11.5px;
+    font-weight: bold;
+    color: #3300ff;
+}
+</style>
+<div class="container-fluid" id="item_editor_form">
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+        <div class="col-lg-9">
+	         <h5 class="page-header" id="page_breadcrumb" > </h5>
+        </div>
+       	<div class="col-lg-3 text-center">
+            
+	         <button type="button" class="btn btn-info" onclick="history.back()">
+               	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
+             </button>
+               
+             <button type="button" class="btn btn-danger" onclick="LeoCdpAdmin.navFunctions.deleteItemAsset(htmlTemplateData)">
+               	<i class="fa fa-trash" aria-hidden="true"></i> Delete
+             </button>
+             
+             <button type="button" class="btn btn-success data-control-edit" onclick="webTemplateEditorSave()"  > 
+        		<i class="fa fa-fw fa-check"></i> Save 
+        	</button>  
+           
+        </div>
+    </div>
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+        
+         <fieldset>
+			  <div class="form-group">
+                  <label>Slug (SEO-friendly URI)</label>
+                  <div id="slug_div" >
+                      <input type="text" name="slug" class="form-control">
+                  </div>
+              </div>
+
+             <div class="form-group">
+                 <label>Title</label>
+                 <input id="asset_item_title" type="text" class="form-control" placeholder="Enter title" name="title" autocomplete="off">
+             </div>
+
+             <div class="form-group">
+                 <label>Description</label>
+                 <div id="description_div" style="display: block;">
+                     <textarea class="form-control" rows="2" placeholder="Enter description" name="description"></textarea>
+                 </div>
+                 <hr>
+             </div>
+             
+             <div class="form-group" >
+                 <label>Template JSON Model</label>
+                 <div id="json_metadata_container" style="width: 100%;" >
+                     <textarea id="json_metadata"></textarea>
+                 </div>  
+                 <hr>
+             </div>
+				
+			 <div id="webtpl_url_holder" class="alert alert-info" role="alert" >
+				 <i class="fa fa-qrcode" aria-hidden="true" style="font-size: 1.1em" ></i> <b>Preview Content URL</b> <a id="webtpl_url" class="small-text" href="javascript:" target="_blank" ></a> <br>
+			 </div>	
+			 
+			 <div id="qr_code_holder" class="thumbnail">
+			 	 <img id="webtpl_qrcode_url" style="max-height: 200px" />
+			 </div>
+			 
+             <div class="form-group" id="content_div_wrapper">
+                 <label>Template Content</label>
+                
+                 <div id="content_div"></div>                   
+                 <div id="raw_media_container" style="width: 100%;" >
+                     <textarea id="raw_media_html"></textarea>
+                 </div>  
+             </div>
+
+        </fieldset>
+
+    </div>
+</div>
+
+<hr>
+
+<script>
+
+    var itemId = "";
+    var groupId = "";
+    var categoryId = "";
+    
+    var htmlTemplateData = false;
+
+    //raw HTML code editor
+    var rawHtmlEditor = false, rawJsonEditor = false;
+
+    function initTemplateEditor(params){
+    	htmlTemplateData = false;
+    	
+    	// html code editor
+    	rawHtmlEditor = CodeMirror.fromTextArea(document.getElementById("raw_media_html"), {        
+            mode: "htmlmixed",           
+            lineNumbers: true ,
+            smartIndent: true ,
+            lineWrapping : true,
+            matchBrackets : true,
+            matchTags: {bothTags: true}
+        });
+        rawHtmlEditor.setSize($('#raw_media_container').width()-18, 1);
+        
+        rawJsonEditor = CodeMirror.fromTextArea(document.getElementById("json_metadata"), {        
+            mode: "application/ld+json",           
+            lineNumbers: true ,
+            smartIndent: true ,
+            lineWrapping : true,
+            matchBrackets : true,
+            matchTags: {bothTags: true}
+        });
+        rawJsonEditor.setSize($('#json_metadata_container').width()-18, 1);
+    	
+        // load data from server
+    	loadTemplateEditor(params);
+    }
+    
+    var showPreviewWebTemplateUrl = function() {
+    	if(htmlTemplateData) {
+    		var url = "https://" + baseLeoObserverDomain + "/webhtml?tplid=" + htmlTemplateData.id + "&cb=" + new Date().getTime();
+     		$('#webtpl_url').attr('href',url).text(url);
+     		
+     		if(htmlTemplateData.assetType === 4 || htmlTemplateData.assetType === 5 || htmlTemplateData.assetType === 6) {
+     			// email template , social media or push notification
+     			$('#qr_code_holder').hide();
+     		} else {
+     			var qrCodeFullUrl = baseLeoObserverUrl + htmlTemplateData.qrCodeUrl.substr(1);
+         		$('#webtpl_qrcode_url').attr('src',qrCodeFullUrl);
+     		}
+     		
+    	}
+ 	}
+
+    function loadTemplateEditor(params) {
+        if (params) {
+            itemId = params.itemId;
+            groupId = params.groupId;
+            categoryId = params.categoryId;
+            
+            console.log('=====> load template editor for id ' + itemId);
+
+            var urlStr = baseAdminApi + '/item/get';
+
+            LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
+                if (json.httpCode === 0 && json.errorMessage === '') {
+                    htmlTemplateData = json.data;
+                    document.title = htmlTemplateData.title ? 'Asset Template Editor - ' + htmlTemplateData.title : 'New Content Template';
+                    
+                 	// breadcrumb link update
+        	        updateBreadcrumbInAssetPost(htmlTemplateData.assetCategories, htmlTemplateData.assetGroups, htmlTemplateData.title );
+
+                    var form = $('#item_editor_form');
+                    for (var k in htmlTemplateData) {
+                        var value = htmlTemplateData[k];
+                        var fieldType = typeof value;
+
+                        if (fieldType === 'number' || fieldType === 'string') {
+                            if (k === 'mediaInfo') {
+                            	 rawHtmlEditor.setValue(value);
+                                 CodeMirrorAutoFormat(rawHtmlEditor);
+                                 rawHtmlEditor.setSize(null, 800);
+                            } 
+                            else if (k === 'jsonMetadata') {
+                            	rawJsonEditor.setValue(value);
+                                CodeMirrorAutoFormat(rawJsonEditor);
+                                rawJsonEditor.setSize(null, 220);
+                            }
+                            else if (k === 'description') {
+                                form.find("textarea[name='description']").val(value);
+                            } 
+                                                  
+                            else {
+                                form.find("input[name='" + k + "']").val(value);
+                            }
+                        }
+                        console.log(k + " : " + value + " fieldType :" + fieldType)
+                    }
+                    
+                    if(htmlTemplateData.qrCodeUrl !== ""){
+                    	showPreviewWebTemplateUrl();
+                    	rawHtmlEditor.on("change",function(){
+                    		saveWebTemplateData();
+                        })
+                        rawJsonEditor.on("change",function(){
+                    		saveWebTemplateData();
+                        })
+                    } else {
+                    	$('#survey_url_holder').hide()
+                    }
+                } else {
+                    LeoAdminApiUtil.logErrorPayload(json);
+                }
+            });
+        }
+    }
+
+    function saveWebTemplateData(callback) {
+        if (htmlTemplateData) {
+            htmlTemplateData.itemId = itemId;
+            htmlTemplateData.groupId = groupId;
+            htmlTemplateData.categoryId = categoryId;
+   
+            console.log('=====> saveWebTemplateData itemId ' + itemId);
+
+            //get DOM view and set into htmlTemplateData
+            var form = $('#item_editor_form');
+            htmlTemplateData.title = form.find('input[name="title"]').val().trim();
+            htmlTemplateData.description = form.find('textarea[name="description"]').val().trim();
+      
+            htmlTemplateData.contentClass = 'landing_page';
+            htmlTemplateData.type = 9;
+            htmlTemplateData.mediaInfo = rawHtmlEditor.getValue().trim();
+            
+            var jsonMetadata = rawJsonEditor.getValue().trim();
+            htmlTemplateData.jsonMetadata = jsonMetadata;
+            
+            if(htmlTemplateData.title === "" || htmlTemplateData.mediaInfo === "") {
+            	iziToast.error({
+            	    title: 'Error',
+            	    message: 'The title and template can not be empty !'
+            	});
+            }
+            else {
+            	if (typeof callback === 'function') {
+            		// the final save
+            		$('#ajaxLoaderDialog').modal({
+                		backdrop: 'static',
+                		keyboard: false
+            		});
+            	}
+            	
+            	//done set data model, POST to API
+                var urlStr = baseAdminApi + '/item/save';
+                LeoAdminApiUtil.callPostAdminApi(urlStr, htmlTemplateData, function (json) {
+                    if (json.httpCode === 0 && json.errorMessage === '') {
+                        if (typeof callback === 'function') {
+                            if(json.data === ''){
+                                $('#error-on-save').html('Data is not valid !').show().delay(6000).fadeOut('slow');
+                            } else {
+                                callback(json.data);
+                            }                        
+                        }
+                    } else {
+                        $('#error-on-save').html(json.errorMessage).show().delay(6000).fadeOut('slow');
+                        LeoAdminApiUtil.logErrorPayload(json);
+                    }
+                });
+            }
+        }
+    }
+
+    function webTemplateEditorSave() {
+        var onSaveOk = function (itemId) {
+            console.log('=====> webTemplateEditorSave ', itemId);   
+            $('#ajaxLoaderDialog').modal('hide');   
+            setTimeout(function(){
+            	history.back()
+            },500);
+        }
+        saveWebTemplateData(onSaveOk);
+    }
+   
+</script>

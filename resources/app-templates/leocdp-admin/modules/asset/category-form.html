@@ -1,0 +1,162 @@
+<div class="container-fluid" id="category_form">
+
+	<!-- MAIN BODY here -->
+	<div class="row">
+		<div class="col-lg-12">
+			<h3 class="page-header">Category Information</h3>
+		</div>
+	</div>
+
+	<!-- MAIN BODY here -->
+	<div class="row">
+		<div class="col-lg-9">
+
+			<fieldset>
+
+				<div class="form-group">
+					<label> Category Name </label> 
+					<input data-validation-length="min4"
+						type="text" class="form-control" placeholder="Enter Category Name"
+						name="name" autocomplete="nope" autocorrect="off"
+						autocapitalize="none" spellcheck="false">
+
+					<br>
+					<label> Category Type </label> 
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="type"
+							id="categoryType1" value="1" > <label
+							class="form-check-label" for="categoryType1">
+							Web Content </label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="type"
+							id="categoryType2" value="2"> <label
+							class="form-check-label" for="categoryType2">
+							Social Media Content </label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="type"
+							id="categoryType3" value="3"> <label
+							class="form-check-label" for="categoryType3">
+							Email Content </label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="type"
+							id="categoryType4" value="4"> <label
+							class="form-check-label" for="categoryType4">
+							Push Message Content </label>
+					</div>
+				</div>
+				
+				<div>
+					<div id="error-on-save" class="alert alert-danger"
+						style="display: none;"></div>
+					<div class="action-div row-centered ">
+						<a href="javascript:saveCategoryInfo()" class="btn btn-primary">
+							<i class="fa fa-fw fa-check"></i> Save
+						</a>
+						<button type="button" class="btn btn-info"
+							onclick="history.back()">Cancel</button>
+
+						<!-- TODO verify before delete category -->
+						<button type="button" class="btn btn-danger" style="display: none"
+							onclick="deleteCategoryInfo()">Delete</button>
+					</div>
+				</div>
+			</fieldset>
+
+		</div>
+
+	</div>
+</div>
+
+<hr>
+
+<script>
+	var categoryModel = false;
+
+	function loadDataCategoryInfo(key) {
+		var urlStr = baseAdminApi + '/category/get-info';
+		LeoAdminApiUtil.callPostAdminApi(urlStr, {
+			'key' : key || 'newcategory'
+		}, function(json) {
+			if (json.httpCode === 0 && json.errorMessage === '') {
+				if (json.data) {
+					categoryModel = json.data;
+					var date = LeoAdminApiUtil.formater.toDateString(categoryModel.creationTime);
+
+					var node = $('#category_form');
+					if (typeof categoryModel.id === 'string') {
+						//update
+					} else {
+						// create
+					}
+					node.find('input[name="name"]').val(categoryModel.name);
+					node.find('#categoryType'+categoryModel.type).attr('checked','checked');
+
+					//TODO customData
+				}
+			}
+		});
+	}
+
+	function saveCategoryInfo() {
+		var node = $('#category_form');
+		categoryModel.name = node.find('input[name="name"]').val();
+		categoryModel.type = parseInt(node.find("input[name='type']:checked").val());
+
+		//TODO more data field here
+
+		var urlStr = baseAdminApi + '/category/create-new';
+		if (typeof categoryModel.id === 'string') {
+			urlStr = baseAdminApi + '/category/update-info';
+		}
+
+		var onSaveOk = function(data) {
+			console.log('=====> saveCategoryInfo ', data);
+			setTimeout(function() {
+				location.hash =  'calljs-loadCategoryList()';
+			}, 500);
+		}
+
+		LeoAdminApiUtil.callPostAdminApi(urlStr, categoryModel, function(json) {
+			if (json.httpCode === 0 && json.errorMessage === '') {
+				if (json.data === '') {
+					$('#error-on-save').html('Data is not valid !').show().delay(6000).fadeOut('slow');
+				} else {
+					onSaveOk(json.data);
+				}
+			} else {
+				$('#error-on-save').html(json.errorMessage).show().delay(6000).fadeOut('slow');
+				LeoAdminApiUtil.logErrorPayload(json);
+			}
+		});
+		console.log(categoryModel);
+	}
+
+	function deleteCategoryInfo() {
+		var result = confirm("Do you want to delete " + categoryModel.name + " ?");
+		if (result) {
+			var onSaveOk = function(data) {
+				console.log('=====> deleteCategoryInfo ', data);
+				setTimeout(function() {
+					location.href = '/admin';
+				}, 500);
+			}
+			var urlStr = baseAdminApi + '/category/delete';
+			LeoAdminApiUtil.callPostAdminApi(urlStr, categoryModel,
+					function(json) {
+						if (json.httpCode === 0 && json.errorMessage === '') {
+							if (json.data === '') {
+								$('#error-on-save').html('Data is not valid !').show().delay(6000).fadeOut('slow');
+							} else {
+								onSaveOk(json.data);
+							}
+						} else {
+							$('#error-on-save').html(json.errorMessage).show().delay(6000).fadeOut('slow');
+							LeoAdminApiUtil.logErrorPayload(json);
+						}
+					});
+		}
+	}
+</script>

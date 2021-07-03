@@ -1,0 +1,26 @@
+.videoholder {
+    width: 100% !important;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+#delivery-bot {
+    max-height: 300px;
+}
+
+.videoholder_outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 790px !important;
+    min-height: 500px !important;
+    margin: auto;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.mdl-layout--large-screen-only {
+    display: flex !important;
+}

@@ -1,0 +1,102 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h5 class="page-header" id="page_breadcrumb" > </h5>
+        </div>
+    </div>
+
+    <div class="row" >
+  		   
+        <div class="col-lg-12">
+        	<br>
+            <div class="table-responsive">
+                <div id="behavioral_metrics_table"></div>
+            </div>
+        </div>
+        
+        <div class="row col-lg-12 text-center">
+  			 <div id="rules_editor_container" style="width: 100%;" >
+                 <hr>
+                 <textarea id="rules_editor">
+name: "alcohol rule"
+description: "children are not allowed to buy alcohol"
+priority: 2
+condition: "person.isAdult() == false"
+actions:
+	- "System.out.println(\"Shop: Sorry, you are not allowed to buy alcohol\");"
+                 </textarea>
+             </div> 
+        </div>
+    </div>
+
+</div>
+
+<script>
+var initActivationRules = initActivationRules || function(){
+	
+	 //raw HTML code editor
+	var editor = CodeMirror.fromTextArea(document.getElementById("rules_editor"), {        
+        mode: "yaml",           
+        lineNumbers: true ,
+        smartIndent: false ,
+        lineWrapping : true                                    
+    });
+	
+    var eventDataTypes = [
+        { name: "First-party Data", id: 1 },
+        { name: "Second-party Data", id: 2 },
+        { name: "Third-party Data", id: 3 }
+    ];
+    
+    LeoAdminApiUtil.getSecuredData('/cdp/funnel/metadata',{"funnelTypes":"event_retail,customer_retail"}, function(json){ 
+		 //console.log(json.data);	
+		 var eventStages = json.data['event_retail'];
+		 var customerFunnelStages = json.data['customer_retail'];
+		 var behavioralMetricsData = json.data['behavioral_metrics'];
+		 
+		 $("#behavioral_metrics_table").jsGrid({
+		    width: "100%",
+		    height: "360px",
+
+		    inserting: true,
+		    editing: true,
+		    sorting: true,
+		    paging: false,
+		    
+		    deleteConfirm: function(item) {
+	            return "The event \"" + item.eventName + "\" will be removed. Are you sure?";
+	        },
+
+		    data: behavioralMetricsData,
+		    
+		    onItemInserting: function(args) {
+		    	//console.log(args.item)
+		    	
+		    	// TODO Ajax submit data to backend here
+		    	setTimeout(function(){
+		    		args.item.id = "";
+		    		//console.log(behavioralMetricsData)
+		    	},1000);
+		    	
+		    },      
+		    onItemInserted: function(args) {
+		    	//console.log(args.item)
+		    	//console.log(behavioralMetricsData)
+		    }, 
+		    onItemDeleting: function(args) {
+		        
+		        console.log(args.item)
+		    },
+
+		    fields: [
+		        { name: "eventName", title : "Behavioral Event Name", type: "text", validate: "required" },
+		        { name: "eventStageId", title : "Event Funnel Stage", type: "select", items: eventStages, valueField: "id", textField: "name" },
+		        { name: "funnelStageId", title : "Customer Funnel Stage", type: "select", items: customerFunnelStages, valueField: "id", textField: "name" }
+		        
+		    ]
+		});  
+	});
+}
+
+</script>

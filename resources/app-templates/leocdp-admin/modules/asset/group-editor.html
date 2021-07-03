@@ -1,0 +1,337 @@
+<div class="container-fluid" id="page_editor_form">
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+        <div class="col-lg-9">
+	         <h5 class="page-header" id="page_breadcrumb" > </h5>
+        </div>
+       
+       	<div class="col-lg-3 row-centered ">
+             <button type="button" class="btn btn-info" onclick="history.back()">
+              	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+              	Back
+             </button>
+             <button type="button" class="btn btn-danger" onclick="LeoCdpAdmin.navFunctions.deleteGroup(assetGroupModel)">
+              	<i class="fa fa-trash" aria-hidden="true"></i> Delete
+             </button>
+	         <button type="button" class="btn btn-success data-control-edit" onclick="pageEditorSave()"  > 
+	       		<i class="fa fa-fw fa-check"></i> Save 
+	       	 </button>
+        </div>
+        
+    </div>
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+        <div class="col-lg-9">
+
+            <fieldset>
+
+                <div id="error-on-save" class="alert alert-danger" style="display: none;">
+                </div>
+
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" class="form-control" placeholder="Enter new title" name="title" autocomplete="off">
+                </div>
+
+                <div id="slug_holder" class="form-group" style="display: none;" >
+                    <label>Slug (SEO-friendly URI)</label>
+                    <div id="slug_div">
+                        <input type="text" name="slug" class="form-control">
+                    </div>
+                </div>
+                
+                <div id="page-headline-images" style="display: none;" ></div>
+
+                <div class="form-group">
+                    <label>Basic Information Details</label>
+                    <div id="content_div">
+                        <input id="mediaInfo" value="" type="hidden" name="mediaInfo">
+                        <trix-editor input="mediaInfo" class="trix-content" autofocus></trix-editor>
+                    </div>
+                </div>
+                
+                <div id="groupsSelectorHolder" class="form-group" style="display: none;" >
+	                <label> Selected groups to merge data from products and contents into templates </label>
+	                <select id="groupsToMergeDataIntoTemplates" name="groupIds" data-placeholder="Choose a group name" class="select" multiple >
+	                    <option value="nothing" >Nothing</option>
+	                </select>
+	                 <hr> 
+	            </div>
+
+            </fieldset>
+
+        </div>
+        <div class="col-lg-3">
+        	<div class="action-div" style="display: none;" >
+                <div class="checkbox">
+				  <label><input type="checkbox" name="mergeDataIntoTemplates" > This group can merge data to model </label>
+				</div>
+				 <hr> 
+            </div>
+        
+         	<div class="action-div" style="display: none;" >
+                <label>Group Content Class</label>
+                <select id="contentClass" name="contentClass" data-placeholder="Choose a content class" class="select">
+                    <option value="knowledge" selected >General Knowledge</option>
+                    <option value="technology"> Technology Industry </option>
+                    <option value="b2c_retail"> B2C Retail Industry </option>
+                    <option value="ecommerce"> E-Commerce </option>
+                    <option value="media"> Media/Creative Industry</option>
+                    <option value="education"> Education Industry </option>
+                    <option value="consultancy"> Strategy & Consulting Services </option>
+                    <option value="real_estate"> Real-Estate Industry </option>
+                    <option value="b2b_service">General B2B Service</option>
+                    <option value="b2b_product">General B2B Product</option>
+                </select>
+                 <hr> 
+            </div>
+           
+            <div class="action-div"  >
+                <label>Privacy </label>
+                <div class="radio">
+                    <label><input type="radio" name="privacyStatus" value="0">Public for everyone</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="privacyStatus" value="1">Protected (for logged users)</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="privacyStatus" value="-1">Private</label>
+                </div>
+                 <hr> 
+            </div>            
+           
+            <div class="action-div">
+                <label>Keywords </label>
+                <input id="pageKeywords" name="keywords" type="text" class="tags" value="" />
+                <hr> 
+            </div>
+           
+            <div class="action-div" style="display: none;">
+                <label>Post Filter</label>
+                (<a class="modal-trigger" href="javascript:newFilter()">New Post Filter</a>)
+                <select id="filter" data-placeholder="Choose a filter..." class="select" multiple="">
+                    <option value=""></option>
+                    <option value="1">by Project</option>
+                    <option value="1">by Location</option>
+                    <option value="1">by Time</option>
+                </select>
+            </div>
+            
+            <div class="action-div" style="display: none;" >
+                <label for="documentUploader"> Content Image Uploader </label>
+                <input id="documentUploader" type="file" class="filepond" name="image" multiple data-max-file-size="5MB"
+                    data-max-files="20" />
+            </div>
+            
+            <div class="action-div" style="display: none;" >
+                <label for="imageUploader"> Headline Image Uploader </label>
+                <input id="imageUploader" type="file" class="filepond" name="image" multiple data-max-file-size="5MB"
+                    data-max-files="20" />
+            </div>
+            
+            <div class="action-div" style="display: none;" >
+                <label> Ranking Score </label>
+                <input type="number" name="rankingScore" value="0" class="form-control">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var groupId = "";
+    var categoryId = '';
+    var assetGroupModel = false;
+    var trixElement = document.querySelector("trix-editor");
+
+    function loadDataPageEditor(params) {
+        if (params) {
+            groupId = params.groupId;
+            categoryId = params.categoryId;
+            console.log('=====> loadDataPageEditor groupId ' + groupId);
+            
+            if(groupId === ''){
+            	$('#slug_holder').hide();
+            }
+
+            var urlStr = baseAdminApi + '/group/get-info';
+
+            LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
+                if (json.httpCode === 0 && json.errorMessage === '') {
+                    assetGroupModel = json.data;
+                    
+                	// breadcrumb link update
+    		        updateBreadcrumbInAssetGroup(assetGroupModel.assetCategories, assetGroupModel.title);
+
+                    //set PageModel into DOM view
+                    var form = $('#page_editor_form');
+                    for (var k in assetGroupModel) {
+                        var value = assetGroupModel[k];
+                        var fieldType = typeof value;
+
+                        if (fieldType === 'object') {
+                            if (k === 'keywords') {
+                                form.find("input[name='keywords']").val(value.join(","));
+                            } else if (k === 'headlineImages') {
+                                loadHeadLineImageObjectToView(assetGroupModel.headlineImages, true);
+                            }
+                        } 
+                        else if (fieldType === 'boolean') {
+                       	 	if (k === 'mergeDataIntoTemplates' && value) {
+                            	form.find("input[name='mergeDataIntoTemplates']").attr('checked','checked').change(function() {
+                                    if(this.checked) {
+                                    	$('#groupsSelectorHolder').show()
+                                    }
+                                    else {
+                                    	$('#groupsSelectorHolder').hide()
+                                    }
+                                });
+                            	//TODO
+                            	//$('#groupsSelectorHolder').show()
+                            	$('#groupsToMergeDataIntoTemplates').chosen({
+                                    width: "100%",
+                                    no_results_text: "Oops, nothing found!"
+                                }).trigger("chosen:updated");
+                            } 
+                        } 
+                        else if (fieldType === 'number' || fieldType === 'string') {
+                            if (k === 'mediaInfo') {
+                                trixElement.editor.insertHTML(value);
+                            } else if (k === 'privacyStatus') {
+                                form.find("input[name='privacyStatus'][value='" + value + "']").attr('checked','checked');
+                            } 
+                            else if (k === 'contentClass') {
+                                var dom = $('#contentClass');
+                                dom.find("option:selected").removeAttr("selected");
+                                dom.find('option[value="' + value + '"]').attr('selected', 'selected');
+
+                            }
+                            else {
+                                form.find("input[name='" + k + "']").val(value);
+                            }
+                        }
+                        console.log(k + " : " + value + " fieldType :" + fieldType)
+                    }
+
+                    loadWidgetsOfPageForm();
+                    console.log(assetGroupModel);
+                } else {
+                    LeoAdminApiUtil.logErrorPayload(json);
+                }
+            });
+        }
+    }
+
+    function saveDataPageEditor(callback) {
+        if (assetGroupModel) {
+            assetGroupModel.groupId = groupId;
+            assetGroupModel.categoryId = categoryId;
+            console.log('=====> saveDataPageEditor groupId ' + groupId);
+
+            //get DOM view and set into PageModel
+            var form = $('#page_editor_form');
+            assetGroupModel.title = form.find('input[name="title"]').val();
+            assetGroupModel.privacyStatus = parseInt(form.find('input[name="privacyStatus"]:checked').val());
+            assetGroupModel.keywords = form.find('input[name="keywords"]').val().split(',');
+            assetGroupModel.mediaInfo = form.find('input[name="mediaInfo"]').val();
+            assetGroupModel.headlineImages = getHeadLinesImagsObject();
+            assetGroupModel.contentClass = form.find('select[name="contentClass"]').val();
+            assetGroupModel.slug = form.find('input[name="slug"]').val();
+            assetGroupModel.rankingScore = parseInt(form.find('input[name="rankingScore"]').val());            
+
+            var urlStr = baseAdminApi + '/group/save';
+            LeoAdminApiUtil.callPostAdminApi(urlStr, assetGroupModel, function (json) {
+                if (json.httpCode === 0 && json.errorMessage === '') {
+                    if (typeof callback === 'function') {
+                        callback(json.data);
+                    }
+                } else {
+                    LeoAdminApiUtil.logErrorPayload(json);
+                }
+            });
+        }
+    }
+
+
+    setupUploaderWidget('page', groupId, '#documentUploader', function (rs) {
+    	console.log('setupUploaderWidget');
+    	console.log(rs);
+        var fileUrl = rs.data.fileUrls[0];
+        trixElement.editor.insertHTML(`<img style="width:100%" src="` + fileUrl + `" />`)
+    });
+
+    setupUploaderWidget('page', groupId, '#imageUploader', function (rs) {
+        var imgSrc = rs.data.fileUrls[0];
+        var obj = {};
+        obj[imgSrc] = '';
+        loadHeadLineImageObjectToView(obj, false, true)
+    });
+
+
+    function pageEditorSave() {
+        console.log('=====> pageEditorSave groupId ' + groupId);
+        var onSaveOk = function (data) {
+            groupId = data;
+            location.hash = "calljs-leoCdpRouter('Asset_Group_Details','" + groupId + "')";
+        }
+        saveDataPageEditor(onSaveOk);
+    }
+
+    function loadWidgetsOfPageForm() {
+        $('#pageKeywords').tagsInput({
+            'autocomplete': {
+                'php': 'php',
+                "java": "java"
+            },
+            'defaultText': 'add a keyword',
+            width: 'auto',
+            onChange: function (elem, elem_tags) {
+                var productTags = ['Coated', 'Lysaght', 'Retail'];
+                $('.tag', elem_tags).each(function () {
+                    if ($(this).text().search(new RegExp('\\b(' + productTags.join('|') + ')\\b')) >=
+                        0)
+                        $(this).css('background-color', 'yellow');
+                });
+            }
+        });
+
+        $('#contentClass').chosen({
+            width: "100%",
+            no_results_text: "Oops, nothing found!"
+        }).trigger("chosen:updated");
+
+        //TODO load headline images
+
+    }
+
+    function newFilter() {
+        $('#newContentFilterDialog').modal({
+            focus: true
+        })
+    }
+
+    function loadContentFilterSelection() {
+        var promise = LeoAdminApiUtil.httpGetDataJson('/filter/list');
+        $('#filter').empty();
+        promise.success(function (data) {
+            if (data != null) {
+                for (var i in data) {
+                    $('#filter').append('<option value=' + data[i]._id + '>' + data[i].name + '</option>');
+                }
+                $('#filter').trigger('chosen:updated');
+            }
+            //set edit placements
+            if (typeof (pageData) != 'undefined' && $('#filter').length != 0) {
+                $('#filter').val(pageData.filters).trigger('chosen:updated');
+            }
+        });
+    }
+
+    LeoCdpAdmin.loadView('/view/common-widgets/headline-images.html?admin=1', '#page-headline-images', function () {
+        $('#page-headline-images .thumbnail p').editable({
+            type: 'text',
+            title: 'Enter Image Label Value'
+        });
+    }, true);
+</script>

@@ -1,0 +1,224 @@
+
+<!-- Data Activation Services -->
+
+<div class="row">
+	<div class="col-lg-10">
+		<h5 class="page-header" id="page_breadcrumb"></h5>
+	</div>
+	<div class="col-lg-2 text-center" style="padding: 10px;">
+		<button type="button" class="btn btn-goto-router data-control-insert" onclick="infoEnterpriseVersion(this)" title="Install New Data Activation Service" >
+			<i class="fa fa-plus-circle" aria-hidden="true"></i> Install New Data Service
+		</button>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="top_page_header" >
+			<h4> Marketplace for Data Activation and Data Synchronization </h4>
+			<b class="highlight_text"> Please set configurations and select a segment for data activation <i class="fa fa-line-chart" aria-hidden="true"></i>
+				or data synchronization <i class="fa fa-exchange" aria-hidden="true"></i> </b>
+		</div>
+		<div class="row" id="data_service_box_holder" >
+			<!-- list -->
+		</div>
+	</div>
+</div>
+
+
+<script id='tpl_synch_service_box' type="text/html" >
+<div class="col-lg-4">
+<div class="panel panel-info panel_active_<%- active %>">
+	<div class="panel-heading"> 
+		<b id="header_<%- id %>_<%- active %>" > <i class="fa <%- icon %> " aria-hidden="true"></i> <span style="font-size:14px;"> <%- name %> </span> </b> 
+		<a href="javascript:deleteDataService('<%- id %>', <%- systemService %>)" style="font-size:18px;float:right;" title="Delete this service ?" > <i class="fa fa-trash" aria-hidden="true"></i> </a>
+	</div>
+	<div class="panel-body">
+		<div class="row" >
+			<div class="col-md-12">
+				<a href="javascript:" style="font-size:16px;float:left;margin-right:4px;color: #0000CD;" title="Data activation service is active" > <i id="<%- id %>_service_active" class="fa" aria-hidden="true"></i> </a>
+				<b> Target Segments </b>
+				<select id="<%- id %>_segments_selection" class="select col-md-12">
+		            <% _.forEach(listingSegments, function(segment) { %> <option value="<%- segment.id %>"> <%- segment.name %> </option>  <% }); %>
+		        </select>
+			</div>
+		</div>
+	 	<div class="row active_<%- active %>" style="margin-top: 10px">
+ 			<div class="col-md-4 text-center" style="display:none;">
+		    	<button type="button" class="btn btn-goto-router btn-sm"  title="Go to Dashboard" onclick="activationDataServiceDashboard(<%- active %>,'<%- id %>')" > 
+			  		<i class="fa fa-bar-chart" aria-hidden="true"></i> Dashboard
+			  	</button>
+		    </div>
+			<div class="col-md-1 "></div>
+			<div class="col-md-5 text-center" >
+		    	<button type="button" class="btn btn-primary btn-sm"  title="Set configs for this service" onclick="activationServiceSetConfigs(<%- active %>,'<%- id %>')" > 
+			  		<i class="fa fa-cog" aria-hidden="true"></i> Manage Service
+			  	</button>
+		    </div>
+			<div class="col-md-5 text-center" >
+		    	<button type="button" class="btn btn-do-now btn-sm"  title="Run this service immediately" onclick="customerDataServiceSynchNow(<%- active %>,'<%- id %>')"  > 
+		  			<i class="fa fa-cloud-upload" aria-hidden="true"></i> Run Now 
+		  		</button>
+		    </div>
+			<div class="col-md-1 "></div>
+	 	</div>
+	</div>
+</div>
+</div>
+</script>
+
+<script id='tpl_activation_service_box' type="text/html" >
+<div class="col-lg-4">
+  <div class="panel panel-info panel_active_<%- active %>">
+	<div class="panel-heading"> 
+		<b id="header_<%- id %>_<%- active %>" > <i class="fa <%- icon %> " aria-hidden="true"></i> <span style="font-size:12.8px;"> <%- name %> </span> </b> 
+		<a href="javascript:deleteDataService('<%- id %>', <%- systemService %>)" style="font-size:18px;float:right;" title="Delete this service ?" > <i class="fa fa-trash" aria-hidden="true"></i> </a>
+	</div>
+	<div class="panel-body">
+		<div class="row" >
+			<div class="col-md-12">
+				<a href="javascript:" style="font-size:16px;float:left;margin-right:4px;color: #0000CD;" title="Data activation service is active" > <i id="<%- id %>_service_active" class="fa" aria-hidden="true"></i> </a>
+				<b> Target Segments </b>
+				<select id="<%- id %>_segments_selection" class="select col-md-12">
+		            <% _.forEach(listingSegments, function(segment) { %> 
+						<option value="<%- segment.id %>" class="recommendersystem_<%- segment.forRecommenderSystem %>" > <%- segment.name %> </option>  
+					<% }); %>
+		        </select>
+			</div>
+		</div>
+	 	<div class="row active_<%- active %>" style="margin-top: 10px">
+			<div class="col-md-12 text-center" >
+		    	<button type="button" class="btn btn-primary btn-sm"  title="Set configs for this service" onclick="activationServiceSetConfigs(<%- active %>,'<%- id %>')" > 
+			  		<i class="fa fa-cog" aria-hidden="true"></i> Manage Service
+			  	</button>
+		    </div>
+	 	</div>
+	</div>
+  </div>
+</div>
+</script>
+
+
+<script>
+	var initActivationServices = function() {
+		LeoAdminApiUtil.getSecuredData('/cdp/activation/list-all-services',{}, function(json){ 
+			if(json.data) {
+				loadCustomerDataServices(json.data);
+			}
+		});
+	}
+
+	var loadCustomerDataServices = function(services){
+		
+		var holder = $('#data_service_box_holder');
+		_.forEach(services,function(e,i) {
+			var id = e.id;
+			e.panelClass = e.active ? 'panel-primary' : 'panel-info';
+			
+			if(e.display) {
+				var html;
+				if(e.canDoManually){
+					html = $('#tpl_synch_service_box').html();
+				} else {
+					html = $('#tpl_activation_service_box').html();
+				}
+				var boxTpl = _.template(html);
+				
+				var html = boxTpl(e);
+				holder.append(html);
+				
+				if(e.id === 'leo_product_recommender') {
+					// recommender system
+					var recsysHolder = $('#leo_product_recommender_segments_selection');
+					recsysHolder.find('option[class="recommendersystem_false"]').remove();
+					recsysHolder.find('option[class="recommendersystem_true"]').attr('selected','selected');
+				}
+				
+				$('#' + id + '_segments_selection').chosen({
+		            width: "100%",
+		            no_results_text: "Oops, nothing found!"
+		        }).trigger("chosen:updated").change(function () {
+		            //TODO
+		        });
+				
+				var statusNode = $('#' + id + '_service_active');
+				if(e.active){
+					statusNode.addClass('fa-check-square-o')
+				}
+				$('#header_' + id + '_true').css('color','#0000CD');
+			}
+		});
+		
+		holder.find('div.active_false button').attr('class','btn btn-default');
+		holder.find('div.panel_active_false').attr('class','panel panel-default panel_active_false');
+		holder.find('div.panel_active_false').find('input').attr('disabled','disabled');
+		
+	}
+	
+    var customerDataServiceSynchNow = function(active, id){
+    	if(active) {
+    		iziToast.info({
+        	    title: 'Information',
+        	    color : 'yellow',
+        	    message: 'This function is under development'
+        	});
+    	} else {
+    		iziToast.info({
+        	    title: 'Information',
+        	    message: 'This function is available in <b>"LEO CDP Enterprise Edition"</b>'
+        	});
+    	}
+    }
+    
+    var activationDataServiceDashboard = function(active, id){
+		if(active) {
+			iziToast.info({
+        	    title: 'Information',
+        	    color : 'yellow',
+        	    message: 'This function is under development'
+        	});
+    	} else {
+    		iziToast.info({
+        	    title: 'Information',
+        	    message: 'This function is available in <b>"LEO CDP Enterprise Edition"</b> only'
+        	});
+    	}
+    }
+    
+    var activationServiceSetConfigs = function(active, id){
+		if(active) {
+			iziToast.info({
+        	    title: 'Information',
+        	    color : 'yellow',
+        	    message: 'This function is under development'
+        	});
+    	} else {
+    		iziToast.info({
+        	    title: 'Information',
+        	    message: 'This function is available in <b>"LEO CDP Enterprise Edition"</b> only'
+        	});
+    	}
+    }
+    
+    var customerDataServiceUploader = function(){
+    	iziToast.info({
+    	    title: 'Information',
+    	    message: 'This function is available in <b>"LEO CDP Enterprise Edition"</b> only'
+    	});
+    } 
+    
+    var deleteDataService = function(id, isSystemService) {
+    	if(isSystemService) {
+    		iziToast.error({
+        	    title: 'Error',
+        	    message: 'You can not delete a system service'
+        	});
+    	} else {
+    		iziToast.error({
+        	    title: 'Error',
+        	    message: 'This function is under development and is not yet available'
+        	});
+    	}
+    }
+	
+</script>

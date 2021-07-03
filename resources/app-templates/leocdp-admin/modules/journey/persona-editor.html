@@ -1,0 +1,267 @@
+
+
+<div class="row" id="breadcrumb_header" >
+      	<div class="col-md-10" >
+           <h4 class="page-header" id="page_breadcrumb" > </h4>
+       </div>
+       <div class="col-md-2" >
+       	<button type="button" class="btn btn-primary btn-lg">Save</button>
+		<button type="button" class="btn btn-secondary btn-lg">Cancel</button>
+       </div>
+   </div>
+
+<h2 id="journey_map_name" >Hành trình chung của khách hàng cho hệ thống bán lẻ sách</h2>
+
+   <div class="container-fluid">
+
+       <!-- MAIN BODY here -->
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="text-center">
+                <h3>Avatar</h3>
+                <img src="/public/images/avatars/profile-default-avatar.png"
+                    alt="Profile Avatar" class="rounded mx-auto d-block avatar">
+            </div>
+        </div>
+        <div class="col-md-8">
+
+            <div>
+                <h3> {{target_customer_name}} </h3>
+                <strong class="editable_text"> nhóm mê sách kinh doanh </strong>
+            </div>
+            <br>
+            <h3> {{persona_attributes}}
+                <span class="editable_add_item" data-target="persona_attributes"  ></span>  
+            </h3>
+            <table border=0 class="underlined" style="width: 100%;">
+                <tr>
+                    <td>
+                        <ol id="persona_attributes" data-field="persona_attributes">
+                            <li>
+                                <b data-persona="key" class="editable_text" > Giới tính </b> 
+                                <p data-persona="value" class="editable_text" > Nam và nữ </p>
+                            </li>
+                            <li>
+                                <b data-persona="key" class="editable_text" > Độ tuổi </b> 
+                                <p data-persona="value" class="editable_text" > 16 - 60 </p>
+                            </li>
+                            <li>
+                                <b data-persona="key" class="editable_text" > Vùng địa lý </b> 
+                                <p data-persona="value" class="editable_text" > Việt Nam  </p>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="line"></div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <h3> {{persona_expectations}} 
+                <span class="editable_add_item" data-target="persona_expectations"  ></span>  
+            </h3> 
+            
+            <table style="width: 100%;" class="plain">
+                <tr>
+                    <td>
+                        <ol id="persona_expectations" data-field="persona_expectations" >
+                            <li>
+                                <p class="editable_text"> đọc thử nội dung trước khi mua  </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> kiến thức phù hợp thực tế </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> tăng doanh thu bán hàng online </p>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <h3> {{persona_interests}}  
+                <span class="editable_add_item" data-target="persona_interests"  ></span>  
+            </h3>
+            <table style="width: 100%;" class="plain">
+                <tr>
+                    <td>
+                        <ol id="persona_interests" data-field="persona_interests" >
+                            <li>
+                                <p class="editable_text"> học hỏi kiến thức mới về công nghệ </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> phát triển kinh doanh, doanh nghiệp </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> cảm thấy tự tin, đủ kiến thức cho công việc </p>
+                            </li>
+
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="line"></div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <h3> {{business_ideas}} 
+                <span class="editable_add_item" data-target="business_ideas"  ></span> 
+            </h3>
+            <table class="plain" style="width: 100%;">
+                <tr>
+                    <td>
+                        <ol id="business_ideas" data-field="business_ideas" >
+                            <li>
+                                <p class="editable_text"> Chủ đề sách về marketing 4.0 </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Chủ đề sách về nền tảng công nghệ (Technology Platform) </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Chủ đề sách về nghệ thuật bán hàng online </p>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <h3> {{business_solutions}}
+                <span class="editable_add_item" data-target="business_solutions"  ></span> 
+            </h3>
+            <table class="plain" style="width: 100%;">
+                <tr>
+                    <td>
+                        <ol id="business_solutions" data-field="business_solutions" >
+                            <li>
+                                <p class="editable_text"> Chạy marketing  "Marketing Cuộc Cách Mạng Công Nghệ 4.0" của Philip Kotler </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Chạy marketing cuốn Platform Ứng Dụng </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Tìm kiếm các chuyên gia và đặt hàng họ viết sách  </p>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="line"></div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3> {{persona_touchpoints}}
+                <span class="editable_add_item" data-target="persona_touchpoints"  ></span>
+            </h3>
+            <table class="plain">
+                <tr>
+                    <td>
+                        <ol id="persona_touchpoints" data-field="persona_touchpoints" >
+                         	<li>
+                                <p class="editable_text"> Google Search </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Facebook Group </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> YouTube channel </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> E-commerce Website </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> E-commerce Mobile App </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Email khách hàng (CRM) </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Số điện thoại khách hàng (CRM) </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Cửa hàng bán lẻ </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Đường sách </p>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-6">
+        	<h3> {{conversion_actions}} <span class="editable_add_item" data-target="conversion_actions" ></span> </h3>
+            <table class="plain" style="width: 100%;">
+                <tr>
+                    <td>
+                        <ol id="conversion_actions" data-field="conversion_actions" >
+                            <li>
+                                <p class="editable_text"> Add To Cart </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Ghé nhà sách </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Đọc thử </p>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+<br><br><br>
+
+<script type="text/javascript">
+    ///Js code
+    
+    function initProfileDataEditor(profileId) {
+    	console.log(profileId);
+    	
+    	//setup editable node
+        $('.editable_text').each(function(){
+            makeNodeEditable($(this))
+        });
+
+        //setup add new editable node
+        var iconNode = '<i class="fa fa-plus-square" aria-hidden="true"></i>';
+        $('.editable_add_item').html(iconNode).click(function(){
+            var btnSelector = $(this);
+            var target = btnSelector.data('target');
+            console.log(target)
+            
+            var ele = false;
+            if(target === 'persona_attributes'){
+            	ele = $('<li> <b data-persona="key" class="editable_text" > </b> <p data-persona="value" class="editable_text" > </p> </li>');
+            	$('#' + target ).append(ele);
+                makeNodeEditable(ele.find('b'));
+                makeNodeEditable(ele.find('p'));
+            } else {
+            	ele = $('<li> <p class="editable_text"> </p> </li>');
+            	$('#' + target ).append(ele);
+                makeNodeEditable(ele.find('p'));
+            }
+        });
+    }
+</script>

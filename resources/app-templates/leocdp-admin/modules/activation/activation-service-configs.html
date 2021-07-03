@@ -1,0 +1,55 @@
+<div class="container-fluid">
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h5 class="page-header" id="page_breadcrumb" > </h5>
+        </div>
+       
+    </div>
+    
+    <div class="row gridholder">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <h3>Data Connector Configuration: This function is not available in LEO CDP FREE Edition</h3>
+            </div>
+             <hr>
+            
+        </div>
+    </div>
+
+</div>
+
+<script id='tpl_add_connector_box' type="text/html" >
+<div class="col-lg-4">
+<div class="panel panel-info">
+	<div class="panel-heading"> 
+		<b> <i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload new customer data service </b> 
+		<a href="javascript:leoCdpDocumentation('set-up-new-customer-data-service')" style="font-size:18px;float: right;" > <i class="fa fa-question-circle" aria-hidden="true"></i> </a>
+	</div>
+	<div class="panel-body">
+		<div class="row" >
+			<div class="col-md-12">
+				<span class="control-fileupload">
+  					<label for="fileInput"> Please choose the Docker file of data service</label>
+  					<input type="file" id="fileInput">
+				</span>
+			</div>
+		</div>
+	 	<div class="row" style="margin-top: 10px">
+			<div class="col-md-12 text-center">
+		    	<button type="button" class="btn btn-primary btn-sm"  title="Upload your data connector code (Dockerfile)" onclick="customerDataServiceUploader()" > 
+		  			<i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload
+		  		</button>
+		    </div>
+	 	</div>
+	</div>
+</div>
+</div>
+</script>
+
+<script>
+    var initActivationServiceConfigs = function(id) {
+    	
+    }    
+</script>

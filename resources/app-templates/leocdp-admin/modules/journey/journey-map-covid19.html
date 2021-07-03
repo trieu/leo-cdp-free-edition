@@ -1,0 +1,410 @@
+<style>
+.plain ol>li {
+	line-height: .8em;
+}
+
+.plain ol>li>p {
+	color: #000;
+	padding: 8px;
+}
+
+.editable_text {
+	font-size: 18px;
+}
+.editable_text:hover {
+	background-color: #bcbbbf;
+}
+
+/* -------------------------------------- */
+/* underlined list stle                   */
+.underlined ol {
+	counter-reset: li;
+	/* Initiate a counter */
+	margin-left: 0;
+	/* Remove the default left margin */
+	padding-left: 0;
+	/* Remove the default left padding */
+}
+
+.underlined ol>li {
+	position: relative;
+	/* Create a positioning context */
+	margin: 0 0 6px 2em;
+	/* Give each list item a left margin to make room for the numbers */
+	padding: 4px 8px;
+	/* Add some spacing around the content */
+	list-style: none;
+	/* Disable the normal item numbering */
+	border-top: 2px solid #666;
+	background: #f6f6f6;
+}
+
+.underlined ol>li>p {
+	color: #000;
+}
+
+.underlined ol>li:before {
+	content: counter(li);
+	/* Use the counter as content */
+	counter-increment: li;
+	/* Increment the counter by 1 */
+	/* Position and style the number */
+	position: absolute;
+	top: -2px;
+	left: -2em;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 2em;
+	margin-right: 8px;
+	padding: 4px;
+	border-top: 2px solid #666;
+	color: #fff;
+	background: #666;
+	font-weight: bold;
+	font-family: "Helvetica Neue", Arial, sans-serif;
+	text-align: center;
+}
+
+.underlined li ol, .underlined li ul {
+	margin-top: 6px;
+}
+
+.underlined ol ol li:last-child {
+	margin-bottom: 0;
+}
+
+.main_content {
+	padding: 20px 25px 0 25px;
+	margin-bottom: 50px;
+	
+}
+</style>
+
+
+
+<div class="main_content">
+	<div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header"> <span> Business Hub  </span> &#8594; <span> Customer Journey Map Studio </span> </h2>
+        </div>
+    </div>
+
+    <h2>Hành trình Covid</h2>
+
+    <div class="container-fluid">
+
+        <!-- MAIN BODY here -->
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <h3>Avatar</h3>
+                    <img src="https://cdn2.iconfinder.com/data/icons/covid-19-1/64/07-Fever-256.png"
+                        alt="Profile Avatar" class="rounded mx-auto d-block">
+                </div>
+            </div>
+            <div class="col-md-8">
+
+                <div>
+                    <h3>Persona name</h3>
+                    <strong class="editable_text"> đối tượng rủi ro cao Covid-19 </strong>
+                </div>
+                <br>
+                <h3> Persona attributes
+                    <span class="editable_add_item" data-target="persona_attributes"  ></span>  
+                </h3>
+                <table border=0 class="underlined" style="width: 100%;">
+                    <tr>
+                        <td>
+                            <ol id="persona_attributes" data-field="persona_attributes">
+                                <li>
+                                    <b data-name="gender">Giới tính</b> 
+                                        <p class="editable_text" >Nam và nữ </p>
+                                </li>
+                                <li>
+                                    <b data-name="source_location" >Địa điểm bay xuất phát</b> 
+                                        <p class="editable_text" > Trung Quốc, Châu Âu, Mỹ </p>
+                                </li>
+                            </ol>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="line"></div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <h3> Expectations & Problems 
+                    <span class="editable_add_item" data-target="persona_expectations"  ></span>  
+                </h3> 
+                
+                <table style="width: 100%;" class="plain">
+                    <tr>
+                        <td>
+                            <ol id="persona_expectations" data-field="persona_expectations" >
+                                <li>
+                                    <p class="editable_text"> không đủ tiền cho chi phí y tế ở nước sở tại</p>
+                                </li>
+                                <li>
+                                    <p class="editable_text"> Hết thời hạn visa du lịch </p>
+                                </li>
+                                <li>
+                                    <p class="editable_text"> Về nước gấp trước khi sân bay đóng cửa</p>
+                                </li>
+                            </ol>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="col-md-6">
+                <h3> Personal motivation & Interests 
+                    <span class="editable_add_item" data-target="persona_interests"  ></span>  
+                </h3>
+                <table style="width: 100%;" class="plain">
+                    <tr>
+                        <td>
+                            <ol id="persona_interests" data-field="persona_interests" >
+                                <li>
+                                    <p class="editable_text"> mong muốn về nước tránh dịch </p>
+                                </li>
+                                <li>
+                                    <p class="editable_text"> chi phí y tế rẻ </p>
+                                </li>
+                                <li>
+                                    <p class="editable_text"> cảm thấy an toàn khi về nhà </p>
+                                </li>
+
+                            </ol>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="line"></div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <h3> Concepts & Ideas 
+                    <span class="editable_add_item" data-target="business_ideas"  ></span> 
+                </h3>
+                <table class="plain" style="width: 100%;">
+                    <tr>
+                        <td>
+                            <ol id="business_ideas" data-field="business_ideas" >
+                                <li>
+                                    <p class="editable_text"> Khai báo thông tin y tế </p>
+                                </li>
+                                <li>
+                                    <p class="editable_text"> Cài app theo dõi hành trình di chuyển vào smartphone</p>
+                                </li>
+                                <li>
+                                    <p class="editable_text"> Đo thân nhiệt, cách li tập trung</p>
+                                </li>
+                                <li>
+                                    <p class="editable_text"> Xã hội hoá chi phí cách ly</p>
+                                </li>
+
+                            </ol>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="col-md-6">
+                <h3> Practical solutions 
+                    <span class="editable_add_item" data-target="business_solutions"  ></span> 
+                </h3>
+                <table class="plain" style="width: 100%;">
+                    <tr>
+                        <td>
+                            <ol id="business_solutions" data-field="business_solutions" >
+                                <li>
+                                    <p class="editable_text"> Cách ly tập trung ở những địa điểm chỉ định </p>
+                                </li>
+                                <li>
+                                    <p class="editable_text"> Chuẩn hoá quy trình điều trị tập trung ở các bệnh viện trung ương </p>
+                                </li>
+                                <li>
+                                    <p class="editable_text"> Ứng dụng Mobile và Big Data cho quản lý thông tin đối tượng rủi ro cao </p>
+                                </li>
+
+                            </ol>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="line"></div>
+
+
+        <div class="row">
+            <div class="col-md-8">
+                <h3>Touchpoints
+                    <span class="editable_add_item" data-target="persona_touchpoints"  ></span>
+                </h3>
+                <table class="plain">
+                    <tr>
+                        <td>
+                            <ol id="persona_touchpoints" data-field="persona_touchpoints"  >
+                                <li>
+                                    <p class="editable_text"> Sân bay</p>
+                                </li>
+                                <li>
+                                    <p class="editable_text"> Địa điểm rủi ro cao (Nơi phát hiện ca nhiễm bệnh) </p>
+                                </li>
+                                <li>
+                                    <p class="editable_text"> Địa điểm cách ly</p>
+                                </li>
+                                <li>
+                                    <p class="editable_text"> Bệnh viện trung ương</p>
+                                </li>
+                            </ol>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <h3>Final action</h3>
+                <p class="editable_text"> Điều trị Covid-19 </p>
+            </div>
+            <div id="sankeyChart" style="height:580px; width:98%;"></div>
+        </div>
+
+    </div>
+    <br><br><br><br>
+
+</div>
+
+<script type="text/javascript">
+    ///Js code
+
+    function makeNodeEditable(selector){
+        selector.attr('title','Editor').editable({
+            type: 'textarea',
+            rows: 3,
+            inputclass: 'editable_text_editor'
+        })
+    }
+    
+    function loadOkJourneyMapDesigner() {
+    	//setup editable node
+        $('.editable_text').each(function(){
+            makeNodeEditable($(this))
+        });
+
+        //setup add new editable node
+        var iconNode = '<i class="fa fa-plus-square" aria-hidden="true"></i>';
+        $('.editable_add_item').html(iconNode).click(function(){
+            var btnSelector = $(this);
+            var ele = $('<li> <p class="editable_text"> </p> </li>');
+            $('#' + btnSelector.data('target') ).append(ele);
+            makeNodeEditable(ele.find('p'));
+        });
+
+        experienceMapDiagram();
+    }
+
+    function experienceMapDiagram() {
+        var metricName = 'Reach'
+        var journeyStages = ['Sân bay', 'Địa điểm rủi ro cao', 'Địa điểm cách ly', 'Bệnh viện trung ương']
+        var journeyStageMetrics = { 'Địa điểm cách ly': 'di chuyển', 'Bệnh viện trung ương': 'điều trị' }
+
+        var configSankey = {
+            margin: {
+                top: 10,
+                left: 10,
+                right: 10,
+                bottom: 10
+            },
+            nodes: {
+                dynamicSizeFontNode: {
+                    enabled: true,
+                    minSize: 14,
+                    maxSize: 30
+                },
+                fontSize: 14, // if dynamicSizeFontNode not enabled
+                draggableX: false, // default [ false ]
+                draggableY: true, // default [ true ]
+                colors: d3.scaleOrdinal(d3.schemeCategory10)
+            },
+            links: {
+                formatValue: function (name, val) {
+                    console.log('formatValue ' + name)
+                    var label = journeyStageMetrics[name] ? journeyStageMetrics[name] : metricName
+                    return d3.format(",.0f")(val) + ' ' + label;
+                },
+                unit: metricName // if not set formatValue function
+            },
+            tooltip: {
+                infoDiv: true, // if false display default tooltip
+                labelSource: 'Input:',
+                labelTarget: 'Output:'
+            }
+        }
+        var datajson = {
+            nodes: [
+                {
+                    id: 0,
+                    name: "Sân bay"
+                }, {
+                    id: 1,
+                    name: "Địa điểm rủi ro cao"
+                }, {
+                    id: 2,
+                    name: "Địa điểm cách ly",
+
+                }, {
+                    id: 3,
+                    name: "Bệnh viện trung ương",
+
+                }, {
+                    id: 4,
+                    name: "Điều trị Covid-19"
+                }],
+            links: [
+                {
+                    source: 1,
+                    target: 2,
+                    value: 1
+                },
+                {
+                    source: 0,
+                    target: 1,
+                    value: 1
+                }, {
+                    source: 1,
+                    target: 3,
+                    value: 1
+                }, {
+                    source: 0,
+                    target: 2,
+                    value: 1
+                }, {
+                    source: 0,
+                    target: 3,
+                    value: 1
+                }, {
+                    source: 2,
+                    target: 4,
+                    value: 3
+                }, {
+                    source: 3,
+                    target: 4,
+                    value: 3
+                }]
+        };
+
+        var objSankey = sk.createSankey('#sankeyChart', configSankey, datajson);
+    }
+</script>

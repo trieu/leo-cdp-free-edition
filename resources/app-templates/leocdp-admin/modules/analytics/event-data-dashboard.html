@@ -1,0 +1,141 @@
+
+<!-- Event Data Report -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <h5 class="page-header" id="page_breadcrumb" > </h5>
+    </div>
+   
+	<div class="col-lg-12">
+		<h4> <i class="fa fa-line-chart" aria-hidden="true"></i> Event Data Report in Time Series  </h4>
+	</div>
+</div>
+  
+<div class="row gridholder">
+     <div class="col-lg-12">
+     
+     	<div class="row float-right">
+	        <div class='col-lg-5 col-xs-12'>
+	            <div class="form-group">
+	                <div class='input-group date' id='beginFilterDate'>
+	                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
+	                        <span class="glyphicon glyphicon-calendar"></span>
+	                    </span>
+	                </div>
+	            </div>
+	        </div>
+	        <div class='col-lg-5 col-xs-12'>
+	            <div class="form-group">
+	                <div class='input-group date' id='endFilterDate'>
+	                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
+	                        <span class="glyphicon glyphicon-calendar"></span>
+	                    </span>
+	                </div>
+	            </div>
+	        </div>
+	        <div class='col-lg-2 col-xs-12 text-center'>
+	        	<button type="button" class="btn btn-primary" style="width: 80%" onclick="loadEventDailyReportUnit(true)" > 
+	        		<i class="fa fa-check" aria-hidden="true"></i> OK </button>
+	        </div>
+	    </div>
+     	  
+    	<!--  Time-series -->
+      	<div class="col-lg-12" >
+      		
+      		<div class="col-lg-9 highlight_box">
+      			<div class='text-center' style="margin-bottom: 22px">
+					<h5> Event Data Report from <span id="eventDataFromDate" class="highlight_text">  </span> 
+						to <span id="eventDataToDate" class="highlight_text" >  </span> </h5> 
+				</div>
+      			<canvas id="timeseriesEventChart"></canvas>
+      		</div>
+			<div class="col-lg-3"> 
+	        	<div class="chart_box">
+		        	<h5 class="highlight_text text-center" > Profile Count in Date Range </h5>
+		            <div class="summary_metric">
+		                <div class="vcenter text-center profile_count" id="profile_count_for_events"  >
+		 					0
+		                </div>
+		            </div>
+		        </div>
+		        <div class="chart_box" >   
+		            <h5 class="highlight_text text-center" > Summary for all events  </h5>
+		            <div class="summary_metric">
+		                <div class="vcenter" id="event_report_stats" style="overflow-y:scroll;">
+		                    <!--  Events -->
+		                    <div class="highlight_text text-center" style="padding: 10px">
+		                    	No data available
+		                    </div>
+		                </div>
+		            </div>
+		       	</div>
+	        </div>
+	  	</div>
+    </div>
+</div>
+
+
+<script>
+	
+    var intEventDataDashboard =  function() {
+    	initDateFilterComponent(true, null, null, 60);
+    	loadEventDailyReportUnit(false, false);
+    }    
+    
+    window.eventTimeseriesChart = false;
+    var loadEventDailyReportUnit = function(refresh){
+    		
+    	var formatDateTime = 'YYYY-MM-DD HH:mm:ss';
+    	var datetimeFilter = getDateFilterValues();
+    	
+    	var beginReportDate = datetimeFilter.beginFilterDate;
+    	$('#beginReportDate').text(new moment(beginReportDate).format(formatDateTime))
+    	
+    	var endReportDate = datetimeFilter.endFilterDate;
+    	$('#endReportDate').text(new moment(endReportDate).format(formatDateTime))
+        
+    	var urlStr = baseAdminApi + '/cdp/analytics360/event-report';
+    	
+    	LeoAdminApiUtil.getSecuredData(urlStr, datetimeFilter , function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+            	
+            	// 0) date filter
+            	var formatDate = 'YYYY-MM-DD';
+            	$('#eventDataFromDate').text(new moment(json.data.beginFilterDate).format(formatDate));
+            	$('#eventDataToDate').text(new moment(json.data.endFilterDate).format(formatDate));
+        		
+        		// 1) profile stats
+        		var profileCount =  new Number(json.data.profileCount).toLocaleString(); 
+        		$('#profile_count_for_events').text(profileCount);
+        		
+        		// 2) event summary stats
+				var sel = '#event_report_stats';
+		   		var wh = $(window).height();
+		   		var h = wh - (Math.floor(wh/3)+50);
+		   		$(sel).css('height',h+'px');
+		   		var reportKeys = Object.keys(json.data.reportSummary);
+		   		var len = reportKeys.length;
+	    		if(len > 0) {
+	    			$(sel).empty();
+	    			reportKeys.sort();
+	    			reportKeys.forEach(function(eventName) {
+	    				var eventCount = json.data.reportSummary[eventName];
+	    				appendItemCount(sel, eventName, eventCount);
+	       			});	        		
+	    		}
+        		
+	    		// 3) render chart data
+	    		var chartId = 'timeseriesEventChart';
+	    		if(refresh === true && eventTimeseriesChart !== false){
+	    			renderTimeseriesChart(chartId, json.data , true, eventTimeseriesChart);
+	    		}
+	    		else {
+	    			window.eventTimeseriesChart = renderTimeseriesChart(chartId, json.data , false);
+	    		}		   		
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
+    }
+</script>
+

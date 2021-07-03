@@ -1,0 +1,267 @@
+<style>
+	.jsgrid .jsgrid-custom-button {
+
+	    border: none;
+	    cursor: pointer;
+	    background-color: transparent;
+	}
+	.jsgrid .event-set-rules {
+		font-size:1.2em; color:blue;
+	}
+	.modal-body .eventName {
+		font-size:1.5em; color:blue; font-weight: bold;
+	}
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h5 class="page-header" id="page_breadcrumb" > </h5>
+    </div>
+</div>
+
+<div class="container-fluid">
+
+    <div class="row" >
+  		<div class="row col-lg-12 text-center">
+
+			<div class="col-md-6">
+                 <h4 class="chart_header text-center" > Journey Data Funnel </h4>
+                 <div class="summary_metric" style="width:98%; margin: auto" >
+	               <div class="vcenter">
+	                  <div id="journey_funnel" ></div>
+	               </div>
+	           	</div>
+             </div>
+
+             <div class="col-md-6">
+                 <h4 class="chart_header text-center" > Profile Data Funnel </h4>
+                 <div class="summary_metric" style="width:98%; margin: auto" >
+	               <div class="vcenter">
+	                  <div id="profile_funnel" ></div>
+	               </div>
+	           	</div>
+             </div>
+             
+        </div>
+        
+        <div class="col-lg-12" style="margin-top: 8px;">
+         	<h4 class="text-center"> All event metrics in Journey Data Funnel </h4>
+            <div class="table-responsive">
+                <div id="behavioral_metrics_table"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+	var initBehavioralEventList = function(){
+		var profileFunnelOptions = {
+				block: {
+	   	   			highlight: true,
+		   	   		fill: {
+		                type: 'gradient'
+		            }
+	   	   	    },
+		        chart: {
+		        	curve: { enabled: true, height: 36 },
+		            height: 360,
+		            bottomWidth : 0.57,
+		            bottomPinch: 1
+		        },
+		        tooltip: {
+		            enabled: true
+		        },
+		        label: {
+		            fontSize: '14px'
+		        },
+		        events: {
+		            click: {
+		                block: function (data) {
+		                    console.log(data.label.raw);
+		                }
+		            }
+		        }
+		};
+		
+		var journeyFunnelOptions = {
+				block: {
+	   	   			highlight: true,
+		   	   		fill: {
+		                type: 'gradient'
+		            }
+	   	   	    },
+		        chart: {
+		        	curve: { enabled: true, height: 36 },
+		            height: 360,
+		            bottomWidth : 0.57,
+		            bottomPinch: 1
+		        },
+		        tooltip: {
+		            enabled: true
+		        },
+		        label: {
+		            fontSize: '14px'
+		        },
+		        events: {
+		            click: {
+		                block: function (data) {
+		                    console.log(data.label.raw);
+		                }
+		            }
+		        }
+		};
+
+	
+	    var eventDataTypes = [
+	        { name: "<mark>First-party Data</mark>", id: 1 },
+	        { name: "<span style='font-size:12px'>Second-party Data</span>", id: 2 },
+	        { name: "<span style='font-size:12px'>Third-party Data</span>", id: 3 }
+	    ];
+	    
+	    var metricTypes = [
+	        { name: "<mark> IMPRESSION </mark>", id: 1 },
+	        { name: "<mark> ACTION </mark>", id: 2 },
+	        { name: "<mark> CONVERSION </mark>", id: 3 },
+	        { name: "<mark> FEEDBACK </mark>", id: 4 },
+	        { name: "<mark> PROMOTION </mark>", id: 5 }
+	    ];
+	    
+	    var scoringModels = [
+	        { name: "LEAD", id: 1 },
+	        { name: "PROSPECT", id: 2 },
+	        { name: "ENGAGEMENT", id: 3 },
+	        { name: "ACQUISITION", id: 5 },
+	        { name: "<mark>LIFETIME_VALUE</mark>", id: 6 },
+	        { name: "CX_EFFORT", id: 7 },
+	        { name: "CX_SATISFACTION", id: 8 },
+	        { name: "CX_FEEDBACK", id: 9 },
+	        { name: "CX_PROMOTER", id: 10 },
+	        { name: "CREDIT_SCORING", id: 11 },
+	        { name: "CX_LOYALTY", id: 12 },
+	        { name: "CX_DETRACTOR", id: 13}
+	    ];
+
+	    
+	    LeoAdminApiUtil.getSecuredData('/cdp/funnel/metadata', {} , function(json){ 
+			 //console.log(json.data);	
+			 var canInsertData = json.canInsertData; 
+			 canInsertData = false;
+	    	 var canEditData = json.canEditData;
+	    	 canEditData = false;
+    		 var canDeleteData = json.canDeleteData;
+    		 canDeleteData = false;
+			
+			 if( ! canEditData ){
+				$('button.data-control').attr('disabled','disabled');
+			 }
+			
+			 var journeyFunnelStages = json.data['business_event_flow'];
+			 var customerFunnelStages = json.data['general_data_funnel']; 
+			 var behavioralMetricsData = json.data['behavioral_metrics'];
+			 
+			 renderFunnelChart("#profile_funnel",customerFunnelStages, profileFunnelOptions, getColorCodeProfileFunnel)
+			 renderFunnelChart("#journey_funnel",journeyFunnelStages, journeyFunnelOptions, getColorCodeJourneyFunnel)
+			 
+			 // TODO
+			 var gridControls =  { type: "control", width: 70, editButton: false, deleteButton: false,
+                 itemTemplate: function(value, item) {
+                    var $result = jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
+                    
+                    var setRuleIcon, setRulesLabel;
+                    setRuleIcon = '<i class="fa fa-cogs event-set-rules" style="" aria-hidden="true"></i>';
+                    setRulesLabel = 'Set rules and automation jobs for the event "' + item.eventName + '"';
+                    
+                    var $setRulesButton = $("<button>").attr({class: "jsgrid-custom-button", title : setRulesLabel}).html(setRuleIcon).click(function(e) {
+                    	console.log(item);
+                    	infoEnterpriseVersion(this);
+                        e.stopPropagation();
+                    });       
+                    
+                    var $customEditButton = $("<button>").attr({class: "customGridEditbutton jsgrid-button jsgrid-edit-button",title:"Edit Event Metric"})
+                    .click(function(e) {
+                    	infoEnterpriseVersion(this);
+                        e.stopPropagation();
+                    });
+
+                   	var $customDeleteButton = $("<button>").attr({class: "customGridDeletebutton jsgrid-button jsgrid-delete-button",title:"Delete Event Metric"})
+                   	.click(function(e) {
+                	  	infoEnterpriseVersion(this);
+                      	e.stopPropagation();
+                    });
+
+                   	var rs = $("<div>");
+                   	rs.append($setRulesButton).append($customDeleteButton).append($customEditButton);
+                   	return rs;
+                 }
+             }
+			 
+			 $("#behavioral_metrics_table").jsGrid({
+			    width: "100%",
+			    height: "auto",
+	
+			    inserting: canInsertData,
+			    editing: true,
+			    sorting: false,
+			    paging: false,
+			    
+			    confirmDeleting : canDeleteData,
+			    deleteConfirm: function(item) {
+			    	if(item.systemMetric) {
+			    		return "The event metric [" + item.eventName + "] is managed by LEO CDP. You can not delete this metric.";
+				    }
+		            return "The event metric [" + item.eventName + "] will be removed. Are you sure ? ";
+		        },
+	
+			    data: behavioralMetricsData,
+			    
+			    onItemInserting: function(args) {
+			    	args.cancel = true; return;
+			    	console.log("onItemInserting",args.item)
+			    	
+			    	// TODO Ajax submit data to backend here
+			    	setTimeout(function(){
+			    		args.item.id = "";
+			    		//console.log(behavioralMetricsData)
+			    	},1000);
+			    	
+			    },      
+			    onItemInserted: function(args) {
+			    	console.log("onItemInserted", args.item)
+			    	//console.log(behavioralMetricsData)
+			    }, 
+			    
+			    onItemEditing: function(args) {
+		            if(args.item.systemMetric) {
+		            	iziToast.error({
+			        	    title: 'Error',
+			        	    message: "The event metric [" + args.item.eventName + "] is managed by LEO CDP. You can not edit this metric."
+			        	});
+		                args.cancel = true;
+		            }
+			    },
+			    
+			    onItemDeleting: function(args) {
+			        if(args.item.systemMetric) {
+			            args.cancel = true;
+			        }
+			    },
+	
+			    fields: [
+			        { name: "eventName", title : "Event Name", align: 'center' , type: "text", validate: "required" },
+			        { name: "eventLabel", title : "Event Label", align: 'center' , type: "text" },
+			        { name: "score", title : "Event Score", type: "number", align: 'center', width: 40, validate: "required" },
+			        { name: "cumulativePoint", title : "Loyalty Point", type: "number", width: 40, align: 'center', validate: "required" },
+			        { name: "eventStageId", title : "Journey Stage", type: "select", items: journeyFunnelStages, valueField: "id", textField: "name" },
+			        { name: "scoreModel", title : "Score Model", type: "select", items: scoringModels, width: 80, valueField: "id", textField: "name" },
+			        { name: "funnelStageId", title : "Default Profile Stage", type: "select", items: customerFunnelStages, valueField: "id", textField: "name" },
+			        { name: "metricType", type: "select", title : "Metric Type", items: metricTypes, align: 'center', width: 68, valueField: "id", textField: "name" }
+			       // ,gridControls
+			    ]
+			});  
+		});
+	}
+
+</script>
+
+

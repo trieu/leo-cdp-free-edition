@@ -1,0 +1,136 @@
+<div class="container-fluid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <img id="login_logo" src="" alt="MainLogo" style="display: none; width: 42%" class="img-responsive center-block" />
+                <script>
+                	$('#login_logo').attr('src', window.pageHeaderLogo).show();
+                </script>
+                <hr>
+                <div>
+                    <fieldset>
+                        <div id="legend">
+                            <h3>Login Information</h3>
+                        </div>
+						<hr>
+                        <div class="form-group">
+                            <label>UserName</label>
+                            <input type="text" class="form-control" placeholder="Enter username" name="username" id="username"
+                                autocapitalize="off" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" placeholder="Enter password" name="password" id="password"
+                                 autocapitalize="off" autocomplete="off">
+                        </div>
+                         <div class="form-group">
+                            <label> Captcha Image for Human Verification </label>
+                            
+                            <img id="captcha_img" alt="Captcha Image" src="" style="margin: 10px; display: none;" >
+                            
+                            <input type="text" class="form-control" placeholder="Enter text and number that you see in the above image" name="captcha" id="captcha"
+                                autocapitalize="off" autocomplete="off">
+                        </div>
+
+						<div id="info-login" class="alert alert-success" style="display: none;"></div>
+                        <div id="error-login" class="alert alert-danger" style="display: none;"></div>
+
+                        <div class="form-group text-right">
+                            <button type="button" class="btn btn-success" id="submitLogin" style="width: 120px"> 
+								<i class="fa fa-check-square-o" aria-hidden="true"></i> OK 
+							</button>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var usersession = lscache.get('usersession');
+    var encryptionkey = lscache.get('encryptionkey');
+
+    function getLoginSession() {
+        var urlStr = baseAdminApi + '/user/login-session';
+        LeoAdminApiUtil.callPostApi(urlStr, {}, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+                usersession = json.data.userSession;
+                
+                var captchaImgBase64 = 'data:image/png;base64,'+ json.data.captchaImage;
+                $('#captcha_img').show().attr('src', captchaImgBase64 );
+                
+                loginFormHandler(usersession);
+                console.log(usersession);
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
+    }
+
+    function loginFormHandler(session) {
+        var apiLoginHandler = function () {
+            var urlStr = baseAdminApi + '/user/check-login';
+
+            var user = $('#username').val();
+            var pass = $('#password').val();
+            var captchaStr = $('#captcha').val();
+            
+
+            var data = {
+                'userlogin': user,
+                'userpass': pass,
+                'usersession': session,
+                'captcha' : captchaStr
+            };
+            $('#info-login').text("Sending data ...").show();
+            LeoAdminApiUtil.callPostApi(urlStr, data, function (json) {
+                if (json.httpCode === 0 && json.errorMessage === '') {
+                    encryptionkey = json.data;
+                    lscache.set('usersession', session, 10080);
+                    lscache.set('encryptionkey', encryptionkey, 10080);
+
+                    //OK
+                    $('#info-login').text("Login OK !");
+                    setTimeout(function () {
+                        window.location = '/admin';
+                    }, 1600);
+                } else {
+                	$('#info-login').hide();
+                    $('#error-login').html(json.errorMessage).show();
+                    // failed
+                    setTimeout(function () {
+                    	LeoAdminApiUtil.logErrorPayload(json);
+                    }, 2300);
+                }
+            });
+        };
+
+        $('#submitLogin').click(apiLoginHandler);
+
+        $("#username").on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                $("#password").focus();
+            }
+        });
+        $("#password").on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                apiLoginHandler();
+            }
+        });
+        $("#captcha").on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                apiLoginHandler();
+            }
+        });
+    }
+
+    if (usersession && encryptionkey) {
+        console.log("You login OK with session " + usersession);
+    } else {
+        getLoginSession();
+        console.log('getLoginSession is called ')
+    }
+</script>

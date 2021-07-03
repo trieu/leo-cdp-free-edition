@@ -1,0 +1,555 @@
+
+<!-- Segment Details -->
+<style>
+	.form-group .sm_purpose {
+		margin: 5px 0;
+		background-color: #e5e6e5;
+		padding: 7px;
+		border-radius: 7px;
+	}
+	.sm_purpose b i.fa {
+		font-size:1.2em!important;
+		color: #3300ff!important;
+	}
+	.sm_purpose b {
+		color: #000!important;
+		font-size: 14px!important;
+		font-weight: bold!important;
+	}
+	.sm_purpose button {
+		margin-left: 10px;
+		float: right;
+	}
+	#segment_disable_date_filter_holder {
+		font-size: 18px;
+	}
+</style>
+
+<div class="row">
+	<div class="col-lg-8">
+		<h5 class="page-header" id="page_breadcrumb" > </h5>
+	</div>
+	<div class="col-lg-4 text-center" style="padding: 10px">
+		<button type="button" class="btn btn-info" title="Go back" onclick="history.back()" > 
+			<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back 
+		</button>
+	
+		<button type="button" class="btn btn-danger data-control-delete" title="Delete this segment" > 
+			<i class="fa fa-trash" aria-hidden="true"></i> Delete 
+		</button>
+		
+		<button type="button" class="btn btn-goto-router data-control-edit" title="Edit this segment" > 
+			<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit 
+		</button>
+		
+		<button type="button" class="btn btn-blue data-control-download" title="Download raw CSV data of the segment" > 
+			<i class="fa fa-download" aria-hidden="true"></i> Download
+		</button>
+	</div>
+</div>
+
+<div class="container ">
+	
+	<h4 id="segment_name" class="highlight_text" >  </h4>
+	<p> Metadata, query details and matched profiles </p>
+	
+	<div class="panel-group">
+	
+		<!--  1 metadata  -->
+		<div class="panel panel-leoadmin">
+			<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i>  Segment Metadata </b>  </div>
+			<div class="panel-body">
+				<div class="col-lg-12">
+					<div class="form-group">
+						<div class="col-sm-10">
+							<b>Name:</b> <span id="sm_name" ></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-10">
+							<b>Description:</b> <span id="sm_description" ></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-10"  id="sm_type" >
+							<b>Segment Type:</b> Ad-Hoc Query Segmentation
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--  2 Purposes  -->
+		<div class="panel panel-leoadmin">
+			<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Data Purpose </b>  </div>
+			<div class="panel-body">
+				<div class="col-lg-12">
+					
+					<div class="form-group" id="segment_purposes" >
+						<div class="col-sm-12 sm_purpose" id="sm_forRecommenderSystem" style="display: none;" > 
+							<b> <i class="fa fa-check-square-o" aria-hidden="true"></i> Customer personalization </b>
+							<button type="button" class="btn btn-do-now" title="Data Activation" > 
+								<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
+							</button>
+						</div>
+						
+						<div class="col-sm-12 sm_purpose" id="sm_forEmailMarketing" style="display: none;" > 
+							<b> <i class="fa fa-check-square-o" aria-hidden="true"></i> Personalized email marketing </b>
+							<button type="button" class="btn btn-do-now" title="Data Activation" > 
+								<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
+							</button>
+						</div>
+					
+						<div class="col-sm-12 sm_purpose" id="sm_activeQuery" style="display: none;"> 
+							<b> <i class="fa fa-check-square-o" aria-hidden="true"></i> Automatic adding any new profile </b>
+							<button type="button" class="btn btn-do-now" title="Data Activation" > 
+								<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
+							</button>
+						</div>
+						
+						<div class="col-sm-12 sm_purpose" id="sm_forDeepAnalytics" style="display: none;"> 
+							<b> <i class="fa fa-check-square-o" aria-hidden="true"></i> Auto Exporting Data </b>
+							<button type="button" class="btn btn-do-now" title="Data Activation" > 
+								<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
+							</button>
+						</div>
+						
+						<div class="col-sm-12 sm_purpose" id="sm_forPredictiveAnalytics" style="display: none;"> 
+							<b> <i class="fa fa-check-square-o" aria-hidden="true"></i> Predictive analytics </b>
+							<button type="button" class="btn btn-do-now" title="Data Activation" > 
+								<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
+							</button>
+						</div>
+						
+						<div class="col-sm-12 sm_purpose" id="sm_forRealtimeMarketing" style="display: none;" > 
+							<b> <i  class="fa fa-check-square-o" aria-hidden="true"></i> Push notification</b>
+							<button type="button" class="btn btn-do-now" title="Data Activation" > 
+								<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
+							</button>
+						</div>
+						
+						<div class="col-sm-12 sm_purpose" id="sm_forReTargeting" style="display: none;"> 
+							<b> <i  class="fa fa-check-square-o" aria-hidden="true"></i> Behavioral advertising retargeting </b>
+							<button type="button" class="btn btn-do-now" title="Data Activation" > 
+								<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
+							</button>
+						</div>
+						
+						<div class="col-sm-12 sm_purpose" id="sm_forLookalikeTargeting" style="display: none;"> 
+							<b> <i  class="fa fa-check-square-o" aria-hidden="true"></i> Look-alike targeting  </b>
+							<button type="button" class="btn btn-do-now" title="Data Activation" > 
+								<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
+							</button>
+						</div>
+					</div>
+					
+				</div>
+
+			</div>
+		</div>
+		
+		<!--  2 query  -->
+		<div class="panel panel-leoadmin">
+			<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Query Details </b> </div>
+			<div class="panel-body">
+				
+				<div id="segment_disable_date_filter_holder" class='col-lg-9 text-center' >
+					<span id='beginFilterDate'> </span>
+					<i class="fa fa-long-arrow-right" aria-hidden="true" style="font-weight: bold;" ></i>
+					<span  id='endFilterDate'> </span>
+				</div>
+				
+				<!-- Query Details -->
+				<div class="col-lg-9">
+					<div id="segment-builder-holder"></div>
+				</div>
+				<div class="col-lg-3 text-center">
+					<b> Segment Size / Total </b>
+					<div id="donut_chart" style="max-width: 300px; margin: auto;"></div>
+				</div>
+			</div>
+		</div>
+		
+		<!--  3 profiles  -->
+		<div class="panel panel-leoadmin" id="profile-list-panel"  >
+			<div class="panel-heading">
+				<div class="row"> 
+					<div class="col-lg-12">
+	                      <b> <i class="fa fa-list-ul" aria-hidden="true"></i> <label> All Matched Profiles </label> </b>                     
+	                </div>
+                </div> 
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive" id="profilelist_holder" >
+				 	<table id="profile_list_querybuilder" class="display" style="width:100%;">
+				    	<thead>
+				        	<tr>
+					            <th>Full Name</th>
+					            <th>Age</th>
+					            <th>Gender</th>
+					            <th>Primary Email</th>
+					            <th>Data Quality Score</th>
+					            <th>Funnel Stage</th>
+					            <th>Last Updated at</th>
+					            <th>Last-seen Touchpoint</th>
+				        	</tr>
+				    	</thead>
+				 	</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	var segmentDataModel = false;
+	var segmentDataStats = false;
+	var initSegmentDetails = function(id) {
+		// Date Range Filtering Controller
+		var urlStr = baseAdminApi + '/cdp/segment/load';
+        LeoAdminApiUtil.callPostAdminApi(urlStr, { 'id': id }, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+        		// only super-admin role can remove the segment 
+        		var behavioralEventMap = json.data.behavioralEventMap;
+        		segmentDataModel = json.data.segmentData;
+        		segmentDataStats = json.data.segmentStats;
+                var segmentId = segmentDataModel.id;
+                var managedBySystem = segmentDataModel.managedBySystem;
+                var jsonQueryRules = JSON.parse( segmentDataModel.jsonQueryRules );
+                
+                document.title = 'Segment Details - ' + segmentDataModel.name;
+                $('#segment_name').text(segmentDataModel.name);
+        		
+           	 	if(managedBySystem){
+                	$('button.data-control-delete').attr('disabled','disabled');
+                	$('button.data-control-delete').attr('title','Can not delete this segment, which is managed by system');
+                }
+                else {
+                	if( json.canDeleteData){
+            			$('button.data-control-delete').click(deleteSegment);
+        			} else {
+        				$('button.data-control-delete').attr('disabled','disabled');
+        			}
+                }
+        		
+        		if( ! json.canEditData ){
+        			$('button.data-control-edit').attr('disabled','disabled');
+        			$('button.data-control-download').attr('disabled','disabled');
+        			
+        		} else {
+        			$('button.data-control-edit').click(function(){
+        				location.hash = "calljs-leoCdpRouter('Segment_Builder','" + id + "')";
+        			});
+        			$('button.data-control-download').click(function(){
+        				downloadProfilesInSegment(id);
+        			});
+        		}
+                
+                setupSegmentDataAndReports(segmentDataModel)
+                setupSegmentPurposesActivation(segmentDataModel)
+               
+             	// init UI after setting data into DOM
+              
+                loadSegmentStatistics(segmentDataStats);
+                loadSegmentBuilder(behavioralEventMap, jsonQueryRules, true, false);
+                setTimeout( loadProfilesInSegment ,700 );
+                
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
+	}
+	
+	var setupSegmentPurposesActivation = function(segmentData){
+		var segmentId = segmentData.id;
+		var name = segmentData.name;
+		var size = segmentData.totalCount;
+		
+		$('#segment_purposes').find("button").click(function(){
+			var purpose = $(this).data("purpose");
+			if(purpose === "forRecommenderSystem"){
+				// TODO showPersonalizationCodeDialog(segmentId, name, size)
+				iziToast.info({
+		    	    title: 'Information',
+		    	    message: 'This function is under development and is not yet available'
+		    	});
+			}
+			else if(purpose === "forEmailMarketing"){
+				iziToast.info({
+		    	    title: 'Information',
+		    	    message: 'This function is under development and is not yet available'
+		    	});
+			}
+			else if(purpose === "forPredictiveAnalytics"){
+				//window.open("https://colab.research.google.com/notebooks/","_blank")
+				iziToast.info({
+		    	    title: 'Information',
+		    	    message: 'This function is under development and is not yet available'
+		    	});
+			}
+			console.log(purpose, segmentId);
+			
+		})
+	}
+
+	var setupSegmentDataAndReports = function(segmentData) {
+		var formatDateTime =  'YYYY-MM-DD HH:mm:ss';
+		 $('#sm_name').text(segmentData.name);
+	     $('#sm_description').text(segmentData.description);
+	     
+	     if( ! segmentData.disableDateRangeFilter ) {
+	    	 $('#beginFilterDate').text( new moment(segmentData.beginFilterDate).format(formatDateTime) );
+		     $('#endFilterDate').text( new moment(segmentData.endFilterDate).format(formatDateTime) );
+	     } else {
+	    	 $('#segment_disable_date_filter_holder').hide();
+	     }
+	     
+	     if(segmentData.activeQuery){
+	    	 //$('#sm_activeQuery').show().find("button").data("purpose","activeQuery");
+	     } else {
+	    	 $('#sm_activeQuery').hide()
+	     }
+	     
+	     if(segmentData.forDeepAnalytics){
+	    	 //$('#sm_forDeepAnalytics').show().find("button").data("purpose","forDeepAnalytics");
+	     } else {
+	    	 $('#sm_forDeepAnalytics').hide()
+	     }
+	     
+	     if(segmentData.forPredictiveAnalytics ){
+	    	 //$('#sm_forPredictiveAnalytics').show().find("button").data("purpose","forPredictiveAnalytics")
+	     } else {
+	    	 $('#sm_forPredictiveAnalytics').hide()
+	     }
+	     
+	     if(segmentData.forRecommenderSystem){
+	    	 $('#sm_forRecommenderSystem').show().find("button").data("purpose","forRecommenderSystem");
+	     } else {
+	    	 $('#sm_forRecommenderSystem').hide()
+	     }
+	     
+	     if(segmentData.forEmailMarketing){
+	    	$('#sm_forEmailMarketing').show().find("button").data("purpose","forEmailMarketing");
+	     } else {
+	    	 $('#sm_forEmailMarketing').hide()
+	     }
+	     
+	     if(segmentData.forRealtimeMarketing){
+	    	// $('#sm_forRealtimeMarketing').show().find("button").data("purpose","forRealtimeMarketing");
+	     } else {
+	    	 $('#sm_forRealtimeMarketing').hide()
+	     }
+	     
+	     if(segmentData.forReTargeting){
+	    	 //$('#sm_forReTargeting').show().find("button").data("purpose","forReTargeting");;
+	     } else {
+	    	 $('#sm_forReTargeting').hide();
+	     }
+	     
+	     if(segmentData.forLookalikeTargeting){
+	    	 //$('#sm_forLookalikeTargeting').show().find("button").data("purpose","forLookalikeTargeting");;
+	     } else {
+	    	 $('#sm_forLookalikeTargeting').hide();
+	     }
+	}
+	
+	var downloadProfilesInSegment = function(segmentId){
+		iziToast.success({
+    	    title: 'OK',
+    	    message: 'LEO CDP is processing data for the segment "'+segmentDataModel.name +'"'
+    	});
+		var paramObj = { 'segmentId': segmentId };
+        var url = window.baseAdminApi + '/cdp/segment/export';
+        LeoAdminApiUtil.getSecuredData(url, paramObj, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '' && json.data) {
+               var url = window.baseAdminApi + json.data ;
+               iziToast.success({ title: 'OK', message: 'Data is ready to download at '+url });
+               window.open(url, '_blank');
+            }
+        });
+	}
+	
+	var activateSegment = function(segmentId){
+		iziToast.info({
+    	    title: 'Information',
+    	    message: 'This function is under development and is not yet available'
+    	});
+	}
+	
+	
+	var showPersonalizationCodeDialog =  function(segmentId, segmentName, segmentSize) {
+		
+		//TODO
+		$('#segmentProfileCount').text(segmentSize.toLocaleString())
+			
+		var idDialog = "dialogEmbeddedPersonalizationCode";
+		
+		$('#'+idDialog).modal({
+    		backdrop: 'static',
+    		keyboard: false
+		});
+		
+		// priority group selector
+		var pgSelector = $('#priorityGroupSelector');
+		pgSelector.find("option").remove();
+		var groups = [{title:"Non-Fiction Books"},{title:"bbb"}];
+		for(var i in groups) { 
+			var group = groups[i];
+			var option = '<option value="'+i+'" >' + group.title + '</option>';
+			pgSelector.append(option);
+		}
+		pgSelector.val(0).change();
+		pgSelector.chosen({
+            width: "100%",
+            no_results_text: "Oops, nothing found!"
+        }).trigger("chosen:updated").change(function(){
+        	console.log("chosen:updated" + $(this).val())
+        });
+		
+		// default group selector
+		var fgSelector = $('#defaultGroupSelector');
+		fgSelector.find("option").remove();
+		var groups = [{title:"Fiction Books"},{title:"ddd"}];
+		for(var i in groups) { 
+			var group = groups[i];
+			var option = '<option value="'+i+'" >' + group.title + '</option>';
+			fgSelector.append(option);
+		}
+		fgSelector.val(0).change();
+		fgSelector.chosen({
+            width: "100%",
+            no_results_text: "Oops, nothing found!"
+        }).trigger("chosen:updated").change(function(){
+        	console.log("chosen:updated" + $(this).val())
+        });
+		
+		//init code preview editor
+		$('#personalization_code_holder .CodeMirror').remove();
+		var editorSelector = '#'+idDialog+' .code';
+		var codeNode = $(editorSelector)[0];
+		var editor = CodeMirror.fromTextArea(codeNode, {
+			mode:  "htmlmixed",
+			lineNumbers: true,
+            styleActiveLine: true,
+            matchBrackets: true,
+            readOnly: false,
+	    });
+		
+		editor.setSize(null, 385);
+		setTimeout(function() {
+			//copy from textarea template into editor, then selectAll for copy
+			var tpl = $('#personalization_code_holder .code').val().trim();
+			var code = tpl.replace('__segmentId__', segmentId);
+			code = code.replace('__segmentName__', segmentName);
+			
+			editor.getDoc().setValue('<script>\n' + code + '\n<\/script>');
+			editor.refresh();
+			editor.execCommand('selectAll');
+			
+			// copy code into clipboard
+			var buttonSelector = '#'+idDialog+ ' button.btn-copy-code';
+			addHandlerCopyCodeButton(editorSelector, buttonSelector);
+		},640);
+	}
+</script>
+
+<!-- dialog html -->
+<div class="modal fade" id="dialogEmbeddedPersonalizationCode" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > Please select a Product or Content, then select Group and copy JavaScript (JS) code </h4>
+			</div>         
+			<div class="modal-body">
+				
+				<div class="form-group highlight_box" >
+		     		<div class="col-lg-5">
+		     			<label style="background-color: #FAFADE;color: #3300ff!important;" > <i class="fa fa-info-circle" aria-hidden="true"></i> Digital asset category </label>
+		     		</div>
+		     		<div class="col-lg-7" id="assetCategoryHolder" >
+		     			<label class="radio-inline"><input type="radio" name="assetCategory" value="content" > Content </label>
+		     			<label class="radio-inline"><input type="radio" name="assetCategory" value="product"  > Product </label>
+		     		</div>
+				</div>
+				
+				<div class="form-group highlight_box" >
+		     		<div class="col-lg-5">
+		     			<label style="background-color: #FAFADE;color: #3300ff!important;"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total matched profile in segment </label>
+		     		</div>
+		     		<div class="col-lg-7">
+		     			<b id="segmentProfileCount" >0</b>
+		     		</div>
+				</div>
+				
+				<div class="form-group highlight_box" >
+					<div class="col-lg-5">
+	                	<label style="background-color: #FAFADE;color: #3300ff!important;"> <i class="fa fa-info-circle" aria-hidden="true"></i> Priority group for matched profiles </label>
+	                </div>
+		     		<div class="col-lg-7"  >
+		                <select id="priorityGroupSelector" data-placeholder="Choose a group name" class="select" >
+		                  	<!-- priorityGroupSelector -->  
+		                </select>
+	                </div>
+	            </div>
+	            
+	            <div class="form-group highlight_box" >
+					<div class="col-lg-5">
+	                	<label> <i class="fa fa-info-circle" aria-hidden="true"></i> Default group for non-matched profiles </label>
+	                </div>
+		     		<div class="col-lg-7"  >
+		                <select id="defaultGroupSelector" data-placeholder="Choose a group name" class="select" >
+		                  	<!-- defaultGroupSelector -->  
+		                </select>
+	                </div>
+	            </div>
+	            
+				
+				<div class="form-group" >
+		     		
+		     		<label> <i class="fa fa-code" aria-hidden="true"></i> Embedded Code </label>
+		     		
+		     		<div id="personalization_code_holder" class="col-lg-12" ><textarea  class="code">
+	(function() {
+	    //  Personalization Code for __segmentName__
+	   
+		var tprefurl = location.href;
+		var segmentId = "__segmentId__";
+		
+		var url  = '__LeoPersonalizationFullUrl__';
+
+		url = url + "&sgid=" + segmentId;
+		url = url + "&tpurl=" + location.href;
+		url = url + "&cb=" + new Date().getTime();
+		
+		// container
+		var divWrapper = document.createElement("div"); 
+		var cssDiv = "position: relative; width:100%; overflow: hidden;  height: 100px ";
+		divWrapper.setAttribute("style",cssDiv);
+		
+		// iframe 
+		var iframe = document.createElement("iframe"); 
+		var cssIframe = "position: absolute; top:0; left:0; bottom:0; right:0; width:100%; border: none; overflow: hidden; height: 100px ";
+		iframe.setAttribute("style",cssIframe);
+		iframe.setAttribute("src",url);
+		divWrapper.appendChild(iframe);
+		
+		var referenceNode = document.getElementById("__scriptNodeId__");
+		referenceNode.parentNode.insertBefore(divWrapper, referenceNode.nextSibling);
+	})();
+							</textarea>
+					</div>
+		     		
+				</div>
+				
+			</div>  
+			
+			<div class="modal-footer" >
+				<hr>
+				<button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>

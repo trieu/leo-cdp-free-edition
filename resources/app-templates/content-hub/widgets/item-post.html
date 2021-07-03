@@ -1,0 +1,21 @@
+<!-- posts of the default filter "recently" -->
+
+<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card" id="{{id}}" >
+    <div class="center">
+        <a href="/html/post/{{slug}}">
+            <img class="article-image" src="{{headlineImageUrl}}" border="0" alt="" onerror="this.src=loadDefaultThumbnailPost('{{contentClass}}','{{type}}')">
+        </a>
+    </div>
+   	<div class="mdl-card__title">
+     	<a class="mdl-card__title-text" title="{{title}}"  href="/html/post/{{slug}}">
+         	{{title}}
+        </a>
+    </div>
+    <div class="mdl-card__supporting-text">
+        {{mediaInfo}}
+    </div>
+    <div class="mdl-card__actions mdl-card--border mdl-typography--text-right">
+         <div class="fb-like" data-href="/html/post/{{{slug}}}" data-width="" data-layout="button_count" 
+              data-action="like" data-size="large" data-share="true"></div>    
+    </div>
+</div>

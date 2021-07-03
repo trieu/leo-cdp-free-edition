@@ -1,0 +1,129 @@
+<div class="mdl-cell mdl-cell--12-col ">
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text page_title_text">{{title}}</h2>
+    </div>
+    <hr>
+
+    <div id="search_filter_wrapper" class="mdl-grid" style="display: none;">
+        <div class="mdl-cell--2-col">
+            <h5>Source</h5>
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+                <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+                <span class="mdl-checkbox__label">YouTube</span>
+            </label>
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+                <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+                <span class="mdl-checkbox__label">Facebook</span>
+            </label>
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+                <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+                <span class="mdl-checkbox__label">Popular Websites</span>
+            </label>
+        </div>
+        <div class="mdl-cell--2-col ">
+            <h5>Date</h5>
+            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
+                <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
+                <span class="mdl-radio__label">All</span>
+            </label>
+            <br>
+            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+                <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2" checked>
+                <span class="mdl-radio__label">Past 24 hours</span>
+            </label>
+            <br>
+            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
+                <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="3" checked>
+                <span class="mdl-radio__label">Past week</span>
+            </label>
+            <br>
+            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-4">
+                <input type="radio" id="option-4" class="mdl-radio__button" name="options" value="4" checked>
+                <span class="mdl-radio__label">Past month</span>
+            </label>
+            <br>
+            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-5">
+                <input type="radio" id="option-5" class="mdl-radio__button" name="options" value="5" checked>
+                <span class="mdl-radio__label">Past year</span>
+            </label>
+            <br>
+        </div>
+        <div class="mdl-cell mdl-cell--4-col mdl-card__actions mdl-textfield mdl-js-textfield mdl-chipfield"
+            id="hashtag_filter">
+            <input id="hashtag_filter_val" type="hidden" class="mdl-chipfield__input" name="hashtag_filter"
+                value="chip1,chip2,chip3">
+            <input class="mdl-textfield__input" type="text" id="my-input-1">
+            <label class="mdl-textfield__label" for="my-input-1">New Category</label>
+        </div>
+        <div class="mdl-cell mdl-cell--4-col mdl-card__actions mdl-textfield mdl-js-textfield mdl-chipfield"
+            id="hashtag_filter2">
+            <input id="hashtag_filter_val2" type="hidden" class="mdl-chipfield__input" name="hashtag_filter2"
+                value="chip1,chip2,chip3">
+            <input class="mdl-textfield__input" type="text" id="my-input-12">
+            <label class="mdl-textfield__label" for="my-input-12">New Keywords</label>
+        </div>
+
+    </div>
+
+    <div class="mdl-grid portfolio-max-width">
+        {{#each itemsOfGroup}}
+        <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card" id="{{id}}" >
+            <div class="center">
+                <a href="/html/post/{{slug}}">
+                    <img class="article-image" src="{{headlineImageUrl}}" border="0" alt="" onerror="this.src=loadDefaultThumbnailPost('{{contentClass}}','{{type}}')" />
+                </a>
+            </div>
+            <div class="mdl-card__title">
+             	<a class="mdl-card__title-text" title="{{title}}"  href="/html/post/{{slug}}">
+                 	{{title}}
+                </a>
+            </div>
+            <div class="mdl-card__supporting-text">
+                {{mediaInfo}}
+            </div>
+            <div class="mdl-card__actions mdl-card--border mdl-typography--text-right">
+                
+                <div class="fb-like" data-href="/html/post/{{{slug}}}" data-width="" data-layout="button_count" 
+                	data-action="like" data-size="large" data-share="true"></div>
+                	
+            </div>
+        </div>
+        {{/each}}
+    </div>
+
+</div>
+
+
+<script>
+    window.debugMediaPlayerOne = true;
+    var autoplayVideo = true;
+
+    function loadVideo() {
+        var placeHolderId = 'videoPlaceholder';
+        var videoSource = "{{{headlineVideoUrl}}}".trim();
+        if (videoSource === '') {
+            return;
+        }
+        var adUrls = [];
+        var defaultSkipAdTime = 3; // show skip button after 3 seconds
+        var autoplay = autoplayVideo;
+
+        var adConfigs = [];
+        adConfigs = [];
+        var player = MediaPlayerOne.create(autoplay, placeHolderId, videoSource, '', adUrls, defaultSkipAdTime,
+            adConfigs);
+        console.log(player);
+        player.volume(1);
+        // player.play();
+    }
+
+    window.mediaPlayerOneReady = function () {
+        loadVideo();
+    }
+
+    function getHashTagFilterList() {
+        return $('#hashtag_filter_val').val().split(',');
+    }
+    new window['MaterialChipInput'](document.getElementById('hashtag_filter'));
+    new window['MaterialChipInput'](document.getElementById('hashtag_filter2'));
+</script>

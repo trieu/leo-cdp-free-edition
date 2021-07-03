@@ -1,0 +1,705 @@
+<div class="container-fluid" id="post_editor_form">
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+        <div class="col-lg-10">
+	         <h5 class="page-header" id="page_breadcrumb" > </h5>
+        </div>
+       	<div class="col-lg-2 text-center">
+            
+	        <button type="button" class="btn btn-danger data-control-delete" id="btn_delete_page" style="display: none;" >
+	            <i class="fa fa-trash" aria-hidden="true"></i> Delete
+	        </button>
+	        
+	        <button type="button" class="btn btn-primary data-control-edit" id="btn_edit_page" style="display: none;"  > 
+	       		<i class="fa fa-fw fa-pencil-square-o"></i> Edit 
+	       	</button>
+           
+        </div>
+    </div>
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+        <div class="col-lg-9">
+
+            <fieldset>
+
+                <div class="form-group">
+                    <label>Slug (SEO-friendly URI)</label>
+                    (<a class="modal-trigger" href="javascript:" onclick="toggleDiv(this,'#slug_div')">Show</a>)
+                    <div id="slug_div" style="display: none;">
+                        <input type="text" name="slug" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Title</label>
+                    <input id="asset_item_title" type="text" class="form-control" placeholder="Enter title" name="title" autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    (<a class="modal-trigger" href="javascript:" onclick="toggleDiv(this,'#description_div')">Hide
+                        Description Input</a>)
+
+                    <div id="description_div" style="display: block;">
+                        <textarea class="form-control" rows="2" placeholder="Enter description" name="description"></textarea>
+                    </div>
+                    <hr>
+                </div>
+
+                <div id="post-headline-images"></div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading"> <label>Headline Video</label> </div>
+                    <div class="panel-body">
+                        <input id="headline_video" type="text" name="headlineVideoUrl" placeholder="Enter Video URL of YouTube" class="form-control">
+                        <hr>
+                        <div id="headline_video_view" class="row display-flex" style="padding: 0 50px;width: 520px;margin: auto" >                           
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" id="customData_div_wrapper" style="display: none;">
+                    <div id="customData_div">
+                        <!--customData fields -->
+                    </div>
+                </div>
+
+                <div class="form-group" id="mediaInfoUnit_wrapper" style="display: none;">
+                    <div id="mediaInfoUnit_div">
+                        <!-- mediaInfoUnits (paragraphs) -->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6 text-right">
+                            <button type="button" class="btn btn-info" onclick="addMediaInfoUnit()">Add paragraph</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" id="content_div_wrapper">
+                    <label>Content</label>
+                    (
+                        <a class="modal-trigger" href="javascript:" onclick="toggleDiv(this,'#content_div')">Hide Content Editor</a> 
+                        |
+                        <a class="modal-trigger" href="javascript:" data-visibilty="hidden" onclick="toggleRawHtmlEditor(this)">Toggle Raw HTML Editor</a> 
+                    )
+                    <div id="content_div">
+                    </div>                   
+                    <div id="raw_media_container" style="width: 100%;" >
+                        <hr>
+                        <textarea id="raw_media_html"></textarea>
+                    </div>                   
+                    <hr>
+                    <div id="mediaInfoPreview" ></div>
+                </div>
+                <hr>
+
+            </fieldset>
+
+        </div>
+        <div class="col-lg-3">
+            <div id="error-on-save" class="alert alert-danger" style="display: none;"></div>
+            <div class="action-div row-centered ">
+            	<button style="display: none;" type="button" class="btn btn-success" onclick="callLeoBotForIdeasRecommender('context-page')">Hi LEO</button>
+            
+                <button type="button" class="btn btn-info" onclick="history.back()">
+                	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                	Back
+                </button>
+                <button type="button" class="btn btn-danger" onclick="LeoCdpAdmin.navFunctions.deleteItemAsset(postModel)">
+                	<i class="fa fa-trash" aria-hidden="true"></i> Delete
+                </button>
+                <button type="button" class="btn btn-success data-control-edit" onclick="postEditorSave()"  > 
+	        		<i class="fa fa-fw fa-check"></i> Save 
+	        	</button>  
+            </div>
+            <hr>
+            <div class="action-div">
+                <label>Content Class Type</label>
+                <select id="contentClass" name="contentClass" data-placeholder="Choose a content class" class="select">
+                    <option value="standard" selected>Standard Content</option>
+                    <option value="youtube_video">YouTube Embedded Video</option>
+                    <option value="blogpost" >Blog Post</option> 
+                    <option value="case_study"> Case Study</option>
+                    <option value="customer_service"> Customer Service</option>
+                </select>
+            </div>
+            <hr>
+            <div class="action-div">
+                <label>Content Type </label>
+                <select id="postType" name="postType" data-placeholder="Choose a post type" class="select">
+                    <option value="9" selected="selected"> VIDEO_AND_BLOG </option>
+                     <option value="4"> VIDEO</option>
+                </select>
+            </div>
+            <hr>
+            <div class="action-div">
+                <label>Content Privacy</label>
+                <div class="radio">
+                    <label><input type="radio" name="privacyStatus" value="0">Public for everyone</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="privacyStatus" value="1">Protected (for logged users)</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="privacyStatus" value="-1">Private</label>
+                </div>
+            </div>
+            <div class="action-div">
+                <label>Content Keywords</label>
+                <input id="postKeywords" name="keywords" type="text" class="tags" value="" />
+            </div>
+            <hr>
+            <div class="action-div">
+                <label for="imageUploader"> Headline Image Uploader </label>
+                <input id="imageUploader" type="file" class="filepond" name="image" multiple data-max-file-size="20MB"
+                    data-max-files="20" />
+            </div>
+            <div class="action-div">
+                <label for="documentUploader"> Editor File Uploader </label>
+                <input id="documentUploader" type="file" class="filepond" name="document" multiple data-max-file-size="50MB"
+                    data-max-files="20" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<script>
+
+    var itemId = "";
+    var groupId = "";
+    var categoryId = "";
+    
+    var postModel = false;
+    var trixElement = false;
+    var postType = 1;
+
+    //templates
+    var editorViewTpl = '<input id="mediaInfo" value="" type="hidden" name="mediaInfo"><trix-editor input="mediaInfo" class="trix-content" autofocus></trix-editor>';
+    var documentUrlViewTpl = '<input id="mediaInfo" type="text" name="mediaInfo" class="form-control" >';
+
+    //raw HTML code editor
+    var rawHtmlEditor = CodeMirror.fromTextArea(document.getElementById("raw_media_html"), {        
+        mode: "htmlmixed",           
+        lineNumbers: true ,
+        smartIndent: true ,
+        lineWrapping : true                                    
+    });
+    rawHtmlEditor.setSize($('#raw_media_container').width()-100, 1);
+
+    function postTypeSelectionCallback(type) {
+        postType = type;
+        checkPostTypeAndSetupMediaEditor(postType, '');
+    }
+    
+    function initPostEditor(params){
+    	postModel = false;
+    	LeoCdpAdmin.loadView('/view/common-widgets/headline-images.html?admin=1', '#post-headline-images', function () {
+            $('#post-headline-images div.thumbnail p').editable({
+                type: 'text',
+                title: 'Enter Image Label Value'
+            },true);
+            loadDataPostEditor(params)
+        }, true);
+    }
+
+    function loadDataPostEditor(params) {
+        if (params) {
+            itemId = params.itemId;
+            groupId = params.groupId;
+            categoryId = params.categoryId;
+            console.log('=====> loadDataPostEditor itemId ' + itemId);
+
+            if (itemId === '') {
+                // off select post type  $('#postTypeSelectionDialog').modal({ focus: true })
+                postTypeSelectionCallback(1);//default post type is text
+            }
+            var urlStr = baseAdminApi + '/item/get';
+
+            LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
+                if (json.httpCode === 0 && json.errorMessage === '') {
+                    postModel = json.data;
+                    document.title = postModel.title ? 'Service Editor - ' + postModel.title : 'New Service Information';
+                    
+                 	// breadcrumb link update
+        	        updateBreadcrumbInAssetPost(postModel.assetCategories, postModel.assetGroups, postModel.title );
+
+                    var form = $('#post_editor_form');
+                    for (var k in postModel) {
+                        var value = postModel[k];
+                        var fieldType = typeof value;
+
+                        if (fieldType === 'object') {
+                            if (k === 'keywords') {
+                                form.find("input[name='keywords']").val(value.join(","));
+                            } else if (k === 'headlineImages') {
+                                loadHeadLineImageObjectToView(value, true);
+                            } else if(k === 'customData'){
+                                customDataForm(value);                                
+                            } else if(k === 'mediaInfoUnits'){
+                                loadMediaInfoUnits(value);
+                            }
+                        } else if (fieldType === 'number' || fieldType === 'string') {
+                            if (k === 'mediaInfo') {
+                                postType = postModel.type;
+                                checkPostTypeAndSetupMediaEditor(postType, value);
+                                loadMediaInfoView(value, postType, true);
+                            } else if (k === 'privacyStatus') {
+                                form.find("input[name='privacyStatus'][value='" + value + "']").attr('checked', 'checked');
+                            } else if (k === 'description') {
+                                form.find("textarea[name='description']").val(value);
+                            } else if (k === 'contentClass') {
+                                var dom = $('#contentClass');
+                                dom.find("option:selected").removeAttr("selected");
+                                dom.find('option[value="' + value + '"]').attr('selected', 'selected');
+                                contentClassViewRender(value);
+                            } else if(k === 'type'){                                
+                                var dom = $('#postType');
+                                dom.find("option:selected").removeAttr("selected");
+                                dom.find('option[value="' + value + '"]').attr('selected', 'selected');
+                            } else if(k === 'headlineVideoUrl') {
+                                var value = value.trim()
+                                if(value.indexOf('http') === 0){   
+                                    var placeHolderId = 'hvph_' + itemId;                                 
+                                    var html = '<div id="'+placeHolderId+'" class="videoholder" data-video-source="'+value+'"></div>';
+                                    $('#headline_video').val(value);
+                                    $('#headline_video_view').html(html);
+                                    
+                                    MediaPlayerOne.create(false, placeHolderId, value, '', [], 1, []);
+                                }                               
+                            }                          
+                            else {
+                                form.find("input[name='" + k + "']").val(value);
+                            }
+                        }
+                        console.log(k + " : " + value + " fieldType :" + fieldType)
+                    }
+                    loadWidgetsOfPostForm();
+                } else {
+                    LeoAdminApiUtil.logErrorPayload(json);
+                }
+            });
+        }
+    }
+
+    function saveDataPostEditor(callback) {
+        if (postModel) {
+            postModel.itemId = itemId;
+            postModel.groupId = groupId;
+            postModel.categoryId = categoryId;
+            postModel.type = postType;
+            console.log('=====> saveDataPostEditor itemId ' + itemId);
+
+            //get DOM view and set into postModel
+            var form = $('#post_editor_form');
+            postModel.title = form.find('input[name="title"]').val();
+            postModel.slug = form.find('input[name="slug"]').val();
+            postModel.privacyStatus = parseInt(form.find('input[name="privacyStatus"]:checked').val());
+            postModel.keywords = form.find('input[name="keywords"]').val().split(',');            
+            postModel.description = form.find('textarea[name="description"]').val();
+            postModel.headlineImages = getHeadLinesImagsObject();
+            postModel.headlineVideoUrl = form.find('#headline_video').val();
+            postModel.contentClass = form.find('select[name="contentClass"]').val();
+            postModel.type = parseInt(form.find('select[name="postType"]').val());
+            postModel.customData = customDataForm();
+            if(postModel.contentClass === 'project'){
+                //in project, auto build data from customData
+                //var obj = {};                
+                //var finalMediaHtml = getCompiledTemplate('#customData4mediaInfo_tpl')({'customData':obj}).trim();
+                //postModel.mediaInfo = finalMediaHtml;
+            }
+            postModel.mediaInfoUnits = getMediaInfoUnits();
+
+            //normalize html data
+            if(postModel.type === 1){
+                var content = form.find('input[name="mediaInfo"]').val();                             
+                postModel.mediaInfo = normalizeMediaHtml(content);
+            } else {
+                postModel.mediaInfo = form.find('input[name="mediaInfo"]').val();
+            }            
+
+            //done set data model, POST to API
+            var urlStr = baseAdminApi + '/item/save';
+            LeoAdminApiUtil.callPostAdminApi(urlStr, postModel, function (json) {
+                if (json.httpCode === 0 && json.errorMessage === '') {
+                    if (typeof callback === 'function') {
+                        if(json.data === ''){
+                            $('#error-on-save').html('Data is not valid !').show().delay(6000).fadeOut('slow');
+                        } else {
+                            callback(json.data);
+                        }                        
+                    }
+                } else {
+                    $('#error-on-save').html(json.errorMessage).show().delay(6000).fadeOut('slow');
+                    LeoAdminApiUtil.logErrorPayload(json);
+                }
+            });
+        }
+    }
+
+    function postEditorSave() {
+        var onSaveOk = function (itemId) {
+            console.log('=====> postEditorSave ', itemId);   
+            $('#ajaxLoaderDialog').modal('hide');   
+            setTimeout(function(){
+            	history.back()
+            },500);
+        }
+        $('#ajaxLoaderDialog').modal({
+    		backdrop: 'static',
+    		keyboard: false
+		});
+        saveDataPostEditor(onSaveOk);
+    }
+
+    function normalizeMediaHtml(content){
+        var tempNode = $('<div/>').html(content);
+        tempNode.find('img').each(function(){
+            var width = parseInt($(this).attr('width'));
+            if(width > 320){
+                $(this).attr('style','height:100%!important;width:100%!important;object-fit:contain!important');
+            }
+        });  
+        return tempNode.html(); 
+    }
+
+    /*
+    var htmlEditor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        lineNumbers: true,
+        mode: 'htmlmixed',
+        // theme: 'default',
+    });
+    */
+
+    function loadWidgetsOfPostForm() {
+
+        //keyword input widget with highlights
+        $('#postKeywords').tagsInput({
+            width: 'auto',
+            'defaultText': 'add a keyword',
+            onChange: function (elem, elem_tags) {
+                var productTags = ['Coated', 'Lysaght', 'Retail'];
+                $('.tag', elem_tags).each(function () {
+                    if ($(this).text().search(new RegExp('\\b(' + productTags.join('|') + ')\\b')) >=0){
+                        $(this).css('background-color', 'yellow');
+                    }                       
+                });
+            }
+        });
+
+        //content data class widget
+        $('#contentClass').chosen({
+            width: "100%",
+            no_results_text: "Oops, nothing found!"
+        }).trigger("chosen:updated").change(function () {
+            contentClassViewRender($(this).val());
+        });
+
+        //content display type widget
+        $('#postType').chosen({
+            width: "100%",
+            no_results_text: "Oops, nothing found!"
+        }).trigger("chosen:updated").change(function () {     
+            //TODO
+        });
+
+        //document or image uploader
+        setupUploaderWidget('post', itemId, '#documentUploader', function (rs) {
+            var fileUrl = rs.data.fileUrls[0];
+            console.log('fileUrl ' + fileUrl);
+            renderPostMediaInfo(fileUrl);
+            if (postType !== 1 && postType !== 2) {
+                // the media is not text, store as URL
+                $('#mediaInfo').val(fileUrl);
+            }
+        });
+
+        //headline image uploader
+        setupUploaderWidget('post', itemId, '#imageUploader', function (rs) {
+            var imgSrc = rs.data.fileUrls[0];
+            var obj = {};
+            obj[imgSrc] = '';
+            loadHeadLineImageObjectToView(obj, false, true);
+        });
+
+        $('#headline_video').on('change', function(){
+            var $this = $(this);
+            var currentVal = $this.val();
+            
+            //$this.val(vid);
+            //var html = "<iframe width='100%' height='320' src='https://www.youtube-nocookie.com/embed/"+vid+"?rel=0&controls=1&showinfo=0' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+            
+            //init MediaPlayer
+            var placeHolderId = 'hvph_' + itemId;
+            var html = '<div id="'+placeHolderId+'" class="videoholder" data-video-source="'+currentVal+'"></div>';
+            $('#headline_video_view').html(html);
+            MediaPlayerOne.create(false, placeHolderId, currentVal, '', [], 1, []);
+            
+            //init HeadLine Images
+            var ytVideoId = getYouTubeVideoId(currentVal);
+            if(ytVideoId && ytVideoId.length > 5){
+                var headlineImage = 'https://img.youtube.com/vi/'+ytVideoId+'/hqdefault.jpg';
+                var obj = {};
+                obj[headlineImage] = '';
+                loadHeadLineImageObjectToView(obj, false, true);
+            } else {
+                var fbVideoId = getFacebookVideoId(currentVal);
+                if(fbVideoId && fbVideoId.length > 5){
+                    var headlineImage = 'https://graph.facebook.com/'+fbVideoId+'/picture?t=n.jpg';
+                    var obj = {};
+                    obj[headlineImage] = '';
+                    loadHeadLineImageObjectToView(obj, false, true);
+                }
+            }           
+        });
+    }
+
+    function getYouTubeVideoId(currentVal){
+        var newval = '', vid = '';
+        if (newval = currentVal.match(/(\?|&)v=([^&#]+)/)) {
+            vid = (newval.pop());
+        } else if (newval = currentVal.match(/(\.be\/)+([^\/]+)/)) {
+            vid = (newval.pop());
+        } else if (newval = currentVal.match(/(\embed\/)+([^\/]+)/)) {
+            vid = (newval.pop().replace('?rel=0',''));
+        }
+        return vid.split('&')[0];
+    }
+
+    function getFacebookVideoId(fbVideoUrl){
+        var fbVideoId = fbVideoUrl.substring(fbVideoUrl.lastIndexOf('videos/') + 7 ).replace('/','');
+        return fbVideoId;
+    }
+
+    function loadMediaInfoUnits(list){
+        if(list.length > 0){
+            $('#content_div_wrapper').hide();
+            $('#mediaInfoUnit_wrapper').show();
+        }
+        list.forEach(function(e){
+            console.log(e);           
+            addMediaInfoUnit(e);
+        });
+    }
+
+    function getMediaInfoUnits(){        
+        var list = [];
+        $('#mediaInfoUnit_div > div.mediaInfoUnit').each(function(){
+            var headline = $(this).find('input[name="miuHeadline"]').val().trim();
+            if(headline != ''){
+                var val = $(this).find('input[name="miuContent"]').val();
+                var content = normalizeMediaHtml(val);                
+                list.push({'headline':headline,'content':content});
+            }    
+        });
+        return list;
+    }
+
+    function addMediaInfoUnit(data){        
+        var node = $('#mediaInfoUnit_div');
+        var idx = node.find('> div.mediaInfoUnit').length + 1;
+        if(typeof data === 'object'){
+            data['idx'] = idx;
+        } else {
+            data = {'idx':idx};
+        }       
+        var html = getCompiledTemplate('#mediaInfoUnit_tpl')(data);         
+        node.append(html);   
+        $('#miuEditor'+idx).focus(function(){ 
+            console.log( $(this).attr('input') )
+            trixElement = $(this)[0];
+        });
+    }
+
+    function contentClassViewRender(contentClass) {
+        console.log('contentClassViewRender ' + contentClass)
+        if (contentClass === 'product') {
+            //-------------------------TODO-------------------------
+            $('#content_div_wrapper').hide();
+            $('#mediaInfoUnit_wrapper').show();
+            
+        } else if (contentClass === 'project') {
+            $('#mediaInfoUnit_wrapper').hide();
+            $('#content_div_wrapper').show();
+            var nodes = $('#customData_div_wrapper').show().find('input[name="location"]');
+            if(nodes.length == 0){
+                customDataForm({"location":"","area_m2":"","related_product_ids":""});
+                
+                //related products
+                $('input[name="related_product_ids"]').parent().hide();
+                var paramObj = {'contentClass':'product'};
+                var url = window.baseAdminApi + '/item/by-content-class-and-keywords';
+                LeoAdminApiUtil.getSecuredData(url, paramObj, function (json) {
+                    var stUrl = json.staticBaseUrl || '';
+                    if (json.httpCode === 0 && json.errorMessage === '' && json.data) { 
+                        json.label = "Related Products";
+                        json.name = "relatedProducts"; 
+
+                        var html = getCompiledTemplate('#multiselector_tpl')(json); 
+                        var selectedIds = $('input[name="related_product_ids"]').val().split(',');
+                        $('#customData_div').append(html);
+                        $('#multiselector'+json.name).chosen({
+                            width: "70%",
+                            no_results_text: "Oops, nothing found!"
+                        }).val(selectedIds).trigger("chosen:updated");
+                    }
+                });
+            }
+        }
+    }
+
+    function customDataForm(customData) {
+        var node = $('#customData_div');
+        if(typeof customData === 'object'){
+            var c = 0;
+            for (var fieldName in customData) {
+                var fieldValue = customData[fieldName];     
+                var f = node.find('input[name="'+fieldName+'"]');
+                if(f.length>0){
+                    f.val(fieldValue);
+                } else {                    
+                    var data = {'field_label': toTitleCase(fieldName),'field_name':fieldName,'field_value':fieldValue};
+                    node.append(getCompiledTemplate('#custom_field_tpl')(data) );
+                }            
+                c++;
+            }
+            if(c > 0){
+                contentClassViewRender('project');
+            }
+            return customData;
+        } else {
+            customData = {};
+            node.find('input').each(function(){
+                var fieldName = $(this).attr('name');
+                if(fieldName){
+                    var fieldValue = $(this).val().trim();
+                    if(fieldName === 'related_product_ids'){
+                        fieldValue = $('#multiselectorrelatedProducts').val().join(',');
+                    }
+                    customData[fieldName] = fieldValue;
+                }               
+            });
+            return customData;            
+        }        
+    }
+
+    function renderPostMediaInfo(fileUrl) {
+        if(fileUrl.indexOf('http')<0){
+            fileUrl = window.baseAdminApi + fileUrl;
+        }
+        if (fileUrl.indexOf('.png') > 0 || fileUrl.indexOf('.jpg') > 0) {            
+            if (trixElement && postType === 1) {
+                trixElement.editor.insertHTML('<img style="max-width:100%;max-height:600px;" src="' + fileUrl + '" />');
+                return;
+            } else {
+                var html = '<img src="' + fileUrl + '" style="max-width:100%;max-height:600px;" />';
+                $('#mediaInfoPreview').html(html);
+            }
+        } else {
+            loadMediaInfoView(fileUrl, postType, true);
+        }
+    }
+
+    function toggleRawHtmlEditor(node){
+        if($(node).data('visibilty') === 'hidden'){
+            $('#raw_media_container').show();
+            $('#content_div').hide();
+            var rawHtml = $('#mediaInfo').val()
+            rawHtmlEditor.setValue(rawHtml);
+            CodeMirrorAutoFormat(rawHtmlEditor);
+            $(node).data('visibilty','visible');
+            rawHtmlEditor.setSize(null, 800);
+        } else {
+            $('#raw_media_container').hide();
+            $('#content_div').show();
+            trixElement.editor.loadHTML(rawHtmlEditor.getValue());
+            $(node).data('visibilty','hidden');
+            rawHtmlEditor.setSize(null, 1);
+        }        
+    }
+
+    function checkPostTypeAndSetupMediaEditor(postType, value) {
+        // TEXT , RICH_MEDIA, SLIDE_SHOW, IMAGE_SLIDESHOW, VIDEO_AND_BLOG
+        if (postType === 1  || postType === 2 || postType === 6 || postType === 8 || postType === 9 ) {
+            // human content editor
+            $('#content_div').html(editorViewTpl);
+            trixElement = document.querySelector('trix-editor[input="mediaInfo"]');
+            trixElement.editor.insertHTML(value);  
+            $(trixElement).focus(function(){ 
+                trixElement = $(this)[0];
+            });
+            trixElement.addEventListener("trix-attachment-add", function(event) {
+                var attachment = event.attachment;
+                if (attachment.file) {
+                    /*
+                    var editor = event.target.editor
+                    var originalRange = editor.getSelectedRange()
+                    var attachmentRange = editor.getDocument().getRangeOfAttachment(attachment)
+                    
+                    editor.setSelectedRange(attachmentRange)
+                    editor.activateAttribute("caption", "<Insert Caption>")
+                    editor.setSelectedRange(originalRange)
+                    */
+                }
+            } );
+        } else {
+            var node = $(documentUrlViewTpl).val(value);
+            $('#content_div').html(node);
+            node.change(function () {
+                renderPostMediaInfo(node.val().trim());
+            });
+        }
+    }
+
+    
+
+    
+   
+</script>
+
+<script id="custom_field_tpl" type='text/template'>
+    <div class="form-group">
+        <label>{{field_label}}</label>
+        <input type="text" class="form-control" placeholder="Enter {{field_label}}" name="{{field_name}}" value="{{field_value}}" autocomplete="off">
+    </div>
+</script>
+
+<script id="customData4mediaInfo_tpl" type='text/template'>
+    {{#eachProperty customData}}
+    <span> <strong>{{property}}</strong>: {{value}} </<span><br>
+    {{/eachProperty}}
+</script>
+
+<script id="mediaInfoUnit_tpl" type='text/template'>
+    <div class="mediaInfoUnit panel panel-default" style="max-height:450px;overflow: auto;">
+        <div class="panel-heading"> <label>Paragraph {{idx}}</label> </div>
+        <div class="panel-body">
+            <div class="row" id="mediaInfoUnit{{idx}}" style="width:96%;margin: auto;" >                
+                <div class="form-group">
+                    <label>Headline</label>
+                    <input id="miuHeadline{{idx}}" type="text" value="{{headline}}" placeholder="Enter headline" name="miuHeadline" class="form-control" autocomplete="off" />
+                </div>
+                <div class="form-group">
+                    <label>Content</label>
+                    <input id="miuContent{{idx}}" value="{{content}}" type="hidden" name="miuContent">
+                    <trix-editor id="miuEditor{{idx}}" input="miuContent{{idx}}" class="trix-content" ></trix-editor> 
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="multiselector_tpl" type='text/template'>
+    <div class="form-group">
+        <label>{{label}}</label><br>
+        <select id="multiselector{{name}}" data-selector-for="related_product_ids"  multiple data-placeholder="Choose one item" class="select">        
+            {{#each data}}            
+                <option value="{{this.id}}" >{{this.title}}</option>  
+            {{/each}}  
+        </select>
+    </div>   
+</script>

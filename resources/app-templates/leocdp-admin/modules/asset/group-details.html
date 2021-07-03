@@ -1,0 +1,373 @@
+
+<!-- Group Details -->
+
+<div class="row">
+    <div class="col-lg-10">
+      <h5 class="page-header" id="page_breadcrumb" > </h5>
+    </div>
+   	<div class="col-lg-2 text-center">
+     	<button type="button" class="btn btn-danger data-control-delete" id="btn_delete_group" style="display: ;" >
+         	<i class="fa fa-trash" aria-hidden="true"></i> Delete
+     	</button>
+     	<button type="button" class="btn btn-primary data-control-edit" id="btn_edit_group" style="display: ;"  > 
+    		<i class="fa fa-fw fa-pencil-square-o"></i> Edit 
+    	</button>
+    </div>
+</div>
+
+<!-- MAIN BODY here -->
+<div class="row">
+	 
+    <div class="col-lg-12">
+    	<h4 id="groupTitle"></h4>
+    	
+    	<!-- Headline Images -->
+        <div id="asset_page_headline_images" style="max-height:300px;overflow-y:scroll;width:100%;overflow-x: hidden;display: none;"></div>
+
+        <!-- Group Info -->
+        <div id="asset_page_body" class="panel panel-default" style="display: none;" >
+            <div class="panel-heading"> 
+            	<div class="row">
+                    <div class="col-lg-12">
+            			<i class="fa fa-info-circle" aria-hidden="true"></i> <label> Asset Group Information </label>  
+            		</div>
+			     </div>
+            </div>
+            <div class="panel-body" data-field="mediaInfo" id="mediaInfo" > </div>
+        </div>
+
+        <!-- Items in group  -->
+        <div class="panel panel-default" id="posts_of_page_view">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <i class="fa fa-list-ul" aria-hidden="true"></i> <label>Asset Item List</label>                            
+                    </div>
+                    <div class="col-lg-3" style="text-align: right;">
+			        	<button id="btn_import_items" type="button" class="btn btn-goto-router data-control-update" style="display: none;" title="Import Items" > 
+			        		<i class="fa fa-cloud-upload" aria-hidden="true"></i> Import Data
+			        	</button>
+			        	<button type="button" class="btn btn-success data-control-insert" id="btn_new_item" style="display: none;" title="New Item" > 
+			        		<i class="fa fa-plus-circle" aria-hidden="true"></i> <span id="btn_new_item_label" > New Item </span>
+			        	</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table id="item_list_holder" class="display" style="width:100%">
+                    <thead>
+                        <tr id="item_list_fields">
+                            
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+       
+    </div>    
+</div>
+
+<script>
+    var assetGroupId;
+    var assetCategoryId;
+    var assetGroupModel;
+    var isGroupTemplate, isGroupFeedbackForm;
+
+    var initGroupDetails = function(pId) {
+        assetGroupId = pId;
+       
+        var urlStr = baseAdminApi + '/group/get-info';
+        var params = { 'groupId': assetGroupId };
+        
+        LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+            	var canInsertData = json.canInsertData;
+    	    	var canEditData = json.canEditData;
+        		var canDeleteData = json.canDeleteData;
+        		
+        		if( ! canEditData ){
+    				$('button.data-control-edit').attr('disabled','disabled');
+    			}
+        		if( ! canDeleteData ){
+    				$('button.data-control-delete').attr('disabled','disabled');
+    			}
+        		if( ! canInsertData ){
+    				$('button.data-control-insert').attr('disabled','disabled');
+    			}
+            	
+                assetGroupModel = json.data;
+                
+                var groupTitle = assetGroupModel.title;
+                var assetType = assetGroupModel.assetType;
+
+                assetCategoryId = assetGroupModel.categoryIds[0] || '';
+                isGroupTemplate = assetType === 4 ||  assetType === 6 ||  assetType === 7;
+                isGroupFeedbackForm =  assetType === 13; 
+                
+                contentTypeButtonRender(assetType, isGroupTemplate);
+                
+                $('#groupTitle').html(groupTitle);
+                document.title = 'Group Details: ' + groupTitle;
+                
+                //
+				$('#btn_edit_group').click(function(){
+					var params = leoCdpRouterParams([assetGroupId, assetCategoryId ]) ;
+		        	location.hash = "calljs-leoCdpRouter('Asset_Group_Editor','" + params + "')";
+		        });
+				
+				// new item button
+		        $('#btn_new_item').click(function(){
+		        	var params = leoCdpRouterParams(['', assetGroupId, assetCategoryId ]) ;
+		        	location.hash = getAssetEditorCallJs(assetType, params);
+		        });
+		        
+				// delete this group and all items in group
+		        $('#btn_delete_group').click(function(){
+		        	LeoCdpAdmin.navFunctions.deleteGroup(assetGroupModel)
+		        })
+		        
+		        // breadcrumb link update
+		        updateBreadcrumbInAssetGroup(assetGroupModel.assetCategories, assetGroupModel.title);
+                
+                var view = $('#page_info_view');
+                for (var k in assetGroupModel) {
+                    var value = assetGroupModel[k];
+                    var fieldType = typeof value;
+
+                    if (fieldType === 'object') {
+                        if (k === 'headlineImages') {
+                            loadHeadLineImageObjectToView(assetGroupModel.headlineImages);
+                        }
+                    } else if (fieldType === 'number' || fieldType === 'string') {
+                        if (k === 'mediaInfo') {
+							$('#mediaInfo').html(value);
+                        } else if (k === 'privacyStatus') {
+
+                        } else if (k === 'description') {
+
+                        }
+                        view.find("*[data-field='" + k + "']").html(value);
+
+                    }   
+                }
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
+
+        //load all posts of page
+        loadAssetItems();
+    }
+    
+    function contentTypeButtonRender(assetGroupType, isGroupTemplate){
+	    if(isGroupTemplate){
+	    	$('#btn_new_item_label').text('New Template');
+	    } 
+	    if(isGroupFeedbackForm){
+	    	$('#btn_new_item_label').text('New Feedback Form');
+	    } 
+	    else {
+	    	$('#asset_page_body').show();
+        	$('#btn_edit_group').show();
+        	$('#btn_delete_group').show();
+        
+        	if(assetGroupType === 1){
+        		// Creative Content / web blog
+        		// TODO import content from CSV ??
+        	}
+        	else if(assetGroupType === 2){
+        		// PRODUCT_ITEM_CATALOG
+        		$('#btn_import_items').show().click(function(){
+        			location.hash = "calljs-leoCdpRouter('Product_Importer','" + assetGroupId + "')";
+        		});
+        	}
+	    }
+    	$('#btn_new_item').show();
+    }
+    
+
+
+    function loadAssetItems() {
+        var usersession = lscache.get('usersession');
+        if (usersession) {
+        	
+        	var columnProcessor = [
+        		{
+                     "render": function (data, type, row) {
+                    	 var imgSrc = data === "" ? '/public/images/asset-item-logo.png' : data;
+                         return '<div><img class="img-responsive" src="'+imgSrc+'" alt="" width="90" height="90"> </a>';
+                     },
+                     "targets": 0
+                },
+                {
+                    "render": function (data, type, row) {
+                        var html = '';
+                        var itemId = row.id;
+                        var type = row.type;
+                       
+                    	var assetType = row.assetType;
+                    	var contentClass = row.contentClass;
+                    	var title =  row.title;
+                        if(isGroupTemplate){
+                    		var params = leoCdpRouterParams([itemId, assetGroupId, assetCategoryId ]) ;
+                        	var callJsStr = "#calljs-leoCdpRouter('Asset_Template_Editor','" + params + "')";
+                            html = '<a class="text_wrapper" title="Edit: ' + title + '" href="' + callJsStr + '" > '+data+'</a>';
+                    	}
+                    	else {
+                    		var params = leoCdpRouterParams([itemId, assetGroupId, assetCategoryId ]) ;
+                        	var callEditJsStr = "#" + getAssetEditorCallJs(assetType, params);
+                        	html = '<a class="text_wrapper" title="Edit: ' + title + '" href="' + callEditJsStr + '" > '+data+'</a>';
+                            return html;
+                    	}
+                        return '<div class="data_field" >' + html + '</a>';
+                    },
+                    "targets": 1
+                },
+                {
+                    "render": function (data, type, row) {
+                        var num = parseInt(data);
+                        if (num === 1) {
+                            return '<i class="fa fa-envelope-open-o" style="font-size:16px">Protected</i>';
+                        } else if (num < 0) {
+                            return '<i class="fa fa-envelope-o" style="font-size:16px"> Private</i>';
+                        }
+                        return '<i class="fa fa-folder-o" style="font-size:16px"> Public</i>';
+                    },
+                    "targets": 2
+                },
+               
+                {
+                    "render": function (data, type, row) {                           
+                    	 var style = 'style="font-size:12.5px;width:140px; color: blue"';
+                         if (data === 1) {
+                             return '<i class="fa fa-html5" '+style+' > WEB BLOG POST</i>';
+                         } else if (data === 2) {
+                             return '<i class="fa fa-shopping-cart" '+style+' > PRODUCT ITEM</i>';
+                         } else if (data === 3) {
+                             return '<i class="fa fa-heartbeat" '+style+' > SERVICE ITEM</i>';
+                         } else if (data === 4) {
+                             return '<i class="fa fa-envelope-open-o" '+style+' > EMAIL TEMPLATE</i>';
+                         } else if (data === 5) {
+                             return '<i class="fa fa-facebook-square" '+style+' > SOCIAL MEDIA POST</i>';
+                         } else if (data === 6) {
+                             return '<i class="fa fa-paper-plane-o" '+style+' > PUSH MESSAGE TEMPLATE</i>';
+                         } else if (data === 10 ) {
+                             return '<i class="fa fa-television" '+style+' > AD BANNER PLACEHOLDER</i>';
+                         }  else if (data === 13 ) {
+	                        return '<i class="fa fa-comments-o" '+style+' > FEEDBACK FORM</i>';
+	                     } 
+                         return '<i class="fa fa-dot-circle-o" '+style+' > UNCLASSIFIED</i>';
+                    },
+                    "targets": 3
+                },
+                {
+                    "render": function (data, type, row) {
+                        var date = moment.utc(data).local().format('YYYY-MM-DD HH:mm:ss');
+                        return '<div class="small">'  + date + '</div>';
+                    },
+                    "targets": 4
+                },{
+                    "render": function (data, type, row) {
+                    	var itemId = data;
+                    	var type = row.type;
+                    	var assetType = row.assetType;
+                    	var contentClass = row.contentClass;
+                    	var title =  row.title;
+                    	
+                    	if(isGroupTemplate){
+                    		// no preview for template, go directly editor
+                    		var params = leoCdpRouterParams([itemId, assetGroupId, assetCategoryId ]) ;
+                        	var callJsStr = "#calljs-leoCdpRouter('Asset_Template_Editor','" + params + "')";
+                            return '<a class="text_wrapper" title="' + title + '" href="' + callJsStr + '" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>';
+                    	}
+                    	else {
+                    		var params = leoCdpRouterParams([itemId, assetGroupId, assetCategoryId ]) ;
+                        	
+                        	var callViewJsStr = "#calljs-leoCdpRouter('Asset_Content_View','" + params + "')";
+                        	var callEditJsStr = "#" + getAssetEditorCallJs(assetType, params);
+                        	
+                        	var html = '';
+                        	//html += '<a class="text_wrapper" title="View: ' + title + '" href="' + callViewJsStr + '" ><i class="fa fa-info-circle" aria-hidden="true"></i> View</a> <br>';
+                        	html += '<a class="text_wrapper" title="Edit: ' + title + '" href="' + callEditJsStr + '" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>';
+                            return html;
+                    	}
+                    	
+                    },
+                    "targets": 5
+                }
+            ];
+        	
+        	var columnSchema = [
+                {
+                    "data": "headlineImageUrl"
+                },
+                {
+                    "data": "title"
+                },
+                {
+                    "data": "privacyStatus"
+                },
+                {
+                    "data": "assetType"
+                },
+                {
+                    "data": "updatedAt"
+                },
+                {
+                    "data": "id"
+                }
+            ];
+        	
+        	var columnFields = ['Image','Title of Item','Privacy','Asset Type','Last Updated','Actions'];
+        	_.each(columnFields, function(e){ $('#item_list_fields').append('<th>'+ e + '</th>') });
+        	
+            $('#item_list_holder').DataTable({
+            	"lengthMenu": [[10, 30, 50], [10, 30, 50]],
+            	'processing': true,
+                'serverSide': true,
+                'searching': false,
+                'serverMethod': 'POST',
+                "ajax": {
+                    "url": baseAdminApi + '/item/filter-by-group',
+                    "contentType": 'application/json',
+                    "type": "POST",
+                    "data": function (d) {
+                        d.usersession = usersession;
+                        d.groupId = assetGroupId;
+                        return JSON.stringify(d);
+                    }
+                },
+                "columnDefs": columnProcessor,
+                "columns": columnSchema
+            });
+        }
+    }
+    
+    function getIconForGroupType(data){
+    	var style = 'style="font-size:12.5px;width:120px; color: blue"';
+        if (data === 1) {
+            return '<i class="fa fa-file-text-o" '+style+' > WEB HTML</i>';
+        } else if (data === 2) {
+            return '<i class="fa fa-file-text-o" '+style+' > RICH MEDIA</i>';
+        } else if (data === 3) {
+            return '<i class="fa fa-file-word-o" '+style+' > OFFICE FILE</i>';
+        } else if (data === 4) {
+            return '<i class="fa fa-play-circle-o" '+style+' > VIDEO</i>';
+        } else if (data === 5) {
+            return '<i class="fa fa-file-text-o" '+style+' > AUDIO</i>';
+        } else if (data === 6) {
+            return '<i class="fa fa-file-picture-o" '+style+' > SLIDESHOW</i>';
+        } else if (data === 7) {
+            return '<i class="fa fa-file-text-o" '+style+' > EBOOK</i>';
+        } else if (data === 8) {
+            return '<i class="fa fa-file-text-o" '+style+' > PHOTO GALLERY</i>';
+        } else if (data === 9) {
+            return '<i class="fa fa-file-text-o" '+style+' > TEMPLATE</i>';
+        }
+        return '<i class="fa fa-file-text-o" '+style+' > META DATA</i>';
+    }
+    
+    // callLeoBotForIdeasRecommender('context-page')
+    LeoCdpAdmin.loadView('/view/common-widgets/headline-images.html?admin=1', '#asset_page_headline_images', false, true);
+</script>
+

@@ -1,0 +1,259 @@
+
+<!-- Data Science Jupyter Notebooks -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <h5 class="page-header" id="page_breadcrumb" > </h5>
+    </div>
+   
+	<div class="col-lg-12">
+		<h4> <i class="fa fa-tachometer" aria-hidden="true"></i> Customer Experience (CX) Analytics </h4>
+	</div>
+</div>
+
+<div class="row ">
+     <div class="col-lg-12">
+     	  
+    	<!--  Time-series -->
+      	<div class="col-lg-12" >
+      		<div class="form-group highlight_box" >
+	     		<div class="col-lg-2">
+	     			<label> <i class="fa fa-info-circle" aria-hidden="true"></i> Filter by Data Type </label>
+	     		</div>
+	     		<div class="col-lg-10" id="feedbackDataTypeHolder" >
+	     			<label style="display: none" class="radio-inline"><input type="radio" name="feedbackDataType" value="-1"  > All CX Data </label>
+	               	<label style="display: none" class="radio-inline"><input type="radio" name="feedbackDataType" value="0" > CFS Survey </label>
+	               	<label style="display: none" class="radio-inline"><input type="radio" name="feedbackDataType" value="1" > CFS Comment </label>
+	               	<label class="radio-inline"><input type="radio" name="feedbackDataType" value="2" checked > CFS Rating </label>
+	               	<label class="radio-inline"><input type="radio" name="feedbackDataType" value="3" > CES Rating </label>
+	               	<label class="radio-inline"><input type="radio" name="feedbackDataType" value="4" > CSAT Rating </label>
+	               	<label class="radio-inline"><input type="radio" name="feedbackDataType" value="5" > NPS Rating </label>
+	     		</div>
+			</div>
+				
+      		<div class="col-lg-9">
+
+				<div class="col-lg-12">
+					<h4> <i class="fa fa-bar-chart" aria-hidden="true"></i> <span id="cxReportHeader" >  </span> 
+						Report from <mark id="beginReportDate"></mark> to <mark id="endReportDate" ></mark> </h4>
+				</div>
+				
+				<div class="col-lg-12 highlight_box" >
+					<div class="row float-right">
+				        <div class='col-lg-5 col-xs-12'>
+				            <div class="form-group">
+				                <div class='input-group date' id='beginFilterDate'>
+				                    <input type='text' class="form-control" autocomplete="off" /> 
+				                    <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+				                </div>
+				            </div>
+				        </div>
+				        <div class='col-lg-5 col-xs-12'>
+				            <div class="form-group">
+				                <div class='input-group date' id='endFilterDate'>
+				                    <input type='text' class="form-control" autocomplete="off" /> 
+				                    <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+				                </div>
+				            </div>
+				        </div>
+				        <div class='col-lg-2 col-xs-12 text-center'>
+				        	<button type="button" class="btn btn-primary" style="width: 80%" onclick="loadDailyReportScoreCX(true)" > 
+				        		<i class="fa fa-check" aria-hidden="true"></i> OK </button>
+				        </div>
+				    </div>
+					<div class="col-lg-12" >
+						<canvas id="dailyCxScoreBarChart" data-chart-type="bar" ></canvas>
+					</div>
+				</div>
+				
+      		</div>
+			<div class="col-lg-3"> 
+			
+				<div>
+					<h5 class="highlight_text text-center" > Overall <span id="overall_score_label" ></span> Score </h5>
+					<canvas id="overallCxScoreChart" style="height: 236px;width:100%" ></canvas>
+				</div>
+				
+		       	<div class="chart_box" style="border-top: dashed 1px #000;">
+		        	<h5 class="highlight_text text-center" > <span id="positive_profile_label" >Promoter</span>  Profile Count </h5>
+		            <div class="summary_metric">
+		                <div class="vcenter text-center profile_count" id="positive_profile_count"  >
+		 					0
+		                </div>
+		            </div>
+		       	</div>
+		       	
+		       	<div class="chart_box" style="border-top: dashed 1px #000;">
+		        	<h5 class="highlight_text text-center" > <span id="neutral_profile_label" >Passive</span>  Profile Count </h5>
+		            <div class="summary_metric">
+		                <div class="vcenter text-center profile_count" id="neutral_profile_count"  >
+		 					0
+		                </div>
+		            </div>
+		       	</div>
+		       	
+		       	<div class="chart_box" style="border-top: dashed 1px #000;">
+		        	<h5 class="highlight_text text-center" > <span id="negative_profile_label" >Detractor</span>  Profile Count </h5>
+		            <div class="summary_metric">
+		                <div class="vcenter text-center profile_count" id="negative_profile_count"  >
+		 					0
+		                </div>
+		            </div>
+		       	</div>
+		       	
+	        </div>
+	  	</div>
+    </div>
+</div>
+  
+
+<script>
+    var initCXAnalyticsDashboard = function() {
+    	initDateFilterComponent(true, null, null, 60);
+    	loadDailyReportScoreCX(false);
+    	
+    	$('#feedbackDataTypeHolder').find('input[type="radio"]').click(function(){
+    		loadDailyReportScoreCX(true);
+    		$('#cxReportHeader').text($(this).parent().text())
+    	})
+    }
+	
+	
+	window.cxDailyReportChart = false;
+	window.overallCxChart = false;
+	var defaultCxScoreLabels = { "positive" : "Positive", "neutral" : "Neutral", "negative" : "Negative"};
+	var defaultNpsScoreLabels = { "positive" : "Promoter", "neutral" : "Passive", "negative" : "Detractor"};
+	
+    var loadDailyReportScoreCX = function(refresh){
+    		
+    	var selectedRadioBtn = $('#feedbackDataTypeHolder').find('input[type="radio"]:checked');
+    	var feedbackDataTypeText = selectedRadioBtn.parent().text();
+    	var feedbackDataType = parseInt(selectedRadioBtn.val());
+    	
+    	var formatDate = 'YYYY-MM-DD';
+    	var dateFilter = getDateFilterValues();
+    	
+    	var requestParams = {};
+    	requestParams['beginFilterDate'] = new moment(dateFilter.beginFilterDate).format(formatDate)
+    	requestParams['endFilterDate'] = new moment(dateFilter.endFilterDate).format(formatDate)
+    	requestParams['feedbackDataType'] = feedbackDataType;
+    	
+    	$('#cxReportHeader').text(feedbackDataTypeText);
+    	$('#overall_score_label').text(feedbackDataTypeText);
+    	$('#beginReportDate').text(requestParams['beginFilterDate']);
+    	$('#endReportDate').text(requestParams['endFilterDate']);
+    	
+    	var cxScoreLabels = defaultCxScoreLabels;
+    	if(feedbackDataType === 5) {
+    		cxScoreLabels = defaultNpsScoreLabels;
+    	} 
+    	
+    	var urlStr = baseAdminApi + '/cdp/analytics360/cx-report';
+    	LeoAdminApiUtil.getSecuredData(urlStr, requestParams , function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+            	
+            	var fbReport = json.data;
+            	console.log(fbReport)
+        		
+        		// 1) overall cx stats
+        		var overallScore = fbReport.scoreCX;
+    			var delta = overallScore.positivePercentage - overallScore.negativePercentage;
+        		var overallCxData = {
+	   				  donutChartCenterData : {
+	   					  value : delta,
+	   					  suffix : "%",
+	   					  marginTop : 25
+	   				  },
+	   				  labels: [
+	   					cxScoreLabels.negative,
+	   					cxScoreLabels.neutral,
+	   					cxScoreLabels.positive
+	   				  ],
+	   				  datasets: [
+	   				    {
+	   				      data: [overallScore.negativePercentage, overallScore.neutralPercentage, overallScore.positivePercentage],
+	   				      backgroundColor: [
+	   				        "#ff8080",
+	   				        "#99bbff",
+	   				        "#b3ffb3"
+	   				      ],
+	   				      hoverBackgroundColor: [
+	   				        "#ff5c33",
+	   				        "#6699ff",
+	   				        "#ccff66"
+	   				      ]
+	   				    }]
+     			};
+
+     		   	if(refresh && typeof window.overallCxChart === "object"){
+     		   		window.overallCxChart.data = overallCxData;
+     		   		window.overallCxChart.update();
+	       		} else {
+	       			window.overallCxChart = renderDonutChartJs('overallCxScoreChart', overallCxData)
+	       		}
+     		   	
+     		   	// 2) profile stats
+     		   	$('#positive_profile_label').text(cxScoreLabels.positive);
+     		   	$('#neutral_profile_label').text(cxScoreLabels.neutral);
+     		  	$('#negative_profile_label').text(cxScoreLabels.negative);
+     		  	
+     		   	$('#positive_profile_count').text(fbReport.positiveProfileCount);
+     		   	$('#neutral_profile_count').text(fbReport.neutralProfileCount);
+     		  	$('#negative_profile_count').text(fbReport.negativeProfileCount);
+        		
+        		// 3) daily stats
+        		var barChartData = {labels : false, datasets : false};
+        		var formatDate = 'YYYY-MM-DD';
+        		var labels = [];
+        		var rawDateFilter = getRawDateFilterValues();
+        		var bDate = rawDateFilter.beginFilterDate;
+        		var eDate = rawDateFilter.endFilterDate;
+        		while (bDate.isBefore(eDate, 'day')) {
+        		  labels.push(bDate.format(formatDate));
+        		  bDate.add(1, 'days');
+        		}
+        		barChartData.labels = labels;
+        		
+        		var datasets = [{
+					label: cxScoreLabels.negative.toUpperCase(),
+					backgroundColor: "#ff8080",
+					data: []
+				}, {
+					label: cxScoreLabels.neutral.toUpperCase(),
+					backgroundColor: "#99bbff",
+					data: []
+				}, {
+					label: cxScoreLabels.positive.toUpperCase(),
+					backgroundColor: "#b3ffb3",
+					data: []
+				}];
+        		
+        		labels.forEach(function(dailyKey) {
+        			var scoreCX = fbReport.dailyScoreCX[dailyKey];
+        			if(scoreCX){
+        				datasets[0].data.push(scoreCX.negativePercentage)
+            			datasets[1].data.push(scoreCX.neutralPercentage)
+            			datasets[2].data.push(scoreCX.positivePercentage)
+        			}
+        			else {
+        				datasets[0].data.push(0)
+            			datasets[1].data.push(0)
+            			datasets[2].data.push(0)
+        			}
+        		});
+        		
+        		barChartData.datasets = datasets;
+        		
+        		if(refresh && typeof window.cxDailyReportChart === "object"){
+        			window.cxDailyReportChart.data = barChartData;
+        			window.cxDailyReportChart.update();
+        		} else {
+        			window.cxDailyReportChart = renderBarChart('dailyCxScoreBarChart', barChartData);
+        		}
+				
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
+    }
+</script>

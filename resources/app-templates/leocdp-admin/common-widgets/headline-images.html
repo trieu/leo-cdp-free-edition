@@ -1,0 +1,110 @@
+<div class="panel panel-default">
+    <div class="panel-heading"> <label>Headline Images</label> </div>
+    <div class="panel-body">
+        <div class="row display-flex" id="headline_images">
+            <!-- data-list -->
+        </div>
+    </div>
+</div>
+
+<script id='headline_images_tpl' type='text/template'>
+    <div class="col-xs-18 col-sm-4 col-md-2" id="{{id}}"  >
+        <div class="thumbnail">            
+            <div class="img-wrap">
+                <span class="close" style="display:none;" >&times;</span>
+                <img class="headline_image" src="{{image_src}}" alt="Headline Image" title="{{image_caption}}" >
+            </div>
+            <div class="caption">
+                <p> {{image_caption}} </p>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    function loadHeadLineImageObjectToView(obj, editableCaption, insertNew) {
+        var raw_template = $('#headline_images_tpl').html().trim();
+        var template = Handlebars.compile(raw_template);
+        var placeHolder = $('#headline_images');
+        var c = 0;
+       
+        for (var imgSrc in obj) {
+            var imgCaption = obj[imgSrc];
+            var id = c + 'headline_image' + (new Date().getTime());
+            console.log(imgSrc)
+            var html = template({
+                'image_caption': imgCaption,
+                'image_src': imgSrc,
+                'id': id
+            });
+            console.log(html)
+            placeHolder.append(html);
+            c++;
+
+            placeHolder.find('img.headline_image').click(function(){
+                $(this).css('cursor','pointer');
+                var src = $(this).attr('src');
+                var title = $(this).attr('title');
+
+                $('#imageZoomSrc').attr('src',src);
+                $('#imageZoomTitle').html(title);
+                $('#headlineImageZoomDialog').modal({
+                    focus: true
+                });
+            });
+        }
+
+        if (c === 0) {
+            placeHolder.hide();
+        } else {
+            if (editableCaption) {
+                $('#headline_images > div').each(function () {
+                    var headlineNode = $(this);
+                    headlineNode.find('div.thumbnail p').editable({
+                        type: 'text',
+                        title: 'Enter Image Label Value'
+                    });
+                    headlineNode.find('span.close').show().click(function () {
+                        headlineNode.remove()
+                    });
+                    console.log('headlineNode', headlineNode)
+                });
+            }
+            if (insertNew) {
+                placeHolder.find('div.thumbnail p').last().editable({
+                    type: 'text',
+                    title: 'Enter Image Label Value'
+                });
+                var headlineNode = $('#headline_images > div').last();
+                headlineNode.find('span.close').show().click(function () {
+                    headlineNode.remove()
+                });
+                placeHolder.show();
+            }
+        }
+    }
+</script>
+
+
+<!-- The Modal for Image Zooming -->
+<div class="modal fade" id="headlineImageZoomDialog" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="imageZoomTitle"> </h4>
+            </div>
+            <div class="modal-body">
+                <div style="text-align:center">
+                    <img id="imageZoomSrc" src="" class="img-fluid" alt="Responsive image">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"> CLOSE </button>
+            </div>
+        </div>
+
+    </div>
+</div>

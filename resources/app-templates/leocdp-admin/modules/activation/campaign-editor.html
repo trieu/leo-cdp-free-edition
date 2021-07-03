@@ -1,0 +1,118 @@
+
+<div class="row" id="breadcrumb_header" >
+   	<div class="col-md-12" >
+        <div class="col-lg-9">
+	        <h5 class="page-header" id="page_breadcrumb" > </h5>
+	    </div>
+	    <div class="col-lg-3 text-center" style="padding: 10px">
+	    	<button type="button" class="btn btn-info" title="Go back" onclick="history.back()" > 
+				<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back 
+			</button>
+			<button type="button" class="btn btn-danger data-control-delete" title="Delete this Campaign" > 
+				<i class="fa fa-trash" aria-hidden="true"></i> Delete 
+			</button>
+			<button type="button" class="btn btn-success" title="Save this Campaign" > 
+				<i class="fa fa-check-square-o" aria-hidden="true"></i> Save 
+			</button>
+		</div>
+    </div>
+</div>
+  
+
+<div class="container row">
+	
+	<h4 id="campaign_title" class="highlight_text" >  </h4>
+	<p> ... </p>
+	
+	<div class="panel-group">
+	
+		<!--  1 metadata  -->
+		<div class="panel panel-leoadmin">
+			<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i>  Campaign Metadata </b>  </div>
+			<div class="panel-body">
+				<div class="col-lg-12">
+					<form class="form-horizontal" action="/action_page.php">
+						<div class="form-group">
+							<div class="col-sm-10">
+								<b>Title:</b> <span id="cp_title" ></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-10">
+								<b>Description:</b> <span id="cp_description" ></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-10"  id="cp_type" >
+								<b>Type:</b> Ad hoc query segmentation
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<div class="col-sm-10"  id="cp_activeQuery" >
+							
+							</div>
+						</div>
+					</form>
+				</div>
+				
+
+			</div>
+		</div>
+		
+		<!--  2 targeted segments  -->
+		<div class="panel panel-leoadmin">
+			<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Targeted Segments </b> </div>
+			<div class="panel-body">
+				
+				
+			</div>
+		</div>
+		
+		<!--  3 products  -->
+		<div class="panel panel-leoadmin" id="profile-list-panel" style="display: none" >
+			<div class="panel-heading"> <b> <i class="fa fa-list" aria-hidden="true"></i> List of all profiles in segment </b>  </div>
+			<div class="panel-body">
+				<div class="table-responsive" id="profilelist_holder" >
+				
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	
+    var initCampaignEditor = initCampaignEditor || function(id) {
+    	var urlStr = baseAdminApi + '/cdp/campaign/get';
+        LeoAdminApiUtil.callPostAdminApi(urlStr, { 'id': id }, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+        		// only super-admin role can remove the segment 
+        		
+        		if( ! json.canEditData ){
+        			$('button.data-control-edit').attr('disabled','disabled');
+        		} else {
+        			$('button.data-control-edit').click(function(){
+        				location.hash = "calljs-leoCdpRouter('Campaign_Editor','" + id + "')";
+        			})
+        		}
+        		
+        		campaignModel = json.data;
+        		
+                var cpId = campaignModel.id;
+                var title = campaignModel.title;
+                
+                document.title = 'Campaign Details: ' + title;
+                $('#cp_title').text(title);
+                
+             	// init UI after setting data into DOM
+              
+                loadProductsInCampaign(cpId)
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
+    }
+</script>
+    
+

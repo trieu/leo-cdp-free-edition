@@ -1,0 +1,36 @@
+<!-- Modal -->
+<div class="modal fade" id="confirmDeleteDialog" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> Delete Data Confirmation </h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="alert alert-danger">
+                    <strong id="deletedInfoMsg">Do you want to delete data ?</strong><br>
+                    <span id="deletedInfoTitle"></span>
+                </div>
+
+                <input id="delete_callback" type="hidden" name="delete_callback" value="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="confirmDeleteDialogOk()"> YES, I CONFIRM </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"> NO </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function confirmDeleteDialogOk() {
+        var callback = $('#delete_callback').val();
+        if (typeof window[callback] === 'function') {
+            window[callback]();
+        }
+        $('#confirmDeleteDialog').modal('hide');
+    }
+</script>

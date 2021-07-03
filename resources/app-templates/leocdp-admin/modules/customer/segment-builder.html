@@ -1,0 +1,530 @@
+<!-- Segment Builder -->
+
+<div class="row">
+	<div class="col-lg-9">
+		<h5 class="page-header" id="page_breadcrumb" > </h5>
+	</div>
+	<div class="col-lg-3 text-center" style="padding: 10px">
+		<button type="button" class="btn btn-info" onclick="history.back()"> 
+			<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back 
+		</button>
+		<button type="button" class="btn btn-danger data-control-delete" > 
+			<i class="fa fa-trash" aria-hidden="true"></i> Delete 
+		</button>
+		<button type="button" class="btn btn-success" onclick="saveSegment()"> 
+			<i class="fa fa-check-square-o" aria-hidden="true"></i> Save 
+		</button>
+	</div>
+</div>
+
+<div class="container">
+	
+	<h4 id="segment_name" class="highlight_text" >  </h4>
+	<p> Enter the name of segment and set query builder to search profiles </p>
+	
+	<div class="panel-group">
+	
+		<!--  1 metadata  -->
+		<div class="panel panel-leoadmin">
+			<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Segment Metadata </b>  </div>
+			<div class="panel-body">
+				<div class="col-lg-12">
+				
+					<div id="error-on-save" class="alert alert-danger" style="display: none;"></div>
+					
+					<div class="form-group row">
+						<label class="control-label col-sm-3" for="sm_name">Name</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="sm_name" placeholder="Enter segment name" name="name">
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="control-label col-sm-3" for="sm_description">Description</label>
+						<div class="col-sm-9">
+							<textarea class="form-control" rows="2" id="sm_description" name="description"  placeholder="Enter segment description" ></textarea>
+						</div>
+					</div>
+					
+					<div class="form-group row"  >
+						<label class="control-label col-sm-3" for="type">Status</label>
+						<div id="sm_status" style="font-size: 12px;"  class="col-sm-9" >
+		                   <div class="radio">
+							  <label><input type="radio" name="status" value="1" checked="checked" >ACTIVE QUERY</label>
+						   </div>
+						   <div class="radio">
+							  <label><input type="radio" name="status" value="2" >ACTIVATED</label>
+						   </div>
+		                   <div class="radio">
+							  <label><input type="radio" name="status" value="0" >PASSIVE QUERY</label>
+						   </div>
+		                </div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="control-label col-sm-3" for="type">Data segmentation method</label>
+						<div class="col-sm-9"  id="sm_type" >
+							<div class="radio" title="Ad hoc query segmentation" >
+							  <label><input type="radio" name="type" checked value="9" > Manually segmentation (Ad-Hoc Query) </label>
+							</div>
+							
+							<div class="radio" title="Geographic segmentation" >
+							  <label><input type="radio" name="type" value="1" > Geographic segmentation </label>
+							</div>
+							<div class="radio" title="Demographic segmentation" >
+							  <label><input type="radio" name="type" value="2" > Demographic segmentation </label>
+							</div>
+							<div class="radio" title="Behavioral segmentation" >
+							  <label><input type="radio" name="type" value="4" > Behavioral segmentation </label>
+							</div>
+							
+							<div class="radio" title="Psychographic segmentation (This feature is only on LEO CDP Enterprise version)" style="display: none;" >
+							  <label class="input_disabled" ><input type="radio" name="type" value="3" disabled="disabled" > Psychographic segmentation </label>
+							</div>
+							<div class="radio" title="Re-marketing segmentation (This feature is only on LEO CDP Enterprise version)" style="display: none;">
+							  <label class="input_disabled"><input type="radio" name="type" value="5" disabled="disabled" > Re-marketing segmentation </label>
+							</div>
+							<div class="radio" title="Look-alike segmentation (This feature is only on LEO CDP Enterprise version)" style="display: none;">
+							  <label class="input_disabled"><input type="radio" name="type" value="6" disabled="disabled" > Look-alike segmentation </label>
+							</div>
+							
+							<div class="radio" title="RFM model segmentation (This feature is only on LEO CDP Enterprise version)" style="display: none;">
+							  <label class="input_disabled"><input type="radio" name="type" value="7" disabled="disabled" > RFM model segmentation </label>
+							</div>
+							<div class="radio" title="Churn segmentation (This feature is only on LEO CDP Enterprise version)" style="display: none;">
+							  <label class="input_disabled"><input type="radio" name="type" value="8" disabled="disabled" > Churn segmentation </label>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="control-label col-sm-3" for="sm_indexscore">Index score for sorting</label>
+						<div class="col-sm-9">
+							<input type="number" class="form-control" id="sm_indexscore" placeholder="Enter the index score for ranking" name="indexScore" style="width:150px" >
+						</div>
+					</div>
+					
+					<div class="form-group row" style="display: none;" >
+						<div class="col-sm-12">
+							<label class="control-label col-sm-3" for="sm_activeQuery"> For new profile data </label>
+							<div class="col-sm-9">
+								<div class="checkbox">
+									<label><input type="checkbox" id="sm_activeQuery" name="activeQuery"> Automatic adding any new profile has data match query criteria in real-time </label>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-leoadmin">
+			<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i>  Data Purpose  </b>  </div>
+			<div class="panel-body">
+				<div class="col-lg-12">
+					<div class="form-group row">
+						
+						<div class="col-sm-12">
+							<label class="control-label col-sm-3" for="sm_forRecommenderSystem"> For customer personalization </label>
+							<div class="col-sm-9">
+								<div class="checkbox">
+									<label><input type="checkbox" id="sm_forRecommenderSystem" name="forRecommenderSystem"> 
+										To suggest most personalized items directly to your customers to activate demands
+									</label>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-12" style="display: none;" >
+							<label class="control-label col-sm-3" for="sm_forPredictiveAnalytics"> For predictive analytics </label>
+							<div class="col-sm-9">
+								<div class="checkbox">
+									<label><input type="checkbox" id="sm_forPredictiveAnalytics" name="forPredictiveAnalytics"> 
+										For predictive analytics, to calculate Customer Lifetime Value (CLV) from behavioral data 	
+									</label>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-12" >
+							<label class="control-label col-sm-3" for="sm_forEmailMarketing"> For personalized email marketing </label>
+							<div class="col-sm-9">
+								<div class="checkbox">
+									<label><input type="checkbox" id="sm_forEmailMarketing" name="forEmailMarketing"> To target your customers through email,
+										 by providing personalized information, feedback form and CX survey
+									</label>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-12" style="display: none;" >
+							<label class="control-label col-sm-3" for="sm_forDeepAnalytics"> To get more data insights </label>
+							<div class="col-sm-9">
+								<div class="checkbox">
+									<label><input type="checkbox" id="sm_forDeepAnalytics" name="forDeepAnalytics"> 
+										Using Jupyter Notebook or Google Colab to analyse data for more information and customer insights
+									</label>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-12" style="display: none;">
+							<label class="control-label col-sm-3" for="sm_forRealtimeMarketing"> For real-time marketing </label>
+							<div class="col-sm-9">
+								<div class="checkbox">
+									<label><input type="checkbox" id="sm_forRealtimeMarketing" name="forRealtimeMarketing"> 
+										To connect customers with the product or service that they need in real-time, by using push notification and mobile SMS
+									</label>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-12" style="display: none;">
+							<label class="control-label col-sm-3" for="sm_forReTargeting"> For behavioral re-targeting </label>
+							<div class="col-sm-9">
+								<div class="checkbox">
+									<label><input type="checkbox" id="sm_forReTargeting" name="forReTargeting"> 
+										Behavioral retargeting is a form of online targeted advertising 
+										by which online advertising is targeted to consumers based on their previous Internet actions
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12" style="display: none;">
+							<label class="control-label col-sm-3" for="sm_forLookalikeTargeting"> For look-alike targeting </label>
+							<div class="col-sm-9">
+								<div class="checkbox">
+									<label><input type="checkbox" id="sm_forLookalikeTargeting" name="forLookalikeTargeting"> 
+										Lookalike targeting is a form of audience targeting that uses lookalike audiences to increase your ROI. <br>
+	 									Lookalike targeting is used when you want to target an audience that is similar to your existing customer base
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--  2 query  -->
+		<div class="panel panel-leoadmin">
+			<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Query Details </b> </div>
+			<div class="panel-body">
+				<div class='col-md-7 col-xs-12'>
+					<div class="col-md-12">
+						<label style="padding: 8px;"> 
+							<input id="disable_date_filter" type="checkbox" onclick="toggleSegmentDisableDateFilter(false)" > Disable Date Range Filter 
+						</label>
+					</div>
+					<div id="segment_disable_date_filter_holder" class="col-md-12">
+						<div class='col-md-5 col-xs-12'>
+							<div class="form-group">
+								<div class='input-group date' id='beginFilterDate'>
+									<input type='text' class="form-control" autocomplete="off" /> 
+									<span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+								</div>
+							</div>
+						</div>
+						<div class='col-md-2 col-xs-12 text-center'>
+							<i class="fa fa-long-arrow-right" aria-hidden="true" style="font-size: 32px" ></i>
+						</div>
+						<div class='col-md-5 col-xs-12'>
+							<div class="form-group">
+								<div class='input-group date' id='endFilterDate'>
+									<input type='text' class="form-control" autocomplete="off" /> 
+									<span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="btn-group col-md-5 col-xs-12">
+					<button type="button" class="btn btn-warning" id="btn-reset-querybuilder"> 
+						<i class="fa fa-undo" aria-hidden="true"></i> Reset Query </button>
+					<button type="button" class="btn btn-primary" id="btn-run-querybuilder"> 
+						<i class="fa fa-check-circle-o" aria-hidden="true"></i> Run Query </button>
+				</div>
+				
+				<!-- Query Details -->
+				<div class="col-lg-9">
+					<div id="segment-builder-holder"></div>
+				</div>
+				<div class="col-lg-3 text-center">
+					<b> Segment Size / Total </b>
+					<div id="donut_chart" style="max-width: 300px; margin: auto;"></div>
+				</div>
+			</div>
+		</div>
+		
+		<!--  3 profiles  -->
+		<div class="panel panel-leoadmin" id="profile-list-panel"  >
+			<div class="panel-heading"> <b> <i class="fa fa-list" aria-hidden="true"></i> All matched profiles</b>  </div>
+			<div class="panel-body">
+				<div class="table-responsive" id="profilelist_holder" >
+					<table id="profile_list_querybuilder" class="display" style="width:100%;">
+				    	<thead>
+				        	<tr>
+					            <th>Full Name</th>
+					            <th>Age</th>
+					            <th>Gender</th>
+					            <th>Primary Email</th>
+					            <th>Data Quality Score</th>
+					            <th>Funnel Stage</th>
+					            <th>Last Modification</th>
+					            <th>Last-seen Touchpoint</th>
+				        	</tr>
+				    	</thead>
+				 	</table>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+
+<script>
+	var segmentDataModel = false;
+	var segmentDataStats = false;
+	
+	var initSegmentBuilder = function(id) {
+		segmentDataModel = false;
+		// Date Range Filtering Controller
+		if(id === 'new'){
+			// init UI for new segment
+			$('button.data-control-delete').hide();
+			createNewSegmentModel();
+		} else {
+			getSegmentBuilderData(id);
+		}
+	}
+	
+	function toggleSegmentDisableDateFilter() {
+		var checked = $('#disable_date_filter:checked').length === 1;
+		if(checked) {
+			$('#segment_disable_date_filter_holder').hide();
+		} else {
+			$('#segment_disable_date_filter_holder').show();
+			var beginFilterDate = new Date();
+			var endFilterDate = new moment().add(2,'days')
+			initDateFilterComponent(true, beginFilterDate , endFilterDate );
+		}
+	}
+	
+	var segmentQueryBuilderCallback =  function(){
+		$('#btn-reset-querybuilder').on('click', function() {
+			$('#segment-builder-holder').queryBuilder('reset');
+		});
+		
+		loadSegmentStatistics(segmentDataStats);
+		
+		// compute segment size by submiting query to database
+		$('#btn-run-querybuilder').click(function() {
+			var result = $('#segment-builder-holder').queryBuilder('getRules');
+			if (!$.isEmptyObject(result)) {
+				var jsonQueryStr = JSON.stringify(result);
+				//console.log('jsonQueryStr ' + jsonQueryStr)
+				
+				var params = {};
+				params.jsonQueryRules = jsonQueryStr;
+				
+				var datetimeFilter = getDateFilterValues();
+				params.beginFilterDate = datetimeFilter.beginFilterDate;
+				params.endFilterDate = datetimeFilter.endFilterDate;
+				
+				// call and show statistics
+				var urlStr = baseAdminApi + '/cdp/segment/statistics';
+		        LeoAdminApiUtil.callPostAdminApi(urlStr, params , function (json) {
+		            if (json.httpCode === 0 && typeof json.data === 'object') {
+		               	loadSegmentStatistics(json.data);
+		               
+		               	// segmentDataModel
+		               	var datetimeFilter = getDateFilterValues();
+		   				segmentDataModel.beginFilterDate = datetimeFilter.beginFilterDate;
+		   				segmentDataModel.endFilterDate = datetimeFilter.endFilterDate;
+		               	loadProfilesInSegment(true);
+		            } else {
+		            	iziToast.error({
+	                	    title: 'Error',
+	                	    message: json.data,
+	                	    onClosing: function(instance, toast, closedBy){
+	                	    	location.reload(true);
+	                	    }
+	                	});
+		            }
+		        });
+			}
+		});
+	}
+	
+	var getSegmentBuilderData = function(id) {
+        var urlStr = baseAdminApi + '/cdp/segment/load';
+        LeoAdminApiUtil.callPostAdminApi(urlStr, { 'id': id }, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+            	segmentDataStats = json.data.segmentStats;
+            	var behavioralEventMap = json.data.behavioralEventMap;
+            	
+        		// only super-admin role can remove the segment 
+        		var readOnlyMode = ! json.canEditData;
+        		var segmentData = json.data.segmentData;
+                var segmentId = segmentData.id;
+                var managedBySystem = segmentData.managedBySystem;
+                var jsonQueryRules = JSON.parse(segmentData.jsonQueryRules);
+                
+                document.title = 'Segment Builder: ' + segmentData.name;
+                $('#segment_name').text('Edit Segment: ' + segmentData.name);
+                
+                // type
+                $('#sm_type input:checked').prop('checked', false);
+                $('#sm_type input[value="'+segmentData.type+'"]').prop('checked', true);
+                $('#sm_status input[value="'+segmentData.status+'"]').prop('checked', true);
+                
+                // date range filter
+                if(segmentData.disableDateRangeFilter){
+                	$('#disable_date_filter').prop('checked', true );
+                	$('#segment_disable_date_filter_holder').hide();
+                } else {
+                    initDateFilterComponent(true, segmentData.beginFilterDate , segmentData.endFilterDate );
+                }
+        		
+                if(managedBySystem){
+                	$('button.data-control-delete').attr('disabled','disabled');
+                	$('button.data-control-delete').attr('title','Can not delete this segment, which is managed by system');
+                }
+                else {
+                	if( json.canDeleteData){
+            			$('button.data-control-delete').click(deleteSegment);
+        			} else {
+        				$('button.data-control-delete').attr('disabled','disabled');
+        			}
+                }
+                
+                setSegmentDataForm(segmentData);
+                
+                loadSegmentBuilder(behavioralEventMap, jsonQueryRules, readOnlyMode, segmentQueryBuilderCallback);
+                
+                setTimeout(loadProfilesInSegment,700);
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
+    }
+	
+	var createNewSegmentModel = function() {
+        var urlStr = baseAdminApi + '/cdp/segment/load';
+        LeoAdminApiUtil.callPostAdminApi(urlStr, {}, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+            	var behavioralEventMap = json.data.behavioralEventMap;
+            	var segmentData = json.data.segmentData;
+            	setSegmentDataForm(segmentData)
+    			
+                document.title = 'New Segment Builder';
+            	 $('#segment_name').text('New Segment Builder: ');
+               
+             	// init UI after setting data into DOM
+             	//initDateFilterComponent(true);
+				loadSegmentBuilder(behavioralEventMap, false, false, segmentQueryBuilderCallback);
+                initDateFilterComponent(true, segmentData.beginFilterDate , segmentData.endFilterDate );
+                setTimeout(loadProfilesInSegment,700);
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
+    }
+	
+	
+	var setSegmentDataForm = function(segmentData){
+		segmentDataModel = segmentData;
+		
+		// meta data  
+		$('#sm_name').val(segmentData.name).keyup(function() {
+			segmentDataModel.name = $(this).val();
+			$('#segment_name').text('Edit Segment: ' + segmentDataModel.name);
+		});
+		$('#sm_description').val(segmentData.description).keyup(function() {
+			segmentDataModel.description = $(this).val()
+		});
+		
+		$('#sm_indexscore').val(segmentData.indexScore).change(function() {
+			segmentDataModel.indexScore = parseInt($(this).val());
+		});
+		$('#sm_activeQuery').prop("checked", segmentData.activeQuery ).change(function() {
+			segmentDataModel.activeQuery = $(this).prop( "checked");
+		});
+		
+		// purpose of data segmentation 
+		// 1 
+		$('#sm_forDeepAnalytics').prop("checked", segmentData.forDeepAnalytics ).change(function() {
+			segmentDataModel.forDeepAnalytics = $(this).prop("checked");
+		});
+		// 2
+		$('#sm_forPredictiveAnalytics').prop("checked", segmentData.forPredictiveAnalytics ).change(function() {
+			segmentDataModel.forPredictiveAnalytics = $(this).prop("checked");
+		});
+		// 3
+		$('#sm_forRecommenderSystem').prop("checked", segmentData.forRecommenderSystem ).change(function() {
+			segmentDataModel.forRecommenderSystem = $(this).prop("checked");
+		});
+		// 4
+		$('#sm_forEmailMarketing').prop("checked", segmentData.forEmailMarketing ).change(function() {
+			segmentDataModel.forEmailMarketing = $(this).prop("checked");
+		});
+		// 5
+		$('#sm_forRealtimeMarketing').prop("checked", segmentData.forRealtimeMarketing ).change(function() {
+			segmentDataModel.forRealtimeMarketing = $(this).prop("checked");
+		});
+		// 6
+		$('#sm_forReTargeting').prop("checked", segmentData.forReTargeting ).change(function() {
+			segmentDataModel.forReTargeting = $(this).prop("checked");
+		});
+		// 7
+		$('#sm_forLookalikeTargeting').prop("checked", segmentData.forLookalikeTargeting ).change(function() {
+			segmentDataModel.forLookalikeTargeting = $(this).prop("checked");
+		});
+	}
+	
+	var saveSegment = function() {
+		if(typeof segmentDataModel === "object"){
+			// jquery builder final data
+			var result = $('#segment-builder-holder').queryBuilder('getRules');
+			if (!$.isEmptyObject(result)) {
+				segmentDataModel.jsonQueryRules = JSON.stringify(result) || "";
+			} else {
+				segmentDataModel.jsonQueryRules = "";
+			}
+			var datetimeFilter = getDateFilterValues();
+			segmentDataModel.beginFilterDate = datetimeFilter.beginFilterDate;
+			segmentDataModel.endFilterDate = datetimeFilter.endFilterDate;
+			
+			segmentDataModel.type = parseInt($('#sm_type input:checked').val());
+			segmentDataModel.status = parseInt($('#sm_status input:checked').val());
+			
+			segmentDataModel.disableDateRangeFilter = segmentDataModel.beginFilterDate === '' && segmentDataModel.endFilterDate === '';
+			
+			
+			//done set data model, POST to API
+			var dataJsonStr = JSON.stringify(segmentDataModel) ;
+	        var urlStr = baseAdminApi + '/cdp/segment/save';
+	        LeoAdminApiUtil.callPostAdminApi(urlStr,  { 'dataObject' : dataJsonStr }, function (json) {
+	            if (json.httpCode === 0 ) {
+	                if(json.data === ''){
+	                    $('#error-on-save').html('Data is not valid !').show().delay(5000).fadeOut('slow');
+	                } else {
+	                	var segmentId = json.data;
+	                	location.hash = "calljs-leoCdpRouter('Segment_Details','" + segmentId + "')";
+	                }
+	            } else {
+	            	if( json.errorMessage.indexOf('jsonQueryRules') >= 0 ) {
+	            		json.errorMessage = 'Please set filtering parameters in Segment Query Builder';
+	            	}
+	                $('#error-on-save').html(json.errorMessage).show().delay(5000).fadeOut('slow');
+	                LeoAdminApiUtil.logErrorPayload(json);
+	            }
+	        });
+		}
+	}
+	
+</script>

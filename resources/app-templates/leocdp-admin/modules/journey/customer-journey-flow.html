@@ -1,0 +1,824 @@
+<style>
+.btn-get-code {
+	margin:3px;
+	width: 130px;
+	text-align: left!important;
+}
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+         <h5 class="page-header" id="page_breadcrumb" > </h5>
+    </div>
+    <div class="col-lg-2 text-center" style="padding: 10px; display: none;">
+     	<button type="button" class="btn btn-primary" onclick="loadJourneyTemplate()"  > 
+   			<i class="fa fa-map-o" aria-hidden="true"></i> Load Journey Template 
+   		</button>
+   	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+      	<div class="row">
+	      		<h4 class="chart_header text-center" > Journey Data Flow </h4>
+	       	<div id="journeyFlowChart" class="experience_journey_flow" style="height:390px;"></div>
+	    </div>
+    	<hr>
+	    
+		<!--  Tab Navigation Items -->
+		<ul class="nav nav-tabs" data-tab-content="journey_channel_tabs" > 
+	   		<li class="active" >
+        		<a href="javascript:" data-target-tab="panel_touchpoint_hubs" > <i class="fa fa-list" aria-hidden="true"></i> Touchpoint Hub  </a>
+       		</li>
+       		<li>
+       			<a href="javascript:" data-target-tab="panel_data_observers"  > <i class="fa fa-list" aria-hidden="true"></i> Data Observer </a>
+       		</li>
+		</ul>
+
+		<div class="tab-content" id="journey_channel_tabs" style="min-height: 450px;" >
+
+			<!-- tab 1 content  -->
+			<div class="tab-pane active" id="panel_touchpoint_hubs" >
+				
+				<div class="top_page_header" >
+					<h4> All Touchpoint Hubs in Journey Data Flow </h4>
+				</div>
+				<div class="table-responsive">
+		    		<div id="journey_channel_table"></div>
+		    	</div>
+			</div>
+			
+			<!-- tab 2 content  -->
+			<div class="tab-pane" id="panel_data_observers" >
+				<div class="top_page_header" >
+					<h4> The list of JavaScript Tags, QR Code Images to collect behavioral data, contact data and CX feedback data </h4>
+				</div>
+		        <div class="table-responsive">
+		            <div id="data_observers_table"></div>
+		        </div>
+			</div>
+		</div>		
+    	
+   </div>
+
+</div>
+
+<script>
+
+	var touchpointHubMap = false, eventMetrics = false;
+	var cxFeedbackTemplates = false, landingPageTemplates = false;
+	
+	var updateJourneyMap = function(isInsert){
+		var callback = function(json){
+    		if(json.data != ""){
+    			location.reload();
+    		}
+    		else {
+    			console.error('updateJourneyMap ', rs)
+    		}
+    	};
+    	
+    	var touchpointHubData = $("#journey_channel_table").jsGrid("option", "data");
+		var params = {'touchpointHubJson' : JSON.stringify(touchpointHubData) };
+    	LeoAdminApiUtil.callPostAdminApi('/cdp/journeymap/update', params, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+    			callback(json);
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+       }, callback);
+	}
+	
+	var loadFeedbackTemplateItems = function(){
+		if(!cxFeedbackTemplates && !landingPageTemplates){
+			LeoAdminApiUtil.getSecuredData('/item/asset-templates', [], function(json){ 
+				cxFeedbackTemplates = json.data.cxFeedbackTemplates;
+				landingPageTemplates = json.data.landingPageTemplates;
+	        });
+		}
+	}
+	
+	var loadEventMetrics = function(){
+		LeoAdminApiUtil.getSecuredData('/cdp/funnel/event-metrics', {} , function(json){  
+			eventMetrics = json.data;
+		})
+	}
+	
+	var loadJourneyTemplate = function(){
+		iziToast.info({
+    	    title: 'Information',
+    	    message: 'This function is under development and is not yet available'
+    	});
+	}
+	
+	var jsGridItemUrlTemplate = function(value) {
+		value = value.trim();
+	    var a = $("<a>").attr('href',"javascript:").attr('title',value).attr('onclick',"openUrlInNewTab(event,this)").text(value);
+	    return $('<div class="long_url_holder" ></div>').append(a);
+	}
+
+    var initMediaJourneyMap =  function() {
+    	setupTabPanels();
+    	loadFeedbackTemplateItems();
+    	loadEventMetrics();
+    	
+    	var CustomCheckBox = function(config) {
+		    jsGrid.Field.call(this, config);
+		};
+		
+		CustomCheckBox.prototype = new jsGrid.Field({
+		    sorter: function(date1, date2) {
+		        return 0;
+		    },
+		    itemTemplate: function(isChecked) {
+		    	return '<div class="text-center">' + getCheckedBoxIcon(isChecked) + '</div>';
+		    },
+		    insertTemplate: function(value) {
+		    	var inputNode = $('<input type="checkbox" >');
+		    	if(value){
+		    		inputNode.attr('checked', 'checked');
+	        	}
+		    	return this._insertCheckbox = $('<div class="text-center">' + inputNode[0].outerHTML + '</div>');
+	        },
+	        editTemplate: function(value) {
+		    	var inputNode = $('<input type="checkbox" >');
+		    	if(value){
+	        		inputNode.attr('checked', 'checked');
+	        	}
+	            return this._editCheckbox = $('<div class="text-center">' + inputNode[0].outerHTML + '</div>');
+	        },
+	        insertValue: function() {
+	        	return this._insertCheckbox.find('input:checked').length > 0;
+	        },
+	        editValue: function() {
+	            return this._editCheckbox.find('input:checked').length > 0;
+	        }
+		});
+		jsGrid.fields.CustomCheckBox = CustomCheckBox;
+    	
+    	LeoAdminApiUtil.getSecuredData('/cdp/journeymap/get', { "id" : "retail" }, function(json){
+    		var canInsertData = json.canInsertData;
+	    	var canEditData = json.canEditData;
+    		var canDeleteData = json.canDeleteData;
+  		 
+	   		var domSelector = '#journeyFlowChart';
+	   		var journeyMap = json.data.journeyMap;
+	   		var touchpointHubTypes = json.data.touchpointHubTypes;
+
+	   		touchpointHubMap = journeyMap.touchpointHubMap;
+	   		
+	   		var defaultMetricName = journeyMap.defaultMetricName;
+	   		var journeyStageMetrics = journeyMap.journeyStageMetrics;
+	   		var journeyStages = journeyMap.journeyStages;
+	   		var journeyLinks = journeyMap.journeyLinks;
+	   		var journeyNodes =  journeyMap.journeyNodes;
+	   		
+	   		var touchpointHubIndex = journeyMap.touchpointHubIndex;
+	   		
+	   		renderJourneyFlowChart(domSelector, defaultMetricName, journeyStages, journeyStageMetrics, journeyNodes, journeyLinks, touchpointHubMap);
+	   		
+	   		var touchpointHubs = [];
+	   		
+	   		for(var name in touchpointHubMap){
+	   			var index = touchpointHubIndex[name];
+	   			var touchpointHub = touchpointHubMap[name];
+	   			touchpointHub.index = index + 1;
+	   			touchpointHubs[index] = touchpointHub;
+	   		}
+	   		
+	   		var journeyLevelSelects = [];
+	   		var levelDeep = 30;
+	   		for(var i = 1; i <= levelDeep; i++){
+	   			journeyLevelSelects.push({ Name: '[ ' + i + ' ]', Id: i });
+	   		}
+	   		var touchpointHubTypeSelects = [];
+	   		Object.keys(touchpointHubTypes).forEach(key => {
+	   			var typeNum = parseInt(key);
+	   			if(typeNum > 0){
+	   				touchpointHubTypeSelects.push({ typeName: touchpointHubTypes[key].replaceAll('_',' '), type: typeNum });
+	   			}
+	   		});
+	   		
+	   		var insertRowMoved = false, insertedIndex = -1;
+	   		
+	   		$("#journey_channel_table").jsGrid({
+	   		    width: "100%",
+	   		    height: "auto",
+	   		 	inserting: canInsertData,
+			    editing: canEditData,
+			    sorting: true,
+			    paging: false,
+	   		    
+	   		    deleteConfirm: function(item) {
+	   	            return "The channel [" + item.name + "] will be removed. Are you sure?";
+	   	        },
+	   		    data: touchpointHubs,
+	   		    onItemInserting: function(args) {
+	   		    	console.log(args.item)
+	   		    	var channelUrl = args.item.url;
+	   		    	var isAvailable = touchpointHubMap[args.item.name] == null;
+	   		    	if( ! isAvailable ) {
+	   		    	 	args.cancel = true;
+			            iziToast.error({
+		    	    	    title: 'Journey Data Flow',
+		    	    	    message: args.item.name +  ' is duplicated, please enter a different name !'
+		    	    	});
+			            return;
+	   		    	}
+	   		    	if( ! isValidURL(channelUrl) ) {
+			            args.cancel = true;
+			            iziToast.error({
+		    	    	    title: 'Journey Data Flow',
+		    	    	    message: channelUrl +  ' is not valid URL !'
+		    	    	});
+			        } else {
+			        	if(insertedIndex > 0){
+			        		args.item.index = insertedIndex;
+				        	insertedIndex = -1;
+			        	}
+			        }
+	   		    },
+	   		 	onItemUpdating : function(args) {
+	   		    	console.log(args.item)
+	   		    	var item = args.item;
+	   		    	var name = item.name;
+	   		    	var channelUrl = item.url;
+	   		    	var editable = item.type > 0 && item.type < 30;
+	   		    	if(editable) {
+		   		    	if( ! isValidURL(channelUrl) ) {
+				            args.cancel = true;
+				            iziToast.error({
+			    	    	    title: 'Journey Data Flow',
+			    	    	    message: channelUrl +  ' is not valid URL !'
+			    	    	});
+				        }
+	   		    	} else {
+	   		    		args.cancel = true;
+			            iziToast.error({
+		    	    	    title: 'Journey Data Flow',
+		    	    	    message: name +  ' is read-only channel, you can not update it !'
+		    	    	});
+	   		    	}
+	   		    }, 
+	   		    onItemInserted: function(args) {
+	   		    	//console.log(args.item)
+	   		    	setTimeout(function(){
+	   		    		updateJourneyMap(true);
+	   		    	},1500)
+	   		    	iziToast.success({
+	    	    	    title: 'Journey Data Flow',
+	    	    	    message: args.item.name +  ' is inserted successfully!'
+	    	    	});
+	   		    }, 
+	   		 	onItemUpdated: function(args) {
+	   		    	setTimeout(function(){
+	   		    		updateJourneyMap();
+	   		    	},1500)
+	   		    	iziToast.success({
+	    	    	    title: 'Journey Data Flow',
+	    	    	    message: args.item.name +  ' is updated successfully!'
+	    	    	});
+	   		    }, 
+	   		 	onItemDeleting : function(args) {
+	   		    	var item = args.item;
+	   		    	var name = item.name;
+	   		    	var editable = item.type > 0 && item.type < 30;
+	   		    	if(!editable) {
+	   		    		args.cancel = true;
+			            iziToast.error({
+		    	    	    title: 'Journey Data Flow',
+		    	    	    message: name +  ' is read-only channel, you can not delete it !'
+		    	    	});
+	   		    	}
+	   		    },      
+	   		 	onItemDeleted: function(args) {
+	   		     	touchpointHubMap[args.item.name] = null;
+	   		     	var callback = function(json){
+	   		     		location.reload();
+		   	    	}; 
+		   		    LeoAdminApiUtil.callPostAdminApi('/cdp/touchpointhub/delete', {'id' : args.item.id}, function (json) {
+		   	            if (json.httpCode === 0 && json.errorMessage === '') {
+		   	    			callback(json);
+		   	            } else {
+		   	                LeoAdminApiUtil.logErrorPayload(json);
+		   	            }
+		   	       	}, callback);
+	   		    },
+		   		onRefreshed: function (args) {
+		   		    if ( ! insertRowMoved ) {
+		   		        var insertRow = args.grid._insertRow;
+		   		        var gridBody = args.grid._bodyGrid;
+		   		        console.log(insertRow)
+		   		        insertedIndex = parseInt($('.jsgrid-grid-body tbody tr:last td:first').text()) + 1;
+		   		     	$(insertRow).find('td:first').text(insertedIndex);
+		   		        $( "<tfoot></tfoot>" ).appendTo(gridBody).append(insertRow);
+		   		    }
+		   		},
+	   		    fields: [
+	   		    	{ name: "index", title : "ID", type: "number", width: 12, editing: false },
+	   		    	{ name: "name", title : "Touchpoint Hub Name", type: "text", width: 60, validate: "required", align: "center" },
+	   		     	{ name: "type", title : "Touchpoint Hub Type", type: "select", items: touchpointHubTypeSelects, valueField: "type", textField: "typeName", width: 58 },
+	   		     	{ name: "journeyLevel", title : "Level", type: "select", items: journeyLevelSelects, valueField: "Id", textField: "Name", width: 24 },
+	   		     	{ name: "firstPartyData", title : "First-party Data", type: "CustomCheckBox",  validate: "required", width: 34, align: "center" },
+	   		     	{ name: "url", title : "Touchpoint Hub URL", type: "text", itemTemplate: jsGridItemUrlTemplate , validate: "required", align: "center" },
+	   		     	{ type: "control" ,  deleteButton: canDeleteData , width: 30}
+	   		    ]
+	   		}); 
+	   		if( ! canInsertData || ! canEditData ){
+	   			$("#journey_channel_table").find('.jsgrid-button').click(errorNoAuthorization);
+	   		}
+	   		// load data observer tags
+	   		initDataObserverList();
+	   	})
+    } 
+    
+    var getJsCodeEventTrackingFunctions = function(){
+    	var jsCode = "";
+    	var c = 0;
+    	eventMetrics.forEach(function(e){
+    		c++;
+    		var tplId = '';
+    		if(e.metricType === 1){
+    			tplId = '#leo-tracking-view-event-code-tpl';
+    		}
+    		else if(e.metricType === 2){
+    			tplId = '#leo-tracking-action-event-code-tpl';
+    		}
+    		else if(e.metricType === 3){
+    			tplId = '#leo-tracking-conversion-event-code-tpl';
+    		}
+    		else if(e.metricType === 4){
+    			tplId = '#leo-tracking-feedback-event-code-tpl';
+    		}
+    		
+    		var tpl = _.template( $(tplId).html() );
+    		var model = { "counter" : c, "eventMetricId": e.id, "eventMetricName": e.eventLabel.replaceAll(" ","") };
+    		jsCode += tpl(model) ;
+    	})
+    	return jsCode;
+    }
+	
+	var getTrackingJsCode =  function(btn) {
+		var json = JSON.parse(decodeURIComponent($(btn).data('json')));
+		
+		var touchpointHubId = json.id;
+		var touchpointHubName = json.name;
+		var type = json.type;
+		var leoObserverDomain = window.baseLeoObserverDomain;
+		var staticFileDomain = window.baseStaticDomain;
+		var idDialog = "webDataObserverCodeDialog";
+		
+		var eventTrackingFunctions = getJsCodeEventTrackingFunctions();
+		
+		if(type > 0 && type < 12){
+			$('#'+idDialog).modal({
+	    		backdrop: 'static',
+	    		keyboard: false
+			});
+			
+			//init code preview editor
+			$('#code_holder .CodeMirror').remove();
+			var editorSelector = '#'+idDialog+' .code';
+			var codeNode = $(editorSelector)[0];
+			var editor = CodeMirror.fromTextArea(codeNode, {
+				mode:  "htmlmixed",
+				lineNumbers: true,
+	            styleActiveLine: true,
+	            matchBrackets: true,
+	            readOnly: false,
+		    });
+			
+			editor.setSize(null, 480);
+			setTimeout(function() {
+				//copy from textarea template into editor, then selectAll for copy
+				var tpl = $('#webDataObserverCodeDialog .code').val().trim();
+				var code = tpl.replace('__leoObserverId__', touchpointHubId)
+				code = code.replace('__channelName__', touchpointHubName)
+				code = code.replace('__leoObserverDomain__', leoObserverDomain);
+				code = code.replace('__staticFileDomain__', staticFileDomain);
+				code = code.replace('__eventTrackingFunctions__', eventTrackingFunctions);
+				
+				editor.getDoc().setValue( '<script>\n' + code + '\n<\/script>' )
+				editor.refresh();
+				editor.execCommand('selectAll');
+				
+				// copy code into clipboard
+				var buttonSelector = '#'+idDialog+ ' button.btn-copy-code';
+				addHandlerCopyCodeButton(editorSelector, buttonSelector);
+			},640);
+			
+		}
+	}
+	
+	var getCxFeedbackJsCode =  function(btn) {
+		var json = JSON.parse(decodeURIComponent($(btn).data('json')));
+		//TODO
+	
+		var touchpointHubId = json.id;
+		var touchpointHubName = json.name;
+		var type = json.type;
+		var hasData = $('#feedbackTemplateSelector option').length === 0 && cxFeedbackTemplates.length > 0;
+		
+		if(type > 0 && type < 12){
+			if( hasData ) {
+				for(var i in cxFeedbackTemplates) { 
+					var feedbackFormData = cxFeedbackTemplates[i];
+					var option = '<option value="'+i+'" >' + feedbackFormData.title + '</option>';
+					$('#feedbackTemplateSelector').append(option);
+				}
+			}
+			
+			var idDialog = "dialogEmbeddedCxFeedbackForm";
+			
+			$('#'+idDialog).modal({
+	    		backdrop: 'static',
+	    		keyboard: false
+			});
+			
+			$('#feedbackTemplateSelector').val("0").change();
+        	initEmbeddedFeedbackForm(idDialog, cxFeedbackTemplates[0]);
+        	
+        	$('#feedbackTemplateSelector').chosen({
+                width: "100%",
+                no_results_text: "Oops, nothing found!"
+            }).trigger("chosen:updated").change(function(){
+            	console.log("chosen:updated" + $(this).val())
+            	
+            	var index = parseInt($(this).val());
+            	var feedbackFormData = cxFeedbackTemplates[index];
+            	initEmbeddedFeedbackForm(idDialog, feedbackFormData);
+            });
+		}
+	}
+	
+	var getWebLeadFormJsCode =  function(btn) {
+		var json = JSON.parse(decodeURIComponent($(btn).data('json')));
+	
+		var touchpointHubId = json.id;
+		var touchpointHubName = json.name;
+		var type = json.type;
+		
+		if(type > 0 && type < 12){
+			
+			$('#webLeadFormCodeDialog').modal({
+	    		backdrop: 'static',
+	    		keyboard: false
+			});
+			
+			//init code preview editor
+			$('#code_holder .CodeMirror').remove();
+			var codeNode = $('#webLeadFormCodeDialog .code')[0];
+			var editor = CodeMirror.fromTextArea(codeNode, {
+				mode:  "htmlmixed",
+				lineNumbers: true,
+	            styleActiveLine: true,
+	            matchBrackets: true,
+	            readOnly: true,
+		    });
+			editor.setSize(null, 480);
+			setTimeout(function() {
+				//copy from textarea template into editor, then selectAll for copy
+				var tpl = $('#webLeadFormCodeDialog .code').val().trim();
+				var code = tpl.replace('__leoObserverId__', touchpointHubId)
+				code = code.replace('__channelName__', touchpointHubName)
+				editor.getDoc().setValue( '<script>\n' + code + '\n<\/script>' )
+				editor.refresh();
+				editor.execCommand('selectAll')
+			},630);
+		}
+	}
+	
+	var getQrImageFormCode =  function(btn) {
+		var jsonStr = decodeURIComponent($(btn).data('json'));
+		
+		var json = JSON.parse(jsonStr);
+		console.log("getQrImageFormCode ",json)
+		
+		var touchpointHubId = json.id;
+		var touchpointHubName = json.name;
+		var type = json.type;
+		var qrCodeData = json.qrCodeData;
+		var staticFileDomain = window.baseStaticDomain;
+		var baseUploadDomain = window.baseUploadDomain;
+		
+		$('#qrImageFormCodeDialog').modal({
+    		backdrop: 'static',
+    		keyboard: false
+		});
+		
+		var qrImageList = '';
+		var landingPageUrl = qrCodeData.landingPageUrl;
+		var qrCodeImage = qrCodeData.qrCodeImage;
+		var trackingUrl = qrCodeData.trackingUrl;
+		var imageUrl = 'https://' + baseUploadDomain + qrCodeImage.replace('./','/');
+		qrImageList += ('<div class="text-center" ><a target="_blank" href="' +  imageUrl + '"><img src="' +  imageUrl + '" alt="QR Code Image" ></a></div>');
+		qrImageList += ('<h4 class="text-center" >' + landingPageUrl + '</h4>');
+		qrImageList += '<label class="control-label">Landing Page URL</label>';
+		qrImageList += ('<input  type="text" class="form-control" readonly value="' + landingPageUrl + '" > ');
+		qrImageList += '<label class="control-label">Tracking URL</label>';
+		qrImageList += ('<input  type="text" class="form-control" readonly value="' + trackingUrl + '" > ');
+		qrImageList += '<label class="control-label">QR Code Image URL</label>';
+		qrImageList += ('<input type="text" class="form-control" readonly value="' + imageUrl + '" > <br>');
+		
+		$('#qrImageFormCodeDialog .code').html(qrImageList)
+	}
+
+	var initDataObserverJsGridPlugin =  function() {
+		var LeoDataObserver = function(config) {
+		    jsGrid.Field.call(this, config);
+		};
+		LeoDataObserver.prototype = new jsGrid.Field({
+		    sorter: function(date1, date2) {
+		        return 0;
+		    },
+		
+		    itemTemplate: function(observerModel) {
+		    	console.log("observerModel ", observerModel)
+		    	if(observerModel.data !== '') {
+		    		var jsonStr = observerModel.data;
+		    		var mediaType = observerModel.type;
+		    		var firstPartyData = observerModel.firstPartyData;
+		    		
+		    		if(mediaType != 30){
+		    			if(firstPartyData) {
+		    				var btnHtml = '<button type="button" class="btn btn-primary btn-sm btn-get-code" onclick="getQrImageFormCode(this)"';
+					    	btnHtml += (' data-json="' + jsonStr  + '" ' );
+					    	btnHtml += '><i class="fa fa-qrcode" style="font-size:1.3em" aria-hidden="true"></i> QR Code Image </button>';
+		    				
+			    			btnHtml += '<button type="button" class="btn btn-goto-router btn-sm btn-get-code" onclick="getTrackingJsCode(this)" ';
+					    	btnHtml += (' data-json="' + jsonStr  + '" ' );
+					    	btnHtml += '><i class="fa fa-code" style="font-size:1.3em" aria-hidden="true"></i> Tracking Code </button>';
+					    	
+					    	btnHtml += '<button type="button" class="btn btn-info  btn-sm btn-get-code" onclick="getCxFeedbackJsCode(this)" ';
+					    	btnHtml += (' data-json="' + jsonStr  + '" ' );
+					    	btnHtml += '><i class="fa fa-code" style="font-size:1.2em" aria-hidden="true"></i> CX Form Code </button>';
+					        return btnHtml;
+			    		} else {
+			    			var btnHtml = '<button type="button" class="btn btn-primary btn-sm btn-get-code" onclick="getQrImageFormCode(this)"';
+					    	btnHtml += (' data-json="' + jsonStr  + '" ' );
+					    	btnHtml += '><i class="fa fa-qrcode" style="font-size:1.3em" aria-hidden="true"></i> QR Code Image </button>';
+					    	return btnHtml;
+			    		}
+		    		}
+		    	}
+		    	return "";
+		    },
+		    
+		    insertTemplate: function(value) {
+	            return this._insertCode = value;
+	        },
+
+	        editTemplate: function(value) {
+	            return this._editCode = value;
+	        },
+
+	        insertValue: function() {
+	            return this._insertCode;
+	        },
+
+	        editValue: function() {
+	            return this._editCode;
+	        }
+		});
+		
+		jsGrid.fields.LeoDataObserver = LeoDataObserver;
+		
+	}
+
+    var initDataObserverList = function() {
+    	initDataObserverJsGridPlugin();
+    	
+    	LeoAdminApiUtil.getSecuredData('/cdp/observers', {}, function(json){ 
+  		 
+	   		var eventObservers = json.data.eventObservers;
+	   		var touchpointHubTypes = json.data.touchpointHubTypes;
+	   		
+	   		for(var i=0; i< eventObservers.length; i++ ){
+	   			var eventObserver = eventObservers[i];
+	   			eventObserver.index = i + 1;
+	   			var typeName = touchpointHubTypes[eventObserver.type];
+	   			eventObserver.typeName = typeName;
+
+	   			var firstPartyData = eventObserver.firstPartyData;
+	   			var touchpointHubType = eventObserver.type;
+	   		
+   				var jsonObj = {id: eventObserver.id, name : eventObserver.name, type : touchpointHubType, typeName : typeName };
+   				jsonObj['collectDirectly'] = eventObserver.collectDirectly;
+   				jsonObj['qrCodeData'] = eventObserver.qrCodeData;
+   				var jsonStr = JSON.stringify(jsonObj);
+   				eventObserver.observerModel = {type : touchpointHubType, data : encodeURIComponent(jsonStr), firstPartyData :firstPartyData};
+	   		}
+	   		
+	   		$("#data_observers_table").jsGrid({
+	   		    width: "100%",
+	   		    height: "auto",
+	   		    inserting: false,
+	   		    editing: false,
+	   		    sorting: false,
+	   		    paging: false,
+	
+	   		    data: eventObservers,
+	   		    
+	   		    fields: [
+	   		    	{ name: "index", title : "ID", type: "number", width: 16 },
+	   		        { name: "name", title : "Touchpoint Hub Name", type: "BoldText", width: 80, align: "center" },
+	   		     	{ name: "typeName", title : "Touchpoint Hub Type", type: "text", align: "center" },
+	   		     	{ name: "firstPartyData", title : "First-party Data", type: "CheckBoxIcon", width: 45, align: "center" },
+	   		     	{ name: "collectDirectly", title : "Collect Data Directly", type: "CheckBoxIcon", width: 45, align: "center" },
+	   		     	{ name: "dataSourceUrl", title : "Data Source URL", type: "UrlLink", width: 170, align: "center" },
+	   		     	{ name: "observerModel", title : "Observer Code", type: "LeoDataObserver", width: 70, align: "center"}
+	   		    ]
+	   		});  
+	   	})
+    } 
+</script>
+
+<script id='leo-tracking-view-event-code-tpl' type="text/html" >
+// (3.<%- counter %>) function to track View event "<%- eventMetricName %>"
+LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
+	eventData = eventData ? eventData : {};
+	LeoObserverProxy.recordViewEvent("<%- eventMetricId %>",eventData);
+}
+</script>
+
+<script id='leo-tracking-action-event-code-tpl' type="text/html" >
+// (3.<%- counter %>) function to track Action event "<%- eventMetricName %>"
+LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
+	eventData = eventData ? eventData : {};
+	LeoObserverProxy.recordActionEvent("<%- eventMetricId %>",eventData);
+}
+</script>
+
+<script id='leo-tracking-conversion-event-code-tpl' type="text/html" >
+// (3.<%- counter %>) function to track Conversion event "<%- eventMetricName %>"
+LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
+	eventData = eventData ? eventData : {};
+	LeoObserverProxy.recordConversionEvent("<%- eventMetricId %>",eventData);
+}
+</script>
+
+<script id='leo-tracking-feedback-event-code-tpl' type="text/html" >
+// (3.<%- counter %>) function to track Feedback event "<%- eventMetricName %>"
+LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
+	eventData = eventData ? eventData : {};
+	LeoObserverProxy.recordFeedbackEvent("<%- eventMetricId %>",eventData);
+}
+</script>
+
+<div class="modal fade" id="webDataObserverCodeDialog" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > Embedded JavaScript Code to collect behavioral data of profile </h4>
+			</div>         
+			<div class="modal-body">
+				<div id="code_holder" ><textarea id="data_observer_code" class="code">
+// (1) loading LEO OBSERVER JavaScript code for [__channelName__]
+	(function() {
+   		window.leoObserverLogDomain = "__leoObserverDomain__";
+   		window.leoObserverCdnDomain = "__staticFileDomain__";
+		window.leoObserverId = "__leoObserverId__";
+		// Data Touchpoint Metadata 
+		window.srcTouchpointName = encodeURIComponent(document.title);
+		window.srcTouchpointUrl = encodeURIComponent(location.href);
+	
+		var leoproxyJsPath = '/js/leo-observer/leo.proxy.min.js';
+	    var src = location.protocol + '//' + window.leoObserverCdnDomain + leoproxyJsPath;
+	    var jsNode = document.createElement('script');
+	    jsNode.async=true; jsNode.defer=true; jsNode.src = src;
+	    var s = document.getElementsByTagName('script')[0];
+	    s.parentNode.insertBefore(jsNode, s);
+	})();
+// (2) LEO OBSERVER is ready, tracking page-view
+	function leoObserverProxyReady(session) {
+	   	var eventData = {};
+	   	LeoObserverProxy.recordViewEvent("page-view",eventData);
+	   	// add more event data here
+	}
+// (3) all event tracking functions
+    var LeoObserver = {};
+    __eventTrackingFunctions__
+				</textarea></div>
+			</div>  
+			<div class="modal-footer">
+		        <button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="webLeadFormCodeDialog" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > Embedded JavaScript Code to collect contact data of profile </h4>
+			</div>         
+			<div class="modal-body">
+				<div id="code_holder" ><textarea id="data_observer_code" class="code">
+	(function() {
+	    // Lead Form Code for channel: __channelName__
+		window.srcTouchpointName = encodeURIComponent(document.title);
+		window.srcTouchpointUrl = encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
+		
+		var t = new Date().getTime();
+		var ifrm = document.createElement("iframe");
+        ifrm.setAttribute("src", "https://demotrack.leocdp.net/webform?obsid=" + "__leoObserverId__" + "&_t=" + t);
+        ifrm.style.width = "100%";
+        ifrm.style.height = "800px";
+        ifrm.width = "100%";
+        ifrm.height = "800";
+        ifrm.frameBorder = "0";
+		document.writeln(ifrm.outerHTML);
+	})();
+				</textarea></div>
+			</div>  
+			<div class="modal-footer">
+		       <button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
+		       <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="qrImageFormCodeDialog" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > QR Code Image of Landing Page </h4>
+			</div>         
+			<div class="modal-body">
+				<div class="form-group" style="display: none;">
+	                <label> Landing Pages </label>
+	                <select id="landingPageSelector" data-placeholder="Select a Landing Page" class="select" >
+	                  <!-- landingPageSelector -->  
+	                </select>
+	                <hr> 
+	            </div>
+				<h5 id="landingPageName" > </h5>
+				<div class="code" > </div>
+			</div>  
+			<div class="modal-footer">
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="dialogEmbeddedCxFeedbackForm" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > Please select a Feedback/Survey and copy JavaScript (JS) code to collect CX data </h4>
+			</div>         
+			<div class="modal-body">
+				<div class="form-group" >
+	                <label> CX Feedback Forms and Feedback Surveys </label>
+	                <select id="feedbackTemplateSelector" data-placeholder="Choose a template name" class="select" >
+	                  <!-- feedbackTemplateSelector -->  
+	                </select>
+	                <hr> 
+	            </div>
+				<h5 class="eventName" >  </h5>
+				<div id="feedback_form_code_holder" ><textarea  class="code">
+	(function() {
+	    //  Feedback/Survey Form Collector for __feedbackFormTitle__
+	    var svf = document.title;
+		var tprefurl = location.href;
+		var tplFeedbackType = "__tplFeedbackType__";
+		
+		var url  = '__feedbackFormFullUrl__';
+		url = url + "&tplfbt=" + tplFeedbackType;
+		url = url + "&tpname=" + document.title;
+		url = url + "&tpurl=" + location.href;
+		url = url + "&cb=" + new Date().getTime();
+		
+		// container
+		var divWrapper = document.createElement("div"); 
+		var cssDiv = "position: relative; width:100%; overflow: hidden;  height: 100px ";
+		divWrapper.setAttribute("style",cssDiv);
+		
+		// iframe 
+		var iframe = document.createElement("iframe"); 
+		var cssIframe = "position: absolute; top:0; left:0; bottom:0; right:0; width:100%; border: none; overflow: hidden; height: 100px ";
+		iframe.setAttribute("style",cssIframe);
+		iframe.setAttribute("src",url);
+		divWrapper.appendChild(iframe);
+		
+		var referenceNode = document.getElementById("__scriptNodeId__");
+		referenceNode.parentNode.insertBefore(divWrapper, referenceNode.nextSibling);
+	})();
+	
+				</textarea></div>
+			</div>  
+			<div class="modal-footer">
+				<button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>

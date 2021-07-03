@@ -1,0 +1,57 @@
+span.selected {
+	outline: #3333ff dotted 3px;
+}
+
+span.choice, span.text {
+	font-size: 1.2em;
+}
+
+span.text {
+	font-size: 1.2em;
+	padding: 7px;
+}
+
+.btn_div {
+	text-align: right;
+	width: 90%;
+}
+
+span.ec {
+	font-size: 2.1em;
+	margin: 0 0 5px -10px;
+}
+
+span.ec:hover {
+	outline: #3333ff dotted 2px;
+	margin: 0 0 3px -8px;
+}
+
+input[type='radio'] {
+	transform: scale(1.45);
+	display: block;
+	margin-top: 16px;
+}
+
+#all_options {
+	margin: auto;
+	width: 90%;
+}
+
+h4 {
+	margin-bottom: 20px;
+}
+
+#emotion_progress {
+	width: 90%;
+}
+
+#success_box {
+	font-size: 1.6em;
+	padding: 12px;
+	text-align: center;
+	font-weight: bold;
+}
+
+body {
+	overflow: hidden;
+}

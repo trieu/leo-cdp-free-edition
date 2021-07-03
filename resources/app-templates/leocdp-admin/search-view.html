@@ -1,0 +1,72 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title" id="search_view_title" >
+            About <strong id="kw_total"></strong> results for "<strong id="kw_text"></strong>" 
+        </h2>
+    </div>
+    <div class="panel-body">
+    	<h3>Data Search: This function is under development and is not yet available</h3>
+        <div id="data-container" ></div>
+    </div>
+    <div class="panel-footer">
+        <div id="pagination-container" style="margin: auto" ></div>
+    </div>
+    <br><br><br>
+</div>
+
+
+<script type="text/template" id="template_search_results">
+
+    {{#each data}}
+       
+        <div class="row">
+            
+        </div>
+        <hr>
+       
+    {{/each}}
+    
+</script>
+
+<script>
+    function loadSearchingByKeywords(keywords) {
+        console.log('loadSearchingByKeywords ' + keywords);
+        $('#kw_text').text(keywords);
+        
+        var paramObj = {
+            'keywords': keywords
+        };
+        var url = window.baseAdminApi + '/cdp/profiles/search';
+        LeoAdminApiUtil.getSecuredData(url, paramObj, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '' && json.data) {
+                
+                //set page metadata
+                $('#kw_total').text(json.data.length);
+                document.title = $('#search_view_title').text();
+
+                //check and update quality data before render HTML
+                var verifyData = function(post){
+                    if(post.headlineImageUrl == ''){
+                        post.headlineImageUrl = '/public/images/default-post-icon.png'
+                    }
+                    return post;
+                }
+                _.map(json.data, verifyData);
+
+                //render HTML
+                $('#pagination-container').pagination({
+                    dataSource: json.data,
+                    pageSize: 5,
+                    className: 'paginationjs paginationjs-big',
+                    callback: function (data, pagination) {
+                        var template = Handlebars.compile($('#template_search_results').html());                        
+                        var html = template({
+                            'data': data
+                        });
+                        $('#data-container').html(html);
+                    }
+                })
+            }
+        });
+    }
+</script>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=4, user-scalable=1" name="viewport"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=100"/>
+	
+	<base href="https://{{baseAdminApiUrl}}/">
+	
+	<title> {{pageTitle}} </title>
+	<meta name="description" content="LEO CDP Admin"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="https://{{baseAdminApiUrl}}/public/images/leocdp-icon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="https://{{baseAdminApiUrl}}/public/images/leocdp-icon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="https://{{baseAdminApiUrl}}/public/images/leocdp-icon/favicon-16x16.png">
+	<link rel="manifest" href="https://{{baseAdminApiUrl}}/public/images/leocdp-icon/site.webmanifest">
+	<link rel="mask-icon" href="https://{{baseAdminApiUrl}}/public/images/leocdp-icon/safari-pinned-tab.svg" color="#5bbad5">
+	
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
+
+	<!-- LeoCDP Admin Common Data, injected by WebData model -->
+	<script>
+		window.baseStaticDomain = '{{baseStaticUrl}}';
+		window.baseAdminDomain = '{{baseAdminApiUrl}}';
+		window.baseUploadDomain = '{{baseUploaderUrl}}';
+		window.baseLeoObserverDomain = '{{baseLeoObserverUrl}}';
+		
+		window.baseStaticUrl = location.protocol + '//' +  baseStaticDomain;
+		window.baseAdminApi = location.protocol + '//' + baseAdminDomain;
+		window.baseUploadApi = location.protocol + '//' + baseUploadDomain;
+		window.baseLeoObserverUrl = location.protocol + '//' + baseLeoObserverDomain;
+		
+		window.pageHeaderLogo = baseAdminApi + '{{pageHeaderLogo}}';
+		window.webTemplateCache = {{webTemplateCache}};
+		window.dataApiCache = {{dataApiCache}};
+		
+		window.leoProductType = '{{leoProductType}}';
+		window.leoCdpBuildVersion = '{{leoCdpBuildVersion}}';
+		window.cacheBustingKey = '{{cacheBustingKey}}';
+		window.leoCdpEdition = '{{leoCdpEdition}}';
+		window.minifySuffix = '{{minifySuffix}}';
+	</script>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="https://{{baseStaticUrl}}/css/bootstrap.min.css?_={{cacheBustingKey}}" rel="stylesheet">
+	
+	<!-- Emoji CSS -->
+	<link href="https://{{baseStaticUrl}}/css/emoji.min.css?_={{cacheBustingKey}}" rel="stylesheet">
+	
+	<!-- Custom CSS -->
+	<link href="https://{{baseStaticUrl}}/css/sb-admin.css?_={{cacheBustingKey}}" rel="stylesheet" />
+	<link href="https://{{baseStaticUrl}}/css/leo-admin.css?_={{cacheBustingKey}}" rel="stylesheet" />
+
+	<!-- MediaPlayer CSS -->
+	<link href="https://{{baseStaticUrl}}/mediaplayer/mediaplayer.one.css?_={{cacheBustingKey}}" rel="stylesheet" >
+
+	<!-- Custom Fonts and Icons -->
+	<link href="https://{{baseStaticUrl}}/css/font-awesome.min.css?_={{cacheBustingKey}}" rel="stylesheet" />
+
+	<!-- jQuery -->
+	<script src="https://{{baseStaticUrl}}/js/utils/jquery.js?_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseStaticUrl}}/js/utils/jquery-ui.min.js?_={{cacheBustingKey}}"></script>
+	
+	<!-- Bootstrap Core JavaScript -->
+	<script src="https://{{baseStaticUrl}}/js/utils/bootstrap-transition.js?_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseStaticUrl}}/js/utils/bootstrap-collapse.js?_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseStaticUrl}}/js/utils/bootstrap.min.js?_={{cacheBustingKey}}"></script>
+
+	<!-- Util JavaScript -->
+	<script src="https://{{baseStaticUrl}}/js/utils/moment.min.js?_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseStaticUrl}}/js/utils/bootstrap_datetimepicker.min.js?_={{cacheBustingKey}}"></script>
+
+	<!-- Datatable -->
+	<link href="https://{{baseStaticUrl}}/js/datatablejs/datatables.min.css?_={{cacheBustingKey}}" rel="stylesheet">
+	<script  src="https://{{baseStaticUrl}}/js/datatablejs/datatables.min.js?_={{cacheBustingKey}}"></script>
+
+	<!-- chosen -->
+	<link href="https://{{baseStaticUrl}}/js/chosen/chosen.min.css?_={{cacheBustingKey}}" rel="stylesheet">
+	<script src="https://{{baseStaticUrl}}/js/chosen/chosen.jquery.min.js?_={{cacheBustingKey}}"></script>
+
+	<!-- tagsinput -->
+	<link href="https://{{baseStaticUrl}}/js/tagsinput/tagsinput.css?_={{cacheBustingKey}}" rel="stylesheet">
+	<script src="https://{{baseStaticUrl}}/js/tagsinput/tagsinput.min.js?_={{cacheBustingKey}}"></script>
+
+	<!-- editable dom -->
+	<link href="https://{{baseStaticUrl}}/css/bootstrap-editable.css?_={{cacheBustingKey}}" rel="stylesheet" />
+	<script src="https://{{baseStaticUrl}}/js/utils/bootstrap-editable.min.js?_={{cacheBustingKey}}"></script>
+
+	<!-- utils  -->
+	<script src="https://{{baseStaticUrl}}/js/utils/validator.js?_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseStaticUrl}}/js/utils/md5.js?_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseStaticUrl}}/js/utils/lscache.js?_={{cacheBustingKey}}"></script>	
+
+	<!-- Trix - Rich Text Editor -->
+	<link href="https://{{baseStaticUrl}}/js/trix-editor/trix.min.css?_={{cacheBustingKey}}" rel="stylesheet">
+	<script src="https://{{baseStaticUrl}}/js/trix-editor/trix.js?_={{cacheBustingKey}}"></script>
+
+	<!-- CSS File Uploader with Filepond -->
+	<link href="https://{{baseStaticUrl}}/js/filepond/filepond.css?_={{cacheBustingKey}}" rel="stylesheet">
+	<link href="https://{{baseStaticUrl}}/js/filepond/filepond-plugin-image-preview.css?_={{cacheBustingKey}}" rel="stylesheet">
+	
+	<!-- D3.JS -->
+	<script src="https://{{baseStaticUrl}}/js/d3libs/d3.min.js?_={{cacheBustingKey}}"></script>
+	
+	<!-- Sankey Diagrams JS -->
+	<link href="https://{{baseStaticUrl}}/js/d3libs/sk.d3.css?_={{cacheBustingKey}}" rel="stylesheet" type="text/css" />
+	<script src="https://{{baseStaticUrl}}/js/d3libs/sk.d3.js?_={{cacheBustingKey}}"></script>
+	
+	<!-- RadarChart diagrams JS -->
+	<script src="https://{{baseStaticUrl}}/js/d3libs/d3js.radarchart.js"></script>
+	
+	<!-- Visualization libs for report -->
+	<script src="https://{{baseStaticUrl}}/js/d3libs/d3-time.min.js?_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseStaticUrl}}/js/d3libs/d3-funnel.js?_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseStaticUrl}}/js/d3libs/venn.min.js?_={{cacheBustingKey}}"></script>
+	
+	<!-- User friendly query/filter creator -->
+	<link href="https://{{baseStaticUrl}}/js/query-builder/query-builder.default.min.css" rel="stylesheet" type="text/css" />
+	<script src="https://{{baseStaticUrl}}/js/query-builder/query-builder.standalone.min.js"></script>
+	
+	<!-- Message Notification -->
+	<link href="https://{{baseStaticUrl}}/js/izitoast/iziToast.min.css?_={{cacheBustingKey}}" type="text/css" rel="stylesheet" />
+	<script src="https://{{baseStaticUrl}}/js/izitoast/iziToast.min.js?_={{cacheBustingKey}}"></script>
+	
+	<!-- handlebars library -->
+	<script src="https://{{baseStaticUrl}}/js/utils/handlebars.min.js?_={{cacheBustingKey}}"></script>
+
+	<!-- Lodash library -->
+	<script src="https://{{baseStaticUrl}}/js/utils/lodash.min.js?_={{cacheBustingKey}}"></script>
+	
+	<!-- Base64 library -->
+	<script src="https://{{baseStaticUrl}}/js/utils/base64.js?_={{cacheBustingKey}}"></script>
+	
+	<!-- SortableJS -->
+	<script src="https://{{baseStaticUrl}}/js/sortablejs/sortable.min.js?_={{cacheBustingKey}}"></script>
+
+	<!-- Autocomplete -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/easy-autocomplete.themes.min.css" rel="stylesheet" />
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/easy-autocomplete.min.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/jquery.easy-autocomplete.min.js"></script>
+
+	<!-- Pagination -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js"></script>
+	
+	<!-- chartjs -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" rel="stylesheet" type="text/css" >
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@1.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+	
+	
+	<!-- CodeMirror for HTML Editor -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/codemirror.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/codemirror.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/mode/xml/xml.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/mode/css/css.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/mode/javascript/javascript.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/mode/htmlmixed/htmlmixed.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/addon/fold/xml-fold.min.js" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/addon/edit/matchbrackets.min.js" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/addon/edit/matchtags.min.js" ></script>
+	
+	<script src="https://{{baseStaticUrl}}/js/codemirror/codemirror.yaml.js?_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseStaticUrl}}/js/codemirror/codemirror.formatting.js?_={{cacheBustingKey}}"></script>
+
+	<!-- BotUI CSS and JS  -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/botui/0.3.9/botui.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/botui/0.3.9/botui-theme-default.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/botui/0.3.9/botui.min.js"></script>
+	
+	<!-- jsGrid -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" type="text/css" rel="stylesheet" />
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
+	
+	<!-- Web-socket  -->
+	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vertx/3.6.3/vertx-eventbus.min.js"></script>
+	
+	<!-- Library to copy text to clipboard -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+	
+	<!-- Modal box -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/eModal/1.2.69/eModal.min.js" ></script>
+	
+	<!-- Keyword Tag cloud -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.1.2/wordcloud2.min.js" ></script>
+
+	<!-- FilePond library -->
+	<script src="https://{{baseStaticUrl}}/js/filepond/filepond-plugin-image-crop.js?_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseStaticUrl}}/js/filepond/filepond-plugin-image-resize.js?_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseStaticUrl}}/js/filepond/filepond-plugin-image-preview.js?_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseStaticUrl}}/js/filepond/filepond-plugin-file-validate-size.js?_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseStaticUrl}}/js/filepond/filepond-plugin-image-exif-orientation.js?_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseStaticUrl}}/js/filepond/filepond-plugin-file-validate-type.js?_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseStaticUrl}}/js/filepond/filepond.js?_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseStaticUrl}}/js/filepond/config-filepond.js?_={{cacheBustingKey}}"></script>
+	
+	<!-- i18n Data Model -->
+	<script src="https://{{baseAdminApiUrl}}/view/i18n/us.js?admin=1&_={{cacheBustingKey}}"></script>
+</head>
+
+<body>
+	<div id="wrapper"></div>
+	<div id="common_modalbox_html"></div>
+	
+	<div class="modal fade" id="ajaxLoaderDialog" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">            
+				<div class="modal-body">
+					<div class="loader"></div>
+				</div>    
+			</div>
+		</div>
+	</div>
+
+	<!-- ///////////////////////////////////////////////////////////////////////////////////////////// -->
+	
+	<script src="https://{{baseStaticUrl}}/mediaplayer/mediaplayer.one.min.js?_={{cacheBustingKey}}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.8.2/mermaid.min.js"></script>
+	
+	<!-- after deps are loaded -->
+	<script>
+		window.systemConfig = JSON.parse($('<textarea />').html('{{systemConfigJson}}').text())
+		window.mediaPlayerOneReady = function () {
+			// ready to play content
+		}
+		mermaid.mermaidAPI.initialize({
+	        startOnLoad:false
+	    });
+	</script>
+	
+	<!-- LEO Admin -->
+	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leo.admin.common.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.router.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.router.functions.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.core-admin.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.visualization.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.journey.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.personalization.js?admin=1&_={{cacheBustingKey}}"></script>
+	
+	<!-- asset: group-details  -->
+	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.digital.asset.js?admin=1&_={{cacheBustingKey}}"></script>
+	
+	<!-- profile -->
+	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.profile.js?admin=1&_={{cacheBustingKey}}"></script>
+	
+	<!-- segment -->
+	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.segmentation.js?admin=1&_={{cacheBustingKey}}"></script>
+	
+</body>
+
+</html>

@@ -1,0 +1,295 @@
+<style>
+    #customer_source {
+    	width: 100%; float:left;
+    }
+    #chart text, #customer_source text {
+    	font-size:14px;
+    }   
+    #primary_dashboard svg {
+    	margin:auto; display:block;
+    }
+    #event_total_stats {
+		overflow-y:scroll;
+	}
+	.collector-item {
+		padding: 4px!important; 
+	}
+</style>
+
+<div class="row">
+      <div class="col-lg-12">
+          <h5 class="page-header" id="page_breadcrumb" > </h5>
+      </div>
+</div>
+
+<div class="container-fluid" id="primary_dashboard" >
+
+    <div class="row">
+        
+        <div class="row">
+        	<div class="col-md-4">
+            	<div class="panel panel-marketing">
+            		<div class="panel-heading"> <h3 class="panel-title text-center"> Marketing Metrics in Total</h3> </div>
+				  	<div class="panel-body" id="marketing_metrics_holder" >
+				  	</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+            	<div class="panel panel-business">
+            		<div class="panel-heading"> <h3 class="panel-title text-center"> Key Business Metrics in Total</h3> </div>
+				  	<div class="panel-body" id="sales_metrics_holder" >
+				  	</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+            	<div class="panel panel-cx">
+            		<div class="panel-heading"> <h3 class="panel-title text-center"> Customer Experience Metrics in Total</h3> </div>
+				  	<div class="panel-body" id="cx_metrics_holder" >
+				  	</div>
+				</div>
+			</div>
+        </div>
+        
+        <div class="col-md-8 highlight_box">
+				
+         	<div class='text-center' style="margin-bottom: 20px">
+				<h5> Data Aggregation and Reporting 
+					from <span id="beginReportDate" class="highlight_text">  </span> 
+					to <span id="endReportDate" class="highlight_text" >  </span> </h5> 
+			</div>
+			
+        	<div class="row float-right">
+		        <div class='col-md-5 col-xs-12'>
+		            <div class="form-group">
+		                <div class='input-group date' id='beginFilterDate'>
+		                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
+		                        <span class="glyphicon glyphicon-calendar"></span>
+		                    </span>
+		                </div>
+		            </div>
+		        </div>
+		        <div class='col-md-5 col-xs-12'>
+		            <div class="form-group">
+		                <div class='input-group date' id='endFilterDate'>
+		                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
+		                        <span class="glyphicon glyphicon-calendar"></span>
+		                    </span>
+		                </div>
+		            </div>
+		        </div>
+		        <div class='col-md-2 col-xs-12 text-center'>
+		        	<button type="button" class="btn btn-primary" style="width: 86%" onclick="showDashboardReport()" > 
+		        		<i class="fa fa-check" aria-hidden="true"></i> OK </button>
+		        </div>
+		    </div>
+	       
+            <div class="row chart_box"  >
+            	
+            	<!--  Data Funnel Chart  -->
+                <div class="col-md-2"></div>
+                
+	            <div class="col-md-8 ">
+	            	<h4 class="highlight_text text-center" >Profile Data Funnel</h4>
+	               	<div id="profile_funnel_wrapper" class="vcenter" style="width: 96%; margin: auto;">
+	                  	<div id="profile_funnel"></div>
+	               	</div>
+	            </div>
+	            
+	            <div class="col-md-2"></div>
+	            
+            </div>
+        </div>
+        
+        <!-- holder for Total Customer Statistics and Total Event Statistics -->
+        <div class="col-md-4 "> 
+        	<div class="chart_box">
+	        	<h4 class="highlight_text text-center" > Summary Statistics</h4>
+	            <div class="summary_metric">
+	                <div class="vcenter" id="profile_total_stats" >
+	 					<!--  Summary: profile, segment, revenue -->
+	                </div>
+	            </div>
+	            
+	            <h4 class="highlight_text text-center" > Total Event Statistics </h4>
+	            <div class="summary_metric">
+	                <div class="vcenter" id="event_total_stats" >
+	                    <!--  Events -->
+	                    <div class="highlight_text text-center" style="padding: 10px">
+	                    	No data available
+	                    </div>
+	                </div>
+	            </div>
+	       	</div>
+        </div>
+        
+    </div>
+   
+    <div class="row chart_box" style="display: none;" >
+     	<div class="col-md-3" >
+     		<div id="customer_source" >
+                <h4 class="chart_header" > Media Sources </h4>
+            </div>
+     	</div>
+    	<div class="col-md-12">
+	        <h4 class="chart_header" style="width: 100%;" > Total Visitor Statistics of Media Channels </h4>
+	        <div id="chart" style="text-align:center;">
+	            <svg></svg>
+	        </div>
+        </div>
+    </div>
+
+</div>
+<br><br><br>
+
+<script>
+	//select date
+
+    var initPrimaryDashboard = function () {
+    	updateProfileChartWrapper();
+		
+    	initDateFilterComponent(true);
+    	
+    	showDashboardReport();
+    	
+    	//loadEventStatistics()
+        
+        //loadChannelPerformance();
+      	//loadCustomerVenn();
+    }
+	
+	var mainDashboardFunnelHeight = 342;
+	var dashboardFontSize = 14;
+	
+	var updateProfileChartWrapper = function() {
+		var container = $('#profile_funnel_wrapper');
+		var ws = $(window).width();
+		if(ws > 1500 && ws < 1650 ){
+			container.css("width","90%");
+		}
+		else if(ws > 1650 && ws < 1750 ){
+			container.css("width","96%");
+		}
+		else if(ws > 1750 ){
+			container.css("width","100%");
+		}
+		
+		var wh = $(window).height();
+		if(wh > 1000 && ws > 1400){
+			mainDashboardFunnelHeight = wh - (Math.floor(window.innerHeight/3) + 40);
+			dashboardFontSize = 16;
+		}
+		else if(wh > 1500 && ws > 1600){
+			mainDashboardFunnelHeight = wh - (Math.floor(window.innerHeight/3) + 80);
+			dashboardFontSize = 17;
+		}
+	}
+	
+    var showDashboardReport = function() {
+    	var formatDateTime = 'YYYY-MM-DD HH:mm:ss';
+    	var datetimeFilter = getDateFilterValues();
+    	
+    	var beginReportDate = datetimeFilter.beginFilterDate;
+    	$('#beginReportDate').text(new moment(beginReportDate).format(formatDateTime))
+    	
+    	var endReportDate = datetimeFilter.endFilterDate;
+    	$('#endReportDate').text(new moment(endReportDate).format(formatDateTime))
+        
+    	var urlStr = baseAdminApi + '/cdp/analytics360/dashboard-primary';
+    	
+    	var dashboardFunnelOption = {
+   	   		block: {
+   	   			highlight: true,
+	   	   		fill: {
+	                type: 'gradient'
+	            }
+   	   	    },
+   	        chart: {
+   	         	curve: {
+   	                 enabled: true,
+   	                 height: 30
+   	             },
+   	             height: mainDashboardFunnelHeight,
+   	             bottomWidth : 0.64,
+	             bottomPinch: 1
+   	         },
+   	         tooltip: {
+   	             enabled: true
+   	         },
+   	         label: {
+   	        	fontSize: dashboardFontSize+'px'
+   	         },
+   	         events: {
+   	             click: {
+   	                 block: function (data) {
+   	                     console.log(data.label.raw);
+   	                 }
+   	             }
+   	         }
+   	    };
+
+  	    var visualizeFunnel = function (domSelector, list) {
+  	        var data = [];
+	  	    for(var i=0; i < list.length; i++){
+	  	    	var e = list[i];
+	  	    	var value = new Number(e.collectorCount).toLocaleString();
+	  	    	var colorCode = getColorCodeProfileFunnel(i+1);
+	  			data.push([e.collectorKey, value, colorCode ]);
+	  		}
+  	        var chart = new D3Funnel(domSelector);
+  	        chart.draw(data, dashboardFunnelOption);
+  	    }
+    	
+    	var renderStatsTotal = function(profileTotalStats, eventTotalStats){
+    		var sel = '#profile_total_stats';
+    		$(sel).empty();
+    		for(var i=0; i < profileTotalStats.length; i++){
+    			var obj = profileTotalStats[i];
+    			var label = obj.collectorKey;
+				var value = obj.collectorCount;
+				var flowType = obj.flowType;
+				
+    			if(flowType === 0){
+    				appendItemCount(sel, label, value);
+    			}
+    			else if(flowType === 1) {
+    				$('#marketing_metrics_holder').append('<div class="highlight_text text-center" > '+label+' : '+value+' </div>');
+    			}
+				else if(flowType === 2) {
+					$('#sales_metrics_holder').append('<div class="highlight_text text-center" > '+label+' : '+value+' </div>');
+    			}
+				else if(flowType === 3) {
+					$('#cx_metrics_holder').append('<div class="highlight_text text-center" > '+label+' : '+value+' </div>');
+    			}
+    		}
+    		
+    		var sel = '#event_total_stats';
+    		$(sel).css('height',mainDashboardFunnelHeight-50);
+    		var len = eventTotalStats.length;
+    		if(len > 0) {
+    			$(sel).empty();
+        		for(var i=0; i < len; i++){
+        			var obj = eventTotalStats[i];
+        			appendItemCount(sel, obj.collectorKey, obj.collectorCount);
+        		}
+    		}
+    	}
+        
+        LeoAdminApiUtil.getSecuredData(urlStr, datetimeFilter , function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+        		
+        		var profileTotalStats = json.data.profileTotalStats;
+                var eventTotalStats = json.data.eventTotalStats;
+                renderStatsTotal(profileTotalStats, eventTotalStats);
+                
+                var profileFunnelData = json.data.profileFunnelData;
+                visualizeFunnel('#profile_funnel', profileFunnelData);
+                
+                $('.collector-count').css('font-size',dashboardFontSize+'px');
+                
+
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
+    }
+</script>

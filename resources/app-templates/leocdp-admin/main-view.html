@@ -1,0 +1,325 @@
+<!-- Main Navigation Menu -->
+
+<nav id="main_admin_navigation" class="navbar navbar-fixed-top" role="navigation" style="display: none;">
+
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+			<span class="icon-bar"></span> <span class="icon-bar"></span>
+		</button>
+
+		<a class="navbar-brand" href="/admin">
+			<img id="logo-img" src="" alt="MainLogo" style="display: none;" />
+		</a>
+
+		<div style="width: 100%;">
+			<input id="main_search_profile" type="text" placeholder="Enter the name of profile" autocomplete="off" >
+		</div>
+
+		<!-- Top User Menu -->
+		<ul class="nav navbar-right top-nav">
+
+			<li class="dropdown">
+				<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">
+					<i class="fa fa-user"></i> <span id="userDisplayName"></span> <b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a href="#calljs-leoCdpRouter('My_Login_Info')"> <i class="fa fa-fw fa-user"></i> My Login Info </a> 
+					</li>
+						
+					<li style="display: none;" > <a href="#"> <i class="fa fa-fw fa-envelope"></i> Inbox </a> </li>
+					<li style="display: none;" > <a href="#"> <i class="fa fa-fw fa-gear"></i> Settings </a> </li>
+						
+					<li class="divider"></li>
+					<li>
+						<a href="javascript:LeoAdminApiUtil.logout()"> <i class="fa fa-fw fa-power-off"></i> Log Out</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		
+		
+		<!-- Top User Menu -->
+		<ul class="nav navbar-right top-nav-sub">
+
+			<li class="dropdown">
+				<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">
+					<i class="fa fa-university"></i> Knowledge Base <b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu" style="width: 270px">
+					
+					<li>
+						<a target="_blank" href="https://knowledge.leocdp.net/p/what-is-uspa-framework.html"> <i class="fa fa-book" aria-hidden="true"></i>  Introduction to USPA framework</a>
+					</li>
+					<li>
+						<a target="_blank" href="https://knowledge.leocdp.net/p/introduction-to-leo-cdp-101.html"> <i class="fa fa-book" aria-hidden="true"></i> Introduction to LEO CDP </a>
+					</li>
+					<li>
+						<a target="_blank" href="https://knowledge.leocdp.net/p/how-to-do-customer-analytics.html"> <i class="fa fa-book" aria-hidden="true"></i> What is Unique Scored Profile ?</a>
+					</li>
+					<li>
+						<a target="_blank" href="https://knowledge.leocdp.net/p/how-to-design-customer-journey.html"> <i class="fa fa-book" aria-hidden="true"></i> How to design customer journey</a>
+					</li>
+					<li>
+						<a target="_blank" href="https://knowledge.leocdp.net/p/how-to-segment-customer-data.html"> <i class="fa fa-book" aria-hidden="true"></i> How to segment customer data</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		
+	</div>
+
+	<!-- Sidebar Menu Items -->
+	<div id="main-navbar" class="collapse navbar-collapse navbar-ex1-collapse">
+		<ul class="nav navbar-nav side-nav">
+			
+			<!--  1 - Unified Data Hub Menu   -->
+			<li id="nav_analytics_hub" style="display: ;" >
+				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#analytics_hub_menu"> <i class="fa fa-fw fa-pie-chart"></i>
+				 	Unified Analytics Hub <i id="data_analytics_hub_collapse_icon" class="fa fa-fw fa-caret-down"> </i>
+				</a>
+				<ul id="analytics_hub_menu" class="collapse in" aria-expanded="true">
+					<li id="Main_Data_Dashboard_Menu" >
+						<a id="Main_Data_Dashboard" href="#calljs-leoCdpRouter('Main_Data_Dashboard')" title="Main Data Analytics Dashboard" > 
+							<i class="fa fa-fw fa-bar-chart"></i> Main Data Dashboard </a>
+					</li>
+					<li>
+						<a id="Event_Data_Dashboard" href="#calljs-leoCdpRouter('Event_Data_Dashboard')" title="Event Data Dashboard"  > 
+							<i class="fa fa-fw fa-line-chart"></i> Event Data Dashboard </a>
+					</li>
+					<li>
+						<a id="CX_Data_Dashboard" href="#calljs-leoCdpRouter('CX_Data_Dashboard')" title="CX Data Dashboard"  > 
+							<i class="fa fa-fw fa-tachometer"></i> CX Data Dashboard </a>
+					</li>
+				</ul>
+			</li>
+		
+			<!--  2 - Journey Data Hub   -->
+			<li id="nav_journey_hub" style="display: ;" >
+				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#journey_hub_menu"> <i class="fa fa-fw fa-map"></i>
+				 	Journey Data Hub <i id="journey_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
+				</a>
+				<ul id="journey_hub_menu" class="collapse in" aria-expanded="true">
+					<li id="Journey_Data_Funnel_Menu" >
+						<a id="Journey_Data_Funnel" href="#calljs-leoCdpRouter('Journey_Data_Funnel')" title="Journey Data Funnel" >
+							<i class="fa fa-fw fa-filter"></i> Journey Data Funnel </a>
+					</li>
+					<li>
+						<a id="Journey_Data_Flow" href="#calljs-leoCdpRouter('Journey_Data_Flow')" title="Journey Data Flow"> 
+							<i class="fa fa-fw fa-map-o"></i> Journey Data Flow </a>
+					</li>
+				</ul>
+			</li>
+		
+			<!--  3 - Customer Data Hub Menu  -->
+			<li id="nav_customer_hub" >
+				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#customer_hub_menu"> <i class="fa fa-fw fa-address-card-o"></i>
+					Customer Data Hub <i id="customer_data_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
+				</a>
+				<ul id="customer_hub_menu" class="collapse in" aria-expanded="true">
+					<li style="display: none" >
+						<a id="Business_Unit_Management" href="#calljs-leoCdpRouter('Business_Unit_Management')">
+							<i class="fa fa-users" aria-hidden="true"></i> Business Account List </a>
+					</li>
+					<li>
+						<a id="Profile_Management" href="#calljs-leoCdpRouter('Profile_Management')" title="All customer profile" > 
+							<i class="fa fa-fw fa-users"></i> Profile Management </a>
+					</li>
+					<li>
+						<a id="Segment_Management" href="#calljs-leoCdpRouter('Segment_Management')" title="All segmentation list "> 
+							<i class="fa fa-object-group" aria-hidden="true"></i> Segment Management </a>
+					</li>
+				</ul>
+			</li>
+			
+			<!-- 4 - Data Activation Hub Menu (TODO for version 2.0) -->
+			<li id="nav_activation_hub"   >
+				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#data_activation_hub_menu"> <i class="fa fa-fw fa-line-chart"></i>
+					Data Activation Hub <i id="data_activation_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
+				</a>
+				<ul id="data_activation_hub_menu" class="collapse in" aria-expanded="true">
+					<li>
+						<a id="Data_Asset_Categories" href="#calljs-leoCdpRouter('Data_Asset_Categories')" title="Digital Asset Categories for Marketing Automation" > 
+							<i class="fa fa-fw fa-list" ></i> Digital Asset Categories </a>
+					</li>
+					<li id="Data_Activation_Services_Menu" style="display: none" >
+						<a id="Data_Activation_Services" href="#calljs-leoCdpRouter('Data_Activation_Services')">
+							<i class="fa fa-fw fa-exchange" aria-hidden="true" ></i> Data Activation Services </a>
+					</li>
+					<li style="display: none" >
+						<a id="Campaign_Management" href="javascript:" data-href="#calljs-leoCdpRouter('Campaign_Management')" onclick="underDevelopment(this)" title="Marketing Campaign Management"  > 
+							<i class="fa fa-fw fa-calendar-check-o"></i> Campaign Management </a>
+					</li>
+				</ul>
+			</li>
+
+			<!--  5 - Core System Management  -->
+			<li id="nav_system_management" style="display: none;" >
+				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#system_management_menu"> <i class="fa fa-cogs" aria-hidden="true"></i>
+					System Management <i id="system_management_collapse_icon" class="fa fa-fw fa-caret-down"></i>
+				</a>
+				<ul id="system_management_menu" class="collapse in" aria-expanded="true">
+					<li>
+						<a id="Login_Account_List" href="#calljs-leoCdpRouter('Login_Account_List')">
+							<i class="fa fa-user-plus" aria-hidden="true"></i> Login Account List </a>
+					</li>
+					<li>
+						<a id="System_Configuration" href="#calljs-leoCdpRouter('System_Configuration')" >
+							<i class="fa fa-cog" aria-hidden="true"></i> System Configuration </a>
+					</li>
+				</ul>
+			</li>
+			
+			<li id="promo_panel">
+				<div class="panel panel-default">
+				    <div class="panel-body" style="font-size: 11px;" >
+				    	<div>
+				    		<b> <a href="https://leocdp.com" target="_blank" > LEO <span id="leo_product_type" ></span> </a> <span id="leocdp_version_type" ></span> Edition </b> <br>
+				    		Version: <b><span id="leocdp_version_number" ></span></b>
+				    	</div>
+				    	<div>
+				    		<b> Powered by</b> <br>
+				    		<img id="uspa_logo" style="margin: auto;" src="/public/images/uspa-tech-logo.png" alt="USPA Technology" title="Go to USPA Technology website" >
+				    	</div>
+				    </div>
+				</div>
+			</li>
+			
+		</ul>
+	</div>
+	<!-- /.navbar-collapse -->
+</nav>
+
+<div id="page-main-notification" style="display: none;"> </div>
+
+<div id="page-wrapper" >
+	<!-- page data here -->
+	<div id="page_main_content" class="container-fluid" >
+		<div class="loader"></div>
+	</div>
+</div>
+
+<script>
+	
+	// global data for admin app
+	window.currentUserProfile = {'displayName':''};
+	
+	function loadUserInfoWidget() {
+	    var urlStr = baseAdminApi + '/user/get-info';
+	    LeoAdminApiUtil.callPostAdminApi(urlStr, {}, function (json) {
+	        if (json.httpCode === 0 && json.errorMessage === '') {
+	            if (json.data) {
+	                var systemUser = json.data;
+	                if(systemUser.role > 1){
+	                	$('#nav_system_management').show()
+	                }
+	                $('#userDisplayName').html(systemUser.displayName);
+	                window.currentUserProfile = systemUser;
+	            }
+	        }
+	    });
+	}
+
+	/////////////////////////////// READY //////////////////////////////////
+	
+	function pageWrapperResize(){
+		$('#page-wrapper').attr('style', 'width:'+($(window).width() - 220 ) + 'px!important');
+	}
+	
+	function loadCommonModalHtml() {
+	    var list = [
+	        '/view/common-widgets/query-filter-modal.html?admin=1',
+	        '/view/common-widgets/post-type-selection-modal.html?admin=1',
+	        '/view/common-widgets/confirm-delete-data-modal.html?admin=1',
+	        '/view/common-widgets/leo-recommender.html?admin=1'
+	    ];
+	    list.forEach(function (e) {
+	        loadModalboxHtml(e);
+	    });
+	}
+	
+	function navigationSetup(){
+		// 1 analytics menu
+		$("#analytics_hub_menu").on("hide.bs.collapse", function(){
+        	$("#data_analytics_hub_collapse_icon").attr('class','fa fa-fw fa-caret-left');
+        });
+        $("#analytics_hub_menu").on("show.bs.collapse", function(){
+        	$("#data_analytics_hub_collapse_icon").attr('class','fa fa-fw fa-caret-down');
+        });
+        
+     	// 2 journey menu
+		$("#journey_hub_menu").on("hide.bs.collapse", function(){
+        	$("#journey_hub_collapse_icon").attr('class','fa fa-fw fa-caret-left');
+        });
+        $("#journey_hub_menu").on("show.bs.collapse", function(){
+         	$("#journey_hub_collapse_icon").attr('class','fa fa-fw fa-caret-down');
+        });
+         
+		// 3 customer menu
+		$("#customer_hub_menu").on("hide.bs.collapse", function(){
+        	$("#customer_data_hub_collapse_icon").attr('class','fa fa-fw fa-caret-left');
+        });
+        $("#customer_hub_menu").on("show.bs.collapse", function(){
+        	$("#customer_data_hub_collapse_icon").attr('class','fa fa-fw fa-caret-down');
+        });  
+        
+     	// 4 activation menu
+		$("#data_activation_hub_menu").on("hide.bs.collapse", function(){
+        	$("#data_activation_hub_collapse_icon").attr('class','fa fa-fw fa-caret-left');
+        });
+        $("#data_activation_hub_menu").on("show.bs.collapse", function(){
+        	$("#data_activation_hub_collapse_icon").attr('class','fa fa-fw fa-caret-down');
+        });
+        
+     	// 5 system menu
+		$("#system_management_menu").on("hide.bs.collapse", function(){
+        	$("#system_management_collapse_icon").attr('class','fa fa-fw fa-caret-left');
+        });
+        $("#system_management_menu").on("show.bs.collapse", function(){
+        	$("#system_management_collapse_icon").attr('class','fa fa-fw fa-caret-down');
+        });
+	}
+
+	function mainViewReady() {
+		if (isMobileDevice()) {
+			var msg ='<div class="alert alert-info"> <strong> The LEO CDP Admin </strong> is currently not supported on mobile browsers! </div>';
+			$('#page-main-notification').show().html(msg);
+		} else {
+			pageWrapperResize();
+			loadCommonModalHtml();
+			loadUserInfoWidget();
+			navigationSetup();
+			
+			$('#main_search_profile').on('keyup', function (e) {
+		        if (e.keyCode == 13) {
+		        	var keywords = $(this).val().trim();
+		        	if(keywords.length > 1){
+		        		var encodedString = Base64.encode(keywords);
+		        		location.hash = "calljs-leoCdpRouter('Customer_Profile_Search','" + encodedString + "')";
+		        	}
+		        }
+		    });
+			
+			$('#main_admin_navigation').show();
+			$('#logo-img').attr('src',window.pageHeaderLogo).show();
+			
+			$('#leo_product_type').text(leoProductType);
+			$('#leocdp_version_type').text(leoCdpEdition.toUpperCase());
+			$('#leocdp_version_number').text(leoCdpBuildVersion);
+			
+			if('CDP-X' === leoProductType){
+				$('#Data_Activation_Services_Menu').hide();
+				
+			}
+			
+			$('#uspa_logo').click(function(){
+				window.open('https://uspa.tech','_blank')
+			});
+			
+			$(window).resize(function() {
+				pageWrapperResize();
+			});
+		}
+	};
+</script>

@@ -1,0 +1,182 @@
+<div class="container-fluid" id="post_info_view">
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+        <div class="col-lg-12">
+	         <h5 class="page-header" id="page_breadcrumb" > </h5>
+        </div>
+    </div>
+
+    <!-- MAIN BODY here -->
+
+    <div class="row">
+        <div class="col-lg-9">
+            <!-- Headline Images -->
+            <h4 id="post_info_title" > </h4> 
+            
+            <div id="headline-images-div"></div>
+
+            <!-- Post Content -->
+            <hr>
+            <div class="panel panel-default">
+                
+                <div class="panel-body">
+                    <div id="headlineVideo"></div>
+                    <div id="mediaInfoPreview"></div>
+                    <div id="mediaInfoUnits"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="row text-center">
+            
+            	<button type="button" class="btn btn-info" onclick="history.back()">
+                	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                	Back
+                </button>
+                
+            	<button type="button" class="btn btn-danger data-control-delete" onclick="LeoCdpAdmin.navFunctions.deleteItemAsset(postModel)"  >
+                	<i class="fa fa-trash" aria-hidden="true"></i>
+                	Delete
+                </button>
+                
+                <button type="button" class="btn btn-success data-control-edit" id="btn_edit_post" > 
+	        		<i class="fa fa-fw fa-pencil-square-o"></i> Edit 
+	        	</button>
+            </div>
+            <hr>
+            <div class="row"  >
+             	<button id="btn_preview_post" type="button" class="btn btn-primary" data-slug="" onclick="previewPost(this)" style="display: none;" >
+                	<i class="fa fa-info-circle" aria-hidden="true"></i>
+                	Preview
+                </button>
+                <a id="mediaInfoDowdloadUrl" href="javascript:" class="btn btn-info" target="_blank" style="display: none;">
+                    <i class="fa fa-fw fa-download"></i> Download
+                </a>
+           </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var postModel = false;
+    
+    var initPostInfoView = initPostInfoView || function(params){
+    	LeoCdpAdmin.loadView('/view/common-widgets/headline-images.html?admin=1', '#headline-images-div', function () {
+            loadDataPostInfo(params)
+        }, true);
+    }
+
+    function loadDataPostInfo(params) {
+        if (params) {
+            var itemId = params.itemId;
+            var groupId = params.groupId;
+            var categoryId = params.categoryId;
+            //console.log('view post ' + itemId);
+
+            var urlStr = baseAdminApi + '/item/get';
+           
+            LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
+                if (json.httpCode === 0 && json.errorMessage === '') {
+                	
+        	    	var canEditData = json.canEditData;
+            		var canDeleteData = json.canDeleteData;
+            		
+            		if( ! canEditData ){
+        				$('button.data-control-edit').attr('disabled','disabled');
+        			}
+            		if( ! canDeleteData ){
+        				$('button.data-control-delete').attr('disabled','disabled');
+        			}
+                	
+                    postModel = json.data;
+                    document.title = 'LEO CDP - Content Post: ' + postModel.title;
+                    $('#post_info_title').text(postModel.title)
+
+                    var groupId = postModel.groupIds[0] || '';
+                    var categoryId = postModel.categoryIds[0] || '';
+                    
+                    $('#btn_edit_post').click(function(){
+                    	var params = leoCdpRouterParams([itemId, groupId, categoryId ]) ;
+    		        	location.hash = getAssetEditorCallJs(postModel.assetType, params);
+    		        });
+                    
+                    // update breadcrumb link
+                   	updateBreadcrumbInAssetPost(postModel.assetCategories, postModel.assetGroups, postModel.title);
+                    
+                    $('#tnv_Asset_Group').attr('href', "#calljs-leoCdpRouter('Asset_Group_Details','" + groupId + "')" );
+                    
+                    $('#btn_preview_post').data('slug',postModel.slug);
+
+                    var view = $('#post_info_view');
+                    for (var k in postModel) {
+                        var value = postModel[k];
+                        var fieldType = typeof value;
+
+                        if (fieldType === 'object') {
+                            if (k === 'headlineImages') {
+                                loadHeadLineImageObjectToView(postModel.headlineImages);
+                            } else if (k === 'mediaInfoUnits') {
+                                var container = $('#mediaInfoUnits');
+                                value.forEach(function (e) {
+                                    var tempNode = $('<div/>').html(e.content);
+                                    tempNode.find('img').each(function () {
+                                        $(this).attr('style',
+                                            'height:320px!important;max-width:100%!important;object-fit:contain!important'
+                                        );
+                                    });
+                                    container.append("<h3>" + e.headline + "</h3><br>" + tempNode.html() + "<br>");
+                                });
+                                if (value.length > 0) {
+                                    $('#mediaInfoPreview').hide();
+                                }
+                            }
+                        } else if (fieldType === 'number' || fieldType === 'string') {
+                            if (k === 'mediaInfo') {
+                                loadMediaInfoView(value, postModel.type);
+                            } else if (k === 'headlineVideoUrl') {
+                                var mediaInfo = value;
+                                if (mediaInfo.indexOf('https://youtu.be') >= 0 || mediaInfo.indexOf(
+                                        'https://www.youtube.com') >= 0 ||
+                                    mediaInfo.indexOf('https://www.facebook.com') >= 0 || mediaInfo.indexOf(
+                                        'https://vimeo.com') >= 0) {
+                                    var placeHolderId = 'vh_' + new Date().getTime();
+                                    var html = '<div id="' + placeHolderId +
+                                        '" class="videoholder" style="width:70%;margin:15px auto;"></div>';
+                                    $('#headlineVideo').html(html);
+
+                                    var autoplay = false;
+                                    var onReady = function (player) {
+
+                                    }
+                                    if (mediaInfo.indexOf('http') != 0) {
+                                        mediaInfo = window.baseAdminApi + mediaInfo;
+                                    }
+                                    MediaPlayerOne.create(autoplay, placeHolderId, mediaInfo, '', [], 0, 0, onReady);
+
+                                } else {
+                                    $('#headlineVideo').html(value + "<hr>");
+                                }
+
+                            }
+                            view.find("*[data-field='" + k + "']").html(value);
+                        }
+                    }
+
+                } else {
+                    LeoAdminApiUtil.logErrorPayload(json);
+                }
+            });
+        }
+    }
+
+    function previewPost(aNode) {
+    	// FIXME
+    	var contentBaseUrl = 'https://bookstore.bigdatavietnam.org';
+        var url = contentBaseUrl + '/html/item/' + $(aNode).data('slug');
+        var win = window.open(url, '_blank');
+        win.focus();
+    }
+    
+</script>

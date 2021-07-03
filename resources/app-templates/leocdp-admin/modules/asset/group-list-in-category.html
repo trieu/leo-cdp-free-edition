@@ -1,0 +1,158 @@
+<div class="row">
+    <div class="col-lg-10">
+       <h5 class="page-header" id="page_breadcrumb" > </h5>
+    </div>
+    <div class="col-lg-2 text-center" style="padding: 10px">
+        <button type="button" class="btn btn-goto-router data-control-insert" id="btn_new_group"  > 
+        	<i class="fa fa-fw fa-plus-circle"></i> New Asset Group
+		</button>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-lg-12">
+        <div class="table-responsive">
+            <table id="page-list" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Group Title</th>
+                        <th>Group Information</th>
+                        <th>Privacy</th>
+                        <th>Type</th>
+                        <th>Creation Time</th>
+                        <th>Modification Time</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Privacy Status</th>
+                        <th>Type</th>
+                        <th>Creation Time</th>
+                        <th>Modification Time</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+	var canEditData = false, canDeteteData = false, dataTable = false;
+   
+    function filterPages() {
+        console.log('filter pages');
+    }
+
+    var initLoadGroupsInCategory = initLoadGroupsInCategory || function(categoryId, catType, catName) {
+       
+        $('#tnv_Asset_Groups').text(catName).attr('title', catName);
+        
+        $('#btn_new_group').click(function(){
+        	var params = leoCdpRouterParams(['', categoryId ]) ;
+        	location.hash = "calljs-leoCdpRouter('Asset_Group_Editor','" + params + "')";
+        });
+
+        // $('#catName').html(decodeURI(catName));
+        var usersession = lscache.get('usersession');
+        if (usersession) {
+            $('#page-list').DataTable({
+                "order": [[ 5, "desc" ]],
+                "ajax": {
+                    "url": baseAdminApi + '/group/list-by-category',
+                    "type": "POST",
+                    "contentType": 'application/x-www-form-urlencoded',
+                    "data": function (d) {
+                        d.usersession = usersession;
+                        d.categoryId = categoryId;
+                    },
+                    "dataSrc": function ( json ) {
+                    	var canInsertData = json.canInsertData;
+            	    	var canEditData = json.canEditData;
+                		var canDeleteData = json.canDeleteData;
+                		
+                		if( ! canEditData ){
+                			canEditData = false;
+            			}
+                		if( ! canDeleteData ){
+                			canDeteteData = false;
+            			}
+                		if( ! canInsertData ){
+            				$('button.data-control-insert').attr('disabled','disabled');
+            			}
+                		return json.data;
+                     }
+                },
+                "columnDefs": [{
+                        "render": function (data, type, row) {
+                            var callJsStr = "#calljs-leoCdpRouter('Asset_Group_Details','" + row.id + "')";
+                            return '<a class="text_wrapper" title="' + data + '" href="' + callJsStr + '" >' + textTruncate(data,50) + '</a>';
+                        },
+                        "targets": 0
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            return '<div class="text_wrapper" >' + textTruncate(data,120) + '</div>';
+                        },
+                        "targets": 1
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            var num = parseInt(data);
+                            if (num === 1) {
+                                return '<i class="fa fa-envelope-open-o" style="font-size:16px">Protected</i>';
+                            } else if (num < 0) {
+                                return '<i class="fa fa-envelope-o" style="font-size:16px"> Private</i>';
+                            }
+                            return '<i class="fa fa-folder-o" style="font-size:16px"> Public</i>';
+                        },
+                        "targets": 2
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            return '<i class="fa fa-file-text-o" style="font-size:16px"> Asset Group </i>';
+                        },
+                        "targets": 3
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            var date = LeoAdminApiUtil.formater.toDateString(data);
+                            return date;
+                        },
+                        "targets": 4
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            var date = LeoAdminApiUtil.formater.toDateString(data);
+                            return date;
+                        },
+                        "targets": 5
+                    }
+                ],
+                "columns": [{
+                        "data": "title"
+                    },
+                    {
+                        "data": "mediaInfo"
+                    },
+                    {
+                        "data": "privacyStatus"
+                    },
+                    {
+                        "data": "type"
+                    },
+                    {
+                        "data": "creationTime"
+                    },
+                    {
+                        "data": "modificationTime"
+                    }
+                ]
+            });
+        }
+    }
+</script>

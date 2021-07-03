@@ -1,0 +1,410 @@
+ 
+<div class="row">
+    <div class="col-lg-7">
+        <h5 class="page-header" id="page_breadcrumb" > </h5>
+    </div>
+    <div class="col-lg-5 text-center" style="padding: 10px">
+    	<button type="button" class="btn btn-do-now" onclick="location.reload()" title="Refresh Profile List" > 
+    		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
+    	</button>
+    	<button type="button" class="btn btn-info data-control-update" onclick="mergeDuplicatesHandler()" title="Merge duplicated data for all profiles" > 
+    		<i class="fa fa-compress" aria-hidden="true"></i> Merge Data
+    	</button>
+    	<button type="button" class="btn btn-primary data-control-update" onclick="importProfileHandler()" title="Import Profiles" > 
+    		<i class="fa fa-cloud-upload" aria-hidden="true"></i> Import Data
+    	</button>
+    	<button type="button" class="btn btn-goto-router data-control-insert" onclick="newProfileHandler()" title="New Profile for manual data input"> 
+    		<i class="fa fa-plus-circle" aria-hidden="true"></i> New Profile 
+    	</button>
+    </div>
+</div>
+    
+<div class="top_page_header" >
+	<h4> <i class="fa fa-users" aria-hidden="true"></i> Profile Data List </h4>
+</div>
+		
+<div class="panel panel-info" >
+   	<div class="panel-heading">
+   		<b> <i class="fa fa-search" aria-hidden="true"></i> Profile Search Tool </b>
+   	</div>
+    <div class="panel-body">
+      	<div class="col-md-12 row">
+			<div class="col-md-6" style="background-color:#f5f5f5; border-radius: 5px;padding-top: 5px"> 
+				<div class="col-md-12">
+					<label> <input id="disable_date_filter" type="checkbox" onclick="toggleProfileDisableDateFilter(false)" > Disable Date Range Filter </label>
+				</div> 
+				<div id='beginFilterDateHolder' class="col-md-6"> 
+					<div class="form-group">
+		            	<b>From creation date </b>
+		                <div class='input-group date' id='beginFilterDate'>
+		                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
+		                        <span class="glyphicon glyphicon-calendar"></span>
+		                    </span>
+		                </div>
+		            </div>
+				</div>
+				<div id='endFilterDateHolder' class="col-md-6"> 
+					<div class="form-group">
+		           	 	<b> To creation date </b>
+		                <div class='input-group date' id='endFilterDate'>
+		                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
+		                        <span class="glyphicon glyphicon-calendar"></span>
+		                    </span>
+		                </div>
+		            </div>
+				</div>
+			</div>
+			<div class="col-md-6" > 
+				<div class="col-md-6" >
+					<div class="dropdown">
+					    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter data by
+					    <span class="caret"></span></button>
+					    <ul class="dropdown-menu">
+					      <li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterPhone')" >Contact Phone</a></li>
+					      <li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterEmail')" >Contact Email</a></li>
+					      <li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterByVisitorId')" >Public Visitor ID</a></li>
+					    </ul>
+					</div>
+					<div id="profile_filter_inputs" >
+						<input style="margin-top: 6px;display: none;" type="text" class="form-control" id="filterPhone" placeholder="Enter primary phone number" >
+				  		<input style="margin-top: 6px;display: none;" type="text" class="form-control" id="filterEmail" placeholder="Enter primary email" >
+				  		<input style="margin-top: 6px;display: none;" type="text" class="form-control" id="filterByVisitorId" placeholder="Enter public visitor ID" >
+					</div>
+				  	<input type="hidden" id="filterName" value="" >
+				  	
+				  	<div class="col-md-12" style="padding-top: 8px">
+						<label title="Filter all profiles that have mobile phone or email" > 
+							<input id="filterOnlyContactable" type="checkbox" > Show contactable profiles 
+						</label>
+					</div>
+				</div>
+				<div class="col-md-6" >
+					<div class="col-md-12 ">
+						<div class="col-md-6" >
+						 	<button type="button" class="btn" onclick="resetProfileSearch()" ><i class="fa fa-fw fa-undo"></i>Reset</button>
+						</div>
+						<div class="col-md-6" >
+						 	<button type="button" class="btn btn-primary" onclick="doProfileSearch()" ><i class="fa fa-fw fa-filter"></i>Search</button>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
+    
+<div class="row gridholder">
+    <div class="col-lg-12">
+        <div class="table-responsive">
+            <table id="profile-list" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th class="text-center" title="A profile that has mobile phone or email">Contact Data</th>
+                        <th >Full Name</th>
+                        <th >Last-seen Touchpoint</th>
+                        <th class="text-center">Data Quality</th>
+                        <th class="text-center">Journey Score</th>
+                        <th >Primary Email</th>
+                        <th >Primary Phone</th>
+                        <th >Updated at</th>
+                        <th >Actions</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+    
+<script>
+	var canEditData = false, canDeleteData = false, canInsertData = false, dataTable = false;
+	
+	function toggleProfileDisableDateFilter(disableBySearch) {
+		var checked = $('#disable_date_filter:checked').length === 1;
+		if(checked || disableBySearch === true) {
+			$('#beginFilterDateHolder').hide();
+			$('#endFilterDateHolder').hide();
+			if(disableBySearch) {
+				$('#disable_date_filter').prop('checked', true);
+			}
+		} else {
+			$('#beginFilterDateHolder').show();
+			$('#endFilterDateHolder').show();
+			$('#disable_date_filter').prop('checked', false);
+		}
+	}
+	
+	function handleProfileFilterTextbox(selector){
+		$('#profile_filter_inputs > input').val('').hide();
+		$(selector).show();
+	}
+	
+	function doProfileSearch() {
+		var keywords = $('#main_search_profile').val().trim();
+    	if(keywords.length > 1){
+    		var encodedString = Base64.encode(keywords);
+    		location.hash = "calljs-leoCdpRouter('Customer_Profile_Search','" + encodedString + "')";
+    	} 
+    	$('#profile-list').DataTable().clear();
+	    $('#profile-list').DataTable().ajax.reload();
+	}
+	
+	function resetProfileSearch() {
+		if(LeoCdpAdmin.routerKey === "Customer_Profile_Search" ){
+			$('#main_search_profile').val('');
+			location.hash = "calljs-leoCdpRouter('Profile_Management')";
+		} else {
+			$('#filterOnlyContactable').prop('checked', false);
+			
+			// reset filter data
+			$('#filterEmail').val('');
+			$('#filterPhone').val('');
+			$('#filterByVisitorId').val('');
+			$('#filterName').val('');
+			
+			$('#main_search_profile').val('');
+			$('#beginFilterDate > .form-control').show();
+			$('#endFilterDate > .form-control').show();
+			$('#disable_date_filter').prop('checked', false);
+			doProfileSearch();
+		}
+	}
+	
+	var newProfileHandler = function (){
+		if(canInsertData){
+			gotoLeoCdpRouter('Customer_Profile_Editor', 'new' );
+		} else {
+			errorNoAuthorization();
+		}
+	}
+	
+	var importProfileHandler = function(){
+		location.hash = "calljs-leoCdpRouter('Customer_Profile_Import')";
+	}
+	
+	var mergeDuplicatesCallback = function(){
+		iziToast.success({
+    	    title: 'Merge Duplicated Profile',
+    	    onClosed: function(){
+    	    	location.reload();
+    	    },
+    	    message: 'Data is merged successfully!'
+    	});
+	}
+	
+	var mergeDuplicatesHandler = function() {
+		LeoAdminApiUtil.callPostAdminApi('/cdp/profiles/merge-duplicates', {'mergeStrategy' : 'automation'}, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+    			if(json.data){
+    				iziToast.info({
+    		    	    title: 'Merge Duplicated Profile',
+    		    	    message: 'LEO CDP is processing all profiles in the database. It takes several minutes for this job'
+    		    	});
+    			}
+    			
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+       });
+	}
+	
+    function initCustomerProfileList(encodedKeywords) {
+    	// Date Range Filtering Controller
+    	initDateFilterComponent();
+    	
+    	if(typeof encodedKeywords === 'string' ) {
+    		var nameToSearch = Base64.decode(encodedKeywords);
+    		document.title = "Customer Data Hub - profile search by name: " + nameToSearch;
+    		$('#filterName').val(nameToSearch);
+    		$('#main_search_profile').val(nameToSearch);
+    		$('#filterEmail').hide();
+    		$('#filterPhone').hide();
+    		$('#filterByVisitorId').hide();
+    		toggleProfileDisableDateFilter(true);
+    	} else {
+    		$('#profile_filter_inputs > input:first').show();
+    	}
+    	
+        var usersession = getUserSession();
+        if (usersession) {
+            dataTable = $('#profile-list').DataTable({
+            	"lengthMenu": [[20, 30, 50], [20, 30, 50]],
+            	'processing': true,
+                'serverSide': true,
+                'searching': false,
+                'ordering': false,
+                'serverMethod': 'POST',
+                'ajax': {
+                    url: baseAdminApi + '/cdp/profiles/filter',
+                    contentType: 'application/json',
+                    beforeSend: function (request) {
+                        request.setRequestHeader("leouss", usersession);
+                    },
+                    data: function (d) {
+                        //console.log(d)
+                        
+                        var checked = $('#disable_date_filter:checked').length === 1;
+                        if( ! checked ) {
+                        	var datetimeFilter = getDateFilterValues();
+                            d.beginFilterDate = datetimeFilter.beginFilterDate;
+                			d.endFilterDate = datetimeFilter.endFilterDate;
+                        }
+            			
+            			d.filterContactable = $('#filterOnlyContactable:checked').length > 0;
+            			d.email = $('#filterEmail').val().trim();
+            			d.phone = $('#filterPhone').val().trim();
+            			d.visitorId = $('#filterByVisitorId').val().trim();
+            			
+            			var name =  $('#filterName').val();
+            			if(name.length >= 2 ){
+            				d.name = name;
+            			}
+            			
+                        return JSON.stringify(d);
+                    },
+                    dataSrc: function ( json ) {
+                    	canInsertData = json.canInsertData;
+            	    	canEditData = json.canEditData;
+                		canDeleteData = json.canDeleteData;
+                	
+                		if( canInsertData === false || canEditData === false ){
+            				$('button.data-control-insert').attr('disabled','disabled');
+            				$('button.data-control-update').attr('disabled','disabled');
+            			}
+                		return json.data;
+                     }
+                },
+                'columnDefs': [
+                    {
+                        "render": function (data, type, row) {
+                        	var hasContactInfo = (row.primaryEmail != '' || row.primaryPhone != '') && data > 0;
+                        	var html = getCheckedBoxIcon(hasContactInfo);
+                            return '<div class="datatable_text text-center" style="color:#41A317!important;font-size:15px!important" >' + html + '</div>';
+                        },
+                        "targets": 0
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	var name = 'Anonymous Person';
+                        	if(row.firstName.length > 0 || row.lastName.length > 0){
+                        		name = textTruncate(row.firstName + ' ' + row.lastName, 32);
+                        	}
+                            var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
+                            return '<a title="Profile Report" href="' + callJsViewStr + '" >' + name + '</a>';
+                        },
+                        "targets": 1
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	return '<div class="datatable_text" title="'+ row.lastTouchpoint.name +'">'  + textTruncate(row.lastTouchpoint.name, 35) + '</div>';
+                        },
+                        "targets": 2
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	var score =  new Number(data).toLocaleString();
+                        	if(data > 31  && data <= 60  ) {
+                        		return '<div class="highlight_text text-center" style="font-size:1.1em!important" >'  + score + ' </div>';
+                        	}
+                        	else if (data > 60 ) {
+                        		return '<div class="highlight_text text-center" style="color:#41A317!important;font-size:1.1em!important" >'  + score + '</div>';
+                        	}
+                        	return '<div class="datatable_text text-center">'  + score + ' </div>';
+                        },
+                        "targets": 3
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	var score =  new Number(data).toLocaleString();
+                        	if(data < 20 ){
+                        		return '<div class="datatable_text text-center">'  + score + ' % </div>';
+                        	}
+                        	else if(data >= 20 && data < 70 ){
+                        		return '<div class="highlight_text text-center" style="font-size:1.1em!important" >'  + score + ' % </div>';
+                        	}
+                        	else if(data >= 70 && data < 100){
+                        		return '<div class="highlight_text text-center" style="color:#41A317!important;font-size:1.2em!important" >'  + score + ' % </div>';
+                        	}
+                        	return '<div class="highlight_text text-center" style="color:#404040!important;font-size:0.8em!important" >'  + score + ' % </div>';
+                        },
+                        "targets": 4
+                    },               
+                    {
+                        "render": function (data, type, row) {
+                        	//format email
+                        	if(typeof data === 'string' ) {
+                        		var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
+                            	var link = '<a title="'+data+'" href="' + callJsViewStr + '" >' + textTruncate(data, 25) + '</a>';
+                            	return '<div class="datatable_text">'  + link + '</div>';
+                        	}
+                        	return '';
+                        },
+                        "targets": 5
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	//format phone
+                        	if(typeof data === 'string' ){
+                        		var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
+                            	var link = '<a title="'+data+'" href="' + callJsViewStr + '" >' + data + '</a>';
+                            	return '<div class="datatable_text">'  + link + '</div>';
+                        	}
+                        	return '';
+                        },
+                        "targets": 6
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	if(data){
+                        		var date = moment.utc(data).local().format('YYYY-MM-DD HH:mm:ss');
+                                return '<div class="small text-center" style="color:#3300ff;width:80px" >'  + date + '</div>';
+                        	}
+                        	return '-';
+                        },
+                        "targets": 7
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
+                            var html = '<a class="control" title="Profile Report" href="' + callJsViewStr + '" > <i class="fa fa-address-card-o" aria-hidden="true"></i> View</a>';
+                        	if( canEditData ){
+                        		var callJsEditStr = "#calljs-leoCdpRouter('Customer_Profile_Editor','" + row.id + "')";
+                        		html += ' <br><a class="control" title="Profile Editor" href="' + callJsEditStr + '" > <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>';
+                        	} else {
+                        		html += ' <br><a class="control" title="Profile Editor" href="javascript:errorNoAuthorization()" > <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>';
+                        	}
+                            return html;
+                        },
+                        "targets": 8
+                    }
+                ],
+                'columns': [
+                    {
+                        "data": "type" // 0
+                    },
+                    {
+                        "data": "firstName" // 1
+                    },
+                    {
+                        "data": "lastTouchpoint" // 2
+                    },
+                    {
+                        "data": "dataQualityScore" // 3
+                    },
+                    {
+                        "data": "journeyScore" // 4
+                    },
+                    {
+                        "data": "primaryEmail" // 5
+                    },
+                    {
+                        "data": "primaryPhone" // 6
+                    },
+                    {
+                        "data": "updatedAt" // 7
+                    }
+                ]
+            });
+        }
+    }    
+</script>

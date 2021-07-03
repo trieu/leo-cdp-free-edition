@@ -1,0 +1,56 @@
+<!-- Modal -->
+<div class="modal fade" id="postTypeSelectionDialog" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> New Content Post </h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info">
+                    <strong>Please select a post type:</strong>
+                </div>
+
+                <div class="radio">
+                    <label><input type="radio" name="postType" value="1" checked> TEXT</label>
+                </div>
+                <div class="radio" style="display: none" >
+                    <label><input type="radio" name="postType" value="2"> RICH_MEDIA</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="postType" value="3"> OFFICE_DOCUMENT</label>
+                </div>
+                <div class="radio"  >
+                    <label><input type="radio" name="postType" value="4"> VIDEO</label>
+                </div>
+                <div class="radio" style="display: none" >
+                    <label><input type="radio" name="postType" value="5"> AUDIO</label>
+                </div>
+                <div class="radio" style="display: none" >
+                    <label><input type="radio" name="postType" value="6"> SLIDE_SHOW</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="postType" value="7"> EPUB_EBOOK</label>
+                </div>
+                <div class="radio" >
+                    <label><input type="radio" name="postType" value="8"> IMAGE_SLIDESHOW</label>
+                </div>
+            </div>
+            <div class="modal-footer">                
+                <button type="button" class="btn btn-primary" onclick="postTypeSelectionOk()"> OK </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function postTypeSelectionOk() {
+        var selectedVal = parseInt($('#postTypeSelectionDialog').find('input[name="postType"]:checked').val());        
+        if (typeof postTypeSelectionCallback === 'function') {
+            postTypeSelectionCallback(selectedVal);
+            $('#postTypeSelectionDialog').modal('hide');
+        }
+    }
+</script>

@@ -1,0 +1,212 @@
+
+
+<!-- Data Science Jupyter Notebooks -->
+<div class="row">
+    <div class="col-lg-10">
+        <h5 class="page-header" id="page_breadcrumb" > </h5>
+    </div>
+    <div class="col-lg-2 text-center" style="padding: 10px">
+		<button type="button" class="btn btn-goto-router data-control-insert" onclick="" disabled="disabled">
+			<i class="fa fa-plus-circle" aria-hidden="true"></i> New Notebook
+		</button>
+	</div>
+	<div class="col-lg-12">
+		<h4 > All notebooks for customer analytics and A.I. machine learning models <a href="https://en.wikipedia.org/wiki/Project_Jupyter" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i> </a></h4>
+	</div>
+</div>
+  
+<div class="row gridholder">
+     <div class="col-lg-12">
+          <div class="table-responsive">
+               <table id="notebook-list" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        
+                        <th>Notebook File</th>
+                        
+                        <th>Created at</th>
+                        <th>Last run </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var initAnalytics360Notebooks =  initAnalytics360Notebooks || function() {
+    	loadAnalytics360Notebooks();
+    }    
+    
+    function loadAnalytics360Notebooks() {
+    	
+        var usersession = getUserSession();
+        if (usersession) {
+            $('#notebook-list').DataTable({
+            	'processing': false,
+                'serverSide': false,
+                'serverMethod': 'POST',
+                'ajax': {
+                    url: baseAdminApi + '/cdp/analytics360/notebooks',
+                    contentType: 'application/json',
+                    beforeSend: function (request) {
+                        request.setRequestHeader("leouss", usersession);
+                    },
+                    data: function (d) {
+                        console.log(d)
+                        return JSON.stringify(d);
+                    }
+                },
+                'columnDefs': [
+                	{
+                        "render": function (data, type, row) {
+                        	var statusTxt = "[Draft]";
+                        	if(data === 1){
+                        		statusTxt =  "[Ready]";
+                        	}
+                        	else if(data === 2){
+                        		statusTxt =  "[Started]";
+                        	}
+                        	else if(data === 3){
+                        		statusTxt =  "[Scheduled]";
+                        	}
+                        	else if(data === 4){
+                        		statusTxt =  "[Deleted]";
+                        	}
+                            return '<strong>' + statusTxt + '</strong>';
+                        },
+                        "targets": 0
+                    },
+                	{
+                        "render": function (data, type, row) {
+                            var name = textTruncate(row.name, 60);
+                            var callJsViewStr = "javascript:notebookOutputViewer('" + row.id + "')";
+                            return '<a title="'+row.name+'" href="' + callJsViewStr + '" >'+ name +'</a>';
+                        },
+                        "targets": 1
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            return row.jupyterFileUri;
+                        },
+                        "targets": 4
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	var date = moment.utc(new Date(data)).local().format('YYYY-MM-DD HH:mm:ss');
+                            return date;
+                        },
+                        "targets": 5
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	if(data){
+                        		var date = moment.utc(new Date(data)).local().format('YYYY-MM-DD HH:mm:ss');
+                                return date;
+                        	}
+                            return "-";
+                        },
+                        "targets": 6
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	var callJsViewStr = "javascript:notebookOutputViewer('" + row.id + "')";
+                            var callJsEditStr = "javascript:notebookEditor('" + row.id + "')";
+                            var callJsRunManuallyStr = "javascript:notebookRunManually('" + row.id + "')";
+                            var callJsRunSchedulerStr = "javascript:scheduleNotebookAsCronJob('" + row.id + "')";
+                            
+                            
+                            var outHtml = '<div style="width:81px"> <a class="control" title="Jupyter Notebook Viewer" href="' + callJsViewStr + '" ><i class="fa fa-book" aria-hidden="true"></i> View</a> <br>';
+                            // TODO 
+                            //outHtml += '<a class="control" title="Open Notebook in Jupyter Hub" href="' + callJsEditStr + '" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a> <br>';
+                            //outHtml += '<a class="control" title="Schedule notebook as cron job" href="' + callJsRunSchedulerStr + '" ><i class="fa fa-clock-o" aria-hidden="true"></i> Schedule</a>  <br>';
+                            //outHtml += '<a class="control" title="Run notebook manually" href="' + callJsRunManuallyStr + '" ><i class="fa fa-play" aria-hidden="true"></i> Run</a> </div>';
+                            return outHtml;
+                        },
+                        "targets": 7
+                    }
+                ],
+                'columns': [{
+                		// 0 
+                        "data": "status"
+                    },
+                    {
+                    	// 1
+                        "data": "name"
+                    },
+                    {
+                    	// 2
+                        "data": "type"
+                    },
+                    {
+                    	// 3
+                        "data": "description"
+                    },
+                    {
+                    	// 4
+                        "data": "jupyterFileUri"
+                    },
+                    {
+                    	// 5
+                        "data": "createdAt"
+                    },
+                    {
+                    	// 6
+                        "data": "lastRunAt"
+                    },
+                    {
+                    	// 7
+                        "data": "accessToken"
+                    }
+                ]
+            });
+        }
+    }    
+    
+    var notebookOutputViewer = notebookOutputViewer || function(){
+    	iziToast.info({
+    	    title: 'Information',
+    	    message: 'This function is under development and is not yet available',
+    	    onClosing: function(instance, toast, closedBy){
+    	    	// log
+    	    }
+    	});
+    }
+    
+    var notebookEditor = notebookEditor || function(){
+    	iziToast.info({
+    	    title: 'Information',
+    	    message: 'This function is under development and is not yet available',
+    	    onClosing: function(instance, toast, closedBy){
+    	    	// log
+    	    }
+    	});
+    }
+    
+    var notebookRunManually = notebookRunManually || function(){
+    	iziToast.info({
+    	    title: 'Information',
+    	    message: 'This function is under development and is not yet available',
+    	    onClosing: function(instance, toast, closedBy){
+    	    	// log
+    	    }
+    	});
+    }
+    
+    var scheduleNotebookAsCronJob = scheduleNotebookAsCronJob || function(){
+    	iziToast.info({
+    	    title: 'Information',
+    	    message: 'This function is under development and is not yet available',
+    	    onClosing: function(instance, toast, closedBy){
+    	    	// log
+    	    }
+    	});
+    }
+</script>

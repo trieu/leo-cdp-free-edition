@@ -1,0 +1,205 @@
+<div id="post_title" class="mdl-card__title mdl-typography--display-1" style="justify-content: center;">
+    {{title}}
+</div>
+
+<div id="postMainContent" class="portfolio-copy">
+
+    <div class="mdl-cell mdl-cell--12-col mdl-typography--text-right" style="font-weight: bold">
+        Posted by: {{#userDisplayName ownerId }}{{/userDisplayName}}
+        <a id="btnEditPost" target="_blank" href="#" style="display: none"> Edit Post </a>
+    </div>
+
+    <div id="postMediaVideo" class="mdl-cell mdl-cell--12-col" style="display: none;">
+        <!-- video loader -->
+        <div id="videoProgressLoader" style="margin: auto"
+            class="mdl-cell--6-col mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+
+        <!-- Video Holder -->
+        <div id="videoholder_outer" class="videoholder_outer" style='background-image: url("{{headlineImageUrl}}");'>
+            <div id="videoPlaceholder" class="videoholder" data-video-thumbnail="{{headlineImageUrl}}"
+                data-video-source="{{{headlineVideoUrl}}}">
+            </div>
+        </div>
+    </div>
+
+    <!-- main actions -->
+    <div id="postMediaAction" class="mdl-card__actions mdl-card--border mdl-typography--text-center" style="display: none;" >
+        <a id="arrow_back" href="#" style="float:left;"><i class="material-icons">skip_previous</i></a>
+        <a id="fast_rewind" href="javascript:player.currentTime(player.currentTime()-15)" style="float:left;"><i
+                class="material-icons">fast_rewind</i></a>
+
+        <button class="mdl-button mdl-button--icon mdl-button--colored"><i class="material-icons">favorite</i></button>
+        <button id="btnPlayerVolume" onclick="volumePlayerUp()"
+            class="mdl-button mdl-button--icon mdl-button--colored"><i class="material-icons">volume_up</i></button>
+        <button id="btnPlayerFullscreen" title="Play in fullscreen" onclick="showPlayerInFullscreen()"
+            class="mdl-button mdl-button--icon mdl-button--colored"><i class="material-icons">fullscreen</i></button>
+
+        <a id="arrow_forward" style="float:right" href="#"><i class="material-icons">skip_next</i></a>
+        <a id="fast_forward" href="javascript:player.currentTime(player.currentTime()+15)" style="float:right;"><i
+                class="material-icons">fast_forward</i></a>
+    </div>
+
+    <!-- Social buttons -->
+    <div class="mdl-card__actions mdl-typography--text-center">
+        <div class="fb-like" data-href="/html/post/{{{slug}}}" data-layout="button_count"
+            data-action="like" data-size="large">
+        </div>
+        <div class="fb-share-button" data-href="/html/post/{{{slug}}}" data-layout="button_count"
+            data-size="large">
+        </div>
+    </div>
+
+    <strong id="postMediaDescription" class="mdl-cell mdl-cell--12-col">{{description}}</strong>
+
+    <div class="mdl-card__actions mdl-card--border mdl-typography--text-left">
+        <b>Keywords:</b>
+        {{#each keywords}}
+        <a href="/html/top-posts-by-keywords/?keywords={{.}}">{{.}}</a> &nbsp;
+        {{/each}}
+    </div>
+
+    <div id="postMediaInfo" class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding ">
+        {{{mediaInfo}}}
+    </div>
+    
+    
+    <!-- LEO Form Data Collector  -->
+    <div id="subscription_placeholder" class="mdl-cell mdl-cell--12-col" style="display: none">
+    	<h3> Feedback Form </h3>
+    	<form id="subscription_form" > </form>
+    	<div id="subscription_form_error" class="alert alert-danger" style="display: none;" > </div>
+    </div>
+    
+
+</div>
+<script>
+    window.debugMediaPlayerOne = false;
+    var autoplayVideo = true;
+    var isYoutube = false;
+    var playerReadyCalled = false;
+    var contentClass = '{{contentClass}}';
+    var postType = {{type}};
+    var videoSrc = '';
+    
+    if(postType == 4 || postType == 9 ){
+    	$('#postMediaVideo, #postMediaAction').show();
+	}
+    
+
+    function playerReady() {
+        playerReadyCalled = true;
+        $('#videoholder_outer').css('background-image', 'none');
+        //if (!window.isMobile) 
+        {
+            setTimeout(function () {
+                window.player.muted(false);
+                window.player.volume(1);
+            }, 3000);
+        }
+        autoSetPlayTime();
+        LeoObserverProxy.recordActionEvent("play_prvideo", {videoSrc: videoSrc});
+    }
+
+    function autoSetPlayTime(){
+        var playtime = '';
+        if (location.hash.indexOf('#playtime=') === 0) {
+            playtime = location.hash.substring('#playtime='.length);
+        }
+        var secs = convertPlayTimeToSeconds(playtime);
+        if (secs >= 0) {
+            window.player.currentTime(secs);
+        }
+    }
+
+    $(window).on('hashchange', function (e) {
+        autoSetPlayTime();
+    });
+
+    function loadVideo() {
+        var pmHolderId = 'videoPlaceholder';
+
+        videoSrc = $('#' + pmHolderId).attr('data-video-source').trim();
+        if (videoSrc != '') {
+            isYoutube = videoSrc.indexOf('youtube.com') > 0;
+
+            var adUrls = [];
+            var skipTime = 3; // show skip button after 3 seconds            
+            var adConfigs = [];
+
+            window.player = MediaPlayerOne.create(autoplayVideo, pmHolderId, videoSrc, '', adUrls, skipTime, adConfigs, playerReady);
+
+            window.player.on("fullscreenchange", function () {
+                if (window.player.isFullscreen()) {
+                    // do something
+                    window.player.muted(false);
+                }
+            });
+        } else {
+            $('#postMediaVideo, #btnPlayerVolume, #btnPlayerFullscreen').hide();
+        }
+        autoPlaylistSetup();
+    }
+
+    function showPlayerInFullscreen() {
+        if (isYoutube) {
+            player.requestFullscreen()
+        }
+    }
+
+    function volumePlayerUp() {
+        window.player.muted(false);
+        window.player.volume(1);
+    }
+
+    function autoPlaylistSetup() {
+        var nodes = $('#recommended_posts a.suggested_item_post');
+        if (nodes.length > 2) {
+            $('#arrow_back').attr('href', $(nodes[0]).attr('href'));
+            $('#arrow_forward').attr('href', $(nodes[1]).attr('href'));
+        }
+    }
+
+    function convertPlayTimeToSeconds(playtime) {
+        var toks = playtime.split(':');
+        if (toks.length === 1) return parseInt(toks[0]);
+        else if (toks.length === 2) return parseInt(toks[0]) * 60 + parseInt(toks[1]);
+        else if (toks.length === 3) return parseInt(toks[0]) * 3600 + parseInt(toks[1]) * 60 + parseInt(toks[2]);
+        return -1;
+    }
+
+    window.mediaPlayerOneReady = function () {
+
+        setTimeout(loadVideo, 3000);
+        setTimeout(function () {
+            $('#videoProgressLoader').hide();
+        }, 5000);
+
+        loadSessionUserInfo(function () {
+            var isEditable = canEditPost('{{ownerId}}');
+            if (isEditable) {
+                $('#btnEditPost').show()
+            }
+        });
+
+        var fbUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(location.href);
+        $('#fbSharer').attr('href', fbUrl);
+
+        var w = $(window).width();
+        if (w < 640) {
+            var newW = w - 55;
+            $('#postMediaInfo').css('width', newW + 'px');
+        } else {
+            $('#postMainContent').addClass('mdl-grid');
+        }
+        
+        var contentKeywords = {
+        		"data-science" :"KHOA HỌC DỮ LIỆU", 
+        		"science" : "KHOA HỌC", 
+        		"technology" : "CÔNG NGHỆ - IT", 
+        		"philosophy" : "TRIẾT HỌC", 
+        		"marketing" :  "MARKETING",
+        		"artificial-intelligence" : "TRÍ TUỆ NHÂN TẠO"
+        };
+        LeoForm.render('subscription_form','subscription_placeholder', contentKeywords);
+    }
+</script>

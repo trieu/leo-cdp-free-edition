@@ -1,0 +1,341 @@
+<style>
+    .venntooltip {
+        font-size: 14px;
+        position: absolute;
+        text-align: center;
+        width: 128px;
+        height: 85px;
+        background: #333;
+        color: #fff;
+        padding: 2px;
+        border: 0px;
+        border-radius: 8px;
+        opacity: 0;
+    }
+
+    div.vcenter {
+        width: 100%;
+    }
+
+    div.summary_metric { 
+	    display: flex;
+	    align-items: center;
+	    text-align: left;
+	    padding: 0 10px 0 20px;
+    }
+
+    .bar {
+        fill: steelblue;
+    }
+    
+    .chart_box  {
+    	margin-top: 5px;
+    }
+    .chart_header {
+	    margin: 15px auto 8px;
+	    text-align: center;
+	    background-color: #D3D3D3;
+	    border-radius: 7px;
+	    padding: 5px;
+    }
+    
+    #chart text, #customer_source text {
+    	font-size: 15px;
+    }
+    
+    svg {
+    	margin: auto; display: block;
+    }
+</style>
+
+<div class="container-fluid">
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h5 class="page-header" id="page_breadcrumb" > </h5>
+        </div>
+    </div>
+    
+    <div class="row float-right">
+		<div class='col-md-7 col-xs-12 text-center'>
+			<h4>Reporting date: <span> January 12, 2020 </span> &#8594;  <span> May 11, 2020 </span></h4> 
+		</div>
+		 
+        <div class='col-md-2 col-xs-12'>
+            <div class="form-group">
+                <div class='input-group date' id='beginFilterDate'>
+                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class='col-md-2 col-xs-12'>
+            <div class="form-group">
+                <div class='input-group date' id='endFilterDate'>
+                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class='col-md-1 col-xs-12'>
+        	<button type="button" class="btn btn-primary"> OK </button>
+         </div>
+        
+    </div>
+
+    <!-- MAIN BODY here -->
+
+    <div class="row">
+        <div class="col-md-3">
+        	<div class="chart_box">
+	        	<h3 class="chart_header" >Content Statistics</h3>
+	            <div class="summary_metric">
+	                <div class="vcenter">
+	                   
+	                    <h4> <span class="label label-default"> 33,801 </span> &nbsp; categories </h4>
+	                    <h4> <span class="label label-default"> 63 </span> &nbsp; pages </h4>
+	                    <h4> <span class="label label-default"> 1,489 </span> &nbsp; posts </h4>
+	                    <h4> <span class="label label-default"> 900 </span> &nbsp; videos </h4>
+	 
+	                </div>
+	            </div>
+	            
+	            <h3 class="chart_header" >Event Tracking Statistics</h3>
+	            <div class="summary_metric">
+	                <div class="vcenter">
+	                
+	                    <h4> <span class="label label-default"> 61,656 </span> &nbsp; page views </h4>
+	                    <h4> <span class="label label-default"> 33,801 </span> &nbsp; sessions </h4>
+	                    <h4> <span class="label label-default"> 7,548 </span> &nbsp;  video views </h4>
+	                    <h4> <span class="label label-default"> 2,262 </span> &nbsp;  clicks </h4>
+	                    
+	                    
+	                </div>
+	            </div>
+        	</div>
+        </div>
+        
+        <div class="col-md-9">
+            <div class="row">
+                 <h3 class="chart_header" style="width: 100%;" > daily stats </h3>
+			     <div id="chart" style="text-align:center;">
+			     	<svg></svg>
+			     </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="row chart_box">
+     	
+    	<div class="col-md-12">
+	       <div style="width:100%;">
+				<canvas id="canvas"></canvas>
+			</div>
+        </div>
+    </div>
+
+</div>
+<br><br><br><br>
+
+<script>
+	//select date
+	var end = new moment().format("YYYY-MM-DD");
+	var begin = new moment().subtract(120, 'days').format("YYYY-MM-DD");
+	
+	$('#beginFilterDate').datetimepicker({
+	    format: 'YYYY-MM-DD',
+	        defaultDate: begin
+	});
+    $('#endFilterDate').datetimepicker({
+        useCurrent: false, 
+        format: 'YYYY-MM-DD',
+        defaultDate: end
+    });
+
+    function initContentDashboard() {
+        
+        loadChannelPerformance();
+        
+        var ctx = document.getElementById('canvas').getContext('2d');
+		window.myLine = new Chart(ctx, config);
+    }
+
+    function loadChannelPerformance() {
+        var data = [{
+            "channelName": "Ecommerce Website",
+            "lead": 181
+        }, {
+            "channelName": "Ecommerce App",
+            "lead": 189
+        }, {
+            "channelName": "Social Media Groups",
+            "lead": 387
+        }, {
+            "channelName": "Retail Store",
+            "lead": 187
+        }, {
+            "channelName": "Book Reseller",
+            "lead": 52
+        }];
+
+        // set the dimensions and margins of the graph
+        var containerWidth = $('#chart').width();
+        var margin = {
+                top: 20,
+                right: 20,
+                bottom: 30,
+                left: 180
+            },
+            width = containerWidth - margin.left - margin.right,
+            height = 350 - margin.top - margin.bottom;
+
+        // set the ranges
+        var y = d3.scaleBand()
+            .range([height, 0])
+            .padding(0.1);
+
+        var x = d3.scaleLinear()
+            .range([0, width]);
+
+        // append the svg object to the body of the page
+        // append a 'group' element to 'svg'
+        // moves the 'group' element to the top left margin
+        var svg = d3.select("#chart svg").attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");;
+
+        // format the data
+        data.forEach(function (d) {
+            d.lead = +d.lead;
+        });
+
+        // Scale the range of the data in the domains
+        x.domain([0, d3.max(data, function (d) {
+            return d.lead;
+        })])
+        y.domain(data.map(function (d) {
+            return d.channelName;
+        }));
+        //y.domain([0, d3.max(data, function(d) { return d.lead; })]);
+
+        // append the rectangles for the bar chart
+        svg.selectAll(".bar")
+            .data(data)
+            .enter().append("rect")
+            .attr("class", "bar")
+            //.attr("x", function(d) { return x(d.lead); })
+            .attr("width", function (d) {
+                return x(d.lead);
+            })
+            .attr("y", function (d) {
+                return y(d.channelName);
+            })
+            .attr("height", y.bandwidth());
+
+        // add the x Axis
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+
+        // add the y Axis
+        svg.append("g")
+            .call(d3.axisLeft(y));
+    }
+
+    var chartColors = {
+    		red: 'rgb(255, 99, 132)',
+    		orange: 'rgb(255, 159, 64)',
+    		yellow: 'rgb(255, 205, 86)',
+    		green: 'rgb(75, 192, 192)',
+    		blue: 'rgb(54, 162, 235)',
+    		purple: 'rgb(153, 102, 255)',
+    		grey: 'rgb(201, 203, 207)'
+    	};
+    var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+	var randomScalingFactor = function() {
+		return Math.round(Math.random() * 100);
+	};
+
+	var config = {
+		type: 'line',
+		data: {
+			labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+			datasets: [{
+				label: 'Visitor',
+				backgroundColor: chartColors.red,
+				borderColor: chartColors.red,
+				data: [
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor()
+				],
+				fill: false,
+			}, {
+				label: 'Content view',
+				fill: false,
+				backgroundColor: window.chartColors.blue,
+				borderColor: window.chartColors.blue,
+				data: [
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor()
+				],
+			}]
+		},
+		options: {
+			responsive: true,
+			title: {
+				display: true,
+				text: 'Daily Visitor and Content View'
+			},
+			tooltips: {
+				mode: 'index',
+				intersect: false,
+			},
+			hover: {
+				mode: 'nearest',
+				intersect: true
+			},
+			scales: {
+				xAxes: [{
+					display: true,
+					scaleLabel: {
+						display: true,
+						labelString: 'Month'
+					}
+				}],
+				yAxes: [{
+					display: true,
+					scaleLabel: {
+						display: true,
+						labelString: 'Value'
+					},
+					ticks: {
+						min: 0,
+						max: 100,
+
+						// forces step size to be 5 units
+						stepSize: 5
+					}
+				}]
+			}
+		}
+	};
+</script>
+

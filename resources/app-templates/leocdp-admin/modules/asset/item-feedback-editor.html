@@ -1,0 +1,660 @@
+<style>
+	#feedback_form_url_holder {
+		font-size: 11.5px;
+	    font-weight: bold;
+	    color: #3300ff;
+	}
+	.display-flex-center {
+	    display:flex;
+	    align-items:center;
+	    border: 1px solid;
+	    border-radius: 6px;
+	}
+	.display-flex-center button {
+		margin: auto
+	}
+	.display-flex-center .fa-code {
+		font-size: 1.3em;
+		font-weight: bold;
+	}
+	#survey_form_editor_wrapper, #embedded_html_form_wrapper {
+		clear: both;
+		display: block;
+	}
+	.modal-body .eventName {
+		font-size:1.5em; color:blue; font-weight: bold;
+	}
+</style>
+
+<div class="container-fluid" id="item_editor_form">
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+        <div class="col-lg-9">
+	         <h5 class="page-header" id="page_breadcrumb" > </h5>
+        </div>
+       	<div class="col-lg-3 text-center">
+            
+	         <button type="button" class="btn btn-info" onclick="history.back()">
+               	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
+             </button>
+               
+             <button type="button" class="btn btn-danger" onclick="LeoCdpAdmin.navFunctions.deleteItemAsset(feedbackFormData)">
+               	<i class="fa fa-trash" aria-hidden="true"></i> Delete
+             </button>
+             
+             <button type="button" class="btn btn-success data-control-edit" onclick="feedbackFormEditorSave()"  > 
+        		<i class="fa fa-fw fa-check"></i> Save 
+        	 </button>  
+           
+        </div>
+    </div>
+
+    <!-- MAIN BODY here -->
+    <div class="row" id="feedback_form_editor_div" style="visibility: hidden;"> 
+            <div class="form-group">
+                 <label> Form Title </label>
+                 <input id="asset_item_title" type="text" class="form-control" placeholder="Enter title" name="title" autocomplete="off">
+            </div>
+
+            <div class="form-group">
+                 <label> Form Description </label>
+                 <div id="description_div" style="display: block;">
+                     <textarea class="form-control" rows="2" placeholder="Enter description" name="description"></textarea>
+                 </div>
+                
+            </div>
+            
+            <div class="form-group" >
+			 	<label> Feedback Form Type </label>
+                <div style="margin-left: 20px" >
+                	<label class="radio-inline"><input type="radio" name="templateType" value="0" > Survey Form </label>
+                	
+                	<label style="display: none" class="radio-inline"><input type="radio" name="templateType" value="1" > Comment Form </label>
+                	
+                	<label class="radio-inline"><input type="radio" name="templateType" value="2" > CFS Form </label>
+                	<label class="radio-inline"><input type="radio" name="templateType" value="3" > CES Form </label>
+                	<label class="radio-inline"><input type="radio" name="templateType" value="4" > CSAT Form </label>
+                	<label class="radio-inline"><input type="radio" name="templateType" value="5" > NPS Form </label>
+                </div>
+			</div>
+			 
+			<hr>
+			<div>
+				 <div id="feedback_form_url_holder" class="alert alert-info" role="alert" >
+			 	 	<i class="fa fa-qrcode" aria-hidden="true" style="font-size: 1.1em" ></i>  
+				 	<b> Full URL </b> <a id="full_url_feedback_form" class="small-text" href="javascript:" target="_blank" ></a>
+				 </div>	
+			</div>
+			 	
+			<div id="feedback_form_code_holder" class="form-group" style="display: none;" >
+			 	 <div class="col-md-6 text-center" >
+			 	 	<div style="height: 200px" class="display-flex-center" >
+			 	 		 <img id="feedback_form_qrcode_url" style="height: 198px; margin: auto;" title="QR Code of full URL" />
+			 	 	</div>
+			 	 </div>	
+				 <div class="col-md-6 text-center" >
+				 	<div style="height: 200px" class="display-flex-center" >
+						<button class="btn btn-lg btn-do-now" onclick="showDialogEmbeddedFeedbackForm()" title="Get Embedded Code"> 
+				       		<i class="fa fa-code" aria-hidden="true"></i> Get Embedded Code
+				       	</button>
+				 	</div>
+				 </div>	
+			</div>
+			
+           <div class="form-group editor_wrapper" id="survey_form_editor_wrapper"  >
+                <label> Survey Template </label>
+                <div id="raw_media_container" style="width: 100%;" >
+                     <textarea id="raw_media_html"></textarea>
+                </div>
+           </div>
+            
+           <div class="form-group editor_wrapper" id="embedded_html_form_wrapper"  >
+                <label> HTML Head Code </label>
+                <div id="html_head_code_container" style="width: 100%;" >
+                     <textarea id="html_head_code"></textarea>
+                </div>
+                <label> HTML Body Code </label>
+                <div id="html_body_code_container" style="width: 100%;" >
+                     <textarea id="html_body_code"></textarea>
+                </div>
+           </div>
+            
+           <div class="form-group" id="feedback_form_preview_holder" style="display: none;">
+            	<label> Preview </label>
+	            <div class="embed-responsive embed-responsive-16by9 display-flex-center " style="display: none;" >
+	               <iframe class="embed-responsive-item" id="feedback_form_preview" src=""></iframe>
+	            </div>
+           </div> 
+    </div>
+</div>
+
+<hr>
+
+<script>
+    var itemId = "";
+    var groupId = "";
+    var categoryId = "";
+    
+    var feedbackFormData = false;
+
+    //raw HTML code editor
+    var surveyTemplateEditor = false, headHtmlEditor, bodyHtmlEditor;
+
+    function initSurveyEditor(params) {
+    	feedbackFormData = false;
+    	
+    	// html code editor
+    	surveyTemplateEditor = CodeMirror.fromTextArea(document.getElementById("raw_media_html"), {        
+            mode: "htmlmixed",           
+            lineNumbers: true ,
+            smartIndent: true ,
+            lineWrapping : true,
+            matchBrackets : true,
+            matchTags: {bothTags: true}
+        });
+        surveyTemplateEditor.setSize($('#raw_media_container').width()-18, 1);
+        
+     	// html_head_code editor
+    	headHtmlEditor = CodeMirror.fromTextArea(document.getElementById("html_head_code"), {        
+            mode: "htmlmixed",           
+            lineNumbers: true ,
+            smartIndent: true ,
+            lineWrapping : true,
+            matchBrackets : true,
+            matchTags: {bothTags: true}
+        });
+    	headHtmlEditor.setSize($('#html_head_code_container').width()-18, 1);
+        
+     	// html_body_code editor
+    	bodyHtmlEditor = CodeMirror.fromTextArea(document.getElementById("html_body_code"), {        
+            mode: "htmlmixed",           
+            lineNumbers: true ,
+            smartIndent: true ,
+            lineWrapping : true,
+            matchBrackets : true,
+            matchTags: {bothTags: true}
+        });
+    	bodyHtmlEditor.setSize($('#html_body_code_container').width()-18, 1);
+        
+        // load data from server
+    	loadFeedbackFormEditor(params);
+    }
+    
+    var updateFeedbackFormIframePreview = function(){
+    	if(typeof feedbackFormData.id === "string"){
+    		var url = "https://" + baseLeoObserverDomain + "/webform?preview=1&svt=survey&tplid=" + feedbackFormData.id + "&cb=" + new Date().getTime();
+     		$('#feedback_form_preview').attr('src',url).parent().show();
+     		
+     		$("#feedback_form_preview_holder").show();
+    	}
+    }
+    
+    var showPreviewFeedbackFormUrl = function(){
+    	if(feedbackFormData) {
+    		var tplFeedbackType = getFeedbackFormTypeAsString(feedbackFormData.templateType);
+    		
+    		// preview url
+    		var url = "https://" + baseLeoObserverDomain + "/webform?tplid=" + feedbackFormData.id;
+    		url = url + "&tplfbt=" + tplFeedbackType;
+    		url = url + "&cb=" + new Date().getTime();
+     		$('#full_url_feedback_form').attr('href',url).text(url);
+     		
+     		updateFeedbackFormIframePreview();
+     		
+     		var qrCodeFullUrl = baseLeoObserverUrl + feedbackFormData.qrCodeUrl.substr(1);
+     		$('#feedback_form_qrcode_url').attr('src',qrCodeFullUrl);
+     		
+     		$("#feedback_form_code_holder").show();
+    	}
+ 	}
+
+    function loadFeedbackFormEditor(params) {
+        if (params) {
+            itemId = params.itemId;
+            groupId = params.groupId;
+            categoryId = params.categoryId;
+            
+            console.log('=====> load template editor for id ' + itemId);
+
+            var urlStr = baseAdminApi + '/item/get';
+
+            LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
+                if (json.httpCode === 0 && json.errorMessage === '') {
+                    feedbackFormData = json.data;
+                    
+                    document.title = feedbackFormData.title ? 'Feedback Form Editor - ' + feedbackFormData.title : 'New Feedback Form Template';
+                    var templateType = feedbackFormData.templateType;
+                    
+                 	// breadcrumb link update
+        	        updateBreadcrumbInAssetPost(feedbackFormData.assetCategories, feedbackFormData.assetGroups, feedbackFormData.title );
+                 	
+                    var form = $('#item_editor_form');
+                    for (var k in feedbackFormData) {
+                        var value = feedbackFormData[k];
+                        var fieldType = typeof value;
+
+                        if (fieldType === 'number' || fieldType === 'string') {
+                            if (k === 'mediaInfo' && templateType === 0) {
+                            	surveyTemplateEditor.setValue(value);
+                                CodeMirrorAutoFormat(surveyTemplateEditor);
+                                surveyTemplateEditor.setSize(null, 500);
+                                $('#embedded_html_form_wrapper').hide()
+                            } 
+                            else if (k === 'headCode' && templateType > 0) {
+                            	headHtmlEditor.setValue(value);
+                                CodeMirrorAutoFormat(headHtmlEditor);
+                                headHtmlEditor.setSize(null, 250);
+                                $('#survey_form_editor_wrapper').hide()
+                            } 
+                            else if (k === 'bodyCode' && templateType > 0 ) {
+                            	bodyHtmlEditor.setValue(value);
+                                CodeMirrorAutoFormat(bodyHtmlEditor);
+                                bodyHtmlEditor.setSize(null, 500);
+                                $('#survey_form_editor_wrapper').hide()
+                            } 
+                            else if (k === 'description') {
+                                form.find("textarea[name='description']").val(value);
+                            } 
+                            else if (k === 'templateType') {
+                                form.find('input:radio[name=templateType][value="'+value+'"]').attr('checked', true);
+                            }                       
+                            else {
+                                form.find("input[name='" + k + "']").val(value);
+                            }
+                        }
+                        console.log(k + " : " + value + " fieldType :" + fieldType)
+                    }
+                    
+                    if(feedbackFormData.qrCodeUrl !== "") {
+                    	showPreviewFeedbackFormUrl();
+                    	
+                    	var autoSave = function(){
+                    		if(window.autoSaveFeedbackForm){
+                    			window.autoSaveFeedbackForm = false;
+                    			saveFeedbackFormData(function(){
+                             		$('#ajaxLoaderDialog').modal('hide');
+                             		updateFeedbackFormIframePreview();
+                             	});
+                    		}
+                    	}
+                    	
+                    	if(feedbackFormData.templateType > 0) {
+                    		headHtmlEditor.on("change",function(){
+                        		if(! window.autoSaveFeedbackForm ) {
+                        			window.autoSaveFeedbackForm = true;
+                        			setTimeout(autoSave,10000);
+                        		}
+                            });
+                    		bodyHtmlEditor.on("change",function(){
+                        		if(! window.autoSaveFeedbackForm ) {
+                        			window.autoSaveFeedbackForm = true;
+                        			setTimeout(autoSave,10000);
+                        		}
+                            });
+                    	} else {
+                    		surveyTemplateEditor.on("change",function(){
+                        		if(! window.autoSaveFeedbackForm ) {
+                        			window.autoSaveFeedbackForm = true;
+                        			setTimeout(autoSave,10000);
+                        		}
+                            });
+                    	}
+                    	
+                    } else {
+                    	$('#feedback_form_url_holder').hide()
+                    }
+                    
+                    var isNewItem = typeof feedbackFormData.id !== "string";
+                 	if(isNewItem){
+                 		// update UI when switching templateType in create mode only
+                 		$('input[type=radio][name="templateType"]').change(function() {
+           	        	   	var tplType = $(this).val();
+           	        	   	if(tplType == 0){
+           	        	   		$('#embedded_html_form_wrapper').hide()
+           	        	   		$('#survey_form_editor_wrapper').show()
+           	        	   		surveyTemplateEditor.setSize(null, 500);
+           	        	   	}
+           	        	   	else {
+           	        	   		$('#survey_form_editor_wrapper').hide()
+           	        	   		$('#embedded_html_form_wrapper').show()
+           	        	   		headHtmlEditor.setSize(null, 250);
+           	        	   		bodyHtmlEditor.setSize(null, 500);
+           	        	   	}
+           	        	});
+                 	} 
+                 	else {
+                 		// disable when in edit mode
+                 		$('input[type=radio][name="templateType"]:not(:checked)').parent().hide();
+                 		$('input[type=radio][name="templateType"]:checked').parent().addClass('radio-inline-selected')
+                 	}
+                 	$('#feedback_form_editor_div').css('visibility',"visible")
+                 	
+                } else {
+                    LeoAdminApiUtil.logErrorPayload(json);
+                }
+            });
+        }
+    }
+
+    function saveFeedbackFormData(callback) {
+        if (feedbackFormData) {
+            feedbackFormData.itemId = itemId;
+            feedbackFormData.groupId = groupId;
+            feedbackFormData.categoryId = categoryId;
+   
+            console.log('=====> saveFeedbackFormData itemId ' + itemId);
+
+            //get DOM view and set into feedbackFormData
+            var form = $('#item_editor_form');
+            feedbackFormData.title = form.find('input[name="title"]').val().trim();
+            feedbackFormData.description = form.find('textarea[name="description"]').val();
+            feedbackFormData.templateType = parseInt(form.find('input:radio[name=templateType]:checked').val());
+            feedbackFormData.assetType = 13;
+            if(feedbackFormData.templateType > 0) {
+            	feedbackFormData.headCode = headHtmlEditor.getValue().trim();
+                feedbackFormData.bodyCode = bodyHtmlEditor.getValue().trim();
+                feedbackFormData.mediaInfo = "_";
+            } else {
+            	feedbackFormData.mediaInfo = surveyTemplateEditor.getValue().trim();
+            	feedbackFormData.headCode = "";
+            	feedbackFormData.bodyCode = "";
+            }
+            
+            if(feedbackFormData.templateType === 0){
+            	// parsing LEO_SURVEY_FORM
+            	var jsonMetadata = JSON.stringify( parseSurveyTemplate(feedbackFormData.mediaInfo) );
+                feedbackFormData.jsonMetadata = jsonMetadata;
+            } else {
+            	// skip parsing EMBEDDED_HTML
+            	feedbackFormData.jsonMetadata = "{}";
+            }
+
+            if(feedbackFormData.title === "" || feedbackFormData.mediaInfo === "") {
+            	iziToast.error({
+            	    title: 'Error',
+            	    message: 'The title and template can not be empty !'
+            	});
+            } else {
+            	if (typeof callback === 'function') {
+            		// the final save
+            		$('#ajaxLoaderDialog').modal({
+                		backdrop: 'static',
+                		keyboard: false
+            		});
+            	}
+            	
+                //done set data model, POST to API
+                var urlStr = baseAdminApi + '/item/save';
+                LeoAdminApiUtil.callPostAdminApi(urlStr, feedbackFormData, function (json) {
+                    if (json.httpCode === 0 && json.errorMessage === '') {
+                        if (typeof callback === 'function') {
+                            if(json.data === ''){
+                                $('#error-on-save').html('Data is not valid !').show().delay(6000).fadeOut('slow');
+                            } else {
+                                callback(json.data);
+                            }                        
+                        }
+                    } else {
+                        $('#error-on-save').html(json.errorMessage).show().delay(6000).fadeOut('slow');
+                        LeoAdminApiUtil.logErrorPayload(json);
+                    }
+                });
+            }
+        }
+    }
+
+    function feedbackFormEditorSave() {
+        var onSaveOk = function (itemId) {
+            console.log('=====> feedbackFormEditorSave ', itemId);   
+            $('#ajaxLoaderDialog').modal('hide'); 
+            location.hash = "calljs-leoCdpRouter('Asset_Group_Details','"+feedbackFormData.groupId+"')";
+        }
+        saveFeedbackFormData(onSaveOk);
+    }
+    
+    function parseSurveyTemplate(rawSurveyTemplate) {
+		var st = rawSurveyTemplate;
+		var rows = st.split('\n');
+		var currentQuestionGroup = false;
+		var sData = {};
+		for(var i=0; i < rows.length; i++) {  
+			r = rows[i].trim(); 
+			//console.log(r);
+
+			// Header Image
+			if(r.indexOf('[Survey Header Image URL]') >= 0) {
+			 	var d = r.substr('[Survey Header Image URL]'.length).trim()
+			 	sData['Header_Image_URL'] = d;
+			}
+			
+			// Header
+			else if(r.indexOf('[Survey Header]') >= 0) {
+			 	var d = r.substr('[Survey Header]'.length).trim()
+			 	sData['Header'] = d;
+			}
+			
+			// Description
+			else if(r.indexOf('[Survey Description]') >= 0) {
+			 	var d = r.substr('[Survey Description]'.length).trim()
+			 	sData['Description'] = d;
+			}
+			
+			// Group
+			else if(r.indexOf('[Survey Group]') >= 0) {
+				var toks = r.substr('[Survey Group]'.length).trim().split(':');
+				if(toks.length === 2){
+					sData['Group_Label'] = toks[0].trim();
+				 	sData['Group'] = toks[1].trim();
+				}
+				else if(toks.length === 1){
+					sData['Group_Label'] = toks[0].trim();
+				}
+			} 
+			
+			// Group Option
+			else if(r.indexOf('[Survey Group Option]') >= 0) {
+				sData['Group'] = typeof sData['Group'] ===  "string" ? sData['Group'] : "";
+				sData['Group_Options'] = typeof sData['Group_Options'] === "object" ? sData['Group_Options'] : [];
+				sData['Group_Options'].push(r.substr('[Survey Group Option]'.length).trim());
+			}
+			
+			// Time Period
+			else if(r.indexOf('[Survey Time Period]') >= 0) {
+				var toks = r.substr('[Survey Time Period]'.length).trim().split(':');
+				if(toks.length === 2){
+					sData['Time_Period_Label'] = toks[0].trim();
+				 	sData['Time_Period'] = toks[1].trim();
+				}
+			}
+			
+			// Evaluated Object
+			else if(r.indexOf('[Survey Evaluated Object]') >= 0) {
+				sData['Evaluated_Object'] = r.substr('[Survey Evaluated Object]'.length).trim();
+			}
+			// Evaluated Object Input Label
+			else if(r.indexOf('[Survey Evaluated Object Input]') >= 0) {
+				sData['Evaluated_Object_Input_Label'] = r.substr('[Survey Evaluated Object Input]'.length).trim();
+			}
+			// Evaluated Object Object Item
+			else if(r.indexOf('[Survey Evaluated Object Item]') >= 0) {
+				sData['Evaluated_Object_Suggested_Items'] = typeof sData['Evaluated_Object_Suggested_Items'] === "object" ? sData['Evaluated_Object_Suggested_Items'] : [];
+				var item = r.substr('[Survey Evaluated Object Item]'.length).trim();
+				sData['Evaluated_Object_Suggested_Items'].push(item);
+			}
+			
+			
+			// Evaluated Person
+			else if(r.indexOf('[Survey Evaluated Person]') >= 0) {
+				sData['Evaluated_Person'] = r.substr('[Survey Evaluated Person]'.length).trim();
+			}
+			// Evaluated Person Input Label
+			else if(r.indexOf('[Survey Evaluated Person Input]') >= 0) {
+				sData['Evaluated_Person_Input_Label'] = r.substr('[Survey Evaluated Person Input]'.length).trim();
+			}
+			// Evaluated Person Item
+			else if(r.indexOf('[Survey Evaluated Person Item]') >= 0) {
+				sData['Evaluated_Person_Suggested_Items'] = typeof sData['Evaluated_Person_Suggested_Items'] === "object" ? sData['Evaluated_Person_Suggested_Items'] : [];
+				var item = r.substr('[Survey Evaluated Person Item]'.length).trim();
+				sData['Evaluated_Person_Suggested_Items'].push(item);
+			}
+			
+			// Item
+			else if(r.indexOf('[Survey Item]') >= 0) {
+				var toks = r.substr('[Survey Item]'.length).trim().split(':');
+				if(toks.length === 2){
+					sData['Item_Label'] = toks[0].trim();
+				 	sData['Item'] = toks[1].trim();
+				}
+			}
+			
+			// Touchpoint to research (ecommerce website, people or place)
+			else if(r.indexOf('[Touchpoint List]') >= 0) {
+			 	var d = r.substr('[Touchpoint List]'.length).trim();
+			 	sData['Touchpoint_List_Label'] = d;
+			}
+			else if(r.indexOf('[Touchpoint Item]') >= 0) {
+				sData['Touchpoint_List'] = typeof sData['Touchpoint_List'] === "object" ? sData['Touchpoint_List'] : [];
+			 	var toks = r.substr('[Touchpoint Item]'.length).trim().split(':');
+			 	if(toks.length === 2){
+			 		sData['Touchpoint_List'].push(toks[1].trim());
+			 	}
+			}
+			
+			// Guide
+			else if(r.indexOf('[Survey Question Guide]') >= 0) {
+				var d = r.substr('[Survey Question Guide]'.length).trim()
+			 	sData['Question_Guide'] = d;
+			}
+			
+			// Question Group
+			else if(r.indexOf('[Survey Question Group]') >= 0) {
+				sData['Question_List'] = typeof sData['Question_List'] === "object" ? sData['Question_List'] : {};
+				currentQuestionGroup = r.substr('[Survey Question Group]'.length).trim();
+			 	sData['Question_List'][currentQuestionGroup] = [];
+			}
+			
+			// Question
+			else if(r.indexOf('[Survey Question]') >= 0) {
+				if(currentQuestionGroup && typeof sData['Question_List'][currentQuestionGroup] === "object"){
+					var question = r.substr('[Survey Question]'.length).trim();
+					sData['Question_List'][currentQuestionGroup].push(question);	
+				}
+			}
+			
+			// Choices
+			else if(r.indexOf('[Survey Choices]') >= 0) {
+				sData['Choices'] = typeof sData['Choices'] === "object" ? sData['Choices'] : [];
+				var toks = r.substr('[Survey Choices]'.length).trim().split(',');
+			 	if(toks.length >1){
+			 		toks.forEach(function(e){
+			 			if(typeof e === 'string'){
+			 				sData['Choices'].push(e.trim());
+			 			}
+			 		})
+			 	}
+			}
+			
+			// Comment
+			else if(r.indexOf('[Survey Comment]') >= 0) {
+				var d = r.substr('[Survey Comment]'.length).trim()
+			 	sData['Comment_Label'] = d;
+			}
+			
+			// Name
+			else if(r.indexOf('[Profile Name]') >= 0) {
+				var d = r.substr('[Profile Name]'.length).trim()
+			 	sData['Name_Label'] = d;
+			}
+			
+			// Email
+			else if(r.indexOf('[Profile Email]') >= 0) {
+				var d = r.substr('[Profile Email]'.length).trim()
+			 	sData['Email_Label'] = d;
+			}
+			// Phone
+			else if(r.indexOf('[Profile Phone]') >= 0) {
+				var d = r.substr('[Profile Phone]'.length).trim()
+			 	sData['Phone_Label'] = d;
+			}
+			
+			// Ext ID
+			else if(r.indexOf('[Profile Ext ID]') >= 0) {
+				var d = r.substr('[Profile Ext ID]'.length).trim()
+			 	sData['Ext_ID'] = d;
+			}
+			
+			// Footer Image
+			else if(r.indexOf('[Survey Footer Image URL]') >= 0) {
+			 	var d = r.substr('[Survey Footer Image URL]'.length).trim()
+			 	sData['Footer_Image_URL'] = d;
+			}
+			
+			// Footer
+			else if(r.indexOf('[Survey Footer]') >= 0) {
+			 	var d = r.substr('[Survey Footer]'.length).trim()
+			 	sData['Footer'] = d;
+			}
+		}
+		console.log(sData);
+		return sData;
+	}
+    
+    function showDialogEmbeddedFeedbackForm(){
+		var idDialog = "dialogEmbeddedFeedbackForm";
+		
+		initEmbeddedFeedbackForm(idDialog, feedbackFormData);
+		
+		$('#'+idDialog).modal({
+    		backdrop: 'static',
+    		keyboard: false
+		});
+    }
+</script>
+
+<div class="modal fade" id="dialogEmbeddedFeedbackForm" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > Please copy the JavaScript (JS) Tag into your HTML code to collect feedback data </h4>
+			</div>         
+			<div class="modal-body">
+				<h5 class="eventName" >  </h5>
+				<div id="feedback_form_code_holder" ><textarea class="code">
+	(function() {
+	    //  Feedback/Survey Form Collector for __feedbackFormTitle__
+	    var svf = document.title;
+		var tprefurl = location.href;
+		var tplFeedbackType = "__tplFeedbackType__";
+		
+		var url  = '__feedbackFormFullUrl__';
+		url = url + "&tplfbt=" + tplFeedbackType;
+		url = url + "&tpname=" + document.title;
+		url = url + "&tpurl=" + location.href;
+		url = url + "&cb=" + new Date().getTime();
+		
+		// container
+		var divWrapper = document.createElement("div"); 
+		var cssDiv = "position: relative; width:100%; overflow: hidden;  height: 100px ";
+		divWrapper.setAttribute("style",cssDiv);
+		
+		// iframe 
+		var iframe = document.createElement("iframe"); 
+		var cssIframe = "position: absolute; top:0; left:0; bottom:0; right:0; width:100%; border: none; overflow: hidden; height: 100px ";
+		iframe.setAttribute("style",cssIframe);
+		iframe.setAttribute("src",url);
+		divWrapper.appendChild(iframe);
+		
+		var referenceNode = document.getElementById("__scriptNodeId__");
+		referenceNode.parentNode.insertBefore(divWrapper, referenceNode.nextSibling);
+	})();
+				</textarea></div>
+			</div>  
+			<div class="modal-footer">
+				<button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>

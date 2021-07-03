@@ -1,0 +1,637 @@
+<style>
+#key_business_action {
+	background-color: #c9cad4;
+	height: 28px;
+}
+pre.mermaid > textarea {
+    -webkit-font-smoothing: initial;
+    border-radius: 2px;
+    color: #525252;
+    display: block;
+    font-family: Roboto Mono,Monaco,courier,monospace;
+    font-size: 1.4rem;
+    line-height: inherit;
+    margin: 0 2px;
+    max-width: inherit;
+    width: 100%;
+    height: 280px;
+    overflow: inherit;
+    padding: 1.2em 5px;
+    white-space: inherit;
+}
+
+#journey_map_name {
+	margin: 25px;
+	font-size: 20px !important;
+}
+</style>
+
+<div class="row" id="breadcrumb_header" >
+    <div class="col-md-8" >
+         <h3 class="page-header" id="page_breadcrumb" >  </h3>
+    </div>
+    <div class="col-md-4 hcenter" >
+		<button type="button" class="btn btn-primary ">Save</button>
+		<button type="button" class="btn btn-secondary ">Cancel</button>
+    </div>
+</div>
+
+   <h3 id="journey_map_name" class="editable_text" >Hành trình chung của khách hàng cho hệ thống bán lẻ sách</h3>
+   
+   <div class="container-fluid">
+
+       <!-- MAIN BODY here -->
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="text-center">
+                <h4>Avatar</h4>
+                <img src="https://i.pinimg.com/236x/a8/d9/67/a8d9677a5bddd2eb122417b22a4a1cae--reading-is-sexy-light-photography.jpg"
+                    alt="Profile Avatar" class="rounded mx-auto d-block">
+            </div>
+        </div>
+        <div class="col-md-8">
+
+            <div>
+                <h4> {{target_customer_name}} </h4>
+                <strong class="editable_text"> nhóm mê sách kinh doanh </strong>
+            </div>
+            <br>
+            <h4>1) {{persona_attributes}}
+                <span class="editable_add_item" data-target="persona_attributes"  ></span>  
+            </h4>
+            <table border=0 class="underlined" style="width: 100%;">
+                <tr>
+                    <td>
+                        <ol id="persona_attributes" data-field="persona_attributes">
+                            <li>
+                                <b data-persona="key" class="editable_text" > Giới tính </b> 
+                                <p data-persona="value" class="editable_text" > Nam và nữ </p>
+                            </li>
+                            <li>
+                                <b data-persona="key" class="editable_text" > Độ tuổi </b> 
+                                <p data-persona="value" class="editable_text" > 16 - 60 </p>
+                            </li>
+                            <li>
+                                <b data-persona="key" class="editable_text" > Vùng địa lý </b> 
+                                <p data-persona="value" class="editable_text" > Việt Nam  </p>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="line"></div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <h4>2) {{persona_expectations}} 
+                <span class="editable_add_item" data-target="persona_expectations"  ></span>  
+            </h4> 
+            
+            <table style="width: 100%;" class="plain">
+                <tr>
+                    <td>
+                        <ol id="persona_expectations" data-field="persona_expectations" >
+                            <li>
+                                <p class="editable_text"> đọc thử nội dung trước khi mua  </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> kiến thức phù hợp thực tế </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> tăng doanh thu bán hàng online </p>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <h4>3) {{persona_interests}} <span class="editable_add_item" data-target="persona_interests"  ></span> </h4>
+            <table style="width: 100%;" class="plain">
+                <tr>
+                    <td>
+                        <ol id="persona_interests" data-field="persona_interests" >
+                            <li>
+                                <p class="editable_text"> học hỏi kiến thức mới về công nghệ </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> phát triển kinh doanh, doanh nghiệp </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> cảm thấy tự tin, đủ kiến thức cho công việc </p>
+                            </li>
+
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="line"></div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <h4>4) {{business_ideas}} <span class="editable_add_item" data-target="business_ideas"  ></span> </h4>
+            <table class="plain" style="width: 100%;">
+                <tr>
+                    <td>
+                        <ol id="business_ideas" data-field="business_ideas" >
+                            <li>
+                                <p class="editable_text"> Chủ đề sách về marketing 4.0 </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Chủ đề sách về nền tảng công nghệ (Technology Platform) </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Chủ đề sách về nghệ thuật bán hàng online </p>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <h4>5) {{business_solutions}}
+                <span class="editable_add_item" data-target="business_solutions"  ></span> 
+            </h4>
+            <table class="plain" style="width: 100%;">
+                <tr>
+                    <td>
+                        <ol id="business_solutions" data-field="business_solutions" >
+                            <li>
+                                <p class="editable_text"> Chạy marketing  "Marketing Cuộc Cách Mạng Công Nghệ 4.0" của Philip Kotler </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Chạy marketing cuốn Platform Ứng Dụng </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Tìm kiếm các chuyên gia và đặt hàng họ viết sách  </p>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="line"></div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4>6) {{lead_generation_keywords}}
+                <span class="editable_add_item" data-target="lead_generation_keywords"  ></span>
+            </h4>
+            <table class="plain">
+                <tr>
+                    <td>
+                        <ol id="lead_generation_keywords" data-field="lead_generation_keywords" >
+                         	<li>
+                                <p class="editable_text"> chuyển đổi số </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> kinh doanh thông minh </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> cách Mạng Công Nghệ 4.0 </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Dữ liệu lớn </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Big Data </p>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-6">
+        	<h4>7) {{conversion_actions}} <span class="editable_add_item" data-target="conversion_actions" ></span> </h4>
+            <table class="plain" style="width: 100%;">
+                <tr>
+                    <td>
+                        <ol id="conversion_actions" data-field="conversion_actions" >
+                            <li>
+                                <p class="editable_text"> Add To Cart </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Ghé nhà sách </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Đọc thử </p>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <hr>
+    
+    <div class="row">
+
+        <div class="col-md-6">
+            <h4>8) {{touchpoints_demand_generation}} <span class="editable_add_item" data-target="touchpoints_demand_generation"  ></span> </h4>
+            <table class="plain" style="width: 100%;">
+                <tr>
+                    <td>
+                        <ol id="touchpoints_demand_generation" data-field="touchpoints_demand_generation" >
+                            <li>
+                                <p class="editable_text"> Google Search </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Facebook Group </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> YouTube channel </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Đường sách </p>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <h4>9) {{touchpoints_experience_for_lead}}
+                <span class="editable_add_item" data-target="touchpoints_experience_for_lead"  ></span> 
+            </h4>
+            <table class="plain" style="width: 100%;">
+                <tr>
+                    <td>
+                        <ol id="touchpoints_experience_for_lead" data-field="touchpoints_experience_for_lead" >
+                            <li>
+                                <p class="editable_text"> Website </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Mobile app </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Đường sách </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Cửa hàng bán lẻ </p>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+       <div id="leadJourneyDiv" class="experience_journey_flow row" ></div>
+
+    </div>
+    
+    <hr>
+    
+    <div class="row">
+
+        <div class="col-md-6">
+            <h4>10) {{touchpoints_business_transaction}} <span class="editable_add_item" data-target="touchpoints_business_transaction"  ></span> </h4>
+            <table class="plain" style="width: 100%;">
+                <tr>
+                    <td>
+                        <ol id="touchpoints_business_transaction" data-field="touchpoints_business_transaction" >
+                            <li>
+                                <p class="editable_text"> E-commerce Website </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> E-commerce Mobile App </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Cửa hàng bán lẻ </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Đường sách </p>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <h4>11) {{touchpoints_experience_for_customer}}
+                <span class="editable_add_item" data-target="touchpoints_experience_for_customer"  ></span> 
+            </h4>
+            <table class="plain" style="width: 100%;">
+                <tr>
+                    <td>
+                        <ol id="touchpoints_experience_for_customer" data-field="touchpoints_experience_for_customer" >
+                            <li>
+                                <p class="editable_text"> Website - Customer Support </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Mobile App - Customer Support </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Social Media Fan Pages </p>
+                            </li>
+                            <li>
+                                <p class="editable_text"> Social Groups  </p>
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <div id="customerJourneyDiv" class="experience_journey_flow row" ></div>
+
+    </div>
+    
+    <hr>
+    
+    <div class="row">
+        <div class="col-md-5">
+        	<h4>12) {{key_business_action}} </h4>
+        </div>
+         <div class="col-md-7">
+         	<div id="key_business_action" data-field="key_business_action" >
+                <h4 class="editable_text"> Mua sách </h4>
+            </div>
+        </div>
+    </div>
+    
+    <hr>    
+    
+    <div class="row" style="display: none" >
+     	 <h4 style="text-align: center;"> Lead Journey Map Code </h4>
+    	 <pre class="mermaid" >
+			<textarea id="lead_flow_code" >
+journey
+    title  "{{touchpoints_demand_generation}}" => "{{touchpoints_experience_for_lead}}"
+    section {{touchpoints_demand_generation}}
+    	Google Search:3: Lead
+      	Facebook Group:3: Lead
+      	YouTube channel:3: Lead
+      	Đường sách : 3: Lead
+    section {{touchpoints_experience_for_lead}}
+      	Website:3:  Lead
+      	Mobile app:3:  Lead
+      	Đường sách:3:  Lead
+      	Cửa hàng bán lẻ:3:  Lead   
+			</textarea>
+	   	</pre>
+   </div>
+   <div class="row" style="display: none" >
+     	 <h4 style="text-align: center;"> Customer Journey Map Code </h4>
+    	 <pre class="mermaid" >
+			<textarea id="customer_flow_code" >
+journey
+    title "{{touchpoints_business_transaction}}" => "{{touchpoints_experience_for_customer}}"
+    section {{touchpoints_business_transaction}}
+    	E-commerce Website:1: Customer
+      	E-commerce Mobile App:4: Customer
+      	Cửa hàng bán lẻ:5: Customer
+      	Đường sách : 5: Customer
+    section {{touchpoints_experience_for_customer}}
+      	Website - Customer Support:3: Customer
+      	Mobile App - Customer Support:4: Customer
+      	Social Media Fan Page:4: Customer
+      	Social Group:5: Customer
+			</textarea>
+	   	</pre>
+   </div>
+   
+  
+   <div class="row" style="display: none" >
+     	 <h4 style="text-align: center;"> Customer Journey Map </h4>
+    	 <div id="sankeyChart" ></div>
+   </div>
+   
+   
+   
+
+</div>
+<br><br><br>
+
+<script type="text/javascript">
+    ///Js code
+    
+    function renderLeadJourney(){
+        // Example of using the API
+        var placeholderSelector = "#leadJourneyDiv";
+        var graphDefinition = $('#lead_flow_code').val().trim();
+        $(placeholderSelector).find('div').remove();
+      	
+        var gid = "lead_graph_"+ new Date().getTime(); 
+        graph = mermaid.mermaidAPI.render(gid, graphDefinition, function(svgCode, bindFunctions){
+        	document.querySelector(placeholderSelector).innerHTML = '<div>'+svgCode+"</div>";
+        });
+    }
+    
+    function renderCustomerJourney(){
+        // Example of using the API
+        var placeholderSelector = "#customerJourneyDiv";
+        var graphDefinition = $('#customer_flow_code').val().trim();
+        $(placeholderSelector).find('div').remove();
+      	
+        var gid = "customer_graph_"+ new Date().getTime(); 
+        graph = mermaid.mermaidAPI.render(gid, graphDefinition, function(svgCode, bindFunctions){
+        	document.querySelector(placeholderSelector).innerHTML = '<div>'+svgCode+"</div>";
+        });
+    }
+    
+    function loadOkJourneyMapDesigner() {
+    	//setup editable node
+        $('.editable_text').each(function(){
+            makeNodeEditable($(this))
+        });
+
+        //setup add new editable node
+        var iconNode = '<i class="fa fa-plus-square" aria-hidden="true"></i>';
+        $('.editable_add_item').html(iconNode).click(function(){
+            var btnSelector = $(this);
+            var target = btnSelector.data('target');
+            console.log(target)
+            
+            var ele = false;
+            if(target === 'persona_attributes'){
+            	ele = $('<li> <b data-persona="key" class="editable_text" > </b> <p data-persona="value" class="editable_text" > </p> </li>');
+            	$('#' + target ).append(ele);
+                makeNodeEditable(ele.find('b'));
+                makeNodeEditable(ele.find('p'));
+            } else {
+            	ele = $('<li> <p class="editable_text"> </p> </li>');
+            	$('#' + target ).append(ele);
+                makeNodeEditable(ele.find('p'));
+            }
+            
+        });
+
+        setTimeout(function(){ 
+        	renderLeadJourney(); 
+        	renderCustomerJourney();  
+        },600);
+        
+    }
+
+    function experienceMapDiagram() {
+    	var placeholderSelector = '#sankeyChart';
+    	$(placeholderSelector).attr('style','height:580px; width:98%;')
+        var metricName = 'Reach'
+        var journeyStages = ['Google Search', 'Facebook Group', 'YouTube channel', 'E-commerce Website', 'E-commerce Mobile App','Email khách hàng (CRM)','Số điện thoại khách hàng (CRM)','Cửa hàng bán lẻ','Đường sách']
+        var journeyStageMetrics = { 'Mua sách' : 'đơn hàng' }
+
+        var configSankey = {
+            margin: {
+                top: 10,
+                left: 10,
+                right: 10,
+                bottom: 10
+            },
+            nodes: {
+                dynamicSizeFontNode: {
+                    enabled: true,
+                    minSize: 14,
+                    maxSize: 30
+                },
+                fontSize: 14, // if dynamicSizeFontNode not enabled
+                draggableX: false, // default [ false ]
+                draggableY: true, // default [ true ]
+                colors: d3.scaleOrdinal(d3.schemeCategory10)
+            },
+            links: {
+                formatValue: function (name, val) {
+                    //console.log('formatValue ' + name)
+                    var label = journeyStageMetrics[name] ? journeyStageMetrics[name] : metricName
+                    return d3.format(",.0f")(val) + ' ' + label;
+                },
+                unit: metricName // if not set formatValue function
+            },
+            tooltip: {
+                infoDiv: true, // if false display default tooltip
+                labelSource: 'Input:',
+                labelTarget: 'Output:'
+            }
+        }
+        var datajson = {
+            nodes: [
+                {
+                    id: 0,
+                    name: "Google Search"
+                }, {
+                    id: 1,
+                    name: "Facebook Group"
+                }, {
+                    id: 2,
+                    name: "YouTube channel",
+
+                }, {
+                    id: 3,
+                    name: "E-commerce Website",
+
+                }, {
+                    id: 4,
+                    name: "E-commerce Mobile App"
+                }, {
+                    id: 5,
+                    name: "Email khách hàng (CRM)"
+                }, {
+                    id: 6,
+                    name: "Số điện thoại khách hàng (CRM)"
+                }, {
+                    id: 7,
+                    name: "Cửa hàng bán lẻ"
+                }, {
+                    id: 8,
+                    name: "Đường sách"
+                } , {
+                    id: 9,
+                    name: "Mua sách"
+                }
+                ],
+            links: [
+                {
+                    source: 0,
+                    target: 3,
+                    value: 1
+                },
+                {
+                    source: 1,
+                    target: 3,
+                    value: 1
+                }, {
+                    source: 2,
+                    target: 3,
+                    value: 1
+                }, {
+                    source: 0,
+                    target: 4,
+                    value: 1
+                },
+                {
+                    source: 1,
+                    target: 4,
+                    value: 1
+                }, {
+                    source: 0,
+                    target: 2,
+                    value: 1
+                } , {
+                    source: 2,
+                    target: 7,
+                    value: 1
+                }  , {
+                    source: 5,
+                    target: 4,
+                    value: 1
+                }
+                , {
+                    source: 6,
+                    target: 4,
+                    value: 1
+                }
+                , {
+                    source: 2,
+                    target: 7,
+                    value: 1
+                } , {
+                    source: 2,
+                    target: 8,
+                    value: 1
+                } , {
+                    source: 8,
+                    target: 9,
+                    value: 1
+                } , {
+                    source: 4,
+                    target: 9,
+                    value: 1
+                }  , {
+                    source: 3,
+                    target: 9,
+                    value: 1
+                }  , {
+                    source: 7,
+                    target: 9,
+                    value: 1
+                } , {
+                    source: 7,
+                    target: 4,
+                    value: 1
+                }
+             ]
+        };
+
+        var objSankey = sk.createSankey(placeholderSelector, configSankey, datajson);
+        
+    }
+</script>

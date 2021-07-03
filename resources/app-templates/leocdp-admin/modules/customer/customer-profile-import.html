@@ -1,0 +1,144 @@
+
+<!-- Customer Profile Importer  -->
+
+<div class="row">
+	<div class="col-lg-9">
+		<h5 class="page-header" id="page_breadcrumb" > </h5>
+	</div>
+	<div class="col-lg-3 text-center" style="padding: 10px">
+		<button type="button" class="btn btn-info" onclick="history.back()">
+        	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
+        </button>
+		<button id="run_import_profile_job" type="button" class="btn btn-success" disabled="disabled"  > 
+	     	<i class="fa fa-fw fa-check"></i> Run Import Job 
+	    </button>
+	</div>
+</div>
+
+<div class="row ">
+	 <div class="action-div col-lg-12">
+        
+         <div class="panel panel-info">
+         	<div class="panel-heading"> <label for="profile_csv_file_uploader"> Customer Data Importer </label> </div>
+		 	 <div class="panel-body table-responsive">
+		 	 	<p style="font-weight: bold;"> 
+		 	 		The uploaded file should be in CSV data format with commas separating different entries.  <br>
+	         		Example data with header: <br>
+	         	</p>
+	         	<div class="datatable_text">
+	         		CRM ID, First Name, Last Name, Email, Phone, Gender, Age, Living Location, Username, Company Name <br>
+					1, Nerissa, Dielhenn, ndielhenn0@jugem.jp, 1-541-754-3010, Female, 27, El Zapote, ndielhenn0, "Kling, Gleason and Spencer" <br>
+					2, Elmer, Schuck, eschuck2@ezinearticles.com, +1-541-754-3010 , Male, 24, Morales, eschuck2, Keebler Inc
+	         	</div>
+		 	 </div>
+		 </div>
+         <div> 
+         	<input id="profile_csv_file_uploader" type="file" class="filepond" name="raw_profile_data" multiple data-max-file-size="20MB" data-max-files="1" />
+         </div>
+     </div>
+</div>
+
+<div class="row ">
+	<div class="col-lg-12">
+      	<div class="panel panel-default">
+		      <div class="panel-heading">
+		      		Preview Data: Top 20 records
+		      </div>
+		      <div class="panel-body">
+		      	 <div class="table-responsive">
+		         	<div id="uploaded_profiles_preview_table" style="font-size: 10px;" >
+		         		...
+		         	</div>
+		         </div>
+		     </div>
+    	</div>
+	</div>
+</div>
+
+
+<script>
+	var initProfileImporter = function () {
+		//headline image uploader
+		var refObjectClass = 'profile';
+		var refObjectKey = 'importer-'+ new Date().getTime();
+        setupUploaderWidget(refObjectClass, refObjectKey, '#profile_csv_file_uploader', function (rs) {
+            var importFileUrl = rs.data.fileUrls[0];
+            console.log(importFileUrl);
+            
+            var params = {'importFileUrl' : importFileUrl};
+            LeoAdminApiUtil.getSecuredData('/cdp/profiles/import-preview', params , function(json){ 
+            	var list = json.data;
+            	var len = list.length;
+            	for(var i=0; i< len; i++ ){
+    	   			var obj = list[i];
+    	   			if(obj.gender === 1) {
+    	   				obj.genderStr = "Male";
+    	   			}
+    	   			else if(obj.gender === 0) {
+    	   				obj.genderStr = "Female";
+    	   			}
+    	   			else {
+    	   				obj.genderStr = "Unknown";
+    	   			}
+    	   			obj.workingCompany = obj.workingHistory.length > 0 ? obj.workingHistory[0] : '';
+            	}
+            	// init preview
+            	loadPreviewProfile(list);
+            	if(len > 0){
+            		$('#run_import_profile_job').removeAttr('disabled').click(function(){
+            			doProfileImportingJob(importFileUrl)
+            		});
+            	}
+            	
+            });
+           
+        }, ['text/csv']);
+	}
+	
+	function loadPreviewProfile(list) {
+		$("#uploaded_profiles_preview_table").jsGrid({
+			data: list,
+			
+   		    width: "100%",
+   		    height: "auto",
+   		    inserting: false,
+   		    editing: false,
+   		    sorting: false,
+   		    paging: false,
+   		    
+   		    fields: [
+   		    	{ name: "crmRefId", title : "CRM ID", type: "text", align: "center", width: 25 },
+   		        { name: "firstName", title : "First Name", type: "text", width: 70,align: "center" },
+   		     	{ name: "lastName", title : "Last Name", type: "text", width: 70, align: "center" },
+   		     	{ name: "primaryEmail", title : "Email", type: "text", width: 80, align: "center" },
+   		     	{ name: "primaryPhone", title : "Phone", type: "text", width: 70, align: "center" },
+   		     	{ name: "genderStr", title : "Gender", type: "text", width: 35, align: "center" },
+   		     	{ name: "age", title : "Age", type: "number", width: 30, align: "center"},
+   		     	{ name: "livingLocation", title : "Living Location", width: 50, type: "text", align: "center"},
+   		     	{ name: "primaryUsername", title : "User Name", type: "text", width: 38, align: "center"},
+   		     	{ name: "workingCompany", title : "Working Company", type: "text", align: "center"}
+   		     
+   		    ]
+   		});  
+	}
+	
+	function doProfileImportingJob(importFileUrl){
+		var gotoProfileList = function(){
+			location.hash = "calljs-leoCdpRouter('Profile_Management')";
+		}
+		LeoAdminApiUtil.callPostAdminApi('/cdp/profiles/import', {'importFileUrl' : importFileUrl}, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+    			var importedOk = json.data.importedOk;
+    			var importedFail = json.data.importedFail;
+    			iziToast.info({
+    	    	    title: 'Customer Profile Importer',
+    	    	    onClosed: gotoProfileList ,
+    	    	    message: 'Total imported profile successfully: ' + importedOk + ', total duplicated profile: ' + importedFail
+    	    	});
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+       });
+	}
+	
+</script>

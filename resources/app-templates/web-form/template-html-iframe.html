@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{pageTitle}}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<base href="https://{{baseStaticUrl}}" >
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+		<!-- BEGIN headCode -->
+		{{{customData.headCode}}}
+		<!-- END headCode -->
+	</head>
+	<body style="background-color: transparent;overflow: hidden;" >
+	
+		<script>
+			(function() {
+			    //LEO Web Observer for channel: 
+		   		window.leoObserverLogDomain = "{{baseLeoObserverUrl}}";
+		   		window.leoObserverCdnDomain = "{{baseStaticUrl}}";
+				window.leoObserverId = "{{customData.observerId}}";
+				window.group = "CX HTML Forms";
+				
+				window.srcTouchpointName = "{{{customData.srcTouchpointName}}}";
+				window.srcTouchpointUrl = "{{{customData.srcTouchpointUrl}}}";
+				
+				window.refTemplateId = "{{customData.templateId}}";	
+				window.feedbackTypeAsText = "{{customData.feedbackTypeAsText}}";
+				
+				window.preview = {{customData.preview}};
+				window.submitEventName = "submit-"+feedbackTypeAsText.toLowerCase()+"-form";	
+				
+				if(srcTouchpointUrl === '') {
+					window.srcTouchpointUrl = encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
+				} 
+			
+				var leoproxyJsPath = '/js/leo-observer/leo.proxy.min.js';
+			    var src = location.protocol + '//' + window.leoObserverCdnDomain + leoproxyJsPath;
+			    var jsNode = document.createElement('script');
+			    jsNode.async = true;
+			    jsNode.src = src;
+			    var s = document.getElementsByTagName('script')[0];
+			    s.parentNode.insertBefore(jsNode, s);
+			})();
+			
+			var loadFeedbackScoreCallback = false;
+			function leoObserverProxyReady(session) {
+			    //LEO is ready, record event data
+				//LeoObserverProxy.recordViewEvent("survey-view");
+			    $("button[type='submit']").click(function(){
+			    	submitData()
+			    });
+			    
+			    // synch and load feedback score for feedback form
+			    LeoObserverProxy.synchLeoVisitorId(function(vid){
+			    	 if(typeof loadFeedbackScoreCallback === "function") {
+			    		 var url = "https://" + leoObserverLogDomain + "/feedback-score?";
+			    		 url = url + "&visid=" + vid;
+				    	 url = url + "&tplid={{customData.templateId}}";
+				    	 url = url + "&tpurl=" + encodeURIComponent(srcTouchpointUrl);
+				    	 
+			    		 $.ajax({
+		    			    type: "GET", url: url
+		    			 }).done(function (data) {
+		    			    loadFeedbackScoreCallback(data)
+		    			 });
+			    	 }
+			    })
+			}
+			
+			function loadFeedbackScore(cb) {
+				loadFeedbackScoreCallback = cb;
+			}
+			
+			function submitData(model){
+				var feedbackScore = $('input[type="radio"]:checked').val();
+				feedbackScore = typeof feedbackScore === "string" ? parseInt(feedbackScore) : -1;
+				
+				var model = typeof model === "object" ? model : {"feedbackScore":feedbackScore};
+				
+				// Touchpoint
+				model["touchpointUrl"] = window.srcTouchpointUrl;
+				
+				// Header
+				model["header"] = document.title;
+				
+				// Group
+				model["group"] = group;
+				
+				// Evaluated_Object
+				model["evaluatedObject"] = "__touchpoint__";
+				model["evaluatedObjectLabel"] =  "";
+				
+				// Evaluated_Person
+				model["evaluatedPerson"] = "__profile__";
+				model["evaluatedPersonLabel"] = "";
+				
+				// Item
+				model["item"] =  "__url__";
+				
+				// Time_Period
+				model["timePeriod"] = new Date().toDateString();
+				
+				// personal profile
+				model["name"] =  $("#name").val();
+				model["email"] = $("#email").val();
+				model["phone"] = $("#phone").val();
+				model["comment"] = typeof model["comment"] === "string" ? model["comment"] : $("#comment").val();
+								
+				//console.log(model);
+				
+				model["refTemplateId"] = refTemplateId;
+				model["feedbackType"] = feedbackTypeAsText;
+				LeoObserverProxy.recordFeedbackEvent(submitEventName, model);
+				
+				$('#form_survey').hide();
+				$('#success_box').show();
+			}
+		</script>
+		<!-- BEGIN bodyCode -->
+		{{{customData.bodyCode}}}
+		<!-- END bodyCode -->
+	</body>
+</html>
