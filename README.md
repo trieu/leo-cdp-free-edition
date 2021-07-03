@@ -33,9 +33,9 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # Community Support 
 
-<a href="https://www.facebook.com/groups/bigdatavietnam.org/" target="_blank"> Facebook of bigdatavietnam.org </a>
+Facebook Group <a href="https://www.facebook.com/groups/bigdatavietnam.org/" target="_blank"> Facebook of bigdatavietnam.org </a>
 
 # Documents 
 
-* All documents and video tutorials is under development 
+* All documents and video tutorials are  under development 
 * More information will be updated at <a href="https://knowledge.leocdp.net/" target="_blank"> Leo CDP Blog </a>
