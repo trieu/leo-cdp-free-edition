@@ -2,10 +2,10 @@
 <!-- Customer Profile Importer  -->
 
 <div class="row">
-	<div class="col-lg-9">
+	<div class="col-lg-6">
 		<h5 class="page-header" id="page_breadcrumb" > </h5>
 	</div>
-	<div class="col-lg-3 text-center" style="padding: 10px">
+	<div class="col-lg-6 text-right" style="padding: 10px">
 		<button type="button" class="btn btn-info" onclick="history.back()">
         	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
         </button>
@@ -19,22 +19,39 @@
 	 <div class="action-div col-lg-12">
         
          <div class="panel panel-info">
-         	<div class="panel-heading"> <label for="profile_csv_file_uploader"> Customer Data Importer </label> </div>
+         	<div class="panel-heading"> <label for="profile_csv_file_uploader"> Profile Data Importer </label> </div>
 		 	 <div class="panel-body table-responsive">
 		 	 	<p style="font-weight: bold;"> 
 		 	 		The uploaded file should be in CSV data format with commas separating different entries.  <br>
-	         		Example data with header: <br>
+	         	</p>
+	         	<p style="font-weight: bold;"> 
+	         		CSV header: 
 	         	</p>
 	         	<div class="datatable_text">
-	         		CRM ID, First Name, Last Name, Email, Phone, Gender, Age, Living Location, Username, Company Name <br>
-					1, Nerissa, Dielhenn, ndielhenn0@jugem.jp, 1-541-754-3010, Female, 27, El Zapote, ndielhenn0, "Kling, Gleason and Spencer" <br>
-					2, Elmer, Schuck, eschuck2@ezinearticles.com, +1-541-754-3010 , Male, 24, Morales, eschuck2, Keebler Inc
+	         		CRM ID, First Name, Last Name, Email, Phone, Gender, Age, YYYY-MM-DD for date of birth , Living Location, Learning History, Working Companies, Job Titles, Business Industries, Business Contacts <br>
+	         	</div>
+	         	<p style="font-weight: bold;margin-top: 10px;"> 
+	         		CSV sample data: 
+	         	</p>
+	         	<div class="datatable_text">
+					1, Nerissa, Dielhenn, ndielhenn0@jugem.jp, 754-3010, Female, 27, 1986-09-21, California, "Harvard University; MIT" , "Google; Facebook", Engineer, Retail Tech, ndielhenn0@facebook.com <br>
+					2, Elmer, Schuck, eschuck2@ezinearticles.com, 754-3010 , Male, 24, 1992-02-16, New York, "Stuyvesant High School; Stanford University", "NASA; Apple", Manager, Cloud Tech, sales@ezinearticles.com <br>
+					...
 	         	</div>
 		 	 </div>
 		 </div>
-         <div> 
-         	<input id="profile_csv_file_uploader" type="file" class="filepond" name="raw_profile_data" multiple data-max-file-size="20MB" data-max-files="1" />
-         </div>
+		 <div class="form-group">
+		    <label for="profileImpoterDataLabel">Data Labels for all imported profiles </label>
+		    <input type="text" class="form-control" id="profileImpoterDataLabel" aria-describedby="dataLabelHelp" placeholder="Enter data labels. E.g: student; business; contact lead for sales">
+		    <small id="dataLabelHelp" class="form-text text-muted">The list of data labels is separated by a semicolon, to build a segment more easier.</small>
+		  </div>
+		  <div class="form-group">
+		    <label for="profileImpoterDataLabel">CSV File Uploader</label>
+		    <div> 
+	         	<input id="profile_csv_file_uploader" type="file" class="filepond" name="raw_profile_data" multiple data-max-file-size="20MB" data-max-files="1" />
+	         </div>
+		  </div>
+         
      </div>
 </div>
 
@@ -80,7 +97,9 @@
     	   			else {
     	   				obj.genderStr = "Unknown";
     	   			}
-    	   			obj.workingCompany = obj.workingHistory.length > 0 ? obj.workingHistory[0] : '';
+    	   			obj.dateOfBirth = moment.utc(obj.dateOfBirth).local().format('YYYY-MM-DD');
+    	   			obj.learningHistory = obj.learningHistory.join("; ");
+    	   			obj.workingHistory = obj.workingHistory.join("; ");
             	}
             	// init preview
             	loadPreviewProfile(list);
@@ -114,9 +133,10 @@
    		     	{ name: "primaryPhone", title : "Phone", type: "text", width: 70, align: "center" },
    		     	{ name: "genderStr", title : "Gender", type: "text", width: 35, align: "center" },
    		     	{ name: "age", title : "Age", type: "number", width: 30, align: "center"},
-   		     	{ name: "livingLocation", title : "Living Location", width: 50, type: "text", align: "center"},
-   		     	{ name: "primaryUsername", title : "User Name", type: "text", width: 38, align: "center"},
-   		     	{ name: "workingCompany", title : "Working Company", type: "text", align: "center"}
+   		     	{ name: "dateOfBirth", title : "Date Of Birth", width: 50, type: "text", align: "center"},
+   		     	{ name: "livingLocation", title : "Living Location", type: "text", width: 38, align: "center"},
+   		     	{ name: "learningHistory", title : "Learning History", type: "text", align: "center"},
+   		        { name: "workingHistory", title : "Working History", type: "text", align: "center"}
    		     
    		    ]
    		});  
@@ -126,7 +146,8 @@
 		var gotoProfileList = function(){
 			location.hash = "calljs-leoCdpRouter('Profile_Management')";
 		}
-		LeoAdminApiUtil.callPostAdminApi('/cdp/profiles/import', {'importFileUrl' : importFileUrl}, function (json) {
+		var dataLabels = $('#profileImpoterDataLabel').val().trim();
+		LeoAdminApiUtil.callPostAdminApi('/cdp/profiles/import', {'importFileUrl' : importFileUrl, "dataLabels" : dataLabels}, function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
     			var importedOk = json.data.importedOk;
     			var importedFail = json.data.importedFail;

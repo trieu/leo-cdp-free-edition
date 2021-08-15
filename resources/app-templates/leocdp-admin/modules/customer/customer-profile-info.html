@@ -27,19 +27,25 @@
 		background-color: #f6f6f6!important;
 		font-weight: bold;
 	}
-	
 	.text_ellipsis {
 	  max-width: 420px; 
 	  overflow: hidden;
 	  text-overflow: ellipsis; 
 	}
+	#profileInSegments mark {
+		margin-left: 3px;
+		border-radius: 8px;
+	}
+	#profileInSegments a {
+		color: #0000CD!important;
+	}
 </style>
 
 <div class="row">
-     <div class="col-md-8" >
+     <div class="col-lg-6" >
  		<h5 class="page-header" id="page_breadcrumb" > </h5>
  	 </div> 
-     <div class="col-lg-4 text-center" style="padding: 10px">
+     <div class="col-lg-6 text-right" style="padding: 10px">
      	<button type="button" class="btn btn-info" title="Go back" onclick="history.back()" > 
 			<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back 
 		</button>
@@ -62,9 +68,10 @@
        <div id="profile_key_info" class="row">
        	   <!--  Begin Profile Key Information -->
            <div class="col-md-5">
-  			 	<div class="row">
+  			   <div class="row">
 	               <div class="text-center" >
-	                   <img id="profile_avatar" src="/public/images/avatars/profile-default-avatar.png" alt="Profile Avatar" class="rounded mx-auto d-block avatar">
+	                   <img id="profile_avatar" src="/public/images/avatars/profile-default-avatar.png" alt="Profile Avatar" class="rounded mx-auto d-block avatar"> <br>
+	                   <h4 id="profile_full_name"> aaa </h4>
 	               </div>
                </div>
                <hr>
@@ -80,16 +87,21 @@
 		                   <tr>
 		                       <td>
 		                           <ol id="profile_scoring" data-field="profile_scoring" >
-		                           	   <li>
-		                           	   		<b> <i class="fa fa-line-chart" aria-hidden="true"></i> Percentage Journey Score <a href="https://knowledge.leocdp.net/p/percentage-journey-score.html" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-		                           	   		
-										   	<div class="progress" style="text-transform: uppercase;font-weight: bold;" >
-											  	<div class="journeyScore progress-bar progress-bar-success progress-bar-striped active " role="progressbar"
-											  				aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%" >
-											    	<span data-field="journeyScore" data-fieldholder="html" data-fieldtype="int"  >0</span> % funnel
-											  	</div>
-										   	</div>
-		                           	   </li>
+		                           	  
+		                               <li>
+		                                   <b> <i class="fa fa-star" aria-hidden="true"></i> Data Quality Score <a href="https://en.wikipedia.org/wiki/Data_quality" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+		                                   <p class="scoring_field" data-field="dataQualityScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+		                               </li>
+		                               
+		                               <li>
+		                                   <b> <i class="fa fa-check-square-o" aria-hidden="true"></i> Total Lead Score <a href="https://en.wikipedia.org/wiki/Lead_scoring" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+		                                   <p class="scoring_field" data-field="totalLeadScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+		                               </li>
+		                               
+		                               <li>
+		                                   <b> <i class="fa fa-check-square-o" aria-hidden="true"></i> Total Prospect Score <a href="https://en.wikipedia.org/wiki/Lead_scoring" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+		                                   <p class="scoring_field" data-field="totalProspectScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+		                               </li>
 		                               
 		                               <li>
 		                                   <b> <i class="fa fa-usd" aria-hidden="true"></i> Total Purchasing/Transaction Value in {{currency_code}} </b> 
@@ -107,43 +119,33 @@
 		                               </li>
 		                               
 		                               <li>
-		                                   <b> <i class="fa fa-star" aria-hidden="true"></i> Data Quality Score <a href="https://en.wikipedia.org/wiki/Data_quality" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-		                                   <p class="scoring_field" data-field="dataQualityScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-		                               </li>
-		                               
-		                               <li>
-		                                   <b> <i class="fa fa-check-square-o" aria-hidden="true"></i> Total Lead Score <a href="https://en.wikipedia.org/wiki/Lead_scoring" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-		                                   <p class="scoring_field" data-field="totalLeadScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-		                               </li>
-		                               
-		                               <li>
-		                                   <b> <i class="fa fa-check-square-o" aria-hidden="true"></i> Total Prospect Score <a href="https://en.wikipedia.org/wiki/Lead_scoring" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-		                                   <p class="scoring_field" data-field="totalProspectScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-		                               </li>
-		                               
-		                               <li>
-		                                   <b> <i class="fa fa-heart-o fa-heartbeat" aria-hidden="true"></i> Total Engagement Score <a href="https://cio-wiki.org/wiki/Customer_Engagement" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+		                                   <b> <i class="fa fa-heartbeat fa-heartbeat" aria-hidden="true"></i> Total Engagement Score <a href="https://cio-wiki.org/wiki/Customer_Engagement" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
 		                                   <p class="scoring_field" data-field="totalEngagementScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
 		                               </li>
 		                               
 		                               <li>
-		                                   <b> <i class="fa fa-heart-o fa-line-chart" aria-hidden="true"></i> RFE Score (Recency, Frequency, Engagement) <a href="https://en.wikipedia.org/wiki/RFM_(market_research)" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+		                                   <b> <i class="fa fa-heartbeat fa-line-chart" aria-hidden="true"></i> RFE Score (Recency, Frequency, Engagement) <a href="https://en.wikipedia.org/wiki/RFM_(market_research)" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
 		                                   <p class="scoring_field" data-field="rfeScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
 		                               </li>
 		                               
 		                               <li>
-		                                   <b> <i class="fa fa-heart-o fa-line-chart" aria-hidden="true"></i> RFM Score (Recency, Frequency, Monetary)<a href="https://en.wikipedia.org/wiki/RFM_(market_research)" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+		                                   <b> <i class="fa fa-heartbeat fa-line-chart" aria-hidden="true"></i> RFM Score (Recency, Frequency, Monetary)<a href="https://en.wikipedia.org/wiki/RFM_(market_research)" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
 		                                   <p class="scoring_field" data-field="rfmScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
 		                               </li>
 		                               
 		                               <li>
-		                                   <b> <i class="fa fa-heartbeat" aria-hidden="true"></i> Total Loyalty Points <a href="https://en.wikipedia.org/wiki/Loyalty_program" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-		                                   <p class="scoring_field_credit" data-field="totalLoyaltyPoints" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+		                                   <b> <i class="fa fa-heartbeat" aria-hidden="true"></i> Total Loyalty Score <a href="https://en.wikipedia.org/wiki/Loyalty_program" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+		                                   <p class="scoring_field_credit" data-field="totalLoyaltyScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
 		                               </li>
 		                               
 		                               <li>
 		                                   <b> <i class="fa fa-heart" aria-hidden="true"></i> Total Credit Score <a href="https://www.cgap.org/sites/default/files/publications/2019_07_Technical_Guide_CreditScore.pdf" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
 		                                   <p class="scoring_field_credit" data-field="totalCreditScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+		                               </li>
+		                               
+		                               <li>
+		                                   <b> <i class="fa fa-heart-o" aria-hidden="true"></i> Customer Churn Score <a href="https://cio-wiki.org/wiki/Customer_Churn" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+		                                   <p class="scoring_field_credit" data-field="churnScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
 		                               </li>
 		                               
 		                               <li>
@@ -240,7 +242,7 @@
 		                               </li>
 		                               <li>
 		                                   <b> Last seen </b> 
-		                                   <p class="data_field" data-field="lastTrackingEvent.createdAt" data-fieldholder="html"  data-fieldtype="date"  >   </p>
+		                                   <p class="data_field" data-field="lastTrackingEvent.createdAt" data-fieldholder="html"  data-fieldtype="date_time"  >   </p>
 		                               </li>
 		                               <li>
 		                                   <b> Last seen IP address <a href="https://en.wikipedia.org/wiki/IP_address" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i> </a> </b> 
@@ -306,42 +308,58 @@
                        <td>
                            <ol id="personal_attributes" data-field="personal_attributes">
                            	   <li>
-                           	   	   <b> <i class="fa fa-id-card-o" aria-hidden="true"></i> Unified Identity Information </b>  <br>
+                           	   	   <b> <i class="fa fa-id-card-o" aria-hidden="true"></i> Identity Information </b>  <br>
 		                           <ul class="list-group">
 									  	<li class="list-group-item">
 									 		<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Profile ID </b> 
                                    			<span class="data_field" data-field="id" data-fieldholder="html" data-fieldtype="string" > - </span> <br>
 									  	</li>
 									  	<li class="list-group-item">
-									  		<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Visitor ID for Cross-Site Tracking </b> 
+									  		<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Web Visitor ID  </b> 
 		                           			<span class="data_field" data-field="visitorId" data-fieldholder="html"  data-fieldtype="string" > - </span> <br>
 									  	</li>
 									  	<li class="list-group-item">
-									  	 	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> External CRM ID </b> 
+									  	 	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Imported CRM ID </b> 
                                   			 <span class="data_field" data-field="crmRefId" data-fieldholder="html" data-fieldtype="string" > - </span>
 									  	</li>
 								   </ul>
                                </li>
                                <li>
-		                           <b> <i class="fa fa-id-card-o" aria-hidden="true"></i> Data for Classification </b>  <br>
+		                           <b> <i class="fa fa-id-card-o" aria-hidden="true"></i> Data Classification </b>  <br>
 		                           <ul class="list-group">
 		                           		<li class="list-group-item">
+		                           			<div class="progress" style="text-transform: uppercase;font-weight: bold;" >
+											  	<div class="journeyScore progress-bar progress-bar-success progress-bar-striped active " role="progressbar"
+											  				aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%" >
+											    	<span data-field="journeyScore" data-fieldholder="html" data-fieldtype="int"  >0</span> % funnel
+											  	</div>
+										   	</div>
+										   	<div>
+										   		<b>Current Funnel Stage</b> 
+									  			<span class="highlight_text" data-field="funnelStage" data-fieldholder="html" data-fieldtype="string" ></span> 
+									  		</div>
+		                           		</li>
+									  	<li class="list-group-item">
 									  		<b>Profile Type</b> 
 									  		<span class="highlight_text" data-field="typeAsText" data-fieldholder="html"  data-fieldtype="string"  > - </span>
 									  	</li>
 									  	<li class="list-group-item">
-									  		<b>Current Funnel Stage</b> 
-									  		<span class="highlight_text" data-field="funnelStage" data-fieldholder="html" data-fieldtype="string" ></span> 
+									  		<b>In Segments</b> 
+									  		[<span class="data_field" id="profileInSegments" > </span> ]
 									  	</li>
 								   </ul>
                                </li>
                                <li>
+                                  <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Data Labels </b> 
+						          <p data-field="dataLabels" data-fieldholder="html_hashset"  data-fieldtype="hashmap"  > - </p>
+                               </li>
+                               <li>
                                    <b> <i class="fa fa-clock-o" aria-hidden="true"></i> Created at </b> 
-                                   <p class="data_field" data-field="createdAt" data-fieldholder="html" data-fieldtype="date"  > - </p>
+                                   <p class="data_field" data-field="createdAt" data-fieldholder="html" data-fieldtype="date_time"  > - </p>
                                </li>
                                <li>
                                    <b> <i class="fa fa-clock-o" aria-hidden="true"></i> Updated at </b> 
-                                   <p class="data_field" data-field="updatedAt" data-fieldholder="html" data-fieldtype="date"  > -  </p>
+                                   <p class="data_field" data-field="updatedAt" data-fieldholder="html" data-fieldtype="date_time"  > -  </p>
                                </li>
                                <li>
                                    <b data-persona="key"  > <i class="fa fa-fw fa-envelope"></i> Primary Email </b> 
@@ -375,11 +393,6 @@
                                    <b data-persona="key"  > <i class="fa fa-fw fa-map-marker"></i> Living Location  </b> 
                                    <p class="data_field" class="small" data-field="livingLocation"  data-fieldholder="locationcode" data-fieldtype="string"  > - </p>
                                </li>
-                               <li class="personal_info" >
-                                   <b data-persona="key"  > <i class="fa fa-fw fa-map-marker"></i> Nationality  </b> 
-                                   <p class="data_field" class="small" data-field="mainNationality"  data-fieldholder="html" data-fieldtype="string"  > - </p>
-                               </li>
-                               
                                <li>
                                   <b data-persona="key" > <i class="fa fa-fw fa-exchange"  ></i> Customer Consent Choices  </b> 
                                   <div id="user_consent_choices" class="funkyradio">
@@ -413,37 +426,32 @@
            <!--  End Profile Key Information -->
        </div>
        
-       <!--  Tab Navigation Items -->
+       <!--  Profile Tab Navigation Items -->
        <ul id="profile_info_tabs" class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" >
          <li class="active" onclick="handleFirstProfileTab()">
-          	<a href="javascript:" data-target-tab="panel_profile_activitiy_flow" title="Event Data Stream"> <i class="fa fa-list-ol" aria-hidden="true"></i> Event Flow</a>
+          	<a href="javascript:" data-target-tab="panel_profile_activitiy_flow" title="Activity Event Data"> <i class="fa fa-list-ol" aria-hidden="true"></i> Behavioral Event</a>
          </li>
          <li>
          	<a href="javascript:" data-target-tab="panel_customer_feedbacks" title="Customer Feedback Data" > <i class="fa fa-commenting-o" aria-hidden="true"></i> Feedback Event </a>
-         </li>
-         
-         <li style="display: none;"  >
-         	<a href="javascript:" data-target-tab="panel_insights"  > <i class="fa fa-briefcase" aria-hidden="true"></i> Data Insights </a>
-         </li>
-         
          <li>
           	<a href="javascript:" data-target-tab="panel_profile_ext_data" title="Extension data of profile" > <i class="fa fa-info-circle" aria-hidden="true"></i> Extension Data </a>
          </li>
          <li>
-          	<a href="javascript:" data-target-tab="panel_content_suggestions" > <i class="fa fa-list-ol" aria-hidden="true"></i> Content Suggestions </a>
+          	<a href="javascript:" data-target-tab="panel_content_suggestions" > <i class="fa fa-list-ol" aria-hidden="true"></i> Recommended Content </a>
          </li>
          <li>
-         	<a href="javascript:" data-target-tab="panel_recommended_products"  title="Recommended Product Items" > <i class="fa fa-list-ol" aria-hidden="true"></i> Recommended Items </a>
+         	<a href="javascript:" data-target-tab="panel_recommended_products"  title="Recommended Product Items" > <i class="fa fa-list-ol" aria-hidden="true"></i> Recommended Item </a>
          </li>
-         
          <li>
-         	<a href="javascript:" data-target-tab="panel_purchased_items" title="Purchased Product Items" > <i class="fa fa-shopping-cart" aria-hidden="true"></i> Purchased Items </a>
+         	<a href="javascript:" data-target-tab="panel_purchased_items" title="Purchased Product Items" > <i class="fa fa-shopping-cart" aria-hidden="true"></i> Purchased Item </a>
          </li>
-         
+         <li style="display: none;"  >
+         	<a href="javascript:" data-target-tab="panel_insights"  > <i class="fa fa-briefcase" aria-hidden="true"></i> Data Insight </a>
+         </li>
 	   </ul>
 
 	   <!-- Tab Contents  -->
-       <div class="tab-content" id="profile_ext_data_tabs" style="min-height: 620px;"  >
+       <div class="tab-content" id="profile_ext_data_tabs" style="min-height: 630px;"  >
 
 			<!-- tab 1 Activity Flow  -->
 			<div class="tab-pane active" id="panel_profile_activitiy_flow" >
@@ -454,7 +462,7 @@
 		                <ul id="event_flow_tabs" class="nav nav-pills nav-stacked col-md-2">
 		                	<li class="active" ><a href="#event_stream" data-toggle="tab"> Event Data Stream </a></li>
 		                    <li><a href="#event_statistics" data-toggle="tab"  > Event Data Statistics</a></li>
-		                    <li><a href="#engaged_touchpoints" data-toggle="tab"> Engaged Touchpoints</a></li>
+		                    <li><a href="#engaged_touchpoints" data-toggle="tab"> Engaged Touchpoint</a></li>
 		                </ul>
 		                <div id="event_flow_vertital_tabs" class="tab-content col-md-10" >
 		                	
@@ -462,7 +470,7 @@
 		                    <div class="tab-pane active" id="event_stream" >
 		                    	
 		                    	<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Data Report of Profile </h4> 
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Behavioral Event Data Report </h4> 
 								</div>
 									
 								<div class="col-lg-12 highlight_box" >
@@ -487,7 +495,7 @@
 								        </div>
 								        <div class='col-lg-2 col-xs-12 text-center'>
 								        	<button type="button" class="btn btn-primary" style="width: 100%" onclick="loadProfileEventDailyReportUnit(viewProfileId,true)" > 
-								        		<i class="fa fa-check" aria-hidden="true"></i> Filter </button>
+								        		<i class="fa fa-check" aria-hidden="true"></i> OK </button>
 								        </div>
 								    </div>
 					      			<div class='text-center' style="margin-bottom: 10px">
@@ -510,7 +518,7 @@
 										</div>
 										<div class="col-lg-6">
 											<button type="button" class="btn btn-primary" onclick="filterEventFlow()" title="Filter Event activities"  > 
-									     		<i class="fa fa-filter" aria-hidden="true"></i> Filter
+									     		<i class="fa fa-filter" aria-hidden="true"></i> OK
 									     	</button>
 									     	<button type="button" class="btn btn-do-now" onclick="loadEventFlow()" title="Refresh Event activities"  > 
 									     		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
@@ -518,7 +526,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="row" style="margin-right: 16px; height: 1600px; overflow-y: scroll;" >
+								<div class="row" style="margin-right: 16px; height: 1600px; overflow-y: scroll;overflow-x: hidden;" >
 									<ul id="profile_activitiy_flow" class="list-group list-group-dividered list-group-full"  >
 						     			<!-- data  -->
 									</ul>
@@ -544,7 +552,7 @@
 		                    <!-- vertical tab Engaged Touchpoints  -->
 		                    <div class="tab-pane" id="engaged_touchpoints" >
 		                    	<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-line-chart" aria-hidden="true"></i> Recent Engaged Touchpoints </h4> 
+									<h4 class="highlight_text" > <i class="fa fa-line-chart" aria-hidden="true"></i> Recent Engaged Touchpoint </h4> 
 								</div>
 								<div class="row" style="height: 1000px; overflow-y: scroll;" >
 									<ul id="engaged_touchpoint_list" class="list-group list-group-dividered list-group-full"  >
@@ -567,7 +575,7 @@
 				<!-- tab 7 feedbacks  -->
 		     	<div class="row">
 					<div class="col-lg-12">
-						<h4 class="highlight_text" > <i class="fa fa-commenting-o" aria-hidden="true"></i> Customer Feedbacks </h4> 
+						<h4 class="highlight_text" > <i class="fa fa-commenting-o" aria-hidden="true"></i> Customer Feedback </h4> 
 					</div>
 					<div class="col-lg-12" style="margin-bottom: 6px" >
 						<div class="col-lg-6">
@@ -575,7 +583,7 @@
 						</div>
 						<div class="col-lg-6">
 							<button type="button" class="btn btn-primary" onclick="filterFeedbackEvent()" title="Filter Feedback"  > 
-					     		<i class="fa fa-filter" aria-hidden="true"></i> Filter
+					     		<i class="fa fa-filter" aria-hidden="true"></i> OK
 					     	</button>
 					     	<button type="button" class="btn btn-do-now" onclick="loadFeedbackEvent()" title="Refresh Data"  > 
 					     		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
@@ -583,14 +591,158 @@
 						</div>
 					</div>
 				</div>
-				<div class="row" style="min-height: 800px; overflow-y: scroll;" >
+				<div class="col-lg-12" style="min-height: 800px; overflow-y: scroll;" >
 					<ul id="profile_feedback_flow" class="list-group list-group-dividered list-group-full"  >
 		     			<!-- profile_feedback_flow  -->
 					</ul>
 				</div>
 			</div>
 			
-			<!-- tab 3 Insights and Predictive Reports  -->
+			<!-- tab 3 Personal Extension Data  -->
+			<div class="tab-pane " id="panel_profile_ext_data" >
+				<!-- tab 2 content  -->
+				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Information for Personal Contact </h4>
+			 	<table border=0 class="underlined" style="width: 100%;">
+                   <tr>
+                       <td>
+							<ol id="profile_ext_data" data-field="personal_attributes">
+								<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Personal ID and Contacts </b> 
+				                   <p data-field="personalContacts" data-fieldholder="html_hashmap" data-fieldtype="hashmap" id="personalContacts" > </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Education and Learning Paths </b> 
+				                   <p data-field="learningHistory" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+				               	<li>
+                                   <b data-persona="key"  >  <i class="fa fa-fw fa-users"></i> Social Media Profiles </b> 
+                                   <p data-field="socialMediaProfiles" data-fieldholder="html_hashmap"  data-fieldtype="hashmap" id="socialMediaProfiles" >  </p>
+                                </li>
+                                <li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Primary Nationality </b> 
+				                   <p data-field="primaryNationality" data-fieldholder="html" data-fieldtype="string"  > </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current Living City </b> 
+				                   <p data-field="livingCity" data-fieldholder="html" data-fieldtype="string"  > </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current Living State </b> 
+				                   <p data-field="livingState" data-fieldholder="html" data-fieldtype="string" > </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current Living Country </b> 
+				                   <p data-field="livingCountry" data-fieldholder="html" data-fieldtype="string"  > </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current ZipCode </b> 
+				                   <p data-field="currentZipCode" data-fieldholder="html" data-fieldtype="string" > </p>
+				               	</li>
+			               	</ol>
+               	  		</td>
+                   </tr>
+               </table>
+               <hr>
+               <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Information for Business </h4>
+			   <table border=0 class="underlined" style="width: 100%;">
+                   <tr>
+                       <td>
+							<ol id="profile_ext_data" data-field="personal_attributes">
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Job Titles </b> 
+				                   <p data-field="jobTitles" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Business Contacts </b> 
+				                   <p data-field="businessContacts" data-fieldholder="html_hashmap" data-fieldtype="hashmap" id="businessContacts" > </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Company Names </b> 
+				                   <p data-field="workingHistory" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Work Experience in Business Industries </b> 
+				                   <p data-field="businessIndustries" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+			               	</ol>
+               	  		</td>
+                   </tr>
+               </table>
+               <hr>
+               <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Information for Marketing </h4>
+			   <table border=0 class="underlined" style="width: 100%;">
+                   <tr>
+                       <td>
+							<ol id="profile_ext_data" data-field="personal_attributes">
+								<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Keywords for Content Marketing  </b> 
+				                   <p data-field="contentKeywords" data-fieldholder="html_hashset"  data-fieldtype="hashmap"  > - </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Keywords for Product Marketing  </b> 
+				                   <p data-field="productKeywords" data-fieldholder="html_hashset"  data-fieldtype="hashmap"  > - </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Personal Interests </b> 
+				                   <p data-field="personalInterests" data-fieldholder="html_hashset"  data-fieldtype="hashmap"  > - </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Reachable Media Channels </b> 
+				                   <p data-field="mediaChannels" data-fieldholder="html_hashset"  data-fieldtype="hashset"  > - </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Personal Problems </b> 
+				                   <p data-field="personalProblems" data-fieldholder="html_hashset"  data-fieldtype="hashmap"  > - </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Solutions for Customer </b> 
+				                   <p data-field="solutionsForCustomer" data-fieldholder="html_hashset"  data-fieldtype="hashset"  > - </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Next Best Actions </b> 
+				                   <p data-field="nextBestActions" data-fieldholder="html_hashset"  data-fieldtype="hashset" > - </p>
+				               	</li>
+			               	</ol>
+               	  		</td>
+                   </tr>
+               </table>
+               
+			</div>
+			
+			<!-- tab 4 recommended contents -->
+			<div class="tab-pane" id="panel_content_suggestions"  >
+				<!-- tab 4 content  -->
+		     	<h4 class="highlight_text" > <i class="fa fa-list-ol" aria-hidden="true"></i> Top recommended contents for customer engagement </h4>
+		     	<h5> <i class="fa fa-info" aria-hidden="true"></i> Drag and drop the items below to customize content ranking </h5>
+		     	<div id="recommended_content_list" class="list-group col">
+					<!-- recommended_content_list -->
+					<div class="list-group-item" > No data available </div>
+				</div>
+			</div>
+			
+			<!-- tab 5 recommended products -->
+			<div class="tab-pane" id="panel_recommended_products"  >
+				<!-- tab 5 content  -->
+		     	<h4 class="highlight_text" > <i class="fa fa-list-ol" aria-hidden="true"></i> Top recommended products for customer personalization </h4>
+		     	<h5> <i class="fa fa-info" aria-hidden="true"></i> Drag and drop the items below to customize item ranking </h5>
+		     	<div id="recommended_product_list" class="list-group col">
+					<!-- recommended_product_list -->
+					<div class="list-group-item" > No data available </div>
+				</div>
+			</div>
+			
+			<!-- tab 6 purchased items -->
+			<div class="tab-pane" id="panel_purchased_items"  >
+				<!-- tab 6 content  -->
+		     	<h4 class="highlight_text" > <i class="fa fa-shopping-cart" aria-hidden="true"></i> Top 100 recently purchased items </h4>
+		     	<div id="purchased_items_list" class="list-group col">
+		     		<!-- purchased_product_list -->
+		     		<div class="list-group-item" > No data available </div>
+				</div>
+				<div  id="purchased_items_pagination" ></div>
+			</div>
+			
+			<!-- tab 7 Insights and Predictive Reports  -->
        		<div class="tab-pane" id="panel_insights" >
        			<!-- tab 3 content  -->
        			<div class="row" >
@@ -655,106 +807,10 @@
 		                    </div>
 		                </div>
 		            </div>
-		            <!-- /tabs -->
 			    </div>
-       		
 			</div>
 			
-			<!-- tab 4 Personal Extension Data  -->
-			<div class="tab-pane " id="panel_profile_ext_data" >
-				<!-- tab 2 content  -->
-				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Extension Data </h4>
-			 	<table border=0 class="underlined" style="width: 100%;">
-                   <tr>
-                       <td>
-							<ol id="profile_ext_data" data-field="personal_attributes">
-								<li>
-                                   <b data-persona="key"  >  <i class="fa fa-fw fa-users"></i> Social Media Profiles </b> 
-                                   <p data-field="socialMediaProfiles" data-fieldholder="html_hashmap"  data-fieldtype="hashmap" id="socialMediaProfiles" >  </p>
-                                </li>
-								<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Personal ID and Contacts </b> 
-				                   <p data-field="personalContacts" data-fieldholder="html_hashmap" data-fieldtype="hashmap" id="personalContacts" > </p>
-				               	</li>
-				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Personal Interests </b> 
-				                   <p data-field="personalInterests" data-fieldholder="html_hashset"  data-fieldtype="hashmap"  > - </p>
-				               	</li>
-				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Content Marketing Keywords </b> 
-				                   <p data-field="contentKeywords" data-fieldholder="html_hashset"  data-fieldtype="hashmap"  > - </p>
-				               	</li>
-				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Reachable Media Channels </b> 
-				                   <p data-field="mediaChannels" data-fieldholder="html_hashset"  data-fieldtype="hashset"  >  </p>
-				               	</li>
-				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Education and Learning Paths </b> 
-				                   <p data-field="learningHistory" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
-				               	</li>
-				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Personal Problems </b> 
-				                   <p data-field="personalProblems" data-fieldholder="html_hashset"  data-fieldtype="hashmap"  > - </p>
-				               	</li>
-				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Solutions for Customer  </b> 
-				                   <p data-field="solutionsForCustomer" data-fieldholder="html_hashset"  data-fieldtype="hashset"  >  </p>
-				               	</li>
-				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Business Contacts </b> 
-				                   <p data-field="businessContacts" data-fieldholder="html_hashmap" data-fieldtype="hashmap" id="businessContacts" > </p>
-				               	</li>
-				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Job Titles </b> 
-				                   <p data-field="jobTitles" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
-				               	</li>
-				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Company Names </b> 
-				                   <p data-field="workingHistory" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
-				               	</li>
-				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Work Experience in Business Industries </b> 
-				                   <p data-field="businessIndustries" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true"  >  </p>
-				               	</li>
-			               	</ol>
-               	  		</td>
-                   </tr>
-               </table>
-			</div>
-			
-			<!-- tab 5 recommended contents -->
-			<div class="tab-pane" id="panel_content_suggestions"  >
-				<!-- tab 4 content  -->
-		     	<h4 class="highlight_text" > <i class="fa fa-list-ol" aria-hidden="true"></i> Top content content suggestions to engage customer in business </h4>
-		     	<h5> <i class="fa fa-info" aria-hidden="true"></i> Drag and drop the items below to customize content ranking </h5>
-		     	<div id="recommended_content_list" class="list-group col">
-					<!-- recommended_content_list -->
-					<div class="list-group-item" > No data available </div>
-				</div>
-			</div>
-			
-			<!-- tab 6 recommended products -->
-			<div class="tab-pane" id="panel_recommended_products"  >
-				<!-- tab 5 content  -->
-		     	<h4 class="highlight_text" > <i class="fa fa-list-ol" aria-hidden="true"></i> Top recommended items to personalize customer purchasing  </h4>
-		     	<h5> <i class="fa fa-info" aria-hidden="true"></i> Drag and drop the items below to customize item ranking </h5>
-		     	<div id="recommended_product_list" class="list-group col">
-					<!-- recommended_product_list -->
-					<div class="list-group-item" > No data available </div>
-				</div>
-			</div>
-			
-			<!-- tab 7 purchased items -->
-			<div class="tab-pane" id="panel_purchased_items"  >
-				<!-- tab 6 content  -->
-		     	<h4 class="highlight_text" > <i class="fa fa-shopping-cart" aria-hidden="true"></i> Top 10 recently purchased items </h4>
-		     	<div id="purchased_items_list" class="list-group col">
-		     		<!-- purchased_product_list -->
-		     		<div class="list-group-item" > No data available </div>
-				</div>
-				<div  id="purchased_items_pagination" ></div>
-			</div>
-			
+			<!-- /tabs -->
 	   </div>
       
        <div class="line"></div>
@@ -986,10 +1042,14 @@
       </div>
       <div class="col-md-10">
          <small class="text-muted pull-right"> <%- createdAt %> </small>
-         <h5 class="media-heading"> <a target="_blank" href="" > <%- touchpointName %> </a> </h5>
-		 <b> <%- group %> </a> </b>
+
+         <h5> Feedback Form: <%- header %>  </h5> 
+		 <h6> Group: <%- group %>  </h6> 
+		 <h6> Type: <%- feedbackType %> </h6>
+
          <div class="text-nowrap " >  
-			 <i class="fa fa-link" aria-hidden="true"></i> <span class="small"> <a target="_blank" href="<%- touchpointUrl %>" > <%- touchpointUrl %> </a> </span> 
+			Touchpoint: <strong title="<%- touchpointName %>"> <%- touchpointName.length > 90 ? touchpointName.substring(0,90) + "..." : touchpointName %> </strong> <br>
+			<i class="fa fa-link" aria-hidden="true"></i> <span class="small"> Touchpoint URL: <a target="_blank" href="<%- previewUrl %>" > <%- previewUrl %> </a> </span> 
 		 </div>
  		 <div class="text-nowrap " >  
 			<i class="fa fa-star" aria-hidden="true"></i>  
@@ -1016,6 +1076,7 @@
    </div>
  </li>
 </script>
+
 
 <!-- Modal new event -->
 <div class="modal fade" id="newCustomerSupportCaseDialog" role="dialog">
@@ -1061,7 +1122,18 @@
          console.log('loadCurrentProfile profileId ' + profileId);
          
          var dataProcessor = function(data){
+        	// Journey Data Funnel : loyalty percentage 
+ 			 data.journeyScore = data.journeyScore == 0 ? 5 : data.journeyScore;
+        	 $('div.journeyScore').attr('aria-valuenow',data.journeyScore).css('width',data.journeyScore+'%');
+        	 
         	 var noinfo = 'No information';
+        	 
+        	 if(data.firstName !== "" || data.lastName !== ""){
+        		 data.fullName = data.firstName +  " " + data.lastName;
+        	 }
+        	 else {
+        		 data.fullName = "Anonymous Person";
+        	 }
         	 
         	 if(data.age <= 0){
         		 data.age = noinfo;
@@ -1082,13 +1154,14 @@
         		 data.primaryEmail = noinfo;
         	 } 
         	 
-        	 // Journey Data Funnel : loyalty percentage 
- 			 var journeyScore = data.journeyScore;
-        	 $('div.journeyScore').attr('aria-valuenow',journeyScore).css('width',journeyScore+'%');
+        	 data.funnelStage = data.funnelStage ? data.funnelStage.toUpperCase() : noinfo;
         	 
-        	 data.funnelStage = data.funnelStage.toUpperCase()
-        	 data.lastTrackingEvent.createdAt = moment.utc(data.lastTrackingEvent.createdAt).local().format('YYYY-MM-DD HH:mm:ss');
-        	 
+        	 if(data.lastTrackingEvent){
+        		 data.lastTrackingEvent.createdAt = moment.utc(data.lastTrackingEvent.createdAt).local().format('YYYY-MM-DD HH:mm:ss');
+        	 }
+        	 else {
+        		 data.lastTrackingEvent.createdAt = noinfo;
+        	 }
         	 return data;
          }
          
@@ -1098,8 +1171,26 @@
 			 
         	 var profileData = LeoCdpAdmin.routerContext.dataObject;
         	 if(profileData.primaryAvatar != ''){
-        		 $('#profile_avatar').attr('src',profileData.primaryAvatar);
+        		 $('#profile_avatar').attr('src', profileData.primaryAvatar);
         	 }
+        	 
+        	 $('#profile_full_name').text(profileData.fullName);
+        	 
+        	 // in segments
+        	 var inSegmentsNode = $('#profileInSegments');
+        	 var inSegmentSize = profileData.inSegments.length;
+        	 profileData.inSegments.forEach(function(e){
+        		 inSegmentSize--;
+        		 // FIXME  just make sure do not show deleted segment info
+        		 if(e.name.indexOf("[DELETED]")<0){
+        			 var ahtml = $('<a/>').attr('href',"#calljs-leoCdpRouter('Segment_Details','"+e.id+"')").text(e.name)[0].outerHTML;
+            		 var html = '<mark>' + ahtml + '</mark>';
+            		 if(inSegmentSize > 0){
+            			 html += ", ";
+            		 }
+            		 inSegmentsNode.append(html);
+        		 }
+        	 })
         	 
         	 // event flow
         	 loadEventFlow();
@@ -1152,10 +1243,9 @@
 		});
     }
     
-    
     var loadRecommendedContents = function() {
-    	var maxResults = systemConfig.recommender_system.maximumProductForProfile;
-    	LeoAdminApiUtil.getSecuredData('/cdp/profile/get-recommended-contents',{profileId: viewProfileId, startIndex:0, numberResult: maxResults}, function(json) { 
+    	var maxResults = systemConfig.leo_recommender.service_max_item_for_profile;
+    	LeoAdminApiUtil.getSecuredData('/cdp/profile/recommended-contents',{profileId: viewProfileId, startIndex:0, numberResult: maxResults}, function(json) { 
     		
     		// ----- CONTENT -----
     		var recommendedContentHolder = $('#recommended_content_list');
@@ -1209,8 +1299,8 @@
     }
     
     var loadRecommendedProducts = function() {
-    	var maxResults = systemConfig.recommender_system.maximumProductForProfile;
-    	LeoAdminApiUtil.getSecuredData('/cdp/profile/get-recommended-products',{profileId: viewProfileId, startIndex:0, numberResult: maxResults}, function(json) { 
+    	var maxResults = systemConfig.leo_recommender.service_max_item_for_profile;
+    	LeoAdminApiUtil.getSecuredData('/cdp/profile/recommended-products',{profileId: viewProfileId, startIndex:0, numberResult: maxResults}, function(json) { 
     		
     		// ----- RECOMMENDED PRODUCTS -----
     		var recommendedProductHolder = $('#recommended_product_list');
@@ -1270,7 +1360,7 @@
     }
     
     var loadPurchasedItems = function() {
-    	var maxResults = systemConfig.recommender_system.maximumProductForProfile;
+    	var maxResults = 100;
     	LeoAdminApiUtil.getSecuredData('/cdp/profile/get-purchased-items',{profileId: viewProfileId, startIndex:0, numberResult: maxResults}, function(json) { 
     		// ----- PURCHASED PRODUCTS -----
     		var purchasedProductHolder = $('#purchased_items_list');
@@ -1301,16 +1391,22 @@
 	var spinnerHtml = '<br><br>  <div style="font-size:30px" class="text-center" > <i class="fa fa-spinner" aria-hidden="true"></i> </div>  <br><br>';
     var loadEventFlow = function() {
 		// load tracking-events
+		// empty filter
 		$('#keywords_filter_events').val('')
-    	var flowHolder = $('#profile_activitiy_flow');
+    	
+		// clear HTML
+		var flowHolder = $('#profile_activitiy_flow');
 		flowHolder.empty().html(spinnerHtml); 
-    	LeoAdminApiUtil.getSecuredData('/cdp/profile/tracking-events', {id: viewProfileId, startIndex:0, numberResult: 120}, function(json) { 
+		
+		// get data from server
+    	LeoAdminApiUtil.getSecuredData('/cdp/profile/tracking-events', {id: viewProfileId, startIndex:0, numberResult: 150}, function(json) { 
     		 //console.log(json.data) ;
     		 flowHolder.css('height','640px').empty();
     		 if(json.data.length === 0){
     			 flowHolder.html(emptyInfo);
     			 $('#profileEventStatistics').html(emptyInfo);
     		 }
+    		 // apply template
     		 _.forEach(json.data,function(e,i){
     			 e.srcTouchpoint.name = textTruncate(e.srcTouchpoint.name,120);
     			 e.srcTouchpoint.truncatedUrl = textTruncate(e.srcTouchpoint.url,120);
@@ -1322,12 +1418,12 @@
     			 if (eventName === "item-view" || eventName === "survey-view" ) {
     				 tplName = 'item-view-event-tpl';
     			 }
-    			 else if(eventName.indexOf('click') >= 0 || eventName.indexOf('submit-') >= 0  ||  eventName.indexOf('play-') >= 0 ||  eventName.indexOf('-scan') >= 0
-    					 || eventName === 'order-checkout' || eventName === 'add-to-cart' ||  eventName === 'like' || eventName === 'rating' || eventName === 'comment' ){
-        			 tplName = 'action-event-tpl';
-        		 }
-        		 else if(eventName === "purchase" || eventName === "subscribe" ){
+    			 else if(eventName === "purchase" || eventName === "subscribe" || eventName === "enroll" || eventName === "pay"){
         			 tplName = 'conversion-event-tpl';
+        		 }
+    			 else if(eventName.indexOf('click') >= 0 || eventName.indexOf('submit-') >= 0  ||  eventName.indexOf('play-') >= 0 ||  eventName.indexOf('-scan') >= 0
+    					 || eventName === 'order-checkout' || eventName === 'add-to-cart' ||  eventName === 'like' || eventName === 'trial' || eventName === 'user-login' ){
+        			 tplName = 'action-event-tpl';
         		 }
         		 eventTpl = _.template($('#'+tplName).html());
         		 // eval model to get html
@@ -1335,6 +1431,7 @@
     			 flowHolder.append(html);
    			});
     	});
+		
     	// tracking event filter box
     	$('#keywords_filter_events').change( function(){
 	   		 var keywords = $(this).val().trim().toLowerCase();
@@ -1374,13 +1471,20 @@
     			 feedbackFlowHolder.html('<li> <div class="list-group-item" > No data available </div> </li>');
     		 }
     		 else {
-    			 feedbackFlowHolder.css('height','600px');
+    			 feedbackFlowHolder.css('height','650px');
     			 _.forEach(dataList,function(e,i){
         			 e.createdAt = moment.utc(e.createdAt).local().format('YYYY-MM-DD HH:mm:ss');
         			 
+        			 var previewUrl = baseLeoObserverUrl + "/webform?&tplfbt=SURVEY&tplid=" + e.refTemplateId;
+        			 
+        			 if(e.feedbackType === "SURVEY") {
+        				 e.previewUrl = baseLeoObserverUrl + "/webform?&tplfbt=SURVEY&tplid=" + e.refTemplateId;
+        			 } else {
+        				 e.previewUrl = e.touchpointUrl;
+        			 }
+        			 
         			 var eventName = e.eventName;
-        			 var tplName = 'feedback-event-tpl';
-            		 eventTpl = _.template($('#'+tplName).html());
+            		 
             		 // eval model to get html
             		 if(e.eventName === "submit-feedback-form"){
             			 e.eventIcon = "fa-commenting-o";
@@ -1391,6 +1495,7 @@
             		 else {
             			 e.eventIcon = "fa-smile-o";
             		 }
+            		 var eventTpl = _.template($('#feedback-event-tpl').html());
         			 var html = eventTpl(e);
         			 feedbackFlowHolder.append(html);
        			}); 

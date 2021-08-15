@@ -13,7 +13,7 @@
 		</a>
 
 		<div style="width: 100%;">
-			<input id="main_search_profile" type="text" placeholder="Enter the name of profile" autocomplete="off" >
+			<input id="main_search_profile" type="text" placeholder="Enter the first name or last name to search profiles" autocomplete="off" >
 		</div>
 
 		<!-- Top User Menu -->
@@ -48,7 +48,6 @@
 					<i class="fa fa-university"></i> Knowledge Base <b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu" style="width: 270px">
-					
 					<li>
 						<a target="_blank" href="https://knowledge.leocdp.net/p/what-is-uspa-framework.html"> <i class="fa fa-book" aria-hidden="true"></i>  Introduction to USPA framework</a>
 					</li>
@@ -85,7 +84,7 @@
 							<i class="fa fa-fw fa-bar-chart"></i> Main Data Dashboard </a>
 					</li>
 					<li>
-						<a id="Event_Data_Dashboard" href="#calljs-leoCdpRouter('Event_Data_Dashboard')" title="Event Data Dashboard"  > 
+						<a id="Event_Data_Dashboard" href="#calljs-leoCdpRouter('Event_Data_Dashboard')" title="Event Data Dashboard" > 
 							<i class="fa fa-fw fa-line-chart"></i> Event Data Dashboard </a>
 					</li>
 					<li>
@@ -123,11 +122,11 @@
 							<i class="fa fa-users" aria-hidden="true"></i> Business Account List </a>
 					</li>
 					<li>
-						<a id="Profile_Management" href="#calljs-leoCdpRouter('Profile_Management')" title="All customer profile" > 
+						<a id="Profile_Management" href="#calljs-leoCdpRouter('Profile_Management')" title="All customer profiles" > 
 							<i class="fa fa-fw fa-users"></i> Profile Management </a>
 					</li>
 					<li>
-						<a id="Segment_Management" href="#calljs-leoCdpRouter('Segment_Management')" title="All segmentation list "> 
+						<a id="Segment_Management" href="#calljs-leoCdpRouter('Segment_Management')" title="All customer segments"> 
 							<i class="fa fa-object-group" aria-hidden="true"></i> Segment Management </a>
 					</li>
 				</ul>
@@ -140,12 +139,12 @@
 				</a>
 				<ul id="data_activation_hub_menu" class="collapse in" aria-expanded="true">
 					<li>
-						<a id="Data_Asset_Categories" href="#calljs-leoCdpRouter('Data_Asset_Categories')" title="Digital Asset Categories for Marketing Automation" > 
-							<i class="fa fa-fw fa-list" ></i> Digital Asset Categories </a>
+						<a id="Data_Asset_Categories" href="#calljs-leoCdpRouter('Data_Asset_Categories')" title="Data Asset Categories" > 
+							<i class="fa fa-fw fa-list" ></i> Data Asset Categories </a>
 					</li>
-					<li id="Data_Activation_Services_Menu" style="display: none" >
-						<a id="Data_Activation_Services" href="#calljs-leoCdpRouter('Data_Activation_Services')">
-							<i class="fa fa-fw fa-exchange" aria-hidden="true" ></i> Data Activation Services </a>
+					<li id="Data_Connector_List_Menu" >
+						<a id="Data_Connector_List" href="#calljs-leoCdpRouter('Data_Connector_List')">
+							<i class="fa fa-fw fa-exchange" aria-hidden="true" ></i> Data Connector List </a>
 					</li>
 					<li style="display: none" >
 						<a id="Campaign_Management" href="javascript:" data-href="#calljs-leoCdpRouter('Campaign_Management')" onclick="underDevelopment(this)" title="Marketing Campaign Management"  > 
@@ -161,10 +160,10 @@
 				</a>
 				<ul id="system_management_menu" class="collapse in" aria-expanded="true">
 					<li>
-						<a id="Login_Account_List" href="#calljs-leoCdpRouter('Login_Account_List')">
-							<i class="fa fa-user-plus" aria-hidden="true"></i> Login Account List </a>
+						<a id="User_Login_Management" href="#calljs-leoCdpRouter('User_Login_Management')">
+							<i class="fa fa-user-plus" aria-hidden="true"></i> Login Management </a>
 					</li>
-					<li>
+					<li style="display: none" >
 						<a id="System_Configuration" href="#calljs-leoCdpRouter('System_Configuration')" >
 							<i class="fa fa-cog" aria-hidden="true"></i> System Configuration </a>
 					</li>
@@ -308,18 +307,9 @@
 			$('#leocdp_version_type').text(leoCdpEdition.toUpperCase());
 			$('#leocdp_version_number').text(leoCdpBuildVersion);
 			
-			if('CDP-X' === leoProductType){
-				$('#Data_Activation_Services_Menu').hide();
-				
-			}
+			$('#uspa_logo').click(function(){ window.open('https://uspa.tech','_blank') });
 			
-			$('#uspa_logo').click(function(){
-				window.open('https://uspa.tech','_blank')
-			});
-			
-			$(window).resize(function() {
-				pageWrapperResize();
-			});
+			$(window).resize(pageWrapperResize);
 		}
 	};
 </script>

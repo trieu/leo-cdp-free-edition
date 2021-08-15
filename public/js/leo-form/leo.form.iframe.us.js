@@ -2,7 +2,7 @@
 (function () {
   var errorMsg = "<p> Name, Email and Phone Number are required information </p>";
   var successInfo =
-    '<div class="alert alert-success"><strong>Success!</strong> Your data is submitted successfully.</div>';
+    '<div class="alert alert-success" style="margin-top: 20px" ><strong>Success!</strong> Your data is submitted successfully.</div>';
 
   if (typeof window.LeoForm === "undefined") {
     var extractRootDomain = function (url) {
@@ -18,12 +18,12 @@
       var formSelector = jQuery("#" + formId);
       formSelector.jsonForm({
         schema: {
-          firstname: {
+          firstName: {
             type: "string",
             title: "Your First Name",
             required: true,
           },
-          lastname: {
+          lastName: {
             type: "string",
             title: "Your Last Name",
             required: true,
@@ -59,9 +59,8 @@
           },
         },
         form: [
-          { key: "firstname" },
-          { key: "lastname" },
-         
+          { key: "firstName" },
+          { key: "lastName" },
           { key: "email" },
           { key: "phone" },
           {
@@ -98,7 +97,7 @@
               .fadeOut("slow");
           } else {
             if (
-              formData.firstname !== "" &&
+              formData.firstName !== "" &&
               formData.email !== "" &&
               formData.phone !== ""
             ) {
@@ -170,4 +169,4 @@ setTimeout(function () {
       contentKeywords
     );
   }
-}, 600);
+}, 800);

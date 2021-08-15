@@ -4,6 +4,24 @@ All notable changes to this Leo CDP project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.8.6] - 2021-08-16
+
+- improve segment UI and UX: using tabs and activation buttons
+- improve profile data merge algorithm to de-duplicate data
+- improve CX Dashboard: Rating and Survey
+- improve UI and UX of profile management, profile info and profile editor
+- improve the backend of profile scoring and profile data management
+- improve visual segment query builder
+- add new Feedback Survey Report
+- add accept-tracking in Journey Data Funnel
+- add fields for profile model: Living City, Living State, Living Country, ZipCode, Keywords for Product Marketing, Next Best Actions
+- add segment data activation:  synch data using connectors
+- add 2 default data connectors: SendInBlue and MailChimp
+- fix critical issues when direct input profile
+- add model to detect all profiles in Shopping Cart Abandoners
+- add Personalization Widget and the data API to show recommended items
+
+
 ## [0.8.5] - 2021-07-02
 - add Event Data Dashboard
 - add CX Data Dashboard

@@ -1,8 +1,8 @@
 <div class="row">
-     <div class="col-md-9" >
+     <div class="col-md-6" >
  		<h5 class="page-header" id="page_breadcrumb" > </h5>
  	 </div> 
-     <div class="col-lg-3 text-center" style="padding: 10px">
+     <div class="col-lg-6 text-right" style="padding: 10px">
      	<button type="button" class="btn btn-info" onclick="history.back()" title="Go back"  > 
        		<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
        	</button>
@@ -54,12 +54,13 @@
 	                           	   	   <b> <i class="fa fa-id-badge" aria-hidden="true"></i> Profile ID </b> 
 	                                   <span class="data_field" data-field="id" data-fieldholder="html" data-fieldtype="string" > - </span> <br>
 	                           	   
-	                                   <b> <i class="fa fa-id-badge" aria-hidden="true"></i> Visitor ID for Cross-Site Tracking </b> 
+	                                   <b> <i class="fa fa-id-badge" aria-hidden="true"></i> Web Visitor ID </b> 
 			                           <span class="data_field" data-field="visitorId" data-fieldholder="html"  data-fieldtype="string" > - </span> <br>
 			                            
-	                                   <b> <i class="fa fa-id-badge" aria-hidden="true"></i> External CRM ID </b> 
+	                                   <b> <i class="fa fa-id-badge" aria-hidden="true"></i> Imported CRM ID </b> 
 	                                   <span class="data_field" data-field="crmRefId" data-fieldholder="html" data-fieldtype="string" > - </span>
 	                               </li>
+	                               
 	                               <li>
 	                           	   		<b>Current Funnel Stage (<span data-field="journeyScore" data-fieldholder="html"  data-fieldtype="int" >0</span>% funnel) </b> 
 								  		<div class="progress" style="text-transform: uppercase;font-weight: bold;" >
@@ -69,31 +70,43 @@
 										  	</div>
 									   	</div>
 	                           	   </li>
+	                           	   
+	                           	   <li>
+					                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Data Labels </b> 
+					                   <a href="javascript: profileAddNewTextHashSet('dataLabels')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+					                   <p data-field="dataLabels" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" >  </p>
+					               	</li>
+	                           	   
 	                               <li>
 	                                   <b> <i class="fa fa-clock-o" aria-hidden="true"></i> Created at </b> 
-	                                   <p class="data_field" data-field="createdAt" data-fieldholder="html"  data-fieldtype="date"  > - </p>
+	                                   <p class="data_field" data-field="createdAt" data-fieldholder="html"  data-fieldtype="date_time"  > - </p>
 	                               </li>
+	                               
 	                               <li>
 	                                   <b> <i class="fa fa-clock-o" aria-hidden="true"></i> Updated at </b> 
-	                                   <p class="data_field" data-field="updatedAt" data-fieldholder="html"  data-fieldtype="date"  > -  </p>
+	                                   <p class="data_field" data-field="updatedAt" data-fieldholder="html"  data-fieldtype="date_time"  > -  </p>
 	                               </li>
 	                               
 	                               <li>
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-envelope"></i> Primary Email <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
 	                                   <input class="form-control" type="email" placeholder="Email" data-field="primaryEmail" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                               </li>
+	                               
 	                               <li>
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-phone-square"></i> Primary Mobile Phone <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
 	                                   <input class="form-control" type="number" placeholder="Mobile Phone" data-field="primaryPhone" data-fieldholder="inputvalue" data-fieldtype="int" autocomplete="off">
 	                               </li>
+	                               
 	                               <li>
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-id-badge"></i> First Name </b> 
 	                                   <input class="form-control" type="text" placeholder="First Name" data-field="firstName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                               </li>
+	                               
 	                               <li>
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-id-badge"></i> Last Name </b> 
 	                                   <input class="form-control" type="text" placeholder="Last Name" data-field="lastName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
 	                               </li>
+	                               
 	                               <li class="personal_info" >
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-user-o"></i> Gender </b> 
 	                                   <div class="radio">
@@ -106,10 +119,12 @@
 										  <label><input type="radio" name="gender" value="7" data-field="gender" data-fieldholder="inputvalue" data-fieldtype="int" >Unknown</label>
 									   </div>
 	                               </li>
+	                               
 	                               <li class="personal_info" >
 	                                   <b data-persona="key"  > <i class="fa fa-fw fa-user-o"></i> Age </b> 
 	                                   <input id='profileAge' readonly="readonly" class="form-control" type="number" placeholder="Age" data-field="age" data-fieldholder="inputvalue" data-fieldtype="int" autocomplete="false" >
 	                               </li>
+	                               
 	                               <li class="personal_info" >
 	                                  <b data-persona="key"  > <i class="fa fa-fw fa-user-o"></i> Date of Birth </b>      
 									  <div class='input-group date' id='profileDateOfBirth' >
@@ -117,60 +132,45 @@
 											<span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
 									  </div>
 	       						   </li>
+	       						   
 	                               <li class="personal_info" >
 	                                   <b data-persona="key"  > <i class="fa fa-fw fa-map-marker"></i> Living Location  </b>
 	                                   <input class="form-control" type="text" placeholder="Living Location" data-field="livingLocation" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
 	                               </li>
-	                               <li class="personal_info" >
-	                                   <b data-persona="key"  > <i class="fa fa-fw fa-map-marker"></i> Nationality  </b>
-	                                   <input class="form-control" type="text" placeholder="Nationality" data-field="mainNationality" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
-	                               </li>
-	                              
+	                               
 	                               <li>
 			                           <b> <i class="fa fa-id-card-o" aria-hidden="true"></i> Profile Type </b>  <br>
 			                           <ul class="list-group">
 										  <li class="list-group-item">
 		                                   	 <div style="font-size: 12px;">
-			                                   <div class="radio">
-												  <label><input type="radio" name="type" value="0" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >ANONYMOUS_VISITOR</label>
-											   </div>
-			                                   <div class="radio">
-												  <label><input type="radio" name="type" value="1" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >DIRECT_CONSUMER</label>
-											   </div>
-											   <div class="radio ">
-												  <label><input type="radio" name="type" value="11" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >MANUALLY_INPUT_PROFILE</label>
-											   </div>
-											   <div class="radio ">
-												  <label><input type="radio" name="type" value="2" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >INTERNAL_USER</label>
-											   </div>
-											   <div class="radio ">
-												  <label><input type="radio" name="type" value="3" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >KEY_INFLUENCER</label>
-											   </div>
-											   <div class="radio ">
-												  <label><input type="radio" name="type" value="4" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >CRM_IMPORTED_CONTACT</label>
-											   </div>
-											   <div class="radio ">
-												  <label><input type="radio" name="type" value="5" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >B2B_KEY_ACCOUNT</label>
-											   </div>
-											   <div class="radio ">
-												  <label><input type="radio" name="type" value="6" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >CLIENT_PARTNER</label>
-											   </div>
-											   <div class="radio ">
-												  <label><input type="radio" name="type" value="7" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >CLIENT_INTEGRATOR</label>
-											   </div>
-											   <div class="radio ">
-												  <label><input type="radio" name="type" value="8" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >CLIENT_COMPETITOR</label>
-											   </div>
-											   <div class="radio ">
-												  <label><input type="radio" name="type" value="9" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >CLIENT_GATEKEEPER</label>
-											   </div>
-											   <div class="radio ">
-												  <label><input type="radio" name="type" value="10" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >SOCIAL_LOGIN_USER</label>
-											   </div>
+		                                   	 	<!-- UNKNOWN  -->
+			                                   	<div class="radio">
+												  	<label><input type="radio" name="type" value="0" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >ANONYMOUS_VISITOR</label>
+											   	</div>
+											   
+			                                   	<div class="radio">
+												  	<label><input type="radio" name="type" value="1" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >HUMAN_CONTACT</label>
+											   	</div>
+											   	<div class="radio">
+												  	<label><input type="radio" name="type" value="2" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >CRM_IMPORTED_CONTACT</label>
+											   	</div>
+											   	<div class="radio">
+												  	<label><input type="radio" name="type" value="3" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >SSO_LOGIN_CONTACT</label>
+											   	</div>
+											   	<div class="radio">
+												  <label><input type="radio" name="type" value="4" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >DIRECT_INPUT_CONTACT</label>
+											   	</div>
+											   	<div class="radio">
+												  <label><input type="radio" name="type" value="5" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >BUSINESS_CONTACT</label>
+											   	</div>
+											   	<div class="radio">
+												  <label><input type="radio" name="type" value="6" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >INFLUENCER_CONTACT</label>
+											   	</div>
 		                                   	 </div>
 										  </li>
 									   </ul>
 	                               </li>
+	                               
 	                               <li>
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-user-o"></i> Status </b> 
 	                                   <div style="font-size: 12px;">
@@ -199,56 +199,61 @@
 
 			<!-- tab 2 Personal Extension Data  -->
 			<div class="tab-pane" id="panel_profile_ext_data" >
-				
-			 	<table border=0 class="underlined" style="width: 100%;">
+				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Information for Personal Contact </h4>
+				<table border=0 class="underlined" style="width: 100%;">
                    <tr>
                        <td>
 							<ol id="profile_ext_data" data-field="personal_attributes">
-								<li>
-                                   <b data-persona="key" > <i class="fa fa-fw fa-users"></i> Social Media Profiles <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-                                   <a href="javascript: addNewHashMapItem('socialMediaProfiles', SocialMediaIconMap) " > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
-                                   <p data-field="socialMediaProfiles" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="socialMediaProfiles" > </p>
-                                </li>
+								
 								<li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Personal ID and Contacts <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
 				                   <a href="javascript: addNewHashMapItem('personalContacts', PersonalContactIconsMap) " > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
 				                   <p data-field="personalContacts" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="personalContacts" > </p>
 				               	</li>
-				               
-				                <li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Personal Interests </b> 
-				                   <a href="javascript: profileAddNewTextHashSet('personalInterests')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
-				                   <p data-field="personalInterests" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
-				               	</li>
 				               	
 				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Reachable Media Channels </b> 
-				                   <a href="javascript: profileAddNewTextHashSet('mediaChannels')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
-				                   <p data-field="mediaChannels" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
-				               	</li>
-				               	
-				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Education & Self-learning paths </b> 
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Education and Learning Paths </b> 
 				                   <a href="javascript: profileAddNewTextHashSet('learningHistory')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
 				                   <p data-field="learningHistory" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 				               	</li>
 				               	
-								<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Content Marketing Keywords </b> 
-				                   <a href="javascript: profileAddNewTextHashSet('contentKeywords')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
-				                   <p data-field="contentKeywords" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
-				               	</li>
+				               	<li>
+                                   <b data-persona="key" > <i class="fa fa-fw fa-users"></i> Social Media Profiles <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+                                   <a href="javascript: addNewHashMapItem('socialMediaProfiles', SocialMediaIconMap) " > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+                                   <p data-field="socialMediaProfiles" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="socialMediaProfiles" > </p>
+                                </li>
 				               	
-				               	<li>
-				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Personal Problems & Pain-points </b> 
-				                   <a href="javascript: profileAddNewTextHashSet('personalProblems')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
-				                   <p data-field="personalProblems" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
-				               	</li>
-				               	<li>
-				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Solutions for customer </b> 
-				                   <a href="javascript: profileAddNewTextHashSet('solutionsForCustomer')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
-				                   <p data-field="solutionsForCustomer" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
-				               	</li>
+								<li>
+	                                 <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Primary Nationality  </b> 
+	                                 <input class="form-control" type="text" placeholder="Primary Nationality" data-field="primaryNationality" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                            </li>
+	                            <li>
+	                                 <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current Living City </b> 
+	                                 <input class="form-control" type="text" placeholder="Current Living City" data-field="livingCity" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                            </li>
+	                            <li>
+	                                 <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current Living State </b> 
+	                                 <input class="form-control" type="text" placeholder="Current Living State" data-field="livingState" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                            </li>
+	                            <li>
+	                                 <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current Living Country </b> 
+	                                 <input class="form-control" type="text" placeholder="Current Living Country" data-field="livingCountry" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                            </li>
+	                            <li>
+	                                 <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current ZipCode </b> 
+	                                 <input class="form-control" type="text" placeholder="Current ZipCode" data-field="currentZipCode" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                            </li>
+			               	</ol>
+               	  		</td>
+                   </tr>
+               </table>
+               <hr>
+			   <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Information for Business </h4>
+			   <table border=0 class="underlined" style="width: 100%;">
+                   <tr>
+                       <td>
+							<ol id="profile_ext_data" data-field="personal_attributes">
+
 				               	<li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Business Contacts <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
 				                   <a href="javascript: addNewHashMapItem('businessContacts', ContactIconsMap) " > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
@@ -273,6 +278,57 @@
                	  		</td>
                    </tr>
                </table>
+               <hr>
+			   <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Information for Marketing </h4>
+			   <table border=0 class="underlined" style="width: 100%;">
+                   <tr>
+                       <td>
+							<ol id="profile_ext_data" data-field="personal_attributes">
+
+                                <li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Content Marketing Keywords </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('contentKeywords')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="contentKeywords" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
+				               	</li>
+				               	
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Product Marketing Keywords </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('productKeywords')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="productKeywords" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
+				               	</li>
+				               
+				                <li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Personal Interests </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('personalInterests')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="personalInterests" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
+				               	</li>
+				               	
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Reachable Media Channels </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('mediaChannels')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="mediaChannels" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+				               	
+				               	<li>
+				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Personal Problems & Pain-points </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('personalProblems')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="personalProblems" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Solutions for Customer </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('solutionsForCustomer')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="solutionsForCustomer" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Next Best Actions </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('nextBestActions')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="nextBestActions" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
+				               	</li>
+			               	</ol>
+               	  		</td>
+                   </tr>
+               </table>
+               
 			</div>
 			
 			
@@ -296,17 +352,17 @@
     var saveProfileHandler = function () {
     	iziToast.info({
     	    title: 'Profile Editor',
-    	    message: 'System is processing ...'
+    	    message: 'System is processing ...',
+    	    timeout: 2000,
     	});
     	updateEditedProfileModel();
     	var callback = function(rs){
     		if(rs != null){
+    			location.hash = "calljs-leoCdpRouter('Customer_Profile_Info','" + rs + "')";
     			iziToast.success({
     	    	    title: 'Profile Editor',
-    	    	    message: 'Data is saved successfully!',
-    	    	    onClosed: function () {
-    	    	    	location.hash = "calljs-leoCdpRouter('Customer_Profile_Info','" + rs + "')";
-    	    	    }
+    	    	    message: 'Profile data is saved OK!',
+    	    	    timeout: 3000,
     	    	});
     		}
     		else {
@@ -331,18 +387,6 @@
          console.log('loadProfileData profileId ' + profileId);
          
          var dataProcessor = function(data){
-        	// qualified lead check
-        	var hasContactInfo = data.typeAsText != 'ANONYMOUS';
-        	if( hasContactInfo  ){
-       			$('input[name="type"][value="0"]').attr('disabled','disabled');
-       			var isSocialLogin = _.size(data.socialMediaProfiles) > 0;
-       			if( ! isSocialLogin ) {
-       				$('input[name="type"][value="10"]').attr('disabled','disabled');
-       			}
-        	} else {
-        		$('input[name="type"]').attr('disabled','disabled');
-        	}
-        	
         	var formatDateTime = 'YYYY-MM-DD';
         	var dateOfBirth = false;
         	if(data.dateOfBirth) {
@@ -353,7 +397,7 @@
     		$('#profileDateOfBirth').datetimepicker({
     	        useCurrent: false, 
     	        format: formatDateTime,
-    	        defaultDate: new moment(dateOfBirth).format(formatDateTime)
+    	        defaultDate: moment.utc(dateOfBirth).local().format('YYYY-MM-DD')
     	    }).on('dp.change', function(e){ 
     	        var age = moment().diff(e.date, 'years');
     	        $('#profileAge').val(age);
@@ -446,7 +490,8 @@
     		}
     	});
     	
-    	editedProfileModel.dateOfBirth = $('#profileDateOfBirth').data("DateTimePicker").date().format();
+    	var dob = new moment.utc( $('#profileDateOfBirth').data("DateTimePicker").date() );
+    	editedProfileModel.dateOfBirth = dob;
     	console.log(editedProfileModel);
     }
     

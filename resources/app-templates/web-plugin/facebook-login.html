@@ -1,0 +1,102 @@
+<!-- Facebook plugins  -->
+<b id="fb_name" style="padding-left:20px;"></b>    
+<b id="fb_email" style="padding-left: 20px;"></b>   
+ 
+<button id="fb_login" type="button" style="margin: 20px; background-color: rgb(135, 206, 250);display:none;" onclick="doUserLogin()"> Facebook Login </button>
+<button id="fb_logout" type="button" style="margin: 20px; background-color: rgb(135, 206, 250);display:none;" onclick="doUserLogout()"> Facebook Logout </button>
+
+<hr />
+
+<div id="fb-root"></div>
+<script>
+   // Facebook login with JavaScript SDK
+   function doUserLogin() {
+       FB.login(function (response) {
+           if (response.authResponse) {
+               statusChangeCallback(response);
+           } else {
+               console.log('User cancelled login or did not fully authorize.');
+           }
+       }, {scope: 'public_profile,email'});
+   }
+   
+   function doUserLogout(){
+       FB.logout(function(response) {
+           location.reload();
+       });
+   }
+   
+   // This is called with the results from from FB.getLoginStatus().
+   function statusChangeCallback(response) {
+       console.log('statusChangeCallback');
+       console.log(response);
+       if (response.status === 'connected') {
+           // Logged into your app and Facebook.
+           facebookReadyAPI();
+   		   document.getElementById('fb_logout').style.display = "";   
+           document.getElementById('fb_login').style.display = "block";  
+       } else {
+           // The person is not logged into your app or we are unable to tell.     
+           document.getElementById('fb_logout').style.display = "none";    
+           document.getElementById('fb_login').style.display = "";       
+       }
+   }
+   
+   // This function is called when someone finishes with the Login Button
+   function checkLoginState() {
+       FB.getLoginStatus(function(response) {
+           statusChangeCallback(response);
+       });
+   }
+   
+   function facebookReadyAPI() {
+       FB.api('/me', { locale: 'en_US', fields: 'id, name, email, picture'}, function (response) {
+    	   console.log('facebookReady ', response);
+           console.log('Successful login, name: ' + response.name  + " email: " + response.email);
+           
+           document.getElementById("fb_name").innerHTML  = response.name; 
+   		   document.getElementById("fb_email").innerHTML = response.email; 
+		   document.getElementById('fb_login').style.display = "none";
+           
+        	// update current session the profile
+        	
+        	var userData = {email: response.email, loginId : response.id, loginProvider: 'facebook'};
+        	
+        	var idxSpace = response.name.indexOf(' ');
+        	if(idxSpace>0){
+        		userData.firstName = response.name.substring(0,idxSpace);
+        		userData.lastName = response.name.substring(idxSpace+1);
+        	} else {
+        		userData.firstName = response.name;
+        		userData.lastName =  '';
+        	}
+        	
+        	LeoObserverProxy.updateProfileBySession(userData)
+       });
+   }
+   
+   function loadFacebookSdk(){
+   	 window.fbAsyncInit = function () {
+            FB.init({
+                appId: '226121614085370',
+                cookie: true, // enable cookies to allow the server to access the session
+                xfbml: true, // parse social plugins on this page
+                version: 'v11.0' // The Graph API version to use for the call
+            });
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        };
+   
+        // Load the SDK asynchronously
+       (function(d, s, id){
+     	 var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+   }
+   
+   loadFacebookSdk();
+</script>

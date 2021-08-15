@@ -1,10 +1,10 @@
 <!-- Segment Builder -->
 
 <div class="row">
-	<div class="col-lg-9">
+	<div class="col-lg-6">
 		<h5 class="page-header" id="page_breadcrumb" > </h5>
 	</div>
-	<div class="col-lg-3 text-center" style="padding: 10px">
+	<div class="col-lg-6 text-right" style="padding: 10px">
 		<button type="button" class="btn btn-info" onclick="history.back()"> 
 			<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back 
 		</button>
@@ -17,8 +17,7 @@
 	</div>
 </div>
 
-<div class="container">
-	
+<div>
 	<h4 id="segment_name" class="highlight_text" >  </h4>
 	<p> Enter the name of segment and set query builder to search profiles </p>
 	
@@ -46,22 +45,20 @@
 						</div>
 					</div>
 					
-					<div class="form-group row"  >
+					<div class="form-group row" style="display: none;" >
 						<label class="control-label col-sm-3" for="type">Status</label>
 						<div id="sm_status" style="font-size: 12px;"  class="col-sm-9" >
 		                   <div class="radio">
-							  <label><input type="radio" name="status" value="1" checked="checked" >ACTIVE QUERY</label>
+							  <label><input type="radio" name="status" value="1" checked="checked" >Active query for new profile data</label>
 						   </div>
-						   <div class="radio">
-							  <label><input type="radio" name="status" value="2" >ACTIVATED</label>
-						   </div>
-		                   <div class="radio">
-							  <label><input type="radio" name="status" value="0" >PASSIVE QUERY</label>
+		                   <div class="radio" style="display: none;" >
+							  <label><input type="radio" name="status" value="0" >  </label>
 						   </div>
 		                </div>
 					</div>
-					
-					<div class="form-group row">
+
+					<!-- TODO -->					
+					<div class="form-group row" style="display: none;">
 						<label class="control-label col-sm-3" for="type">Data segmentation method</label>
 						<div class="col-sm-9"  id="sm_type" >
 							<div class="radio" title="Ad hoc query segmentation" >
@@ -78,40 +75,29 @@
 							  <label><input type="radio" name="type" value="4" > Behavioral segmentation </label>
 							</div>
 							
-							<div class="radio" title="Psychographic segmentation (This feature is only on LEO CDP Enterprise version)" style="display: none;" >
+							<div class="radio" title="Psychographic segmentation (This feature is only on LEO CDP Enterprise version)"  >
 							  <label class="input_disabled" ><input type="radio" name="type" value="3" disabled="disabled" > Psychographic segmentation </label>
 							</div>
-							<div class="radio" title="Re-marketing segmentation (This feature is only on LEO CDP Enterprise version)" style="display: none;">
+							<div class="radio" title="Re-marketing segmentation (This feature is only on LEO CDP Enterprise version)" >
 							  <label class="input_disabled"><input type="radio" name="type" value="5" disabled="disabled" > Re-marketing segmentation </label>
 							</div>
-							<div class="radio" title="Look-alike segmentation (This feature is only on LEO CDP Enterprise version)" style="display: none;">
+							<div class="radio" title="Look-alike segmentation (This feature is only on LEO CDP Enterprise version)" >
 							  <label class="input_disabled"><input type="radio" name="type" value="6" disabled="disabled" > Look-alike segmentation </label>
 							</div>
 							
-							<div class="radio" title="RFM model segmentation (This feature is only on LEO CDP Enterprise version)" style="display: none;">
+							<div class="radio" title="RFM model segmentation (This feature is only on LEO CDP Enterprise version)" >
 							  <label class="input_disabled"><input type="radio" name="type" value="7" disabled="disabled" > RFM model segmentation </label>
 							</div>
-							<div class="radio" title="Churn segmentation (This feature is only on LEO CDP Enterprise version)" style="display: none;">
+							<div class="radio" title="Churn segmentation (This feature is only on LEO CDP Enterprise version)" >
 							  <label class="input_disabled"><input type="radio" name="type" value="8" disabled="disabled" > Churn segmentation </label>
 							</div>
 						</div>
 					</div>
 					
 					<div class="form-group row">
-						<label class="control-label col-sm-3" for="sm_indexscore">Index score for sorting</label>
+						<label class="control-label col-sm-3" for="sm_indexscore">Index score in data activation plan</label>
 						<div class="col-sm-9">
-							<input type="number" class="form-control" id="sm_indexscore" placeholder="Enter the index score for ranking" name="indexScore" style="width:150px" >
-						</div>
-					</div>
-					
-					<div class="form-group row" style="display: none;" >
-						<div class="col-sm-12">
-							<label class="control-label col-sm-3" for="sm_activeQuery"> For new profile data </label>
-							<div class="col-sm-9">
-								<div class="checkbox">
-									<label><input type="checkbox" id="sm_activeQuery" name="activeQuery"> Automatic adding any new profile has data match query criteria in real-time </label>
-								</div>
-							</div>
+							<input type="number" min="1" class="form-control" id="sm_indexscore" placeholder="Enter the ranking index score for activation, less score is more priority" name="indexScore" style="width:150px" >
 						</div>
 					</div>
 					
@@ -119,83 +105,95 @@
 			</div>
 		</div>
 		
-		<div class="panel panel-leoadmin">
-			<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i>  Data Purpose  </b>  </div>
+		<div class="panel panel-leoadmin"  >
+			<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i>  Activation Plans </b>  </div>
 			<div class="panel-body">
 				<div class="col-lg-12">
 					<div class="form-group row">
 						
-						<div class="col-sm-12">
-							<label class="control-label col-sm-3" for="sm_forRecommenderSystem"> For customer personalization </label>
+						<div class="col-sm-12" >
+							<label class="control-label col-sm-3" for="sm_for3rdSynchronization"> Data Synchronization </label>
 							<div class="col-sm-9">
 								<div class="checkbox">
-									<label><input type="checkbox" id="sm_forRecommenderSystem" name="forRecommenderSystem"> 
-										To suggest most personalized items directly to your customers to activate demands
-									</label>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-sm-12" style="display: none;" >
-							<label class="control-label col-sm-3" for="sm_forPredictiveAnalytics"> For predictive analytics </label>
-							<div class="col-sm-9">
-								<div class="checkbox">
-									<label><input type="checkbox" id="sm_forPredictiveAnalytics" name="forPredictiveAnalytics"> 
-										For predictive analytics, to calculate Customer Lifetime Value (CLV) from behavioral data 	
+									<label><input type="checkbox" id="sm_for3rdSynchronization" name="for3rdSynchronization"> To set-up the ongoing process of synchronizing data
+										 from LEO CDP to digital marketing platforms
 									</label>
 								</div>
 							</div>
 						</div>
 						
 						<div class="col-sm-12" >
-							<label class="control-label col-sm-3" for="sm_forEmailMarketing"> For personalized email marketing </label>
+							<label class="control-label col-sm-3" for="sm_forPersonalization"> Data Personalization </label>
 							<div class="col-sm-9">
 								<div class="checkbox">
-									<label><input type="checkbox" id="sm_forEmailMarketing" name="forEmailMarketing"> To target your customers through email,
-										 by providing personalized information, feedback form and CX survey
+									<label><input type="checkbox" id="sm_forPersonalization" name="forPersonalization"> 
+										To suggest most personalized information directly to your customers
 									</label>
 								</div>
 							</div>
 						</div>
 						
-						<div class="col-sm-12" style="display: none;" >
-							<label class="control-label col-sm-3" for="sm_forDeepAnalytics"> To get more data insights </label>
+						<div class="col-sm-12" >
+							<label class="control-label col-sm-3" for="sm_forDeepAnalytics"> Deep Data Analytics </label>
 							<div class="col-sm-9">
 								<div class="checkbox">
-									<label><input type="checkbox" id="sm_forDeepAnalytics" name="forDeepAnalytics"> 
-										Using Jupyter Notebook or Google Colab to analyse data for more information and customer insights
+									<label><input type="checkbox" id="sm_forDeepAnalytics" name="forDeepAnalytics"  > 
+										Using Jupyter Notebook or Google Colab to analyse raw data to get more customer insights and compute RFM and RFE
 									</label>
 								</div>
 							</div>
 						</div>
 						
-						<div class="col-sm-12" style="display: none;">
-							<label class="control-label col-sm-3" for="sm_forRealtimeMarketing"> For real-time marketing </label>
+						<div class="col-sm-12" >
+							<label class="control-label col-sm-3" for="sm_forPredictiveAnalytics"> Predictive Analytics </label>
 							<div class="col-sm-9">
 								<div class="checkbox">
-									<label><input type="checkbox" id="sm_forRealtimeMarketing" name="forRealtimeMarketing"> 
+									<label><input type="checkbox" id="sm_forPredictiveAnalytics" name="forPredictiveAnalytics" > 
+										To predict Customer Acquisition Cost (CAC), Customer Lifetime Value (CLV) and Credit Score from behavioral data 	
+									</label>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-12" >
+							<label class="control-label col-sm-3" for="sm_forEmailMarketing"> Direct Email Marketing </label>
+							<div class="col-sm-9">
+								<div class="checkbox">
+									<label><input type="checkbox" id="sm_forEmailMarketing" name="forEmailMarketing" > 
+										To target your customers through email, by providing useful content, product information, PR event and feedback survey
+									</label>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-12" >
+							<label class="control-label col-sm-3" for="sm_forRealtimeMarketing"> Push Message Notification </label>
+							<div class="col-sm-9">
+								<div class="checkbox">
+									<label><input type="checkbox" id="sm_forRealtimeMarketing" name="forRealtimeMarketing" > 
 										To connect customers with the product or service that they need in real-time, by using push notification and mobile SMS
 									</label>
 								</div>
 							</div>
 						</div>
 						
-						<div class="col-sm-12" style="display: none;">
-							<label class="control-label col-sm-3" for="sm_forReTargeting"> For behavioral re-targeting </label>
+						<div class="col-sm-12" >
+							<label class="control-label col-sm-3" for="sm_forReTargeting"> Behavioral Re-targeting </label>
 							<div class="col-sm-9">
 								<div class="checkbox">
-									<label><input type="checkbox" id="sm_forReTargeting" name="forReTargeting"> 
-										Behavioral retargeting is a form of online targeted advertising 
-										by which online advertising is targeted to consumers based on their previous Internet actions
+									<label><input type="checkbox" id="sm_forReTargeting" name="forReTargeting" > 
+										Behavioral retargeting is a form of online targeted advertising  by which online advertising 
+										is targeted to consumers based on their previous Internet actions
 									</label>
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-12" style="display: none;">
-							<label class="control-label col-sm-3" for="sm_forLookalikeTargeting"> For look-alike targeting </label>
+						
+						<div class="col-sm-12" >
+							<label class="control-label col-sm-3" for="sm_forLookalikeTargeting"> Look-alike Targeting </label>
 							<div class="col-sm-9">
 								<div class="checkbox">
-									<label><input type="checkbox" id="sm_forLookalikeTargeting" name="forLookalikeTargeting"> 
+									<label><input type="checkbox" id="sm_forLookalikeTargeting" name="forLookalikeTargeting" > 
 										Lookalike targeting is a form of audience targeting that uses lookalike audiences to increase your ROI. <br>
 	 									Lookalike targeting is used when you want to target an audience that is similar to your existing customer base
 									</label>
@@ -214,7 +212,7 @@
 				<div class='col-md-7 col-xs-12'>
 					<div class="col-md-12">
 						<label style="padding: 8px;"> 
-							<input id="disable_date_filter" type="checkbox" onclick="toggleSegmentDisableDateFilter(false)" > Disable Date Range Filter 
+							<input id="disable_date_filter" type="checkbox" onclick="toggleSegmentDisableDateFilter(false)" > No Date Range Filter 
 						</label>
 					</div>
 					<div id="segment_disable_date_filter_holder" class="col-md-12">
@@ -253,8 +251,7 @@
 					<div id="segment-builder-holder"></div>
 				</div>
 				<div class="col-lg-3 text-center">
-					<b> Segment Size / Total </b>
-					<div id="donut_chart" style="max-width: 300px; margin: auto;"></div>
+					<div id="segment_size_chart" style="max-width: 300px; margin: auto;"></div>
 				</div>
 			</div>
 		</div>
@@ -451,9 +448,6 @@
 		$('#sm_indexscore').val(segmentData.indexScore).change(function() {
 			segmentDataModel.indexScore = parseInt($(this).val());
 		});
-		$('#sm_activeQuery').prop("checked", segmentData.activeQuery ).change(function() {
-			segmentDataModel.activeQuery = $(this).prop( "checked");
-		});
 		
 		// purpose of data segmentation 
 		// 1 
@@ -465,8 +459,8 @@
 			segmentDataModel.forPredictiveAnalytics = $(this).prop("checked");
 		});
 		// 3
-		$('#sm_forRecommenderSystem').prop("checked", segmentData.forRecommenderSystem ).change(function() {
-			segmentDataModel.forRecommenderSystem = $(this).prop("checked");
+		$('#sm_forPersonalization').prop("checked", segmentData.forPersonalization ).change(function() {
+			segmentDataModel.forPersonalization = $(this).prop("checked");
 		});
 		// 4
 		$('#sm_forEmailMarketing').prop("checked", segmentData.forEmailMarketing ).change(function() {
@@ -484,6 +478,12 @@
 		$('#sm_forLookalikeTargeting').prop("checked", segmentData.forLookalikeTargeting ).change(function() {
 			segmentDataModel.forLookalikeTargeting = $(this).prop("checked");
 		});
+		// 8
+		$('#sm_for3rdSynchronization').prop("checked", segmentData.for3rdSynchronization ).change(function() {
+			segmentDataModel.for3rdSynchronization = $(this).prop("checked");
+		});
+		
+		
 	}
 	
 	var saveSegment = function() {
@@ -503,8 +503,7 @@
 			segmentDataModel.status = parseInt($('#sm_status input:checked').val());
 			
 			segmentDataModel.disableDateRangeFilter = segmentDataModel.beginFilterDate === '' && segmentDataModel.endFilterDate === '';
-			
-			
+
 			//done set data model, POST to API
 			var dataJsonStr = JSON.stringify(segmentDataModel) ;
 	        var urlStr = baseAdminApi + '/cdp/segment/save';

@@ -114,17 +114,17 @@
 
 	
 	    var eventDataTypes = [
-	        { name: "<mark>First-party Data</mark>", id: 1 },
-	        { name: "<span style='font-size:12px'>Second-party Data</span>", id: 2 },
-	        { name: "<span style='font-size:12px'>Third-party Data</span>", id: 3 }
+	        { name: "First-party Data", id: 1 },
+	        { name: "Second-party Data", id: 2 },
+	        { name: "Third-party Data", id: 3 }
 	    ];
 	    
 	    var metricTypes = [
-	        { name: "<mark> IMPRESSION </mark>", id: 1 },
-	        { name: "<mark> ACTION </mark>", id: 2 },
-	        { name: "<mark> CONVERSION </mark>", id: 3 },
-	        { name: "<mark> FEEDBACK </mark>", id: 4 },
-	        { name: "<mark> PROMOTION </mark>", id: 5 }
+	        { name: "IMPRESSION", id: 1 },
+	        { name: "ACTION", id: 2 },
+	        { name: "CONVERSION ", id: 3 },
+	        { name: "FEEDBACK", id: 4 },
+	        { name: "PROMOTION", id: 5 }
 	    ];
 	    
 	    var scoringModels = [
@@ -148,7 +148,6 @@
 			 var canInsertData = json.canInsertData; 
 			 canInsertData = false;
 	    	 var canEditData = json.canEditData;
-	    	 canEditData = false;
     		 var canDeleteData = json.canDeleteData;
     		 canDeleteData = false;
 			
@@ -170,7 +169,7 @@
                     
                     var setRuleIcon, setRulesLabel;
                     setRuleIcon = '<i class="fa fa-cogs event-set-rules" style="" aria-hidden="true"></i>';
-                    setRulesLabel = 'Set rules and automation jobs for the event "' + item.eventName + '"';
+                    setRulesLabel = 'Edit Event Name: ' + item.eventName;
                     
                     var $setRulesButton = $("<button>").attr({class: "jsgrid-custom-button", title : setRulesLabel}).html(setRuleIcon).click(function(e) {
                     	console.log(item);
@@ -256,7 +255,7 @@
 			        { name: "scoreModel", title : "Score Model", type: "select", items: scoringModels, width: 80, valueField: "id", textField: "name" },
 			        { name: "funnelStageId", title : "Default Profile Stage", type: "select", items: customerFunnelStages, valueField: "id", textField: "name" },
 			        { name: "metricType", type: "select", title : "Metric Type", items: metricTypes, align: 'center', width: 68, valueField: "id", textField: "name" }
-			       // ,gridControls
+			        ,gridControls
 			    ]
 			});  
 		});

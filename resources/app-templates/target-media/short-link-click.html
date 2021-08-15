@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>LEO Click Tracking: {{customData.productName}}</title>
+	<title>LEO Click Tracking: {{{customData.productName}}}</title>
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
@@ -14,15 +14,15 @@
 	<span class="sr-only">Loading...</span>
 	
 	<script>
-		var referer = "{{customData.referer}}";
+		var referer = "{{{customData.referer}}}";
 		//
-		var srcTouchpointName = "LEO Click Tracking: {{customData.productName}}";
+		var srcTouchpointName = "LEO Click Tracking: {{{customData.productName}}}";
 		
 	    //LEO Web Observer for channel: 
-   		var leoObserverLogDomain = "{{baseLeoObserverUrl}}";
-   		var leoObserverCdnDomain = "{{baseStaticUrl}}";
+   		var leoObserverLogDomain = "{{{baseLeoObserverUrl}}}";
+   		var leoObserverCdnDomain = "{{{baseStaticUrl}}}";
    		var leoObserverId = "{{customData.observerId}}";
-   		
+
    		// product metadata
    		var idType = "{{customData.productIdType}}";
 		var productIds = "{{customData.productId}}";
@@ -31,7 +31,7 @@
 		var injectedVisitorId = "{{customData.injectedVisitorId}}";
 		
 		// for click direction to landing page
-		var targetMediaUrl = "{{customData.targetMediaUrl}}";
+		var targetMediaUrl = "{{{customData.targetMediaUrl}}}";
 	
 		(function() {
 			if(referer == '') {
@@ -51,6 +51,9 @@
 		function leoObserverProxyReady(session) {
 			if(typeof window.targetMediaUrl === 'string' && window.targetMediaUrl.indexOf('http') === 0 ){
 				var eventData = {"landingPageUrl" : targetMediaUrl, "productIds": productIds, "idType":idType };
+				eventData['adId'] = "{{{customData.adId}}}";
+				eventData['placementId'] = "{{{customData.placementId}}}";
+				eventData['campaignId'] = "{{{customData.campaignId}}}";
 				LeoObserverProxy.recordActionEvent("short-link-click", eventData);
 				
 				setTimeout(function(){
@@ -63,7 +66,7 @@
 					var synid = injectedVisitorId;
 					targetMediaUrl += ('leosyn='+synid);
 					location.href = targetMediaUrl;
-				},555)
+				},1000)
 			} 
 		}
 	</script>

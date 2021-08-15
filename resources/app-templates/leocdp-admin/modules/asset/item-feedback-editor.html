@@ -33,13 +33,13 @@
         <div class="col-lg-9">
 	         <h5 class="page-header" id="page_breadcrumb" > </h5>
         </div>
-       	<div class="col-lg-3 text-center">
+       	<div class="col-lg-3 text-right">
             
 	         <button type="button" class="btn btn-info" onclick="history.back()">
                	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
              </button>
                
-             <button type="button" class="btn btn-danger" onclick="LeoCdpAdmin.navFunctions.deleteItemAsset(feedbackFormData)">
+             <button type="button" class="btn btn-danger" onclick="LeoCdpAdmin.navFunctions.deleteItemAsset(feedbackModel)">
                	<i class="fa fa-trash" aria-hidden="true"></i> Delete
              </button>
              
@@ -136,13 +136,13 @@
     var groupId = "";
     var categoryId = "";
     
-    var feedbackFormData = false;
+    var feedbackModel = false;
 
     //raw HTML code editor
     var surveyTemplateEditor = false, headHtmlEditor, bodyHtmlEditor;
 
     function initSurveyEditor(params) {
-    	feedbackFormData = false;
+    	feedbackModel = false;
     	
     	// html code editor
     	surveyTemplateEditor = CodeMirror.fromTextArea(document.getElementById("raw_media_html"), {        
@@ -182,8 +182,8 @@
     }
     
     var updateFeedbackFormIframePreview = function(){
-    	if(typeof feedbackFormData.id === "string"){
-    		var url = "https://" + baseLeoObserverDomain + "/webform?preview=1&svt=survey&tplid=" + feedbackFormData.id + "&cb=" + new Date().getTime();
+    	if(typeof feedbackModel.id === "string"){
+    		var url = "https://" + baseLeoObserverDomain + "/webform?preview=1&svt=survey&tplid=" + feedbackModel.id + "&cb=" + new Date().getTime();
      		$('#feedback_form_preview').attr('src',url).parent().show();
      		
      		$("#feedback_form_preview_holder").show();
@@ -191,18 +191,18 @@
     }
     
     var showPreviewFeedbackFormUrl = function(){
-    	if(feedbackFormData) {
-    		var tplFeedbackType = getFeedbackFormTypeAsString(feedbackFormData.templateType);
+    	if(feedbackModel) {
+    		var tplFeedbackType = getFeedbackFormTypeAsString(feedbackModel.templateType);
     		
     		// preview url
-    		var url = "https://" + baseLeoObserverDomain + "/webform?tplid=" + feedbackFormData.id;
+    		var url = "https://" + baseLeoObserverDomain + "/webform?tplid=" + feedbackModel.id;
     		url = url + "&tplfbt=" + tplFeedbackType;
     		url = url + "&cb=" + new Date().getTime();
      		$('#full_url_feedback_form').attr('href',url).text(url);
      		
      		updateFeedbackFormIframePreview();
      		
-     		var qrCodeFullUrl = baseLeoObserverUrl + feedbackFormData.qrCodeUrl.substr(1);
+     		var qrCodeFullUrl = baseLeoObserverUrl + feedbackModel.qrCodeUrl.substr(1);
      		$('#feedback_form_qrcode_url').attr('src',qrCodeFullUrl);
      		
      		$("#feedback_form_code_holder").show();
@@ -221,17 +221,17 @@
 
             LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
-                    feedbackFormData = json.data;
+                    feedbackModel = json.data;
                     
-                    document.title = feedbackFormData.title ? 'Feedback Form Editor - ' + feedbackFormData.title : 'New Feedback Form Template';
-                    var templateType = feedbackFormData.templateType;
+                    document.title = feedbackModel.title ? 'Feedback Form Editor - ' + feedbackModel.title : 'New Feedback Form Template';
+                    var templateType = feedbackModel.templateType;
                     
                  	// breadcrumb link update
-        	        updateBreadcrumbInAssetPost(feedbackFormData.assetCategories, feedbackFormData.assetGroups, feedbackFormData.title );
+        	        updateBreadcrumbInAssetPost(feedbackModel.assetCategories, feedbackModel.assetGroups, feedbackModel.title );
                  	
                     var form = $('#item_editor_form');
-                    for (var k in feedbackFormData) {
-                        var value = feedbackFormData[k];
+                    for (var k in feedbackModel) {
+                        var value = feedbackModel[k];
                         var fieldType = typeof value;
 
                         if (fieldType === 'number' || fieldType === 'string') {
@@ -266,7 +266,7 @@
                         console.log(k + " : " + value + " fieldType :" + fieldType)
                     }
                     
-                    if(feedbackFormData.qrCodeUrl !== "") {
+                    if(feedbackModel.qrCodeUrl !== "") {
                     	showPreviewFeedbackFormUrl();
                     	
                     	var autoSave = function(){
@@ -279,7 +279,7 @@
                     		}
                     	}
                     	
-                    	if(feedbackFormData.templateType > 0) {
+                    	if(feedbackModel.templateType > 0) {
                     		headHtmlEditor.on("change",function(){
                         		if(! window.autoSaveFeedbackForm ) {
                         			window.autoSaveFeedbackForm = true;
@@ -305,7 +305,7 @@
                     	$('#feedback_form_url_holder').hide()
                     }
                     
-                    var isNewItem = typeof feedbackFormData.id !== "string";
+                    var isNewItem = typeof feedbackModel.id !== "string";
                  	if(isNewItem){
                  		// update UI when switching templateType in create mode only
                  		$('input[type=radio][name="templateType"]').change(function() {
@@ -338,39 +338,39 @@
     }
 
     function saveFeedbackFormData(callback) {
-        if (feedbackFormData) {
-            feedbackFormData.itemId = itemId;
-            feedbackFormData.groupId = groupId;
-            feedbackFormData.categoryId = categoryId;
+        if (feedbackModel) {
+            feedbackModel.itemId = itemId;
+            feedbackModel.groupId = groupId;
+            feedbackModel.categoryId = categoryId;
    
             console.log('=====> saveFeedbackFormData itemId ' + itemId);
 
-            //get DOM view and set into feedbackFormData
+            //get DOM view and set into feedbackModel
             var form = $('#item_editor_form');
-            feedbackFormData.title = form.find('input[name="title"]').val().trim();
-            feedbackFormData.description = form.find('textarea[name="description"]').val();
-            feedbackFormData.templateType = parseInt(form.find('input:radio[name=templateType]:checked').val());
-            feedbackFormData.assetType = 13;
-            if(feedbackFormData.templateType > 0) {
-            	feedbackFormData.headCode = headHtmlEditor.getValue().trim();
-                feedbackFormData.bodyCode = bodyHtmlEditor.getValue().trim();
-                feedbackFormData.mediaInfo = "_";
+            feedbackModel.title = form.find('input[name="title"]').val().trim();
+            feedbackModel.description = form.find('textarea[name="description"]').val();
+            feedbackModel.templateType = parseInt(form.find('input:radio[name=templateType]:checked').val());
+            feedbackModel.assetType = 13;
+            if(feedbackModel.templateType > 0) {
+            	feedbackModel.headCode = headHtmlEditor.getValue().trim();
+                feedbackModel.bodyCode = bodyHtmlEditor.getValue().trim();
+                feedbackModel.mediaInfo = "_";
             } else {
-            	feedbackFormData.mediaInfo = surveyTemplateEditor.getValue().trim();
-            	feedbackFormData.headCode = "";
-            	feedbackFormData.bodyCode = "";
+            	feedbackModel.mediaInfo = surveyTemplateEditor.getValue().trim();
+            	feedbackModel.headCode = "";
+            	feedbackModel.bodyCode = "";
             }
             
-            if(feedbackFormData.templateType === 0){
+            if(feedbackModel.templateType === 0){
             	// parsing LEO_SURVEY_FORM
-            	var jsonMetadata = JSON.stringify( parseSurveyTemplate(feedbackFormData.mediaInfo) );
-                feedbackFormData.jsonMetadata = jsonMetadata;
+            	var jsonMetadata = JSON.stringify( parseSurveyTemplate(feedbackModel.mediaInfo) );
+                feedbackModel.jsonMetadata = jsonMetadata;
             } else {
             	// skip parsing EMBEDDED_HTML
-            	feedbackFormData.jsonMetadata = "{}";
+            	feedbackModel.jsonMetadata = "{}";
             }
 
-            if(feedbackFormData.title === "" || feedbackFormData.mediaInfo === "") {
+            if(feedbackModel.title === "" || feedbackModel.mediaInfo === "") {
             	iziToast.error({
             	    title: 'Error',
             	    message: 'The title and template can not be empty !'
@@ -386,7 +386,7 @@
             	
                 //done set data model, POST to API
                 var urlStr = baseAdminApi + '/item/save';
-                LeoAdminApiUtil.callPostAdminApi(urlStr, feedbackFormData, function (json) {
+                LeoAdminApiUtil.callPostAdminApi(urlStr, feedbackModel, function (json) {
                     if (json.httpCode === 0 && json.errorMessage === '') {
                         if (typeof callback === 'function') {
                             if(json.data === ''){
@@ -408,7 +408,7 @@
         var onSaveOk = function (itemId) {
             console.log('=====> feedbackFormEditorSave ', itemId);   
             $('#ajaxLoaderDialog').modal('hide'); 
-            location.hash = "calljs-leoCdpRouter('Asset_Group_Details','"+feedbackFormData.groupId+"')";
+            location.hash = "calljs-leoCdpRouter('Asset_Group_Details','"+feedbackModel.groupId+"')";
         }
         saveFeedbackFormData(onSaveOk);
     }
@@ -545,7 +545,7 @@
 			// Choices
 			else if(r.indexOf('[Survey Choices]') >= 0) {
 				sData['Choices'] = typeof sData['Choices'] === "object" ? sData['Choices'] : [];
-				var toks = r.substr('[Survey Choices]'.length).trim().split(',');
+				var toks = r.substr('[Survey Choices]'.length).trim().split(';');
 			 	if(toks.length >1){
 			 		toks.forEach(function(e){
 			 			if(typeof e === 'string'){
@@ -602,13 +602,11 @@
     
     function showDialogEmbeddedFeedbackForm(){
 		var idDialog = "dialogEmbeddedFeedbackForm";
-		
-		initEmbeddedFeedbackForm(idDialog, feedbackFormData);
-		
-		$('#'+idDialog).modal({
-    		backdrop: 'static',
-    		keyboard: false
-		});
+		var iFrameHeight = feedbackModel.templateType === 0 ? 1000 : 350;
+		// init modal box
+		initEmbeddedFeedbackForm(idDialog, feedbackModel, iFrameHeight);
+		// show it
+		$('#'+idDialog).modal({ backdrop: 'static', keyboard: false });
     }
 </script>
 
@@ -630,18 +628,18 @@
 		
 		var url  = '__feedbackFormFullUrl__';
 		url = url + "&tplfbt=" + tplFeedbackType;
-		url = url + "&tpname=" + document.title;
-		url = url + "&tpurl=" + location.href;
+		url = url + "&tpname=" + encodeURIComponent(document.title);
+		url = url + "&tpurl=" + encodeURIComponent(location.href);
 		url = url + "&cb=" + new Date().getTime();
 		
 		// container
 		var divWrapper = document.createElement("div"); 
-		var cssDiv = "position: relative; width:100%; overflow: hidden;  height: 100px ";
+		var cssDiv = "position: relative; width:100%; overflow: hidden;  height: __iFrameHeight__px ";
 		divWrapper.setAttribute("style",cssDiv);
 		
 		// iframe 
 		var iframe = document.createElement("iframe"); 
-		var cssIframe = "position: absolute; top:0; left:0; bottom:0; right:0; width:100%; border: none; overflow: hidden; height: 100px ";
+		var cssIframe = "position: absolute; top:0; left:0; bottom:0; right:0; width:100%; border: none; overflow: hidden; height: __iFrameHeight__px ";
 		iframe.setAttribute("style",cssIframe);
 		iframe.setAttribute("src",url);
 		divWrapper.appendChild(iframe);

@@ -2,7 +2,7 @@
 (function () {
   var errorMsg = "<p> Tên họ, email và số điện thoại là thông tin bắt buộc </p>";
   var successInfo =
-    '<div class="alert alert-success"><strong> Thông tin bạn đã được ghi nhận thành công.</strong></div>';
+    '<div class="alert alert-success" style="margin-top: 20px" ><strong> Thông tin bạn đã được ghi nhận thành công.</strong></div>';
 
   if (typeof window.LeoForm === "undefined") {
     var extractRootDomain = function (url) {
@@ -18,12 +18,12 @@
       var formSelector = jQuery("#" + formId);
       formSelector.jsonForm({
         schema: {
-          firstname: {
+          firstName: {
             type: "string",
             title: "Tên",
             required: true,
           },
-          lastname: {
+          lastName: {
             type: "string",
             title: "Họ",
             required: true,
@@ -45,13 +45,13 @@
             enum: ["Unknown", "Male", "Female"],
           },
           workingHistory: {
-            type: "string",
-            title: "Tên công ty đang công tác:",
-            required: false,
-          },
+	          type: "string",
+	          title: "Company name:",
+	          required: false,
+	      },
           contentKeywords: {
             type: "array",
-            title: "Thông tin bạn quan tâm và cần chúng tôi tư vấn: ",
+            title: "Thông tin bạn quan tâm: ",
             items: {
               type: "string",
               title: "Option",
@@ -60,8 +60,8 @@
           },
         },
         form: [
-          { key: "lastname" },
-          { key: "firstname" },
+          { key: "lastName" },
+          { key: "firstName" },
           { key: "email" },
           { key: "phone" },
           {
@@ -98,7 +98,7 @@
               .fadeOut("slow");
           } else {
             if (
-              formData.firstname !== "" &&
+              formData.firstName !== "" &&
               formData.email !== "" &&
               formData.phone !== ""
             ) {
@@ -119,7 +119,7 @@
 
               var LeoObserverProxy = win.LeoObserverProxy;
               if (LeoObserverProxy) {
-                LeoObserverProxy.updateProfileBySession(formData, extData);
+            	  LeoObserverProxy.updateProfileBySession(formData, extData);
               }
 
               jQuery("#" + holderId)
@@ -146,7 +146,7 @@
 })();
 
 var leoFormDiv =
-  '<div id="subscription_placeholder" style="width:100%"> <h3> Đăng ký thông tin tư vấn </h3> ';
+  '<div id="subscription_placeholder" style="width:100%"> <h3> Đăng ký thông tin </h3> ';
   leoFormDiv += '<form id="leo_registration_form"></form>';
   leoFormDiv += ' <div id="leo_form_error" class="alert alert-danger" style="display: none;"></div> </div>';
 
@@ -156,8 +156,10 @@ setTimeout(function () {
     selector.html(leoFormDiv);
 
     var contentKeywords = {
-      "san-pham-cho-vay": "SẢN PHẨM CHO VAY",
-      "san-pham-the": "SẢN PHẨM THẺ"
+      "bigdata-ai" :"Big Data & A.I", 
+      "business" : "Business", 
+      "industry-4.0" : "Industry 4.0", 
+      "marketing" :  "MARKETING"
     };
 
     contentKeywords = parent.leoFormContentKeywords || contentKeywords;
@@ -168,4 +170,4 @@ setTimeout(function () {
       contentKeywords
     );
   }
-}, 600);
+}, 800);

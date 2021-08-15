@@ -12,10 +12,11 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # Primary Data Flow
 
-![alt Leo CDP Flow](https://1.bp.blogspot.com/-bES8CFhQLXs/YN5xFBoKjJI/AAAAAAAAL2c/tL9J2i9PdioOjkQl-fiPmR_xjCSwKXUNwCLcBGAsYHQ/s2048/LEO%2BCDP%2Bversion%2B1.0%2BChecklist-Data%2BFlow%2BLeo%2BCDP.png)
+![alt Leo CDP Flow](https://1.bp.blogspot.com/-5LDHS3iflqU/YQOKwcrx_LI/AAAAAAAAMgA/5tmJWbsKNdYiMBGS5SNsOh5weX2owj_9QCLcBGAsYHQ/s2048/LEO%2BCDP%2Bversion%2B1.0%2BChecklist-Data%2BFlow%2BLeo%2BCDP.png)
 
 # About this LEO CDP FREE Edition
 
+* This is the beta software, it means there are some bugs in the code.
 * The binary build of LEO CDP Free Edition for training purposes and education only 
 * Free quota: 500 contact profiles and 5000 anonymous profiles
 
@@ -29,9 +30,9 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # Community Support 
 
-Facebook Group <a href="https://www.facebook.com/groups/bigdatavietnam.org/" target="_blank"> Facebook of bigdatavietnam.org </a>
+Facebook <a href="https://www.facebook.com/groups/bigdatavietnam.org/" target="_blank">  bigdatavietnam.org social group </a>
 
 # Documents 
 
-* All documents and video tutorials are  under development 
+* All documents and video tutorials are still under development 
 * More information will be updated at <a href="https://knowledge.leocdp.net/" target="_blank"> Leo CDP Blog </a>

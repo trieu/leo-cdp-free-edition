@@ -53,9 +53,8 @@
         <div class="col-md-8 highlight_box">
 				
          	<div class='text-center' style="margin-bottom: 20px">
-				<h5> Data Aggregation and Reporting 
-					from <span id="beginReportDate" class="highlight_text">  </span> 
-					to <span id="endReportDate" class="highlight_text" >  </span> </h5> 
+				<h4> <i class="fa fa-filter" aria-hidden="true"></i> Data Aggregation and Reporting from
+						<mark id="beginReportDate"></mark> to <mark id="endReportDate" ></mark> </h4>
 			</div>
 			
         	<div class="row float-right">
@@ -85,11 +84,10 @@
 	       
             <div class="row chart_box"  >
             	
-            	<!--  Data Funnel Chart  -->
                 <div class="col-md-2"></div>
                 
-	            <div class="col-md-8 ">
-	            	<h4 class="highlight_text text-center" >Profile Data Funnel</h4>
+	            <div class="col-md-8">
+	            	<!--  Data Funnel Chart  -->
 	               	<div id="profile_funnel_wrapper" class="vcenter" style="width: 96%; margin: auto;">
 	                  	<div id="profile_funnel"></div>
 	               	</div>
@@ -139,7 +137,7 @@
     </div>
 
 </div>
-<br><br><br>
+<br><br>
 
 <script>
 	//select date
@@ -147,7 +145,7 @@
     var initPrimaryDashboard = function () {
     	updateProfileChartWrapper();
 		
-    	initDateFilterComponent(true);
+    	initDateFilterComponent(false);
     	
     	showDashboardReport();
     	
@@ -157,7 +155,7 @@
       	//loadCustomerVenn();
     }
 	
-	var mainDashboardFunnelHeight = 342;
+	var mainDashboardFunnelHeight = 350;
 	var dashboardFontSize = 14;
 	
 	var updateProfileChartWrapper = function() {
@@ -175,24 +173,23 @@
 		
 		var wh = $(window).height();
 		if(wh > 1000 && ws > 1400){
-			mainDashboardFunnelHeight = wh - (Math.floor(window.innerHeight/3) + 40);
+			mainDashboardFunnelHeight = wh - (Math.floor(window.innerHeight/3) + 50);
 			dashboardFontSize = 16;
 		}
 		else if(wh > 1500 && ws > 1600){
-			mainDashboardFunnelHeight = wh - (Math.floor(window.innerHeight/3) + 80);
+			mainDashboardFunnelHeight = wh - (Math.floor(window.innerHeight/3) + 100);
 			dashboardFontSize = 17;
 		}
 	}
 	
     var showDashboardReport = function() {
-    	var formatDateTime = 'YYYY-MM-DD HH:mm:ss';
     	var datetimeFilter = getDateFilterValues();
     	
     	var beginReportDate = datetimeFilter.beginFilterDate;
-    	$('#beginReportDate').text(new moment(beginReportDate).format(formatDateTime))
+    	$('#beginReportDate').text(new moment(beginReportDate).format(defaultDateFormat))
     	
     	var endReportDate = datetimeFilter.endFilterDate;
-    	$('#endReportDate').text(new moment(endReportDate).format(formatDateTime))
+    	$('#endReportDate').text(new moment(endReportDate).format(defaultDateFormat))
         
     	var urlStr = baseAdminApi + '/cdp/analytics360/dashboard-primary';
     	
@@ -242,6 +239,12 @@
     	var renderStatsTotal = function(profileTotalStats, eventTotalStats){
     		var sel = '#profile_total_stats';
     		$(sel).empty();
+    		
+    		// empty 3 main boxs at the top
+    		$('#marketing_metrics_holder').empty();
+    		$('#sales_metrics_holder').empty();
+    		$('#cx_metrics_holder').empty();
+    		
     		for(var i=0; i < profileTotalStats.length; i++){
     			var obj = profileTotalStats[i];
     			var label = obj.collectorKey;

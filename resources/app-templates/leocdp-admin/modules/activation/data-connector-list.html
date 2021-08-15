@@ -1,0 +1,381 @@
+
+<!-- Data Connector Services -->
+
+<div class="row">
+	<div class="col-lg-10">
+		<h5 class="page-header" id="page_breadcrumb"></h5>
+	</div>
+	<div class="col-lg-2 text-right" style="padding: 10px;">
+		<button type="button" class="btn btn-goto-router data-control-insert" onclick="infoEnterpriseVersion(this)" title="Install New Data Connector" >
+			<i class="fa fa-plus-circle" aria-hidden="true"></i> New Data Connector
+		</button>
+	</div>
+</div>
+
+<div class="container-fluid">
+
+    <!-- MAIN BODY here -->
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="row" style="margin-bottom: 15px">
+				<h4> All Data Connectors </h4>
+				<b class="highlight_text" > Please set configuration to activate data connectors </b>
+			</div>
+			<div class="row" id="data_connectors_holder" >
+				<!-- list -->
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script>
+	var initDataConnectorList = function() {
+		loadDataConnectors()
+	}
+	
+	var dataConnectorMap = {};
+
+	var loadDataConnectors = function(){
+		
+		LeoAdminApiUtil.getSecuredData('/cdp/data-connector/list-all',{}, function(json) { 
+			var holder = $('#data_connectors_holder');
+
+			_.forEach(json.data,function(e,i) {
+
+				var id = e.id;
+				dataConnectorMap[id] = e;
+				
+				if(e.configs.service_api_key && e.configs.service_api_key != ""){
+					e.service_api_key = e.configs.service_api_key.substr(0,5) + "...";
+				} else{
+					e.service_api_key = "";
+				}
+				
+				var boxTpl = _.template( $('#tpl_data_connector_view').html() );
+				holder.append( boxTpl(e) );
+				
+				holder.find('i.config_description').tooltip();
+				// set label
+				if(e.status === 1){
+					$('#' + id + '_api_key_label').html('<i class="fa fa-check" aria-hidden="true"></i> API Key is ready').addClass('config_ready');
+				}
+			});
+		})
+	}
+	
+	function deleteDataConnectorInfo(id){
+		var data = dataConnectorMap[id];
+		
+		_.forOwn(data.configs,function(value, key) {
+			data.configs.service_api_url = "";
+			data.configs.service_api_key = "";
+		});
+		$('#' + id + '_api_key').val('')
+		$('#' + id + '_api_url').val('')
+		
+		data.status = 0;
+		
+		var callback = function(rs){
+    		if(rs != null){
+    			iziToast.success({
+    	    	    title: 'Data Connector',
+    	    	    message: 'The config of <b>'+data.name+'</b> is reset OK!',
+    	    	    timeout: 3000,
+    	    	});
+    			$('#' + id + '_api_key').val("");
+    			$('#' + id + '_api_key_label').html('API Key').removeClass('config_ready');
+    		}
+    		else {
+    			console.error('saveSystemServiceInfo ', rs)
+    		}
+    	};
+    	var params = {'objectJson' : JSON.stringify(data) };
+    	LeoAdminApiUtil.callPostAdminApi('/cdp/data-connector/save', params, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+    			callback(json.data);
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+       	}, callback);
+	}
+	
+	function saveDataConnectorInfo(node){
+		var id = $(node).data('id');
+		var data = dataConnectorMap[id];
+		
+		data.name = $('#connectorName').val(); 
+		data.description = $('#connectorDescription').val(); 
+		data.periodInSecondsToLoop = parseInt($('#periodInSecondsToLoop').val()); 
+		
+		data.forProfileEnrichment = $('#forProfileEnrichment').prop('checked');
+		data.forTouchpointEnrichment = $('#forTouchpointEnrichment').prop('checked');
+		data.forMarketingActivation = $('#forMarketingActivation').prop('checked');
+		
+		if(data.forMarketingActivation){
+			$('#dataActivationServices input').prop("disabled", false).each(function(){ 
+				var checked = $(this).prop('checked');
+				data[ $(this).attr('id') ] = checked;
+			}); 
+		}
+		
+		var configData = {};
+		var apiKey = $('#' + id + '_api_key').val().trim();
+		$('#connectorConfigList input').each(function(){
+			var name = $(this).attr('name');
+			var type = $(this).attr('type');
+			if(type === "number"){
+				configData[name] = parseInt($(this).val());
+			}
+			else if(type === "checkbox"){
+				configData[name] = $(this).prop('checked');
+			}
+			else {
+				configData[name] = $(this).val();
+			}
+		});
+		data.configs = configData;
+		
+		// check API key
+		if(data.configs.service_api_key && data.configs.service_api_key != ""){
+			data.status = 1;
+		}
+		else {
+			data.status = 0;
+		}
+		
+		
+		var params = {'objectJson' : JSON.stringify(data) };
+		
+		var callback = function(rs){
+    		if(rs != null){
+    			$('#dialogSetConnectorInfo').modal('hide')
+    			iziToast.success({
+    	    	    title: 'Data Connector',
+    	    	    message: 'The config of <b>'+data.name+'</b> is saved OK!',
+    	    	    timeout: 3000,
+    	    	});
+    			
+    			var apiKey = configData.service_api_key.substr(0,5) + "...";
+    			var apiUrl = configData.service_api_url;
+
+    			$('#' + id + '_api_key').val(apiKey);
+    			$('#' + id + '_api_url').val(apiUrl);
+    			
+    			// set label
+    			if(data.status === 1){
+    				$('#' + id + '_api_key_label').html('<i class="fa fa-check" aria-hidden="true"></i> API Key is ready').addClass('config_ready');
+    			}
+    		}
+    		else {
+    			console.error('saveDataConnectorInfo ', rs)
+    		}
+    	};
+    	LeoAdminApiUtil.callPostAdminApi('/cdp/data-connector/save', params, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+    			callback(json.data);
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+       	}, callback);
+	}
+	
+	function setDataConnectorInfo(id){
+		var data = dataConnectorMap[id];
+		
+		$('#dialogSetConnectorInfo').modal({
+    		backdrop: 'static',
+    		keyboard: false
+		});
+		
+		$('#dataConnectorSaveButton').data("id",id); 
+		
+		$('#connectorName').val(data.name); 
+		$('#connectorDescription').val(data.description); 
+		$('#periodInSecondsToLoop').val(data.periodInSecondsToLoop); 
+		
+		$('#forProfileEnrichment').prop('checked', data.forProfileEnrichment);
+		$('#forTouchpointEnrichment').prop('checked', data.forTouchpointEnrichment);
+		$('#forMarketingActivation').prop('checked', data.forMarketingActivation);
+		
+		if(data.forMarketingActivation){
+			$('#dataActivationServices input').prop("disabled", false).each(function(){ 
+				var checked = data[ $(this).attr('id') ];
+				$(this).prop('checked', checked); 
+			}); 
+		}
+		
+		var holder = $('#connectorConfigList');
+		holder.empty();
+		_.forOwn(data.configs,function(value, key) {
+			var e = { inputName : key};
+			if(typeof value === "number"){
+				e.inputType = "number";
+			}
+			else if(typeof value === "boolean"){
+				e.inputType = "checkbox";
+			}
+			else {
+				e.inputType = "text";
+			}
+			var itemTpl = _.template( $('#tpl_config_row_item').html() );
+			holder.append(itemTpl(e));
+			
+			if(e.inputType === "checkbox"){
+				holder.find('input[name="'+key+'"]').prop('checked', value);
+			} else {
+				holder.find('input[name="'+key+'"]').val(value)
+			}
+		});
+	}
+	
+	function setDataActivationServices(node) {
+		if($(node)[0].checked){
+			$('#dataActivationServices input').prop("disabled", false);
+		}
+		else {
+			$('#dataActivationServices input').prop("checked", false).prop("disabled", true);
+		}
+	}
+</script>
+
+<script id='tpl_data_connector_view' type="text/html" >
+<div class="col-lg-4">
+  <div class="panel panel-default  ">
+	<div class="panel-heading"   > 
+		<b id="header_<%- id %>" > 
+			<i class="fa fa-exchange " aria-hidden="true"></i> <mark> <span style="font-size:13px"> <%- name %> </span> </mark> 
+		</b>
+		<i class="fa fa-question-circle config_description" aria-hidden="true" style="float:right" title="<%- description %>" ></i>
+	</div>
+	<div class="panel-body">
+		<div class="row" >
+			<div class="col-md-12">
+				<div class="form-group">
+					<div id="<%- id %>_api_key_div" >
+						<mark><label id="<%- id %>_api_key_label" for="<%- id %>_api_key"> API Key </label></mark>
+						<input id="<%- id %>_api_key"  autocomplete="off" type="text" value="<%- service_api_key %>" class="form-control" placeholder="API key" disabled >
+						<br>
+					</div>
+					<div id="<%- id %>_api_url_div" >
+  						<mark> <label for="<%- id %>_api_url">  API URL </label></mark>
+  						<input id="<%- id %>_api_url" autocomplete="off" type="text" value="<%- configs.service_api_url %>" class="form-control"  placeholder="API URL" disabled >
+					</div>
+				</div>
+			</div>
+		</div>
+	 	<div id="<%- id %>_buttons_div" class="row" style="margin-top:12px">
+			<div class="col-md-6 text-center">
+		    	<button type="button" class="btn btn-goto-router btn-sm" title="Set Configs" onclick="setDataConnectorInfo('<%- id %>')"  > 
+		  			<i class="fa fa-cog" aria-hidden="true"></i> Set Configs 
+		  		</button>
+		    </div>
+			<div class="col-md-6 text-center">
+		    	<button type="button" class="btn btn-danger btn-sm" title="Delete all configs of this service" onclick="deleteDataConnectorInfo('<%- id %>')"  > 
+		  			<i class="fa fa-trash" aria-hidden="true"></i> Delete Configs 
+		  		</button>
+		    </div>
+	 	</div>
+	</div>
+  </div>
+</div>
+</script>
+
+<script id='tpl_config_row_item' type="text/html" >
+<div class="row form-group">
+	<label id="config_label_<%- inputName %>" class="control-label col-md-3 highlight_text" for="<%- inputName %>" ><%- inputName %></label>
+	<div class="col-md-9 float-left" style="background-color:#DCDCDC!important;padding:2px">
+    	<input type="<%- inputType %>" name="<%- inputName %>" placeholder="Enter the value of <%- inputName %>" class="form-control" style="border: none!important;margin:0!important">
+   	</div>
+</div>
+</script>
+
+
+<!-- dialog html -->
+<div class="modal fade" id="dialogSetConnectorInfo" role="dialog">
+	<div class="modal-dialog modal-lg" >
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > Data Connector Information </h4>
+			</div>         
+			<div class="modal-body row">
+			
+				<div class="row form-group">
+					<label  class="control-label col-md-3" for="connectorName" > Name </label>
+					<div class="col-md-9 float-left" >
+				    	<input type="text" id="connectorName"  placeholder="Enter Connector Name" class="form-control" style="width: 98%" >
+				   	</div>
+				</div>
+				
+				<div class="row form-group">
+					<label  class="control-label col-md-3" for="connectorDescription" > Description </label>
+					<div class="col-md-9 float-left" >
+				    	<textarea id="connectorDescription" class="form-control" rows="2" style="width: 98%" ></textarea>
+				   	</div>
+				</div>
+				
+				<div class="row form-group">
+					<label  class="control-label col-md-3" for="periodInSecondsToLoop" >  Seconds for service timer </label>
+					<div class="col-md-9 float-left" >
+				    	<input type="number" min="0" id="periodInSecondsToLoop" placeholder="Enter the number of seconds for activation loop" class="form-control" style="width: 98%" >
+				   	</div>
+				</div>
+				<hr>
+				<div class="row form-group">
+					<label  class="control-label col-md-3" > Purposes </label>
+					<div class="col-md-9 float-left" >
+						<label class="checkbox-inline control-label">
+					      	<input id="forMarketingActivation" type="checkbox" value="true" onchange="setDataActivationServices(this)" > <b>Segment Data Activation</b>
+					    </label>
+						<label class="checkbox-inline control-label">
+					      	<input id="forProfileEnrichment" type="checkbox" value="true"> <b>Profile Data Enrichment</b>
+					    </label>
+					    <label class="checkbox-inline control-label">
+					      	<input id="forTouchpointEnrichment" type="checkbox" value="true"> <b>Touchpoint Data Enrichment</b>
+					    </label>
+				    </div>
+				</div>
+				<hr>
+				<div class="row form-group">
+					<label  class="control-label col-md-3" > Services </label>
+					<div class="col-md-9 float-left" id="dataActivationServices" >
+						<div class="col-sm-12" >
+						    <label class="col-sm-4">
+						      	<input id="emailSenderService" type="checkbox" value="true" disabled="disabled"> Email Sender 
+						    </label>
+						    <label class=" col-sm-4">
+						      	<input id="messagePusherService" type="checkbox" value="true" disabled="disabled"> Message Pusher
+						    </label>
+						    <label class=" col-sm-4">
+						      	<input id="smsSenderService" type="checkbox" value="true" disabled="disabled"> SMS Sender
+					    	</label>
+					    </div>
+					    <div class="col-sm-12" >
+					    	<label class=" col-sm-4">
+						      	<input id="dataSynchService" type="checkbox" value="true" disabled="disabled"> Data Synchronization
+						    </label>
+						    <label class=" col-sm-4">
+						      	<input id="profileScoringService" type="checkbox" value="true" disabled="disabled"> Profile Scoring
+						    </label>
+						    <label class=" col-sm-4">
+						      	<input id="personalizationService" type="checkbox" value="true" disabled="disabled"> Personalization Engine
+						    </label>
+					    </div>
+				    </div>
+				</div>
+				<hr>
+				<strong >Configuration List</strong>
+				
+				<div id="connectorConfigList" style="max-height: 350px; overflow-y: scroll; overflow-x: hidden;" > </div>
+			</div>
+			<div class="modal-footer" >
+				<button type="button" class="btn btn-success" onclick="saveDataConnectorInfo(this)" id="dataConnectorSaveButton"  >
+					<i class="fa fa-check" aria-hidden="true"></i> Save 
+				</button>
+		        <button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>

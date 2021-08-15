@@ -6,14 +6,15 @@
     lang = lang || 'us';
 
     // FIXME
-    var cdnUrl = 'https://cdn.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files/js/leo-form/';
+    var cdnUrl = window.leoFormBaseUrl || 'https://cdn.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files@latest/js/leo-form/';
+    
     var formSchemaUrl = cdnUrl + 'leo.form.iframe.' + lang + '.js';
     var jsForm = '<script src="' + formSchemaUrl + '"><\/script>'
 
     var cssStr = '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">';
     var jsStr = '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"><\/script>';
     jsStr += '<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.11.0/underscore-min.js"><\/script>';
-    jsStr += '<script src="https://cdnjs.cloudflare.com/ajax/libs/jsonform/2.2.1/jsonform.js"><\/script>';
+    jsStr += '<script src="https://cdnjs.cloudflare.com/ajax/libs/jsonform/2.2.4/jsonform.min.js"><\/script>';
 
     var pIframeId = 'leo_frame_' + holderId;
     var holder = document.getElementById(holderId);

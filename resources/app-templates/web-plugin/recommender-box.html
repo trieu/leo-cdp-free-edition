@@ -1,0 +1,24 @@
+
+<!-- Leo Product Recommender Box -->
+<script id="leo_recommender_box">
+	setTimeout(function(){
+		LeoObserverProxy.synchLeoVisitorId(function(vid) {
+			// url
+			var cb = Math.floor(Math.random() * 100000);
+			var src = "https://demotrack.leocdp.net/ris/html/products?visid=" + vid;
+			src += ("&tpurl=" + encodeURIComponent(location.href) );
+			src += ("&cb=" + cb );
+			// width and height
+			var h = '500px';
+			var w = '300px';
+			// append DOM
+			var f = document.createElement('iframe');
+			f.setAttribute("src", src);
+			f.setAttribute("style", "width:"+w+"; height:"+h+"; overflow-y:scroll; margin:auto; display:block; border:none;");
+			f.setAttribute("frameBorder", "0");
+			var s = document.getElementById('leo_recommender_box');
+		    s.parentNode.insertBefore(f, s);
+		})
+	},860);
+</script>
+

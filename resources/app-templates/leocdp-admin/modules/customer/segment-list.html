@@ -6,10 +6,10 @@
 </style>
 
 <div class="row">
-	<div class="col-lg-9">
+	<div class="col-lg-8">
 		<h5 class="page-header" id="page_breadcrumb" > </h5>
 	</div>
-	<div class="col-lg-3 text-center" style="padding: 10px">
+	<div class="col-lg-4 text-right" style="padding: 10px">
 		<button type="button" class="btn btn-do-now" onclick="location.reload()" title="Refresh Profile List" > 
     		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
     	</button>
@@ -22,16 +22,16 @@
 <div class="row">
 	<div class="col-lg-12">
 		<div class="top_page_header" >
-			<h4> <i class="fa fa-object-group" aria-hidden="true"></i> Segment Data List </h4>
+			<h4> <i class="fa fa-object-group" aria-hidden="true"></i> Segment Data Management </h4>
 		</div>
 	    <div class="table-responsive">
 	        <table id="segment-list" class="display" style="width:100%">
 	            <thead>
 	                <tr>
-	                    <th>Name</th>
+	                	 <th>Index</th>
+	                    <th>Segment Name</th>
+	                    <th>Total Profile</th>
 	                    <th>Description</th>
-	                    <th>Total Profiles </th>
-	                    <th>Query Type</th>
 	                    <th>Created at</th>
 	                    <th>Updated at</th>
 	                    <th>Actions</th>
@@ -59,6 +59,7 @@
         
         if (usersession) {
             $('#segment-list').DataTable({
+            	"lengthMenu": [[10, 20, 30], [10, 20, 30]],
             	'processing': true,
                 'serverSide': true,
                 'searching': false,
@@ -71,7 +72,6 @@
                         request.setRequestHeader("leouss", usersession);
                     },
                     data: function (d) {
-                        console.log(d)
                         return JSON.stringify(d);
                     },
                     dataSrc: function ( json ) {
@@ -88,40 +88,33 @@
                 'columnDefs': [
                 	{
                         "render": function (data, type, row) {
-                        	var callJsViewStr = "#calljs-leoCdpRouter('Segment_Details','" + row.id + "')";
-                        	var text = textTruncate(data,50);
-                            return '<div class="segment_name"><i class="fa fa-arrow-right" aria-hidden="true"></i> <a title="Segment Report: '+data+'" href="' + callJsViewStr + '" >' + text + '</a></div>';
+                        	return  '<div style="width:70px; text-align:center" ><mark>' +  data.toLocaleString() + '</mark></div>';
                         },
                         "targets": 0
                     },
                 	{
                         "render": function (data, type, row) {
-                            return '<div  style="font-size:0.8em;" title="' + data + '" >' + textTruncate(data, 150) + '</div>';
+                        	var callJsViewStr = "#calljs-leoCdpRouter('Segment_Details','" + row.id + "')";
+                        	var text = textTruncate(data,50);
+                            return '<div class="segment_name"><a title="Segment Report: '+data+'" href="' + callJsViewStr + '" >' + text + '</a></div>';
                         },
                         "targets": 1
                     },
                     {
                         "render": function (data, type, row) {
-                            return   '<div class="segment_size" style="width:96px" >' +  data.toLocaleString() + '</div>';
+                            return  '<div class="segment_size" style="width:96px" ><mark>' +  data.toLocaleString() + '</mark></div>';
                         },
                         "targets": 2
                     },
-                    {
+                	{
                         "render": function (data, type, row) {
-                        	var textIcon = 'PASSIVE QUERY';
-                        	if(data === 1){
-                        		textIcon = 'ACTIVE QUERY';
-                        	}
-                        	else if(data === 2){
-                        		textIcon = 'ACTIVATED';
-                        	}
-                            return '<div class="datatable_text text-center" style="font-size:0.8em;color:#3300ff;width:96px" >' + textIcon + '</div>';
+                            return '<div  style="font-size:0.8em;" title="' + data + '" >' + textTruncate(data, 150) + '</div>';
                         },
                         "targets": 3
                     },
                     {
                         "render": function (data, type, row) {
-                            var date = moment.utc(new Date(data)).local().format('YYYY-MM-DD HH:mm:ss');
+                            var date = moment.utc(data).local().format('YYYY-MM-DD HH:mm:ss');
                             return '<div class="small text-center" style="color:#3300ff;width:80px" >'  + date + '</div>';
                         },
                         "targets": 4
@@ -129,7 +122,7 @@
                     {
                         "render": function (data, type, row) {
                         	if(data){
-                        		 var date = moment.utc(new Date(data)).local().format('YYYY-MM-DD HH:mm:ss');
+                        		 var date = moment.utc(data).local().format('YYYY-MM-DD HH:mm:ss');
                         		 return '<div class="small text-center" style="color:#3300ff;width:80px" >'  + date + '</div>';
                         	}
                            return '-';
@@ -158,17 +151,18 @@
                         "targets": 6
                     }
                 ],
-                'columns': [{
-                        "data": "name" // 0
-                    },
-                    {
-                        "data": "description" // 1
+                'columns': [
+                	{
+                         "data": "indexScore" // 0
+                   	},
+                	{
+                        "data": "name" // 1
                     },
                     {
                         "data": "totalCount" // 2
                     },
                     {
-                        "data": "status" // 3
+                        "data": "description" // 3
                     },
                     {
                         "data": "createdAt" // 4

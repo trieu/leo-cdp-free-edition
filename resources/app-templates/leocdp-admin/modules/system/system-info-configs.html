@@ -1,4 +1,6 @@
 
+
+
 <div class="row">
     <div class="col-lg-12">
         <h5 class="page-header" id="page_breadcrumb" > </h5>
@@ -12,8 +14,8 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="row" style="margin-bottom: 15px">
-				<h4> System Configuration for LEO A.I extensions and Digital Marketing Automation Services </h4>
-				<b class="highlight_text" > All LEO AI services and Digital Marketing Automation Services are under development </b>
+				<h4> Configuration Management for Core System Services</h4>
+				<b class="highlight_text" > Please set configs to activate system services </b>
 			</div>
 			<div class="row" id="configs_holder" >
 				<!-- list -->
@@ -24,30 +26,241 @@
 </div>
 
 
+<script>
+	var initSystemConfigManagement = function() {
+		loadSystemConfigs();
+	}
+	
+	var systemConfigMap = {};
+
+	var loadSystemConfigs = function(){
+		
+		LeoAdminApiUtil.getSecuredData('/cdp/system-config/list-all',{}, function(json) { 
+			var holder = $('#configs_holder');
+
+			_.forEach(json.data,function(e,i) {
+				//console.log(e)
+				
+				var id = e.id;
+				var index = e.index;
+				if(index < 7) {
+					systemConfigMap[id] = e;
+					e.disabledText = e.configs.read_only ? 'disabled' : '';
+					if(!e.configs.active) {
+						e.enterpriseEditionText =  "(only available in the Enterprise edition)";
+					} else {
+						e.enterpriseEditionText = "";
+					}
+					
+					if(e.configs.service_api_key && e.configs.service_api_key != ""){
+						e.service_api_key = e.configs.service_api_key.substr(0,5) + "...";
+					} else{
+						e.service_api_key = "";
+					}
+					
+					if(e.configs.show) {
+						var boxTpl = _.template( $('#tpl_system_config_box').html() );
+						holder.append( boxTpl(e) );
+						
+						$('#header_' + id + '_true').css('color','#0000CD');
+						if(e.configs.service_api_url === 'local-system'){
+							$('#' + id + '_buttons_div').find('button').attr('disabled','disabled');
+							$('#' + id + '_api_key_div').css('visibility','hidden');
+						}
+						$('#' + id + '_api_key').focus(function(){
+							$(this).val("");
+						});
+						
+						if(e.status === 1){
+							var htmlOK = '<i class="fa fa-check" aria-hidden="true"></i> API Key is ready';
+							$('#' + id + '_api_key_label').html(htmlOK).addClass('config_ready');
+						}
+					}
+				}
+			});
+			holder.find('div.active_false button').attr('class','btn btn-default').attr('disabled','disabled');
+			holder.find('div.panel_active_false').find('input').attr('disabled','disabled');
+			
+			holder.find('i.config_description').tooltip()
+		})
+	}
+	
+	function deleteSystemServiceInfo(id){
+		var data = systemConfigMap[id];
+		
+		_.forOwn(data.configs,function(value, key) {
+			if(typeof value === "string" && ( key.indexOf("smtp_") === 0 || key.indexOf("service_") === 0 )){
+				data.configs[key] = "";
+			}
+		});
+		$('#' + id + '_api_key').val('')
+		$('#' + id + '_api_url').val('')
+		
+		data.status = 0;
+		
+		var callback = function(rs){
+    		if(rs != null){
+    			iziToast.success({
+    	    	    title: 'System Config',
+    	    	    message: 'The config of <b>'+data.name+'</b> is reset OK!',
+    	    	    timeout: 3000,
+    	    	});
+    			$('#' + id + '_api_key').val("");
+    			$('#' + id + '_api_key_label').html('API Key').removeClass('config_ready');
+    		}
+    		else {
+    			console.error('saveSystemServiceInfo ', rs)
+    		}
+    	};
+    	var params = {'objectJson' : JSON.stringify(data) };
+    	LeoAdminApiUtil.callPostAdminApi('/cdp/system-config/save', params, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+    			callback(json.data);
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+       	}, callback);
+	}
+	
+	function saveSystemServiceInfo(node) {
+		var id = $(node).data('id');
+		var data = systemConfigMap[id];
+		
+		var configData = {};
+		var apiKey = $('#' + id + '_api_key').val().trim();
+		$('#systemServiceConfigList input').each(function(){
+			var name = $(this).attr('name');
+			var type = $(this).attr('type');
+			if(type === "number"){
+				configData[name] = parseInt($(this).val());
+			}
+			else if(type === "checkbox"){
+				configData[name] = $(this).prop('checked');
+			}
+			else {
+				configData[name] = $(this).val();
+			}
+		});
+
+		data.configs = configData;
+		
+		// check API key
+		if(data.configs.service_api_key && data.configs.service_api_key != ""){
+			data.status = 1;
+		}
+		else {
+			data.status = 0;
+		}
+		
+		var params = {'objectJson' : JSON.stringify(data) };
+		var callback = function(rs){
+    		if(rs != null){
+    			$('#dialogSetSystemConfigs').modal('hide')
+    			iziToast.success({
+    	    	    title: 'System Config',
+    	    	    message: 'The config of <b>'+data.name+'</b> is saved OK!',
+    	    	    timeout: 3000,
+    	    	});
+    			
+    			var apiKey = configData.service_api_key.substr(0,5) + "...";
+    			var apiUrl = configData.service_api_url;
+
+    			$('#' + id + '_api_key').val(apiKey);
+    			$('#' + id + '_api_url').val(apiUrl);
+    			
+    			// set label
+    			if(data.status === 1){
+    				$('#' + id + '_api_key_label').html('<i class="fa fa-check" aria-hidden="true"></i> API Key is ready').addClass('config_ready');
+    			}
+    		}
+    		else {
+    			console.error('saveSystemServiceInfo ', rs)
+    		}
+    	};
+    	LeoAdminApiUtil.callPostAdminApi('/cdp/system-config/save', params, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+    			callback(json.data);
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+       	}, callback);
+	}
+	
+	function setSystemServiceInfo(id){
+		var data = systemConfigMap[id];
+		
+		$('#dialogSetSystemConfigs').modal({
+    		backdrop: 'static',
+    		keyboard: false
+		});
+		$('#systemServiceName').text(data.name); 
+		$('#systemServiceDescription').text(data.description); 
+		$('#systemServiceSaveButton').data("id",id); 
+		
+		var holder = $('#systemServiceConfigList');
+		holder.empty();
+		_.forOwn(data.configs,function(value, key) {
+			var e = { inputName : key};
+			if(typeof value === "number"){
+				e.inputType = "number";
+			}
+			else if(typeof value === "boolean"){
+				e.inputType = "checkbox";
+			}
+			else {
+				e.inputType = "text";
+			}
+			var itemTpl = _.template( $('#tpl_config_row_item').html() );
+			holder.append(itemTpl(e));
+			
+			if(e.inputType === "checkbox"){
+				holder.find('input[name="'+key+'"]').prop('checked', value);
+			} else {
+				holder.find('input[name="'+key+'"]').val(value)
+			}
+			if( key.indexOf('service')===0 || key.indexOf('smtp_') === 0 ) {
+				holder.find('input[name="'+key+'"]').prop("disabled", false);
+				$('#config_label_'+key).addClass("highlight_text")
+			}
+		});
+	}
+</script>
+
+
 <script id='tpl_system_config_box' type="text/html" >
 <div class="col-lg-4">
-  <div class="panel panel-info panel_active_<%- active %> ">
-	<div class="panel-heading"> 
-		<b id="header_<%- id %>_<%- active %>" > <mark> <i class="fa <%- icon %> " aria-hidden="true"></i> <span style="font-size:13px"> <%- name %> </span> </mark> </b> 
+  <div class="panel panel-default panel_active_<%- configs.active %> ">
+	<div class="panel-heading"   > 
+		<b id="header_<%- id %>_<%- configs.active %>" > 
+			<i class="fa <%- configs.icon %> " aria-hidden="true"></i> <mark> <span style="font-size:13px"> <%- name %> </span> </mark> 
+		</b>
+		<i class="fa fa-question-circle config_description" aria-hidden="true" style="float:right" title="<%- description %>" ></i>
 	</div>
 	<div class="panel-body">
 		<div class="row" >
 			<div class="col-md-12">
 				<div class="form-group">
-  					<label for="<%- id %>_service_url"> API URL </label>
-  					<input type="text" value="<%- serviceUrl %>" class="form-control" id="<%- id %>_service_url" placeholder="Enter API URL here" <%- disabledText %> >
-					<br>
 					<div id="<%- id %>_api_key_div" >
-						<label for="<%- id %>_service_token"> API key </label>
-						<input type="text" value="" class="form-control" id="<%- id %>_service_token" placeholder="Enter API Key here" <%- disabledText %> >
-					<div>
+						<mark> <label id="<%- id %>_api_key_label" for="<%- id %>_api_key">  API Key <%- enterpriseEditionText %>  </label></mark>
+						<input id="<%- id %>_api_key"  autocomplete="off" type="text" value="<%- service_api_key %>" class="form-control" placeholder="API key" disabled >
+						<br>
+					</div>
+					<div id="<%- id %>_api_url_div" >
+  						<mark> <label for="<%- id %>_api_url">  API URL </label></mark>
+  						<input id="<%- id %>_api_url" autocomplete="off" type="text" value="<%- configs.service_api_url %>" class="form-control" placeholder="API URL" disabled >
+					</div>
 				</div>
 			</div>
 		</div>
-	 	<div id="<%- id %>_buttons_div" class="row readOnly_<%- readOnly %> active_<%- active %>" style="margin-top: 10px">
-			<div class="col-md-12 text-center">
-		    	<button type="button" class="btn btn-primary btn-sm"  title="Save Now" onclick="saveSystemServiceInfo('<%- id %>')" <%- disabledText %>  > 
-		  			<i class="fa fa-check" aria-hidden="true"></i> Save Configs 
+	 	<div id="<%- id %>_buttons_div" class="row read_only_<%- configs.read_only %> active_<%- configs.active %>" style="margin-top:12px">
+			<div class="col-md-6 text-center">
+		    	<button type="button" class="btn btn-goto-router btn-sm"  title="Set Configs" onclick="setSystemServiceInfo('<%- id %>')" <%- disabledText %>  > 
+		  			<i class="fa fa-cog" aria-hidden="true"></i> Set Configs 
+		  		</button>
+		    </div>
+			<div class="col-md-6 text-center">
+		    	<button type="button" class="btn btn-danger btn-sm"  title="Delete all configs of this service" onclick="deleteSystemServiceInfo('<%- id %>')" <%- disabledText %>  > 
+		  			<i class="fa fa-trash" aria-hidden="true"></i> Delete Configs 
 		  		</button>
 		    </div>
 	 	</div>
@@ -56,107 +269,38 @@
 </div>
 </script>
 
-
-
-<script>
-	var initSystemConfigManagement = function() {
-		loadSystemConfigs();
-	}
-
-	var loadSystemConfigs = function(){
-		var configs = [];
-		configs.push(
-			{
-				id : "sendinblue_email_api_key",
-				icon: "fa-server",
-				name : "[Email] SendInBlue Email Marketing Automation",
-				readOnly: false,
-				serviceUrl: '',
-				active: false,
-				show: true
-			}
-			,
-			{
-				id : "mailchimp_email_api_key",
-				icon: "fa-server",
-				name : "[Email] MailChimp Email Marketing Automation",
-				readOnly: false,
-				serviceUrl: '',
-				active: false,
-				show: true
-			}
-			,
-			{
-				id : "onesignal_notification_api_key",
-				icon: "fa-server",
-				name : "[Notification] OneSignal Cloud Messaging",
-				readOnly: false,
-				serviceUrl: '',
-				active: false,
-				show: true
-			}
-			,
-			{
-				id : "firebase_notification_api_key",
-				icon: "fa-server",
-				name : "[Notification] Firebase Cloud Messaging",
-				readOnly: false,
-				serviceUrl: '',
-				active: false,
-				show: true
-			}
-			,
-			{
-				id : "leocdp_personalization_engine",
-				icon: "fa-server",
-				name : "[LEO A.I.] Personalization Engine",
-				readOnly: false,
-				serviceUrl: '',
-				active: false,
-				show: true
-			}
-			,
-			{
-				id : "leocdp_sentiment_analysis",
-				icon: "fa-server",
-				name : "[LEO A.I.] Feedback Sentiment Analysis",
-				readOnly: false,
-				serviceUrl: '',
-				active: false,
-				show: true
-			}
-		);
-		
-		var holder = $('#configs_holder');
-		_.forEach(configs,function(e,i){
-			var id = e.id;
-			e.disabledText = e.readOnly ? 'disabled' : '';
-			
-			if(e.show) {
-				var boxTpl = _.template( $('#tpl_system_config_box').html() );
-				var html = boxTpl(e);
-				
-				holder.append(html);
-				
-				$('#header_' + id + '_true').css('color','#0000CD');
-				if(e.serviceUrl === 'local-system'){
-					$('#' + id + '_buttons_div').find('button').attr('disabled','disabled');
-					$('#' + id + '_api_key_div').css('visibility','hidden');
-				}
-			}
-			
-		});
-		holder.find('div.active_false button').attr('class','btn btn-default').attr('disabled','disabled');
-		holder.find('div.panel_active_false').attr('class','panel panel-default panel_active_false');
-		holder.find('div.panel_active_false').find('input').attr('disabled','disabled');
-	}
-	
-	function openSystemServiceUrl(){
-		
-	}
-	
-	function saveSystemServiceInfo(){
-		
-	}
-	
+<script id='tpl_config_row_item' type="text/html" >
+<div class="row form-group">
+	<label id="config_label_<%- inputName %>" class="control-label col-md-3" for="<%- inputName %>" ><%- inputName %></label>
+	<div class="col-md-9 float-left" style="background-color:#DCDCDC!important;padding:2px">
+    	<input disabled type="<%- inputType %>" name="<%- inputName %>" placeholder="Enter the value of <%- inputName %>" class="form-control" style="border: none!important;margin:0!important">
+   	</div>
+</div>
 </script>
+
+<!-- dialog HTML -->
+<div class="modal fade" id="dialogSetSystemConfigs" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > System Service Configuration </h4>
+			</div>         
+			<div class="modal-body">
+				<strong id="systemServiceName" >  </strong>
+				<div id="systemServiceDescription" >  </div>
+				<hr>
+				<strong >Configuration List</strong>
+				<div id="systemServiceConfigList" style="max-height: 450px; overflow-y: scroll; overflow-x: hidden;" >
+					<!--  -->
+				</div>
+			</div>
+			<div class="modal-footer" >
+				<button type="button" class="btn btn-success" onclick="saveSystemServiceInfo(this)" id="systemServiceSaveButton"  >
+					<i class="fa fa-check" aria-hidden="true"></i> Save 
+				</button>
+		        <button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>

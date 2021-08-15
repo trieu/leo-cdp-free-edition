@@ -13,7 +13,7 @@
 	}
 	.sm_purpose b {
 		color: #000!important;
-		font-size: 14px!important;
+		font-size: 1.1em!important;
 		font-weight: bold!important;
 	}
 	.sm_purpose button {
@@ -26,178 +26,255 @@
 </style>
 
 <div class="row">
-	<div class="col-lg-8">
+	<div class="col-lg-6">
 		<h5 class="page-header" id="page_breadcrumb" > </h5>
 	</div>
-	<div class="col-lg-4 text-center" style="padding: 10px">
+	<div class="col-lg-6 text-right" style="padding: 10px">
 		<button type="button" class="btn btn-info" title="Go back" onclick="history.back()" > 
 			<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back 
 		</button>
-	
+		<button type="button" class="btn btn-do-now" onclick="location.reload()" title="Refresh data"  > 
+       		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
+       	</button>
 		<button type="button" class="btn btn-danger data-control-delete" title="Delete this segment" > 
 			<i class="fa fa-trash" aria-hidden="true"></i> Delete 
 		</button>
-		
 		<button type="button" class="btn btn-goto-router data-control-edit" title="Edit this segment" > 
 			<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit 
 		</button>
-		
-		<button type="button" class="btn btn-blue data-control-download" title="Download raw CSV data of the segment" > 
-			<i class="fa fa-download" aria-hidden="true"></i> Download
+		<button type="button" class="btn btn-blue data-control-download" title="Download all profiles as raw CSV data" > 
+			<i class="fa fa-download" aria-hidden="true"></i> Export CSV Data
 		</button>
 	</div>
 </div>
 
-<div class="container ">
-	
-	<h4 id="segment_name" class="highlight_text" >  </h4>
-	<p> Metadata, query details and matched profiles </p>
+<div>
+	<!-- metadata  -->
+	<ul class="list-group">
+	  	<li class="list-group-item ">
+	 		<b>Segment Name:</b> <span id="sm_name" class="highlight_text"></span>
+	  	</li>
+	  	<li class="list-group-item ">
+	  		<b>Description:</b> <span id="sm_description" ></span>
+	  	</li>
+   	</ul>
 	
 	<div class="panel-group">
 	
-		<!--  1 metadata  -->
-		<div class="panel panel-leoadmin">
-			<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i>  Segment Metadata </b>  </div>
-			<div class="panel-body">
-				<div class="col-lg-12">
-					<div class="form-group">
-						<div class="col-sm-10">
-							<b>Name:</b> <span id="sm_name" ></span>
+		<!--  Tab Navigation Items -->
+	    <ul class="nav nav-tabs" data-tab-content="segment_info_tabs" >
+			<li class="active" >
+				<a href="javascript:" data-target-tab="panel_segment_event_report" title="Segment Event Report" > <i class="fa fa-line-chart" aria-hidden="true"></i> Event Report </a>
+	       	</li>
+	       	<li>
+				<a href="javascript:" data-target-tab="panel_segment_query_details" title="Segment Query Details" > <i class="fa fa-filter" aria-hidden="true"></i> Query Details </a>
+	       	</li>
+	       	<li>
+				<a href="javascript:" data-target-tab="panel_segment_matched_profiles" title="Segment Matched Profiles" > <i class="fa fa-list-ul" aria-hidden="true"></i> Matched Profiles </a>
+	       	</li>
+	       	<li id="segment_data_personalization" style="display: none;">
+				<a href="javascript:" data-target-tab="panel_segment_data_personalization" title="Data Personalization" > <i class="fa fa-smile-o" aria-hidden="true"></i> Data Personalization </a>
+	       	</li>
+	       	<li>
+				<a href="javascript:" data-target-tab="panel_segment_data_activation" title="Data Activation" > <i class="fa fa-random" aria-hidden="true"></i> Data Activation </a>
+	       	</li>
+	  	</ul>
+	  	
+	  	<!-- Tab Contents  -->
+	    <div id="segment_info_tabs" class="tab-content" style="min-height: 700px;"  >
+	    	<!-- tab 1 Event Report  -->
+			<div class="tab-pane active" id="panel_segment_event_report" >
+				<div class="panel panel-leoadmin">
+					<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Query Details </b> </div>
+					<div class="panel-body">
+						<div class="col-lg-9">
+							Event Report
+							<div class="row float-right">
+						        <div class='col-lg-5 col-xs-12'>
+						            <div class="form-group">
+						                <div class='input-group date' id='beginFilterDate'>
+						                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
+						                        <span class="glyphicon glyphicon-calendar"></span>
+						                    </span>
+						                </div>
+						            </div>
+						        </div>
+						        <div class='col-lg-5 col-xs-12'>
+						            <div class="form-group">
+						                <div class='input-group date' id='endFilterDate'>
+						                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
+						                        <span class="glyphicon glyphicon-calendar"></span>
+						                    </span>
+						                </div>
+						            </div>
+						        </div>
+						        <div class='col-lg-2 col-xs-12 text-center'>
+						        	<button type="button" class="btn btn-primary" style="width: 80%" onclick="loadSegmentEventReport(true)" > 
+						        		<i class="fa fa-check" aria-hidden="true"></i> Refresh </button>
+						        </div>
+						    </div>
+							<div class="highlight_box">
+				      			<div class='text-center' style="margin-bottom: 22px">
+									<h5> Event Data Report from <span id="eventDataFromDate" class="highlight_text">  </span> 
+										to <span id="eventDataToDate" class="highlight_text" >  </span> </h5> 
+								</div>
+				      			<canvas id="segmentEventChart"></canvas>
+				      		</div>
+						</div>
+						<div class="col-lg-3 text-center">
+							
+							<div id="segment_size_chart" style="max-width: 300px; margin: auto;"></div>
 						</div>
 					</div>
-					<div class="form-group">
-						<div class="col-sm-10">
-							<b>Description:</b> <span id="sm_description" ></span>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-10"  id="sm_type" >
-							<b>Segment Type:</b> Ad-Hoc Query Segmentation
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<!--  2 Purposes  -->
-		<div class="panel panel-leoadmin">
-			<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Data Purpose </b>  </div>
-			<div class="panel-body">
-				<div class="col-lg-12">
-					
-					<div class="form-group" id="segment_purposes" >
-						<div class="col-sm-12 sm_purpose" id="sm_forRecommenderSystem" style="display: none;" > 
-							<b> <i class="fa fa-check-square-o" aria-hidden="true"></i> Customer personalization </b>
-							<button type="button" class="btn btn-do-now" title="Data Activation" > 
-								<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
-							</button>
-						</div>
-						
-						<div class="col-sm-12 sm_purpose" id="sm_forEmailMarketing" style="display: none;" > 
-							<b> <i class="fa fa-check-square-o" aria-hidden="true"></i> Personalized email marketing </b>
-							<button type="button" class="btn btn-do-now" title="Data Activation" > 
-								<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
-							</button>
-						</div>
-					
-						<div class="col-sm-12 sm_purpose" id="sm_activeQuery" style="display: none;"> 
-							<b> <i class="fa fa-check-square-o" aria-hidden="true"></i> Automatic adding any new profile </b>
-							<button type="button" class="btn btn-do-now" title="Data Activation" > 
-								<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
-							</button>
-						</div>
-						
-						<div class="col-sm-12 sm_purpose" id="sm_forDeepAnalytics" style="display: none;"> 
-							<b> <i class="fa fa-check-square-o" aria-hidden="true"></i> Auto Exporting Data </b>
-							<button type="button" class="btn btn-do-now" title="Data Activation" > 
-								<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
-							</button>
-						</div>
-						
-						<div class="col-sm-12 sm_purpose" id="sm_forPredictiveAnalytics" style="display: none;"> 
-							<b> <i class="fa fa-check-square-o" aria-hidden="true"></i> Predictive analytics </b>
-							<button type="button" class="btn btn-do-now" title="Data Activation" > 
-								<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
-							</button>
-						</div>
-						
-						<div class="col-sm-12 sm_purpose" id="sm_forRealtimeMarketing" style="display: none;" > 
-							<b> <i  class="fa fa-check-square-o" aria-hidden="true"></i> Push notification</b>
-							<button type="button" class="btn btn-do-now" title="Data Activation" > 
-								<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
-							</button>
-						</div>
-						
-						<div class="col-sm-12 sm_purpose" id="sm_forReTargeting" style="display: none;"> 
-							<b> <i  class="fa fa-check-square-o" aria-hidden="true"></i> Behavioral advertising retargeting </b>
-							<button type="button" class="btn btn-do-now" title="Data Activation" > 
-								<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
-							</button>
-						</div>
-						
-						<div class="col-sm-12 sm_purpose" id="sm_forLookalikeTargeting" style="display: none;"> 
-							<b> <i  class="fa fa-check-square-o" aria-hidden="true"></i> Look-alike targeting  </b>
-							<button type="button" class="btn btn-do-now" title="Data Activation" > 
-								<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
-							</button>
-						</div>
-					</div>
-					
-				</div>
-
-			</div>
-		</div>
-		
-		<!--  2 query  -->
-		<div class="panel panel-leoadmin">
-			<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Query Details </b> </div>
-			<div class="panel-body">
-				
-				<div id="segment_disable_date_filter_holder" class='col-lg-9 text-center' >
-					<span id='beginFilterDate'> </span>
-					<i class="fa fa-long-arrow-right" aria-hidden="true" style="font-weight: bold;" ></i>
-					<span  id='endFilterDate'> </span>
 				</div>
 				
-				<!-- Query Details -->
-				<div class="col-lg-9">
-					<div id="segment-builder-holder"></div>
-				</div>
-				<div class="col-lg-3 text-center">
-					<b> Segment Size / Total </b>
-					<div id="donut_chart" style="max-width: 300px; margin: auto;"></div>
+			</div>
+			
+			<!-- tab 2 Query Details  -->
+			<div class="tab-pane" id="panel_segment_query_details" >
+				<div class="panel panel-leoadmin">
+					<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Query Details </b> </div>
+					<div class="panel-body">
+						
+						<div id="segment_disable_date_filter_holder" class='col-lg-9 text-center' >
+							<span id='beginFilterDate'> </span>
+							<i class="fa fa-long-arrow-right" aria-hidden="true" style="font-weight: bold;" ></i>
+							<span  id='endFilterDate'> </span>
+						</div>
+						
+						<div class="col-lg-12">
+							<div id="segment-builder-holder"></div>
+						</div>
+						
+					</div>
 				</div>
 			</div>
-		</div>
+			
+			<!-- tab 3 Matched Profiles  -->
+			<div class="tab-pane" id="panel_segment_matched_profiles" >
+			 	<div class="panel panel-leoadmin" id="profile-list-panel"  >
+					<div class="panel-heading">
+						<div class="row"> 
+							<div class="col-lg-12">
+			                      <b> <i class="fa fa-list-ul" aria-hidden="true"></i> <label> All Matched Profiles </label> </b>                     
+			                </div>
+		                </div> 
+					</div>
+					<div class="panel-body">
+						<div class="table-responsive" id="profilelist_holder" >
+						 	<table id="profile_list_querybuilder" class="display" style="width:100%;">
+						    	<thead>
+						        	<tr>
+							            <th>Full Name</th>
+							            <th>Age</th>
+							            <th>Gender</th>
+							            <th>Primary Email</th>
+							            <th>Data Quality Score</th>
+							            <th>Funnel Stage</th>
+							            <th>Last Updated at</th>
+							            <th>Last-seen Touchpoint</th>
+						        	</tr>
+						    	</thead>
+						 	</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- tab 4 Query Details  -->
+			<div class="tab-pane" id="panel_segment_data_personalization" >
+				<div class="panel panel-leoadmin">
+					<div class="alert alert-info">
+					  <strong>Info!</strong> This feature is under development and will be released in the final version 1.0
+					</div>
+				</div>
+			</div>
+			
+			<!-- tab 5 Data Activation  -->
+			<div class="tab-pane" id="panel_segment_data_activation" >
+			 	<div class="panel panel-leoadmin" >
+					<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Activation Plan </b>  </div>
+					<div class="panel-body">
+						<div class="col-lg-12">
+							<div id="sm_no_activation_plan" style="display: none;" > 
+								<div class="alert alert-info" role="alert" style="padding: 10px">
+								  	This segment has no any activation plan ! 
+								</div>
+							</div>
+							
+							<div class="form-group" id="segment_purposes" >
+							
+								<div class="col-sm-12 sm_purpose" id="sm_for3rdSynchronization" > 
+									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i> 
+									Data Synchronization </b>
+									<button type="button" class="btn btn-do-now" title="Data Activation" > 
+										<i class="fa fa-check" aria-hidden="true"></i> Activate 
+									</button>
+								</div>
+								
+								<div class="col-sm-12 sm_purpose" id="sm_forPersonalization"  > 
+									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i>
+									Data Personalization </b>
+									<button type="button" class="btn btn-do-now" title="Data Activation" >
+										<i class="fa fa-check" aria-hidden="true"></i> Activate 
+									</button>
+								</div>
+								
+								<div class="col-sm-12 sm_purpose" id="sm_forDeepAnalytics" style="display: none;"> 
+									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i> 
+									Deep Data Analytics </b>
+									<button type="button" class="btn btn-do-now" title="Data Activation" > 
+										<i class="fa fa-check" aria-hidden="true"></i> Activate 
+									</button>
+								</div>
+								
+								<div class="col-sm-12 sm_purpose" id="sm_forPredictiveAnalytics" > 
+									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i> 
+									Predictive Analytics </b>
+									<button type="button" class="btn btn-do-now" title="Data Activation" > 
+										<i class="fa fa-check" aria-hidden="true"></i> Activate 
+									</button>
+								</div>
+							
+								<div class="col-sm-12 sm_purpose" id="sm_forEmailMarketing"  > 
+									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i>
+									Send Email Directly </b>
+									<button type="button" class="btn btn-do-now" title="Data Activation" > 
+										<i class="fa fa-check" aria-hidden="true"></i> Activate 
+									</button>
+								</div>
+								
+								<div class="col-sm-12 sm_purpose" id="sm_forRealtimeMarketing"  > 
+									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i> 
+									Push Message Notification</b>
+									<button type="button" class="btn btn-do-now" title="Data Activation" > 
+										<i class="fa fa-check" aria-hidden="true"></i> Activate 
+									</button>
+								</div>
+								
+								<div class="col-sm-12 sm_purpose" id="sm_forReTargeting" > 
+									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i> 
+									Retargeting Advertising</b>
+									<button type="button" class="btn btn-do-now" title="Data Activation" > 
+										<i class="fa fa-check" aria-hidden="true"></i> Activate 
+									</button>
+								</div>
+								
+								<div class="col-sm-12 sm_purpose" id="sm_forLookalikeTargeting" > 
+									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i> 
+									Look-alike Advertising   </b>
+									<button type="button" class="btn btn-do-now" title="Data Activation" > 
+										<i class="fa fa-check" aria-hidden="true"></i> Activate 
+									</button>
+								</div>
+								
+							</div>
+						</div>
 		
-		<!--  3 profiles  -->
-		<div class="panel panel-leoadmin" id="profile-list-panel"  >
-			<div class="panel-heading">
-				<div class="row"> 
-					<div class="col-lg-12">
-	                      <b> <i class="fa fa-list-ul" aria-hidden="true"></i> <label> All Matched Profiles </label> </b>                     
-	                </div>
-                </div> 
-			</div>
-			<div class="panel-body">
-				<div class="table-responsive" id="profilelist_holder" >
-				 	<table id="profile_list_querybuilder" class="display" style="width:100%;">
-				    	<thead>
-				        	<tr>
-					            <th>Full Name</th>
-					            <th>Age</th>
-					            <th>Gender</th>
-					            <th>Primary Email</th>
-					            <th>Data Quality Score</th>
-					            <th>Funnel Stage</th>
-					            <th>Last Updated at</th>
-					            <th>Last-seen Touchpoint</th>
-				        	</tr>
-				    	</thead>
-				 	</table>
+					</div>
 				</div>
 			</div>
-		</div>
+	    </div>
 	</div>
 </div>
 
@@ -206,6 +283,12 @@
 	var segmentDataModel = false;
 	var segmentDataStats = false;
 	var initSegmentDetails = function(id) {
+		// init UI tab
+		setupTabPanels();
+		
+		// init date filter
+		initDateFilterComponent(true, null, null, 30);
+		
 		// Date Range Filtering Controller
 		var urlStr = baseAdminApi + '/cdp/segment/load';
         LeoAdminApiUtil.callPostAdminApi(urlStr, { 'id': id }, function (json) {
@@ -219,7 +302,6 @@
                 var jsonQueryRules = JSON.parse( segmentDataModel.jsonQueryRules );
                 
                 document.title = 'Segment Details - ' + segmentDataModel.name;
-                $('#segment_name').text(segmentDataModel.name);
         		
            	 	if(managedBySystem){
                 	$('button.data-control-delete').attr('disabled','disabled');
@@ -246,7 +328,10 @@
         			});
         		}
                 
+        		loadSegmentEventReport();
+        		
                 setupSegmentDataAndReports(segmentDataModel)
+                
                 setupSegmentPurposesActivation(segmentDataModel)
                
              	// init UI after setting data into DOM
@@ -261,6 +346,37 @@
         });
 	}
 	
+	window.segmentEventChart = false;
+    var loadSegmentEventReport = function(refresh){
+    		
+    	var formatDate = 'YYYY-MM-DD HH:mm:ss';
+    	var params = getDateFilterValues();
+    	params["segmentId"] = segmentDataModel.id;
+    	
+    	var beginReportDate = params.beginFilterDate;
+    	$('#eventDataFromDate').text(new moment(beginReportDate).format(formatDate))
+    	
+    	var endReportDate = params.endFilterDate;
+    	$('#eventDataToDate').text(new moment(endReportDate).format(formatDate))
+        
+    	var urlStr = baseAdminApi + '/cdp/analytics360/event-report/segment';
+    	
+    	LeoAdminApiUtil.getSecuredData(urlStr, params , function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+	    		// 3) render chart data
+	    		var chartId = 'segmentEventChart';
+	    		if(refresh === true && segmentEventChart !== false){
+	    			renderTimeseriesChart(chartId, json.data , true, segmentEventChart);
+	    		}
+	    		else {
+	    			window.segmentEventChart = renderTimeseriesChart(chartId, json.data , false);
+	    		}		   		
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
+    }
+	
 	var setupSegmentPurposesActivation = function(segmentData){
 		var segmentId = segmentData.id;
 		var name = segmentData.name;
@@ -268,26 +384,21 @@
 		
 		$('#segment_purposes').find("button").click(function(){
 			var purpose = $(this).data("purpose");
-			if(purpose === "forRecommenderSystem"){
-				// TODO showPersonalizationCodeDialog(segmentId, name, size)
+			if(purpose === "forPersonalization"){
+				showPersonalizationCodeDialog(segmentId, name, size)
+			}
+			else if(purpose === "for3rdSynchronization"){
+				showDataSynchronizationDialog(segmentId, name, size)
+				
+			}
+			else {
+				// window.open("https://colab.research.google.com/notebooks/","_blank")
 				iziToast.info({
 		    	    title: 'Information',
 		    	    message: 'This function is under development and is not yet available'
 		    	});
 			}
-			else if(purpose === "forEmailMarketing"){
-				iziToast.info({
-		    	    title: 'Information',
-		    	    message: 'This function is under development and is not yet available'
-		    	});
-			}
-			else if(purpose === "forPredictiveAnalytics"){
-				//window.open("https://colab.research.google.com/notebooks/","_blank")
-				iziToast.info({
-		    	    title: 'Information',
-		    	    message: 'This function is under development and is not yet available'
-		    	});
-			}
+			
 			console.log(purpose, segmentId);
 			
 		})
@@ -298,59 +409,74 @@
 		 $('#sm_name').text(segmentData.name);
 	     $('#sm_description').text(segmentData.description);
 	     
+	     var hasActivation = false;
+	     
 	     if( ! segmentData.disableDateRangeFilter ) {
-	    	 $('#beginFilterDate').text( new moment(segmentData.beginFilterDate).format(formatDateTime) );
-		     $('#endFilterDate').text( new moment(segmentData.endFilterDate).format(formatDateTime) );
+	    	 $('#beginFilterDate').text( moment.utc(segmentData.beginFilterDate).local().format(formatDateTime)  );
+		     $('#endFilterDate').text( moment.utc(segmentData.endFilterDate).local().format(formatDateTime) );
 	     } else {
 	    	 $('#segment_disable_date_filter_holder').hide();
 	     }
 	     
-	     if(segmentData.activeQuery){
-	    	 //$('#sm_activeQuery').show().find("button").data("purpose","activeQuery");
+	     if(segmentData.for3rdSynchronization){
+	    	 $('#sm_for3rdSynchronization').show().find("button").data("purpose","for3rdSynchronization");
+	    	 hasActivation = true;
 	     } else {
-	    	 $('#sm_activeQuery').hide()
+	    	 $('#sm_for3rdSynchronization').hide()
 	     }
 	     
 	     if(segmentData.forDeepAnalytics){
-	    	 //$('#sm_forDeepAnalytics').show().find("button").data("purpose","forDeepAnalytics");
+	    	 $('#sm_forDeepAnalytics').show().find("button").data("purpose","forDeepAnalytics");
+	    	 hasActivation = true;
 	     } else {
 	    	 $('#sm_forDeepAnalytics').hide()
 	     }
 	     
 	     if(segmentData.forPredictiveAnalytics ){
-	    	 //$('#sm_forPredictiveAnalytics').show().find("button").data("purpose","forPredictiveAnalytics")
+	    	 $('#sm_forPredictiveAnalytics').show().find("button").data("purpose","forPredictiveAnalytics")
+	    	 hasActivation = true;
 	     } else {
 	    	 $('#sm_forPredictiveAnalytics').hide()
 	     }
 	     
-	     if(segmentData.forRecommenderSystem){
-	    	 $('#sm_forRecommenderSystem').show().find("button").data("purpose","forRecommenderSystem");
+	     if(segmentData.forPersonalization){
+	    	 //$('#segment_data_personalization').show();
+	    	 $('#sm_forPersonalization').show().find("button").data("purpose","forPersonalization");
+	    	 hasActivation = true;
 	     } else {
-	    	 $('#sm_forRecommenderSystem').hide()
+	    	 $('#sm_forPersonalization').hide()
 	     }
 	     
 	     if(segmentData.forEmailMarketing){
 	    	$('#sm_forEmailMarketing').show().find("button").data("purpose","forEmailMarketing");
+	    	hasActivation = true;
 	     } else {
 	    	 $('#sm_forEmailMarketing').hide()
 	     }
 	     
 	     if(segmentData.forRealtimeMarketing){
-	    	// $('#sm_forRealtimeMarketing').show().find("button").data("purpose","forRealtimeMarketing");
+	    	 $('#sm_forRealtimeMarketing').show().find("button").data("purpose","forRealtimeMarketing");
+	    	 hasActivation = true;
 	     } else {
 	    	 $('#sm_forRealtimeMarketing').hide()
 	     }
 	     
 	     if(segmentData.forReTargeting){
-	    	 //$('#sm_forReTargeting').show().find("button").data("purpose","forReTargeting");;
+	    	 $('#sm_forReTargeting').show().find("button").data("purpose","forReTargeting");
+	    	 hasActivation = true;
 	     } else {
 	    	 $('#sm_forReTargeting').hide();
 	     }
 	     
 	     if(segmentData.forLookalikeTargeting){
-	    	 //$('#sm_forLookalikeTargeting').show().find("button").data("purpose","forLookalikeTargeting");;
+	    	 $('#sm_forLookalikeTargeting').show().find("button").data("purpose","forLookalikeTargeting");
+	    	 hasActivation = true;
 	     } else {
 	    	 $('#sm_forLookalikeTargeting').hide();
+	     }
+	     
+	     if(!hasActivation){
+	    	 $('#sm_no_activation_plan').show()
 	     }
 	}
 	
@@ -370,107 +496,162 @@
         });
 	}
 	
-	var activateSegment = function(segmentId){
-		iziToast.info({
-    	    title: 'Information',
-    	    message: 'This function is under development and is not yet available'
-    	});
+	var doDataSynchronization = function(node){
+		var connectorId = $('#dataConnectorHolder input[name="dataconnector"]:checked').val();
+		if(typeof connectorId === "string"){
+			var segmentId = $(node).data('segmentId');
+			var segmentName = $(node).data('segmentName')
+
+			var info = segmentName + " is being synchronized to [" + connectorId + "]";
+			iziToast.info({ title: 'Information',message: info });
+			$('#dialogDataSynchronization').modal('hide');
+			
+			LeoAdminApiUtil.callPostAdminApi('/cdp/data-connector/trigger',{"segmentId" : segmentId, "connectorId" : connectorId}, function(json) { 
+				if(json.data === connectorId){
+					var info =  'Data Synchronization is OK for the segment [' + segmentName + ']';
+					iziToast.success({title: 'OK', message: info});
+				}
+				else {
+					var msg = 'Data Synchronization is failed for the segment [' + segmentName + '], please set valid API keys for ' + connectorId;
+					iziToast.error({ title: 'Error', message: msg});
+				}
+			})
+		} else {
+			iziToast.error({ title: 'Error', message: "Please select a connector to synchronize data"});
+		}
+		
 	}
 	
-	
-	var showPersonalizationCodeDialog =  function(segmentId, segmentName, segmentSize) {
-		
-		//TODO
-		$('#segmentProfileCount').text(segmentSize.toLocaleString())
-			
-		var idDialog = "dialogEmbeddedPersonalizationCode";
-		
-		$('#'+idDialog).modal({
+	var showDataSynchronizationDialog = function(segmentId, segmentName, segmentSize) {
+		$('#synchronizationProfileCount').text(segmentSize.toLocaleString());	
+		$('#dialogDataSynchronization').modal({
     		backdrop: 'static',
     		keyboard: false
 		});
-		
-		// priority group selector
-		var pgSelector = $('#priorityGroupSelector');
-		pgSelector.find("option").remove();
-		var groups = [{title:"Non-Fiction Books"},{title:"bbb"}];
-		for(var i in groups) { 
-			var group = groups[i];
-			var option = '<option value="'+i+'" >' + group.title + '</option>';
-			pgSelector.append(option);
-		}
-		pgSelector.val(0).change();
-		pgSelector.chosen({
-            width: "100%",
-            no_results_text: "Oops, nothing found!"
-        }).trigger("chosen:updated").change(function(){
-        	console.log("chosen:updated" + $(this).val())
-        });
-		
-		// default group selector
-		var fgSelector = $('#defaultGroupSelector');
-		fgSelector.find("option").remove();
-		var groups = [{title:"Fiction Books"},{title:"ddd"}];
-		for(var i in groups) { 
-			var group = groups[i];
-			var option = '<option value="'+i+'" >' + group.title + '</option>';
-			fgSelector.append(option);
-		}
-		fgSelector.val(0).change();
-		fgSelector.chosen({
-            width: "100%",
-            no_results_text: "Oops, nothing found!"
-        }).trigger("chosen:updated").change(function(){
-        	console.log("chosen:updated" + $(this).val())
-        });
-		
-		//init code preview editor
-		$('#personalization_code_holder .CodeMirror').remove();
-		var editorSelector = '#'+idDialog+' .code';
-		var codeNode = $(editorSelector)[0];
-		var editor = CodeMirror.fromTextArea(codeNode, {
-			mode:  "htmlmixed",
-			lineNumbers: true,
-            styleActiveLine: true,
-            matchBrackets: true,
-            readOnly: false,
-	    });
-		
-		editor.setSize(null, 385);
-		setTimeout(function() {
-			//copy from textarea template into editor, then selectAll for copy
-			var tpl = $('#personalization_code_holder .code').val().trim();
-			var code = tpl.replace('__segmentId__', segmentId);
-			code = code.replace('__segmentName__', segmentName);
-			
-			editor.getDoc().setValue('<script>\n' + code + '\n<\/script>');
-			editor.refresh();
-			editor.execCommand('selectAll');
-			
-			// copy code into clipboard
-			var buttonSelector = '#'+idDialog+ ' button.btn-copy-code';
-			addHandlerCopyCodeButton(editorSelector, buttonSelector);
-		},640);
+		$('#synchronizationOkButton').data("segmentId",segmentId).data("segmentName",segmentName);
 	}
+	
+	var showPersonalizationCodeDialog = function(segmentId, segmentName, segmentSize) {
+		//TODO
+		$('#personalizationProfileCount').text(segmentSize.toLocaleString())
+        		
+  		$('#dialogDataPersonalization').modal({
+      		backdrop: 'static',
+      		keyboard: false
+  		});
+		
+		// PRODUCT_ITEM_CATALOG
+		var paramObj = { 'assetType': 2 };
+		var urlStr = window.baseAdminApi + "/group/list-by-asset-type";
+		LeoAdminApiUtil.getSecuredData(urlStr, paramObj , function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+            	
+            	// priority group selector
+    			var pgSelector = $('#priorityGroupSelector');
+    			pgSelector.find("option").remove();
+    			
+	    		json.data.forEach(function(group,i){ 
+	    			var id = group.id;
+	    			var option = '<option value="'+id+'" >' + group.title + '</option>';
+	    			pgSelector.append(option);
+	    		})
+	    		
+	    		// set the first
+	    		pgSelector.chosen({
+	                width: "100%",
+	                no_results_text: "Oops, nothing found!"
+	            }).trigger("chosen:updated").change(function(){
+	            	console.log("chosen:updated" + $(this).val())
+	            });
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
+	}
+	
+	function doSetItemsToRecommenderSystem() {
+		$('#dialogDataPersonalization').modal('hide');
+		
+		var segmentId = segmentDataModel.id;
+		var groupId = $('#priorityGroupSelector').val();
+		
+		if(groupId && groupId !== ""){
+			iziToast.info({
+			    title: 'Information Box',
+			    color : 'green',
+			    message: 'Starting the process to set data for recommmender system'
+			});
+		    
+		    var urlStr = baseAdminApi + '/group/set-items-to-recommender-system';
+		    var params = { "groupId": groupId, "segmentId" : segmentId };
+		    
+		    LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
+		         if (json.httpCode === 0 && json.errorMessage === '') {
+		        	 var c = json.data;
+		        	 iziToast.info({
+		       		    title: 'Information Box',
+		       		    color : 'green',
+		       		    message: 'Finished the process to set data for recommmender system, total graph edges: ' + c 
+		       		});
+		         }
+		     });
+		}
+	}
+	
 </script>
 
-<!-- dialog html -->
-<div class="modal fade" id="dialogEmbeddedPersonalizationCode" role="dialog">
+<!-- Synchronization dialog html -->
+<div class="modal fade" id="dialogDataSynchronization" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > Please select a connector for Data Synchronization </h4>
+			</div>         
+			<div class="modal-body row">
+				<div class="form-group highlight_box"  >
+		     		<div class="col-lg-12 ">
+		     			<label style="background-color: #FAFADE;color: #3300ff!important;" > <i class="fa fa-info-circle" aria-hidden="true"></i> Data Connectors </label>
+		     		</div>
+		     		<div class="col-lg-12" id="dataConnectorHolder" style="height: 250px;" >
+		     			 <div class="radio">
+						  	<label for="c_sendinblue" ><input id="c_sendinblue" type="radio" value="sendinblue" name="dataconnector">SendInBlue Email Marketing Automation</label>
+						 </div>
+						 <div class="radio">
+						  	<label for="c_mailchimp" ><input id="c_mailchimp" type="radio" value="mailchimp" name="dataconnector">MailChimp Email Marketing Automation</label>
+						</div>
+		     		</div>
+				</div>
+			</div>  
+			
+			<div class="modal-footer" >
+				<button type="button" class="btn btn-do-now" id="synchronizationOkButton" onclick="doDataSynchronization(this)">
+					<i class="fa fa-check" aria-hidden="true"></i> OK 
+				</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>
+
+
+<!-- Personalization dialog html -->
+<div class="modal fade" id="dialogDataPersonalization" role="dialog">
 	<div class="modal-dialog modal-lg">
 		<!-- Modal content-->
 		<div class="modal-content">   
 			<div class="modal-header">
-				<h4 class="modal-title text-center" > Please select a Product or Content, then select Group and copy JavaScript (JS) code </h4>
+				<h4 class="modal-title text-center" > Please select a Product or Content, then select Asset Group to set data </h4>
 			</div>         
-			<div class="modal-body">
+			<div class="modal-body row">
 				
 				<div class="form-group highlight_box" >
 		     		<div class="col-lg-5">
 		     			<label style="background-color: #FAFADE;color: #3300ff!important;" > <i class="fa fa-info-circle" aria-hidden="true"></i> Digital asset category </label>
 		     		</div>
 		     		<div class="col-lg-7" id="assetCategoryHolder" >
-		     			<label class="radio-inline"><input type="radio" name="assetCategory" value="content" > Content </label>
-		     			<label class="radio-inline"><input type="radio" name="assetCategory" value="product"  > Product </label>
+		     			<label class="radio-inline"><input type="radio" name="assetCategory" value="product" checked="checked" > Product </label>
+		     			<label class="radio-inline"><input type="radio" name="assetCategory" value="content"  disabled="disabled"> Content </label>
 		     		</div>
 				</div>
 				
@@ -479,7 +660,7 @@
 		     			<label style="background-color: #FAFADE;color: #3300ff!important;"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total matched profile in segment </label>
 		     		</div>
 		     		<div class="col-lg-7">
-		     			<b id="segmentProfileCount" >0</b>
+		     			<b id="personalizationProfileCount" >0</b>
 		     		</div>
 				</div>
 				
@@ -493,61 +674,11 @@
 		                </select>
 	                </div>
 	            </div>
-	            
-	            <div class="form-group highlight_box" >
-					<div class="col-lg-5">
-	                	<label> <i class="fa fa-info-circle" aria-hidden="true"></i> Default group for non-matched profiles </label>
-	                </div>
-		     		<div class="col-lg-7"  >
-		                <select id="defaultGroupSelector" data-placeholder="Choose a group name" class="select" >
-		                  	<!-- defaultGroupSelector -->  
-		                </select>
-	                </div>
-	            </div>
-	            
-				
-				<div class="form-group" >
-		     		
-		     		<label> <i class="fa fa-code" aria-hidden="true"></i> Embedded Code </label>
-		     		
-		     		<div id="personalization_code_holder" class="col-lg-12" ><textarea  class="code">
-	(function() {
-	    //  Personalization Code for __segmentName__
-	   
-		var tprefurl = location.href;
-		var segmentId = "__segmentId__";
-		
-		var url  = '__LeoPersonalizationFullUrl__';
-
-		url = url + "&sgid=" + segmentId;
-		url = url + "&tpurl=" + location.href;
-		url = url + "&cb=" + new Date().getTime();
-		
-		// container
-		var divWrapper = document.createElement("div"); 
-		var cssDiv = "position: relative; width:100%; overflow: hidden;  height: 100px ";
-		divWrapper.setAttribute("style",cssDiv);
-		
-		// iframe 
-		var iframe = document.createElement("iframe"); 
-		var cssIframe = "position: absolute; top:0; left:0; bottom:0; right:0; width:100%; border: none; overflow: hidden; height: 100px ";
-		iframe.setAttribute("style",cssIframe);
-		iframe.setAttribute("src",url);
-		divWrapper.appendChild(iframe);
-		
-		var referenceNode = document.getElementById("__scriptNodeId__");
-		referenceNode.parentNode.insertBefore(divWrapper, referenceNode.nextSibling);
-	})();
-							</textarea>
-					</div>
-		     		
-				</div>
 				
 			</div>  
 			
 			<div class="modal-footer" >
-				<hr>
-				<button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
+				<button type="button" class="btn btn-do-now" onclick="doSetItemsToRecommenderSystem()"><i class="fa fa-check" aria-hidden="true"></i> OK </button>
 		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
 		    </div>  
 		</div>

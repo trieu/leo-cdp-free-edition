@@ -7,14 +7,14 @@
     </div>
    
 	<div class="col-lg-12">
-		<h4> <i class="fa fa-line-chart" aria-hidden="true"></i> Event Data Report in Time Series  </h4>
+		<h4> <i class="fa fa-line-chart" aria-hidden="true"></i> Tracking Event Dashboard in Time Series </h4>
 	</div>
 </div>
   
-<div class="row gridholder">
-     <div class="col-lg-12">
-     
-     	<div class="row float-right">
+<div class="row">
+
+     	<!-- Date filter control -->
+     	<div class="col-lg-12 float-right">
 	        <div class='col-lg-5 col-xs-12'>
 	            <div class="form-group">
 	                <div class='input-group date' id='beginFilterDate'>
@@ -41,17 +41,16 @@
      	  
     	<!--  Time-series -->
       	<div class="col-lg-12" >
-      		
       		<div class="col-lg-9 highlight_box">
-      			<div class='text-center' style="margin-bottom: 22px">
-					<h5> Event Data Report from <span id="eventDataFromDate" class="highlight_text">  </span> 
-						to <span id="eventDataToDate" class="highlight_text" >  </span> </h5> 
+      			<div class='text-center' style="margin-bottom: 15px">
+					<h4> <i class="fa fa-line-chart" aria-hidden="true"></i> Event Data Report from 
+						<mark id="eventDataFromDate"></mark> to <mark id="eventDataToDate" ></mark> </h4>
 				</div>
       			<canvas id="timeseriesEventChart"></canvas>
       		</div>
 			<div class="col-lg-3"> 
 	        	<div class="chart_box">
-		        	<h5 class="highlight_text text-center" > Profile Count in Date Range </h5>
+		        	<h5 class="highlight_text text-center" > Profile Count </h5>
 		            <div class="summary_metric">
 		                <div class="vcenter text-center profile_count" id="profile_count_for_events"  >
 		 					0
@@ -71,40 +70,33 @@
 		       	</div>
 	        </div>
 	  	</div>
-    </div>
+
 </div>
 
 
 <script>
 	
     var intEventDataDashboard =  function() {
-    	initDateFilterComponent(true, null, null, 60);
+    	initDateFilterComponent(false, null, null, 30);
     	loadEventDailyReportUnit(false, false);
     }    
     
     window.eventTimeseriesChart = false;
     var loadEventDailyReportUnit = function(refresh){
     		
-    	var formatDateTime = 'YYYY-MM-DD HH:mm:ss';
-    	var datetimeFilter = getDateFilterValues();
+    	var params = getDateFilterValues();
     	
-    	var beginReportDate = datetimeFilter.beginFilterDate;
-    	$('#beginReportDate').text(new moment(beginReportDate).format(formatDateTime))
+    	var beginReportDate = params.beginFilterDate;
+    	$('#eventDataFromDate').text(new moment(beginReportDate).format(defaultDateFormat))
     	
-    	var endReportDate = datetimeFilter.endFilterDate;
-    	$('#endReportDate').text(new moment(endReportDate).format(formatDateTime))
+    	var endReportDate = params.endFilterDate;
+    	$('#eventDataToDate').text(new moment(endReportDate).format(defaultDateFormat))
         
-    	var urlStr = baseAdminApi + '/cdp/analytics360/event-report';
+    	var urlStr = baseAdminApi + '/cdp/analytics360/event-report/summary';
     	
-    	LeoAdminApiUtil.getSecuredData(urlStr, datetimeFilter , function (json) {
+    	LeoAdminApiUtil.getSecuredData(urlStr, params , function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
-            	
-            	// 0) date filter
-            	var formatDate = 'YYYY-MM-DD';
-            	$('#eventDataFromDate').text(new moment(json.data.beginFilterDate).format(formatDate));
-            	$('#eventDataToDate').text(new moment(json.data.endFilterDate).format(formatDate));
-        		
-        		// 1) profile stats
+        		//  profile stats
         		var profileCount =  new Number(json.data.profileCount).toLocaleString(); 
         		$('#profile_count_for_events').text(profileCount);
         		

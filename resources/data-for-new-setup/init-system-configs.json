@@ -1,0 +1,116 @@
+[
+	{
+		"index" : 1,
+		"id": "leo_local_email_server",
+		"name": "Email Service for System Login User",
+		"description": "The Email SMTP for user login management and system monitoring alert",
+		"configs": {
+			"icon": "fa-envelope",
+			"read_only": false,
+			"service_provider": "",
+			"service_api_url": "",
+			"service_api_key": "",
+			"active": true,
+			"show": true,
+			"smtp_enabled":false,
+			"smtp_username": "",
+			"smtp_password": "",
+			"smtp_host": "",
+			"smtp_port": 587,
+			"smtp_auth": true,
+			"smtp_starttls_enable": true
+		}
+	},
+	{
+		"index" : 2,
+		"id": "leo_marketing_email_server",
+		"name": "Email Service for Customer Profile",
+		"description": "To target your customers through email, by providing useful content, product information, PR event and feedback survey",
+		"configs": {
+			"icon": "fa-envelope-o",
+			"read_only": false,
+			"service_provider": "https://www.sendinblue.com",
+			"service_api_url": "",
+			"service_api_key": "",
+			"active": true,
+			"show": true,
+			"smtp_enabled":false,
+			"smtp_username": "",
+			"smtp_password": "",
+			"smtp_host": "",
+			"smtp_port": 587,
+			"smtp_auth": true,
+			"smtp_starttls_enable": true
+		}
+	},
+	{
+		"index" : 3,
+		"id": "leo_recommender",
+		"name": "Recommender Service for Personalization",
+		"description": "The Personalization Engine to suggest most personalized information directly to your customers",
+		"configs": {
+			"icon": "fa-user-circle-o",
+			"read_only": false,
+			"service_api_url": "",
+			"service_api_key": "",
+			"service_max_item_for_profile": 50,
+			"service_max_item_for_request": 10,
+			"active": true,
+			"show": true
+		}
+	},
+	{
+		"index" : 4,
+		"id": "leo_cx_analytics",
+		"name": "Customer Experience Analytics Service",
+		"description": "Using Machine Learning to compute Feedback Score from comment data and text data",
+		"configs": {
+			"icon": "fa-heartbeat",
+			"read_only": false,
+			"service_api_url": "",
+			"service_api_key": "",
+			"active": true,
+			"show": true
+		}
+	},
+	{
+		"index" : 5,
+		"id": "leo_exporter",
+		"name": "Raw Data Exporting Service",
+		"description": "To set-up the ongoing process of synchronizing data from LEO CDP to digital marketing platforms",
+		"configs": {
+			"icon": "fa-download",
+			"read_only": false,
+			"service_api_url": "",
+			"service_api_key": "",
+			"active": true,
+			"show": true
+		}
+	},
+	{
+		"index" : 6,
+		"id": "leo_prediction",
+		"name": "Predictive Analytics Service",
+		"description": "To predict Customer Acquisition Cost (CAC), Customer Lifetime Value (CLV) and Credit Score from behavioral data",
+		"configs": {
+			"icon": "fa-line-chart",
+			"read_only": false,
+			"service_api_url": "",
+			"service_api_key": "",
+			"active": true,
+			"show": true
+		}
+	},
+	{
+		"index" : 7,
+		"id": "leo_cdp_metadata",
+		"name": "Leo CDP Meta Data",
+		"description": "Metadata for core system",
+		"configs": {
+			"icon": "fa-database",
+			"read_only": false,
+			"active": true,
+			"show": true
+		}
+	}
+]

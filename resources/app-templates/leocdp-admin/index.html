@@ -2,7 +2,9 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
+	<meta charset="UTF-8">
+	<meta name="author" content="Trieu Nguyen(Thomas) - trieu@leocdp.com">
+	
 	<meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=4, user-scalable=1" name="viewport"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=100"/>
 	
@@ -64,9 +66,11 @@
 	<script src="https://{{baseStaticUrl}}/js/utils/jquery-ui.min.js?_={{cacheBustingKey}}"></script>
 	
 	<!-- Bootstrap Core JavaScript -->
+	
+	<script src="https://{{baseStaticUrl}}/js/utils/bootstrap.min.js?_={{cacheBustingKey}}"></script>
 	<script src="https://{{baseStaticUrl}}/js/utils/bootstrap-transition.js?_={{cacheBustingKey}}"></script>
 	<script src="https://{{baseStaticUrl}}/js/utils/bootstrap-collapse.js?_={{cacheBustingKey}}"></script>
-	<script src="https://{{baseStaticUrl}}/js/utils/bootstrap.min.js?_={{cacheBustingKey}}"></script>
+	<script src="https://{{baseStaticUrl}}/js/utils/bootstrap-datepicker.min.js?_={{cacheBustingKey}}"></script>
 
 	<!-- Util JavaScript -->
 	<script src="https://{{baseStaticUrl}}/js/utils/moment.min.js?_={{cacheBustingKey}}"></script>
@@ -188,7 +192,11 @@
 	
 	<!-- Keyword Tag cloud -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.1.2/wordcloud2.min.js" ></script>
-
+	
+	<!-- bootstrap-slider -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/css/bootstrap-slider.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/bootstrap-slider.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	
 	<!-- FilePond library -->
 	<script src="https://{{baseStaticUrl}}/js/filepond/filepond-plugin-image-crop.js?_={{cacheBustingKey}}"></script>
 	<script src="https://{{baseStaticUrl}}/js/filepond/filepond-plugin-image-resize.js?_={{cacheBustingKey}}"></script>
@@ -224,13 +232,19 @@
 	
 	<!-- after deps are loaded -->
 	<script>
-		window.systemConfig = JSON.parse($('<textarea />').html('{{systemConfigJson}}').text())
+		// video player
 		window.mediaPlayerOneReady = function () {
 			// ready to play content
 		}
+		// activity diagram
 		mermaid.mermaidAPI.initialize({
 	        startOnLoad:false
 	    });
+		// inject dynamic configs
+		(function() {
+			var systemJsonStr = '{{systemConfigJson}}';
+			window.systemConfig = JSON.parse($('<textarea />').html(systemJsonStr).text())
+		})();
 	</script>
 	
 	<!-- LEO Admin -->
@@ -240,7 +254,6 @@
 	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.core-admin.js?admin=1&_={{cacheBustingKey}}"></script>
 	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.visualization.js?admin=1&_={{cacheBustingKey}}"></script>
 	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.journey.js?admin=1&_={{cacheBustingKey}}"></script>
-	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.personalization.js?admin=1&_={{cacheBustingKey}}"></script>
 	
 	<!-- asset: group-details  -->
 	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.digital.asset.js?admin=1&_={{cacheBustingKey}}"></script>

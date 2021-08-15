@@ -28,12 +28,16 @@
         }
  
         var LEO_LOG_URL = '//' + ROOT_DOMAIN;
+        
+        // base URL
         var PREFIX_SESSION_INIT_URL = LEO_LOG_URL + "/cxs-pf-init";
         var PREFIX_UPDATE_PROFILE_URL = LEO_LOG_URL + "/cxs-pf-update";
         var PREFIX_EVENT_VIEW_URL = LEO_LOG_URL + "/etv";
         var PREFIX_EVENT_ACTION_URL = LEO_LOG_URL + "/eta";
         var PREFIX_EVENT_CONVERSION_URL = LEO_LOG_URL + "/etc";
         var PREFIX_EVENT_FEEDBACK_URL = LEO_LOG_URL + "/efb";
+        
+        // configs
         var SESSION_CACHE_MINUTES = 30;
         var OBSERVE_WITH_FINGERPRINT = true;
         
@@ -148,7 +152,7 @@
     	}
 
     	
-  		var cbKey = "may12.2021";
+  		var cbKey = "aug16.2021";
   		var useCdn = false;
 	   	var leoObserverJsUrl = "https://demotrack.leocdp.net/public/js/leo-observer/leo.observer.js?cb="+cbKey;
   		

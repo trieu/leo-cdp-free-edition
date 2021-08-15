@@ -79,6 +79,10 @@
 	padding: 1px;
 }
 
+.query-builder .rule-value-container input[type=number] {
+	max-width: 130px;
+}
+
 .query-builder .error-container {
 	display: none;
 	cursor: help;

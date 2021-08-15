@@ -15,12 +15,12 @@
     		var formSelector = jQuery('#'+formId);
     		formSelector.jsonForm({
     	         schema: {
-    	           firstname: {
+    	           firstName: {
     	             type: 'string',
     	             title: 'Your First Name',
     	             required: true
     	           },
-    	           lastname: {
+    	           lastName: {
       	             type: 'string',
       	             title: 'Your Last Name',
       	             required: true
@@ -52,8 +52,8 @@
 	        	    }
     	         },
     		     form: [
-    		          {"key": "firstname"},
-    		          {"key": "lastname"},
+    		          {"key": "firstName"},
+    		          {"key": "lastName"},
     		          {"key": "email"},
     		          {"key": "phone"},
     		          {
@@ -78,7 +78,7 @@
     	             jQuery('#leo_form_error').html(JSON.stringify(errors)).show().delay(5000).fadeOut('slow');;
     	           }
     	           else {
-    	          	 if(formData.firstname !== '' && formData.email !== '' && formData.phone !== ''){
+    	          	 if(formData.firstName !== '' && formData.email !== '' && formData.phone !== ''){
     	          		 var extData = {};
     	          		 extData.contentKeywords = formData.contentKeywords.concat([]);
     	          		 delete formData.contentKeywords;

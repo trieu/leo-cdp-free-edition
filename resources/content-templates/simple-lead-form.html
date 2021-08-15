@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Form for content subscription</title>
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+	<!-- Form Holder -->
+	<main class="container" id="subscription_placeholder" style="margin-top: 20px"></main>
+
+	<script type="text/javascript">
+		//(1) loading LEO OBSERVER JavaScript code for 
+		(function() {
+			// log tracking domain prefix
+			window.leoObserverLogDomain = "datahub4talentnet.leocdp.net";
+			
+			// CDN domain prefix
+			window.leoObserverCdnDomain = "demo.leocdp.net/public";
+			
+			// Data Touchpoint Metadata 
+			window.srcTouchpointName = encodeURIComponent(document.title);
+			window.srcTouchpointUrl = encodeURIComponent(location.href);
+			window.leoObserverId = "leo_data_observer";
+
+			var leoproxyJsPath = '/js/leo-observer/leo.proxy.min.js';
+			var src = location.protocol + '//' + window.leoObserverCdnDomain
+					+ leoproxyJsPath;
+			var jsNode = document.createElement('script');
+			jsNode.async = true;
+			jsNode.defer = true;
+			jsNode.src = src;
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(jsNode, s);
+		})();
+
+		//(2) LEO OBSERVER is ready
+		function leoObserverProxyReady(session) {
+			// add more event data here
+		}
+	</script>
+
+	<script type="text/javascript">
+		// Leo Form 
+		var leoFormDomHolderId = 'subscription_placeholder';
+		var leoFormLanguage = 'vn';// us
+
+		var leoFormContentKeywords = {
+			"big-data" : "Big Data",
+			"ecommerce-tech" : "E-commerce technology",
+			"digital-marketing" : "Digital Marketing"
+		};
+
+		(function() {
+			window.leoFormBaseUrl = 'https://' + leoObserverCdnDomain + '/js/leo-form/'
+			var leoformJsUrl = 'https://' + leoObserverCdnDomain + '/js/leo-form/leo.form.loader.js';
+			var src = leoformJsUrl;
+			var jsNode = document.createElement('script');
+			jsNode.async = true;
+			jsNode.src = src;
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(jsNode, s);
+		})();
+	</script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 <style>
 .btn-get-code {
-	margin:3px;
-	width: 130px;
+	margin:4px;
+	width: 132px;
 	text-align: left!important;
 }
 </style>
@@ -58,13 +58,10 @@
 		        </div>
 			</div>
 		</div>		
-    	
    </div>
-
 </div>
 
 <script>
-
 	var touchpointHubMap = false, eventMetrics = false;
 	var cxFeedbackTemplates = false, landingPageTemplates = false;
 	
@@ -350,7 +347,6 @@
     		else if(e.metricType === 4){
     			tplId = '#leo-tracking-feedback-event-code-tpl';
     		}
-    		
     		var tpl = _.template( $(tplId).html() );
     		var model = { "counter" : c, "eventMetricId": e.id, "eventMetricName": e.eventLabel.replaceAll(" ","") };
     		jsCode += tpl(model) ;
@@ -361,7 +357,7 @@
 	var getTrackingJsCode =  function(btn) {
 		var json = JSON.parse(decodeURIComponent($(btn).data('json')));
 		
-		var touchpointHubId = json.id;
+		var leoObserverId = json.id;
 		var touchpointHubName = json.name;
 		var type = json.type;
 		var leoObserverDomain = window.baseLeoObserverDomain;
@@ -392,8 +388,8 @@
 			setTimeout(function() {
 				//copy from textarea template into editor, then selectAll for copy
 				var tpl = $('#webDataObserverCodeDialog .code').val().trim();
-				var code = tpl.replace('__leoObserverId__', touchpointHubId)
-				code = code.replace('__channelName__', touchpointHubName)
+				var code = tpl.replace('__leoObserverId__', leoObserverId)
+				code = code.replace('__tpHubName__', touchpointHubName)
 				code = code.replace('__leoObserverDomain__', leoObserverDomain);
 				code = code.replace('__staticFileDomain__', staticFileDomain);
 				code = code.replace('__eventTrackingFunctions__', eventTrackingFunctions);
@@ -406,7 +402,8 @@
 				var buttonSelector = '#'+idDialog+ ' button.btn-copy-code';
 				addHandlerCopyCodeButton(editorSelector, buttonSelector);
 			},640);
-			
+		} else {
+			notifyErrorMessage("Can not get tracking code of offline touchpoint, please use QR code")
 		}
 	}
 	
@@ -414,7 +411,7 @@
 		var json = JSON.parse(decodeURIComponent($(btn).data('json')));
 		//TODO
 	
-		var touchpointHubId = json.id;
+		var leoObserverId = json.id;
 		var touchpointHubName = json.name;
 		var type = json.type;
 		var hasData = $('#feedbackTemplateSelector option').length === 0 && cxFeedbackTemplates.length > 0;
@@ -429,12 +426,10 @@
 			}
 			
 			var idDialog = "dialogEmbeddedCxFeedbackForm";
-			
 			$('#'+idDialog).modal({
 	    		backdrop: 'static',
 	    		keyboard: false
 			});
-			
 			$('#feedbackTemplateSelector').val("0").change();
         	initEmbeddedFeedbackForm(idDialog, cxFeedbackTemplates[0]);
         	
@@ -443,18 +438,21 @@
                 no_results_text: "Oops, nothing found!"
             }).trigger("chosen:updated").change(function(){
             	console.log("chosen:updated" + $(this).val())
-            	
             	var index = parseInt($(this).val());
             	var feedbackFormData = cxFeedbackTemplates[index];
             	initEmbeddedFeedbackForm(idDialog, feedbackFormData);
             });
+		} else {
+			notifyErrorMessage("Can not get tracking code of offline touchpoint, please use QR code")
 		}
 	}
+	
+	
 	
 	var getWebLeadFormJsCode =  function(btn) {
 		var json = JSON.parse(decodeURIComponent($(btn).data('json')));
 	
-		var touchpointHubId = json.id;
+		var leoObserverId = json.id;
 		var touchpointHubName = json.name;
 		var type = json.type;
 		
@@ -479,8 +477,8 @@
 			setTimeout(function() {
 				//copy from textarea template into editor, then selectAll for copy
 				var tpl = $('#webLeadFormCodeDialog .code').val().trim();
-				var code = tpl.replace('__leoObserverId__', touchpointHubId)
-				code = code.replace('__channelName__', touchpointHubName)
+				var code = tpl.replace('__leoObserverId__', leoObserverId)
+				code = code.replace('__tpHubName__', touchpointHubName)
 				editor.getDoc().setValue( '<script>\n' + code + '\n<\/script>' )
 				editor.refresh();
 				editor.execCommand('selectAll')
@@ -494,7 +492,7 @@
 		var json = JSON.parse(jsonStr);
 		console.log("getQrImageFormCode ",json)
 		
-		var touchpointHubId = json.id;
+		var leoObserverId = json.id;
 		var touchpointHubName = json.name;
 		var type = json.type;
 		var qrCodeData = json.qrCodeData;
@@ -513,7 +511,7 @@
 		var imageUrl = 'https://' + baseUploadDomain + qrCodeImage.replace('./','/');
 		qrImageList += ('<div class="text-center" ><a target="_blank" href="' +  imageUrl + '"><img src="' +  imageUrl + '" alt="QR Code Image" ></a></div>');
 		qrImageList += ('<h4 class="text-center" >' + landingPageUrl + '</h4>');
-		qrImageList += '<label class="control-label">Landing Page URL</label>';
+		qrImageList += '<label class="control-label">Touchpoint Hub URL</label>';
 		qrImageList += ('<input  type="text" class="form-control" readonly value="' + landingPageUrl + '" > ');
 		qrImageList += '<label class="control-label">Tracking URL</label>';
 		qrImageList += ('<input  type="text" class="form-control" readonly value="' + trackingUrl + '" > ');
@@ -521,6 +519,51 @@
 		qrImageList += ('<input type="text" class="form-control" readonly value="' + imageUrl + '" > <br>');
 		
 		$('#qrImageFormCodeDialog .code').html(qrImageList)
+	}
+	
+	var getRecommenderJsCode =  function(btn) {
+		var json = JSON.parse(decodeURIComponent($(btn).data('json')));
+		console.log("getRecommenderJsCode ", json)
+		var leoObserverId = json.id;
+		var touchpointHubName = json.name;
+		var type = json.type;
+		
+		var idDialog = "dialogEmbeddedRecomender";
+		var editorSelector = '#'+idDialog+' .code';
+		if(type > 0 && type < 12){
+			
+			$('#'+idDialog).modal({
+	    		backdrop: 'static',
+	    		keyboard: false
+			});
+			
+			//init code preview editor
+			$('#'+idDialog+' .CodeMirror').remove();
+			var codeNode = $(editorSelector)[0];
+			var editor = CodeMirror.fromTextArea(codeNode, {
+				mode:  "htmlmixed",
+				lineNumbers: true,
+	            styleActiveLine: true,
+	            matchBrackets: true,
+	            readOnly: false,
+		    });
+			editor.setSize(null, 480);
+			setTimeout(function() {
+				//copy from textarea template into editor, then selectAll for copy
+				var tpl = $(editorSelector).val().trim();
+				var code = tpl.replace('__observerId__', leoObserverId);
+				code = code.replace('__tpHubName__', touchpointHubName);
+				
+				var scriptId = 'leo_recommender_'+leoObserverId;
+				editor.getDoc().setValue( '<script id="'+scriptId+'">\n' + code + '\n<\/script>' )
+				editor.refresh();
+				editor.execCommand('selectAll');
+				
+				// copy code into clipboard
+				var buttonSelector = '#'+idDialog+ ' button.btn-copy-code';
+				addHandlerCopyCodeButton(editorSelector, buttonSelector);
+			},630);
+		}
 	}
 
 	var initDataObserverJsGridPlugin =  function() {
@@ -547,11 +590,18 @@
 		    				
 			    			btnHtml += '<button type="button" class="btn btn-goto-router btn-sm btn-get-code" onclick="getTrackingJsCode(this)" ';
 					    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-					    	btnHtml += '><i class="fa fa-code" style="font-size:1.3em" aria-hidden="true"></i> Tracking Code </button>';
+					    	btnHtml += '><i class="fa fa-code" style="font-size:1.3em" aria-hidden="true"></i> Tracking JS Code </button>';
 					    	
-					    	btnHtml += '<button type="button" class="btn btn-info  btn-sm btn-get-code" onclick="getCxFeedbackJsCode(this)" ';
-					    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-					    	btnHtml += '><i class="fa fa-code" style="font-size:1.2em" aria-hidden="true"></i> CX Form Code </button>';
+					    	if(mediaType > 0 && mediaType < 12){
+					    		btnHtml += '<button type="button" class="btn btn-success  btn-sm btn-get-code" onclick="getCxFeedbackJsCode(this)" ';
+						    	btnHtml += (' data-json="' + jsonStr  + '" ' );
+						    	btnHtml += '><i class="fa fa-code" style="font-size:1.2em" aria-hidden="true"></i> CX Form JS Code </button>';
+						    	
+						    	btnHtml += '<button type="button" class="btn btn-info  btn-sm btn-get-code" onclick="getRecommenderJsCode(this)" ';
+						    	btnHtml += (' data-json="' + jsonStr  + '" ' );
+						    	btnHtml += '><i class="fa fa-code" style="font-size:1.2em" aria-hidden="true"></i> Recommender JS </button>';
+					    	}
+					    
 					        return btnHtml;
 			    		} else {
 			    			var btnHtml = '<button type="button" class="btn btn-primary btn-sm btn-get-code" onclick="getQrImageFormCode(this)"';
@@ -616,9 +666,7 @@
 	   		    editing: false,
 	   		    sorting: false,
 	   		    paging: false,
-	
 	   		    data: eventObservers,
-	   		    
 	   		    fields: [
 	   		    	{ name: "index", title : "ID", type: "number", width: 16 },
 	   		        { name: "name", title : "Touchpoint Hub Name", type: "BoldText", width: 80, align: "center" },
@@ -634,7 +682,7 @@
 </script>
 
 <script id='leo-tracking-view-event-code-tpl' type="text/html" >
-// (3.<%- counter %>) function to track View event "<%- eventMetricName %>"
+// (3.<%- counter %>) function to track View Event "<%- eventMetricName %>"
 LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 	eventData = eventData ? eventData : {};
 	LeoObserverProxy.recordViewEvent("<%- eventMetricId %>",eventData);
@@ -642,23 +690,31 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 </script>
 
 <script id='leo-tracking-action-event-code-tpl' type="text/html" >
-// (3.<%- counter %>) function to track Action event "<%- eventMetricName %>"
+// (3.<%- counter %>) function to track Action Event "<%- eventMetricName %>"
 LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 	eventData = eventData ? eventData : {};
 	LeoObserverProxy.recordActionEvent("<%- eventMetricId %>",eventData);
 }
 </script>
 
+<!--  -->
 <script id='leo-tracking-conversion-event-code-tpl' type="text/html" >
-// (3.<%- counter %>) function to track Conversion event "<%- eventMetricName %>"
-LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
-	eventData = eventData ? eventData : {};
-	LeoObserverProxy.recordConversionEvent("<%- eventMetricId %>",eventData);
+// (3.<%- counter %>) function to track Conversion Event "<%- eventMetricName %>"
+LeoObserver.recordEvent<%- eventMetricName %> = function(eventData, shoppingCartItems, transactionId, transactionValue, currencyCode) {
+	// need 5 params
+	eventData = typeof eventData === "object" ? eventData : {};
+	shoppingCartItems = typeof shoppingCartItems === "object" ? shoppingCartItems : [];
+	transactionId = typeof transactionId === "string" ? transactionId : "";
+	transactionValue = typeof transactionValue === "number" ? transactionValue : 0;
+	currencyCode = typeof currencyCode === "string" ? currencyCode : "USD";
+	// submit data
+	LeoObserverProxy.recordConversionEvent("<%- eventMetricId %>", eventData , transactionId, shoppingCartItems, transactionValue, currencyCode);
+
 }
 </script>
 
 <script id='leo-tracking-feedback-event-code-tpl' type="text/html" >
-// (3.<%- counter %>) function to track Feedback event "<%- eventMetricName %>"
+// (3.<%- counter %>) function to track Feedback Event "<%- eventMetricName %>"
 LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 	eventData = eventData ? eventData : {};
 	LeoObserverProxy.recordFeedbackEvent("<%- eventMetricId %>",eventData);
@@ -674,7 +730,7 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 			</div>         
 			<div class="modal-body">
 				<div id="code_holder" ><textarea id="data_observer_code" class="code">
-// (1) loading LEO OBSERVER JavaScript code for [__channelName__]
+// (1) loading LEO OBSERVER JavaScript code for [__tpHubName__]
 	(function() {
    		window.leoObserverLogDomain = "__leoObserverDomain__";
    		window.leoObserverCdnDomain = "__staticFileDomain__";
@@ -716,10 +772,10 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 			<div class="modal-header">
 				<h4 class="modal-title text-center" > Embedded JavaScript Code to collect contact data of profile </h4>
 			</div>         
-			<div class="modal-body">
+			<div class="modal-body row">
 				<div id="code_holder" ><textarea id="data_observer_code" class="code">
 	(function() {
-	    // Lead Form Code for channel: __channelName__
+	    // Lead Form Code for touchpoint: __tpHubName__
 		window.srcTouchpointName = encodeURIComponent(document.title);
 		window.srcTouchpointUrl = encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
 		
@@ -748,9 +804,9 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 		<!-- Modal content-->
 		<div class="modal-content">   
 			<div class="modal-header">
-				<h4 class="modal-title text-center" > QR Code Image of Landing Page </h4>
+				<h4 class="modal-title text-center" > QR Code Image of Touchpoint Hub </h4>
 			</div>         
-			<div class="modal-body">
+			<div class="modal-body row">
 				<div class="form-group" style="display: none;">
 	                <label> Landing Pages </label>
 	                <select id="landingPageSelector" data-placeholder="Select a Landing Page" class="select" >
@@ -784,18 +840,20 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 	                <hr> 
 	            </div>
 				<h5 class="eventName" >  </h5>
-				<div id="feedback_form_code_holder" ><textarea  class="code">
+				 <div id="feedback_form_code_holder" >
+				   <textarea class="code" >
 	(function() {
 	    //  Feedback/Survey Form Collector for __feedbackFormTitle__
 	    var svf = document.title;
 		var tprefurl = location.href;
 		var tplFeedbackType = "__tplFeedbackType__";
+		var cb = Math.floor(Math.random() * 100000);
 		
 		var url  = '__feedbackFormFullUrl__';
 		url = url + "&tplfbt=" + tplFeedbackType;
 		url = url + "&tpname=" + document.title;
 		url = url + "&tpurl=" + location.href;
-		url = url + "&cb=" + new Date().getTime();
+		url = url + "&cb=" + cb;
 		
 		// container
 		var divWrapper = document.createElement("div"); 
@@ -812,8 +870,52 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 		var referenceNode = document.getElementById("__scriptNodeId__");
 		referenceNode.parentNode.insertBefore(divWrapper, referenceNode.nextSibling);
 	})();
-	
-				</textarea></div>
+			    </textarea>
+			  </div>
+			</div>  
+			<div class="modal-footer">
+				<button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="dialogEmbeddedRecomender" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > Copy the embedded JavaScript code for show recommended information </h4>
+			</div>         
+			<div class="modal-body row">
+				<div id="recommender_code_holder" >
+					<textarea class="code">
+// Recommender JavaScript code for [__tpHubName__]
+setTimeout(function(){
+	LeoObserverProxy.synchLeoVisitorId(function(vid) {
+		var observerId = "__observerId__";
+		var cb = Math.floor(Math.random() * 100000);
+		var src = "https://demotrack.leocdp.net/ris/html/products?visid=" + vid;
+		src += ("&obsid=" + observerId );
+		src += ("&tpurl=" + encodeURIComponent(location.href) );
+		src += ("&cb=" + cb );
+		// width and height
+		var h = '500px';
+		var w = '300px';
+		var style = "width:"+w+"; height:"+h;
+		style += ";overflow-y:scroll;margin:auto;display:block;border:none;";
+		// append DOM
+		var f = document.createElement('iframe');
+		f.setAttribute("src", src);
+		f.setAttribute("style", style);
+		f.setAttribute("frameBorder", "0");
+		var s = document.getElementById('leo_recommender_'+observerId);
+	    s.parentNode.insertBefore(f, s);
+	})
+},860);
+					</textarea>
+				</div>
 			</div>  
 			<div class="modal-footer">
 				<button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>

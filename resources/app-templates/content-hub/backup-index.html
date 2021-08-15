@@ -57,7 +57,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.11.0/underscore-min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/JSV@4.0.2/lib/jsv.min.js"></script>
     
-    <script src="https://cdn.jsdelivr.net/npm/jsonform@2.2.1/lib/jsonform.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsonform@2.2.4/lib/jsonform.min.js"></script>
     
     <script src="//{{baseStaticUrl}}/public/js/utils/mdl-chips-input.js"></script>
     <script src="//{{baseStaticUrl}}/public/js/utils/handlebars.min.js"></script>
@@ -167,24 +167,25 @@
         function loadFacebookSdk(){
         	 window.fbAsyncInit = function () {
                  FB.init({
-                     appId: '514311416047283',
+                     appId: '226121614085370',
                      cookie: true, // enable cookies to allow the server to access the session
                      xfbml: true, // parse social plugins on this page
-                     version: 'v7.0' // The Graph API version to use for the call
+                     version: 'v11.0' // The Graph API version to use for the call
                  });
                  FB.getLoginStatus(function (response) {
                      statusChangeCallback(response);
                  });
+                 FB.AppEvents.logPageView();   
              };
 
              // Load the SDK asynchronously
-            (function(d, s, id){
-          	 var js, fjs = d.getElementsByTagName(s)[0];
-     	     if (d.getElementById(id)) {return;}
-     	     js = d.createElement(s); js.id = id;
-     	     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     	     fjs.parentNode.insertBefore(js, fjs);
-     	   }(document, 'script', 'facebook-jssdk'));
+             (function(d, s, id){
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+              }(document, 'script', 'facebook-jssdk'));
         }
         
         loadFacebookSdk();

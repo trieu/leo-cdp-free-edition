@@ -53,14 +53,12 @@
 			    // synch and load feedback score for feedback form
 			    LeoObserverProxy.synchLeoVisitorId(function(vid){
 			    	 if(typeof loadFeedbackScoreCallback === "function") {
-			    		 var url = "https://" + leoObserverLogDomain + "/feedback-score?";
-			    		 url = url + "&visid=" + vid;
+			    		 var url = "https://" + leoObserverLogDomain + "/feedback-score";
+			    		 url = url + "?visid=" + vid;
 				    	 url = url + "&tplid={{customData.templateId}}";
 				    	 url = url + "&tpurl=" + encodeURIComponent(srcTouchpointUrl);
 				    	 
-			    		 $.ajax({
-		    			    type: "GET", url: url
-		    			 }).done(function (data) {
+			    		 $.ajax({ type: "GET", url: url }).done(function (data) {
 		    			    loadFeedbackScoreCallback(data)
 		    			 });
 			    	 }

@@ -140,6 +140,16 @@ div.summary_metric {
 	padding: 5px;
 }
 
+.config_ready {
+	background-color: #FAFADE;
+    color: #3300ff!important;
+}
+
+.config_description {
+	color: #303030!important;
+	font-size: 1.3em!important;
+}
+
 /* filepond uploader */
 
 .filepond--drop-label {
@@ -469,6 +479,7 @@ div.gridholder {
 	text-align: center;
     color: blue;
     font-weight: bold;
+    font-size: 0.9em;
 }
 
 div.long_url_holder {

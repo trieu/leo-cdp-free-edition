@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+<head>
+	<title>Customer Lead Form</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<!-- Twitter-bootstrap CSS   -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+
+	<!-- Json Form is required for LEO Form -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.11.0/underscore-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jsonform/2.2.4/jsonform.min.js"></script>
+	
+</head>
+<body>
+
+	<div class="container">
+	  <div class="panel panel-default">
+	    <div class="panel-body">
+		    <div id="subscription_placeholder">
+				<h3>Please enter your personal information</h3>
+				<form id="leo_registration_form"></form>
+				<div id="leo_form_error" class="alert alert-danger" style="display: none;"></div>
+			</div>
+	    </div>
+	  </div>
+	</div>
+
+
+	<script type="text/javascript">
+		// ------------ LEO Form ------------------
+		(function() {
+
+			var errorMsg = '<p> Your name, your email, phone are required information </p>';
+			var successInfo = '<div class="alert alert-success"><strong>Success!</strong> Your data is submitted successfully.</div>';
+
+			if (typeof window.LeoForm === "undefined") {
+				var extractRootDomain = function(url) {
+					try {
+						return new URL(url).hostname.split('.').slice(-2).join(
+								'.');
+					} catch (e) {
+					}
+					return "";
+				}
+
+				function render(formId, holderId, contentKeywords) {
+					var formSelector = jQuery('#' + formId);
+					formSelector
+							.jsonForm({
+								schema : {
+									firstName : {
+										type : 'string',
+										title : 'Your First Name',
+										required : true
+									},
+									lastName : {
+										type : 'string',
+										title : 'Your Last Name',
+										required : true
+									},
+									email : {
+										type : 'email',
+										title : 'Your Email',
+										required : true
+									},
+									phone : {
+										"type" : "number",
+										"title" : "Your Phone",
+										"default" : 0,
+										required : true
+									},
+									genderStr : {
+										"type" : "string",
+										"title" : "Your Gender",
+										"enum" : [ "Unknown", "Male", "Female" ]
+									},
+									contentKeywords : {
+										"type" : "array",
+										"title" : "Select all keywords for your personalization: ",
+										"items" : {
+											"type" : "string",
+											"title" : "Option",
+											"enum" : Object
+													.keys(contentKeywords)
+										}
+									}
+								},
+								form : [ {
+									"key" : "firstName"
+								}, {
+									"key" : "lastName"
+								}, {
+									"key" : "email"
+								}, {
+									"key" : "phone"
+								}, {
+									"key" : "genderStr",
+									"type" : "radios"
+								}, {
+									"key" : "contentKeywords",
+									"type" : "checkboxes",
+									"titleMap" : contentKeywords
+								}, {
+									"type" : "actions",
+									"items" : [ {
+										"type" : "submit",
+										"title" : "Submit"
+									} ]
+								} ],
+								onSubmit : function(errors, formData) {
+									if (errors) {
+										console.log(errors)
+										jQuery('#leo_form_error').html(
+												JSON.stringify(errors)).show()
+												.delay(5000).fadeOut('slow');
+										;
+									} else {
+										if (formData.firstName !== ''
+												&& formData.email !== ''
+												&& formData.phone !== '') {
+											var extData = {};
+											extData.contentKeywords = formData.contentKeywords.concat([]);
+											delete formData.contentKeywords;
+
+											// metadata
+											formData.webformProvider = "LeoForm";
+											formData.obsid = window.leoObserverId;
+											formData.tpname = window.srcTouchpointName;
+											formData.tpurl = window.srcTouchpointUrl;
+											formData.tprefurl = document.referrer;
+											formData.tprefdomain = extractRootDomain(document.referrer);
+
+											LeoObserverProxy.updateProfileBySession(formData, extData);
+											jQuery('#' + holderId).empty()
+													.html(successInfo).show()
+													.delay(5000)
+													.fadeOut('slow');
+										} else {
+											jQuery('#leo_form_error').html(
+													errorMsg).show()
+													.delay(5000)
+													.fadeOut('slow');
+										}
+									}
+								}
+							});
+					jQuery('#' + holderId).show();
+				}
+
+				var LeoForm = {};
+				LeoForm.render = render;
+				window.LeoForm = LeoForm;
+			}
+			
+		})();
+	</script>
+	
+	<script>
+		(function() {
+		    //LEO Web Observer for channel: 
+	   		window.leoObserverLogDomain = "{{baseLeoObserverUrl}}";
+	   		window.leoObserverCdnDomain = "{{baseStaticUrl}}";
+			window.leoObserverId = "{{customData.observerId}}";
+			
+			window.srcTouchpointName = encodeURIComponent(document.title);
+			
+			var referer = '{{customData.referer}}';
+			if(referer == '') {
+				window.srcTouchpointUrl = encodeURIComponent(referer); 
+			} else {
+				window.srcTouchpointUrl = encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
+			}
+		
+			var leoproxyJsPath = '/js/leo-observer/leo.proxy.min.js';
+		    var src = location.protocol + '//' + window.leoObserverCdnDomain + leoproxyJsPath;
+		    var jsNode = document.createElement('script');
+		    jsNode.async = true;
+		    jsNode.src = src;
+		    var s = document.getElementsByTagName('script')[0];
+		    s.parentNode.insertBefore(jsNode, s);
+		})();
+		
+		function leoObserverProxyReady(session) {
+		    //LEO is ready, record event data
+		    var jsonStr = jQuery('<div/>').html('{{customData.contentKeywords}}').html();
+			var contentKeywords =  JSON.parse(jsonStr);
+			console.log("contentKeywords",contentKeywords)
+			LeoForm.render('leo_registration_form', 'subscription_placeholder', contentKeywords);
+		}
+	</script>
+</body>
+</html>

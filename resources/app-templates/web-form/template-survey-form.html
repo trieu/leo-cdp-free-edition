@@ -13,7 +13,7 @@
 	<!-- JSON Form is required for LEO Form -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.11.0/underscore-min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jsonform/2.2.1/jsonform.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jsonform/2.2.4/jsonform.min.js"></script>
 	
 	<!-- Ajax Autocomplete for jQuery  -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.11/jquery.autocomplete.min.js" ></script>
@@ -80,14 +80,14 @@
 		/*  tablets, PC and laptops */
 		@media (min-width: 1000px) {
 			#Question_List .btn-default {
-				font-size: 1.2em;
+				font-size: 1.15em;
 				margin-top: 5px!important;
 				margin-right: 20px;
 				border-color: #00264d;
 				background-color: #f0f0f5;
 			}
 			#Group, #Item, #Time_Period {
-				font-size: 1.2em;
+				font-size: 1.18em;
 				font-weight: bold;
 			}
 			#Question_List .form-group > label {
@@ -135,7 +135,7 @@
 		
 	<div class="container" style="margin-bottom: 30px">
 	  <div class="panel panel-default">
-	    <div class="panel-body">
+	    <div class="panel-body" style="padding:10px!important">
 		    <div id="survey_placeholder" style="display: none;">
 		    	<div>
 		    		<img id="Header_Image_URL" class="img-responsive center-block" src="" style="display: none;"  >
@@ -165,6 +165,9 @@
 
 	<script type="text/javascript">
 		// ------------ LEO Form ------------------
+		function isString(obj){
+			return typeof obj === "string"; 
+		}
 	
 		window.surveyTemplateModel = false;
 		window.surveyTotalQuestions = 0;
@@ -350,8 +353,6 @@
 		}
 		
 		(function() {
-
-			
 			var successInfo = '<div class="alert alert-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Your data is submitted successfully </div>';
 			
 			var onSubmitCallback = function(errors, formData) {
@@ -365,37 +366,38 @@
 				}
 				else {
 					
-					console.log(formData);
+					console.log("formData",formData);
+					console.log("surveyTemplateModel",surveyTemplateModel);
 					
 					var model = {};
 					
 					// Header
-					model["header"] = surveyTemplateModel.Header ? surveyTemplateModel.Header : "";
+					model["header"] = isString(surveyTemplateModel.Header) ? surveyTemplateModel.Header : "";
 					
 					// Group
-					model["group"] = formData.Group ?  formData.Group : "";
+					model["group"] = isString(formData.Group) ?  formData.Group : "";
 					
 					// Evaluated_Object
-					model["evaluatedObject"] = formData.Evaluated_Object ? formData.Evaluated_Object : "";
-					model["evaluatedObjectLabel"] = surveyTemplateModel.Evaluated_Object_Input_Label ? surveyTemplateModel.Evaluated_Object_Input_Label : "";
+					model["evaluatedObject"] = isString(formData.Evaluated_Object) ? formData.Evaluated_Object : "";
+					model["evaluatedObjectLabel"] = isString(surveyTemplateModel.Evaluated_Object_Input_Label) ? surveyTemplateModel.Evaluated_Object_Input_Label : "";
 					
 					// Evaluated_Person
-					model["evaluatedPerson"] = formData.Evaluated_Person ? formData.Evaluated_Person : "";
-					model["evaluatedPersonLabel"] = surveyTemplateModel.Evaluated_Person_Input_Label ? surveyTemplateModel.Evaluated_Person_Input_Label : "";
+					model["evaluatedPerson"] = isString(formData.Evaluated_Person) ? formData.Evaluated_Person : "";
+					model["evaluatedPersonLabel"] = isString(surveyTemplateModel.Evaluated_Person_Input_Label) ? surveyTemplateModel.Evaluated_Person_Input_Label : "";
 					
 					// Item
-					model["item"] = surveyTemplateModel.Item ? surveyTemplateModel.Item : "";
+					model["item"] = isString(surveyTemplateModel.Item) ? surveyTemplateModel.Item : "";
 					
 					// Time_Period
-					model["timePeriod"] = surveyTemplateModel.Time_Period ? surveyTemplateModel.Time_Period : new Date().toDateString();
+					model["timePeriod"] = isString(surveyTemplateModel.Time_Period) ? surveyTemplateModel.Time_Period : new Date().toDateString();
 					
 					// Touchpoint
 					// TODO
 					
 					// personal profile
-					model["name"] =  formData.name ? formData.name : "";
-					model["email"] = formData.email ? formData.email : "";
-					model["phone"] = formData.phone ? formData.phone : "";
+					model["name"] =  isString(formData.name) ? formData.name : "";
+					model["email"] = isString(formData.email) ? formData.email : "";
+					model["phone"] = isString(formData.phone) ? formData.phone : "";
 					
 					// survey answers
 					var answeredTotalQuestions = 0;
@@ -406,7 +408,7 @@
 						var list = surveyTemplateModel.Question_List[questionGroup];
 						list.forEach(function(key) {
 						  	//console.log(key + " " + formData[key] );
-						  	var val = formData[key] ? formData[key] : "";
+						  	var val = isString( formData[key] )? formData[key].trim() : "";
 						  	if(val != "") {
 						  		model["questionAnswer"][questionGroup][key] = val;
 								answeredTotalQuestions++;
@@ -415,7 +417,7 @@
 					}
 					
 					// comment
-					model["comment"] = formData.comment ? formData.comment : "";
+					model["comment"] = isString(formData.comment) ? formData.comment : "";
 					
 					console.log(model);
 					console.log(JSON.stringify(model));
@@ -429,11 +431,14 @@
 							jQuery('#leo_form_error').html(errorMsg).show().delay(5000).fadeOut('slow');
 						} 
 						else {
-							jQuery('#survey_placeholder').empty().html(successInfo).show();
+							jQuery('#survey_placeholder').hide().parent().append(successInfo).show();
 							
 							model["refTemplateId"] = refTemplateId;
 							model["feedbackType"] = feedbackTypeAsText;
 							LeoObserverProxy.recordFeedbackEvent(submitEventName, model);
+							
+							// go to top
+							window.scrollTo(0,0);
 						}
 					}
 				}
@@ -479,20 +484,19 @@
 		// load core js
 		(function() {
 		    //LEO Web Observer for channel: 
+		    window.submitEventName = "submit-feedback-form";
 		    
 	   		window.leoObserverLogDomain = "{{baseLeoObserverUrl}}";
 	   		window.leoObserverCdnDomain = "{{baseStaticUrl}}";
+	   		
 			window.srcTouchpointName = "{{pageTitle}}";
+			window.srcTouchpointUrl = '{{customData.srcTouchpointUrl}}';
 			
 			window.refTemplateId = "{{customData.templateId}}";	
 			window.feedbackTypeAsText = "{{customData.feedbackTypeAsText}}";
 			window.leoObserverId = "{{customData.observerId}}";
 			
-			window.srcTouchpointName = 'Survey {{customData.srcTouchpointName}}';
-			window.srcTouchpointUrl = '{{customData.srcTouchpointUrl}}';
-			
 			window.preview = {{customData.preview}};
-			window.submitEventName = "submit-"+feedbackTypeAsText.toLowerCase()+"-form";
 			
 			var referer = '{{customData.referer}}';
 			if(referer === "") {
@@ -511,8 +515,10 @@
 		})();
 		
 		function leoObserverProxyReady(session) {
-		    //LEO is ready, record event data
-			LeoObserverProxy.recordViewEvent("survey-view");
+		    //LEO is ready, record event data if not in preview iframe
+		    if(location.href.indexOf("preview=1") === -1){
+		    	LeoObserverProxy.recordViewEvent("survey-view");
+		    }
 		}
 	</script>
 </body>
