@@ -1,0 +1,35 @@
+{
+	"map": {
+		
+		" LOCAL -  MainHttpRouter ------------" : {"notes" : "Local LEO CDP - Admin Dashboard" },
+		"localLeoMainAdminWorker": {
+			"name": "MainHttpWorker-0",
+			"host": "leocdp.admin",
+			"port": 9070,
+			"classNameHttpRouter": "leotech.starter.router.MainHttpRouter",
+			"bodyHandlerEnabled": true,
+			"sockJsHandlerEnabled": true
+		},
+		
+		" LOCAL -  ObserverHttpRouter ------------" : {"notes" : "Local Leo CDP - Data Observer" },
+		"localLeoObserverWorker": {
+			"name": "LeoObserverHttp-0",
+			"host": "leocdp.observer",
+			"port": 9080,
+			"classNameHttpRouter": "leotech.starter.router.ObserverHttpRouter",
+			"bodyHandlerEnabled": true,
+			"sockJsHandlerEnabled": false
+		},
+		
+		" LOCAL -  DeliveryHttpRouter ------------" : {"notes" : "Local Leo CDP - Data Delivery" },
+		"localLeoDeliveryWorker": {
+			"name": "DeliveryHttpRouter-0",
+			"host": "leocdp.observer",
+			"port": 9050,
+			"classNameHttpRouter": "leotech.starter.router.DeliveryHttpRouter",
+			"bodyHandlerEnabled": true,
+			"sockJsHandlerEnabled": false
+		}
+		
+	}
+}

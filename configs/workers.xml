@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<WorkerConfigs classpath="rfx.core.configs.WorkerConfigs"
+	type="object">
+
+	<!-- the shell-script for start workers -->
+	<startWorkerScriptPath></startWorkerScriptPath>
+
+	<!-- the allocated port for workers -->
+	<allocatedWorkers type="list"></allocatedWorkers>
+
+
+	<!-- where the debug/info/error logs store -->
+	<debugLogPath>
+		./logs
+	</debugLogPath>
+
+	<!-- the global configs for workers -->
+	<customConfigs type="map">
+		
+		<config name="enableUsedCacheHandlebars">
+			false
+		</config>
+		
+		<!-- Default Data Config for static resource handler -->
+		<config name="ADS_TXT_CONTENT">
+		</config>
+		
+		<config name="NUMBER_SIMILAR_POSTS_IN_LIST">6</config>
+
+	</customConfigs>
+
+</WorkerConfigs>

@@ -1,0 +1,17 @@
+{
+	"configs": {
+		"localCdpDbConfigs" : {
+			"username" : "root"
+			,"password" : "123456"
+			,"database" : "leo_cdp_test"
+			,"host" : "leocdp.database"				
+			,"port" : 8529
+			,"dbdriver" : "arangodb"
+			,"dbdriverclasspath" : "com.arangodb.ArangoDB"
+			,"enabled" : true
+			,"partitionMap" : {
+	        	"Profile" : 3
+	        }
+		}
+	}
+}
