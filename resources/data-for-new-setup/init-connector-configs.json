@@ -9,8 +9,8 @@
 		"emailSenderService":true,
 		"periodInSecondsToLoop": 30,
 		"configs": {
-			"service_provider": "https://www.sendinblue.com",
-			"service_api_url": "",
+			"service_provider": "https://sendinblue.com",
+			"service_api_url": "https://sendinblue.com",
 			"service_api_key": ""
 		},
 		"serviceUri" : "javaclass:leotech.cdp.job.connector.SendInBlueConnector"
@@ -26,7 +26,7 @@
 		"periodInSecondsToLoop": 30,
 		"configs": {
 			"service_provider": "https://mailchimp.com",
-			"service_api_url": "",
+			"service_api_url": "https://mailchimp.com",
 			"service_api_key": ""
 		},
 		"serviceUri" : "javaclass:leotech.cdp.job.connector.MailchimpConnector"

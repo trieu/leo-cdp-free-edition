@@ -1,7 +1,9 @@
 #!/bin/sh
 
-JAR_MAIN="leo-scheduler-starter-v_0.20201111-1235.jar"
-LEO_CDP_FOLDER="/build/leo-cdp-build/"
+LEO_CDP_FOLDER="./"
+BUILD_VERSION="v_0.20210815-23h"
+
+JAR_MAIN="leo-scheduler-starter-$BUILD_VERSION.jar"
 
 if [ -z "$LEO_CDP_FOLDER" ]
 then
@@ -16,4 +18,4 @@ JVM_PARAMS="-Xms1G -Xmx2G -XX:+TieredCompilation -XX:+UseCompressedOops -XX:+Dis
 kill -15 $(pgrep -f "leo-scheduler-starter-")
 sleep 3
 
-java -jar $JVM_PARAMS $JAR_MAIN  >> /dev/null 2>&1 &
+java -jar $JVM_PARAMS $JAR_MAIN  # >> /dev/null 2>&1 &
