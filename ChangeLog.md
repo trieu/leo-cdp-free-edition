@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [0.8.6] - 2021-08-16
 
+- fix critical issues when direct input profile
 - improve segment UI and UX: using tabs and activation buttons
 - improve profile data merge algorithm to de-duplicate data
 - improve CX Dashboard: Rating and Survey
@@ -17,12 +18,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - add fields for profile model: Living City, Living State, Living Country, ZipCode, Keywords for Product Marketing, Next Best Actions
 - add segment data activation:  synch data using connectors
 - add 2 default data connectors: SendInBlue and MailChimp
-- fix critical issues when direct input profile
 - add model to detect all profiles in Shopping Cart Abandoners
 - add Personalization Widget and the data API to show recommended items
-
+- simplify the process to set-up new Leo CDP instance
 
 ## [0.8.5] - 2021-07-02
+
 - add Event Data Dashboard
 - add CX Data Dashboard
 - improve Journey Data Funnel
@@ -34,6 +35,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - update UI System Configuration
 
 ## [0.8.3] - 2021-04-06
+
 - CX plugins
 
 ## [0.8.2] - 2021-04-04
@@ -44,7 +46,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [0.8.1] - 2021-03-26
 
-- Add Loyalty point 
+- Add Loyalty point
 - Improve Segmentation with profile type and scoring models
 - refactoring profile scoring data
 - remove Service Item, use only Product Item to store data of physical goods, digital goods and subscription services
@@ -57,4 +59,3 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - upgrade Java ArangoDB driver into version 6.7.5
 - added support of `leotech.system.util.CaptchaUtil` for human verification at login and in `leotech.system.common.SecuredWebDataHandler`
 - allow specifying LOCAL, DEV and PRO environment in `leotech.starter.MainHttpStarter` and `leotech.starter.LeoDataObserverStarter`
-
