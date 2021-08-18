@@ -75,7 +75,10 @@ https://computingforgeeks.com/how-to-install-redis-on-ubuntu-18-04-debian-9/
 
 - sudo nano /etc/hosts
 
-    [the network IP of ArangoDB Server] leocdp.database
-    [the network IP of Redis Server] leocdp.redis
-    [the network IP of LeoCDP Admin] leocdp.admin
-    [the network IP of LeoCDP Data Observer] leocdp.observer0
+	[the network IP of ArangoDB Server] leocdp.database
+	[the network IP of Redis Server] leocdp.redis
+	[the network IP of LeoCDP Admin] leocdp.admin
+	[the network IP of LeoCDP Data Observer] leocdp.observer0
+
+
+
