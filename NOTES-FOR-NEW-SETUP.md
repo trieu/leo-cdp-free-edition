@@ -71,14 +71,14 @@ https://computingforgeeks.com/how-to-install-redis-on-ubuntu-18-04-debian-9/
 - sudo mkdir /build; sudo chown leocdp:leocdp /build/
 - cd /build; git clone https://github.com/trieu/leo-cdp-free-edition.git
 
-### Add DNS hosts for all servers in LEO CDP
+### DNS hosts for LEO CDP servers 
 
-- sudo nano /etc/hosts
+- Command to edit hosts: sudo nano /etc/hosts
 
-	[the network IP of ArangoDB Server] leocdp.database
-	[the network IP of Redis Server] leocdp.redis
-	[the network IP of LeoCDP Admin] leocdp.admin
-	[the network IP of LeoCDP Data Observer] leocdp.observer0
+#### Add Local DNS for all servers
 
-
+- [the network IP of ArangoDB Server] leocdp.database
+- [the network IP of Redis Server] leocdp.redis
+- [the network IP of LeoCDP Admin] leocdp.admin
+- [the network IP of LeoCDP Data Observer] leocdp.observer0
 
