@@ -82,3 +82,10 @@ https://computingforgeeks.com/how-to-install-redis-on-ubuntu-18-04-debian-9/
 - [the network IP of LeoCDP Admin] leocdp.admin
 - [the network IP of LeoCDP Data Observer] leocdp.observer0
 
+#### Example DNS for 1 ArangoDB server, 1 Redis server, 1 Admin Dashboard and 2 data observers
+
+- 10.2.0.5 leocdp.database
+- 10.2.0.5 leocdp.redis
+- 10.4.0.3 leocdp.admin
+- 10.1.0.8 leocdp.observer0
+- 10.1.0.11 leocdp.observer1
