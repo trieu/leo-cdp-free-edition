@@ -2,33 +2,33 @@
 	{
 		"id": "sendinblue",
 		"name": "SendInBlue Email Marketing Automation",
-		"description" : "Email Marketing Automation",
+		"description": "Email Marketing Automation",
 		"builtInConnector": true,
 		"forMarketingActivation": true,
-		"dataSynchService" : true,
-		"emailSenderService":true,
+		"dataSynchService": true,
+		"emailSenderService": true,
 		"periodInSecondsToLoop": 30,
 		"configs": {
 			"service_provider": "https://sendinblue.com",
 			"service_api_url": "https://sendinblue.com",
 			"service_api_key": ""
 		},
-		"serviceUri" : "javaclass:leotech.cdp.job.connector.SendInBlueConnector"
+		"serviceUri": "javaclass:leotech.cdp.job.connector.SendInBlueConnector"
 	},
 	{
 		"id": "mailchimp",
 		"name": "MailChimp Email Marketing Automation",
-		"description" : "Email Marketing Automation",
+		"description": "Email Marketing Automation",
 		"builtInConnector": true,
 		"forMarketingActivation": true,
-		"dataSynchService" : true,
-		"emailSenderService":true,
+		"dataSynchService": true,
+		"emailSenderService": true,
 		"periodInSecondsToLoop": 30,
 		"configs": {
 			"service_provider": "https://mailchimp.com",
 			"service_api_url": "https://mailchimp.com",
 			"service_api_key": ""
 		},
-		"serviceUri" : "javaclass:leotech.cdp.job.connector.MailchimpConnector"
+		"serviceUri": "javaclass:leotech.cdp.job.connector.MailchimpConnector"
 	}
 ]
