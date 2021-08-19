@@ -151,15 +151,8 @@
     		});
     	}
 
-    	
   		var cbKey = "aug16.2021";
-  		var useCdn = false;
-	   	var leoObserverJsUrl = "https://demotrack.leocdp.net/public/js/leo-observer/leo.observer.js?cb="+cbKey;
-  		
-  		if(useCdn){
-  	    	leoObserverJsUrl = "https://cdn.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files/js/leo-observer/leo.observer.min.js?cb="+cbKey;
-  		}
-    	
+	   	var leoObserverJsUrl = "https://cdn.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files/js/leo-observer/leo.observer.min.js?cb="+cbKey;
   		loadScript(leoObserverJsUrl, codeIsReady);
     </script>
 </body>
