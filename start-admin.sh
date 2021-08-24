@@ -1,6 +1,6 @@
 #!/bin/sh
 
-LEO_CDP_FOLDER="./"
+LEO_CDP_FOLDER="/build/leo-cdp"
 BUILD_VERSION="v_0.20210815-23h"
 
 JAR_MAIN="leo-main-starter-$BUILD_VERSION.jar"
@@ -18,4 +18,4 @@ JVM_PARAMS="-Xms1G -Xmx2G -XX:+TieredCompilation -XX:+UseCompressedOops -XX:+Dis
 kill -15 $(pgrep -f "leo-main-starter-")
 sleep 3
 
-java -jar $JVM_PARAMS $JAR_MAIN  # >> /dev/null 2>&1 &
+java -jar $JVM_PARAMS $JAR_MAIN leocdp-admin >> admin.log 2>&1 &

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-LEO_CDP_FOLDER="./"
+LEO_CDP_FOLDER="/build/leo-cdp"
 BUILD_VERSION="v_0.20210815-23h"
 
 JAR_MAIN="leo-scheduler-starter-$BUILD_VERSION.jar"
@@ -15,7 +15,7 @@ fi
 
 JVM_PARAMS="-Xms1G -Xmx2G -XX:+TieredCompilation -XX:+UseCompressedOops -XX:+DisableExplicitGC -XX:+UseNUMA -server"
 
-kill -15 $(pgrep -f "leo-scheduler-starter-")
-sleep 3
+kill -15 $(pgrep -f "DataJobScheduler")
+sleep 4
 
-java -jar $JVM_PARAMS $JAR_MAIN  # >> /dev/null 2>&1 &
+java -jar $JVM_PARAMS $JAR_MAIN DataJobScheduler >> scheduler.log 2>&1 &
