@@ -20,13 +20,13 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # About this LEO CDP FREE Edition
 
-* This is the beta software, it means there are some bugs in the code.
-* The binary build of LEO CDP Free Edition for training purposes and education only 
-* Free quota: 500 contact profiles and 5000 anonymous profiles
+* The binary build of LEO CDP Free Edition for personal purposes and small business only.
+* Free quota: 500 contact profiles and 5000 anonymous profiles. 
+* To get more quota, please contact me for purchasing a software license to get more supports and consulting services.
 
 # Contact information 
 
-* Email: trieu@leocdp.com (Just say "Hi Thomas" )
+* My personal email: trieu@leocdp.com (Just say "Hi Thomas" or "Hi Triều" )
 
 # Author and copyright owner
 
