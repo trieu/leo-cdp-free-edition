@@ -1,5 +1,5 @@
 #####################################################################
-####### LEO CDP ARANGODB DATABASE QUERY #######
+#######  ####### LEO CDP ARANGODB DATABASE QUERY ####### ####### 
 #####################################################################
 
 
@@ -410,15 +410,27 @@ AQL_GET_PROFILE_BY_PRIMARY_EMAIL =>
 	RETURN e
 ;
 
+AQL_GET_PROFILE_BY_PRIMARY_PHONE =>
+	FOR e in cdp_profile 
+	FILTER e.primaryPhone == @phone AND e.status == 1
+	RETURN e
+;
+
 AQL_GET_PROFILE_BY_VISITOR_ID =>
 	FOR e in cdp_profile 
 	FILTER @visitorId == e.visitorId AND e.status == 1
 	RETURN e
 ;
 
-AQL_GET_PROFILE_BY_IDENTITY =>
+AQL_GET_PROFILE_BY_LOGIN_INFO =>
 	FOR e in cdp_profile 
-	FILTER @visitorId IN e.identities[*] AND e.status == 1
+	FILTER @loginInfo IN e.identities[*] AND e.status == 1
+	RETURN e
+;
+
+AQL_GET_PROFILE_BY_LOGIN_INFO_WITH_PASSWORD =>
+	FOR e in cdp_profile 
+	FILTER @loginInfo IN e.identities[*] AND e.password == @password AND e.status == 1
 	RETURN e
 ;
 
