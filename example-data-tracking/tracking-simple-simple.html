@@ -33,14 +33,11 @@
     </style>
 
     <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-5FFCFND');</script>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5FFCFND');</script>
     <!-- End Google Tag Manager -->
 
 </head>
@@ -52,12 +49,12 @@
         <h3>Customer Data Platforms</h3>
         <p class="price">$25</p>
         <p>Use People Data to Transform the Future of Marketing Engagement.</p>
-        <p><button id="btn-add-to-cart" onclick="processViewItem(this)">View Item</button></p>
+        <p><button id="btn-add-to-cart" onclick="doLogin(this)">Purchase Item</button></p>
     </div>
     <script>
         // go to the page tracking-events-ecommerce.html
-        function processViewItem(node) {
-            location.href = "tracking-events-ecommerce.html";
+        function doLogin(node) {
+            location.href = "tracking-login.html";
         }
     </script>
 </body>
