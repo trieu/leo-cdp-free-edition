@@ -2,7 +2,7 @@
 <html>
 
 <head>
-
+    <title>Login Form</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
         body {
@@ -128,6 +128,7 @@
 
         function initPage(){
             if(location.href.indexOf("facebook-login-ok")>0) {
+                document.title = "Login Ok, redirecting to product page";
 
                 $('#login_form').hide();
                 $('#login_ok').show();
@@ -136,7 +137,7 @@
     
                 setTimeout(function(){
                     location.href = "tracking-events-ecommerce.html";
-                },3000);
+                },5000);
             }
         }
         
