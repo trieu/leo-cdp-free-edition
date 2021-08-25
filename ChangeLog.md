@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - improve profile getting by primary keys, insert and update in background
 - update shell script to start workers
 - allow tracking purchase event without transaction code ID
+- add synch product data from LEO Observer JS
 
 ## [0.8.6] - 2021-08-16
 

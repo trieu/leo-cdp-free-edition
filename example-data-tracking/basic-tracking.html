@@ -1,23 +1,9 @@
 <!DOCTYPE html>
 <html>
-<title>Basic Tracking Demo for Leo CDP - Customer Data Platform book</title>
-<script>
-    var leoCdpTrackedProducts = leoCdpTrackedProducts || [];
-    leoCdpTrackedProducts.push({
-        name: "Customer Data Platforms",
-        productId: "978-1119790112",
-        idType: "ISBN",
-        originalPrice: 25,
-        salePrice: 25,
-        quantity: 1,
-        currency: "USD",
-        supplierId: "",
-        couponCode: "",
-        fullUrl : "http://example.com/example-data-tracking/basic-tracking.html"
-    });
-</script>
 
 <head>
+    <title>Basic Tracking Demo for Leo CDP - Customer Data Platform book</title>
+
     <style>
         .card {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -49,6 +35,31 @@
         }
     </style>
 
+    <!-- Data Model for LEO Observer JS -->
+    <script>
+        // to synch product data into Leo CDP using JavaScript
+        var leoCdpTrackedProducts = leoCdpTrackedProducts || [];
+        leoCdpTrackedProducts.push({
+            name: "Customer Data Platforms",
+            productId: "978-1119790112",
+            idType: "ISBN",
+            originalPrice: 25,
+            salePrice: 25,
+            quantity: 1,
+            currency: "USD",
+            supplierId: "",
+            couponCode: "",
+            fullUrl: "https://www.amazon.com/Customer-Data-Platforms-Transform-Engagement/dp/1119790115/"
+        });
+
+        // to synch user data into Leo CDP using JavaScript
+        var leoCdpUpdateUserInfo = {};
+        leoCdpUpdateUserInfo["loginId"] = "123";
+        leoCdpUpdateUserInfo["loginProvider"] = "facebook";
+        leoCdpUpdateUserInfo["email"] = "contact@uspa.tech";
+        leoCdpUpdateUserInfo["firstName"] = "Trieu";
+        leoCdpUpdateUserInfo["lastName"] = "Nguyen";
+    </script>
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
@@ -71,7 +82,7 @@
         <h1>Customer Data Platforms</h1>
         <p class="price">$25</p>
         <p>Use People Data to Transform the Future of Marketing Engagement.</p>
-        <p><button class="leocdp-track-purchase" >Purchase</button></p>
+        <p><button class="leocdp-track-purchase">Purchase</button></p>
     </div>
 
 
