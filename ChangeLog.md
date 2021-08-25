@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - update shell script to start workers
 - allow tracking purchase event without transaction code ID
 - add synch product data from LEO Observer JS
+- add checkbox: auto tracking option in JavaScript Code
 
 ## [0.8.6] - 2021-08-16
 

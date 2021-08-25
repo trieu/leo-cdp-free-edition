@@ -386,17 +386,34 @@
 			
 			editor.setSize(null, 480);
 			setTimeout(function() {
-				//copy from textarea template into editor, then selectAll for copy
-				var tpl = $('#webDataObserverCodeDialog .code').val().trim();
-				var code = tpl.replace('__leoObserverId__', leoObserverId)
-				code = code.replace('__tpHubName__', touchpointHubName)
-				code = code.replace('__leoObserverDomain__', leoObserverDomain);
-				code = code.replace('__staticFileDomain__', staticFileDomain);
-				code = code.replace('__eventTrackingFunctions__', eventTrackingFunctions);
+				var autoTrackNode = $('#leo_observer_auto_track');
 				
-				editor.getDoc().setValue( '<script>\n' + code + '\n<\/script>' )
-				editor.refresh();
-				editor.execCommand('selectAll');
+				var setupCode = function(){
+					var autoTracking = autoTrackNode.is(":checked");
+					
+					//copy from textarea template into editor, then selectAll for copy
+					var tpl = $('#webDataObserverCodeDialog .code').val().trim();
+					var code = tpl.replace('__leoObserverId__', leoObserverId)
+					code = code.replace('__tpHubName__', touchpointHubName)
+					code = code.replace('__leoObserverDomain__', leoObserverDomain);
+					code = code.replace('__staticFileDomain__', staticFileDomain);
+					code = code.replace('__eventTrackingFunctions__', eventTrackingFunctions);
+					
+					if(autoTracking) {
+						code = code.replace('__autoTrackingFunctions__', "LeoObserver.recordEventPageView()");
+					} else {
+						code = code.replace('__autoTrackingFunctions__', "// No auto tracking, please call it yourself");
+					}
+					
+					editor.getDoc().setValue( '<script>\n' + code + '\n<\/script>' )
+					editor.refresh();
+					editor.execCommand('selectAll');
+				}
+				
+				autoTrackNode.change(function() {
+					setupCode();
+				});
+				setupCode();
 				
 				// copy code into clipboard
 				var buttonSelector = '#'+idDialog+ ' button.btn-copy-code';
@@ -682,7 +699,7 @@
 </script>
 
 <script id='leo-tracking-view-event-code-tpl' type="text/html" >
-// (3.<%- counter %>) function to track View Event "<%- eventMetricName %>"
+// (2.<%- counter %>) function to track View Event "<%- eventMetricName %>"
 LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 	eventData = eventData ? eventData : {};
 	LeoObserverProxy.recordViewEvent("<%- eventMetricId %>",eventData);
@@ -690,7 +707,7 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 </script>
 
 <script id='leo-tracking-action-event-code-tpl' type="text/html" >
-// (3.<%- counter %>) function to track Action Event "<%- eventMetricName %>"
+// (2.<%- counter %>) function to track Action Event "<%- eventMetricName %>"
 LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 	eventData = eventData ? eventData : {};
 	LeoObserverProxy.recordActionEvent("<%- eventMetricId %>",eventData);
@@ -699,7 +716,7 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 
 <!--  -->
 <script id='leo-tracking-conversion-event-code-tpl' type="text/html" >
-// (3.<%- counter %>) function to track Conversion Event "<%- eventMetricName %>"
+// (2.<%- counter %>) function to track Conversion Event "<%- eventMetricName %>"
 LeoObserver.recordEvent<%- eventMetricName %> = function(eventData, shoppingCartItems, transactionId, transactionValue, currencyCode) {
 	// need 5 params
 	eventData = typeof eventData === "object" ? eventData : {};
@@ -714,7 +731,7 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData, shoppingCart
 </script>
 
 <script id='leo-tracking-feedback-event-code-tpl' type="text/html" >
-// (3.<%- counter %>) function to track Feedback Event "<%- eventMetricName %>"
+// (2.<%- counter %>) function to track Feedback Event "<%- eventMetricName %>"
 LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 	eventData = eventData ? eventData : {};
 	LeoObserverProxy.recordFeedbackEvent("<%- eventMetricId %>",eventData);
@@ -729,8 +746,13 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 				<h4 class="modal-title text-center" > Embedded JavaScript Code to collect behavioral data of profile </h4>
 			</div>         
 			<div class="modal-body">
+				<div class="form-group" >
+	                <div class="checkbox">
+					  	<label><input type="checkbox" id="leo_observer_auto_track" checked="checked" > Auto tracking "page-view" event </label>
+					</div>
+	            </div>
 				<div id="code_holder" ><textarea id="data_observer_code" class="code">
-// (1) loading LEO OBSERVER JavaScript code for [__tpHubName__]
+// (1) LEO OBSERVER: load JavaScript code for [__tpHubName__]
 	(function() {
    		window.leoObserverLogDomain = "__leoObserverDomain__";
    		window.leoObserverCdnDomain = "__staticFileDomain__";
@@ -746,15 +768,16 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 	    var s = document.getElementsByTagName('script')[0];
 	    s.parentNode.insertBefore(jsNode, s);
 	})();
-// (2) LEO OBSERVER is ready, tracking page-view
-	function leoObserverProxyReady(session) {
-	   	var eventData = {};
-	   	LeoObserverProxy.recordViewEvent("page-view",eventData);
-	   	// add more event data here
-	}
-// (3) all event tracking functions
+	
+// (2) LEO OBSERVER: set-up all event tracking functions
     var LeoObserver = {};
     __eventTrackingFunctions__
+    
+// (3) LEO OBSERVER is ready
+	function leoObserverProxyReady(session) {
+	   	// auto tracking when LEO CDP JS is ready
+	   	__autoTrackingFunctions__
+	}
 				</textarea></div>
 			</div>  
 			<div class="modal-footer">

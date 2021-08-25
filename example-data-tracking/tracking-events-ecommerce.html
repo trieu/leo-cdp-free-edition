@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic Tracking Demo for Leo CDP - Customer Data Platform book</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 250px;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+        }
+        .price {
+            color: grey;
+            font-size: 22px;
+        }
+        .card button {
+            border: none;
+            outline: 0;
+            padding: 12px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+        }
+        .card button:hover {
+            opacity: 0.7;
+        }
+    </style>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-5FFCFND');</script>
+    <!-- End Google Tag Manager -->
+</head>
+<body>
+
+    <div class="card">
+        <img src="https://images-na.ssl-images-amazon.com/images/I/41gUgegbS3L._SX336_BO1,204,203,200_.jpg"
+            alt="Denim Jeans" style="width:100%">
+        <h3>Customer Data Platforms</h3>
+        <p class="price">$25</p>
+        <p>Use People Data to Transform the Future of Marketing Engagement.</p>
+        <p><button id="btn-add-to-cart" onclick="processAddToCart(this)">Add to cart</button></p>
+        <p><button id="btn-purchase" onclick="processPurchasing(this)" style="display: none;">Purchase</button></p>
+    </div>
+
+    <!-- Data Model for LEO Observer JS -->
+    <script>
+        // to synch product data into Leo CDP using JavaScript
+        var leoCdpTrackedProducts = leoCdpTrackedProducts || [];
+        leoCdpTrackedProducts.push({
+            name: "Customer Data Platforms",
+            productId: "978-1119790112",
+            idType: "ISBN",
+            originalPrice: 25,
+            salePrice: 25,
+            quantity: 1,
+            currency: "USD",
+            supplierId: "",
+            couponCode: "",
+            fullUrl: "https://www.amazon.com/Customer-Data-Platforms-Transform-Engagement/dp/1119790115/"
+        });
+
+        // to synch user data into Leo CDP using JavaScript
+        var leoCdpUpdateUserInfo = {};
+        leoCdpUpdateUserInfo["loginId"] = "123";
+        leoCdpUpdateUserInfo["loginProvider"] = "facebook";
+        leoCdpUpdateUserInfo["email"] = "contact@uspa.tech";
+        leoCdpUpdateUserInfo["firstName"] = "Trieu";
+        leoCdpUpdateUserInfo["lastName"] = "Nguyen";
+    </script>
+
+    <script>
+        //
+        function processAddToCart(node) {
+            alert('The add-to-cart event is tracked!');
+            $(node).hide();
+            $('#btn-purchase').show();
+        }
+        //
+        function processPurchasing(node) {
+            alert('The purchase event is tracked!');
+            $(node).css("background-color", "green").text("Purchased OK").attr("disabled", true);
+
+            //set a global transaction ID for Google Tag Manager can fire purchase event with a transaction info
+            window.transactionId = "transaction_demo_" + new Date().getTime();
+        }
+    </script>
+</body>
+</html>
