@@ -1,12 +1,33 @@
 # All Tag Codes for Ecommerce
 
+code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and-google-tag-manager.html
+
 ## Leo CDP [Core JS loader]
 
 * Go to Journey Data Hub -> Journey Data Flow
 * Click Data Observer
 * Find the Touchpoint Hub for data tracking, click the button "Tracking JS Code" to get all JS
 
-## Track Event [item-view]
+## Track Event [user-login] and update contact profile for web visitor
+
+```
+<script>
+  setTimeout(function(){
+    var t1 = typeof window.leoCdpUpdateUserInfo;
+    var t2 = typeof window.LeoObserverProxy;
+    if(t1 === "object" && t2 === "object"){
+      if(typeof leoCdpUpdateUserInfo["email"] === "string") {
+        LeoObserverProxy.updateProfileBySession(leoCdpUpdateUserInfo)
+      }
+    } else {
+       console.log("typeof leoCdpUpdateUserInfo" + t1);
+       console.log("typeof LeoObserverProxy" + t2);
+    }
+  },2200)
+</script>
+```
+
+## Track Events [item-view] or [page-view] or [course-view]
 
 ```
 <script> 
@@ -20,7 +41,18 @@
            LeoObserver.recordEventItemView(eventData);
          }
        });
-     } else {
+     } 
+     else if(typeof leoCdpTrackedContents === "object") {
+        leoCdpTrackedContents.forEach(function (node) {
+         var contentId = node.contentId;
+         if (typeof contentId === "string") {
+           var keywords = node.keywords || "";
+           var eventData = { "keywords": keywords, "contentId": contentId};
+           LeoObserver.recordEventContentView(eventData);
+         }
+       });
+     }
+     else {
          LeoObserver.recordEventPageView()
      }
   },1000)
@@ -40,6 +72,33 @@
                     var quantity = item.quantity || 1;
                     var currency = item.currency || "USD";
                     var eventName = "add-to-cart";
+                    var model = { "itemtId": productId, "idType": idType, quantity: quantity };
+                    
+                    var eventData = { "productIds": productId, "idType": idType };
+                    var shoppingItems = [];
+                    shoppingItems.push(model);
+                    LeoObserverProxy.recordConversionEvent(eventName, eventData,"", shoppingItems,0, currency);
+                    console.log('leoTrackEventAddToCart', shoppingItems);
+                }
+       });
+     }
+  },1200)
+</script>
+```
+
+## Track Event [order-checkout]
+
+```
+<script> 
+  setTimeout(function(){
+    if(typeof leoCdpTrackedProducts === "object") {
+       leoCdpTrackedProducts.forEach(function (item) {
+                var productId = item.productId;
+                if (typeof productId === "string") {
+                    var idType = item.idType || "external_ID";
+                    var quantity = item.quantity || 1;
+                    var currency = item.currency || "USD";
+                    var eventName = "order-checkout";
                     var model = { "itemtId": productId, "idType": idType, quantity: quantity };
                     
                     var eventData = { "productIds": productId, "idType": idType };
@@ -81,24 +140,5 @@ setTimeout(function(){
         })
       }
 },1000)
-</script>
-```
-
-## Update Contact Profile
-
-```
-<script>
-  setTimeout(function(){
-    var t1 = typeof window.leoCdpUpdateUserInfo;
-    var t2 = typeof window.LeoObserverProxy;
-    if(t1 === "object" && t2 === "object"){
-      if(typeof leoCdpUpdateUserInfo["email"] === "string") {
-        LeoObserverProxy.updateProfileBySession(leoCdpUpdateUserInfo)
-      }
-    } else {
-       console.log("typeof leoCdpUpdateUserInfo" + t1);
-       console.log("typeof LeoObserverProxy" + t2);
-    }
-  },2200)
 </script>
 ```
