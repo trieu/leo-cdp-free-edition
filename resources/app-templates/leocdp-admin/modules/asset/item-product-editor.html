@@ -41,6 +41,20 @@
                 </div>
                 
                 <div class="form-group">
+                    <label>Description</label>
+                    <div id="description_div" style="display: block;">
+                        <textarea class="form-control" rows="2" placeholder="Enter description" name="description"></textarea>
+                    </div>
+                   
+                </div>
+                
+                <div class="form-group">
+                    <label>Product Landing Page URL</label>
+                    <input type="text" class="form-control" placeholder="Enter Product Landing page URL" name="fullUrl" autocomplete="off">
+                </div>
+                <hr>
+                
+                <div class="form-group">
 	                <label>Product Type</label>
 	                <select id="productType" name="productType" data-placeholder="Select a Product Type" class="select">
 	                    <option value="general_product" selected >General Product</option>
@@ -78,29 +92,19 @@
                     <label> Price Currency </label>
                     <input type="text" class="form-control" placeholder="Enter Price Currency" name="priceCurrency" autocomplete="off" value="USD">
                 </div>
-
-                <div class="form-group">
-                    <label>Description</label>
-                    <div id="description_div" style="display: block;">
-                        <textarea class="form-control" rows="2" placeholder="Enter description" name="description"></textarea>
-                    </div>
-                    <hr>
-                </div>
-                
-                <div class="form-group">
-                    <label>Product Landing page URL</label>
-                    <input type="text" class="form-control" placeholder="Enter Product Landing page URL" name="fullUrl" autocomplete="off">
-                </div>
                 <hr>
                 
-                <div id="short_link_url_holder" class="alert alert-info" role="alert" >
-					 <i class="fa fa-qrcode" aria-hidden="true" style="font-size: 1.1em" ></i>  <b>Short Link URL</b> 
-					 <a id="short_link_url" class="small-text" href="javascript:" target="_blank" ></a> <br>
-				</div>	
-				<div class="thumbnail">
-				 	 <img id="short_link_qrcode_url" style="max-height: 200px" />
+                <div id="qr_code_holder" style="display:none;">
+	                <div id="short_link_url_holder" class="alert alert-info" role="alert" >
+						 <i class="fa fa-qrcode" aria-hidden="true" style="font-size: 1.1em" ></i>  <b>Short Link URL</b> 
+						 <a id="short_link_url" class="small-text" href="javascript:" target="_blank" ></a> <br>
+					</div>	
+					<div class="thumbnail">
+					 	 <img id="short_link_qrcode_url" style="max-height: 200px" />
+					</div>
+					<hr>
 				</div>
-				<hr>
+				
 				
                 <div class="form-group">
                     <label>Product Image URL</label>
@@ -168,7 +172,7 @@
             <hr>
             
             <div class="action-div">
-                <label>Content Privacy</label>
+                <label>Access Privacy</label>
                 <div class="radio">
                     <label><input type="radio" name="privacyStatus" value="0">Public for everyone</label>
                 </div>
@@ -247,8 +251,12 @@
             console.log('=====> loadProductItemEditor itemId ' + itemId);
 
             if (itemId === '') {
+            	// create mode
                 // off select post type  $('#postTypeSelectionDialog').modal({ focus: true })
                 checkPostTypeAndSetupMediaEditor(1, '');
+            } else {
+            	// edit mode
+            	$('#qr_code_holder').show();
             }
             var urlStr = baseLeoAdminUrl + '/item/get';
 
@@ -310,7 +318,6 @@
                         console.log(k + " : " + value + " fieldType :" + fieldType)
                     }
                     loadWidgetsOfProductEditor();
-                    
                     
                     //focus the title
                     $('#asset_item_title').focus();
@@ -410,7 +417,6 @@
     }
     
     function loadProductTypeSelector(initIdType){
-    	
     	var check = function(v, idType) {
     		if(v === "retail_product"){
     			if((idType === "" || idType === "external_ID")){

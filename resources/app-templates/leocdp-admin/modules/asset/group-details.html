@@ -1,5 +1,5 @@
 <style>
-#item_list_holder th, #item_list_holder td {
+#item_list_holder th:first-child, #item_list_holder td:first-child {
 	text-align: center;
 }
 </style>
@@ -324,7 +324,7 @@
                 }
             ];
         	
-        	var columnFields = ['Image','Title of Item','Privacy','Asset Type','Last Updated','Actions'];
+        	var columnFields = ['Image','Title of Item','Access Privacy','Asset Type','Last Updated','Actions'];
         	_.each(columnFields, function(e){ $('#item_list_fields').append('<th>'+ e + '</th>') });
         	
             $('#item_list_holder').DataTable({
