@@ -54,7 +54,7 @@
     var encryptionkey = lscache.get('encryptionkey');
 
     function getLoginSession() {
-        var urlStr = baseAdminApi + '/user/login-session';
+        var urlStr = baseLeoAdminUrl + '/user/login-session';
         LeoAdminApiUtil.callPostApi(urlStr, {}, function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
                 usersession = json.data.userSession;
@@ -72,7 +72,7 @@
 
     function loginFormHandler(session) {
         var apiLoginHandler = function () {
-            var urlStr = baseAdminApi + '/user/check-login';
+            var urlStr = baseLeoAdminUrl + '/user/check-login';
 
             var user = $('#username').val();
             var pass = $('#password').val();

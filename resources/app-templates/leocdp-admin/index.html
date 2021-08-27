@@ -30,11 +30,11 @@
 		window.baseLeoObserverDomain = '{{baseLeoObserverUrl}}';
 		
 		window.baseStaticUrl = location.protocol + '//' +  baseStaticDomain;
-		window.baseAdminApi = location.protocol + '//' + baseAdminDomain;
+		window.baseLeoAdminUrl = location.protocol + '//' + baseAdminDomain;
 		window.baseUploadApi = location.protocol + '//' + baseUploadDomain;
 		window.baseLeoObserverUrl = location.protocol + '//' + baseLeoObserverDomain;
 		
-		window.pageHeaderLogo = baseAdminApi + '{{pageHeaderLogo}}';
+		window.pageHeaderLogo = baseLeoAdminUrl + '{{pageHeaderLogo}}';
 		window.webTemplateCache = {{webTemplateCache}};
 		window.dataApiCache = {{dataApiCache}};
 		

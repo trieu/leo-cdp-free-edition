@@ -9,7 +9,6 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
 * Find the Touchpoint Hub for data tracking, click the button "Tracking JS Code" to get all JS
 
 ## Track Event [user-login] and update contact profile for web visitor
-
 ```
 <script>
   setTimeout(function(){
@@ -27,12 +26,13 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
 </script>
 ```
 
-## Track Events [item-view] or [page-view] or [course-view]
+## Track Events [item-view] [page-view] [content-view]
 
 ```
 <script> 
   setTimeout(function(){
     if(typeof leoCdpTrackedProducts === "object") {
+      // item-view for product tracking
        leoCdpTrackedProducts.forEach(function (item) {
          var productId = item.productId;
          if (typeof productId === "string") {
@@ -43,6 +43,7 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
        });
      } 
      else if(typeof leoCdpTrackedContents === "object") {
+       // content-view for specific content tracking
         leoCdpTrackedContents.forEach(function (node) {
          var contentId = node.contentId;
          if (typeof contentId === "string") {
@@ -53,7 +54,8 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
        });
      }
      else {
-         LeoObserver.recordEventPageView()
+       // page-view
+       LeoObserver.recordEventPageView()
      }
   },1000)
 </script>

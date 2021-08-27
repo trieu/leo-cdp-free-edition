@@ -155,7 +155,7 @@
             	$('#slug_holder').hide();
             }
 
-            var urlStr = baseAdminApi + '/group/get-info';
+            var urlStr = baseLeoAdminUrl + '/group/get-info';
 
             LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
@@ -240,7 +240,7 @@
             assetGroupModel.slug = form.find('input[name="slug"]').val();
             assetGroupModel.rankingScore = parseInt(form.find('input[name="rankingScore"]').val());            
 
-            var urlStr = baseAdminApi + '/group/save';
+            var urlStr = baseLeoAdminUrl + '/group/save';
             LeoAdminApiUtil.callPostAdminApi(urlStr, assetGroupModel, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
                     if (typeof callback === 'function') {

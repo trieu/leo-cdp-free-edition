@@ -1,5 +1,7 @@
 # Infrastructure Setup for a new LeoCDP instance
 
+You can watch this video tutorial at the link: <a href="https://knowledge.leocdp.net/p/how-to-setup-new-software-instance-of.html" target="_blank"> How to setup a new software instance of LEO CDP </a>
+
 ## Network requirements
 
 The installed server must have Internet connection, please set the outbound firewall rules to these domains

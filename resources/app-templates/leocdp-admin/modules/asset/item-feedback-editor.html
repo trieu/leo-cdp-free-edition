@@ -202,7 +202,7 @@
      		
      		updateFeedbackFormIframePreview();
      		
-     		var qrCodeFullUrl = baseLeoObserverUrl + feedbackModel.qrCodeUrl.substr(1);
+     		var qrCodeFullUrl = baseLeoAdminUrl + feedbackModel.qrCodeUrl.substr(1);
      		$('#feedback_form_qrcode_url').attr('src',qrCodeFullUrl);
      		
      		$("#feedback_form_code_holder").show();
@@ -217,7 +217,7 @@
             
             console.log('=====> load template editor for id ' + itemId);
 
-            var urlStr = baseAdminApi + '/item/get';
+            var urlStr = baseLeoAdminUrl + '/item/get';
 
             LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
@@ -385,7 +385,7 @@
             	}
             	
                 //done set data model, POST to API
-                var urlStr = baseAdminApi + '/item/save';
+                var urlStr = baseLeoAdminUrl + '/item/save';
                 LeoAdminApiUtil.callPostAdminApi(urlStr, feedbackModel, function (json) {
                     if (json.httpCode === 0 && json.errorMessage === '') {
                         if (typeof callback === 'function') {

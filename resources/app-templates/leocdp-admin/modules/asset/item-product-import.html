@@ -55,7 +55,7 @@
 
 <script>
 	var initProductImporter = function (assetGroupId) {
-		var urlStr = baseAdminApi + '/group/get-info';
+		var urlStr = baseLeoAdminUrl + '/group/get-info';
         var params = { 'groupId': assetGroupId };
         
         LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {

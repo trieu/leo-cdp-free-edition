@@ -98,7 +98,7 @@
 	var campaignStats = false;
     var initCampaignInfo = initCampaignInfo || function(id) {
     	
-		var urlStr = baseAdminApi + '/cdp/campaign/get';
+		var urlStr = baseLeoAdminUrl + '/cdp/campaign/get';
         LeoAdminApiUtil.callPostAdminApi(urlStr, { 'id': id }, function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
         		// only super-admin role can remove the segment 

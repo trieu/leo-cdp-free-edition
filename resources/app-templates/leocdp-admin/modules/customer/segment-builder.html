@@ -333,7 +333,7 @@
 				params.endFilterDate = datetimeFilter.endFilterDate;
 				
 				// call and show statistics
-				var urlStr = baseAdminApi + '/cdp/segment/statistics';
+				var urlStr = baseLeoAdminUrl + '/cdp/segment/statistics';
 		        LeoAdminApiUtil.callPostAdminApi(urlStr, params , function (json) {
 		            if (json.httpCode === 0 && typeof json.data === 'object') {
 		               	loadSegmentStatistics(json.data);
@@ -358,7 +358,7 @@
 	}
 	
 	var getSegmentBuilderData = function(id) {
-        var urlStr = baseAdminApi + '/cdp/segment/load';
+        var urlStr = baseLeoAdminUrl + '/cdp/segment/load';
         LeoAdminApiUtil.callPostAdminApi(urlStr, { 'id': id }, function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
             	segmentDataStats = json.data.segmentStats;
@@ -411,7 +411,7 @@
     }
 	
 	var createNewSegmentModel = function() {
-        var urlStr = baseAdminApi + '/cdp/segment/load';
+        var urlStr = baseLeoAdminUrl + '/cdp/segment/load';
         LeoAdminApiUtil.callPostAdminApi(urlStr, {}, function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
             	var behavioralEventMap = json.data.behavioralEventMap;
@@ -506,7 +506,7 @@
 
 			//done set data model, POST to API
 			var dataJsonStr = JSON.stringify(segmentDataModel) ;
-	        var urlStr = baseAdminApi + '/cdp/segment/save';
+	        var urlStr = baseLeoAdminUrl + '/cdp/segment/save';
 	        LeoAdminApiUtil.callPostAdminApi(urlStr,  { 'dataObject' : dataJsonStr }, function (json) {
 	            if (json.httpCode === 0 ) {
 	                if(json.data === ''){

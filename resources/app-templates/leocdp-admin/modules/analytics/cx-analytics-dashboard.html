@@ -198,7 +198,7 @@
     		cxScoreLabels = defaultNpsScoreLabels;
     	} 
     	
-    	var urlStr = baseAdminApi + '/cdp/analytics360/cx-report';
+    	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/cx-report';
     	LeoAdminApiUtil.getSecuredData(urlStr, requestParams , function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
             	
@@ -310,7 +310,7 @@
     
     var defaultSurveyTemplateId = false;
     function initFeedbackSurveySelection(){
-    	var urlStr = window.baseAdminApi + "/item/asset-templates-for-feedback-survey";
+    	var urlStr = window.baseLeoAdminUrl + "/item/asset-templates-for-feedback-survey";
     	LeoAdminApiUtil.getSecuredData(urlStr, {}, function (json) { 
     		
     		// priority group selector
@@ -363,7 +363,7 @@
         	requestParams['refTemplateId'] = defaultSurveyTemplateId;
         	var previewUrl = baseLeoObserverUrl + "/webform?&tplfbt=SURVEY&tplid=" + defaultSurveyTemplateId;
         	
-        	var urlStr = baseAdminApi + '/cdp/analytics360/cx-survey-report';
+        	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/cx-survey-report';
         	
         	LeoAdminApiUtil.getSecuredData(urlStr, requestParams , function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {

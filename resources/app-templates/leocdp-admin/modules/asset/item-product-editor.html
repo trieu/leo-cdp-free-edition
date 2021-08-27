@@ -235,7 +235,7 @@
     var showProductShortLinkUrl = function() {
     	if(productData) {
      		$('#short_link_url').attr('href',productData.shortLinkUrl).text(productData.shortLinkUrl);
-     		var qrCodeFullUrl = baseLeoObserverUrl + productData.qrCodeUrl.substr(1);
+     		var qrCodeFullUrl = baseLeoAdminUrl + productData.qrCodeUrl.substr(1);
      		$('#short_link_qrcode_url').attr('src',qrCodeFullUrl);
     	}
  	}
@@ -251,7 +251,7 @@
                 // off select post type  $('#postTypeSelectionDialog').modal({ focus: true })
                 checkPostTypeAndSetupMediaEditor(1, '');
             }
-            var urlStr = baseAdminApi + '/item/get';
+            var urlStr = baseLeoAdminUrl + '/item/get';
 
             LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
@@ -379,7 +379,7 @@
         		});
             	
             	//done set data model, POST to API
-                var urlStr = baseAdminApi + '/item/save';
+                var urlStr = baseLeoAdminUrl + '/item/save';
                 LeoAdminApiUtil.callPostAdminApi(urlStr, productData, function (json) {
                     if (json.httpCode === 0 && json.errorMessage === '') {
                         if (typeof callback === 'function') {
@@ -493,7 +493,7 @@
 
     function renderPostMediaInfo(fileUrl) {
         if(fileUrl.indexOf('http')<0){
-            fileUrl = window.baseAdminApi + fileUrl;
+            fileUrl = window.baseLeoAdminUrl + fileUrl;
         }
         if (fileUrl.indexOf('.png') > 0 || fileUrl.indexOf('.jpg') > 0) {            
             if (trixElement ) {

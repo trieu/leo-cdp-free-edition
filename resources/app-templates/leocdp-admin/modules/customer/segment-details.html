@@ -290,7 +290,7 @@
 		initDateFilterComponent(true, null, null, 30);
 		
 		// Date Range Filtering Controller
-		var urlStr = baseAdminApi + '/cdp/segment/load';
+		var urlStr = baseLeoAdminUrl + '/cdp/segment/load';
         LeoAdminApiUtil.callPostAdminApi(urlStr, { 'id': id }, function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
         		// only super-admin role can remove the segment 
@@ -359,7 +359,7 @@
     	var endReportDate = params.endFilterDate;
     	$('#eventDataToDate').text(new moment(endReportDate).format(formatDate))
         
-    	var urlStr = baseAdminApi + '/cdp/analytics360/event-report/segment';
+    	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/event-report/segment';
     	
     	LeoAdminApiUtil.getSecuredData(urlStr, params , function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
@@ -486,10 +486,10 @@
     	    message: 'LEO CDP is processing data for the segment "'+segmentDataModel.name +'"'
     	});
 		var paramObj = { 'segmentId': segmentId };
-        var url = window.baseAdminApi + '/cdp/segment/export';
+        var url = window.baseLeoAdminUrl + '/cdp/segment/export';
         LeoAdminApiUtil.getSecuredData(url, paramObj, function (json) {
             if (json.httpCode === 0 && json.errorMessage === '' && json.data) {
-               var url = window.baseAdminApi + json.data ;
+               var url = window.baseLeoAdminUrl + json.data ;
                iziToast.success({ title: 'OK', message: 'Data is ready to download at '+url });
                window.open(url, '_blank');
             }
@@ -542,7 +542,7 @@
 		
 		// PRODUCT_ITEM_CATALOG
 		var paramObj = { 'assetType': 2 };
-		var urlStr = window.baseAdminApi + "/group/list-by-asset-type";
+		var urlStr = window.baseLeoAdminUrl + "/group/list-by-asset-type";
 		LeoAdminApiUtil.getSecuredData(urlStr, paramObj , function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
             	
@@ -582,7 +582,7 @@
 			    message: 'Starting the process to set data for recommmender system'
 			});
 		    
-		    var urlStr = baseAdminApi + '/group/set-items-to-recommender-system';
+		    var urlStr = baseLeoAdminUrl + '/group/set-items-to-recommender-system';
 		    var params = { "groupId": groupId, "segmentId" : segmentId };
 		    
 		    LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {

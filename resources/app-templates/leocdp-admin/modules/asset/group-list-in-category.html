@@ -63,7 +63,7 @@
             $('#page-list').DataTable({
                 "order": [[ 5, "desc" ]],
                 "ajax": {
-                    "url": baseAdminApi + '/group/list-by-category',
+                    "url": baseLeoAdminUrl + '/group/list-by-category',
                     "type": "POST",
                     "contentType": 'application/x-www-form-urlencoded',
                     "data": function (d) {

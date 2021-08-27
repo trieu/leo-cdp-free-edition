@@ -75,7 +75,7 @@
             var categoryId = params.categoryId;
             //console.log('view post ' + itemId);
 
-            var urlStr = baseAdminApi + '/item/get';
+            var urlStr = baseLeoAdminUrl + '/item/get';
            
             LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
@@ -151,7 +151,7 @@
 
                                     }
                                     if (mediaInfo.indexOf('http') != 0) {
-                                        mediaInfo = window.baseAdminApi + mediaInfo;
+                                        mediaInfo = window.baseLeoAdminUrl + mediaInfo;
                                     }
                                     MediaPlayerOne.create(autoplay, placeHolderId, mediaInfo, '', [], 0, 0, onReady);
 

@@ -113,7 +113,7 @@
 
     function initMyLoginInfo() {
     	 var key = currentUserProfile.key;
-         var urlStr = baseAdminApi + '/user/get-info';
+         var urlStr = baseLeoAdminUrl + '/user/get-info';
          LeoAdminApiUtil.callPostAdminApi(urlStr, {
              'key': key || 'newuser'
          }, function (json) {
@@ -168,9 +168,9 @@
         userModel.customData.position = node.find('input[name="customData_position"]').val();
         userModel.customData.department = node.find('select[name="customData_department"]').val();
 
-        var urlStr = baseAdminApi + '/user/create';
+        var urlStr = baseLeoAdminUrl + '/user/create';
         if (typeof userModel.key === 'string') {
-            urlStr = baseAdminApi + '/user/update';
+            urlStr = baseLeoAdminUrl + '/user/update';
         }
 
         var onSaveOk = function (data) {

@@ -36,7 +36,7 @@
         var paramObj = {
             'keywords': keywords
         };
-        var url = window.baseAdminApi + '/cdp/profiles/search';
+        var url = window.baseLeoAdminUrl + '/cdp/profiles/search';
         LeoAdminApiUtil.getSecuredData(url, paramObj, function (json) {
             if (json.httpCode === 0 && json.errorMessage === '' && json.data) {
                 

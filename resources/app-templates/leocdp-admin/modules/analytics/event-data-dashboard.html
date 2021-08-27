@@ -92,7 +92,7 @@
     	var endReportDate = params.endFilterDate;
     	$('#eventDataToDate').text(new moment(endReportDate).format(defaultDateFormat))
         
-    	var urlStr = baseAdminApi + '/cdp/analytics360/event-report/summary';
+    	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/event-report/summary';
     	
     	LeoAdminApiUtil.getSecuredData(urlStr, params , function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {

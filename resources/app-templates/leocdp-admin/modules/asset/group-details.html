@@ -76,7 +76,7 @@
     var initGroupDetails = function(pId) {
         assetGroupId = pId;
        
-        var urlStr = baseAdminApi + '/group/get-info';
+        var urlStr = baseLeoAdminUrl + '/group/get-info';
         var params = { 'groupId': assetGroupId };
         
         LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
@@ -328,7 +328,7 @@
                 'searching': false,
                 'serverMethod': 'POST',
                 "ajax": {
-                    "url": baseAdminApi + '/item/filter-by-group',
+                    "url": baseLeoAdminUrl + '/item/filter-by-group',
                     "contentType": 'application/json',
                     "type": "POST",
                     "data": function (d) {

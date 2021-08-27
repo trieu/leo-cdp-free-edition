@@ -205,7 +205,7 @@
 	window.currentUserProfile = {'displayName':''};
 	
 	function loadUserInfoWidget() {
-	    var urlStr = baseAdminApi + '/user/get-info';
+	    var urlStr = baseLeoAdminUrl + '/user/get-info';
 	    LeoAdminApiUtil.callPostAdminApi(urlStr, {}, function (json) {
 	        if (json.httpCode === 0 && json.errorMessage === '') {
 	            if (json.data) {

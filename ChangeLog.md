@@ -4,7 +4,8 @@ All notable changes to this Leo CDP project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.8.7] - 2021-08-25
+
+## [0.8.7] - 2021-08-27
 
 - fix critical issues when tracking touchpoint with no name
 - improve level index for leo observer, default touchpoint hub update
@@ -14,6 +15,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - add synch product data from LEO Observer JS
 - add checkbox: auto tracking option in JavaScript Code
 - fix bugs update user info after user-login event
+- update from baseAdminApi to baseLeoAdminUrl
+- update use baseLeoAdminUrl to build full URL for QR code images
 
 ## [0.8.6] - 2021-08-16
 
