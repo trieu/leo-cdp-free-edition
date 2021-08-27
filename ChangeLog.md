@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - update from baseAdminApi to baseLeoAdminUrl
 - update use baseLeoAdminUrl to build full URL for QR code images
 - allow set headline product image with file uploader, improve UI
+- fix bugs check and create QR code image for asset templates: survey, landing page
 
 ## [0.8.6] - 2021-08-16
 
