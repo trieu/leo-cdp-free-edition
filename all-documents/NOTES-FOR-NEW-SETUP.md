@@ -1,23 +1,23 @@
 # Infrastructure Setup for a new LeoCDP instance
 
-You can watch this video tutorial at the link: <a href="https://knowledge.leocdp.net/p/how-to-setup-new-software-instance-of.html" target="_blank"> How to setup a new software instance of LEO CDP </a>
+You can watch this video tutorial at the link: [How to setup a new software instance of LEO CDP](https://knowledge.leocdp.net/p/how-to-setup-new-software-instance-of.html)
 
 ## Network requirements
 
 The installed server must have Internet connection, please set the outbound firewall rules to these domains
 
-    https://nominatim.openstreetmap.org/search
+    https://nominatim.openstreetmap.org
     https://cloudservice.leocdp.com
-    https://storage.googleapis.com/leocdp-license/
-    http://api.ipstack.com/
-    https://us1.api.mailchimp.com/3.0/ping
-    https://api.sendinblue.com/v3/
+    https://storage.googleapis.com/leocdp-license
+    http://api.ipstack.com
+    https://us1.api.mailchimp.com
+    https://api.sendinblue.com
 
 ## Software requirements for new server
 
 ### ArangoDB
 
-https://www.arangodb.com/download-major/ubuntu/
+[ArangoDB download](https://www.arangodb.com/download-major/ubuntu)
 
 	curl -OL https://download.arangodb.com/arangodb38/DEBIAN/Release.key
 	sudo apt-key add - < Release.key
@@ -28,7 +28,7 @@ https://www.arangodb.com/download-major/ubuntu/
 
 ### Nginx Proxy
 
-https://www.tecmint.com/install-nginx-on-ubuntu-20-04/
+[Install nginx on Ubuntu 20](https://www.tecmint.com/install-nginx-on-ubuntu-20-04)
 
 	sudo wget https://nginx.org/keys/nginx_signing.key
 	sudo apt-key add nginx_signing.key
@@ -44,7 +44,7 @@ https://www.tecmint.com/install-nginx-on-ubuntu-20-04/
 
 ### SSL for Nginx Server
 
-https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04
+[SSL certbot](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04)
 
 	sudo apt-get update; sudo apt install certbot python3-certbot-nginx
 	sudo certbot --nginx certonly
@@ -52,7 +52,7 @@ https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-
 
 ### Java 8 JVM
 
-https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/generic-linux-install.html
+[Java 8 from Amazon](https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/generic-linux-install.html)
 
     wget -O- https://apt.corretto.aws/corretto.key | sudo apt-key add -
     sudo add-apt-repository 'deb https://apt.corretto.aws stable main'
@@ -61,21 +61,21 @@ https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/generic-linux-install.
 
 ### Redis
 
-https://vitux.com/install-redis-on-ubuntu/
+[Redis on Ubuntu](https://vitux.com/install-redis-on-ubuntu/)
 
     sudo apt-get update; sudo apt -y install redis-server
 
 ## Install Notes for Linux Server
 
-### For new server
+### Clone binary code for new server
 
 	sudo adduser leocdp; sudo usermod -aG sudo leocdp
 	sudo -iu leocdp
- 
-- sudo visudo => Add the following line at the end of file: leocdp ALL=(ALL) NOPASSWD: ALL
-
+	sudo visudo 
+	=> At the end of file, add this line: leocdp ALL=(ALL) NOPASSWD: ALL
 	sudo mkdir /build; sudo chown leocdp:leocdp /build/
-	cd /build; git clone https://github.com/trieu/leo-cdp-free-edition.git
+	cd /build
+	git clone https://github.com/trieu/leo-cdp-free-edition.git leo-cdp
 
 ### DNS hosts for LEO CDP servers 
 
