@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - fix bugs update user info after user-login event
 - update from baseAdminApi to baseLeoAdminUrl
 - update use baseLeoAdminUrl to build full URL for QR code images
+- allow set headline product image with file uploader, improve UI
 
 ## [0.8.6] - 2021-08-16
 
