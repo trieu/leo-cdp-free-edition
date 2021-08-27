@@ -1,3 +1,9 @@
+<style>
+#item_list_holder th, #item_list_holder td {
+	text-align: center;
+}
+</style>
+
 
 <!-- Group Details -->
 
@@ -195,7 +201,7 @@
         		{
                      "render": function (data, type, row) {
                     	 var imgSrc = data === "" ? '/public/images/asset-item-logo.png' : data;
-                         return '<div><img class="img-responsive" src="'+imgSrc+'" alt="" width="90" height="90"> </a>';
+                         return '<div><img class="img-responsive" src="'+imgSrc+'" alt="" width="90" height="80" style="margin:auto;"> </a>';
                      },
                      "targets": 0
                 },

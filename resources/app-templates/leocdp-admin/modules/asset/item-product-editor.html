@@ -91,6 +91,7 @@
                     <label>Product Landing page URL</label>
                     <input type="text" class="form-control" placeholder="Enter Product Landing page URL" name="fullUrl" autocomplete="off">
                 </div>
+                <hr>
                 
                 <div id="short_link_url_holder" class="alert alert-info" role="alert" >
 					 <i class="fa fa-qrcode" aria-hidden="true" style="font-size: 1.1em" ></i>  <b>Short Link URL</b> 
@@ -99,17 +100,15 @@
 				<div class="thumbnail">
 				 	 <img id="short_link_qrcode_url" style="max-height: 200px" />
 				</div>
-
+				<hr>
+				
                 <div class="form-group">
                     <label>Product Image URL</label>
-                    <input type="text" class="form-control" placeholder="Enter Product Headline Image URL" name="headlineImageUrl" autocomplete="off">
+                    <input type="text" class="form-control" placeholder="Enter Product Headline Image URL" name="headlineImageUrl" autocomplete="off" id="headlineImageUrl">
+                    <input id="imageUploader" type="file" class="filepond" name="image" multiple data-max-file-size="2MB"
+	                    data-max-files="1" />
                 </div>
                 
-				<div style="display: none;">
-                	<label for="imageUploader"> Headline Image Uploader </label>
-	                <input id="imageUploader" type="file" class="filepond" name="image" multiple data-max-file-size="20MB"
-	                    data-max-files="20" />
-            	</div>
                 <div id="product-headline-images" style="display: none;" ></div>
                 <hr>
 
@@ -453,15 +452,17 @@
         });
 
         //document or image uploader
-        setupUploaderWidget('post', itemId, '#documentUploader', function (rs) {
+        setupUploaderWidget('product', itemId, '#documentUploader', function (rs) {
             var fileUrl = rs.data.fileUrls[0];
             console.log('fileUrl ' + fileUrl);
             renderPostMediaInfo(fileUrl);
         });
 
         //headline image uploader
-        setupUploaderWidget('post', itemId, '#imageUploader', function (rs) {
+        setupUploaderWidget('product', itemId, '#imageUploader', function (rs) {
             var imgSrc = rs.data.fileUrls[0];
+            $('#headlineImageUrl').val(baseLeoAdminUrl + imgSrc);
+            
             var obj = {};
             obj[imgSrc] = '';
             loadHeadLineImageObjectToView(obj, false, true);
