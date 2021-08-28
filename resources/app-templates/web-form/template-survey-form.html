@@ -478,6 +478,8 @@
 	</script>
 	
 	<script>
+		var isDev = location.host === "demotrack.leocdp.net";
+	
 		// load it
 		loadSurveyForm();
 		
@@ -505,7 +507,11 @@
 				window.srcTouchpointUrl = encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
 			}
 		
-			var leoproxyJsPath = '/js/leo-observer/leo.proxy.js';
+			var leoproxyJsPath = '/js/leo-observer/leo.proxy.min.js';
+			if(isDev) {
+				leoproxyJsPath = '/js/leo-observer/leo.proxy.js';
+			}
+			
 		    var src = location.protocol + '//' + window.leoObserverCdnDomain + leoproxyJsPath;
 		    var jsNode = document.createElement('script');
 		    jsNode.async = true;
