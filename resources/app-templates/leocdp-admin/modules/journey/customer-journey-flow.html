@@ -603,16 +603,16 @@
 		    			if(firstPartyData) {
 		    				var btnHtml = '<button type="button" class="btn btn-primary btn-sm btn-get-code" onclick="getQrImageFormCode(this)"';
 					    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-					    	btnHtml += '><i class="fa fa-qrcode" style="font-size:1.3em" aria-hidden="true"></i> QR Code Image </button>';
+					    	btnHtml += '><i class="fa fa-qrcode" style="font-size:1.3em" aria-hidden="true"></i>  QR Code Image </button>';
 		    				
-			    			btnHtml += '<button type="button" class="btn btn-goto-router btn-sm btn-get-code" onclick="getTrackingJsCode(this)" ';
+			    			btnHtml += '<button type="button" class="btn btn-success  btn-sm btn-get-code" onclick="getTrackingJsCode(this)" ';
 					    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-					    	btnHtml += '><i class="fa fa-code" style="font-size:1.3em" aria-hidden="true"></i> Tracking JS Code </button>';
+					    	btnHtml += '><i class="fa fa-code" style="font-size:1.3em" aria-hidden="true"></i> Tracking Code JS </button>';
 					    	
 					    	if(mediaType > 0 && mediaType < 12){
-					    		btnHtml += '<button type="button" class="btn btn-success  btn-sm btn-get-code" onclick="getCxFeedbackJsCode(this)" ';
+					    		btnHtml += '<button type="button" class="btn btn-goto-router btn-sm btn-get-code" onclick="getCxFeedbackJsCode(this)" ';
 						    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-						    	btnHtml += '><i class="fa fa-code" style="font-size:1.2em" aria-hidden="true"></i> CX Form JS Code </button>';
+						    	btnHtml += '><i class="fa fa-code" style="font-size:1.2em" aria-hidden="true"></i> CX Data Form JS </button>';
 						    	
 						    	btnHtml += '<button type="button" class="btn btn-info  btn-sm btn-get-code" onclick="getRecommenderJsCode(this)" ';
 						    	btnHtml += (' data-json="' + jsonStr  + '" ' );
