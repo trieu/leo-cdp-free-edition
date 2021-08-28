@@ -41,15 +41,14 @@
 		
 		
 		<!-- Top User Menu -->
-		<ul class="nav navbar-right top-nav-sub">
-
+		<ul class="nav navbar-right top-nav-sub" style="display: none">
 			<li class="dropdown">
 				<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">
 					<i class="fa fa-university"></i> Knowledge Base <b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu" style="width: 270px">
 					<li>
-						<a target="_blank" href="https://knowledge.leocdp.net/p/what-is-uspa-framework.html"> <i class="fa fa-book" aria-hidden="true"></i>  Introduction to USPA framework</a>
+						<a target="_blank" href="https://knowledge.leocdp.net/p/what-is-uspa-framework.html"> <i class="fa fa-book" aria-hidden="true"></i> Introduction to USPA framework</a>
 					</li>
 					<li>
 						<a target="_blank" href="https://knowledge.leocdp.net/p/introduction-to-leo-cdp-101.html"> <i class="fa fa-book" aria-hidden="true"></i> Introduction to LEO CDP </a>
@@ -210,7 +209,8 @@
 	        if (json.httpCode === 0 && json.errorMessage === '') {
 	            if (json.data) {
 	                var systemUser = json.data;
-	                if(systemUser.role > 1){
+	                if(systemUser.role > 2){
+	                	// only for admin role and superadmin role 
 	                	$('#nav_system_management').show()
 	                }
 	                $('#userDisplayName').html(systemUser.displayName);

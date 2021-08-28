@@ -19,6 +19,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - update use baseLeoAdminUrl to build full URL for QR code images
 - allow set headline product image with file uploader, improve UI
 - fix bugs check and create QR code image for asset templates: survey, landing page
+- fix bugs survey UI to load proxy.min.js
+- improve UX of admin dashboard
 - improve UX of asset management, product editor
 
 ## [0.8.6] - 2021-08-16
