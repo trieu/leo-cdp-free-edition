@@ -4,6 +4,20 @@ All notable changes to this Leo CDP project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.8.7.1] - 2021-08-31
+
+### Added  
+
+- allow start multiple leo-admin in a sample server (multiple hosts)
+
+### Fixed
+
+- default UI for content hub leo-cdp
+
+### Changed
+
+- config to start leo-admin, can start with default httpRoutingConfigAdmin
+
 
 ## [0.8.7] - 2021-08-27
 
