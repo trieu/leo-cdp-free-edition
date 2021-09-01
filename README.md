@@ -11,7 +11,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 1. You need to do Advanced Data Analytics with Jupyter Notebook to understand Customer Insights
 2. You need to do Data Segmentation for Customer Personalization and direct-marketing purposes
 3. You need to optimize Customer Journey Map and Customer Experience (CX)
-4. You need an on-premises software solution to deploy in your private server and private cloud platform
+4. You need an on-premises software solution to deploy in your private cloud servers
 5. You want to build your own Customer Data Platform (CDP) for your digital business and digital transformation
 
 # General Data Flow

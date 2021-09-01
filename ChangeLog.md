@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Fixed
 
 - default UI for content hub leo-cdp
+- fix GeoLocationUtil for Google Cloud Proxy, can not get correct IP
 
 ### Changed
 
