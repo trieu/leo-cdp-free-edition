@@ -1,37 +1,47 @@
-## Welcome to GitHub Pages
+<div style="background-color: #F0F8FF; text-align:center; border-radius:8px;">
+	<img src="https://cdn.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files@latest//images/leo-cdp-logo.png" alt="LEO CDP" style="width:640px;margin:auto;"/>
+</div>
 
-You can use the [editor on GitHub](https://github.com/trieu/leo-cdp-free-edition/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+# LEO CDP FREE Edition
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+This is the binary build (JAR file) from Java Source Code in my private Github repository
 
-### Markdown
+# Why is LEO CDP ?
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+1. You need to do Advanced Data Analytics with Jupyter Notebook to understand Customer Insights
+2. You need to do Data Segmentation for Customer Personalization and direct-marketing purposes
+3. You need to optimize Customer Journey Map and Customer Experience (CX)
+4. You need an on-premises software solution to deploy in your private server and private cloud platform
+5. You want to build your own Customer Data Platform (CDP) for your digital business and digital transformation
 
-```markdown
-Syntax highlighted code block
+# General Data Flow
 
-# Header 1
-## Header 2
-### Header 3
+![alt Leo CDP Flow](https://1.bp.blogspot.com/-5LDHS3iflqU/YQOKwcrx_LI/AAAAAAAAMgA/5tmJWbsKNdYiMBGS5SNsOh5weX2owj_9QCLcBGAsYHQ/s2048/LEO%2BCDP%2Bversion%2B1.0%2BChecklist-Data%2BFlow%2BLeo%2BCDP.png)
 
-- Bulleted
-- List
+# Technology Architecture
 
-1. Numbered
-2. List
+![alt technology-architecture-leo-cdp](https://cdn.jsdelivr.net/gh/trieu/leo-cdp-free-edition@latest/technology-architecture-leo-cdp-version-1.0-aug.22.2021.png)
 
-**Bold** and _Italic_ and `Code` text
+# About this LEO CDP FREE Edition
 
-[Link](url) and ![Image](src)
-```
+* The binary build of LEO CDP Free Edition for personal purposes and small business only.
+* Free quota: 500 contact profiles and 5000 anonymous profiles. 
+* To get more quota, please contact me for purchasing a software license to get more supports and consulting services.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+# Contact information 
 
-### Jekyll Themes
+* My personal email: trieu@leocdp.com (Just say "Hi Thomas" or "Hi Triều" )
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/trieu/leo-cdp-free-edition/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+# Author and copyright owner
 
-### Support or Contact
+<a href="https://www.facebook.com/tantrieuf31" target="_blank"> Trieu Nguyen(Thomas) </a>
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+# Community Support 
+
+Facebook <a href="https://www.facebook.com/groups/bigdatavietnam.org/" target="_blank">  bigdatavietnam.org social group </a>
+
+# Documents 
+
+* <a href="https://youtube.com/playlist?list=PL7YpzmBoIETSD7jnVlvfNxhSa8V2BY3-8" target="_blank" > YouTube playlist for training </a>
+* All documents and video tutorials are still under development 
+* More information will be updated at <a href="https://knowledge.leocdp.net/" target="_blank"> LEO CDP Blog </a>
