@@ -97,3 +97,4 @@ Command to edit hosts:
 	10.4.0.3 leocdp.admin
 	10.1.0.8 leocdp.observer1
 	10.1.0.11 leocdp.observer2
+	

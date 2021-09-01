@@ -1,3 +1,5 @@
+![alt Leo CDP Logo](https://cdn.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files@latest//images/leo-cdp-logo.png)
+
 # LEO CDP FREE Edition
 
 This is the binary build (JAR file) from Java Source Code in my private Github repository

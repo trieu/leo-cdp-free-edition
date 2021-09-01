@@ -4,7 +4,7 @@ All notable changes to this Leo CDP project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.8.7.1] - 2021-08-31
+## [0.8.7.1] - 2021-09-05
 
 ### Added  
 
@@ -16,7 +16,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Changed
 
-- config to start leo-admin, can start with default httpRoutingConfigAdmin
+- update config to start leo-admin, can start with default httpRoutingConfigAdmin
+- refactoring ContactType in profile model to improve profile merge algorithm 
 
 
 ## [0.8.7] - 2021-08-27

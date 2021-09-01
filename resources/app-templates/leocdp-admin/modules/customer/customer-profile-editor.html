@@ -1,3 +1,10 @@
+
+<style>
+	ol.profile_ext_data {
+		margin-left: 28px;
+	}
+</style>
+
 <div class="row">
      <div class="col-md-6" >
  		<h5 class="page-header" id="page_breadcrumb" > </h5>
@@ -72,12 +79,6 @@
 	                           	   </li>
 	                           	   
 	                           	   <li>
-					                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Data Labels </b> 
-					                   <a href="javascript: profileAddNewTextHashSet('dataLabels')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
-					                   <p data-field="dataLabels" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" >  </p>
-					               	</li>
-	                           	   
-	                               <li>
 	                                   <b> <i class="fa fa-clock-o" aria-hidden="true"></i> Created at </b> 
 	                                   <p class="data_field" data-field="createdAt" data-fieldholder="html"  data-fieldtype="date_time"  > - </p>
 	                               </li>
@@ -86,6 +87,53 @@
 	                                   <b> <i class="fa fa-clock-o" aria-hidden="true"></i> Updated at </b> 
 	                                   <p class="data_field" data-field="updatedAt" data-fieldholder="html"  data-fieldtype="date_time"  > -  </p>
 	                               </li>
+	                           	   
+	                           	   <li>
+					                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Data Labels </b> 
+					                   <a href="javascript: profileAddNewTextHashSet('dataLabels')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+					                   <p data-field="dataLabels" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" >  </p>
+					               </li>
+					               	
+					               <li>
+			                           <b> <i class="fa fa-id-card-o" aria-hidden="true"></i> Profile Type </b>  <br>
+		                               <div style="font-size: 13px; background-color: #fff;padding: 8px 25px;" >
+		                                   	<div class="radio">
+											  	<label><input type="radio" name="type" value="0" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >ANONYMOUS_VISITOR</label>
+										   	</div>
+		                                   	<div class="radio">
+											  	<label><input type="radio" name="type" value="1" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >SSO_LOGIN_CONTACT</label>
+										   	</div>
+										   	<div class="radio">
+											  	<label><input type="radio" name="type" value="2" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >HUMAN_CONTACT</label>
+										   	</div>
+										   	<div class="radio">
+											  	<label><input type="radio" name="type" value="3" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >STUDENT_CONTACT</label>
+										   	</div>
+										   	<div class="radio">
+											  	<label><input type="radio" name="type" value="4" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >CRM_IMPORTED_CONTACT</label>
+										   	</div>
+										   	<div class="radio">
+											  	<label><input type="radio" name="type" value="5" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >DIRECT_INPUT_CONTACT</label>
+										   	</div>
+										   	<div class="radio">
+											  	<label><input type="radio" name="type" value="6" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >INFLUENCER_CONTACT</label>
+										   	</div>
+										   	<div class="radio">
+											  	<label><input type="radio" name="type" value="7" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >CLIENT_CONTACT</label>
+										   	</div>
+										   	<div class="radio">
+											  	<label><input type="radio" name="type" value="8" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >PARTNER_CONTACT</label>
+										   	</div>
+										   	<div class="radio">
+											  	<label><input type="radio" name="type" value="9" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >EMPLOYEE_CONTACT</label>
+										   	</div>
+										   	<div class="radio">
+											  	<label><input type="radio" name="type" value="10" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >KEY_ACCOUNT_CONTACT</label>
+										   	</div>
+										</div>
+	                               </li>
+	                           	   
+	                               
 	                               
 	                               <li>
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-envelope"></i> Primary Email <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
@@ -139,39 +187,6 @@
 	                               </li>
 	                               
 	                               <li>
-			                           <b> <i class="fa fa-id-card-o" aria-hidden="true"></i> Profile Type </b>  <br>
-			                           <ul class="list-group">
-										  <li class="list-group-item">
-		                                   	 <div style="font-size: 12px;">
-		                                   	 	<!-- UNKNOWN  -->
-			                                   	<div class="radio">
-												  	<label><input type="radio" name="type" value="0" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >ANONYMOUS_VISITOR</label>
-											   	</div>
-											   
-			                                   	<div class="radio">
-												  	<label><input type="radio" name="type" value="1" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >HUMAN_CONTACT</label>
-											   	</div>
-											   	<div class="radio">
-												  	<label><input type="radio" name="type" value="2" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >CRM_IMPORTED_CONTACT</label>
-											   	</div>
-											   	<div class="radio">
-												  	<label><input type="radio" name="type" value="3" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >SSO_LOGIN_CONTACT</label>
-											   	</div>
-											   	<div class="radio">
-												  <label><input type="radio" name="type" value="4" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >DIRECT_INPUT_CONTACT</label>
-											   	</div>
-											   	<div class="radio">
-												  <label><input type="radio" name="type" value="5" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >BUSINESS_CONTACT</label>
-											   	</div>
-											   	<div class="radio">
-												  <label><input type="radio" name="type" value="6" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >INFLUENCER_CONTACT</label>
-											   	</div>
-		                                   	 </div>
-										  </li>
-									   </ul>
-	                               </li>
-	                               
-	                               <li>
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-user-o"></i> Status </b> 
 	                                   <div style="font-size: 12px;">
 		                                   <div class="radio">
@@ -203,7 +218,7 @@
 				<table border=0 class="underlined" style="width: 100%;">
                    <tr>
                        <td>
-							<ol id="profile_ext_data" data-field="personal_attributes">
+							<ol class="profile_ext_data" data-field="personal_attributes">
 								
 								<li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Personal ID and Contacts <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
@@ -252,7 +267,7 @@
 			   <table border=0 class="underlined" style="width: 100%;">
                    <tr>
                        <td>
-							<ol id="profile_ext_data" data-field="personal_attributes">
+							<ol class="profile_ext_data" data-field="personal_attributes">
 
 				               	<li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Business Contacts <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
@@ -283,7 +298,7 @@
 			   <table border=0 class="underlined" style="width: 100%;">
                    <tr>
                        <td>
-							<ol id="profile_ext_data" data-field="personal_attributes">
+							<ol class="profile_ext_data" data-field="personal_attributes">
 
                                 <li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Content Marketing Keywords </b> 

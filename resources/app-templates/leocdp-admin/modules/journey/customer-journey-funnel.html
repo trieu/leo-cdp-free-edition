@@ -1,6 +1,5 @@
 <style>
 	.jsgrid .jsgrid-custom-button {
-
 	    border: none;
 	    cursor: pointer;
 	    background-color: transparent;
@@ -248,9 +247,9 @@
 	
 			    fields: [
 			        { name: "eventName", title : "Event Name", align: 'center' , type: "text", validate: "required" },
-			        { name: "eventLabel", title : "Event Label", align: 'center' , type: "text" },
-			        { name: "score", title : "Event Score", type: "number", align: 'center', width: 40, validate: "required" },
-			        { name: "cumulativePoint", title : "Loyalty Point", type: "number", width: 40, align: 'center', validate: "required" },
+			        { name: "eventLabel", title : "Event Label", align: 'center' , type: "text", width: 116 },
+			        { name: "score", title : "Event Score", type: "number", align: 'center', width: 36, validate: "required" },
+			        { name: "cumulativePoint", title : "Loyalty Point", type: "number", width: 36, align: 'center', validate: "required" },
 			        { name: "eventStageId", title : "Journey Stage", type: "select", items: journeyFunnelStages, valueField: "id", textField: "name" },
 			        { name: "scoreModel", title : "Score Model", type: "select", items: scoringModels, width: 80, valueField: "id", textField: "name" },
 			        { name: "funnelStageId", title : "Default Profile Stage", type: "select", items: customerFunnelStages, valueField: "id", textField: "name" },
