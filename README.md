@@ -1,10 +1,12 @@
-![alt Leo CDP Logo](https://cdn.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files@latest//images/leo-cdp-logo.png)
+<div style="background-color: #F0F8FF; text-align:center; border-radius:8px;">
+	<img src="https://cdn.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files@latest//images/leo-cdp-logo.png" alt="LEO CDP" style="width:640px;margin:auto;"/>
+</div>
 
 # LEO CDP FREE Edition
 
 This is the binary build (JAR file) from Java Source Code in my private Github repository
 
-# Why is LEO CDP (Customer Data Platform) ?
+# Why is LEO CDP ?
 
 1. You need to do Advanced Data Analytics with Jupyter Notebook to understand Customer Insights
 2. You need to do Data Segmentation for Customer Personalization and direct-marketing purposes
@@ -12,7 +14,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 4. You need an on-premises software solution to deploy in your private server and private cloud platform
 5. You want to build your own Customer Data Platform (CDP) for your digital business and digital transformation
 
-# Primary Data Flow
+# General Data Flow
 
 ![alt Leo CDP Flow](https://1.bp.blogspot.com/-5LDHS3iflqU/YQOKwcrx_LI/AAAAAAAAMgA/5tmJWbsKNdYiMBGS5SNsOh5weX2owj_9QCLcBGAsYHQ/s2048/LEO%2BCDP%2Bversion%2B1.0%2BChecklist-Data%2BFlow%2BLeo%2BCDP.png)
 
