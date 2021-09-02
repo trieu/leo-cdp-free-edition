@@ -14,11 +14,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - default UI for content hub leo-cdp
 - fix GeoLocationUtil for Google Cloud Proxy, can not get correct IP
+- the value of collectDirectly in Leo Observer should be checked 
 
 ### Changed
 
 - update config to start leo-admin, can start with default httpRoutingConfigAdmin
-- refactoring ContactType in profile model to improve profile merge algorithm 
+- update ContactType in profile model to improve profile merge algorithm 
+- rename graph from cdp_purchased_product_graph to Profile2Conversion
+- rename edge collection from cdp_profile2purchasedproduct to cdp_profile2conversion
+- remove totalEvent, rename totalScore into eventScore in ProfileGraphEdge
+- rename groupIds to assetGroupIds in ProfileGraphEdge
 
 
 ## [0.8.7] - 2021-08-27
