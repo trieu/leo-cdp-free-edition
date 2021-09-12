@@ -474,7 +474,6 @@
 		var type = json.type;
 		
 		if(type > 0 && type < 12){
-			
 			$('#webLeadFormCodeDialog').modal({
 	    		backdrop: 'static',
 	    		keyboard: false
@@ -627,7 +626,7 @@
 					    	return btnHtml;
 			    		}
 		    		} else {
-		    			return "<b>Auto Tracking</b>";
+		    			return "<b>Final Data Observer</b>";
 		    		}
 		    	}
 		    	return "";
@@ -649,9 +648,7 @@
 	            return this._editCode;
 	        }
 		});
-		
 		jsGrid.fields.LeoDataObserver = LeoDataObserver;
-		
 	}
 
     var initDataObserverList = function() {
@@ -688,12 +685,12 @@
 	   		    data: eventObservers,
 	   		    fields: [
 	   		    	{ name: "index", title : "ID", type: "number", width: 16 },
-	   		        { name: "name", title : "Touchpoint Hub Name", type: "BoldText", width: 80, align: "center" },
+	   		        { name: "name", title : "Touchpoint Hub Name", type: "BoldText", width: 90, align: "center" },
 	   		     	{ name: "typeName", title : "Touchpoint Hub Type", type: "text", align: "center" },
-	   		     	{ name: "firstPartyData", title : "First-party Data", type: "CheckBoxIcon", width: 45, align: "center" },
-	   		     	{ name: "collectDirectly", title : "Collect Data Directly", type: "CheckBoxIcon", width: 45, align: "center" },
-	   		     	{ name: "dataSourceUrl", title : "Data Source URL", type: "UrlLink", width: 170, align: "center" },
-	   		     	{ name: "observerModel", title : "Observer Code", type: "LeoDataObserver", width: 70, align: "center"}
+	   		     	{ name: "firstPartyData", title : "First-party Data", type: "CheckBoxIcon", width: 40, align: "center" },
+	   		     	{ name: "collectDirectly", title : "Tracking directly", type: "CheckBoxIcon", width: 40, align: "center" },
+	   		     	{ name: "dataSourceUrl", title : "Touchpoint Hub URL", type: "UrlLink", width: 180, align: "center" },
+	   		     	{ name: "observerModel", title : "Actions", type: "LeoDataObserver", width: 70, align: "center"}
 	   		    ]
 	   		});  
 	   	})

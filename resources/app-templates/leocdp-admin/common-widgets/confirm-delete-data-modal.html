@@ -1,4 +1,5 @@
-<!-- Modal -->
+
+<!-- Modal box for data deletion -->
 <div class="modal fade" id="confirmDeleteDialog" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -7,16 +8,46 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title"> Delete Data Confirmation </h4>
             </div>
-            <div class="modal-body row">
+            <div class="modal-body">
                 <div class="alert alert-danger">
-                    <strong id="deletedInfoMsg">Do you want to delete data ?</strong><br>
-                    <span id="deletedInfoTitle"></span>
+                    <strong id="deletedInfoMsg" style="font-size: 1.1em;" >Do you want to delete ?</strong><br>
+                    <span id="deletedInfoTitle" style="font-size: 1.2em; font-weight: bold; padding-left: 10px;"></span>
                 </div>
                 <input id="delete_callback" type="hidden" name="delete_callback" value="">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" onclick="confirmDeleteDialogOk()"> YES, I CONFIRM </button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal"> NO </button>
+                <button type="button" class="btn btn-danger" onclick="confirmDeleteDialogOk()"> OK, I CONFIRM </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"> CANCEL </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal box for Segment deletion -->
+<div class="modal fade" id="confirmDeleteParentChildDialog" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> Delete Data Confirmation </h4>
+            </div>
+            <div class="modal-body">
+            	<div id="deleteChildItem" class="checkbox" style="display: none;">
+				  	<label style="font-size: 1.2em; font-weight: bold;">
+				  		<input id="deleteChildItemCheckbox" type="checkbox" value="true"> <span id="deleteChildItemMsg"></span> 
+				  	</label>
+				</div>
+                <div class="alert alert-danger">
+                    <strong id="deletedParentInfoMsg" style="font-size: 1.1em;" >Do you want to delete ?</strong><br>
+                    <span id="deletedParentInfoTitle" style="font-size: 1.2em; font-weight: bold; padding-left: 10px;"></span>
+                </div>
+                <input id="delete_parent_callback" type="hidden" name="delete_callback" value="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="confirmDeleteParentDialogOk()"> OK, I CONFIRM </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"> CANCEL </button>
             </div>
         </div>
 
@@ -30,5 +61,12 @@
             window[callback]();
         }
         $('#confirmDeleteDialog').modal('hide');
+    }
+    function confirmDeleteParentDialogOk() {
+        var callback = $('#delete_parent_callback').val();
+        if (typeof window[callback] === 'function') {
+            window[callback]();
+        }
+        $('#confirmDeleteParentChildDialog').modal('hide');
     }
 </script>

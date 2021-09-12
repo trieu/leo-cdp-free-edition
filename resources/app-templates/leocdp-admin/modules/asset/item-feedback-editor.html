@@ -20,6 +20,7 @@
 	#survey_form_editor_wrapper, #embedded_html_form_wrapper {
 		clear: both;
 		display: block;
+		padding-top: 15px;
 	}
 	.modal-body .eventName {
 		font-size:1.5em; color:blue; font-weight: bold;
@@ -78,7 +79,14 @@
                 	<label class="radio-inline"><input type="radio" name="templateType" value="5" > NPS Form </label>
                 </div>
 			</div>
-			 
+			<div class="form-group" >
+                <label> Form Language </label>
+                <div style="margin-left: 20px" >
+                	<label class="radio-inline"><input type="radio" name="surveyLanguage" value="en" checked="checked" > English </label>
+                	<label class="radio-inline"><input type="radio" name="surveyLanguage" value="vn" > Vietnamese </label>
+                </div>
+            </div>
+			
 			<hr>
 			<div>
 				 <div id="feedback_form_url_holder" class="alert alert-info" role="alert" >
@@ -102,8 +110,9 @@
 				 </div>	
 			</div>
 			
+		 
            <div class="form-group editor_wrapper" id="survey_form_editor_wrapper"  >
-                <label> Survey Template </label>
+                <label> Survey Form Template </label>
                 <div id="raw_media_container" style="width: 100%;" >
                      <textarea id="raw_media_html"></textarea>
                 </div>
@@ -238,8 +247,14 @@
                             if (k === 'mediaInfo' && templateType === 0) {
                             	surveyTemplateEditor.setValue(value);
                                 CodeMirrorAutoFormat(surveyTemplateEditor);
-                                surveyTemplateEditor.setSize(null, 500);
-                                $('#embedded_html_form_wrapper').hide()
+                                var surveyEditorHeight = 720;
+                                surveyTemplateEditor.setSize(null, surveyEditorHeight);
+                                $('#embedded_html_form_wrapper').hide();
+                                
+                                var model = JSON.parse(feedbackModel.jsonMetadata);
+                                if(typeof model.Language === "string" ){
+                                	$('input[name="surveyLanguage"][value="'+model.Language+'"]').prop('checked', true);
+                                }
                             } 
                             else if (k === 'headCode' && templateType > 0) {
                             	headHtmlEditor.setValue(value);
@@ -269,13 +284,12 @@
                     if(feedbackModel.qrCodeUrl !== "") {
                     	showPreviewFeedbackFormUrl();
                     	
-                    	var autoSave = function(){
+                    	var autoSaveAction = function(){
                     		if(window.autoSaveFeedbackForm){
                     			window.autoSaveFeedbackForm = false;
                     			saveFeedbackFormData(function(){
-                             		$('#ajaxLoaderDialog').modal('hide');
                              		updateFeedbackFormIframePreview();
-                             	});
+                             	}, false);
                     		}
                     	}
                     	
@@ -283,20 +297,20 @@
                     		headHtmlEditor.on("change",function(){
                         		if(! window.autoSaveFeedbackForm ) {
                         			window.autoSaveFeedbackForm = true;
-                        			setTimeout(autoSave,10000);
+                        			setTimeout(autoSaveAction,8000);
                         		}
                             });
                     		bodyHtmlEditor.on("change",function(){
                         		if(! window.autoSaveFeedbackForm ) {
                         			window.autoSaveFeedbackForm = true;
-                        			setTimeout(autoSave,10000);
+                        			setTimeout(autoSaveAction,8000);
                         		}
                             });
                     	} else {
                     		surveyTemplateEditor.on("change",function(){
                         		if(! window.autoSaveFeedbackForm ) {
                         			window.autoSaveFeedbackForm = true;
-                        			setTimeout(autoSave,10000);
+                        			setTimeout(autoSaveAction,8000);
                         		}
                             });
                     	}
@@ -337,7 +351,7 @@
         }
     }
 
-    function saveFeedbackFormData(callback) {
+    function saveFeedbackFormData(callback, showLoader) {
         if (feedbackModel) {
             feedbackModel.itemId = itemId;
             feedbackModel.groupId = groupId;
@@ -350,7 +364,8 @@
             feedbackModel.title = form.find('input[name="title"]').val().trim();
             feedbackModel.description = form.find('textarea[name="description"]').val();
             feedbackModel.templateType = parseInt(form.find('input:radio[name=templateType]:checked').val());
-            feedbackModel.assetType = 13;
+            feedbackModel.assetType = 13; // template
+            
             if(feedbackModel.templateType > 0) {
             	feedbackModel.headCode = headHtmlEditor.getValue().trim();
                 feedbackModel.bodyCode = bodyHtmlEditor.getValue().trim();
@@ -363,8 +378,10 @@
             
             if(feedbackModel.templateType === 0){
             	// parsing LEO_SURVEY_FORM
-            	var jsonMetadata = JSON.stringify( parseSurveyTemplate(feedbackModel.mediaInfo) );
-                feedbackModel.jsonMetadata = jsonMetadata;
+            	var lang = $('input[name="surveyLanguage"]:checked').val();
+            	var templateData = parseSurveyTemplate(feedbackModel.mediaInfo, lang);
+            	templateData["Language"] = lang;
+                feedbackModel.jsonMetadata = JSON.stringify(templateData);
             } else {
             	// skip parsing EMBEDDED_HTML
             	feedbackModel.jsonMetadata = "{}";
@@ -376,7 +393,7 @@
             	    message: 'The title and template can not be empty !'
             	});
             } else {
-            	if (typeof callback === 'function') {
+            	if (typeof callback === 'function' && showLoader === true) {
             		// the final save
             		$('#ajaxLoaderDialog').modal({
                 		backdrop: 'static',
@@ -410,196 +427,9 @@
             $('#ajaxLoaderDialog').modal('hide'); 
             location.hash = "calljs-leoCdpRouter('Asset_Group_Details','"+feedbackModel.groupId+"')";
         }
-        saveFeedbackFormData(onSaveOk);
+        saveFeedbackFormData(onSaveOk, true);
     }
-    
-    function parseSurveyTemplate(rawSurveyTemplate) {
-		var st = rawSurveyTemplate;
-		var rows = st.split('\n');
-		var currentQuestionGroup = false;
-		var sData = {};
-		for(var i=0; i < rows.length; i++) {  
-			r = rows[i].trim(); 
-			//console.log(r);
 
-			// Header Image
-			if(r.indexOf('[Survey Header Image URL]') >= 0) {
-			 	var d = r.substr('[Survey Header Image URL]'.length).trim()
-			 	sData['Header_Image_URL'] = d;
-			}
-			
-			// Header
-			else if(r.indexOf('[Survey Header]') >= 0) {
-			 	var d = r.substr('[Survey Header]'.length).trim()
-			 	sData['Header'] = d;
-			}
-			
-			// Description
-			else if(r.indexOf('[Survey Description]') >= 0) {
-			 	var d = r.substr('[Survey Description]'.length).trim()
-			 	sData['Description'] = d;
-			}
-			
-			// Group
-			else if(r.indexOf('[Survey Group]') >= 0) {
-				var toks = r.substr('[Survey Group]'.length).trim().split(':');
-				if(toks.length === 2){
-					sData['Group_Label'] = toks[0].trim();
-				 	sData['Group'] = toks[1].trim();
-				}
-				else if(toks.length === 1){
-					sData['Group_Label'] = toks[0].trim();
-				}
-			} 
-			
-			// Group Option
-			else if(r.indexOf('[Survey Group Option]') >= 0) {
-				sData['Group'] = typeof sData['Group'] ===  "string" ? sData['Group'] : "";
-				sData['Group_Options'] = typeof sData['Group_Options'] === "object" ? sData['Group_Options'] : [];
-				sData['Group_Options'].push(r.substr('[Survey Group Option]'.length).trim());
-			}
-			
-			// Time Period
-			else if(r.indexOf('[Survey Time Period]') >= 0) {
-				var toks = r.substr('[Survey Time Period]'.length).trim().split(':');
-				if(toks.length === 2){
-					sData['Time_Period_Label'] = toks[0].trim();
-				 	sData['Time_Period'] = toks[1].trim();
-				}
-			}
-			
-			// Evaluated Object
-			else if(r.indexOf('[Survey Evaluated Object]') >= 0) {
-				sData['Evaluated_Object'] = r.substr('[Survey Evaluated Object]'.length).trim();
-			}
-			// Evaluated Object Input Label
-			else if(r.indexOf('[Survey Evaluated Object Input]') >= 0) {
-				sData['Evaluated_Object_Input_Label'] = r.substr('[Survey Evaluated Object Input]'.length).trim();
-			}
-			// Evaluated Object Object Item
-			else if(r.indexOf('[Survey Evaluated Object Item]') >= 0) {
-				sData['Evaluated_Object_Suggested_Items'] = typeof sData['Evaluated_Object_Suggested_Items'] === "object" ? sData['Evaluated_Object_Suggested_Items'] : [];
-				var item = r.substr('[Survey Evaluated Object Item]'.length).trim();
-				sData['Evaluated_Object_Suggested_Items'].push(item);
-			}
-			
-			
-			// Evaluated Person
-			else if(r.indexOf('[Survey Evaluated Person]') >= 0) {
-				sData['Evaluated_Person'] = r.substr('[Survey Evaluated Person]'.length).trim();
-			}
-			// Evaluated Person Input Label
-			else if(r.indexOf('[Survey Evaluated Person Input]') >= 0) {
-				sData['Evaluated_Person_Input_Label'] = r.substr('[Survey Evaluated Person Input]'.length).trim();
-			}
-			// Evaluated Person Item
-			else if(r.indexOf('[Survey Evaluated Person Item]') >= 0) {
-				sData['Evaluated_Person_Suggested_Items'] = typeof sData['Evaluated_Person_Suggested_Items'] === "object" ? sData['Evaluated_Person_Suggested_Items'] : [];
-				var item = r.substr('[Survey Evaluated Person Item]'.length).trim();
-				sData['Evaluated_Person_Suggested_Items'].push(item);
-			}
-			
-			// Item
-			else if(r.indexOf('[Survey Item]') >= 0) {
-				var toks = r.substr('[Survey Item]'.length).trim().split(':');
-				if(toks.length === 2){
-					sData['Item_Label'] = toks[0].trim();
-				 	sData['Item'] = toks[1].trim();
-				}
-			}
-			
-			// Touchpoint to research (ecommerce website, people or place)
-			else if(r.indexOf('[Touchpoint List]') >= 0) {
-			 	var d = r.substr('[Touchpoint List]'.length).trim();
-			 	sData['Touchpoint_List_Label'] = d;
-			}
-			else if(r.indexOf('[Touchpoint Item]') >= 0) {
-				sData['Touchpoint_List'] = typeof sData['Touchpoint_List'] === "object" ? sData['Touchpoint_List'] : [];
-			 	var toks = r.substr('[Touchpoint Item]'.length).trim().split(':');
-			 	if(toks.length === 2){
-			 		sData['Touchpoint_List'].push(toks[1].trim());
-			 	}
-			}
-			
-			// Guide
-			else if(r.indexOf('[Survey Question Guide]') >= 0) {
-				var d = r.substr('[Survey Question Guide]'.length).trim()
-			 	sData['Question_Guide'] = d;
-			}
-			
-			// Question Group
-			else if(r.indexOf('[Survey Question Group]') >= 0) {
-				sData['Question_List'] = typeof sData['Question_List'] === "object" ? sData['Question_List'] : {};
-				currentQuestionGroup = r.substr('[Survey Question Group]'.length).trim();
-			 	sData['Question_List'][currentQuestionGroup] = [];
-			}
-			
-			// Question
-			else if(r.indexOf('[Survey Question]') >= 0) {
-				if(currentQuestionGroup && typeof sData['Question_List'][currentQuestionGroup] === "object"){
-					var question = r.substr('[Survey Question]'.length).trim();
-					sData['Question_List'][currentQuestionGroup].push(question);	
-				}
-			}
-			
-			// Choices
-			else if(r.indexOf('[Survey Choices]') >= 0) {
-				sData['Choices'] = typeof sData['Choices'] === "object" ? sData['Choices'] : [];
-				var toks = r.substr('[Survey Choices]'.length).trim().split(';');
-			 	if(toks.length >1){
-			 		toks.forEach(function(e){
-			 			if(typeof e === 'string'){
-			 				sData['Choices'].push(e.trim());
-			 			}
-			 		})
-			 	}
-			}
-			
-			// Comment
-			else if(r.indexOf('[Survey Comment]') >= 0) {
-				var d = r.substr('[Survey Comment]'.length).trim()
-			 	sData['Comment_Label'] = d;
-			}
-			
-			// Name
-			else if(r.indexOf('[Profile Name]') >= 0) {
-				var d = r.substr('[Profile Name]'.length).trim()
-			 	sData['Name_Label'] = d;
-			}
-			
-			// Email
-			else if(r.indexOf('[Profile Email]') >= 0) {
-				var d = r.substr('[Profile Email]'.length).trim()
-			 	sData['Email_Label'] = d;
-			}
-			// Phone
-			else if(r.indexOf('[Profile Phone]') >= 0) {
-				var d = r.substr('[Profile Phone]'.length).trim()
-			 	sData['Phone_Label'] = d;
-			}
-			
-			// Ext ID
-			else if(r.indexOf('[Profile Ext ID]') >= 0) {
-				var d = r.substr('[Profile Ext ID]'.length).trim()
-			 	sData['Ext_ID'] = d;
-			}
-			
-			// Footer Image
-			else if(r.indexOf('[Survey Footer Image URL]') >= 0) {
-			 	var d = r.substr('[Survey Footer Image URL]'.length).trim()
-			 	sData['Footer_Image_URL'] = d;
-			}
-			
-			// Footer
-			else if(r.indexOf('[Survey Footer]') >= 0) {
-			 	var d = r.substr('[Survey Footer]'.length).trim()
-			 	sData['Footer'] = d;
-			}
-		}
-		console.log(sData);
-		return sData;
-	}
-    
     function showDialogEmbeddedFeedbackForm(){
 		var idDialog = "dialogEmbeddedFeedbackForm";
 		var iFrameHeight = feedbackModel.templateType === 0 ? 1000 : 350;

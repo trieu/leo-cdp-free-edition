@@ -154,24 +154,23 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@1.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
 	
-	
 	<!-- CodeMirror for HTML Editor -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/codemirror.css" rel="stylesheet" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/codemirror.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/mode/xml/xml.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/mode/css/css.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/mode/javascript/javascript.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/mode/htmlmixed/htmlmixed.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/addon/fold/xml-fold.min.js" ></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/addon/edit/matchbrackets.min.js" ></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/addon/edit/matchtags.min.js" ></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/codemirror.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/codemirror.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/mode/xml/xml.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/mode/css/css.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/mode/javascript/javascript.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/mode/htmlmixed/htmlmixed.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/addon/fold/xml-fold.min.js" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/addon/edit/matchbrackets.min.js" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/addon/edit/matchtags.min.js" ></script>
 	
 	<script src="https://{{baseStaticUrl}}/js/codemirror/codemirror.yaml.js?_={{cacheBustingKey}}"></script>
 	<script src="https://{{baseStaticUrl}}/js/codemirror/codemirror.formatting.js?_={{cacheBustingKey}}"></script>
 
 	<!-- BotUI CSS and JS  -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/botui/0.3.9/botui.min.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/botui/0.3.9/botui-theme-default.css" />
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/botui/0.3.9/botui.min.css" rel="stylesheet" type="text/css" />
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/botui/0.3.9/botui-theme-default.css" rel="stylesheet" type="text/css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/botui/0.3.9/botui.min.js"></script>
 	
@@ -191,7 +190,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/eModal/1.2.69/eModal.min.js" ></script>
 	
 	<!-- Keyword Tag cloud -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.1.2/wordcloud2.min.js" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.2.2/wordcloud2.min.js" ></script>
 	
 	<!-- bootstrap-slider -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/css/bootstrap-slider.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -228,7 +227,7 @@
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////// -->
 	
 	<script src="https://{{baseStaticUrl}}/mediaplayer/mediaplayer.one.min.js?_={{cacheBustingKey}}"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.8.2/mermaid.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.12.0/mermaid.min.js"></script>
 	
 	<!-- after deps are loaded -->
 	<script>
@@ -247,7 +246,7 @@
 		})();
 	</script>
 	
-	<!-- LEO Admin -->
+	<!-- LEO Admin Core -->
 	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leo.admin.common.js?admin=1&_={{cacheBustingKey}}"></script>
 	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.router.js?admin=1&_={{cacheBustingKey}}"></script>
 	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.router.functions.js?admin=1&_={{cacheBustingKey}}"></script>
@@ -263,6 +262,9 @@
 	
 	<!-- segment -->
 	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.segmentation.js?admin=1&_={{cacheBustingKey}}"></script>
+	
+	<!-- feedback survey -->
+	<script src="https://{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.feedback.survey.js?admin=1&_={{cacheBustingKey}}"></script>
 	
 </body>
 

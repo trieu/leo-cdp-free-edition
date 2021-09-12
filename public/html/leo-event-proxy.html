@@ -151,8 +151,16 @@
     		});
     	}
 
+    	var isDev = ROOT_DOMAIN === "demotrack.leocdp.net";
   		var cbKey = "aug16.2021";
+  		
 	   	var leoObserverJsUrl = "https://cdn.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files/js/leo-observer/leo.observer.min.js?cb="+cbKey;
+  		
+  		if(isDev){
+  			// for DEV
+  	    	leoObserverJsUrl = "https://demotrack.leocdp.net/public/js/leo-observer/leo.observer.js?cb="+cbKey;
+  		}
+    	
   		loadScript(leoObserverJsUrl, codeIsReady);
     </script>
 </body>

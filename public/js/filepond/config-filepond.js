@@ -59,7 +59,7 @@ var setupUploaderWidget = function (refObjectClass, refObjectKey, domSelector, c
 		var option = {};
 		if (isImageUploader) {
 			option = {
-				labelIdle: '<span class="filepond--label-action"> Select an image file</span>',
+				labelIdle: '<span class="filepond--label-action"> Select an image file to upload</span>',
 				acceptedFileTypes: ['image/png', 'image/jpeg', 'image/gif'],
 				fileValidateTypeDetectType: (source, type) => new Promise((resolve, reject) => {
 					// Do custom type detection here and return with
@@ -71,7 +71,7 @@ var setupUploaderWidget = function (refObjectClass, refObjectKey, domSelector, c
 			}
 		} else {
 			option = {
-				labelIdle: '<span class="filepond--label-action"> Select a file </span>',
+				labelIdle: '<span class="filepond--label-action"> Select a file to upload</span>',
 				acceptedFileTypes: acceptedFileTypes || ['image/png', 'image/jpeg', 'image/gif','image/tiff',
 					'text/plain', 'text/csv', 'application/pdf', 'application/doc', 'application/docx',
 					'application/pptx', 'application/ppt', 'application/rtf', 'application/xlsx', 'application/xls',

@@ -19,21 +19,22 @@
 		<!-- Top User Menu -->
 		<ul class="nav navbar-right top-nav">
 
-			<li class="dropdown">
+			<li class="dropdown" style="min-width:165px!important;">
 				<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">
 					<i class="fa fa-user"></i> <span id="userDisplayName"></span> <b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
 					<li>
-						<a href="#calljs-leoCdpRouter('My_Login_Info')"> <i class="fa fa-fw fa-user"></i> My Login Info </a> 
+						<a href="#calljs-leoCdpRouter('My_Login_Info')"> <i class="fa fa-user"></i> My Login Info </a> 
 					</li>
-						
 					<li style="display: none;" > <a href="#"> <i class="fa fa-fw fa-envelope"></i> Inbox </a> </li>
-					<li style="display: none;" > <a href="#"> <i class="fa fa-fw fa-gear"></i> Settings </a> </li>
-						
+					<li id="user_menu_system_settings" style="display: none;" >
+						<a id="System_Settings" href="#calljs-leoCdpRouter('System_Settings')" >
+							<i class="fa fa-gear" aria-hidden="true"></i> System Settings </a>
+					</li>
 					<li class="divider"></li>
 					<li>
-						<a href="javascript:LeoAdminApiUtil.logout()"> <i class="fa fa-fw fa-power-off"></i> Log Out</a>
+						<a href="javascript:LeoAdminApiUtil.logout()"> <i class="fa fa-power-off"></i> Log Out </a>
 					</li>
 				</ul>
 			</li>
@@ -116,10 +117,6 @@
 					Customer Data Hub <i id="customer_data_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
 				</a>
 				<ul id="customer_hub_menu" class="collapse in" aria-expanded="true">
-					<li style="display: none" >
-						<a id="Business_Unit_Management" href="#calljs-leoCdpRouter('Business_Unit_Management')">
-							<i class="fa fa-users" aria-hidden="true"></i> Business Account List </a>
-					</li>
 					<li>
 						<a id="Profile_Management" href="#calljs-leoCdpRouter('Profile_Management')" title="All customer profiles" > 
 							<i class="fa fa-fw fa-users"></i> Profile Management </a>
@@ -163,8 +160,8 @@
 							<i class="fa fa-user-plus" aria-hidden="true"></i> Login Management </a>
 					</li>
 					<li style="display: none" >
-						<a id="System_Configuration" href="#calljs-leoCdpRouter('System_Configuration')" >
-							<i class="fa fa-cog" aria-hidden="true"></i> System Configuration </a>
+						<a id="Business_Unit_Management" href="#calljs-leoCdpRouter('Business_Unit_Management')">
+							<i class="fa fa-users" aria-hidden="true"></i> Business Unit Management </a>
 					</li>
 				</ul>
 			</li>
@@ -211,7 +208,8 @@
 	                var systemUser = json.data;
 	                if(systemUser.role > 2){
 	                	// only for admin role and superadmin role 
-	                	$('#nav_system_management').show()
+	                	$('#nav_system_management').show();
+	                	$('#user_menu_system_settings').show();
 	                }
 	                $('#userDisplayName').html(systemUser.displayName);
 	                window.currentUserProfile = systemUser;

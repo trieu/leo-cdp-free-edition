@@ -1,20 +1,26 @@
-# Changelog
+# Changelog for LEO CDP
 
-All notable changes to this Leo CDP project will be documented in this file.
-
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
-
-## [0.8.7.1] - 2021-09-05
+## [0.8.8] - 2021-09-12
 
 ### Added  
 
+- merge Feedback Survey data into Profile data automatically
 - allow start multiple leo-admin in a sample server (multiple hosts)
+- add more survey template tags in Feedback Form Editor and Feedback Form Loader
+- improve FeedbackEvent model for Survey Analytics and Customer Analytics
+- add ProfileAgeGroup to classify profile by age group
+- add gelocation loader in survey form to collect location data of profile
+- add checkbox "Delete all profiles in the segment" in delete segment modal box
+- user can delete all profiles in segment if check on the checkbox "Delete all profiles"
+- add XssFilterUtil to filter all HTML tags and JS tags in FeedbackEvent raw data
 
 ### Fixed
 
 - default UI for content hub leo-cdp
 - fix GeoLocationUtil for Google Cloud Proxy, can not get correct IP
 - the value of collectDirectly in Leo Observer should be checked 
+- CSS width of survey preview is too small , set 1024px as default 
+- fix XSS script hacked into eventData in customer-profile-info.html
 
 ### Changed
 
@@ -24,7 +30,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - rename edge collection from cdp_profile2purchasedproduct to cdp_profile2conversion
 - remove totalEvent, rename totalScore into eventScore in ProfileGraphEdge
 - rename groupIds to assetGroupIds in ProfileGraphEdge
+- System Settings menu is put at the top for Admin Role
 
+---
 
 ## [0.8.7] - 2021-08-27
 
@@ -44,6 +52,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - improve UX of admin dashboard
 - improve UX of asset management, product editor
 
+---
+
 ## [0.8.6] - 2021-08-16
 
 - fix critical issues when direct input profile
@@ -62,6 +72,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - add Personalization Widget and the data API to show recommended items
 - simplify the process to set-up new Leo CDP instance
 
+---
+
 ## [0.8.5] - 2021-07-02
 
 - add Event Data Dashboard
@@ -74,15 +86,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - add Feedback Form Editor
 - update UI System Configuration
 
+---
+
 ## [0.8.3] - 2021-04-06
 
 - CX plugins
+
+---
 
 ## [0.8.2] - 2021-04-04
 
 - CX metrics add for testing
 - CX reporting in profile
 - CX form to collect survey data
+
+---
 
 ## [0.8.1] - 2021-03-26
 
@@ -92,6 +110,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - remove Service Item, use only Product Item to store data of physical goods, digital goods and subscription services
 - Exporting data of profiles in segment using CSV format
 - add 2 fields in profile UI: date of birth and nationality
+
+---
 
 ## [0.7.1] - 2020-09-25
 

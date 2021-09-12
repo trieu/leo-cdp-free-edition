@@ -1,116 +1,8 @@
 [
 	{
-		"_key": "1UnycwJwwliamt1u3deMVk",
-		"_id": "cdp_assettemplate/1UnycwJwwliamt1u3deMVk",
-		"_rev": "_cxE0-Fm---",
-		"activationName": "",
-		"assetType": 13,
-		"bodyCode": "",
-		"categoryIds": [
-			"VDj4XPHaoPBEF19sKxYOk"
-		],
-		"contentClass": "",
-		"createdAt": "2021-08-11T07:46:53.495Z",
-		"creationTime": 1628180975,
-		"customData": {
-			
-		},
-		"description": "",
-		"destroyedTime": 0,
-		"groupIds": [
-			"4jdnBY1d31xGj44dJZxGVs"
-		],
-		"headCode": "",
-		"headlineImageUrl": "",
-		"headlineImages": {
-			
-		},
-		"headlineVideoUrl": "",
-		"isAdItem": false,
-		"jsonMetadata": "{\"Header_Image_URL\":\"https://tuyensinhvnuk.edu.vn/wp-content/uploads/2021/01/cropped-vnuk-symbol-only-official.png\",\"Header\":\"Student Evaluation of Teaching\",\"Description\":\"The Vietnam - UK Research and Training Institute is constantly innovating and improving the quality to better meet the learning needs of the students. Your sincere feedback through this survey will help the Institute to capture information and make timely adjustments, thereby improving the quality of training. Thank you for your contribution.\",\"Group_Label\":\"Your major of study\",\"Group\":\"\",\"Group_Options\":[\"Information Systems\",\"Software Engineering\"],\"Evaluated_Object\":\"Name of course\",\"Evaluated_Object_Input_Label\":\"Enter the name of course\",\"Evaluated_Object_Suggested_Items\":[\"Data Structure\",\"Java Programming\",\"Python  Programming\"],\"Evaluated_Person\":\"The lecturer\",\"Evaluated_Person_Input_Label\":\"Enter the name of lecturer\",\"Evaluated_Person_Suggested_Items\":[\"Nguyen Van C\",\"Tran Thi D\"],\"Question_Guide\":\"Consider the following statements, please click on the button to select a best option\",\"Choices\":[\"[1] Strongly Disagree 😔\",\"[2] Disagree 🙁\",\"[3] Undecided 😐\",\"[4] Agree 🙂\",\"[5] Strongly Agree 😊\"],\"Question_List\":{\"Lecture content\":[\"1: The lecturer was well-prepared\",\"2: The lecturer gave interesting and informative classes\",\"3: The lecturer was good at explaining things\"],\"Teaching style\":[\"1: The lecturer taught at an appropriate pace\",\"2: The lecturer was effective in leading the class\",\"3: The lecturer was receptive to student's questions\"]},\"Comment_Label\":\"Any other comments\",\"Footer_Image_URL\":\"https://tuyensinhvnuk.edu.vn/wp-content/uploads/2021/01/cropped-vnuk-symbol-only-official.png\",\"Footer\":\"THANK YOU\"}",
-		"keywords": [],
-		"mediaInfo": "[Survey Header Image URL] https://tuyensinhvnuk.edu.vn/wp-content/uploads/2021/01/cropped-vnuk-symbol-only-official.png\n[Survey Header] Student Evaluation of Teaching \n[-----------------------------------------------------------------]\n[Survey Description] The Vietnam - UK Research and Training Institute is constantly innovating and improving the quality to better meet the learning needs of the students. Your sincere feedback through this survey will help the Institute to capture information and make timely adjustments, thereby improving the quality of training. Thank you for your contribution.\n[-----------------------------------------------------------------]\n[Survey Group] Your major of study\n[Survey Group Option] Information Systems\n[Survey Group Option] Software Engineering\n[-----------------------------------------------------------------]\n[Survey Evaluated Object] Name of course\n[Survey Evaluated Object Input] Enter the name of course\n[Survey Evaluated Object Item] Data Structure \n[Survey Evaluated Object Item] Java Programming\n[Survey Evaluated Object Item] Python  Programming\n[-----------------------------------------------------------------]\n[Survey Evaluated Person] The lecturer\n[Survey Evaluated Person Input] Enter the name of lecturer\n[Survey Evaluated Person Item] Nguyen Van C\n[Survey Evaluated Person Item] Tran Thi D\n[-----------------------------------------------------------------]\n[-----------------------------------------------------------------]\n[Survey Question Guide] Consider the following statements, please click on the button to select a best option\n[Survey Choices] [1] Strongly Disagree 😔; [2] Disagree 🙁; [3] Undecided 😐; [4] Agree 🙂; [5] Strongly Agree 😊\n[-----------------------------------------------------------------]\n[Survey Question Group] Lecture content\n[Survey Question] 1: The lecturer was well-prepared\n[Survey Question] 2: The lecturer gave interesting and informative classes \n[Survey Question] 3: The lecturer was good at explaining things \n[-----------------------------------------------------------------]\n[Survey Question Group] Teaching style\n[Survey Question] 1: The lecturer taught at an appropriate pace \n[Survey Question] 2: The lecturer was effective in leading the class \n[Survey Question] 3: The lecturer was receptive to student's questions\n[-----------------------------------------------------------------] \n[Survey Comment] Any other comments\n[-----------------------------------------------------------------]\n[Survey Footer Image URL] https://tuyensinhvnuk.edu.vn/wp-content/uploads/2021/01/cropped-vnuk-symbol-only-official.png\n[Survey Footer] THANK YOU",
-		"mediaInfoUnits": [],
-		"modificationTime": 1628668013495,
-		"networkId": 0,
-		"ownerId": "11401825",
-		"privacyStatus": 0,
-		"publishingTime": 0,
-		"qrCodeUrl": "./public/qrcode/asset-template-item-35vnmCwFWhsMj4ianTUkG.png",
-		"rankingScore": 0,
-		"selectorKey": "default",
-		"selectorWeight": 0.3100000023841858,
-		"shortLinkUrl": "",
-		"slug": "1UnycwJwwliamt1u3deMVk-survey-student-evaluation-of-teaching-in-information-systems-and",
-		"status": 0,
-		"systemAsset": false,
-		"targetGeoLocations": [],
-		"targetSegmentIds": [],
-		"targetViewerIds": [],
-		"templateType": 0,
-		"title": "[Survey] Student Evaluation of Teaching in Information Systems and Software Engineering",
-		"topicIds": [],
-		"type": 9,
-		"updatedAt": "2021-08-11T07:46:53.495Z"
-	},
-	{
-		"_key": "48PRrJ1gfmXJcorKPngdN0",
-		"_id": "cdp_assettemplate/48PRrJ1gfmXJcorKPngdN0",
-		"_rev": "_cxE0-G6---",
-		"activationName": "",
-		"assetType": 13,
-		"bodyCode": "",
-		"categoryIds": [
-			"VDj4XPHaoPBEF19sKxYOk"
-		],
-		"contentClass": "",
-		"createdAt": "2021-08-11T07:46:53.519Z",
-		"creationTime": 1628298603,
-		"customData": {
-			
-		},
-		"description": "",
-		"destroyedTime": 0,
-		"groupIds": [
-			"4jdnBY1d31xGj44dJZxGVs"
-		],
-		"headCode": "",
-		"headlineImageUrl": "",
-		"headlineImages": {
-			
-		},
-		"headlineVideoUrl": "",
-		"isAdItem": false,
-		"jsonMetadata": "{\"Header\":\"Khảo sát nhu cầu tính năng LEO CDP\",\"Description\":\"Bảng khảo sát mức độ ưu tiên cho các tính năng của Leo CDP\",\"Group_Label\":\"Thương hiệu\",\"Group\":\"LEO CDP\",\"Item_Label\":\"Sản phẩm\",\"Item\":\"LEO CDP version 1.0\",\"Time_Period_Label\":\"Năm\",\"Time_Period\":\"2021\",\"Name_Label\":\"Tên\",\"Email_Label\":\"Email\",\"Phone_Label\":\"Số điện thoại\",\"Touchpoint_List_Label\":\"Kênh thông tin\",\"Touchpoint_List\":[\"Facebook\",\"Website\",\"YouTube\"],\"Question_Guide\":\"Hãy xem xét các câu sau và nhấp vào một câu trả lời theo ý kiến của bạn\",\"Choices\":[\"[1] Không cần\",\"[2] Không cần thiết\",\"[3] Không ý kiến\",\"[4] Cần thiết\",\"[5] Rất quan trọng\"],\"Question_List\":{\"Core CDP\":[\"1: Hợp nhất tập hợp dữ liệu (Data Unification) từ nhiều kênh truyền thông (social, website, mobile)\",\"2: Phân chia dữ liệu khách hàng theo các tiêu chí (Data Segmentation)\",\"3: Công cụ xây dựng khảo sát khách hàng (Survey Builder)\",\"4: Hệ thống tạo báo cáo tự động (Reporting & Analytics)\"],\"Marketing Automation\":[\"1: Gửi email tự động (Email marketing automation)\",\"2: Gửi thông báo trực tiếp (Push Notification, SMS)\",\"3: Hệ thống gợi ý, cá nhân hoá nội dung (Recommender System)\",\"4: Hệ thống đăng nhập Single sign-on (SSO) cho content platform, CMS\"]},\"Comment_Label\":\"Các góp ý khác theo quan điểm cá nhân của bạn\"}",
-		"keywords": [],
-		"mediaInfo": "[Survey Header] Khảo sát nhu cầu tính năng LEO CDP\n[-----------------------------------------------------------------]\n[Survey Description] Bảng khảo sát mức độ ưu tiên cho các tính năng của Leo CDP\n[-----------------------------------------------------------------]\n[Survey Group] Thương hiệu: LEO CDP\n[-----------------------------------------------------------------]\n[Survey Item] Sản phẩm: LEO CDP version 1.0\n[-----------------------------------------------------------------]\n[Survey Time Period] Năm: 2021\n[-----------------------------------------------------------------]\n[Profile Name] Tên\n[Profile Email] Email\n[Profile Phone] Số điện thoại\n[-----------------------------------------------------------------]\n[Touchpoint] Bạn từ đâu đến\n[Touchpoint List] Kênh thông tin  \n[Touchpoint Item] 1: Facebook\n[Touchpoint Item] 2: Website \n[Touchpoint Item] 3: YouTube\n[-----------------------------------------------------------------]\n[Survey Question Guide] Hãy xem xét các câu sau và nhấp vào một câu trả lời theo ý kiến của bạn\n[Survey Choices]  [1] Không cần; [2] Không cần thiết ; [3] Không ý kiến ; [4] Cần thiết; [5] Rất quan trọng\n[-----------------------------------------------------------------]\n[Survey Question Group] Core CDP \n[Survey Question] 1: Hợp nhất tập hợp dữ liệu (Data Unification) từ nhiều kênh truyền thông (social, website, mobile) \n[Survey Question] 2: Phân chia dữ liệu khách hàng theo các tiêu chí (Data Segmentation) \n[Survey Question] 3: Công cụ xây dựng khảo sát khách hàng (Survey Builder)\n[Survey Question] 4: Hệ thống tạo báo cáo tự động (Reporting & Analytics)\n[-----------------------------------------------------------------]\n[Survey Question Group] Marketing Automation\n[Survey Question] 1: Gửi email tự động (Email marketing automation) \n[Survey Question] 2: Gửi thông báo trực tiếp (Push Notification, SMS) \n[Survey Question] 3: Hệ thống gợi ý, cá nhân hoá nội dung (Recommender System)\n[Survey Question] 4: Hệ thống đăng nhập Single sign-on (SSO) cho content platform, CMS\n[-----------------------------------------------------------------]\n[Survey Comment] Các góp ý khác theo quan điểm cá nhân của bạn",
-		"mediaInfoUnits": [],
-		"modificationTime": 1628668013519,
-		"networkId": 0,
-		"ownerId": "11401825",
-		"privacyStatus": 0,
-		"publishingTime": 0,
-		"qrCodeUrl": "./public/qrcode/asset-template-item-71LlbMzFdImGfPwjTdRwA.png",
-		"rankingScore": 0,
-		"selectorKey": "default",
-		"selectorWeight": 0.3100000023841858,
-		"shortLinkUrl": "",
-		"slug": "48PRrJ1gfmXJcorKPngdN0-survey-leo-cdp-feedback",
-		"status": 0,
-		"systemAsset": false,
-		"targetGeoLocations": [],
-		"targetSegmentIds": [],
-		"targetViewerIds": [],
-		"templateType": 0,
-		"title": "[Survey] LEO CDP Feedback",
-		"topicIds": [],
-		"type": 9,
-		"updatedAt": "2021-08-11T07:46:53.519Z"
-	},
-	{
-		"_key": "3Ff7XyoBdWOzAo4SRx5gA3",
-		"_id": "cdp_assettemplate/3Ff7XyoBdWOzAo4SRx5gA3",
-		"_rev": "_cxE0-IG---",
+		"_key": "7YP7GHpNrqMNkJM1gmyDWq",
+		"_id": "cdp_assettemplate/7YP7GHpNrqMNkJM1gmyDWq",
+		"_rev": "_cyzhNlm---",
 		"activationName": "",
 		"assetType": 13,
 		"bodyCode": "<div id=\"form_survey\" style=\"padding:12px\" >\n  <div>\n    <h4> Bạn cảm thấy thông tin này hữu ích không ? \n    </h4>\n    <div class=\"row-fluid\">\n      <div id=\"all_options\">\n        <span class=\"span3 choice\"> \n          <span class=\"ec ec-rage\"> \n            <input type=\"radio\" name=\"score\" value=\"1\"> \n          </span> \n        </span>\n        <span class=\"span2 choice\"> \n          <span class=\"ec ec-confused\"> \n            <input type=\"radio\" name=\"score\" value=\"2\"> \n          </span>   \n        </span>\n        <span class=\"span2 choice\"> \n          <span class=\"ec ec-neutral-face\"> \n            <input type=\"radio\" name=\"score\" value=\"3\"> \n          </span>  \n        </span>\n        <span class=\"span3 choice\"> \n          <span class=\"ec ec-smile\"> \n            <input type=\"radio\" name=\"score\" value=\"4\"> \n          </span> \n        </span>\n        <span class=\"span2 choice\"> \n          <span class=\"ec ec-heart-eyes\"> \n            <input type=\"radio\" name=\"score\" value=\"5\"> \n          </span>  \n        </span>\n      </div>\n    </div>\n    <br>\n    <div class=\"row-fluid\">\n      <div id=\"emotion_progress\" class=\"progress progress-striped\" >\n        <div class=\"bar bar-danger\" style=\"width: 30%;\">\n        </div>\n        <div class=\"bar bar-warning\" style=\"width: 40%;\">\n        </div>\n        <div class=\"bar bar-success\" style=\"width: 30%;\">\n        </div>\n      </div>\n    </div>\n    <div class=\"row-fluid\">\n      <div class=\"span1\">\n        <span class=\"label label-important text\"> Không hữu ích \n        </span>\n      </div>\n      <div class=\"span1 offset8\">\n        <span class=\"label label-success text\"> Rất hữu ích \n        </span>\n      </div>\n    </div>\n    <br>\n    <br>\n  </div>\n  <div class=\"btn_div\" >\n    <button type=\"submit\" class=\"btn btn-primary\" style=\"font-size: 20px; padding: 10px;\" > Gửi thông tin \n    </button>\n  </div>\n</div>\n<div id=\"success_box\" class=\"alert alert-success\" style=\"display: none\" >\n  Cảm ơn bạn ! Ý kiến của bạn sẽ giúp chúng tôi nâng cao chất lượng thông tin.\n</div>\n<script type=\"text/javascript\">\n  var onclick = function(){\n    $(this).find('input').prop('checked',true);\n    $('#all_options').find('span.selected').removeClass('selected');\n    $(this).addClass('selected');\n  }\n  $('span.ec').click(onclick);\n</script>",
@@ -118,7 +10,7 @@
 			"VDj4XPHaoPBEF19sKxYOk"
 		],
 		"contentClass": "",
-		"createdAt": "2021-08-11T07:46:53.539Z",
+		"createdAt": "2021-08-17T09:59:00.182Z",
 		"creationTime": 1620543630,
 		"customData": {
 			
@@ -126,7 +18,7 @@
 		"description": "",
 		"destroyedTime": 0,
 		"groupIds": [
-			"4TxbSAnrNShCn1LiaFacZu"
+			"4ln8SGD2p9oFtRz0Q90bKn"
 		],
 		"headCode": "<link rel=\"stylesheet\" href=\"https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css\" >\n<link rel='stylesheet' href='https://unpkg.com/emoji.css/dist/emoji.min.css'>\n<link href=\"https://demo.leocdp.net/public//css/leo-cx-plugin.css?_=v_0.20210410-15141621571380111\" rel=\"stylesheet\">",
 		"headlineImageUrl": "",
@@ -139,7 +31,7 @@
 		"keywords": [],
 		"mediaInfo": "_",
 		"mediaInfoUnits": [],
-		"modificationTime": 1628668013539,
+		"modificationTime": 1629194340182,
 		"networkId": 0,
 		"ownerId": "11401825",
 		"privacyStatus": 0,
@@ -149,7 +41,7 @@
 		"selectorKey": "default",
 		"selectorWeight": 0.3100000023841858,
 		"shortLinkUrl": "",
-		"slug": "3Ff7XyoBdWOzAo4SRx5gA3-rating-customer-satisfaction-csat-form-vietnamese",
+		"slug": "7YP7GHpNrqMNkJM1gmyDWq-rating-customer-satisfaction-csat-form-vietnamese",
 		"status": 0,
 		"systemAsset": false,
 		"targetGeoLocations": [],
@@ -159,12 +51,12 @@
 		"title": "[Rating] Customer Satisfaction (CSAT)  form - Vietnamese",
 		"topicIds": [],
 		"type": 9,
-		"updatedAt": "2021-08-11T07:46:53.539Z"
+		"updatedAt": "2021-08-17T09:59:00.182Z"
 	},
 	{
-		"_key": "2xEDZpHkqYEpCKdecRaSWa",
-		"_id": "cdp_assettemplate/2xEDZpHkqYEpCKdecRaSWa",
-		"_rev": "_cxE0-JK---",
+		"_key": "5hiIDqsfvGWJ5WePD4T8i1",
+		"_id": "cdp_assettemplate/5hiIDqsfvGWJ5WePD4T8i1",
+		"_rev": "_cyzhNnK---",
 		"activationName": "",
 		"assetType": 13,
 		"bodyCode": "<div id=\"form_survey\" style=\"padding:12px\" >\n  <p style=\"font-weight:bold\">Khả năng bạn muốn giới thiệu chúng tôi cho bạn bè hoặc đồng nghiệp là bao nhiêu điểm ?\n  </p>\n  <div class=\"row-fluid\">\n    <h4>\n      <span class=\"span1\">\n        <input type=\"radio\" name=\"score\" value=\"0\"> 0\n      </span>\n      <span class=\"span1\">\n        <input type=\"radio\" name=\"score\" value=\"1\"> 1\n      </span>\n      <span class=\"span1\">\n        <input type=\"radio\" name=\"score\" value=\"2\"> 2\n      </span>\n      <span class=\"span1\">\n        <input type=\"radio\" name=\"score\" value=\"3\"> 3\n      </span>\n      <span class=\"span1\">\n        <input type=\"radio\" name=\"score\" value=\"4\"> 4\n      </span>\n      <span class=\"span1\">\n        <input type=\"radio\" name=\"score\" value=\"5\"> 5\n      </span>\n      <span class=\"span1\">\n        <input type=\"radio\" name=\"score\" value=\"6\"> 6\n      </span>\n      <span class=\"span1\">\n        <input type=\"radio\" name=\"score\" value=\"7\"> 7\n      </span>\n      <span class=\"span1\">\n        <input type=\"radio\" name=\"score\" value=\"8\"> 8\n      </span>\n      <span class=\"span1\">\n        <input type=\"radio\" name=\"score\" value=\"9\"> 9\n      </span>\n      <span class=\"span2\">\n        <input type=\"radio\" name=\"score\" value=\"10\"> 10\n      </span>\n    </h4>\n  </div>\n  <br>\n  <div class=\"row-fluid\">\n    <div id=\"emotion_progress\" class=\"progress progress-striped\" >\n      <div class=\"bar bar-danger\" style=\"width: 60%;\">\n      </div>\n      <div class=\"bar bar-warning\" style=\"width: 20%;\">\n      </div>\n      <div class=\"bar bar-success\" style=\"width: 20%;\">\n      </div>\n    </div>\n  </div>\n  <div class=\"row-fluid\">\n    <div class=\"span1\">\n      <span class=\"label label-important text\"> Không bao giờ\n      </span>\n    </div>\n    <div class=\"span1 offset8\">\n      <span class=\"label label-success text\"> Rất sẵn lòng\n      </span>\n    </div>\n  </div>\n  <br>\n  <div class=\"btn_div\" >\n    <button type=\"submit\" class=\"btn btn-primary\" style=\"font-size: 19px;padding: 10px;\"> Gửi thông tin  \n    </button>\n  </div>\n</div>\n<div id=\"success_box\" class=\"alert alert-success\" style=\"display: none\" >\n  Cảm ơn bạn ! Ý kiến của bạn sẽ giúp chúng tôi nâng cao chất lượng thông tin.\n</div>",
@@ -172,7 +64,7 @@
 			"VDj4XPHaoPBEF19sKxYOk"
 		],
 		"contentClass": "",
-		"createdAt": "2021-08-11T07:46:53.558Z",
+		"createdAt": "2021-08-17T09:59:00.204Z",
 		"creationTime": 1621335416,
 		"customData": {
 			
@@ -180,7 +72,7 @@
 		"description": "",
 		"destroyedTime": 0,
 		"groupIds": [
-			"4TxbSAnrNShCn1LiaFacZu"
+			"4ln8SGD2p9oFtRz0Q90bKn"
 		],
 		"headCode": "<link rel=\"stylesheet\" href=\"https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css\" >\n<link href=\"https://demo.leocdp.net/public//css/leo-cx-plugin.css?_=v_0.20210410-15141621571380111\" rel=\"stylesheet\">",
 		"headlineImageUrl": "",
@@ -193,7 +85,7 @@
 		"keywords": [],
 		"mediaInfo": "_",
 		"mediaInfoUnits": [],
-		"modificationTime": 1628668013558,
+		"modificationTime": 1629194340204,
 		"networkId": 0,
 		"ownerId": "11401825",
 		"privacyStatus": 0,
@@ -203,7 +95,7 @@
 		"selectorKey": "default",
 		"selectorWeight": 0.3100000023841858,
 		"shortLinkUrl": "",
-		"slug": "2xEDZpHkqYEpCKdecRaSWa-rating-net-promoter-score-nps-form-vietnamese",
+		"slug": "5hiIDqsfvGWJ5WePD4T8i1-rating-net-promoter-score-nps-form-vietnamese",
 		"status": 0,
 		"systemAsset": false,
 		"targetGeoLocations": [],
@@ -213,12 +105,12 @@
 		"title": "[Rating] Net Promoter Score (NPS) form - Vietnamese",
 		"topicIds": [],
 		"type": 9,
-		"updatedAt": "2021-08-11T07:46:53.558Z"
+		"updatedAt": "2021-08-17T09:59:00.204Z"
 	},
 	{
-		"_key": "3AGqGLj9cEZU432EIV2PUd",
-		"_id": "cdp_assettemplate/3AGqGLj9cEZU432EIV2PUd",
-		"_rev": "_cxE0-KW---",
+		"_key": "4XPGMneVWcFglf8L3b9K14",
+		"_id": "cdp_assettemplate/4XPGMneVWcFglf8L3b9K14",
+		"_rev": "_cyzhNoS---",
 		"activationName": "",
 		"assetType": 13,
 		"bodyCode": "<div id=\"surveyElement\" style=\"display:inline-block;width:100%;\">\n</div>\n<div id=\"surveyResult\">\n</div>\n<script type=\"text/javascript\">\n  Survey.StylesManager.applyTheme(\"bootstrap\");\n  Survey.defaultBootstrapCss.navigationButton = \"btn btn-green\";\n  var json = {\n    \"completedHtml\": \"<h3>Thank you for your feedback.</h3> <h5>Your thoughts and ideas will help us to create a great product!</h5>\",\n    \"completedHtmlOnCondition\": [\n      {\n        \"expression\": \"{nps_score} > 8\",\n        \"html\": \"<h3>Thank you for your feedback.</h3> <h5>We glad that you love our product. Your ideas and suggestions will help us to make our product even better!</h5>\"\n      }\n      ,\n      {\n        \"expression\": \"{nps_score} < 7\",\n        \"html\": \"<h3>Thank you for your feedback.</h3> <h5> We are glad that you share with us your ideas.We highly value all suggestions from our customers. We do our best to improve the product and reach your expectation.</h5><br/>\"\n      }\n    ],\n    \"pages\": [\n      {\n        \"name\": \"page1\",\n        \"elements\": [\n          {\n            \"type\": \"rating\",\n            \"name\": \"nps_score\",\n            \"title\": \"On a scale of zero to ten, how likely are you to recommend our product to a friend or colleague?\",\n            \"isRequired\": true,\n            \"rateMin\": 0,\n            \"rateMax\": 10,\n            \"minRateDescription\": \"(Most unlikely)\",\n            \"maxRateDescription\": \"(Most likely)\"\n          }\n          ,\n          {\n            \"type\": \"checkbox\",\n            \"name\": \"promoter_features\",\n            \"visibleIf\": \"{nps_score} >= 9\",\n            \"title\": \"What features do you value the most?\",\n            \"isRequired\": true,\n            \"validators\": [\n              {\n                \"type\": \"answercount\",\n                \"text\": \"Please select two features maximum.\",\n                \"maxCount\": 2\n              }\n            ],\n            \"hasOther\": true,\n            \"choices\": [\n              \"Performance\",\n              \"Stability\",\n              \"User Interface\",\n              \"Complete Functionality\"\n            ],\n            \"otherText\": \"Other feature:\",\n            \"colCount\": 2\n          }\n          ,\n          {\n            \"type\": \"comment\",\n            \"name\": \"passive_experience\",\n            \"visibleIf\": \"{nps_score} > 6  and {nps_score} < 9\",\n            \"title\": \"What is the primary reason for your score?\"\n          }\n          ,\n          {\n            \"type\": \"comment\",\n            \"name\": \"disappointed_experience\",\n            \"visibleIf\": \"{nps_score} notempty\",\n            \"title\": \"What do you miss and what was disappointing in your experience with us?\"\n          }\n        ]\n      }\n    ],\n    \"showQuestionNumbers\": \"off\"\n  }\n  ;\n  window.survey = new Survey.Model(json);\n  survey.onComplete.add(function(result) {\n    var model = {\n      \"feedbackScore\" : result.data.nps_score };\n    model[\"passive_experience\"] = result.data.passive_experience;\n    model[\"disappointed_experience\"] = result.data.disappointed_experience;\n    submitData(model)\n  }\n                       );\n  $(\"#surveyElement\").Survey({\n    model: survey \n  }\n                            );\n</script>",
@@ -226,7 +118,7 @@
 			"VDj4XPHaoPBEF19sKxYOk"
 		],
 		"contentClass": "",
-		"createdAt": "2021-08-11T07:46:53.575Z",
+		"createdAt": "2021-08-17T09:59:00.229Z",
 		"creationTime": 1621343043,
 		"customData": {
 			
@@ -234,7 +126,7 @@
 		"description": "",
 		"destroyedTime": 0,
 		"groupIds": [
-			"4TxbSAnrNShCn1LiaFacZu"
+			"4ln8SGD2p9oFtRz0Q90bKn"
 		],
 		"headCode": "<script src=\"https://unpkg.com/jquery\">\n</script>\n<script src=\"https://surveyjs.io/DevBuilds/survey-jquery/survey.jquery.min.js\">\n</script>\n<link rel=\"stylesheet\" href=\"https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css\">\n<style type='text/css'>\n  .btn-green {\n    background-color: #1ab394;\n    color: #fff;\n    border-radius: 3px;\n  }\n  .btn-green:hover, .btn-green:focus {\n    background-color: #18a689;\n    color: #fff;\n  }\n  .panel-footer {\n    padding: 0 15px;\n    border:none;\n    text-align: right;\n    background-color: #fff;\n  }\n</style>",
 		"headlineImageUrl": "",
@@ -247,7 +139,7 @@
 		"keywords": [],
 		"mediaInfo": "_",
 		"mediaInfoUnits": [],
-		"modificationTime": 1628668013575,
+		"modificationTime": 1629194340229,
 		"networkId": 0,
 		"ownerId": "11401825",
 		"privacyStatus": 0,
@@ -257,7 +149,7 @@
 		"selectorKey": "default",
 		"selectorWeight": 0.3100000023841858,
 		"shortLinkUrl": "",
-		"slug": "3AGqGLj9cEZU432EIV2PUd-rating-net-promoter-score-nps-form-english",
+		"slug": "4XPGMneVWcFglf8L3b9K14-rating-net-promoter-score-nps-form-english",
 		"status": 0,
 		"systemAsset": false,
 		"targetGeoLocations": [],
@@ -267,12 +159,12 @@
 		"title": "[Rating] Net Promoter Score (NPS) form - English",
 		"topicIds": [],
 		"type": 9,
-		"updatedAt": "2021-08-11T07:46:53.575Z"
+		"updatedAt": "2021-08-17T09:59:00.229Z"
 	},
 	{
-		"_key": "z5ye7m3PNNO6rgZX0V4Yb",
-		"_id": "cdp_assettemplate/z5ye7m3PNNO6rgZX0V4Yb",
-		"_rev": "_cxE0-Lm---",
+		"_key": "4x910o0X31ZZ5AcsSwS57X",
+		"_id": "cdp_assettemplate/4x910o0X31ZZ5AcsSwS57X",
+		"_rev": "_cyzhNpi---",
 		"activationName": "",
 		"assetType": 13,
 		"bodyCode": "<div id=\"form_holder\"  >\n  <button  data-score=\"1\" >   \n    <i class=\"fa fa-thumbs-o-down\">\n    </i>\n    Dislike\n  </button>\n  <button  data-score=\"3\" >\n    <i class=\"fa fa-meh-o\">\n    </i>\n    No Idea  \n  </button>\n  <button data-score=\"5\" >   \n    <i class=\"fa fa-thumbs-o-up\">\n    </i>\n    Like\n  </button>\n</div>\n<!-- JS Code -->\n<script>\n  // load data\n  var loadedScoreCallback = function(score){\n    $('button[data-score=\"'+score+'\"]').addClass('selected');\n  }\n  loadFeedbackScore(loadedScoreCallback);\n  // click\n  var clickHandler = function(){\n    var data = {\n    };\n    data[\"feedbackScore\"] = parseInt($(this).data(\"score\"));\n    submitData(data);\n    $('button').removeClass('selected');\n    $(this).addClass('selected');\n  }\n  $('button').click(clickHandler);\n</script>",
@@ -280,7 +172,7 @@
 			"VDj4XPHaoPBEF19sKxYOk"
 		],
 		"contentClass": "",
-		"createdAt": "2021-08-11T07:46:53.594Z",
+		"createdAt": "2021-08-17T09:59:00.247Z",
 		"creationTime": 1621668583,
 		"customData": {
 			
@@ -288,7 +180,7 @@
 		"description": "",
 		"destroyedTime": 0,
 		"groupIds": [
-			"4TxbSAnrNShCn1LiaFacZu"
+			"4ln8SGD2p9oFtRz0Q90bKn"
 		],
 		"headCode": "<link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>\n<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>\n<style>\n  button {\n    font-size:23px;\n    border-radius: 6px;\n  }\n  button.selected {\n    background-color: #FD4;\n  }\n</style>",
 		"headlineImageUrl": "",
@@ -301,7 +193,7 @@
 		"keywords": [],
 		"mediaInfo": "_",
 		"mediaInfoUnits": [],
-		"modificationTime": 1628668013594,
+		"modificationTime": 1629194340247,
 		"networkId": 0,
 		"ownerId": "11401825",
 		"privacyStatus": 0,
@@ -311,7 +203,7 @@
 		"selectorKey": "default",
 		"selectorWeight": 0.3100000023841858,
 		"shortLinkUrl": "",
-		"slug": "z5ye7m3PNNO6rgZX0V4Yb-rating-customer-effort-score-ces-form-english",
+		"slug": "4x910o0X31ZZ5AcsSwS57X-rating-customer-effort-score-ces-form-english",
 		"status": 0,
 		"systemAsset": false,
 		"targetGeoLocations": [],
@@ -321,12 +213,12 @@
 		"title": "[Rating] Customer Effort Score (CES) form - English",
 		"topicIds": [],
 		"type": 9,
-		"updatedAt": "2021-08-11T07:46:53.594Z"
+		"updatedAt": "2021-08-17T09:59:00.247Z"
 	},
 	{
-		"_key": "1Ro3GmLFX6hwzG31OWxL2g",
-		"_id": "cdp_assettemplate/1Ro3GmLFX6hwzG31OWxL2g",
-		"_rev": "_cxE0-My---",
+		"_key": "munIcNzze8YqHQveKisr3",
+		"_id": "cdp_assettemplate/munIcNzze8YqHQveKisr3",
+		"_rev": "_cyzhNqy---",
 		"activationName": "",
 		"assetType": 13,
 		"bodyCode": "<div class=\"stars\" id=\"rating_holder\" style=\"visibility: hidden;\" >\n  <form action=\"\"> \n    <input class=\"star star-5\" id=\"star-5\" type=\"radio\" name=\"star\" value=\"5\" /> \n    <label class=\"star star-5\" for=\"star-5\">\n    </label> \n    <input class=\"star star-4\" id=\"star-4\" type=\"radio\" name=\"star\" value=\"4\" /> \n    <label class=\"star star-4\" for=\"star-4\">\n    </label> \n    <input class=\"star star-3\" id=\"star-3\" type=\"radio\" name=\"star\" value=\"3\" /> \n    <label class=\"star star-3\" for=\"star-3\">\n    </label> \n    <input class=\"star star-2\" id=\"star-2\" type=\"radio\" name=\"star\" value=\"2\" /> \n    <label class=\"star star-2\" for=\"star-2\">\n    </label> \n    <input class=\"star star-1\" id=\"star-1\" type=\"radio\" name=\"star\" value=\"1\" /> \n    <label class=\"star star-1\" for=\"star-1\">\n    </label> \n  </form>\n</div>\n<script>\n  // load data\n  var loadedStarScore = function(score){\n    $('#rating_holder').css(\"visibility\",\"visible\");\n    $('input[name=\"star\"][value=\"'+score+'\"]').prop('checked', true);\n  }\n  loadFeedbackScore(loadedStarScore);\n  // click\n  var clickStarHandler = function(){\n    submitData();\n  }\n  $('input[name=\"star\"]').click(clickStarHandler);\n</script>",
@@ -334,7 +226,7 @@
 			"VDj4XPHaoPBEF19sKxYOk"
 		],
 		"contentClass": "",
-		"createdAt": "2021-08-11T07:46:53.614Z",
+		"createdAt": "2021-08-17T09:59:00.267Z",
 		"creationTime": 1621572121,
 		"customData": {
 			
@@ -342,7 +234,7 @@
 		"description": "",
 		"destroyedTime": 0,
 		"groupIds": [
-			"4TxbSAnrNShCn1LiaFacZu"
+			"4ln8SGD2p9oFtRz0Q90bKn"
 		],
 		"headCode": "<link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>\n<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>\n<style>\n  body {\n    background-color: #eee\n  }\n  div.stars {\n    width: 270px;\n    display: inline-block\n  }\n  .mt-200 {\n    margin-top: 200px\n  }\n  input.star {\n    display: none\n  }\n  label.star {\n    float: right;\n    padding: 10px;\n    font-size: 36px;\n    color: #4A148C;\n    transition: all .2s\n  }\n  input.star:checked~label.star:before {\n    content: '\\f005';\n    color: #FD4;\n    transition: all .25s\n  }\n  input.star-5:checked~label.star:before {\n    color: #FE7;\n    text-shadow: 0 0 20px #952\n  }\n  input.star-1:checked~label.star:before {\n    color: #F62\n  }\n  label.star:hover {\n    transform: rotate(-15deg) scale(1.3)\n  }\n  label.star:before {\n    content: '\\f006';\n    font-family: FontAwesome\n  }\n</style>\n<script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'>\n</script>",
 		"headlineImageUrl": "",
@@ -355,7 +247,7 @@
 		"keywords": [],
 		"mediaInfo": "_",
 		"mediaInfoUnits": [],
-		"modificationTime": 1628668013614,
+		"modificationTime": 1629194340267,
 		"networkId": 0,
 		"ownerId": "11401825",
 		"privacyStatus": 0,
@@ -365,7 +257,7 @@
 		"selectorKey": "default",
 		"selectorWeight": 0.3100000023841858,
 		"shortLinkUrl": "",
-		"slug": "1Ro3GmLFX6hwzG31OWxL2g-rating-customer-feedback-score-cfs-by-star-rating",
+		"slug": "munIcNzze8YqHQveKisr3-rating-customer-feedback-score-cfs-by-star-rating",
 		"status": 0,
 		"systemAsset": false,
 		"targetGeoLocations": [],
@@ -375,28 +267,28 @@
 		"title": "[Rating] Customer Feedback Score (CFS) by Star Rating",
 		"topicIds": [],
 		"type": 9,
-		"updatedAt": "2021-08-11T07:46:53.614Z"
+		"updatedAt": "2021-08-17T09:59:00.267Z"
 	},
 	{
-		"_key": "508ZYheqxJgIDZo0CVZ99I",
-		"_id": "cdp_assettemplate/508ZYheqxJgIDZo0CVZ99I",
-		"_rev": "_cxE2LTO---",
-		"activationName": "",
-		"assetType": 13,
+		"_key": "52oaOC0WTvgjpQoOb1Jhfd",
+		"_id": "cdp_assettemplate/52oaOC0WTvgjpQoOb1Jhfd",
+		"_rev": "_cyzhNwS---",
+		"activationName": "email-thanks",
+		"assetType": 4,
 		"bodyCode": "",
 		"categoryIds": [
-			"VDj4XPHaoPBEF19sKxYOk"
+			"1b73dcMqWi0a0XiIlIIaRm"
 		],
 		"contentClass": "",
-		"createdAt": "2021-08-11T07:46:53.633Z",
-		"creationTime": 1620540175,
+		"createdAt": "2021-08-17T09:59:00.353Z",
+		"creationTime": 1629194340353,
 		"customData": {
 			
 		},
 		"description": "",
 		"destroyedTime": 0,
 		"groupIds": [
-			"4jdnBY1d31xGj44dJZxGVs"
+			"3AtaNXpEA2w5cPtOs8D7Gu"
 		],
 		"headCode": "",
 		"headlineImageUrl": "",
@@ -405,11 +297,227 @@
 		},
 		"headlineVideoUrl": "",
 		"isAdItem": false,
-		"jsonMetadata": "{\"Header_Image_URL\":\"https://tuyensinhvnuk.edu.vn/wp-content/uploads/2021/01/cropped-vnuk-symbol-only-official.png\",\"Header\":\"Student Evaluation of Teaching\",\"Description\":\"The Vietnam - UK Research and Training Institute is constantly innovating and improving the quality to better meet the learning needs of the students. Your sincere feedback through this survey will help the Institute to capture information and make timely adjustments, thereby improving the quality of training. Thank you for your contribution.\",\"Group_Label\":\"Your major of study\",\"Group\":\"\",\"Group_Options\":[\"Computer Science\",\"Data Science\",\"Information Systems\",\"Software Engineering\"],\"Evaluated_Object\":\"Name of course\",\"Evaluated_Object_Input_Label\":\"Enter the name of course\",\"Evaluated_Object_Suggested_Items\":[\"Mathematics\",\"Programming\",\"Statistics\"],\"Evaluated_Person\":\"The lecturer\",\"Evaluated_Person_Input_Label\":\"Enter the name of lecturer\",\"Evaluated_Person_Suggested_Items\":[\"Nguyen van A\",\"Le Thi B\"],\"Question_Guide\":\"Consider the following statements, please click on the button to select a best option\",\"Choices\":[\"[1] Strongly Disagree 😔\",\"[2] Disagree 🙁\",\"[3] Undecided 😐\",\"[4] Agree 🙂\",\"[5] Strongly Agree 😊\"],\"Question_List\":{\"Lecture content\":[\"1: The lecturer was well-prepared\",\"2: The lecturer gave interesting and informative classes\",\"3: The lecturer was good at explaining things\"],\"Teaching style\":[\"1: The lecturer taught at an appropriate pace\",\"2: The lecturer was effective in leading the class\",\"3: The lecturer was receptive to student's questions\"]},\"Comment_Label\":\"Any other comments\",\"Footer_Image_URL\":\"https://tuyensinhvnuk.edu.vn/wp-content/uploads/2021/01/cropped-vnuk-symbol-only-official.png\",\"Footer\":\"THANK YOU\"}",
+		"jsonMetadata": "",
 		"keywords": [],
-		"mediaInfo": "[Survey Header Image URL] https://tuyensinhvnuk.edu.vn/wp-content/uploads/2021/01/cropped-vnuk-symbol-only-official.png\n[Survey Header] Student Evaluation of Teaching \n[-----------------------------------------------------------------]\n[Survey Description] The Vietnam - UK Research and Training Institute is constantly innovating and improving the quality to better meet the learning needs of the students. Your sincere feedback through this survey will help the Institute to capture information and make timely adjustments, thereby improving the quality of training. Thank you for your contribution.\n[-----------------------------------------------------------------]\n[Survey Group] Your major of study\n[Survey Group Option] Computer Science\n[Survey Group Option] Data Science\n[Survey Group Option] Information Systems\n[Survey Group Option] Software Engineering\n[-----------------------------------------------------------------]\n[Survey Evaluated Object] Name of course\n[Survey Evaluated Object Input] Enter the name of course\n[Survey Evaluated Object Item] Mathematics \n[Survey Evaluated Object Item] Programming\n[Survey Evaluated Object Item] Statistics \n[-----------------------------------------------------------------]\n[Survey Evaluated Person] The lecturer\n[Survey Evaluated Person Input] Enter the name of lecturer\n[Survey Evaluated Person Item] Nguyen van A\n[Survey Evaluated Person Item] Le Thi B\n[-----------------------------------------------------------------]\n[-----------------------------------------------------------------]\n[Survey Question Guide] Consider the following statements, please click on the button to select a best option\n[Survey Choices] [1] Strongly Disagree 😔; [2] Disagree 🙁; [3] Undecided 😐; [4] Agree 🙂; [5] Strongly Agree 😊\n[-----------------------------------------------------------------]\n[Survey Question Group] Lecture content\n[Survey Question] 1: The lecturer was well-prepared\n[Survey Question] 2: The lecturer gave interesting and informative classes \n[Survey Question] 3: The lecturer was good at explaining things \n[-----------------------------------------------------------------]\n[Survey Question Group] Teaching style\n[Survey Question] 1: The lecturer taught at an appropriate pace \n[Survey Question] 2: The lecturer was effective in leading the class \n[Survey Question] 3: The lecturer was receptive to student's questions\n[-----------------------------------------------------------------] \n[Survey Comment] Any other comments\n[-----------------------------------------------------------------]\n[Survey Footer Image URL] https://tuyensinhvnuk.edu.vn/wp-content/uploads/2021/01/cropped-vnuk-symbol-only-official.png\n[Survey Footer] THANK YOU",
+		"mediaInfo": "<!doctype html>\n<html>\n  <head>\n    <meta name=\"viewport\" content=\"width=device-width\" />\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n    <title>Product Recommendation Email</title>\n    <style>\n      /* -------------------------------------\n          GLOBAL RESETS\n      ------------------------------------- */\n      \n      /*All the styling goes here*/\n      \n      img {\n        border: none;\n        -ms-interpolation-mode: bicubic;\n        max-width: 100%; \n      }\n\n      body {\n        background-color: #f6f6f6;\n        font-family: sans-serif;\n        -webkit-font-smoothing: antialiased;\n        font-size: 14px;\n        line-height: 1.4;\n        margin: 0;\n        padding: 0;\n        -ms-text-size-adjust: 100%;\n        -webkit-text-size-adjust: 100%; \n      }\n\n      table {\n        border-collapse: separate;\n        mso-table-lspace: 0pt;\n        mso-table-rspace: 0pt;\n        width: 100%; }\n        table td {\n          font-family: sans-serif;\n          font-size: 14px;\n          vertical-align: top; \n      }\n\n      /* -------------------------------------\n          BODY & CONTAINER\n      ------------------------------------- */\n\n      .body {\n        background-color: #f6f6f6;\n        width: 100%; \n      }\n\n      /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */\n      .container {\n        display: block;\n        margin: 0 auto !important;\n        /* makes it centered */\n        max-width: 580px;\n        padding: 10px;\n        width: 580px; \n      }\n\n      /* This should also be a block element, so that it will fill 100% of the .container */\n      .content {\n        box-sizing: border-box;\n        display: block;\n        margin: 0 auto;\n        max-width: 580px;\n        padding: 10px; \n      }\n\n      /* -------------------------------------\n          HEADER, FOOTER, MAIN\n      ------------------------------------- */\n      .main {\n        background: #ffffff;\n        border-radius: 3px;\n        width: 100%; \n      }\n\n      .wrapper {\n        box-sizing: border-box;\n        padding: 20px; \n      }\n\n      .content-block {\n        padding-bottom: 10px;\n        padding-top: 10px;\n      }\n\n      .footer {\n        clear: both;\n        margin-top: 10px;\n        text-align: center;\n        width: 100%; \n      }\n        .footer td,\n        .footer p,\n        .footer span,\n        .footer a {\n          color: #999999;\n          font-size: 12px;\n          text-align: center; \n      }\n\n      /* -------------------------------------\n          TYPOGRAPHY\n      ------------------------------------- */\n      h1,\n      h2,\n      h3,\n      h4 {\n        color: #000000;\n        font-family: sans-serif;\n        font-weight: 400;\n        line-height: 1.4;\n        margin: 0;\n        margin-bottom: 30px; \n      }\n\n      h1 {\n        font-size: 35px;\n        font-weight: 300;\n        text-align: center;\n        text-transform: capitalize; \n      }\n\n      p,\n      ul,\n      ol {\n        font-family: sans-serif;\n        font-size: 14px;\n        font-weight: normal;\n        margin: 0;\n        margin-bottom: 15px; \n      }\n        p li,\n        ul li,\n        ol li {\n          list-style-position: inside;\n          margin-left: 5px; \n      }\n\n      a {\n        color: #3498db;\n        text-decoration: underline; \n      }\n\n      /* -------------------------------------\n          BUTTONS\n      ------------------------------------- */\n      .btn {\n        box-sizing: border-box;\n        width: 100%; }\n        .btn > tbody > tr > td {\n          padding-bottom: 15px; }\n        .btn table {\n          width: auto; \n      }\n        .btn table td {\n          background-color: #ffffff;\n          border-radius: 5px;\n          text-align: center; \n      }\n        .btn a {\n          background-color: #ffffff;\n          border: solid 1px #3498db;\n          border-radius: 5px;\n          box-sizing: border-box;\n          color: #3498db;\n          cursor: pointer;\n          display: inline-block;\n          font-size: 14px;\n          font-weight: bold;\n          margin: 0;\n          padding: 12px 25px;\n          text-decoration: none;\n          text-transform: capitalize; \n      }\n\n      .btn-primary table td {\n        background-color: #3498db; \n      }\n\n      .btn-primary a {\n        background-color: #3498db;\n        border-color: #3498db;\n        color: #ffffff; \n      }\n\n      /* -------------------------------------\n          OTHER STYLES THAT MIGHT BE USEFUL\n      ------------------------------------- */\n      .last {\n        margin-bottom: 0; \n      }\n\n      .first {\n        margin-top: 0; \n      }\n\n      .align-center {\n        text-align: center; \n      }\n\n      .align-right {\n        text-align: right; \n      }\n\n      .align-left {\n        text-align: left; \n      }\n\n      .clear {\n        clear: both; \n      }\n\n      .mt0 {\n        margin-top: 0; \n      }\n\n      .mb0 {\n        margin-bottom: 0; \n      }\n\n      .preheader {\n        color: transparent;\n        display: none;\n        height: 0;\n        max-height: 0;\n        max-width: 0;\n        opacity: 0;\n        overflow: hidden;\n        mso-hide: all;\n        visibility: hidden;\n        width: 0; \n      }\n\n      .powered-by a {\n        text-decoration: none; \n      }\n\n      hr {\n        border: 0;\n        border-bottom: 1px solid #f6f6f6;\n        margin: 20px 0; \n      }\n\n      /* -------------------------------------\n          RESPONSIVE AND MOBILE FRIENDLY STYLES\n      ------------------------------------- */\n      @media only screen and (max-width: 620px) {\n        table[class=body] h1 {\n          font-size: 28px !important;\n          margin-bottom: 10px !important; \n        }\n        table[class=body] p,\n        table[class=body] ul,\n        table[class=body] ol,\n        table[class=body] td,\n        table[class=body] span,\n        table[class=body] a {\n          font-size: 16px !important; \n        }\n        table[class=body] .wrapper,\n        table[class=body] .article {\n          padding: 10px !important; \n        }\n        table[class=body] .content {\n          padding: 0 !important; \n        }\n        table[class=body] .container {\n          padding: 0 !important;\n          width: 100% !important; \n        }\n        table[class=body] .main {\n          border-left-width: 0 !important;\n          border-radius: 0 !important;\n          border-right-width: 0 !important; \n        }\n        table[class=body] .btn table {\n          width: 100% !important; \n        }\n        table[class=body] .btn a {\n          width: 100% !important; \n        }\n        table[class=body] .img-responsive {\n          height: auto !important;\n          max-width: 100% !important;\n          width: auto !important; \n        }\n      }\n\n      /* -------------------------------------\n          PRESERVE THESE STYLES IN THE HEAD\n      ------------------------------------- */\n      @media all {\n        .ExternalClass {\n          width: 100%; \n        }\n        .ExternalClass,\n        .ExternalClass p,\n        .ExternalClass span,\n        .ExternalClass font,\n        .ExternalClass td,\n        .ExternalClass div {\n          line-height: 100%; \n        }\n        .apple-link a {\n          color: inherit !important;\n          font-family: inherit !important;\n          font-size: inherit !important;\n          font-weight: inherit !important;\n          line-height: inherit !important;\n          text-decoration: none !important; \n        }\n        #MessageViewBody a {\n          color: inherit;\n          text-decoration: none;\n          font-size: inherit;\n          font-family: inherit;\n          font-weight: inherit;\n          line-height: inherit;\n        }\n        .btn-primary table td:hover {\n          background-color: #34495e !important; \n        }\n        .btn-primary a:hover {\n          background-color: #34495e !important;\n          border-color: #34495e !important; \n        } \n      }\n\n    </style>\n  </head>\n  <body class=\"\">\n    <span class=\"preheader\">This is preheader text. Some clients will show this text as a preview.</span>\n    <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"body\">\n      <tr>\n        <td>&nbsp;</td>\n        <td class=\"container\">\n          <div class=\"content\">\n\n            <!-- START CENTERED WHITE CONTAINER -->\n            <table role=\"presentation\" class=\"main\">\n\n              <!-- START MAIN CONTENT AREA -->\n              <tr>\n                <td class=\"wrapper\">\n                  <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n                    <tr>\n                      <td>\n                        <p>Hi {{profile.firstName}},</p>\n                        <p> Many thanks for submitting the customer research form ! \n                        We will use your personal information carefully to improve our customer service and product recommendation. </p>\n                        <p>Thank you.</p>\n                      </td>\n                    </tr>\n                  </table>\n                </td>\n              </tr>\n\n            <!-- END MAIN CONTENT AREA -->\n            </table>\n            <!-- END CENTERED WHITE CONTAINER -->\n\n            <!-- START FOOTER -->\n            <div class=\"footer\">\n              <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n                <tr>\n                  <td class=\"content-block\">\n                    <span class=\"apple-link\"> Your company address </span>\n                    <br> Don't like these emails? <a href=\"http://i.imgur.com/CScmqnj.gif\">Unsubscribe</a>.\n                  </td>\n                </tr>\n                <tr>\n                  <td class=\"content-block powered-by\">\n                    Powered by <a href=\"https://leocdp.net\">LEO CDP</a>.\n                  </td>\n                </tr>\n              </table>\n            </div>\n            <!-- END FOOTER -->\n\n          </div>\n        </td>\n        <td>&nbsp;</td>\n      </tr>\n    </table>\n  </body>\n</html>",
 		"mediaInfoUnits": [],
-		"modificationTime": 1628668158112,
+		"modificationTime": 1629194340353,
+		"networkId": 0,
+		"ownerId": "542",
+		"privacyStatus": 0,
+		"publishingTime": 0,
+		"qrCodeUrl": "",
+		"rankingScore": 0,
+		"selectorKey": "default",
+		"selectorWeight": 0.3100000023841858,
+		"shortLinkUrl": "",
+		"slug": "52oaOC0WTvgjpQoOb1Jhfd-email-template-thank-you-for-your-information",
+		"status": 0,
+		"systemAsset": true,
+		"targetGeoLocations": [],
+		"targetSegmentIds": [],
+		"targetViewerIds": [],
+		"templateType": 0,
+		"title": "Email Template - Thank you for your information",
+		"topicIds": [],
+		"type": 9,
+		"updatedAt": "2021-08-17T09:59:00.353Z"
+	},
+	{
+		"_key": "3cUG5TmV23GVyi9L8WeIbb",
+		"_id": "cdp_assettemplate/3cUG5TmV23GVyi9L8WeIbb",
+		"_rev": "_cyzhNxu---",
+		"activationName": "email-product-recommendation",
+		"assetType": 4,
+		"bodyCode": "",
+		"categoryIds": [
+			"1b73dcMqWi0a0XiIlIIaRm"
+		],
+		"contentClass": "",
+		"createdAt": "2021-08-17T09:59:00.377Z",
+		"creationTime": 1629194340377,
+		"customData": {
+			
+		},
+		"description": "",
+		"destroyedTime": 0,
+		"groupIds": [
+			"3AtaNXpEA2w5cPtOs8D7Gu"
+		],
+		"headCode": "",
+		"headlineImageUrl": "",
+		"headlineImages": {
+			
+		},
+		"headlineVideoUrl": "",
+		"isAdItem": false,
+		"jsonMetadata": "",
+		"keywords": [],
+		"mediaInfo": "<!doctype html>\n<html>\n  <head>\n    <meta name=\"viewport\" content=\"width=device-width\" />\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n    <title>Product Recommendation Email</title>\n    <style>\n      /* -------------------------------------\n          GLOBAL RESETS\n      ------------------------------------- */\n      \n      /*All the styling goes here*/\n      \n      img {\n        border: none;\n        -ms-interpolation-mode: bicubic;\n        max-width: 100%; \n      }\n\n      body {\n        background-color: #f6f6f6;\n        font-family: sans-serif;\n        -webkit-font-smoothing: antialiased;\n        font-size: 14px;\n        line-height: 1.4;\n        margin: 0;\n        padding: 0;\n        -ms-text-size-adjust: 100%;\n        -webkit-text-size-adjust: 100%; \n      }\n\n      table {\n        border-collapse: separate;\n        mso-table-lspace: 0pt;\n        mso-table-rspace: 0pt;\n        width: 100%; }\n        table td {\n          font-family: sans-serif;\n          font-size: 14px;\n          vertical-align: top; \n      }\n\n      /* -------------------------------------\n          BODY & CONTAINER\n      ------------------------------------- */\n\n      .body {\n        background-color: #f6f6f6;\n        width: 100%; \n      }\n\n      /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */\n      .container {\n        display: block;\n        margin: 0 auto !important;\n        /* makes it centered */\n        max-width: 580px;\n        padding: 10px;\n        width: 580px; \n      }\n\n      /* This should also be a block element, so that it will fill 100% of the .container */\n      .content {\n        box-sizing: border-box;\n        display: block;\n        margin: 0 auto;\n        max-width: 580px;\n        padding: 10px; \n      }\n\n      /* -------------------------------------\n          HEADER, FOOTER, MAIN\n      ------------------------------------- */\n      .main {\n        background: #ffffff;\n        border-radius: 3px;\n        width: 100%; \n      }\n\n      .wrapper {\n        box-sizing: border-box;\n        padding: 20px; \n      }\n\n      .content-block {\n        padding-bottom: 10px;\n        padding-top: 10px;\n      }\n\n      .footer {\n        clear: both;\n        margin-top: 10px;\n        text-align: center;\n        width: 100%; \n      }\n        .footer td,\n        .footer p,\n        .footer span,\n        .footer a {\n          color: #999999;\n          font-size: 12px;\n          text-align: center; \n      }\n\n      /* -------------------------------------\n          TYPOGRAPHY\n      ------------------------------------- */\n      h1,\n      h2,\n      h3,\n      h4 {\n        color: #000000;\n        font-family: sans-serif;\n        font-weight: 400;\n        line-height: 1.4;\n        margin: 0;\n        margin-bottom: 30px; \n      }\n\n      h1 {\n        font-size: 35px;\n        font-weight: 300;\n        text-align: center;\n        text-transform: capitalize; \n      }\n\n      p,\n      ul,\n      ol {\n        font-family: sans-serif;\n        font-size: 14px;\n        font-weight: normal;\n        margin: 0;\n        margin-bottom: 15px; \n      }\n        p li,\n        ul li,\n        ol li {\n          list-style-position: inside;\n          margin-left: 5px; \n      }\n\n      a {\n        color: #3498db;\n        text-decoration: underline; \n      }\n\n      /* -------------------------------------\n          BUTTONS\n      ------------------------------------- */\n      .btn {\n        box-sizing: border-box;\n        width: 100%; }\n        .btn > tbody > tr > td {\n          padding-bottom: 15px; }\n        .btn table {\n          width: auto; \n      }\n        .btn table td {\n          background-color: #ffffff;\n          border-radius: 5px;\n          text-align: center; \n      }\n        .btn a {\n          background-color: #ffffff;\n          border: solid 1px #3498db;\n          border-radius: 5px;\n          box-sizing: border-box;\n          color: #3498db;\n          cursor: pointer;\n          display: inline-block;\n          font-size: 14px;\n          font-weight: bold;\n          margin: 0;\n          padding: 12px 25px;\n          text-decoration: none;\n          text-transform: capitalize; \n      }\n\n      .btn-primary table td {\n        background-color: #3498db; \n      }\n\n      .btn-primary a {\n        background-color: #3498db;\n        border-color: #3498db;\n        color: #ffffff; \n      }\n\n      /* -------------------------------------\n          OTHER STYLES THAT MIGHT BE USEFUL\n      ------------------------------------- */\n      .last {\n        margin-bottom: 0; \n      }\n\n      .first {\n        margin-top: 0; \n      }\n\n      .align-center {\n        text-align: center; \n      }\n\n      .align-right {\n        text-align: right; \n      }\n\n      .align-left {\n        text-align: left; \n      }\n\n      .clear {\n        clear: both; \n      }\n\n      .mt0 {\n        margin-top: 0; \n      }\n\n      .mb0 {\n        margin-bottom: 0; \n      }\n\n      .preheader {\n        color: transparent;\n        display: none;\n        height: 0;\n        max-height: 0;\n        max-width: 0;\n        opacity: 0;\n        overflow: hidden;\n        mso-hide: all;\n        visibility: hidden;\n        width: 0; \n      }\n\n      .powered-by a {\n        text-decoration: none; \n      }\n\n      hr {\n        border: 0;\n        border-bottom: 1px solid #f6f6f6;\n        margin: 20px 0; \n      }\n\n      /* -------------------------------------\n          RESPONSIVE AND MOBILE FRIENDLY STYLES\n      ------------------------------------- */\n      @media only screen and (max-width: 620px) {\n        table[class=body] h1 {\n          font-size: 28px !important;\n          margin-bottom: 10px !important; \n        }\n        table[class=body] p,\n        table[class=body] ul,\n        table[class=body] ol,\n        table[class=body] td,\n        table[class=body] span,\n        table[class=body] a {\n          font-size: 16px !important; \n        }\n        table[class=body] .wrapper,\n        table[class=body] .article {\n          padding: 10px !important; \n        }\n        table[class=body] .content {\n          padding: 0 !important; \n        }\n        table[class=body] .container {\n          padding: 0 !important;\n          width: 100% !important; \n        }\n        table[class=body] .main {\n          border-left-width: 0 !important;\n          border-radius: 0 !important;\n          border-right-width: 0 !important; \n        }\n        table[class=body] .btn table {\n          width: 100% !important; \n        }\n        table[class=body] .btn a {\n          width: 100% !important; \n        }\n        table[class=body] .img-responsive {\n          height: auto !important;\n          max-width: 100% !important;\n          width: auto !important; \n        }\n      }\n\n      /* -------------------------------------\n          PRESERVE THESE STYLES IN THE HEAD\n      ------------------------------------- */\n      @media all {\n        .ExternalClass {\n          width: 100%; \n        }\n        .ExternalClass,\n        .ExternalClass p,\n        .ExternalClass span,\n        .ExternalClass font,\n        .ExternalClass td,\n        .ExternalClass div {\n          line-height: 100%; \n        }\n        .apple-link a {\n          color: inherit !important;\n          font-family: inherit !important;\n          font-size: inherit !important;\n          font-weight: inherit !important;\n          line-height: inherit !important;\n          text-decoration: none !important; \n        }\n        #MessageViewBody a {\n          color: inherit;\n          text-decoration: none;\n          font-size: inherit;\n          font-family: inherit;\n          font-weight: inherit;\n          line-height: inherit;\n        }\n        .btn-primary table td:hover {\n          background-color: #34495e !important; \n        }\n        .btn-primary a:hover {\n          background-color: #34495e !important;\n          border-color: #34495e !important; \n        } \n      }\n\n    </style>\n  </head>\n  <body class=\"\">\n    <span class=\"preheader\">This is preheader text. Some clients will show this text as a preview.</span>\n    <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"body\">\n      <tr>\n        <td>&nbsp;</td>\n        <td class=\"container\">\n          <div class=\"content\">\n\n            <!-- START CENTERED WHITE CONTAINER -->\n            <table role=\"presentation\" class=\"main\">\n\n              <!-- START MAIN CONTENT AREA -->\n              <tr>\n                <td class=\"wrapper\">\n                  <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n                    <tr>\n                      <td>\n                        <p>Hi {{profile.firstName}},</p>\n                        <p> We think you may like this product: </p>\n                        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"btn btn-primary\">\n                          <tbody>\n                            <tr>\n                              <td align=\"left\">\n                              \t{{#if targetMediaUnit}}\n                              \t\t<h3>  {{targetMediaUnit.landingPageName}} </h3>\n                              \t\t<img src=\"{{targetMediaUnit.imageUrl}}\" alt=\"Product Image\" />\n\t                                <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n\t                                  <tbody>\n\t                                    <tr>\n\t                                      <td> <a href=\"{{targetMediaUnit.trackingLinkUrl}}\" target=\"_blank\"> See it now </a> </td>\n\t                                    </tr>\n\t                                  </tbody>\n\t                                </table>\n                                 {{/if}}\n                              </td>\n                            </tr>\n                          </tbody>\n                        </table>\n                        <p>This is a demo email from LEO CDP</p>\n                        <p>Thank you.</p>\n                      </td>\n                    </tr>\n                  </table>\n                </td>\n              </tr>\n\n            <!-- END MAIN CONTENT AREA -->\n            </table>\n            <!-- END CENTERED WHITE CONTAINER -->\n\n            <!-- START FOOTER -->\n            <div class=\"footer\">\n              <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n                <tr>\n                  <td class=\"content-block\">\n                    <span class=\"apple-link\"> Your company address </span>\n                    <br> Don't like these emails? <a href=\"http://i.imgur.com/CScmqnj.gif\">Unsubscribe</a>.\n                  </td>\n                </tr>\n                <tr>\n                  <td class=\"content-block powered-by\">\n                    Powered by <a href=\"https://leocdp.net\">LEO CDP</a>.\n                  </td>\n                </tr>\n              </table>\n            </div>\n            <!-- END FOOTER -->\n\n          </div>\n        </td>\n        <td>&nbsp;</td>\n      </tr>\n    </table>\n  </body>\n</html>",
+		"mediaInfoUnits": [],
+		"modificationTime": 1629194340377,
+		"networkId": 0,
+		"ownerId": "542",
+		"privacyStatus": 0,
+		"publishingTime": 0,
+		"qrCodeUrl": "",
+		"rankingScore": 0,
+		"selectorKey": "default",
+		"selectorWeight": 0.3100000023841858,
+		"shortLinkUrl": "",
+		"slug": "3cUG5TmV23GVyi9L8WeIbb-email-template-product-recommendation",
+		"status": 0,
+		"systemAsset": true,
+		"targetGeoLocations": [],
+		"targetSegmentIds": [],
+		"targetViewerIds": [],
+		"templateType": 0,
+		"title": "Email Template - Product Recommendation",
+		"topicIds": [],
+		"type": 9,
+		"updatedAt": "2021-08-17T09:59:00.377Z"
+	},
+	{
+		"_key": "5B8btNuy3BjL0THsX4buEr",
+		"_id": "cdp_assettemplate/5B8btNuy3BjL0THsX4buEr",
+		"_rev": "_cyzhN1G---",
+		"activationName": "",
+		"assetType": 7,
+		"bodyCode": "",
+		"categoryIds": [
+			"3Anz2znxpv2WT6M66pjymh"
+		],
+		"contentClass": "",
+		"createdAt": "2021-08-17T09:59:00.429Z",
+		"creationTime": 1629194340429,
+		"customData": {
+			
+		},
+		"description": "",
+		"destroyedTime": 0,
+		"groupIds": [
+			"5HtnvafZlOnzQhoyzprL9G"
+		],
+		"headCode": "",
+		"headlineImageUrl": "",
+		"headlineImages": {
+			
+		},
+		"headlineVideoUrl": "",
+		"isAdItem": false,
+		"jsonMetadata": "",
+		"keywords": [],
+		"mediaInfo": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <base href=\"https://demos.onepagelove.com/html/starnight/\" target=\"_blank\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Starnight - A Sexy As Hell Free HTML5/CSS3 Template\n    </title>\n    <!-- Bootstrap -->\n\n    <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css\"\n          integrity=\"sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO\" crossorigin=\"anonymous\">\n    <link rel=\"stylesheet\" href=\"css/flexslider.css\" type=\"text/css\">\n    <link href=\"css/styles.css?v=1.6\" rel=\"stylesheet\">\n    <link href=\"css/queries.css?v=1.6\" rel=\"stylesheet\">\n    <link href=\"css/jquery.fancybox.css\" rel=\"stylesheet\">\n    <!-- Fonts -->\n    <link\n          href=\"https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic\"\n          rel='stylesheet' type='text/css'>\n    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->\n    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->\n    <!--[if lt IE 9]>\n<script src=\"https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js\"></script>\n<script src=\"https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js\"></script>\n<![endif]-->\n  </head>\n  <body>\n    <section class=\"navigation\">\n      <div class=\"container-fluid\">\n        <div class=\"row\">\n          <div class=\"col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2\">\n            <nav class=\"pull\">\n              <ul class=\"top-nav\">\n                <li>\n                  <a href=\"#getstarted\">Get Started \n                    <span class=\"indicator\"> \n                      <i class=\"fa fa-angle-right\">\n                      </i>\n                    </span>\n                  </a>\n                </li>\n                <li>\n                  <a href=\"#media\">Media \n                    <span class=\"indicator\"> \n                      <i class=\"fa fa-angle-right\"> \n                      </i>\n                    </span>\n                  </a>\n                </li>\n                <li>\n                  <a href=\"#features\">Features \n                    <span class=\"indicator\"> \n                      <i class=\"fa fa-angle-right\"> \n                      </i>\n                    </span>\n                  </a>\n                </li>\n                <li class=\"nav-last\">\n                  <a href=\"#design\">Design \n                    <span class=\"indicator\"> \n                      <i\n                         class=\"fa fa-angle-right\"> \n                      </i>\n                    </span>\n                  </a>\n                </li>\n              </ul>\n            </nav>\n          </div>\n        </div>\n      </div>\n    </section>\n    <section class=\"hero\" id=\"hero\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-md-12 text-right\">\n            <a href=\"#\"> \n              <i class=\"fa fa-navicon fa-2x nav_slide_button\"> \n              </i>\n            </a>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-8 col-md-offset-2 text-center\">\n            <h1 class=\"animated bounceInDown\">Starnight App\n            </h1>\n            <p class=\"animated fadeInUpDelay\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.\n            </p>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-2 col-md-offset-5 text-center\">\n            <a\n               href=\"https://player.vimeo.com/video/87701971?title=0&amp;byline=0&amp;portrait=0&amp;color=1883ad&amp;autoplay=1\"\n               class=\"hero-play-btn various fancybox.iframe\">Play Button \n            </a>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 col-md-offset-3 text-center\">\n            <a href=\"\" class=\"get-started-btn\">Get Started \n            </a>\n          </div>\n        </div>\n      </div>\n    </section>\n    <section class=\"download-now\" id=\"getstarted\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-md-8 wp1\">\n            <h1>See the sky even better than your own eyes can\n            </h1>\n            <div class=\"embed-responsive embed-responsive-16by9 col-md-11\">\n              <iframe class=\"embed-responsive-item\" src=\"https://www.youtube.com/embed/v64KOxKVLVg\" allowfullscreen> \n              </iframe>\n            </div>\n            <p>Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute\n              irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint\n              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n            </p>\n            <p>Auae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam\n              voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione\n              voluptatem sequi nesciunt.\n            </p>\n            <a href=\"#\" class=\"download-btn\">Download Now \n            </a>\n          </div>\n        </div>\n      </div>\n    </section>\n    <section class=\"testimonials\" id=\"media\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-md-12 text-center\">\n            <div id=\"firstSlider\">\n              <ul class=\"slides\">\n                <li>\n                  <div class=\"avatar\">\n                    <img src=\"img/av-blaz.png\" alt=\"Blaz Robar\">\n                  </div>\n                  <h1>I couldnt possibly use my own eyes to look at the stars, thansk Starnught App.\n                  </h1>\n                </li>\n                <li>\n                  <div class=\"avatar\">\n                    <img src=\"img/av-pete.png\" alt=\"Pete Finlan\">\n                  </div>\n                  <h1>Staring at the stars has given me feels like never before.\n                  </h1>\n                </li>\n                <li>\n                  <div class=\"avatar\">\n                    <img src=\"img/av-doge.png\" alt=\"Doge Finbar\">\n                  </div>\n                  <h1>Much flat, many design, so app. Wow.\n                  </h1>\n                </li>\n              </ul>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n    <section class=\"features\" id=\"features\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-md-6 features-leftcol wp2\">\n            <h1>So Dreamy\n            </h1>\n            <p class=\"margin-bottom\">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n            </p>\n            <h1>Apple Store\n            </h1>\n            <p>Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute\n              irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint\n              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n            </p>\n          </div>\n          <div class=\"col-md-6 features-rightcol wp3\">\n            <h1>More Buzz Words\n            </h1>\n            <p class=\"margin-bottom\">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n            </p>\n            <h1>Extra Startup Juice\n            </h1>\n            <p>Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute\n              irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint\n              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n            </p>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-12 text-center\">\n            <a href=\"#\" class=\"try-btn\">Try Demo \n            </a>\n          </div>\n        </div>\n      </div>\n    </section>\n    <section class=\"design\" id=\"design\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-md-12\">\n            <div id=\"secondSlider\">\n              <ul class=\"slides\">\n                <li>\n                  <div class=\"col-md-4\">\n                    <div class=\"flat-box\">\n                      <div class=\"colourway colour1\">\n                      </div>\n                      <p class=\"title\">Extra Startup Juice\n                      </p>\n                      <p class=\"feature-text\">Added Feature\n                      </p>\n                    </div>\n                  </div>\n                  <div class=\"col-md-4\">\n                    <div class=\"flat-box\">\n                      <div class=\"colourway colour2\">\n                      </div>\n                      <p class=\"title\">So Thirsty\n                      </p>\n                      <p class=\"feature-text\">Extra nice UI comes with the app\n                      </p>\n                    </div>\n                  </div>\n                  <div class=\"col-md-4 design-content\">\n                    <h1>So flat you'll want to give it some shadows\n                    </h1>\n                    <p>Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n                    </p>\n                  </div>\n                </li>\n                <li>\n                  <div class=\"col-md-4\">\n                    <div class=\"flat-box\">\n                      <div class=\"colourway colour3\">\n                      </div>\n                      <p class=\"title\">Extra Startup Juice\n                      </p>\n                      <p class=\"feature-text\">Added Feature\n                      </p>\n                    </div>\n                  </div>\n                  <div class=\"col-md-4\">\n                    <div class=\"flat-box\">\n                      <div class=\"colourway colour4\">\n                      </div>\n                      <p class=\"title\">So Thirsty\n                      </p>\n                      <p class=\"feature-text\">Extra nice UI comes with the app\n                      </p>\n                    </div>\n                  </div>\n                  <div class=\"col-md-4 design-content\">\n                    <h1>So flat you'll want to give it some shadows\n                    </h1>\n                    <p>Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n                    </p>\n                  </div>\n                </li>\n              </ul>\n            </div>\n            <div class=\"col-md-1 col-md-offset-11 text-right controls\">\n              <a href=\"prev\" class=\"prev\"> \n                <i class=\"fa fa-angle-left fa-3x\"> \n                </i>\n              </a> \n              <a href=\"next\" class=\"next\"> \n                <i class=\"fa fa-angle-right fa-3x\"> \n                </i>\n              </a>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n    <footer>\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-md-4\">\n            <p>Nam mi enim, auctor non ultricies a, fringilla eu risus. Praesent vitae lorem et elit tincidunt accumsan\n              suscipit eu libero. Maecenas diam est, venenatis vitae dui in, vestibulum mollis arcu. Donec eu nibh tincidunt,\n              dapibus sem eu, aliquam dolor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus\n              mus. Vestibulum consectetur commodo eros, vitae laoreet lectus aliq\n            </p>\n          </div>\n          <div class=\"col-md-3\">\n            <p>aliquam dolor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n              Vestibulum consectetur commodo eros, vitae laoreet lectus aliq\n            </p>\n          </div>\n          <div class=\"col-md-2 col-md-offset-3\">\n            <ul class=\"footer-nav\">\n              <li>\n                <a href=\"#\">Get Started Tutorial \n                </a>\n              </li>\n              <li>\n                <a href=\"#\">Introduction Video \n                </a>\n              </li>\n              <li>\n                <a href=\"#\">See the Features \n                </a>\n              </li>\n              <li>\n                <a href=\"#\">Download a Trial \n                </a>\n              </li>\n              <li>\n                <a href=\"#\">Get in Touch! \n                </a>\n              </li>\n            </ul>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-12 text-center\">\n            <a href=\"#\" class=\"badge-btn\">Badge Button \n            </a>\n            <p class=\"footer-credit\">\n              Design by \n              <a href=\"http://www.blazrobar.com\">Blaz Robar \n              </a>\n            </p>\n          </div>\n        </div>\n      </div>\n    </footer>\n    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->\n    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js\">\n    </script>\n    <script src=\"js/jquery.fancybox.pack.js\">\n    </script>\n    <!-- Include all compiled plugins (below), or include individual files as needed -->\n    <script src=\"js/bootstrap.min.js\">\n    </script>\n    <script src=\"js/scripts.js?v=1.7\">\n    </script>\n    <script src=\"js/jquery.flexslider.js\">\n    </script>\n    <script src=\"js/jquery.smooth-scroll.js\">\n    </script>\n    <script src=\"js/modernizr.js\">\n    </script>\n    <script src=\"js/waypoints.min.js\">\n    </script>\n  </body>\n</html>\n",
+		"mediaInfoUnits": [],
+		"modificationTime": 1629194340429,
+		"networkId": 0,
+		"ownerId": "542",
+		"privacyStatus": 0,
+		"publishingTime": 0,
+		"qrCodeUrl": "",
+		"rankingScore": 0,
+		"selectorKey": "default",
+		"selectorWeight": 0.3100000023841858,
+		"shortLinkUrl": "",
+		"slug": "5B8btNuy3BjL0THsX4buEr-simple-landing-page",
+		"status": 0,
+		"systemAsset": false,
+		"targetGeoLocations": [],
+		"targetSegmentIds": [],
+		"targetViewerIds": [],
+		"templateType": 0,
+		"title": "Simple landing Page",
+		"topicIds": [],
+		"type": 9,
+		"updatedAt": "2021-08-17T09:59:00.429Z"
+	},
+	{
+		"_key": "5k2zkwoRFOi1TXkOkq3TdO",
+		"_id": "cdp_assettemplate/5k2zkwoRFOi1TXkOkq3TdO",
+		"_rev": "_cyzhN4m---",
+		"activationName": "webpush-product-recommendation",
+		"assetType": 6,
+		"bodyCode": "",
+		"categoryIds": [
+			"7JSKud4W3fw5poJVPPlGtB"
+		],
+		"contentClass": "",
+		"createdAt": "2021-08-17T09:59:00.480Z",
+		"creationTime": 1629194340480,
+		"customData": {
+			
+		},
+		"description": "",
+		"destroyedTime": 0,
+		"groupIds": [
+			"1WAsahhXye6NY3Vl9QMmE0"
+		],
+		"headCode": "",
+		"headlineImageUrl": "",
+		"headlineImages": {
+			
+		},
+		"headlineVideoUrl": "",
+		"isAdItem": false,
+		"jsonMetadata": "",
+		"keywords": [],
+		"mediaInfo": " Hi {{profile.firstName}}, you may like this item {{item.title}} at {{targetMediaUnit.trackingLinkUrl}}",
+		"mediaInfoUnits": [],
+		"modificationTime": 1629194340480,
+		"networkId": 0,
+		"ownerId": "542",
+		"privacyStatus": 0,
+		"publishingTime": 0,
+		"qrCodeUrl": "",
+		"rankingScore": 0,
+		"selectorKey": "default",
+		"selectorWeight": 0.3100000023841858,
+		"shortLinkUrl": "",
+		"slug": "5k2zkwoRFOi1TXkOkq3TdO-web-push-template-for-product-recommendation",
+		"status": 0,
+		"systemAsset": true,
+		"targetGeoLocations": [],
+		"targetSegmentIds": [],
+		"targetViewerIds": [],
+		"templateType": 0,
+		"title": "Web Push template for Product Recommendation",
+		"topicIds": [],
+		"type": 9,
+		"updatedAt": "2021-08-17T09:59:00.480Z"
+	},
+	{
+		"_key": "3CmjTcACvahvmYMFj5SOcH",
+		"_id": "cdp_assettemplate/3CmjTcACvahvmYMFj5SOcH",
+		"_rev": "_c5c4JvO---",
+		"activationName": "",
+		"assetType": 13,
+		"bodyCode": "",
+		"categoryIds": [
+			"VDj4XPHaoPBEF19sKxYOk"
+		],
+		"contentClass": "",
+		"createdAt": "2021-08-17T09:59:00.287Z",
+		"creationTime": 1620540175,
+		"customData": {
+			
+		},
+		"description": "",
+		"destroyedTime": 0,
+		"groupIds": [
+			"4NBTrSbpcLGPjpcA1DKCz2"
+		],
+		"headCode": "",
+		"headlineImageUrl": "",
+		"headlineImages": {
+			
+		},
+		"headlineVideoUrl": "",
+		"isAdItem": false,
+		"jsonMetadata": "{\"Header_Image_URL\":\"https://tuyensinhvnuk.edu.vn/wp-content/uploads/2021/01/cropped-vnuk-symbol-only-official.png\",\"Multiple_Choice_Question_List\":{\"primary-reasons-for-vnuk\":{\"label\":\"Please tell us why you chose this program ?\",\"choices\":[\"Social Media\",\"YouTube\",\"My Friends\",\"My Parents\"]},\"primary-reasons-study-online\":{\"label\":\"Please tell us why you chose study online ?\",\"choices\":[\"Easier\",\"Fast\",\"Simple\",\"On-demand learning\"]}},\"Single_Choice_Question_List\":{\"final-purpose\":{\"label\":\"Please tell us the final purpose after your graduation ?\",\"choices\":[\"To get an job\",\"Money\",\"Impress my friends\",\"For my Parents\"]}},\"Header\":\"Student Evaluation of Online Teaching\",\"Description\":\"The Vietnam - UK Research and Training Institute is constantly innovating and improving the quality to better meet the learning needs of the students. Your sincere feedback through this survey will help the Institute to capture information and make timely adjustments, thereby improving the quality of training. Thank you for your contribution.\",\"Group\":\"major-of-study\",\"Group_Label\":\"Your major of study\",\"Group_Options\":[\"Computer Science\",\"Data Science\",\"Information Systems\",\"Software Engineering\"],\"Decision_Maker_Label\":\"Who is the final decision maker for your enrollment at VNUK ?\",\"Decision_Maker_Options\":[\"Myself\",\"My parents\",\"My friends\",\"my neighbours\"],\"Survey_Original_Source_Label\":\"Which is the first channel that you hear about us ?\",\"Survey_Original_Source_Options\":[\"Website\",\"Facebook\",\"YouTube\",\"Friends\"],\"Survey_Media_Source_Label\":\"Which media channels do you hear about us ?\",\"Survey_Media_Source_Options\":[\"Website\",\"Facebook\",\"YouTube\",\"Friends\"],\"Evaluated_Object\":\"Name of course\",\"Evaluated_Object_Suggested_Items\":[\"Mathematics\",\"Programming\",\"Statistics\"],\"Evaluated_Person\":\"The lecturer\",\"Evaluated_Person_Suggested_Items\":[\"Nguyen van An\",\"Le Thi Van\"],\"Rating_Question_Guide\":\"Consider the following statements, please click on the button to select a best option\",\"Rating_Choices\":[\"[1] Strongly Disagree 😔\",\"[2] Disagree 🙁\",\"[3] Undecided 😐\",\"[4] Agree 🙂\",\"[5] Strongly Agree 😊\"],\"Rating_Question_List\":{\"Lecture content\":[\"1: The lecturer was well-prepared\",\"2: The lecturer gave interesting and informative classes\",\"3: The lecturer was good at explaining things\"],\"Teaching style\":[\"1: The lecturer taught at an appropriate pace\",\"2: The lecturer was effective in leading the class\",\"3: The lecturer was receptive to student's questions\"]},\"Survey_Extra_Question_Guide\":\"Extra questions\",\"Survey_Extra_Text_Questions\":[{\"key\":\"current-courses-for-learning-outcomes\",\"label\":\"1) Do you think the courses in the current Curriculum of the Faculty contribute to the achievement of Program Learning Outcomes? If no, please explain\"},{\"key\":\"new-courses-for-learning-outcomes\",\"label\":\"2) What course do you think the Faculty needs to add to the Curriculum so you can achieve the Learning Outcomes before completing your Training program? Please explain:\"}],\"Comment_Label\":\"3) Any other comments\",\"Footer_Image_URL\":\"https://tuyensinhvnuk.edu.vn/wp-content/uploads/2021/01/cropped-vnuk-symbol-only-official.png\",\"Footer\":\"THANK YOU\",\"Language\":\"en\"}",
+		"keywords": [],
+		"mediaInfo": "[Survey Header Image URL] https://tuyensinhvnuk.edu.vn/wp-content/uploads/2021/01/cropped-vnuk-symbol-only-official.png\n[Survey Header] Student Evaluation of Online Teaching\n[-----------------------------------------------------------------]\n[Survey Description] The Vietnam - UK Research and Training Institute is constantly innovating and improving the quality to better meet the learning needs of the students. Your sincere feedback through this survey will help the Institute to capture information and make timely adjustments, thereby improving the quality of training. Thank you for your contribution.\n[-----------------------------------------------------------------]\n[Survey Group] major-of-study => Your major of study\n[Survey Group Option] Computer Science\n[Survey Group Option] Data Science\n[Survey Group Option] Information Systems\n[Survey Group Option] Software Engineering\n[-----------------------------------------------------------------]\n[Decision Maker Label] Who is the final decision maker for your enrollment at VNUK ?\n[Decision Maker Option] Myself\n[Decision Maker Option] My parents\n[Decision Maker Option] My friends\n[Decision Maker Option] my neighbours\n[-----------------------------------------------------------------]\n[Survey Original Source Label] Which is the first channel that you hear about us ?\n[Survey Original Source Option] Website\n[Survey Original Source Option] Facebook\n[Survey Original Source Option] YouTube\n[Survey Original Source Option] Friends\n[-----------------------------------------------------------------]\n[Survey Media Source Label] Which media channels do you hear about us ?\n[Survey Media Source Option] Website\n[Survey Media Source Option] Facebook\n[Survey Media Source Option] YouTube\n[Survey Media Source Option] Friends\n[-----------------------------------------------------------------]\n[Survey Evaluated Object] Name of course\n[Survey Evaluated Object Option] Mathematics \n[Survey Evaluated Object Option] Programming\n[Survey Evaluated Object Option] Statistics \n[-----------------------------------------------------------------]\n[Survey Evaluated Person] The lecturer\n[Survey Evaluated Person Option] Nguyen van An\n[Survey Evaluated Person Option] Le Thi Van\n[-----------------------------------------------------------------]\n[-----------------------------------------------------------------]\n[Survey Rating Question Guide] Consider the following statements, please click on the button to select a best option\n[Survey Rating Choices] [1] Strongly Disagree 😔; [2] Disagree 🙁; [3] Undecided 😐; [4] Agree 🙂; [5] Strongly Agree 😊\n[-----------------------------------------------------------------]\n[Survey Rating Question Group] Lecture content\n[Survey Rating Question] 1: The lecturer was well-prepared\n[Survey Rating Question] 2: The lecturer gave interesting and informative classes \n[Survey Rating Question] 3: The lecturer was good at explaining things \n[-----------------------------------------------------------------]\n[Survey Rating Question Group] Teaching style\n[Survey Rating Question] 1: The lecturer taught at an appropriate pace \n[Survey Rating Question] 2: The lecturer was effective in leading the class \n[Survey Rating Question] 3: The lecturer was receptive to student's questions\n[-----------------------------------------------------------------] \n[Survey Extra Question Guide] Extra questions\n[-----------------------------------------------------------------]\n[Survey Extra Text Question] current-courses-for-learning-outcomes => 1) Do you think the courses in the current Curriculum of the Faculty contribute to the achievement of Program Learning Outcomes? If no, please explain\n[-----------------------------------------------------------------] \n[Survey Extra Text Question] new-courses-for-learning-outcomes => 2) What course do you think the Faculty needs to add to the Curriculum so you can achieve the Learning Outcomes before completing your Training program? Please explain:\n[-----------------------------------------------------------------] \n[Survey Comment] 3) Any other comments\n[-----------------------------------------------------------------]\n[Survey Multiple Choice Question] primary-reasons-for-vnuk => Please tell us why you chose this program ? \n[Survey Multiple Choice] primary-reasons-for-vnuk => Social Media\n[Survey Multiple Choice] primary-reasons-for-vnuk => YouTube\n[Survey Multiple Choice] primary-reasons-for-vnuk => My Friends\n[Survey Multiple Choice] primary-reasons-for-vnuk => My Parents\n[-----------------------------------------------------------------]\n[Survey Multiple Choice Question] primary-reasons-study-online => Please tell us why you chose study online ? \n[Survey Multiple Choice] primary-reasons-study-online => Easier\n[Survey Multiple Choice] primary-reasons-study-online => Fast\n[Survey Multiple Choice] primary-reasons-study-online => Simple\n[Survey Multiple Choice] primary-reasons-study-online => On-demand learning\n[-----------------------------------------------------------------]\n[Survey Single Choice Question] final-purpose =>  Please tell us the final purpose after your graduation ? \n[Survey Single Choice] final-purpose => To get an job\n[Survey Single Choice] final-purpose => Money\n[Survey Single Choice] final-purpose => Impress my friends\n[Survey Single Choice] final-purpose => For my Parents\n[-----------------------------------------------------------------]\n[Survey Footer Image URL] https://tuyensinhvnuk.edu.vn/wp-content/uploads/2021/01/cropped-vnuk-symbol-only-official.png\n[Survey Footer] THANK YOU",
+		"mediaInfoUnits": [],
+		"modificationTime": 1631203325277,
 		"networkId": 0,
 		"ownerId": "11401825",
 		"privacyStatus": 0,
@@ -419,7 +527,7 @@
 		"selectorKey": "default",
 		"selectorWeight": 0.3100000023841858,
 		"shortLinkUrl": "",
-		"slug": "508ZYheqxJgIDZo0CVZ99I-survey-student-evaluation-of-teaching-form-general-template",
+		"slug": "3CmjTcACvahvmYMFj5SOcH-survey-student-evaluation-of-teaching-form-general-template",
 		"status": 0,
 		"systemAsset": false,
 		"targetGeoLocations": [],
@@ -429,6 +537,114 @@
 		"title": "[Survey] Student Evaluation of Teaching Form - General template",
 		"topicIds": [],
 		"type": 9,
-		"updatedAt": "2021-08-11T07:49:18.112Z"
+		"updatedAt": "2021-09-09T16:02:05.277Z"
+	},
+	{
+		"_key": "1lpdt2WvQSU2ygvlkMe6xE",
+		"_id": "cdp_assettemplate/1lpdt2WvQSU2ygvlkMe6xE",
+		"_rev": "_c5jrXEy---",
+		"activationName": "",
+		"assetType": 13,
+		"bodyCode": "",
+		"categoryIds": [
+			"VDj4XPHaoPBEF19sKxYOk"
+		],
+		"contentClass": "",
+		"createdAt": "2021-08-17T09:59:00.161Z",
+		"creationTime": 1628298603,
+		"customData": {
+			
+		},
+		"description": "",
+		"destroyedTime": 0,
+		"groupIds": [
+			"4NBTrSbpcLGPjpcA1DKCz2"
+		],
+		"headCode": "",
+		"headlineImageUrl": "",
+		"headlineImages": {
+			
+		},
+		"headlineVideoUrl": "",
+		"isAdItem": false,
+		"jsonMetadata": "{\"Header\":\"Khảo sát nhu cầu tính năng LEO CDP\",\"Multiple_Choice_Question_List\":{},\"Single_Choice_Question_List\":{},\"Description\":\"Bảng khảo sát mức độ ưu tiên cho các tính năng của Leo CDP\",\"Group\":\"LEO CDP\",\"Group_Label\":\"LEO CDP\",\"Product_Item_ID\":\"leocdp-version-1.0\",\"Product_Item\":\"Sản phẩm LEO CDP version 1.0\",\"Time_Period\":\"2021\",\"Time_Period_Label\":\"Năm 2021\",\"Profile_Last_Name_Label\":\"Họ của bạn\",\"Profile_First_Name_Label\":\"Tên của bạn\",\"Profile_Gender\":{\"label\":\"Giới tính của bạn\",\"choices\":[\"Female\",\"Male\",\"Unknown\"]},\"Profile_Age_Group\":{\"label\":\"Độ tuổi của bạn\",\"choices\":[\"[18 - 24]\",\"[25 - 34]\",\"[35 - 44]\",\"[45 - 54]\",\"[55 - 64]\",\"[65 - 74]\",\"[75 - 99]\"]},\"Profile_Email_Label\":\"Email\",\"Profile_Phone_Label\":\"Số điện thoại\",\"Profile_Extra_Attributes\":[{\"key\":\"personalProblems\",\"label\":\"Vấn đề bạn muốn LEO CDP giải quyết\",\"inputType\":\"textarea\"},{\"key\":\"workingHistory\",\"label\":\"Bạn đang làm ở công ty nào\",\"inputType\":\"text\"},{\"key\":\"businessIndustries\",\"label\":\"Bạn đang kinh doanh trong lĩnh vực nào\",\"inputType\":\"text\"}],\"Survey_Original_Source_Label\":\"Bạn biết thông tin sản phẩm từ kênh nào ?\",\"Survey_Original_Source_Options\":[\"Facebook\",\"Website\",\"YouTube\"],\"Rating_Question_Guide\":\"Hãy xem xét các câu sau và nhấp vào một câu trả lời theo ý kiến của bạn\",\"Rating_Choices\":[\"[1] Không cần\",\"[2] Không cần thiết\",\"[3] Không ý kiến\",\"[4] Cần thiết\",\"[5] Rất quan trọng\"],\"Rating_Question_List\":{\"Core CDP\":[\"1: Hợp nhất tập hợp dữ liệu (Data Unification) từ nhiều kênh truyền thông (social, website, mobile)\",\"2: Phân chia dữ liệu khách hàng theo các tiêu chí (Data Segmentation)\",\"3: Công cụ xây dựng khảo sát khách hàng (Survey Builder)\",\"4: Hệ thống tạo báo cáo tự động (Reporting & Analytics)\"],\"Marketing Automation\":[\"1: Gửi email tự động (Email marketing automation)\",\"2: Gửi thông báo trực tiếp (Push Notification, SMS)\",\"3: Hệ thống gợi ý, cá nhân hoá nội dung (Recommender System)\",\"4: Hệ thống đăng nhập Single sign-on (SSO) cho content platform, CMS\"]},\"Comment_Label\":\"Các góp ý khác theo quan điểm cá nhân của bạn\",\"Language\":\"vn\"}",
+		"keywords": [],
+		"mediaInfo": "[Survey Header] Khảo sát nhu cầu tính năng LEO CDP\n[-----------------------------------------------------------------]\n[Survey Description] Bảng khảo sát mức độ ưu tiên cho các tính năng của Leo CDP\n[-----------------------------------------------------------------]\n[Survey Group] LEO CDP => LEO CDP\n[-----------------------------------------------------------------]\n[Survey Product Item] leocdp-version-1.0 => Sản phẩm LEO CDP version 1.0\n[-----------------------------------------------------------------]\n[Survey Time Period] 2021 => Năm 2021\n[-----------------------------------------------------------------]\n[Profile Last Name] Họ của bạn \n[Profile First Name] Tên của bạn \n[Profile Gender] Giới tính của bạn \n[Profile Age Group] Độ tuổi của bạn\n[Profile Email] Email\n[Profile Phone] Số điện thoại\n[Profile Extra Attribute] textarea => personalProblems => Vấn đề bạn muốn LEO CDP giải quyết\n[Profile Extra Attribute] workingHistory => Bạn đang làm ở công ty nào \n[Profile Extra Attribute] businessIndustries => Bạn đang kinh doanh trong lĩnh vực nào\n[-----------------------------------------------------------------]\n[Survey Original Source Label] Bạn biết thông tin sản phẩm từ kênh nào ?\n[Survey Original Source Option] Facebook\n[Survey Original Source Option] Website \n[Survey Original Source Option] YouTube\n[-----------------------------------------------------------------]\n[Survey Rating Question Guide] Hãy xem xét các câu sau và nhấp vào một câu trả lời theo ý kiến của bạn\n[Survey Rating Choices]  [1] Không cần; [2] Không cần thiết ; [3] Không ý kiến ; [4] Cần thiết; [5] Rất quan trọng\n[-----------------------------------------------------------------]\n[Survey Rating Question Group] Core CDP \n[Survey Rating Question] 1: Hợp nhất tập hợp dữ liệu (Data Unification) từ nhiều kênh truyền thông (social, website, mobile) \n[Survey Rating Question] 2: Phân chia dữ liệu khách hàng theo các tiêu chí (Data Segmentation) \n[Survey Rating Question] 3: Công cụ xây dựng khảo sát khách hàng (Survey Builder)\n[Survey Rating Question] 4: Hệ thống tạo báo cáo tự động (Reporting & Analytics)\n[-----------------------------------------------------------------]\n[Survey Rating Question Group] Marketing Automation\n[Survey Rating Question] 1: Gửi email tự động (Email marketing automation) \n[Survey Rating Question] 2: Gửi thông báo trực tiếp (Push Notification, SMS) \n[Survey Rating Question] 3: Hệ thống gợi ý, cá nhân hoá nội dung (Recommender System)\n[Survey Rating Question] 4: Hệ thống đăng nhập Single sign-on (SSO) cho content platform, CMS\n[-----------------------------------------------------------------]\n[Survey Comment] Các góp ý khác theo quan điểm cá nhân của bạn",
+		"mediaInfoUnits": [],
+		"modificationTime": 1631271585344,
+		"networkId": 0,
+		"ownerId": "11401825",
+		"privacyStatus": 0,
+		"publishingTime": 0,
+		"qrCodeUrl": "./public/qrcode/asset-template-item-71LlbMzFdImGfPwjTdRwA.png",
+		"rankingScore": 0,
+		"selectorKey": "default",
+		"selectorWeight": 0.3100000023841858,
+		"shortLinkUrl": "",
+		"slug": "1lpdt2WvQSU2ygvlkMe6xE-survey-leo-cdp-feedback",
+		"status": 0,
+		"systemAsset": false,
+		"targetGeoLocations": [],
+		"targetSegmentIds": [],
+		"targetViewerIds": [],
+		"templateType": 0,
+		"title": "[Survey] LEO CDP Feedback",
+		"topicIds": [],
+		"type": 9,
+		"updatedAt": "2021-09-10T10:59:45.344Z"
+	},
+	{
+		"_key": "5nm2NNnrsDb2klqS3WHdBa",
+		"_id": "cdp_assettemplate/5nm2NNnrsDb2klqS3WHdBa",
+		"_rev": "_c7Lz52q---",
+		"activationName": "",
+		"assetType": 13,
+		"bodyCode": "",
+		"categoryIds": [
+			"VDj4XPHaoPBEF19sKxYOk"
+		],
+		"contentClass": "",
+		"createdAt": "2021-09-04T13:54:29.981Z",
+		"creationTime": 1630763669,
+		"customData": {
+			
+		},
+		"description": "",
+		"destroyedTime": 0,
+		"groupIds": [
+			"4NBTrSbpcLGPjpcA1DKCz2"
+		],
+		"headCode": "",
+		"headlineImageUrl": "",
+		"headlineImages": {
+			
+		},
+		"headlineVideoUrl": "",
+		"isAdItem": false,
+		"jsonMetadata": "{\"Header\":\"Khảo sát chất lượng mua hàng Ecommerce\",\"Multiple_Choice_Question_List\":{\"product-features\":{\"label\":\"Những tính năng nào bạn cảm thấy quan trọng ?\",\"choices\":[\"Dễ mang theo người\",\"Thời lượng pin dài (5 tiếng)\",\"Chống nước PLX5\",\"Điều khiển bằng giọng nói\",\"Chế độ không dây kép\",\"Sạc USB C\"]}},\"Single_Choice_Question_List\":{\"product-price\":{\"label\":\"Mức giá sản phẩm theo bạn thì bao nhiêu là hợp lý\",\"choices\":[\"[300,000 - 450,000] VND\",\"[450,000 - 500,000] VND\",\"[500,000 - 600,000] VND\"]}},\"Group\":\"Brand LG\",\"Group_Label\":\"Thương hiệu: LG\",\"Survey_Image_URL\":\"https://cf.shopee.vn/file/b0eee7f0c51d92ef4c2324dc086e4699\",\"Product_Item_ID\":\"LG-XBOOM-Go-PN1\",\"Product_Item\":\"Sản phẩm Loa Bluetooth di động LG XBOOM Go PN1\",\"Time_Period\":\"01-01-2021_31-07-2021\",\"Time_Period_Label\":\"Thời gian từ 01-01-2021 đến 31-07-2021\",\"Profile_Last_Name_Label\":\"Họ của bạn\",\"Profile_First_Name_Label\":\"Tên của bạn\",\"Profile_Gender\":{\"label\":\"Giới tính của bạn\",\"choices\":[\"Female\",\"Male\",\"Unknown\"]},\"Profile_Birth_Date_Label\":\"Ngày sinh\",\"Profile_Email_Label\":\"Email\",\"Profile_Phone_Label\":\"Số điện thoại\",\"Profile_Living_Location_Label\":\"Địa chỉ bảo hành\",\"Profile_Location_Code_Label\":\"Vị trí hiện tại của bạn\",\"Profile_Extra_Attributes\":[{\"key\":\"personalProblems\",\"label\":\"Vấn đề bạn cần từ sản phẩm\",\"inputType\":\"textarea\"}],\"Survey_Original_Source_Label\":\"Bạn đã mua hàng ở đâu\",\"Survey_Original_Source_Options\":[\"Lazada\",\"Tiki\",\"Shoppee\"],\"Rating_Question_Guide\":\"Hãy xem xét các câu sau và nhấp vào một câu trả lời theo ý kiến của bạn\",\"Rating_Choices\":[\"[1] 🙁 Rất không đồng ý\",\"[2] 😑 Không đồng ý\",\"[3] 😐 Không ý kiến\",\"[4] 🙂 Đồng ý\",\"[5] 😀 Rất đồng ý\"],\"Rating_Question_List\":{\"Câu hỏi để khảo sát chất lượng sản phẩm\":[\"1: Sản phẩm chất lượng rất tốt như quảng cáo\",\"2: Chất lượng âm thanh rất tốt\",\"3: Thời lượng pin rất tốt\"]},\"Survey_Extra_Question_Guide\":\"Câu hỏi bổ sung\",\"Survey_Extra_Text_Questions\":[{\"key\":\"why-do-you-like-product\",\"label\":\"Bạn thích gì ở sản phẩm ?\"}],\"Comment_Label\":\"Các góp ý khác cho chúng tôi\",\"Language\":\"vn\"}",
+		"keywords": [],
+		"mediaInfo": "[Survey Header] Khảo sát chất lượng mua hàng Ecommerce\n[-----------------------------------------------------------------]\n[Survey Group] Brand LG => Thương hiệu: LG \n[-----------------------------------------------------------------]\n[Survey Image URL] https://cf.shopee.vn/file/b0eee7f0c51d92ef4c2324dc086e4699\n[Survey Product Item] LG-XBOOM-Go-PN1 => Sản phẩm Loa Bluetooth di động LG XBOOM Go PN1\n[-----------------------------------------------------------------]\n[Survey Time Period] 01-01-2021_31-07-2021 => Thời gian từ 01-01-2021 đến 31-07-2021\n[-----------------------------------------------------------------]\n[Profile Last Name] Họ của bạn \n[Profile First Name] Tên của bạn \n[Profile Gender] Giới tính của bạn \n[Profile Birth Date] Ngày sinh \n[Profile Email] Email\n[Profile Phone] Số điện thoại\n[Profile Living Location] Địa chỉ bảo hành \n[Profile Location Code] Vị trí hiện tại của bạn\n[Profile Extra Attribute] textarea => personalProblems => Vấn đề bạn cần từ sản phẩm\n[-----------------------------------------------------------------]\n[Survey Original Source Label] Bạn đã mua hàng ở đâu\n[Survey Original Source Option] Lazada\n[Survey Original Source Option] Tiki\n[Survey Original Source Option] Shoppee\n[-----------------------------------------------------------------]\n[Survey Rating Question Guide] Hãy xem xét các câu sau và nhấp vào một câu trả lời theo ý kiến của bạn\n[Survey Rating Choices] [1] 🙁 Rất không đồng ý; [2] 😑 Không đồng ý; [3] 😐 Không ý kiến; [4] 🙂 Đồng ý; [5] 😀 Rất đồng ý\n[-----------------------------------------------------------------]\n[Survey Rating Question Group] Câu hỏi để khảo sát chất lượng sản phẩm\n[Survey Rating Question] 1: Sản phẩm chất lượng rất tốt như quảng cáo\n[Survey Rating Question] 2: Chất lượng âm thanh rất tốt\n[Survey Rating Question] 3: Thời lượng pin rất tốt\n[-----------------------------------------------------------------]\n[Survey Extra Question Guide] Câu hỏi bổ sung\n[-----------------------------------------------------------------]\n[Survey Single Choice Question] product-price =>  Mức giá sản phẩm theo bạn thì bao nhiêu là hợp lý\n[Survey Single Choice] product-price => [300,000 - 450,000] VND\n[Survey Single Choice] product-price => [450,000 - 500,000] VND\n[Survey Single Choice] product-price => [500,000 - 600,000] VND\n[-----------------------------------------------------------------]\n[Survey Multiple Choice Question] product-features =>  Những tính năng nào bạn cảm thấy quan trọng ?\n[Survey Multiple Choice] product-features => Dễ mang theo người\n[Survey Multiple Choice] product-features => Thời lượng pin dài (5 tiếng)\n[Survey Multiple Choice] product-features => Chống nước PLX5\n[Survey Multiple Choice] product-features => Điều khiển bằng giọng nói\n[Survey Multiple Choice] product-features => Chế độ không dây kép\n[Survey Multiple Choice] product-features => Sạc USB C\n[-----------------------------------------------------------------]\n[Survey Extra Text Question] why-do-you-like-product => Bạn thích gì ở sản phẩm ?\n[-----------------------------------------------------------------]\n[Survey Comment] Các góp ý khác cho chúng tôi",
+		"mediaInfoUnits": [],
+		"modificationTime": 1631440648255,
+		"networkId": 0,
+		"ownerId": "542",
+		"privacyStatus": 0,
+		"publishingTime": 0,
+		"qrCodeUrl": "./public/qrcode/asset-template-item-5LumKIVOAtnd58BBAMWW74.png",
+		"rankingScore": 0,
+		"selectorKey": "default",
+		"selectorWeight": 0.3100000023841858,
+		"shortLinkUrl": "",
+		"slug": "5nm2NNnrsDb2klqS3WHdBa-ecommerce",
+		"status": 0,
+		"systemAsset": false,
+		"targetGeoLocations": [],
+		"targetSegmentIds": [],
+		"targetViewerIds": [],
+		"templateType": 0,
+		"title": "[Survey] Ecommerce Loa Bluetooth di động LG XBOOM Go PN1",
+		"topicIds": [],
+		"type": 9,
+		"updatedAt": "2021-09-12T09:57:28.255Z"
 	}
 ]

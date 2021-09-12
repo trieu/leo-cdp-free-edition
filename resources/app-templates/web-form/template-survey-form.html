@@ -4,490 +4,77 @@
 	<title>{{pageTitle}}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="copyright" content="LeoCDP"/>
+	<meta name="copyright" content="LeoCDP by Thomas Trieu Nguyen"/>
 	<meta name="author" content="trieu@leocdp.com"/>
 	
 	<!-- Twitter-bootstrap CSS   -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
-
+	
 	<!-- JSON Form is required for LEO Form -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.11.0/underscore-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jsonform/2.2.4/jsonform.min.js"></script>
 	
-	<!-- Ajax Autocomplete for jQuery  -->
+	<!-- Open Location Code JavaScript API -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/openlocationcode/1.0.4/openlocationcode.min.js" ></script>
+	
+	<!-- Leaflet Map -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js"></script>
+	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.11/jquery.autocomplete.min.js" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js" ></script>
 		
-	<!-- Icon  -->
+	<!-- CSS Icon  -->
 	<link href="https://cdn.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files/css/font-awesome.min.css" rel="stylesheet" />
 	
-	<style type="text/css">
-		.alert-description {
-		    color: #1a1a00;
-		    background-color: #fcf8e3;
-		    border-color: #faebcc;
-		}
-		#Question_List .form-group {
-			margin: 16px ​0;
-		}
-		.help-block {
-			font-size: 1.1em;
-			color: #000d33;
-    		background-color: #ccd9ff;
-    		border-color: #b3d9ff;
-    		padding: 8px;
-		    margin-bottom: 5px;
-		    border: 1px solid transparent;
-		    border-radius: 4px;
-		}
-		.question_group {
-			font-size: 1.1em;
-			font-weight: bold;
-		}
-		
-		#Header, #Footer {
-			text-align: center;
-		} 
-		#Header_Image_URL {
-			max-width: 300px!important;
-			max-height: 90px!important;
-		}
-		#Footer_Image_URL {
-			max-width: 150px!important;
-			max-height: 45px!important;
-		}
-		
-		.btn-primary {
-		   	color: #fff!important;
-		    background-color: #007bff!important;
-		    border-color: #007bff!important;
-		    padding: 0.8rem 1.8rem!important;
-		    font-size: 1.8rem!important;
-		    font-weight: bold;
-		    line-height: 1.5!important;
-		    border-radius: .3rem!important;
-		    width: 120px;
-		}
-		
-		label.active {
-			color:  #001a00!important;
-			border-color: #003300!important;
-			background-color: #99ff99!important;
-			font-weight: bold;
-			font-size: 1.1em;
-		}
-		
-		/*  tablets, PC and laptops */
-		@media (min-width: 1000px) {
-			#Question_List .btn-default {
-				font-size: 1.15em;
-				margin-top: 5px!important;
-				margin-right: 20px;
-				border-color: #00264d;
-				background-color: #f0f0f5;
-			}
-			#Group, #Item, #Time_Period {
-				font-size: 1.18em;
-				font-weight: bold;
-			}
-			#Question_List .form-group > label {
-				font-size: 1.1em;
-				color: blue;
-			}
-		}
-		
-		/* mini-ipad and smartphone */
-		@media (max-width: 999px) {
-			#Header {
-				font-size: 25px!important;
-			}
-			#Question_List .btn-default {
-				font-size: 1.4em;
-			    margin-top: 8px!important;
-			    display: block;
-			    border-color: #00264d;
-			    background-color: #f0f0f5;
-			    width: 100%;
-			}
-			#Question_List .form-group > label {
-				font-size: 1.2em;
-				color: blue;
-			}
-			#Group, #Item, #Time_Period {
-				font-size: 1em;
-				font-weight: bold;
-			}
-			
-			.mgl38 {
-				margin-left: -38px!important;
-			}
-		}
-		
-		.autocomplete-suggestions { border: 1px solid #999; background: #e0e0eb; overflow: auto; }
-		.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
-		.autocomplete-selected { background: #ccd9ff; }
-		.autocomplete-suggestions strong { font-weight: normal; color: red; }
-		.autocomplete-group { padding: 2px 5px; }
-		.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
-	</style>
+	<!-- Main CSS for Survey UI -->
+	<link href="https://{{baseStaticUrl}}/css/leo-survey.css?_={{cacheBustingKey}}" rel="stylesheet" />
+	
+	<!-- Main JS processor for Survey Data -->
+	<script type="text/javascript" src="https://{{baseStaticUrl}}/js/leo-form/leo.survey.processor.js?_={{cacheBustingKey}}"></script>
 </head>
-<body style="background-color: transparent;" >
+<body style="background-color:transparent;" >
 		
-	<div class="container" style="margin-bottom: 30px">
-	  <div class="panel panel-default">
-	    <div class="panel-body" style="padding:10px!important">
-		    <div id="survey_placeholder" style="display: none;">
-		    	<div>
-		    		<img id="Header_Image_URL" class="img-responsive center-block" src="" style="display: none;"  >
-		    	</div>
+	<div id="main_container" class="container" style="margin-bottom: 50px">
+		<div class="panel panel-default">
+	    	<div class="panel-body" style="padding:10px!important">
+		    	<div id="survey_placeholder" style="display: none;">
+			    	<div>
+			    		<img id="Header_Image_URL" class="img-responsive center-block" src="" style="display: none;"  >
+			    	</div>
 		    	
-				<h2 id="Header" ></h2>
-				<div class="alert alert-description" id="Description" >
-				</div>
-	            <hr>
+					<h2 id="Header" ></h2>
+					<div class="alert alert-description" id="Description" style="display: none;"></div>
+		            <hr>
 	            
-	            <ol type="I" class="mgl38">
-					<form id="Question_List"></form>
-				</ol>
+					<form id="Rating_Question_List"></form>
 				
-				<div id="leo_form_error" class="alert alert-danger" style="display: none;"></div>
+					<div id="leo_form_error" class="alert alert-danger" style="display: none;"></div>
 				
-				<h3 id="Footer" ></h3>
-				<div>
-					<img id="Footer_Image_URL" class="img-responsive center-block" src="" style="display: none;"  >
+					<h3 id="Footer" ></h3>
+					<div>
+						<img id="Footer_Image_URL" class="img-responsive center-block" src="" style="display: none;" >
+					</div>
 				</div>
-			</div>
-	    </div>
-	  </div>
+	    	</div>
+	  	</div>
 	</div>
 	
-	<textarea id="surveyJsonMetaData" style="display:none!important; width: 100%; height: 200px;" >{{customData.surveyJsonMetaData}}</textarea>
+	<!-- encoded JSON data for survey model  -->
+	<textarea id="surveyJsonMetaData" style="display:none!important;" >{{customData.surveyJsonMetaData}}</textarea>
 
-	<script type="text/javascript">
-		// ------------ LEO Form ------------------
-		function isString(obj){
-			return typeof obj === "string"; 
-		}
-	
-		window.surveyTemplateModel = false;
-		window.surveyTotalQuestions = 0;
-		function loadSurveyForm(){
-			var model = JSON.parse($('#surveyJsonMetaData').val());
-			window.surveyTemplateModel = model;
-			var formSchema = {}, formModel = [], callbacks = [];
-			
-			//console.log(model);
-			
-			if(model.Header){
-				$('#Header').html(model.Header);
-			}
-			
-			if(model.Description){
-				$('#Description').html('<i class="fa fa-info-circle event-get-code" style="font-size:1.3em" aria-hidden="true"></i> ' + model.Description);
-			}
-			
-			if(model.Header_Image_URL){
-				$('#Header_Image_URL').attr("src",model.Header_Image_URL).show();
-			}
-			
-			if(model.Footer){
-				$('#Footer').html(model.Footer);
-			}
-			
-			if(model.Footer_Image_URL){
-				$('#Footer_Image_URL').attr("src",model.Footer_Image_URL).show();
-			}
-			
-			// group
-			if(model.Group_Label && model.Group_Options ) {
-				formSchema["Group"] = {
-					      "type": "string",
-					      "title": model.Group_Label,
-					      "required": true,
-					      "enum": model.Group_Options
-				}
-				formModel.push({ "key": "Group",  "type": "radios" });
-			}
-			
-			// Evaluated_Object
-			if(model.Evaluated_Object) {
-				formSchema["Evaluated_Object"] = {
-				      "type": "string",
-				      "required": true,
-				      "title": model.Evaluated_Object
-				};
-				formModel.push({ "key": "Evaluated_Object",  "type": "text" , "placeholder" : model.Evaluated_Object_Input_Label});
-				
-				callbacks.push(function(){
-					var objects = [];
-					console.log(model.Evaluated_Object_Suggested_Items);
-					for(var i in model.Evaluated_Object_Suggested_Items){
-						var text = model.Evaluated_Object_Suggested_Items[i];
-						if(typeof text === "string") {
-							objects.push({ value: text, data: text});
-						}
-					}
-					
-					$('input[name="Evaluated_Object"]').autocomplete({
-					    lookup: objects,
-					    onSelect: function (suggestion) {
-					    	console.log('You selected: ' + suggestion.value + ', ' + suggestion.data);
-					    }
-					});
-				})
-			}
-			
-			// Evaluated_Person
-			if(model.Evaluated_Person) {
-				formSchema["Evaluated_Person"] = {
-				      "type": "string",
-				      "required": true,
-				      "title": model.Evaluated_Person
-				};
-				formModel.push({ "key": "Evaluated_Person",  "type": "text" , "placeholder" : model.Evaluated_Person_Input_Label});
-				
-				callbacks.push(function(){
-					var objects = [];
-					console.log(model.Evaluated_Person_Suggested_Items);
-					for(var i in model.Evaluated_Person_Suggested_Items){
-						var text = model.Evaluated_Person_Suggested_Items[i];
-						if(typeof text === "string") {
-							objects.push({ value: text, data: text});
-						}
-					}
-					$('input[name="Evaluated_Person"]').autocomplete({
-					    lookup: objects,
-					    onSelect: function (suggestion) {
-					        console.log('You selected: ' + suggestion.value + ', ' + suggestion.data);
-					    }
-					});
-				})
-			}
-			
-			
-			// touchpoint
-			if(model.Touchpoint_List_Label && model.Touchpoint_List) {
-				// TODO
-			}
-			
-			
-			// name
-			if(model.Name_Label) {
-				formSchema["name"] = {
-				      "type": "string",
-				      "required": true,
-				      "title": model.Name_Label
-				};
-				formModel.push({ "key": "name",  "type": "text" , "placeholder" : model.Name_Label});
-			}
-			
-			// email
-			if(model.Email_Label) {
-				formSchema["email"] = {
-				      "type": "string",
-				      "required": true,
-				      "title": model.Email_Label
-				};
-				formModel.push({ "key": "email",  "type": "email" , "placeholder" : model.Email_Label });
-			}
-			
-			// phone
-			if(model.Phone_Label) {
-				formSchema["phone"] = {
-				      "type": "string",
-				      "required": true,
-				      "title": model.Phone_Label
-				};
-				formModel.push({ "key": "phone",  "type": "text" , "placeholder" : model.Phone_Label });
-			}
-			
-			// Ext ID
-			if( model.Ext_ID ) {
-				formSchema["ext_id"] = {
-				      "type": "string",
-				      "title": model.Ext_ID
-				};
-				formModel.push({ "key": "ext_id",  "type": "text" , "placeholder" : model.Ext_ID });
-			}
-			
-			formModel.push({ "type": "help", "helpvalue": "<b>" + model.Question_Guide + "</b>"});
-						
-			// Questions
-			for (var questionGroup in model.Question_List ){
-				formModel.push({ "type": "help", "helpvalue": "<li class='question_group'>"+questionGroup+"</li>" });
-				var list = model.Question_List[questionGroup];
-				list.forEach(function(e){
-					formSchema[e] = {
-						      "type": "string",
-						      "title": e,
-						      "required": true,
-						      "enum": model.Choices
-					}
-					formModel.push({ "key": e,  "type": "radiobuttons", "activeClass": "btn-success" });
-					surveyTotalQuestions++;
-				});
-			}
-			
-			// comment
-			if(model.Comment_Label) {
-				formSchema["comment"] = {
-				      "type": "string",
-				      "title": model.Comment_Label
-				};
-				formModel.push({ "key": "comment",  "type": "textarea" , "placeholder" : model.Comment_Label});
-			}
-			
-			// OK button
-			formModel.push({
-				"type" : "actions",
-				"items" : [ {
-					"type" : "submit",
-					"title" : ' OK '
-				}]	
-			})
-			
-			// process form schema into HTML
-			LeoForm.process('survey_placeholder',formSchema, formModel, callbacks);
-			
-			$('#survey_placeholder').show();
-		}
-		
-		(function() {
-			var successInfo = '<div class="alert alert-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Your data is submitted successfully </div>';
-			
-			var onSubmitCallback = function(errors, formData) {
-				if (errors) {
-					console.log(errors)
-					jQuery('#leo_form_error').html(JSON.stringify(errors)).show().delay(5000).fadeOut('slow');
-					
-				} 
-				else if(preview){
-					jQuery('#leo_form_error').html("Can not submit data in preview mode !").show().delay(5000).fadeOut('slow');
-				}
-				else {
-					
-					console.log("formData",formData);
-					console.log("surveyTemplateModel",surveyTemplateModel);
-					
-					var model = {};
-					
-					// Header
-					model["header"] = isString(surveyTemplateModel.Header) ? surveyTemplateModel.Header : "";
-					
-					// Group
-					model["group"] = isString(formData.Group) ?  formData.Group : "";
-					
-					// Evaluated_Object
-					model["evaluatedObject"] = isString(formData.Evaluated_Object) ? formData.Evaluated_Object : "";
-					model["evaluatedObjectLabel"] = isString(surveyTemplateModel.Evaluated_Object_Input_Label) ? surveyTemplateModel.Evaluated_Object_Input_Label : "";
-					
-					// Evaluated_Person
-					model["evaluatedPerson"] = isString(formData.Evaluated_Person) ? formData.Evaluated_Person : "";
-					model["evaluatedPersonLabel"] = isString(surveyTemplateModel.Evaluated_Person_Input_Label) ? surveyTemplateModel.Evaluated_Person_Input_Label : "";
-					
-					// Item
-					model["item"] = isString(surveyTemplateModel.Item) ? surveyTemplateModel.Item : "";
-					
-					// Time_Period
-					model["timePeriod"] = isString(surveyTemplateModel.Time_Period) ? surveyTemplateModel.Time_Period : new Date().toDateString();
-					
-					// Touchpoint
-					// TODO
-					
-					// personal profile
-					model["name"] =  isString(formData.name) ? formData.name : "";
-					model["email"] = isString(formData.email) ? formData.email : "";
-					model["phone"] = isString(formData.phone) ? formData.phone : "";
-					
-					// survey answers
-					var answeredTotalQuestions = 0;
-					model["questionChoinces"] = surveyTemplateModel.Choices;
-					model["questionAnswer"] = {};
-					for (var questionGroup in surveyTemplateModel.Question_List ){
-						model["questionAnswer"][questionGroup] = {};
-						var list = surveyTemplateModel.Question_List[questionGroup];
-						list.forEach(function(key) {
-						  	//console.log(key + " " + formData[key] );
-						  	var val = isString( formData[key] )? formData[key].trim() : "";
-						  	if(val != "") {
-						  		model["questionAnswer"][questionGroup][key] = val;
-								answeredTotalQuestions++;
-						  	}
-						});
-					}
-					
-					// comment
-					model["comment"] = isString(formData.comment) ? formData.comment : "";
-					
-					console.log(model);
-					console.log(JSON.stringify(model));
-					
-					console.log("surveyTotalQuestions " + surveyTotalQuestions)
-					console.log("answeredTotalQuestions " + answeredTotalQuestions)
-					
-					if(surveyTotalQuestions > 0){
-						if(surveyTotalQuestions != answeredTotalQuestions) {
-							var errorMsg = '<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Please answer all ' + surveyTotalQuestions +' questions !';
-							jQuery('#leo_form_error').html(errorMsg).show().delay(5000).fadeOut('slow');
-						} 
-						else {
-							jQuery('#survey_placeholder').hide().parent().append(successInfo).show();
-							
-							model["refTemplateId"] = refTemplateId;
-							model["feedbackType"] = feedbackTypeAsText;
-							LeoObserverProxy.recordFeedbackEvent(submitEventName, model);
-							
-							// go to top
-							window.scrollTo(0,0);
-						}
-					}
-				}
-			}
-
-			if (typeof window.LeoForm === "undefined") {
-				var extractRootDomain = function(url) {
-					try {
-						return new URL(url).hostname.split('.').slice(-2).join('.');
-					} catch (e) {}
-					return "";
-				}
-
-				function process(holderId, formSchema, formModel, callbacks) {
-					var formSelector = jQuery('#Question_List');
-					formSelector.jsonForm({
-								schema : formSchema,
-								form: formModel,
-								onSubmit : onSubmitCallback
-							});
-					jQuery('#' + holderId).show();
-					
-					for(var i in callbacks) {
-						var f = callbacks[i];
-						if(typeof f === "function") {
-							f();
-							console.log(f)
-						}
-					}
-				}
-
-				var LeoForm = {};
-				LeoForm.process = process;
-				window.LeoForm = LeoForm;
-			}
-		})();
-	</script>
-	
 	<script>
+		var preview = {{customData.preview}};
 		var isDev = location.host === "demotrack.leocdp.net";
-	
-		// load it
-		loadSurveyForm();
+		// load survey UI
+		initFeedbackSurvey();
 		
 		// load core js
 		(function() {
 		    //LEO Web Observer for channel: 
 		    window.submitEventName = "submit-feedback-form";
-		    
 	   		window.leoObserverLogDomain = "{{baseLeoObserverUrl}}";
 	   		window.leoObserverCdnDomain = "{{baseStaticUrl}}";
 	   		
@@ -497,8 +84,6 @@
 			window.refTemplateId = "{{customData.templateId}}";	
 			window.feedbackTypeAsText = "{{customData.feedbackTypeAsText}}";
 			window.leoObserverId = "{{customData.observerId}}";
-			
-			window.preview = {{customData.preview}};
 			
 			var referer = '{{customData.referer}}';
 			if(referer === "") {
@@ -524,6 +109,10 @@
 		    //LEO is ready, record event data if not in preview iframe
 		    if(location.href.indexOf("preview=1") === -1){
 		    	LeoObserverProxy.recordViewEvent("survey-view");
+		    } 
+		    else {
+		    	// set width for preview mode in admin
+		    	$('#main_container').css("width","1024px")
 		    }
 		}
 	</script>

@@ -1,0 +1,182 @@
+.alert-description {
+	color: #1a1a00;
+	background-color: #fcf8e3;
+	border-color: #faebcc;
+}
+
+#Rating_Question_List .form-group {
+	margin: 16px ​0;
+}
+
+#survey_img {
+	margin:auto; max-height:250px; display: block;
+}
+
+#location_code_url {
+	display: block;
+    padding: 4px 2px;
+}
+
+#map_location {
+	height: 220px;
+}
+
+#product_item, #content_item, #touchpoint_item {
+	text-align:center;
+}
+
+.help-block {
+	font-size: 1.1em;
+	color: #000d33;
+	background-color: #ccd9ff;
+	border-color: #b3d9ff;
+	padding: 8px;
+	margin-bottom: 5px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+.question_group {
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+#Header, #Footer {
+	text-align: center;
+}
+
+#Header_Image_URL {
+	max-width: 300px !important;
+	max-height: 90px !important;
+}
+
+#Footer_Image_URL {
+	max-width: 150px !important;
+	max-height: 45px !important;
+}
+
+div.form-group>label {
+	background-color: transparent !important;
+}
+
+.btn-primary {
+	color: #fff !important;
+	background-color: #007bff !important;
+	border-color: #007bff !important;
+	padding: 0.8rem 1.8rem !important;
+	font-size: 1.8rem !important;
+	font-weight: bold;
+	line-height: 1.5 !important;
+	border-radius: .3rem !important;
+	width: 120px;
+}
+
+label.active {
+	color: #001a00 !important;
+	border-color: #003300 !important;
+	background-color: #99ff99 !important;
+	font-weight: bold;
+	font-size: 1.1em;
+}
+
+/*  tablets, PC and laptops */
+@media ( min-width : 1000px) {
+	#Rating_Question_List .btn-default {
+		font-size: 1.15em;
+		margin-top: 5px !important;
+		margin-right: 20px;
+		border-color: #00264d;
+		background-color: #f0f0f5;
+	}
+	#Group, #Item, #Time_Period {
+		font-size: 1.18em;
+		font-weight: bold;
+	}
+	#Rating_Question_List .form-group>label {
+		font-size: 1.1em;
+		color: blue;
+	}
+}
+
+/* mini-ipad and smartphone */
+@media ( max-width : 999px) {
+	#Header {
+		font-size: 25px !important;
+	}
+	#Rating_Question_List .btn-default {
+		font-size: 1.4em;
+		margin-top: 8px !important;
+		display: block;
+		border-color: #00264d;
+		background-color: #f0f0f5;
+		width: 100%;
+	}
+	#Rating_Question_List .form-group>label {
+		font-size: 1.2em;
+		color: blue;
+	}
+	#Group, #Item, #Time_Period {
+		font-size: 1em;
+		font-weight: bold;
+	}
+	.mgl38 {
+		margin-left: -38px !important;
+	}
+}
+
+.autocomplete-suggestions {
+	border: 1px solid #999;
+	background: #e0e0eb;
+	overflow: auto;
+}
+
+.autocomplete-suggestion {
+	padding: 2px 5px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.autocomplete-selected {
+	background: #ccd9ff;
+}
+
+.autocomplete-suggestions strong {
+	font-weight: normal;
+	color: red;
+}
+
+.autocomplete-group {
+	padding: 2px 5px;
+}
+
+.autocomplete-group strong {
+	display: block;
+	border-bottom: 1px solid #000;
+}
+
+/* custom date picker */
+input[type="date"] {
+    position: relative;
+    width: 160px; height: 38px;
+    color: white;
+}
+
+input[type="date"]:before {
+    position: absolute;
+    top: 3px; left: 3px;
+    content: attr(data-date);
+    display: inline-block;
+    color: black;
+}
+
+input[type="date"]::-webkit-datetime-edit, input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-clear-button {
+    display: none;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 3px;
+    right: 0;
+    color: black;
+    opacity: 1;
+}
