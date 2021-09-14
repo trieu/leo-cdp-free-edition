@@ -120,6 +120,7 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
     var checkLeoEventTracking = function(e) {
       if(e.entityType === "commerce_product") { 
         var productId = e.entityUuid;
+        var transactionId = e.transactionId || "";
         window.srcTouchpointName = e.entityTitle || document.title;
         if (typeof productId === "string") {
           var userUid = e.userUid || "";
@@ -132,7 +133,7 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
           var eventData = { "productIds": productId, "idType": idType, "userUid": userUid };
           var shoppingItems = [];
           shoppingItems.push(productItem);
-          LeoObserverProxy.recordConversionEvent(eventName, eventData,"", shoppingItems,0, currency);
+          LeoObserverProxy.recordConversionEvent(eventName, eventData, transactionId, shoppingItems, 0, currency);
         }
       }
     }
