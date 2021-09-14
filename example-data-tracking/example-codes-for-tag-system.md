@@ -15,7 +15,7 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
 <script> 
   setTimeout(function(){
     var checkLeoEventTracking = function(e) {
-        
+        // item-view for product analytics
         if(typeof e.siteName === "string" ) {
           var userUid = e.userUid || "";
           window.srcTouchpointName = e.entityTitle || document.title;
@@ -26,7 +26,7 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
               LeoObserver.recordEventItemView(eventData);
             }
           }
-          // content-view
+          // content-view for content analytics
           else if(e.entityBundle === "article") { 
               // content-view
               var contentId = e.entityUuid;
@@ -35,7 +35,7 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
                 LeoObserver.recordEventContentView(eventData);
               }
           }  
-          // page-view
+          // page-view for web analytics
           else {
             LeoObserver.recordEventPageView()
           }
