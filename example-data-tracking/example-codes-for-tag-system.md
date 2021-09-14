@@ -8,83 +8,75 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
 * Click Data Observer
 * Find the Touchpoint Hub for data tracking, click the button "Tracking JS Code" to get all JS
 
-## Track Event [user-login] and update contact profile for web visitor
+
+## Track Code for Events [item-view] [page-view] [content-view]
+
 ```
-<script>
+<script> 
   setTimeout(function(){
-    var t1 = typeof window.leoCdpUpdateUserInfo;
-    var t2 = typeof window.LeoObserverProxy;
-    if(t1 === "object" && t2 === "object"){
-      if(typeof leoCdpUpdateUserInfo["email"] === "string") {
-        LeoObserverProxy.updateProfileBySession(leoCdpUpdateUserInfo)
-      }
-    } else {
-       console.log("typeof leoCdpUpdateUserInfo" + t1);
-       console.log("typeof LeoObserverProxy" + t2);
+    var checkLeoEventTracking = function(e) {
+        
+        if(typeof e.siteName === "string" ) {
+          var userUid = e.userUid || "";
+          window.srcTouchpointName = e.entityTitle || document.title;
+          if(e.entityType === "commerce_product") { 
+            var productId = e.entityUuid;
+            if (typeof productId === "string") {
+              var eventData = { "productIds": productId, "idType": "external_ID", "userUid": userUid};
+              LeoObserver.recordEventItemView(eventData);
+            }
+          }
+          // content-view
+          else if(e.entityBundle === "article") { 
+              // content-view
+              var contentId = e.entityUuid;
+              if (typeof contentId === "string") {
+                var eventData = { "keywords": keywords, "contentId": contentId, "userUid": userUid};
+                LeoObserver.recordEventContentView(eventData);
+              }
+          }  
+          // page-view
+          else {
+            LeoObserver.recordEventPageView()
+          }
+        }
     }
-  },2200)
+
+    if( typeof window.dataLayer === "object" ) { 
+      window.dataLayer.forEach(checkLeoEventTracking);  
+    }
+  },999)
 </script>
 ```
 
-## Track Events [item-view] [page-view] [content-view]
+## Track Code for Event [add-to-cart]
 
 ```
 <script> 
   setTimeout(function(){
-    if(typeof leoCdpTrackedProducts === "object") {
-      // item-view for product tracking
-       leoCdpTrackedProducts.forEach(function (item) {
-         var productId = item.productId;
-         if (typeof productId === "string") {
-           var idType = item.idType || "external_ID";
-           var eventData = { "productIds": productId, "idType": idType};
-           LeoObserver.recordEventItemView(eventData);
-         }
-       });
-     } 
-     else if(typeof leoCdpTrackedContents === "object") {
-       // content-view for specific content tracking
-        leoCdpTrackedContents.forEach(function (node) {
-         var contentId = node.contentId;
-         if (typeof contentId === "string") {
-           var keywords = node.keywords || "";
-           var eventData = { "keywords": keywords, "contentId": contentId};
-           LeoObserver.recordEventContentView(eventData);
-         }
-       });
-     }
-     else {
-       // page-view
-       LeoObserver.recordEventPageView()
-     }
-  },1000)
-</script>
-```
-
-## Track Event [add-to-cart]
-
-```
-<script> 
-  setTimeout(function(){
-    if(typeof leoCdpTrackedProducts === "object") {
-       leoCdpTrackedProducts.forEach(function (item) {
-                var productId = item.productId;
-                if (typeof productId === "string") {
-                    var idType = item.idType || "external_ID";
-                    var quantity = item.quantity || 1;
-                    var currency = item.currency || "USD";
-                    var eventName = "add-to-cart";
-                    var model = { "itemtId": productId, "idType": idType, quantity: quantity };
-                    
-                    var eventData = { "productIds": productId, "idType": idType };
-                    var shoppingItems = [];
-                    shoppingItems.push(model);
-                    LeoObserverProxy.recordConversionEvent(eventName, eventData,"", shoppingItems,0, currency);
-                    console.log('leoTrackEventAddToCart', shoppingItems);
-                }
-       });
-     }
-  },1200)
+    var checkLeoEventTracking = function(e) {
+      if(e.entityType === "commerce_product") { 
+        var productId = e.entityUuid;
+        window.srcTouchpointName = e.entityTitle || document.title;
+        if (typeof productId === "string") {
+          var userUid = e.userUid || "";
+          var idType =  "external_ID";
+          var quantity = 1;
+          var currency = "VND";
+          var eventName = "add-to-cart";
+          var productItem = { "itemtId": productId, "idType": idType, quantity: quantity };
+          
+          var eventData = { "productIds": productId, "idType": idType, "userUid": userUid };
+          var shoppingItems = [];
+          shoppingItems.push(productItem);
+          LeoObserverProxy.recordConversionEvent(eventName, eventData,"", shoppingItems,0, currency);
+        }
+      }
+    }
+    if( typeof window.dataLayer === "object" ) { 
+      window.dataLayer.forEach(checkLeoEventTracking);  
+    }
+  },999)
 </script>
 ```
 
@@ -93,25 +85,29 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
 ```
 <script> 
   setTimeout(function(){
-    if(typeof leoCdpTrackedProducts === "object") {
-       leoCdpTrackedProducts.forEach(function (item) {
-                var productId = item.productId;
-                if (typeof productId === "string") {
-                    var idType = item.idType || "external_ID";
-                    var quantity = item.quantity || 1;
-                    var currency = item.currency || "USD";
-                    var eventName = "order-checkout";
-                    var model = { "itemtId": productId, "idType": idType, quantity: quantity };
-                    
-                    var eventData = { "productIds": productId, "idType": idType };
-                    var shoppingItems = [];
-                    shoppingItems.push(model);
-                    LeoObserverProxy.recordConversionEvent(eventName, eventData,"", shoppingItems,0, currency);
-                    console.log('leoTrackEventAddToCart', shoppingItems);
-                }
-       });
-     }
-  },1200)
+    var checkLeoEventTracking = function(e) {
+      if(e.entityType === "commerce_product") { 
+        var productId = e.entityUuid;
+        window.srcTouchpointName = e.entityTitle || document.title;
+        if (typeof productId === "string") {
+          var userUid = e.userUid || "";
+          var idType =  "external_ID";
+          var quantity = 1;
+          var currency = "VND";
+          var eventName = "order-checkout";
+          var productItem = { "itemtId": productId, "idType": idType, quantity: quantity };
+          
+          var eventData = { "productIds": productId, "idType": idType, "userUid": userUid };
+          var shoppingItems = [];
+          shoppingItems.push(productItem);
+          LeoObserverProxy.recordConversionEvent(eventName, eventData,"", shoppingItems,0, currency);
+        }
+      }
+    }
+    if( typeof window.dataLayer === "object" ) { 
+      window.dataLayer.forEach(checkLeoEventTracking);  
+    }
+  },999)
 </script>
 ```
 
@@ -120,27 +116,29 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
 ```
 <!-- Track Event [purchase] -->
     <script>
-setTimeout(function(){
-      if (typeof leoCdpTrackedProducts === "object") {
-        leoCdpTrackedProducts.forEach(function (item) {
-          var productId = item.productId;
-          if (typeof productId === "string") {
-            var idType = item.idType || "external_ID";
-            var quantity = item.quantity || 1;
-            var currency = item.currency || "USD";
-            var eventName = "purchase";
-            var model = { "itemtId": productId, "idType": idType, quantity: quantity };
-
-            var eventData = { "productIds": productId, "idType": idType };
-            var shoppingItems = [];
-            shoppingItems.push(model);
-            var transId = typeof window.transactionId === "string" ? window.transactionId : "";
-            
-            LeoObserverProxy.recordConversionEvent(eventName, eventData, transId, shoppingItems, 0, currency);
-            console.log('leoTrackEventAddToCart', transId, shoppingItems);
-          }
-        })
+  setTimeout(function(){
+    var checkLeoEventTracking = function(e) {
+      if(e.entityType === "commerce_product") { 
+        var productId = e.entityUuid;
+        window.srcTouchpointName = e.entityTitle || document.title;
+        if (typeof productId === "string") {
+          var userUid = e.userUid || "";
+          var idType =  "external_ID";
+          var quantity = 1;
+          var currency = "VND";
+          var eventName = "purchase";
+          var productItem = { "itemtId": productId, "idType": idType, quantity: quantity };
+          
+          var eventData = { "productIds": productId, "idType": idType, "userUid": userUid };
+          var shoppingItems = [];
+          shoppingItems.push(productItem);
+          LeoObserverProxy.recordConversionEvent(eventName, eventData,"", shoppingItems,0, currency);
+        }
       }
-},1000)
+    }
+    if( typeof window.dataLayer === "object" ) { 
+      window.dataLayer.forEach(checkLeoEventTracking);  
+    }
+  },999)
 </script>
 ```
