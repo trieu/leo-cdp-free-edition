@@ -4,6 +4,7 @@
 
 ### Added  
 
+- increase the free quota of Leo CDP is 1000 contacts and 10000 anonymous profiles
 - merge Feedback Survey data into Profile data automatically
 - allow start multiple leo-admin in a sample server (multiple hosts)
 - add more survey template tags in Feedback Form Editor and Feedback Form Loader

@@ -25,7 +25,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 # About this LEO CDP FREE Edition
 
 * The binary build of LEO CDP Free Edition for personal purposes and small business only.
-* Free quota: 500 contact profiles and 5000 anonymous profiles. 
+* Free quota: 1000 contact profiles and 10000 anonymous profiles. 
 * To get more quota, please contact me for purchasing a software license to get more supports and consulting services.
 
 # Contact information 
