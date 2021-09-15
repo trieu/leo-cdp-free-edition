@@ -30,5 +30,37 @@
 			"service_api_key": ""
 		},
 		"serviceUri": "javaclass:leotech.cdp.job.connector.MailchimpConnector"
+	},
+	{
+		"id": "database_report",
+		"name": "Database Report Connector",
+		"description": "Data Report Connector for MySQL, PostgreSQL and BigQuery",
+		"builtInConnector": true,
+		"forMarketingActivation": false,
+		"dataSynchService": true,
+		"emailSenderService": false,
+		"periodInSecondsToLoop": 30,
+		"configs": {
+			"service_provider": "LEO CDP",
+			"service_api_url": "",
+			"service_api_key": ""
+		},
+		"serviceUri": "javaclass:leotech.cdp.job.connector.DatabaseReportConnector"
+	},
+	{
+		"id": "facebook",
+		"name": "Facebook Data Connector",
+		"description": "Data Connector to synch contact profiles into Facebook Custom Audience",
+		"builtInConnector": true,
+		"forMarketingActivation": true,
+		"dataSynchService": true,
+		"emailSenderService": false,
+		"periodInSecondsToLoop": 30,
+		"configs": {
+			"service_provider": "LEO CDP",
+			"service_api_url": "",
+			"service_api_key": ""
+		},
+		"serviceUri": "javaclass:leotech.cdp.job.connector.FacebookDataConnector"
 	}
 ]

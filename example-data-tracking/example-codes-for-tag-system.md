@@ -18,7 +18,7 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
         // item-view for product analytics
         if(typeof e.siteName === "string" ) {
           var userUid = e.userUid || "";
-          window.srcTouchpointName = e.entityTitle || document.title;
+          window.srcTouchpointName = encodeURIComponent(e.entityTitle || document.title);
           if(e.entityType === "commerce_product") { 
             var productId = e.entityUuid;
             if (typeof productId === "string") {
@@ -53,11 +53,10 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
 
 ```
 <script> 
-  setTimeout(function(){
-    var checkLeoEventTracking = function(e) {
+    var leoCdpAddToCart = function(e) {
       if(e.entityType === "commerce_product") { 
         var productId = e.entityUuid;
-        window.srcTouchpointName = e.entityTitle || document.title;
+        window.srcTouchpointName = encodeURIComponent(e.entityTitle || document.title);
         if (typeof productId === "string") {
           var userUid = e.userUid || "";
           var idType =  "external_ID";
@@ -74,9 +73,8 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
       }
     }
     if( typeof window.dataLayer === "object" ) { 
-      window.dataLayer.forEach(checkLeoEventTracking);  
+      window.dataLayer.forEach(leoCdpAddToCart);  
     }
-  },999)
 </script>
 ```
 
@@ -84,11 +82,10 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
 
 ```
 <script> 
-  setTimeout(function(){
-    var checkLeoEventTracking = function(e) {
+    var leoCdpOrderCheckout = function(e) {
       if(e.entityType === "commerce_product") { 
         var productId = e.entityUuid;
-        window.srcTouchpointName = e.entityTitle || document.title;
+        window.srcTouchpointName = encodeURIComponent(e.entityTitle || document.title);
         if (typeof productId === "string") {
           var userUid = e.userUid || "";
           var idType =  "external_ID";
@@ -105,9 +102,8 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
       }
     }
     if( typeof window.dataLayer === "object" ) { 
-      window.dataLayer.forEach(checkLeoEventTracking);  
+      window.dataLayer.forEach(leoCdpOrderCheckout);  
     }
-  },999)
 </script>
 ```
 
@@ -115,13 +111,12 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
 
 ```
 <!-- Track Event [purchase] -->
-    <script>
-  setTimeout(function(){
-    var checkLeoEventTracking = function(e) {
+<script>
+    var leoCdpPurchase = function(e) {
       if(e.entityType === "commerce_product") { 
         var productId = e.entityUuid;
         var transactionId = e.transactionId || "";
-        window.srcTouchpointName = e.entityTitle || document.title;
+        window.srcTouchpointName = encodeURIComponent(e.entityTitle || document.title);
         if (typeof productId === "string") {
           var userUid = e.userUid || "";
           var idType =  "external_ID";
@@ -138,8 +133,7 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
       }
     }
     if( typeof window.dataLayer === "object" ) { 
-      window.dataLayer.forEach(checkLeoEventTracking);  
+      window.dataLayer.forEach(leoCdpPurchase);  
     }
-  },999)
 </script>
 ```
