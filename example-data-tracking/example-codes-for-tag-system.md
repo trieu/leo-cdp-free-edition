@@ -8,8 +8,135 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
 * Click Data Observer
 * Find the Touchpoint Hub for data tracking, click the button "Tracking JS Code" to get all JS
 
+## Example dataLayer (meta-data about event tracking) for Leo JS Tracking Code
 
-## Track Code for Events [item-view] [page-view] [content-view]
+### Event: page-view
+
+```
+<script>
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+    "siteName": "The name of ecommerce website",
+    "entityCreated": "1581657801",
+    "entityLangcode": "en",
+    "entityStatus": "1",
+    "entityUid": "1",
+    "entityUuid": "6ddd407b-e12a-4a40-b9bf-e834dd052e3d",
+    "entityBundle": "home_page",
+    "entityTitle": "Home Page",
+    "userUid": "372",
+    "userFirstname": "Trieu", // if no login, set empty string
+    "userLastname": "Nguyen", // if no login, set empty string
+    "userEmail": "trieu@leocdp.com" // if no login, set empty string
+}); 
+</script>
+```
+
+### Event: [content-view]
+
+```
+<script>
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+    "siteName": "The name of ecommerce website",
+    "entityCreated": "1581657801",
+    "entityLangcode": "en",
+    "entityStatus": "1",
+    "entityUid": "1",
+    "entityUuid": "6ddd407b-e12a-4a40-b9bf-e834dd052e3d",
+    "entityBundle": "article", // or "news" or "blog"
+    "entityTitle": "The Solution to The Human Resources Problem in Young Enterprises",
+    "userUid": "372",
+    "userFirstname": "Trieu", // if no login, set empty string
+    "userLastname": "Nguyen", // if no login, set empty string
+    "userEmail": "trieu@leocdp.com" // if no login, set empty string
+}); 
+</script>
+```
+
+### Event: [item-view]
+
+```
+<script>
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+    "siteName": "The name of ecommerce website",
+    "entityCreated": "1581657801",
+    "entityLangcode": "en",
+    "entityStatus": "1",
+    "entityUid": "1",
+    "entityUuid": "6ddd407b-e12a-4a40-b9bf-e834dd052e3d",
+    "entityBundle": "commerce_product", // default value for product item tracking
+    "entityTitle": "High-tech Publication - Software Sector", // product name
+    "entityQuantity": 1, // default number item in shopping cart
+    "userUid": "372",
+    "userFirstname": "Trieu", // if no login, set empty string
+    "userLastname": "Nguyen", // if no login, set empty string
+    "userEmail": "trieu@leocdp.com" // if no login, set empty string
+}); 
+</script>
+```
+
+### Event: [add-to-cart]
+
+```
+<script>
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+    "siteName": "The name of ecommerce website",
+    "entityCreated": "1581657801",
+    "entityLangcode": "en",
+    "entityStatus": "1",
+    "entityUid": "1",
+    "entityUuid": "6ddd407b-e12a-4a40-b9bf-e834dd052e3d",
+    "entityBundle": "commerce_product", // default value for product item tracking
+    "entityTitle": "High-tech Publication - Software Sector", // product name
+    "entityQuantity": 1, // default number item in shopping cart
+    "userUid": "372",
+    "userFirstname": "Trieu", // if no login, set empty string
+    "userLastname": "Nguyen", // if no login, set empty string
+    "userEmail": "trieu@leocdp.com" // if no login, set empty string
+}); 
+</script>
+```
+
+### Event: [order-checkout] and [purchase]
+
+```
+<script>
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+    "siteName": "The name of ecommerce website",
+    "entityCreated": "1581657801",
+    "entityLangcode": "en",
+    "entityStatus": "1",
+    "entityUid": "1",
+    "entityUuid": "08d01865-f275-4b8d-bb9a-528f96b2bee0",
+    "entityBundle": "commerce_product", // default value for product item tracking
+    "entityTitle": "Talentnet-Mercer Local-plus Report 2021", // product name
+    "entityQuantity": 1, // Quantity item in shopping cart
+    "entityPrice": 38720000, // price of product
+    "entityCurrency": "VND", // currency of product
+    "userUid": "372"
+}); 
+window.dataLayer.push({
+    "siteName": "The name of ecommerce website",
+    "entityCreated": "1581657801",
+    "entityLangcode": "en",
+    "entityStatus": "1",
+    "entityUid": "1",
+    "entityUuid": "6ddd407b-e12a-4a40-b9bf-e834dd052e3d",
+    "entityBundle": "commerce_product", // default value for product item tracking
+    "entityTitle": "High-tech Publication - Software Sector", // product name
+    "entityQuantity": 2, //  Quantity item in shopping cart
+    "entityPrice": 77000000, // price of product
+    "entityCurrency": "VND", // currency of product
+    "userUid": "372"
+});
+</script>
+```
+
+## Set this Code when your website is loaded, after the Leo Tracking JS Code
 
 ```
 <script> 
@@ -42,17 +169,6 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
         }
     }
 
-    if( typeof window.dataLayer === "object" ) { 
-      window.dataLayer.forEach(checkLeoEventTracking);  
-    }
-  },999)
-</script>
-```
-
-## Track Code for Event [add-to-cart]
-
-```
-<script> 
     var leoCdpAddToCart = function(e) {
       if(e.entityType === "commerce_product") { 
         var productId = e.entityUuid;
@@ -72,9 +188,20 @@ code snippets for this document https://knowledge.leocdp.net/2021/08/leo-cdp-and
         }
       }
     }
+
     if( typeof window.dataLayer === "object" ) { 
-      window.dataLayer.forEach(leoCdpAddToCart);  
+      window.dataLayer.forEach(checkLeoEventTracking);
+
+      // auto listen click event of addToCart button
+      var addToCartSelector = 'input[class*="button--add-to-cart"]';
+      var addToCartButton = document.querySelector(addToCartSelector);
+      if(typeof addToCartButton === 'object' ) {
+        addToCartButton.addEventListener("click", function(){
+            window.dataLayer.forEach(leoCdpAddToCart);  
+        });
+      }
     }
+  },999)
 </script>
 ```
 
