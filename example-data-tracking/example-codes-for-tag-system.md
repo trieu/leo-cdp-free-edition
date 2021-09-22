@@ -161,8 +161,8 @@ window.dataLayer.push({
             var productId = e.entityUuid;
             if (typeof productId === "string") {
               var eventData = { "productIds": productId, "idType": "external_ID"};
-              eventData["phone"] = phone;
-              eventData["email"] = email;
+              eventData["primaryPhone"] = phone;
+              eventData["primaryEmail"] = email;
               eventData["firstName"] = firstName;
               eventData["lastName"] = lastName;
               eventData["ecommerceUserId"] = userUid;
@@ -175,8 +175,8 @@ window.dataLayer.push({
               var contentId = e.entityUuid;
               if (typeof contentId === "string") {
                 var eventData = { "keywords": keywords, "contentId": contentId};
-                eventData["phone"] = phone;
-                eventData["email"] = email;
+                eventData["primaryPhone"] = phone;
+                eventData["primaryEmail"] = email;
                 eventData["firstName"] = firstName;
                 eventData["lastName"] = lastName;
                 eventData["ecommerceUserId"] = userUid;
@@ -209,8 +209,8 @@ window.dataLayer.push({
           var productItem = { "itemtId": productId, "idType": idType, quantity: quantity };
           
           var eventData = { "productIds": productId, "idType": idType };
-          eventData["phone"] = phone;
-          eventData["email"] = email;
+          eventData["primaryPhone"] = phone;
+          eventData["primaryEmail"] = email;
           eventData["firstName"] = firstName;
           eventData["lastName"] = lastName;
           eventData["ecommerceUserId"] = userUid;
@@ -261,8 +261,8 @@ window.dataLayer.push({
           var productItem = { "itemtId": productId, "idType": idType, quantity: quantity };
           
           var eventData = { "productIds": productId, "idType": idType };
-          eventData["phone"] = phone;
-          eventData["email"] = email;
+          eventData["primaryPhone"] = phone;
+          eventData["primaryEmail"] = email;
           eventData["firstName"] = firstName;
           eventData["lastName"] = lastName;
           eventData["ecommerceUserId"] = userUid;
@@ -304,8 +304,8 @@ window.dataLayer.push({
           var productItem = { "itemtId": productId, "idType": idType, quantity: quantity };
           
           var eventData = { "productIds": productId, "idType": idType };
-          eventData["phone"] = phone;
-          eventData["email"] = email;
+          eventData["primaryPhone"] = phone;
+          eventData["primaryEmail"] = email;
           eventData["firstName"] = firstName;
           eventData["lastName"] = lastName;
           eventData["ecommerceUserId"] = userUid;
