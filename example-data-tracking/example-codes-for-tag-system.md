@@ -135,6 +135,7 @@ window.dataLayer.push({
 });
 </script>
 ```
+---
 
 ## Set this Code when your website is loaded, after the Leo Tracking JS Code
 
@@ -144,12 +145,23 @@ window.dataLayer.push({
     var checkLeoEventTracking = function(e) {
         // item-view for product analytics
         if(typeof e.siteName === "string" ) {
+          // user info
           var userUid = e.userUid || "";
+          var email = e.email || "";
+          var firstName = e.firstName || "";
+          var lastName = e.lastName || "";
+          var phone = e.phone || "";
+          
           window.srcTouchpointName = encodeURIComponent(e.entityTitle || document.title);
           if(e.entityType === "commerce_product") { 
             var productId = e.entityUuid;
             if (typeof productId === "string") {
-              var eventData = { "productIds": productId, "idType": "external_ID", "userUid": userUid};
+              var eventData = { "productIds": productId, "idType": "external_ID"};
+              eventData["phone"] = phone;
+              eventData["email"] = email;
+              eventData["firstName"] = firstName;
+              eventData["lastName"] = lastName;
+              eventData["ecommerceUserId"] = userUid;
               LeoObserver.recordEventItemView(eventData);
             }
           }
@@ -158,7 +170,12 @@ window.dataLayer.push({
               // content-view
               var contentId = e.entityUuid;
               if (typeof contentId === "string") {
-                var eventData = { "keywords": keywords, "contentId": contentId, "userUid": userUid};
+                var eventData = { "keywords": keywords, "contentId": contentId};
+                eventData["phone"] = phone;
+                eventData["email"] = email;
+                eventData["firstName"] = firstName;
+                eventData["lastName"] = lastName;
+                eventData["ecommerceUserId"] = userUid;
                 LeoObserver.recordEventContentView(eventData);
               }
           }  
@@ -174,14 +191,26 @@ window.dataLayer.push({
         var productId = e.entityUuid;
         window.srcTouchpointName = encodeURIComponent(e.entityTitle || document.title);
         if (typeof productId === "string") {
+          // user info
           var userUid = e.userUid || "";
+          var email = e.email || "";
+          var firstName = e.firstName || "";
+          var lastName = e.lastName || "";
+          var phone = e.phone || "";
+
           var idType =  "external_ID";
           var quantity = 1;
           var currency = "VND";
           var eventName = "add-to-cart";
           var productItem = { "itemtId": productId, "idType": idType, quantity: quantity };
           
-          var eventData = { "productIds": productId, "idType": idType, "userUid": userUid };
+          var eventData = { "productIds": productId, "idType": idType };
+          eventData["phone"] = phone;
+          eventData["email"] = email;
+          eventData["firstName"] = firstName;
+          eventData["lastName"] = lastName;
+          eventData["ecommerceUserId"] = userUid;
+
           var shoppingItems = [];
           shoppingItems.push(productItem);
           LeoObserverProxy.recordConversionEvent(eventName, eventData,"", shoppingItems,0, currency);
@@ -214,14 +243,26 @@ window.dataLayer.push({
         var productId = e.entityUuid;
         window.srcTouchpointName = encodeURIComponent(e.entityTitle || document.title);
         if (typeof productId === "string") {
+          // user info
           var userUid = e.userUid || "";
+          var email = e.email || "";
+          var firstName = e.firstName || "";
+          var lastName = e.lastName || "";
+          var phone = e.phone || "";
+
           var idType =  "external_ID";
           var quantity = 1;
           var currency = "VND";
           var eventName = "order-checkout";
           var productItem = { "itemtId": productId, "idType": idType, quantity: quantity };
           
-          var eventData = { "productIds": productId, "idType": idType, "userUid": userUid };
+          var eventData = { "productIds": productId, "idType": idType };
+          eventData["phone"] = phone;
+          eventData["email"] = email;
+          eventData["firstName"] = firstName;
+          eventData["lastName"] = lastName;
+          eventData["ecommerceUserId"] = userUid;
+
           var shoppingItems = [];
           shoppingItems.push(productItem);
           LeoObserverProxy.recordConversionEvent(eventName, eventData,"", shoppingItems,0, currency);
@@ -245,14 +286,26 @@ window.dataLayer.push({
         var transactionId = e.transactionId || "";
         window.srcTouchpointName = encodeURIComponent(e.entityTitle || document.title);
         if (typeof productId === "string") {
+          // user info
           var userUid = e.userUid || "";
+          var email = e.email || "";
+          var firstName = e.firstName || "";
+          var lastName = e.lastName || "";
+          var phone = e.phone || "";
+
           var idType =  "external_ID";
           var quantity = 1;
           var currency = "VND";
           var eventName = "purchase";
           var productItem = { "itemtId": productId, "idType": idType, quantity: quantity };
           
-          var eventData = { "productIds": productId, "idType": idType, "userUid": userUid };
+          var eventData = { "productIds": productId, "idType": idType };
+          eventData["phone"] = phone;
+          eventData["email"] = email;
+          eventData["firstName"] = firstName;
+          eventData["lastName"] = lastName;
+          eventData["ecommerceUserId"] = userUid;
+
           var shoppingItems = [];
           shoppingItems.push(productItem);
           LeoObserverProxy.recordConversionEvent(eventName, eventData, transactionId, shoppingItems, 0, currency);
