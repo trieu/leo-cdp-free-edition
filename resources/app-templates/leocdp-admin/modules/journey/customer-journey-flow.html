@@ -4,6 +4,9 @@
 	width: 132px;
 	text-align: left!important;
 }
+#journey_channel_table tr.jsgrid-header-row, #data_observers_table tr.jsgrid-header-row {
+	font-size:13px;
+}
 </style>
 
 <div class="row">
@@ -83,7 +86,7 @@
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);
             }
-       }, callback);
+       });
 	}
 	
 	var loadFeedbackTemplateItems = function(){
@@ -299,7 +302,7 @@
 		   	            } else {
 		   	                LeoAdminApiUtil.logErrorPayload(json);
 		   	            }
-		   	       	}, callback);
+		   	       	});
 	   		    },
 		   		onRefreshed: function (args) {
 		   		    if ( ! insertRowMoved ) {
@@ -626,7 +629,7 @@
 					    	return btnHtml;
 			    		}
 		    		} else {
-		    			return "<b>Final Data Observer</b>";
+		    			return "-";
 		    		}
 		    	}
 		    	return "";
@@ -689,7 +692,7 @@
 	   		     	{ name: "typeName", title : "Touchpoint Hub Type", type: "text", align: "center" },
 	   		     	{ name: "firstPartyData", title : "First-party Data", type: "CheckBoxIcon", width: 40, align: "center" },
 	   		     	{ name: "collectDirectly", title : "Tracking directly", type: "CheckBoxIcon", width: 40, align: "center" },
-	   		     	{ name: "dataSourceUrl", title : "Touchpoint Hub URL", type: "UrlLink", width: 180, align: "center" },
+	   		     	{ name: "dataSourceUrl", title : "Touchpoint Hub URL", type: "UrlLink", width: 170, align: "center" },
 	   		     	{ name: "observerModel", title : "Actions", type: "LeoDataObserver", width: 70, align: "center"}
 	   		    ]
 	   		});  

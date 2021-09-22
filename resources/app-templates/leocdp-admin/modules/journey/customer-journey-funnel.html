@@ -10,6 +10,9 @@
 	.modal-body .eventName {
 		font-size:1.5em; color:blue; font-weight: bold;
 	}
+	tr > td.jsgrid-cell:nth-of-type(1) {
+		font-size:13px; color:blue;
+	}
 </style>
 
 <div class="row">
@@ -44,7 +47,7 @@
         </div>
         
         <div class="col-lg-12" style="margin-top: 8px;">
-         	<h4 class="text-center"> All event metrics in Journey Data Funnel </h4>
+         	<h4 class="text-center"> <mark> All Event Metrics in Journey Data Hub</mark> (The table is sorted by the Event Score) </h4>
             <div class="table-responsive">
                 <div id="behavioral_metrics_table"></div>
             </div>
@@ -54,7 +57,10 @@
 </div>
 
 <script>
-	var initBehavioralEventList = function(){
+	// global var
+	var behavioralMetricsData = [], journeyFunnelStages, customerFunnelStages;
+
+	var initBehavioralEventList = function() {
 		var profileFunnelOptions = {
 				block: {
 	   	   			highlight: true,
@@ -131,7 +137,7 @@
 	        { name: "PROSPECT", id: 2 },
 	        { name: "ENGAGEMENT", id: 3 },
 	        { name: "ACQUISITION", id: 5 },
-	        { name: "<mark>LIFETIME_VALUE</mark>", id: 6 },
+	        { name: "LIFETIME_VALUE", id: 6 },
 	        { name: "CX_EFFORT", id: 7 },
 	        { name: "CX_SATISFACTION", id: 8 },
 	        { name: "CX_FEEDBACK", id: 9 },
@@ -140,56 +146,116 @@
 	        { name: "CX_LOYALTY", id: 12 },
 	        { name: "CX_DETRACTOR", id: 13}
 	    ];
-
+	    
+	    var saveEventMetricMetaData = function(item){
+			var callback = function(json){
+	    		if(json.data != ""){
+	    			location.reload(true);
+	    		}
+	    		else {
+	    			console.error('saveEventMetricMetaData ', rs)
+	    		}
+	    	};
+			var params = {'eventMetricJson' : JSON.stringify(item) };
+	    	LeoAdminApiUtil.callPostAdminApi('/cdp/funnel/event-metric/save', params, function (json) {
+	            if (json.httpCode === 0 && json.errorMessage === '') {
+	    			callback(json);
+	            } else {
+	                LeoAdminApiUtil.logErrorPayload(json);
+	            }
+	       });
+		}
+	    
+	    var deleteEventMetricMetaData = function(eventName){
+    	 	$('#delete_callback').val('');
+	    	$('#confirmDeleteDialog').modal({ focus: true });
+	    	if (typeof eventName === "string" ) {
+	    	     var callback = "deleteEventMetricMetaData" + eventName;
+	    	     window[callback] = function () {
+	    	    	var params = {'eventName' : eventName};
+	   		    	LeoAdminApiUtil.callPostAdminApi('/cdp/funnel/event-metric/delete', params, function (json) {
+	   		            if (json.httpCode === 0 && json.errorMessage === '') {
+	   		            	setTimeout(function(){
+	   		            		location.reload(true);
+	   		            	}, 700)
+	   		            } else {
+	   		                LeoAdminApiUtil.logErrorPayload(json);
+	   		            }
+	   		       });
+	    	     }
+	    	     $('#delete_callback').val(callback);
+	    	     $('#deletedInfoTitle').html("Event Metric: " + eventName);
+	    	     $('#deletedInfoMsg').html('Delete Data Confirmation');
+	    	}
+		}
+	   
 	    
 	    LeoAdminApiUtil.getSecuredData('/cdp/funnel/metadata', {} , function(json){ 
 			 //console.log(json.data);	
 			 var canInsertData = json.canInsertData; 
-			 canInsertData = false;
 	    	 var canEditData = json.canEditData;
     		 var canDeleteData = json.canDeleteData;
-    		 canDeleteData = false;
 			
 			 if( ! canEditData ){
 				$('button.data-control').attr('disabled','disabled');
 			 }
 			
-			 var journeyFunnelStages = json.data['business_event_flow'];
-			 var customerFunnelStages = json.data['general_data_funnel']; 
-			 var behavioralMetricsData = json.data['behavioral_metrics'];
+			 behavioralMetricsData = json.data['behavioral_metrics'];
+			 var currentFlowName = behavioralMetricsData[0] ? behavioralMetricsData[0].flowName : "general_business_event";
+			 
+			 journeyFunnelStages = json.data['business_event_flow'];
+			 customerFunnelStages = json.data['general_data_funnel']; 
 			 
 			 renderFunnelChart("#profile_funnel",customerFunnelStages, profileFunnelOptions, getColorCodeProfileFunnel)
 			 renderFunnelChart("#journey_funnel",journeyFunnelStages, journeyFunnelOptions, getColorCodeJourneyFunnel)
 			 
 			 // TODO
-			 var gridControls =  { type: "control", width: 70, editButton: false, deleteButton: false,
+			 var insertItemReady = false, insertedIndex = -1;
+			 var gridControls =  { type: "control", width: 70, editButton: true, deleteButton: true,
                  itemTemplate: function(value, item) {
                     var $result = jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
                     
+                    var isSystemMetric = item.systemMetric;
+                    var eventName = item.eventName;
                     var setRuleIcon, setRulesLabel;
                     setRuleIcon = '<i class="fa fa-cogs event-set-rules" style="" aria-hidden="true"></i>';
-                    setRulesLabel = 'Edit Event Name: ' + item.eventName;
+                    setRulesLabel = 'Edit Event Name: ' + eventName;
                     
-                    var $setRulesButton = $("<button>").attr({class: "jsgrid-custom-button", title : setRulesLabel}).html(setRuleIcon).click(function(e) {
-                    	console.log(item);
+                    var $setRulesButton = $("<button>").data("eventName",eventName).attr({class: "jsgrid-custom-button", title : setRulesLabel}).html(setRuleIcon)
+                    .click(function(e) {
+                    	console.log("setRules button ", $(this).data('eventName'));
+                    	
                     	infoEnterpriseVersion(this);
                         e.stopPropagation();
                     });       
                     
-                    var $customEditButton = $("<button>").attr({class: "customGridEditbutton jsgrid-button jsgrid-edit-button",title:"Edit Event Metric"})
+                    var cssClass = "customGridEditbutton jsgrid-button jsgrid-edit-button";
+                    var $customEditButton = $("<button>").data("eventName",eventName).attr({class: cssClass,title:"Edit Event Metric"})
                     .click(function(e) {
-                    	infoEnterpriseVersion(this);
-                        e.stopPropagation();
+                    	//infoEnterpriseVersion(this);
+                        //e.stopPropagation();
+                       
+                        
+                        console.log("Edit button ", $(this).data('eventName'))
                     });
 
-                   	var $customDeleteButton = $("<button>").attr({class: "customGridDeletebutton jsgrid-button jsgrid-delete-button",title:"Delete Event Metric"})
+                    var cssClass = "customGridDeletebutton jsgrid-button jsgrid-delete-button";
+                   	var $customDeleteButton = $("<button>").data("eventName",eventName).attr({class: cssClass,title:"Delete Event Metric"})
                    	.click(function(e) {
-                	  	infoEnterpriseVersion(this);
+                   		var eventName = $(this).data('eventName');
+                   		console.log("Delete button ", eventName)
+                   		deleteEventMetricMetaData(eventName)
                       	e.stopPropagation();
                     });
 
                    	var rs = $("<div>");
-                   	rs.append($setRulesButton).append($customDeleteButton).append($customEditButton);
+                   	if(isSystemMetric) {
+                   		rs.append($setRulesButton);
+                   	} else {
+                    	rs.append($setRulesButton);
+                       	rs.append($customDeleteButton).append($customEditButton);
+                   	}
+                   	
                    	return rs;
                  }
              }
@@ -202,6 +268,7 @@
 			    editing: true,
 			    sorting: false,
 			    paging: false,
+			    data: behavioralMetricsData,
 			    
 			    confirmDeleting : canDeleteData,
 			    deleteConfirm: function(item) {
@@ -211,45 +278,62 @@
 		            return "The event metric [" + item.eventName + "] will be removed. Are you sure ? ";
 		        },
 	
-			    data: behavioralMetricsData,
-			    
-			    onItemInserting: function(args) {
-			    	args.cancel = true; return;
-			    	console.log("onItemInserting",args.item)
-			    	
-			    	// TODO Ajax submit data to backend here
-			    	setTimeout(function(){
-			    		args.item.id = "";
-			    		//console.log(behavioralMetricsData)
-			    	},1000);
-			    	
-			    },      
+		        onItemInserting: function(args) {
+		        	$('tr > td.jsgrid-cell:nth-of-type(1)').each(function(){
+		        		var eventName = $(this).text().trim();
+		        		if(eventName === args.item.eventName) {
+		        			args.cancel = true;
+				            iziToast.info({
+			    	    	    title: 'Info',
+			    	    	    message: 'The event [' + eventName +  '] is already existed in the metric list!'
+			    	    	});
+		        		}
+		        	})
+                    
+	   		    	// default for new inserting item
+	   		    	args.item.systemMetric = false;
+	   		    	args.item.dataType = 1;
+	   		    	args.item.flowName = currentFlowName;
+	   		    },
+			   
 			    onItemInserted: function(args) {
-			    	console.log("onItemInserted", args.item)
-			    	//console.log(behavioralMetricsData)
+			    	var item = args.item;
+			    	if(item.eventName.trim() === "" || item.eventLabel.trim() === "") {
+			    		 args.cancel = true;
+			    	}
+			    	else {
+			    		saveEventMetricMetaData(args.item)
+			    	}
 			    }, 
 			    
 			    onItemEditing: function(args) {
 		            if(args.item.systemMetric) {
-		            	iziToast.error({
-			        	    title: 'Error',
-			        	    message: "The event metric [" + args.item.eventName + "] is managed by LEO CDP. You can not edit this metric."
-			        	});
-		                args.cancel = true;
+		            	
 		            }
 			    },
+			    
+			    onItemUpdated: function(args) {
+			    	saveEventMetricMetaData(args.item)
+			    }, 
 			    
 			    onItemDeleting: function(args) {
 			        if(args.item.systemMetric) {
 			            args.cancel = true;
 			        }
 			    },
+			    
+			    onRefreshed: function (args) {
+			    	$('input.jsgrid-insert-mode-button').click(function(){
+			        	console.log($('tr.jsgrid-insert-row').find('input[type="number"]'))
+			           	$('tr.jsgrid-insert-row').find('input[type="number"]').val(0);
+			        })
+			    },
 	
 			    fields: [
-			        { name: "eventName", title : "Event Name", align: 'center' , type: "text", validate: "required" },
-			        { name: "eventLabel", title : "Event Label", align: 'center' , type: "text", width: 116 },
-			        { name: "score", title : "Event Score", type: "number", align: 'center', width: 36, validate: "required" },
-			        { name: "cumulativePoint", title : "Loyalty Point", type: "number", width: 36, align: 'center', validate: "required" },
+			        { name: "eventName", title : "Event Name", align: 'center' , type: "text", validate: "required", validate: "required" },
+			        { name: "eventLabel", title : "Event Label", align: 'center' , type: "text", width: 116, validate: "required" },
+			        { name: "score", title : "Event Score", type: "number", align: 'center', width: 38, validate: "required" },
+			        { name: "cumulativePoint", title : "Loyalty Point", type: "number", width: 38, align: 'center', validate: "required" },
 			        { name: "eventStageId", title : "Journey Stage", type: "select", items: journeyFunnelStages, valueField: "id", textField: "name" },
 			        { name: "scoreModel", title : "Score Model", type: "select", items: scoringModels, width: 80, valueField: "id", textField: "name" },
 			        { name: "funnelStageId", title : "Default Profile Stage", type: "select", items: customerFunnelStages, valueField: "id", textField: "name" },
@@ -259,7 +343,7 @@
 			});  
 		});
 	}
-
+	
 </script>
 
 

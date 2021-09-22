@@ -111,9 +111,9 @@
 		
 		data.forProfileEnrichment = $('#forProfileEnrichment').prop('checked');
 		data.forTouchpointEnrichment = $('#forTouchpointEnrichment').prop('checked');
-		data.forMarketingActivation = $('#forMarketingActivation').prop('checked');
+		data.forSegmentDataActivation = $('#forSegmentDataActivation').prop('checked');
 		
-		if(data.forMarketingActivation){
+		if(data.forSegmentDataActivation){
 			$('#dataActivationServices input').prop("disabled", false).each(function(){ 
 				var checked = $(this).prop('checked');
 				data[ $(this).attr('id') ] = checked;
@@ -197,9 +197,9 @@
 		
 		$('#forProfileEnrichment').prop('checked', data.forProfileEnrichment);
 		$('#forTouchpointEnrichment').prop('checked', data.forTouchpointEnrichment);
-		$('#forMarketingActivation').prop('checked', data.forMarketingActivation);
+		$('#forSegmentDataActivation').prop('checked', data.forSegmentDataActivation);
 		
-		if(data.forMarketingActivation){
+		if(data.forSegmentDataActivation){
 			$('#dataActivationServices input').prop("disabled", false).each(function(){ 
 				var checked = data[ $(this).attr('id') ];
 				$(this).prop('checked', checked); 
@@ -327,7 +327,7 @@
 					<label  class="control-label col-md-3" > Purposes </label>
 					<div class="col-md-9 float-left" >
 						<label class="checkbox-inline control-label">
-					      	<input id="forMarketingActivation" type="checkbox" value="true" onchange="setDataActivationServices(this)" > <b>Segment Data Activation</b>
+					      	<input id="forSegmentDataActivation" type="checkbox" value="true" onchange="setDataActivationServices(this)" > <b>Segment Data Activation</b>
 					    </label>
 						<label class="checkbox-inline control-label">
 					      	<input id="forProfileEnrichment" type="checkbox" value="true"> <b>Profile Data Enrichment</b>

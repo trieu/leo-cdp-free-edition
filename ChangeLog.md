@@ -1,30 +1,41 @@
 # Changelog for LEO CDP
 
-## [0.8.8] - 2021-09-12
+## [0.8.8] - 2021-09-22 18h
 
-### Added  
+### Added new features 
 
-- increase the free quota of Leo CDP is 1000 contacts and 10000 anonymous profiles
+- Ads By Leo CDP: auto update ranking of "add-to-cart" items
+- optimize flow for ecommerce by tracking events in shopping cart
+- the free quota of Leo CDP is 500 profiles
 - merge Feedback Survey data into Profile data automatically
 - allow start multiple leo-admin in a sample server (multiple hosts)
 - add more survey template tags in Feedback Form Editor and Feedback Form Loader
+- add Geolocation loader in feedback survey form to collect location data of profile
+- UI: add checkbox "Delete all profiles in the segment" in delete segment modal box
+- user can delete all profiles in segment if check on the checkbox "Delete all profiles"
+
+### Updated backend
+
+- add XssFilterUtil to filter all HTML tags and JS tags in raw data of FeedbackEvent 
+- Event Metric in data funnel: save and delete
+- Redis cache utils for LEO CDP: ObserverRedisCacheUtil, AdminRedisCacheUtil, SchedulerRedisCacheUtil
+- add new methods in EventMetric: isMarketingMetric, isBusinessMetric, isExperienceMetric
+- improve JobUpdateProfile
 - improve FeedbackEvent model for Survey Analytics and Customer Analytics
 - add ProfileAgeGroup to classify profile by age group
-- add gelocation loader in survey form to collect location data of profile
-- add checkbox "Delete all profiles in the segment" in delete segment modal box
-- user can delete all profiles in segment if check on the checkbox "Delete all profiles"
-- add XssFilterUtil to filter all HTML tags and JS tags in FeedbackEvent raw data
 
-### Fixed
+### Fixed bugs
 
 - default UI for content hub leo-cdp
 - fix GeoLocationUtil for Google Cloud Proxy, can not get correct IP
 - the value of collectDirectly in Leo Observer should be checked 
 - CSS width of survey preview is too small , set 1024px as default 
 - fix XSS script hacked into eventData in customer-profile-info.html
+- update profile funnel stage is not correctly, case happy-customer and returning-visitor
 
 ### Changed
 
+- Profile Info UI: hide Event Data if no data
 - update config to start leo-admin, can start with default httpRoutingConfigAdmin
 - update ContactType in profile model to improve profile merge algorithm 
 - rename graph from cdp_purchased_product_graph to Profile2Conversion
@@ -32,6 +43,9 @@
 - remove totalEvent, rename totalScore into eventScore in ProfileGraphEdge
 - rename groupIds to assetGroupIds in ProfileGraphEdge
 - System Settings menu is put at the top for Admin Role
+- rename forMarketingActivation to forSegmentDataActivation
+- Profile Model, refactoring code and update: purchasedItemIds, shoppingItemIds, shoppingCartItems+-
+
 
 ---
 

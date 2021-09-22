@@ -852,9 +852,8 @@
 			<i class="fa fa-map-marker" aria-hidden="true"></i>  
 			<span class="small" > Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a>  </span> 
 		 </div>
- 			<div class="text-wrap" >  
+ 		 <div class="text-wrap" style="display: <%- cssStyleDisplay %>" >  
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br> 
-
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
 				<li> <%- key %> : <%- value %> </li>
@@ -881,9 +880,8 @@
 			<i class="fa fa-map-marker" aria-hidden="true"></i>  
 			<span class="small" > Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a>  </span> 
 		 </div>
-		 <div class="text-wrap" >  
-			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br> 
-
+		 <div class="text-wrap" style="display: <%- cssStyleDisplay %>" >  
+			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br>
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
 				<li> <%- key %> : <%- value %> </li>
@@ -910,9 +908,8 @@
 			<i class="fa fa-map-marker" aria-hidden="true"></i>
 			<span class="small" > Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a>  </span> 
 		 </div>
- 		 <div class="text-wrap" >  
+ 		 <div class="text-wrap" style="display: <%- cssStyleDisplay %>" >   
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br> 
-			
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
 				<li> <%- key %> : <%- value %> </li>
@@ -940,9 +937,8 @@
 			<i class="fa fa-map-marker" aria-hidden="true"></i>  
 			<span class="small" > Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a>  </span> 
 		 </div>
-		 <div class="text-wrap" >  
+		 <div class="text-wrap" style="display: <%- cssStyleDisplay %>" >  
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br> 
-			
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
 				<li> <%- key %> : <%- value %> </li>
@@ -1414,6 +1410,12 @@
     			 e.srcTouchpoint.name = textTruncate(e.srcTouchpoint.name,120);
     			 e.srcTouchpoint.truncatedUrl = textTruncate(e.srcTouchpoint.url,120);
     			 e.createdAt = moment.utc(e.createdAt).local().format('YYYY-MM-DD HH:mm:ss');
+    			
+    			 if( _.size(e.eventData) > 0) {
+    				 e.cssStyleDisplay = "block";
+    			 } else {
+    				 e.cssStyleDisplay = "none";
+    			 }
     			 
     			 var eventName = e.metricName;
     			 var tplName = 'view-event-tpl';

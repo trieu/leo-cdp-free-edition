@@ -31,7 +31,12 @@
       	<div class="col-md-12 row">
 			<div class="col-md-6" style="background-color:#f5f5f5; border-radius: 5px;padding-top: 5px"> 
 				<div class="col-md-12">
-					<label> <input id="disable_date_filter" type="checkbox" onclick="toggleProfileDisableDateFilter(false)" > No Date Range Filter </label>
+					<label  title="Filter all profiles within the specified date range"> 
+						<input id="disable_date_filter" type="checkbox" onclick="toggleProfileDisableDateFilter(false)" > No Date Range Filter 
+					</label>
+					<label style="float: right;" title="Filter all profiles that have mobile phone or email" > 
+						<input id="filterOnlyContactable" type="checkbox" > Filter contact profiles 
+					</label>
 				</div> 
 				<div id='beginFilterDateHolder' class="col-md-6"> 
 					<div class="form-group">
@@ -62,7 +67,6 @@
 					    <ul class="dropdown-menu">
 					    	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterEmail')" >Primary Email</a></li>
 					      	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterPhone')" >Primary Phone</a></li>
-					      	
 					      	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterByVisitorId')" >Web Visitor ID</a></li>
 					      	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterByProfileId')" >Profile ID</a></li>
 					    </ul>
@@ -73,12 +77,6 @@
 						<input style="margin-top:6px; display: none;" type="text" class="form-control" id="filterPhone" placeholder="Enter primary phone number" >
 				  		<input style="margin-top:6px; display: none;" type="text" class="form-control" id="filterByVisitorId" placeholder="Enter web visitor ID" >
 				  		<input style="margin-top:6px; display: none;" type="text" class="form-control" id="filterByProfileId" placeholder="Enter profile ID" >
-					</div>
-				  	
-				  	<div class="col-md-12" style="padding-top: 8px">
-						<label title="Filter all profiles that have mobile phone or email" > 
-							<input id="filterOnlyContactable" type="checkbox" > Show only contact profiles 
-						</label>
 					</div>
 				</div>
 				<div class="col-md-6" >
