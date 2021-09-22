@@ -25,9 +25,10 @@ window.dataLayer.push({
     "entityBundle": "home_page",
     "entityTitle": "Home Page",
     "userUid": "372",
-    "userFirstname": "Trieu", // if no login, set empty string
-    "userLastname": "Nguyen", // if no login, set empty string
-    "userEmail": "trieu@leocdp.com" // if no login, set empty string
+    "firstName": "Trieu", // if no login, set empty string
+    "lastName": "Nguyen", // if no login, set empty string
+    "email": "trieu@leocdp.com", // if no login, set empty string
+    "phone":"+840903"
 }); 
 </script>
 ```
@@ -47,9 +48,10 @@ window.dataLayer.push({
     "entityBundle": "article", // or "news" or "blog"
     "entityTitle": "The Solution to The Human Resources Problem in Young Enterprises",
     "userUid": "372",
-    "userFirstname": "Trieu", // if no login, set empty string
-    "userLastname": "Nguyen", // if no login, set empty string
-    "userEmail": "trieu@leocdp.com" // if no login, set empty string
+    "firstName": "Trieu", // if no login, set empty string
+    "lastName": "Nguyen", // if no login, set empty string
+    "email": "trieu@leocdp.com", // if no login, set empty string
+    "phone":"+840903"
 }); 
 </script>
 ```
@@ -70,9 +72,10 @@ window.dataLayer.push({
     "entityTitle": "High-tech Publication - Software Sector", // product name
     "entityQuantity": 1, // default number item in shopping cart
     "userUid": "372",
-    "userFirstname": "Trieu", // if no login, set empty string
-    "userLastname": "Nguyen", // if no login, set empty string
-    "userEmail": "trieu@leocdp.com" // if no login, set empty string
+    "firstName": "Trieu", // if no login, set empty string
+    "lastName": "Nguyen", // if no login, set empty string
+    "email": "trieu@leocdp.com", // if no login, set empty string
+    "phone":"+840903"
 }); 
 </script>
 ```
@@ -93,9 +96,10 @@ window.dataLayer.push({
     "entityTitle": "High-tech Publication - Software Sector", // product name
     "entityQuantity": 1, // default number item in shopping cart
     "userUid": "372",
-    "userFirstname": "Trieu", // if no login, set empty string
-    "userLastname": "Nguyen", // if no login, set empty string
-    "userEmail": "trieu@leocdp.com" // if no login, set empty string
+    "firstName": "Trieu", // if no login, set empty string
+    "lastName": "Nguyen", // if no login, set empty string
+    "email": "trieu@leocdp.com", // if no login, set empty string
+    "phone":"+840903"
 }); 
 </script>
 ```
