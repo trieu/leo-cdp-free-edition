@@ -13,6 +13,7 @@
 - add Geolocation loader in feedback survey form to collect location data of profile
 - UI: add checkbox "Delete all profiles in the segment" in delete segment modal box
 - user can delete all profiles in segment if check on the checkbox "Delete all profiles"
+- update profile info from Event Stream
 
 ### Updated backend
 

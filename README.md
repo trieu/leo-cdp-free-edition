@@ -27,6 +27,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 * The binary build of LEO CDP Free Edition for CDP Evaluation only.
 * Free quota: 500 profiles in database
 * To get more quota, please contact me to purchase the LEO CDP's software license and get more supports and knowledge consulting services.
+* 
 
 # Contact information 
 
