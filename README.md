@@ -14,6 +14,8 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 4. You need an on-premises software solution to deploy in your private cloud servers
 5. You want to build your own Customer Data Platform (CDP) for your digital business and digital transformation
 
+---
+
 # General Data Flow
 
 ![alt Leo CDP Flow](https://1.bp.blogspot.com/-5LDHS3iflqU/YQOKwcrx_LI/AAAAAAAAMgA/5tmJWbsKNdYiMBGS5SNsOh5weX2owj_9QCLcBGAsYHQ/s2048/LEO%2BCDP%2Bversion%2B1.0%2BChecklist-Data%2BFlow%2BLeo%2BCDP.png)
@@ -28,23 +30,31 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 2. Redis 6
 3. Java 8
 4. Python 3.8
-5. ArangoDB 3.8 Community Edition
+5. ArangoDB 3.8 (Community or Enterprise Edition or Cloud Oasis)
 6. Jupyter Notebook / Google Colab
-7. Apache Airflow
-8. Promotheus 2
-9. Grafana 8
+7. Apache Airflow for ETL job scheduling and data connector
+8. Promotheus 2 for ArangoDB Database Monitoring
+9. Grafana 8 for ArangoDB Database Monitoring
 
 ## Proposal solutions for digital marketing services
 
-1. Mailchimp for email marketing
-2. SendInBlue for email marketing
+1. Mailchimp for Email Marketing
+2. SendInBlue for Email Marketing
 3. OneSignal / SendPulse / Firebase Cloud Messaging for push notification
 4. Facebook for Business Marketing 
-5. BigQuery + Google Data Studio for Custom Reports
+5. Google Sheets + Google Data Studio for Custom Reports
+
+## Proposal cloud server vendors
+
+1. VNG Cloud 
+2. Google Cloud
+3. AWS Cloud
 
 ## How to install
 
-[LEO CDP Installation Guide](https://github.com/trieu/leo-cdp-free-edition/blob/main/all-documents/NOTES-FOR-NEW-SETUP.md)
+[Please check this LEO CDP Installation Guide](https://github.com/trieu/leo-cdp-free-edition/blob/main/all-documents/NOTES-FOR-NEW-SETUP.md)
+
+---
 
 # About this LEO CDP FREE Edition
 
@@ -66,6 +76,6 @@ Facebook: <a href="https://www.facebook.com/groups/bigdatavietnam.org/" target="
 
 # Documents 
 
-* <a href="https://youtube.com/playlist?list=PL7YpzmBoIETSD7jnVlvfNxhSa8V2BY3-8" target="_blank" > YouTube playlist for training </a>
 * All documents and video tutorials are still under development 
+* <a href="https://youtube.com/playlist?list=PL7YpzmBoIETSD7jnVlvfNxhSa8V2BY3-8" target="_blank" > YouTube playlist for training </a>
 * More information will be updated at <a href="https://knowledge.leocdp.net/" target="_blank"> LEO CDP Blog </a>
