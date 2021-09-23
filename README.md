@@ -22,12 +22,23 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 ![alt technology-architecture-leo-cdp](https://cdn.jsdelivr.net/gh/trieu/leo-cdp-free-edition@latest/technology-architecture-leo-cdp-version-1.0-aug.22.2021.png)
 
+## Software Requirements
+
+1. Linux Ubuntu Server 20 / Debian Server / Red Hat Enterprise Linux
+2. Redis 6
+3. Java 8
+4. Python 3.8
+5. ArangoDB 3.8 Community Edition
+6. Jupyter Notebook / Google Colab
+7. Apache Airflow
+8. Promotheus 2
+9. Grafana 8
+
 # About this LEO CDP FREE Edition
 
 * The binary build of LEO CDP Free Edition for CDP Evaluation only.
 * Free quota: 500 profiles in database
 * To get more quota, please contact me to purchase the LEO CDP's software license and get more supports and knowledge consulting services.
-* 
 
 # Contact information 
 
