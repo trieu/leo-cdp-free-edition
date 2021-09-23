@@ -34,6 +34,14 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 8. Promotheus 2
 9. Grafana 8
 
+## Proposal solutions for digital marketing services
+
+1. Mailchimp for email marketing
+2. SendInBlue for email marketing
+3. OneSignal / SendPulse / Firebase Cloud Messaging for push notification
+4. Facebook for Business Marketing 
+5. BigQuery + Google Data Studio for Custom Reports
+
 ## How to install
 
 [LEO CDP Installation Guide](https://github.com/trieu/leo-cdp-free-edition/blob/main/all-documents/NOTES-FOR-NEW-SETUP.md)
