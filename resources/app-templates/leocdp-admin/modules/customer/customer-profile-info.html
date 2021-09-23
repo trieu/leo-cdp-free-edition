@@ -1161,6 +1161,10 @@
         	 else {
         		 data.lastTrackingEvent.createdAt = noinfo;
         	 }
+        	 
+        	 // decode for name of touchpoint
+        	 data.lastTouchpoint.name = decodeURI(data.lastTouchpoint.name);
+        	 data.lastTrackingEvent.refTouchpoint.name = decodeURI(data.lastTrackingEvent.refTouchpoint.name);
         	 return data;
          }
          
@@ -1407,7 +1411,7 @@
     		 }
     		 // apply template
     		 _.forEach(json.data,function(e,i){
-    			 e.srcTouchpoint.name = textTruncate(e.srcTouchpoint.name,120);
+    			 e.srcTouchpoint.name = decodeURI(textTruncate(e.srcTouchpoint.name,120));
     			 e.srcTouchpoint.truncatedUrl = textTruncate(e.srcTouchpoint.url,120);
     			 e.createdAt = moment.utc(e.createdAt).local().format('YYYY-MM-DD HH:mm:ss');
     			
