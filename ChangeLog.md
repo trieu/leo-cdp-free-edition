@@ -4,7 +4,7 @@
 
 ### Added new features 
 
-- Ads By Leo CDP: auto update ranking of "add-to-cart" items
+- Ads By Leo CDP: increase ranking "add-to-cart" items and decrease ranking "purchase" items
 - optimize flow for ecommerce by tracking events in shopping cart
 - the free quota of Leo CDP is 500 profiles
 - merge Feedback Survey data into Profile data automatically
