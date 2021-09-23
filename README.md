@@ -62,7 +62,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # Community Support 
 
-Facebook <a href="https://www.facebook.com/groups/bigdatavietnam.org/" target="_blank">  bigdatavietnam.org social group </a>
+Facebook: <a href="https://www.facebook.com/groups/bigdatavietnam.org/" target="_blank">  BigDataVietnam.org social group </a>
 
 # Documents 
 
