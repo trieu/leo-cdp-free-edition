@@ -26,23 +26,25 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 ## Software Requirements
 
-1. Linux Ubuntu Server 20 / Debian Server / Red Hat Enterprise Linux
+1. Linux Ubuntu Server 20.04 LTS
 2. Redis 6
-3. Java 8
+3. Amazon Java 8 Corretto
 4. Python 3.8
 5. ArangoDB 3.8 (Community or Enterprise Edition or Cloud Oasis)
-6. Jupyter Notebook / Google Colab
+6. Jupyter Notebook / Google Colab for advanced data analytics and A.I model
 7. Apache Airflow for ETL job scheduling and data connector
-8. Promotheus 2 for ArangoDB Database Monitoring
-9. Grafana 8 for ArangoDB Database Monitoring
+8. Prometheus 2 for System Monitoring
+9. Grafana 8 for System Monitoring
 
 ## Proposal solutions for digital marketing services
 
-1. Mailchimp for Email Marketing
-2. SendInBlue for Email Marketing
-3. OneSignal / SendPulse / Firebase Cloud Messaging for push notification
-4. Facebook for Business Marketing 
-5. Google Sheets + Google Data Studio for Custom Reports
+1. Mailchimp / SendInBlue for Email Marketing
+2. OneSignal / SendPulse / Firebase Cloud Messaging for push notification
+3. Facebook for Business Marketing 
+4. Google Ads for Search Engine Marketing
+5. Vimeo Premium for Video Livestream Marketing
+6. Google Sheets + Google Data Studio for Custom Reports
+7. Google BigQuery - Analyse Big Data in the Cloud
 
 ## Proposal cloud server vendors
 
