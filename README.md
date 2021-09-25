@@ -41,14 +41,18 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 3. Facebook for Business Marketing 
 4. Google Ads for Search Engine Marketing
 5. Vimeo Premium for Video Livestream Marketing
-6. Google Sheets + Google Data Studio for Custom Reports
-7. Google BigQuery - Analyse Big Data in the Cloud
+6. Buffer Social Media Toolkit
+7. Blogger API and YouTube API for SEO
+8. Google Sheets and Google Data Studio for Custom Reports
+9. Google BigQuery to analyse Big Data in the Cloud
 
 ## Proposal cloud server vendors
 
-1. VNG Cloud 
-2. Google Cloud
+1. Google Cloud
+2. VNG Cloud 
 3. AWS Cloud
+4. Digital Ocean Cloud
+5. Your private cloud server !
 
 ## How to install
 
@@ -58,7 +62,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # About this LEO CDP FREE Edition
 
-* The binary build of LEO CDP Free Edition for CDP Evaluation only.
+* The binary build of LEO CDP Free Edition for CDP Evaluation only, do not use this edition in the production or live system.
 * Free quota: 500 profiles in database
 * To get more quota, please contact me to purchase the LEO CDP's software license and get more supports and knowledge consulting services.
 
@@ -72,7 +76,8 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # Community Support 
 
-Facebook: <a href="https://www.facebook.com/groups/bigdatavietnam.org/" target="_blank">  BigDataVietnam.org social group </a>
+* This is the beta software, so if you get any bug or issue in operation, just send me a message (trieu@leocdp.com)
+* Facebook: <a href="https://www.facebook.com/groups/bigdatavietnam.org/" target="_blank">  BigDataVietnam.org social group </a>
 
 # Documents 
 

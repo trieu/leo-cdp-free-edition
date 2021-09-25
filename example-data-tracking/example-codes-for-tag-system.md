@@ -277,6 +277,9 @@ window.dataLayer.push({
       window.dataLayer.forEach(leoCdpOrderCheckout);  
     }
 </script>
+
+var orderValue = parseInt(document.querySelector('.order-total-line-value').textContent.replace("VND","").replaceAll(",",""));
+location.href.indexOf("/checkout/") > 0 && location.href.indexOf("/order_information") > 0
 ```
 
 ## Track Event [purchase]
