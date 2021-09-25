@@ -9,9 +9,14 @@
 		<!-- BEGIN headCode -->
 		{{{customData.headCode}}}
 		<!-- END headCode -->
+		
+		<style type="text/css">
+			body {
+				background-color: transparent; overflow: hidden; text-align: center;
+			}
+		</style>
 	</head>
-	<body style="background-color: transparent;overflow: hidden;" >
-	
+	<body>
 		<script>
 			(function() {
 			    //LEO Web Observer for channel: 
@@ -49,7 +54,6 @@
 			    $("button[type='submit']").click(function(){
 			    	submitData()
 			    });
-			    
 			    // synch and load feedback score for feedback form
 			    LeoObserverProxy.synchLeoVisitorId(function(vid){
 			    	 if(typeof loadFeedbackScoreCallback === "function") {

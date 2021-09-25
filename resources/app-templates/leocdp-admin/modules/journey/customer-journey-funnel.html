@@ -308,7 +308,11 @@
 			    
 			    onItemEditing: function(args) {
 		            if(args.item.systemMetric) {
-		            	
+		            	iziToast.info({
+		    	    	    title: 'Information Box',
+		    	    	    message: 'The event [' + args.item.eventName +  '] is managed by LEO CDP. You can not edit this metric !'
+		    	    	});
+		            	args.cancel = true;
 		            }
 			    },
 			    

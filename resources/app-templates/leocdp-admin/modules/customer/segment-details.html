@@ -228,7 +228,7 @@
 									</button>
 								</div>
 								
-								<div class="col-sm-12 sm_purpose" id="sm_forPredictiveAnalytics" > 
+								<div class="col-sm-12 sm_purpose" id="sm_forPredictiveAnalytics" style="display: none;" > 
 									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i> 
 									Predictive Analytics </b>
 									<button type="button" class="btn btn-do-now" title="Data Activation" > 
@@ -244,7 +244,7 @@
 									</button>
 								</div>
 								
-								<div class="col-sm-12 sm_purpose" id="sm_forRealtimeMarketing"  > 
+								<div class="col-sm-12 sm_purpose" id="sm_forRealtimeMarketing" style="display: none;" > 
 									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i> 
 									Push Message Notification</b>
 									<button type="button" class="btn btn-do-now" title="Data Activation" > 
@@ -252,7 +252,7 @@
 									</button>
 								</div>
 								
-								<div class="col-sm-12 sm_purpose" id="sm_forReTargeting" > 
+								<div class="col-sm-12 sm_purpose" id="sm_forReTargeting" style="display: none;"> 
 									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i> 
 									Retargeting Advertising</b>
 									<button type="button" class="btn btn-do-now" title="Data Activation" > 
@@ -260,7 +260,7 @@
 									</button>
 								</div>
 								
-								<div class="col-sm-12 sm_purpose" id="sm_forLookalikeTargeting" > 
+								<div class="col-sm-12 sm_purpose" id="sm_forLookalikeTargeting" style="display: none;"> 
 									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i> 
 									Look-alike Advertising   </b>
 									<button type="button" class="btn btn-do-now" title="Data Activation" > 
@@ -389,7 +389,9 @@
 			}
 			else if(purpose === "for3rdSynchronization"){
 				showDataSynchronizationDialog(segmentId, name, size)
-				
+			}
+			else if(purpose === "forEmailMarketing"){
+				showEmailMarketingDialog(segmentId, name, size)
 			}
 			else {
 				// window.open("https://colab.research.google.com/notebooks/","_blank")
@@ -426,14 +428,14 @@
 	     }
 	     
 	     if(segmentData.forDeepAnalytics){
-	    	 $('#sm_forDeepAnalytics').show().find("button").data("purpose","forDeepAnalytics");
+	    	 // $('#sm_forDeepAnalytics').show().find("button").data("purpose","forDeepAnalytics");
 	    	 hasActivation = true;
 	     } else {
 	    	 $('#sm_forDeepAnalytics').hide()
 	     }
 	     
 	     if(segmentData.forPredictiveAnalytics ){
-	    	 $('#sm_forPredictiveAnalytics').show().find("button").data("purpose","forPredictiveAnalytics")
+	    	 // $('#sm_forPredictiveAnalytics').show().find("button").data("purpose","forPredictiveAnalytics")
 	    	 hasActivation = true;
 	     } else {
 	    	 $('#sm_forPredictiveAnalytics').hide()
@@ -455,21 +457,21 @@
 	     }
 	     
 	     if(segmentData.forRealtimeMarketing){
-	    	 $('#sm_forRealtimeMarketing').show().find("button").data("purpose","forRealtimeMarketing");
+	    	 // $('#sm_forRealtimeMarketing').show().find("button").data("purpose","forRealtimeMarketing");
 	    	 hasActivation = true;
 	     } else {
 	    	 $('#sm_forRealtimeMarketing').hide()
 	     }
 	     
 	     if(segmentData.forReTargeting){
-	    	 $('#sm_forReTargeting').show().find("button").data("purpose","forReTargeting");
+	    	 // $('#sm_forReTargeting').show().find("button").data("purpose","forReTargeting");
 	    	 hasActivation = true;
 	     } else {
 	    	 $('#sm_forReTargeting').hide();
 	     }
 	     
 	     if(segmentData.forLookalikeTargeting){
-	    	 $('#sm_forLookalikeTargeting').show().find("button").data("purpose","forLookalikeTargeting");
+	    	 // $('#sm_forLookalikeTargeting').show().find("button").data("purpose","forLookalikeTargeting");
 	    	 hasActivation = true;
 	     } else {
 	    	 $('#sm_forLookalikeTargeting').hide();
@@ -529,6 +531,49 @@
     		keyboard: false
 		});
 		$('#synchronizationOkButton').data("segmentId",segmentId).data("segmentName",segmentName);
+	}
+	
+	var emailTemplateToActivateSegment = false;
+	var showEmailMarketingDialog = function(segmentId, segmentName, segmentSize) {
+		$('#profileCountToSendEmail').text(segmentSize.toLocaleString())
+		
+  		$('#dialogEmailMarketing').modal({
+      		backdrop: 'static',
+      		keyboard: false
+  		});
+		
+		// EMAIL_CONTENT
+		var urlStr = window.baseLeoAdminUrl + "/item/asset-templates-for-email";
+    	LeoAdminApiUtil.getSecuredData(urlStr, {}, function (json) { 
+    		
+    		// priority group selector
+			var pgSelector = $('#emailTemplateSelector');
+			pgSelector.find("option").remove();
+			
+			var firstId = false;
+    		json.data.forEach(function(group,i){ 
+    			var id = group.id;
+    			var option = '<option value="'+id+'" >' + group.title + '</option>';
+    			pgSelector.append(option);
+    			if(emailTemplateToActivateSegment === false) {
+    				emailTemplateToActivateSegment = id;
+    			}
+    		})
+    		
+    		// select the first
+    		if(typeof emailTemplateToActivateSegment === "string"){
+    			pgSelector.val(emailTemplateToActivateSegment).change();
+    		}
+    		
+    		// set the first
+    		pgSelector.chosen({
+                width: "100%",
+                no_results_text: "Oops, nothing found!"
+            }).trigger("chosen:updated").change(function(){
+            	console.log("chosen:updated" + $(this).val());
+            	emailTemplateToActivateSegment = $(this).val();
+            });
+    	})
 	}
 	
 	var showPersonalizationCodeDialog = function(segmentId, segmentName, segmentSize) {
@@ -657,7 +702,7 @@
 				
 				<div class="form-group highlight_box" >
 		     		<div class="col-lg-5">
-		     			<label style="background-color: #FAFADE;color: #3300ff!important;"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total matched profile in segment </label>
+		     			<label style="background-color: #FAFADE;color: #3300ff!important;"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total matched profile in the segment </label>
 		     		</div>
 		     		<div class="col-lg-7">
 		     			<b id="personalizationProfileCount" >0</b>
@@ -679,6 +724,47 @@
 			
 			<div class="modal-footer" >
 				<button type="button" class="btn btn-do-now" onclick="doSetItemsToRecommenderSystem()"><i class="fa fa-check" aria-hidden="true"></i> OK </button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>
+
+<!-- Email Marketing dialog html -->
+<div class="modal fade" id="dialogEmailMarketing" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > Please select a email template to send </h4>
+			</div>         
+			<div class="modal-body row">
+				
+				
+				<div class="form-group highlight_box" >
+		     		<div class="col-lg-5">
+		     			<label style="background-color: #FAFADE;color: #3300ff!important;"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total matched profile in the segment </label>
+		     		</div>
+		     		<div class="col-lg-7">
+		     			<b id="profileCountToSendEmail" >0</b>
+		     		</div>
+				</div>
+				
+				<div class="form-group highlight_box" >
+					<div class="col-lg-5">
+	                	<label style="background-color: #FAFADE;color: #3300ff!important;"> <i class="fa fa-info-circle" aria-hidden="true"></i> Email Template </label>
+	                </div>
+		     		<div class="col-lg-7"  >
+		                <select id="emailTemplateSelector" data-placeholder="Choose a email template" class="select" >
+		                  	<!-- emailTemplateSelector -->  
+		                </select>
+	                </div>
+	            </div>
+				
+			</div>  
+			
+			<div class="modal-footer" >
+				<button type="button" class="btn btn-do-now" onclick="sendEmailToAllProfileInSegment()"><i class="fa fa-check" aria-hidden="true"></i> OK </button>
 		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
 		    </div>  
 		</div>

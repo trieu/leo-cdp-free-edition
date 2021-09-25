@@ -310,7 +310,7 @@
     
     var defaultSurveyTemplateId = false;
     function initFeedbackSurveySelection(){
-    	var urlStr = window.baseLeoAdminUrl + "/item/asset-templates-for-feedback-survey";
+    	var urlStr = window.baseLeoAdminUrl + "/item/asset-templates-for-survey";
     	LeoAdminApiUtil.getSecuredData(urlStr, {}, function (json) { 
     		
     		// priority group selector
@@ -571,11 +571,11 @@
 		<div id="survey_profile_<%- id %>" class="collapse">
 			<ul class="list-group">
 				<% _.forEach(profileIds, function(profileId) { %>
-                        	<li class="list-group-item col-md-11 ">
-								<a target="_blank" href="#calljs-leoCdpRouter('Customer_Profile_Info','<%- profileId %>')"> 
-									<i class="fa fa-user-o" aria-hidden="true"></i> Click to view the profile of ID: <%- profileId %>
-								</a>
-							</li> 
+                    <li class="list-group-item col-md-11 ">
+						<a target="_blank" href="#calljs-leoCdpRouter('Customer_Profile_Info','<%- profileId %>')"> 
+							<i class="fa fa-user-o" aria-hidden="true"></i> Click to view the profile of ID: <%- profileId %>
+						</a>
+					</li> 
 				<% }); %>
 			</ul>
 		</div>

@@ -62,7 +62,7 @@
 			<div class="col-md-6" > 
 				<div class="col-md-6" >
 					<div class="dropdown">
-					    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter data by
+					    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter a profile by
 					    <span class="caret"></span></button>
 					    <ul class="dropdown-menu">
 					    	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterEmail')" >Primary Email</a></li>
@@ -73,22 +73,21 @@
 					</div>
 					<div id="profile_filter_inputs" >
 						<input type="hidden" id="filterName" value="" >
-						<input style="margin-top:6px; display: none;" type="text" class="form-control" id="filterEmail" placeholder="Enter primary email" >
-						<input style="margin-top:6px; display: none;" type="text" class="form-control" id="filterPhone" placeholder="Enter primary phone number" >
-				  		<input style="margin-top:6px; display: none;" type="text" class="form-control" id="filterByVisitorId" placeholder="Enter web visitor ID" >
-				  		<input style="margin-top:6px; display: none;" type="text" class="form-control" id="filterByProfileId" placeholder="Enter profile ID" >
+						<input style="margin-top:10px; " type="text" class="form-control" id="filterEmail" placeholder="Enter primary email" >
+						<input style="margin-top:10px; display: none;" type="text" class="form-control" id="filterPhone" placeholder="Enter primary phone number" >
+				  		<input style="margin-top:10px; display: none;" type="text" class="form-control" id="filterByVisitorId" placeholder="Enter web visitor ID" >
+				  		<input style="margin-top:10px; display: none;" type="text" class="form-control" id="filterByProfileId" placeholder="Enter profile ID" >
 					</div>
 				</div>
 				<div class="col-md-6" >
-					<div class="col-md-12 ">
+					<div class="col-md-12" style="padding:15px;">
 						<div class="col-md-6" >
-						 	<button type="button" class="btn" onclick="resetProfileSearch()" ><i class="fa fa-fw fa-undo"></i>Reset</button>
+						 	<button type="button" class="btn" onclick="resetProfileSearch()" ><i class="fa fa-fw fa-undo"></i> Reset </button>
 						</div>
 						<div class="col-md-6" >
-						 	<button type="button" class="btn btn-primary" onclick="doProfileSearch()" ><i class="fa fa-fw fa-filter"></i>Filter</button>
+						 	<button type="button" class="btn btn-primary" onclick="doProfileSearch()" ><i class="fa fa-fw fa-filter"></i> Filter </button>
 						</div>
 					</div>
-					
 				</div>
 			</div>
 		</div>
@@ -227,7 +226,6 @@
     	} else {
     		$('#profile_filter_inputs > input:first').show();
     	}
-    	
         var usersession = getUserSession();
         if (usersession) {
             dataTable = $('#profile-list').DataTable({

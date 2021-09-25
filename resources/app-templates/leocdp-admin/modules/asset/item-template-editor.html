@@ -50,8 +50,33 @@
                  <div id="description_div" style="display: block;">
                      <textarea class="form-control" rows="2" placeholder="Enter description" name="description"></textarea>
                  </div>
-                 <hr>
              </div>
+             
+             <div id="contentClassForEmailTemplate" class="form-group" >
+             	<label>Content Class</label>
+             	<div>
+             		 <div class="radio">
+					  	<label for="cl_basic_email_content" >
+					  		<input id="cl_basic_email_content" type="radio" value="basic_email_content" name="contentClass">Basic Email Content
+					  	</label>
+					 </div>
+	     			 <div class="radio">
+					  	<label for="cl_product_recommendation" >
+					  		<input id="cl_product_recommendation" type="radio" value="product_recommendation" name="contentClass">Product Recommendation
+					  	</label>
+					 </div>
+					 <div class="radio">
+					  	<label for="cl_content_recommendation" >
+					  		<input id="cl_content_recommendation" type="radio" value="content_recommendation" name="contentClass">Content Recommendation
+					  	</label>
+					</div>
+					<div class="radio">
+					  	<label for="cl_feedback_survey" >
+					  		<input id="cl_feedback_survey" type="radio" value="feedback_survey" name="contentClass">Feedback Survey
+					  	</label>
+					</div>
+	     		</div>
+	     	 </div>
              
              <div class="form-group" >
                  <label>Template JSON Model</label>
@@ -62,7 +87,8 @@
              </div>
 				
 			 <div id="webtpl_url_holder" class="alert alert-info" role="alert" >
-				 <i class="fa fa-qrcode" aria-hidden="true" style="font-size: 1.1em" ></i> <b>Preview Content URL</b> <a id="webtpl_url" class="small-text" href="javascript:" target="_blank" ></a> <br>
+				 <i class="fa fa-qrcode" aria-hidden="true" style="font-size: 1.1em" ></i> 
+				 <b>Preview Content URL</b> <a id="webtpl_url" class="small-text" href="javascript:" target="_blank" ></a> <br>
 			 </div>	
 			 
 			 <div id="qr_code_holder" class="thumbnail">
@@ -130,13 +156,12 @@
      		$('#webtpl_url').attr('href',url).text(url);
      		
      		if(htmlTemplateData.assetType === 4 || htmlTemplateData.assetType === 5 || htmlTemplateData.assetType === 6) {
-     			// email template , social media or push notification
+     			// hide QR code if assetType is email template , social media or push notification
      			$('#qr_code_holder').hide();
      		} else {
      			var qrCodeFullUrl = baseLeoAdminUrl + htmlTemplateData.qrCodeUrl.substr(1);
          		$('#webtpl_qrcode_url').attr('src',qrCodeFullUrl);
      		}
-     		
     	}
  	}
 
@@ -179,21 +204,33 @@
                             } 
                                                   
                             else {
-                                form.find("input[name='" + k + "']").val(value);
+                                var node = form.find('input[name="'+ k + '"]');
+                                var type = node.attr('type');
+                                if(type === "text" ||  type === "text") {
+                                	node.val(value);
+                                }
+                                else if(type === "radio"){
+                                	$('input[value="'+value+'"][name="contentClass"]').prop('checked', true);
+                                }
                             }
                         }
                         console.log(k + " : " + value + " fieldType :" + fieldType)
                     }
                     
+                    if( $('input[name="contentClass"]:checked').length === 0 ){
+                    	$('input[name="contentClass"][value="basic_email_content"]').prop('checked', true);
+                    }
+                    
+                    showPreviewWebTemplateUrl();
                     if(htmlTemplateData.qrCodeUrl !== ""){
-                    	showPreviewWebTemplateUrl();
                     	rawHtmlEditor.on("change",function(){
                     		saveWebTemplateData();
                         })
                         rawJsonEditor.on("change",function(){
                     		saveWebTemplateData();
                         })
-                    } else {
+                    } 
+                    else {
                     	$('#survey_url_holder').hide()
                     }
                 } else {
@@ -216,7 +253,7 @@
             htmlTemplateData.title = form.find('input[name="title"]').val().trim();
             htmlTemplateData.description = form.find('textarea[name="description"]').val().trim();
       
-            htmlTemplateData.contentClass = 'landing_page';
+            htmlTemplateData.contentClass = $('input[name="contentClass"]:checked').val();
             htmlTemplateData.type = 9;
             htmlTemplateData.mediaInfo = rawHtmlEditor.getValue().trim();
             
