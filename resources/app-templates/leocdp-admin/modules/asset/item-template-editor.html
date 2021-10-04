@@ -75,6 +75,11 @@
 					  		<input id="cl_feedback_survey" type="radio" value="feedback_survey" name="contentClass">Feedback Survey
 					  	</label>
 					</div>
+					<div class="radio">
+					  	<label for="cl_feedback_survey" >
+					  		<input id="cl_basic_landing_page" type="radio" value="basic_landing_page" name="contentClass">Basic Landing Page
+					  	</label>
+					</div>
 	     		</div>
 	     	 </div>
              
@@ -178,6 +183,7 @@
             LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
                     htmlTemplateData = json.data;
+                    var assetType = htmlTemplateData.assetType;
                     document.title = htmlTemplateData.title ? 'Asset Template Editor - ' + htmlTemplateData.title : 'New Content Template';
                     
                  	// breadcrumb link update
@@ -218,7 +224,14 @@
                     }
                     
                     if( $('input[name="contentClass"]:checked').length === 0 ){
-                    	$('input[name="contentClass"][value="basic_email_content"]').prop('checked', true);
+                    	if(assetType === 4) {
+                    		// EMAIL_CONTENT
+                    		$('input[name="contentClass"][value="basic_email_content"]').prop('checked', true);
+                    	}
+                    	else if(assetType === 7) {
+                    		// WEB_HTML_CONTENT
+                    		$('input[name="contentClass"][value="basic_landing_page"]').prop('checked', true);
+                    	}
                     }
                     
                     showPreviewWebTemplateUrl();

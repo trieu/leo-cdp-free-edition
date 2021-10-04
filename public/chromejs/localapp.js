@@ -12,12 +12,12 @@ if(typeof jQuery === 'undefined' ) {
 function addLeoCdpPurchasingButton(source, productId, idType, selector) {
 	console.log("addLeoCdpPurchasingButton",source, productId, idType);
 	
-	var leoBuyBtnStyle = 'button.leocdp_buy_btn { border: none; color: white; padding: 12px 30px; text-align: center; font-size: 18px; margin: 4px 2px; cursor: pointer;}';
+	var leoBuyBtnStyle = 'button.leocdp_buy_btn { border: none; color: white; padding: 12px 40px; text-align: center; font-size: 18px; margin: 4px 2px; cursor: pointer;border-radius: 6px;}';
 	leoBuyBtnStyle += 'button.leocdp_buy_btn:hover{background-color:orange} button.leocdp_buy_btn:focus{background-color:gray} ';
 	
 	var holderNode = selector ? selector : jQuery("body");
 	holderNode.prepend('<style> '+ leoBuyBtnStyle + '</style>');
-	holderNode.prepend('<div id="leo_test_holder" style="padding:20px;text-align:right;"></div>');
+	holderNode.prepend('<div id="leo_test_holder" style="padding:20px;text-align:center;width: 100%;"></div>');
 	
 	var btn = jQuery('<button class="leocdp_buy_btn" type="button" onclick="leoPurchasingSimulation(this)" style="background-color: #4CAF50" >Buy Button <br>(LEO CDP)</button> ');
 	btn.data('source',source);
@@ -84,15 +84,20 @@ function dataTracking() {
 				})
 				jQuery('#add-to-cart-button').click(function(){
 					leoTrackEventAddToCart([productId], idType)
-					
 					localStorage.setItem('sessionProductId',productId)
 					localStorage.setItem('sessionIdType',idType)
 				});
 				
-				jQuery('#title').append('<div id="cx_demo"></div>')
+				// Feedback rating plugin
+				jQuery('#title').append('<div id="leocdp_feedback_holder"></div>');
 				
-				addFeedbackPlugin('cx_demo');
+				var iframeWidth = "50%";
+				if( jQuery('#leocdp_feedback_holder').width() < 600) {
+					iframeWidth = false;
+				}
+				addFeedbackPlugin('leocdp_feedback_holder', productId, idType, iframeWidth);
 				
+				// add test buy button
 				var btnSelector = jQuery('#buyNow').parent().empty();
 				if(btnSelector.length === 0){
 					btnSelector = jQuery('#checkoutButtonId').parent();
@@ -126,20 +131,45 @@ function dataTracking() {
 				if(e.ecomm_prodid) {
 					console.log("dataLayer for ecomm ",e) 
 					
+					var idType = "external_ID";
 					var productId = e.ecomm_prodid;
 					var productPrice = e.ecomm_totalvalue;
-					var idType = "external_ID";
 					
 					leoTrackEventProductView([productId], idType);
 					
-					addLeoCdpPurchasingButton('netabooks', productId, idType, $('a.btn-buy').parent());
-					
-					jQuery(".btn-addmore").click(function(){
+					// Feedback rating plugin
+					jQuery('div.product-intro').append('<div id="leocdp_feedback_holder"></div>')
+					addFeedbackPlugin('leocdp_feedback_holder', productId, idType);
+
+					jQuery("a.btn-buy").click(function(){
 						leoTrackEventAddToCart([productId], idType);
+						addLeoCdpPurchasingButton('netabooks', productId, idType, $(this).parent());
 					})
 				}
 			});
 		} 
+		// listing page tracking
+		else {
+			leoTrackEventPageView();
+		}
+		return true;
+	}
+	
+	// Udemy
+	else if (crUrl.indexOf('udemy.com') > 0) {
+		
+		var page_key = UD.userAgnosticTrackingParams ? UD.userAgnosticTrackingParams.page_key || "" : "";
+		
+		// item-view tracking
+		if(page_key === "course_landing_page") {
+			
+			var idType = 'web_uri';
+			var courseId = location.href.replace('https://www.udemy.com/course/','').split('/')[0];
+			window.srcTouchpointName = encodeURIComponent(document.title);
+			
+			var eventData = {"courseId":courseId,"idType":idType}
+			LeoObserverProxy.recordViewEvent("course-view",eventData);
+		}
 		// listing page tracking
 		else {
 			leoTrackEventPageView();
@@ -349,11 +379,16 @@ function dataTracking() {
 	}
 	
 	// --------- NEWS -----------
-	
-	// https://lifestyle.vn/nam-truffle-sieu-dat-do-am-thuc-thuong-luu-va-gioi-hoang-toc/
-	else if( crUrl.indexOf('lifestyle.vn') > 0 ) {
+	// sachhay24h
+	else if( crUrl.indexOf('sachhay24h.com') > 0 ) {
 		leoTrackEventPageView();
-		showRecommenderBox(".td-is-sticky")
+		
+		setTimeout(function(){
+			jQuery('#content > div.right-content > div:nth-child(2)').css("margin-top","100px");
+			jQuery('"#content > div.right-content > div.banner"').css("top","10px");
+		},500)
+		
+		showRecommenderBox("#content > div.right-content > div.banner")
 	}
 	
 	
@@ -587,44 +622,51 @@ function getIndexDomNode(node) {
 }
 
 function showRecommenderBox(selectorStr){
-	setTimeout(function(){
-		LeoObserverProxy.synchLeoVisitorId(function(vid) {
-			// url
-			var cb = Math.floor(Math.random() * 100000);
-			var src = "https://demotrack.leocdp.net/ris/html/products?visid=" + vid;
-			src += ("&tpurl=" + encodeURIComponent(location.href) );
-			src += ("&cb=" + cb );
-			// width and height
-			var h = '700px';
-			var w = '300px';
-			// append DOM
-			var f = document.createElement('iframe');
-			f.setAttribute("src", src);
-			f.setAttribute("style", "width:"+w+"; height:"+h+"; overflow-y:scroll; margin:auto; display:block; border:none;");
-			f.setAttribute("frameBorder", "0");
-			var s = document.getElementById('leo_recommender_box');
-		    s.parentNode.insertBefore(f, s);
-		})
-	},860);
+	LeoObserverProxy.synchLeoVisitorId(function(vid) {
+		// url
+		var cb = Math.floor(Math.random() * 100000);
+		var src = "https://demotrack.leocdp.net/ris/html/products?visid=" + vid;
+		src += ("&tpurl=" + encodeURIComponent(location.href) );
+		src += ("&cb=" + cb );
+		// width and height
+		var h = '700px';
+		var w = '300px';
+		// append DOM
+		var f = document.createElement('iframe');
+		f.setAttribute("src", src);
+		f.setAttribute("style", "width:"+w+"; height:"+h+"; overflow-y:scroll; margin:auto; display:block; border:none;");
+		f.setAttribute("frameBorder", "0");
+		var s = document.getElementById('leo_recommender_box');
+	    s.parentNode.insertBefore(f, s);
+	})
 	var s = jQuery(selectorStr).empty().append(jQuery('<div id="leo_recommender_box" ></div>'));
 	s.css("background-color","#fff").css("position","sticky").css("top","90px")
 }
 
-function addFeedbackPlugin(domId){
+function addFeedbackPlugin(domId, productId, idType, iframeWidth ){
 	//  Feedback/Survey Form Collector for Customer Feedback Score (CFS) form
+	var tpUrl = jQuery('link[rel="canonical"]').attr('href');
+	var productId = productId || "";
+	var idType = idType || "";
+	var iframeWidth = iframeWidth || "100%";
+		
+	if(tpUrl === "" || tpUrl === null){
+		console.error('link[rel="canonical"] is empty or not found !')
+		return;
+	}
+		
     var svf = document.title;
-	var tprefurl = location.href;
 	var tplFeedbackType = "RATING";
 	
 	var url  = 'https://demotrack.leocdp.net/webform?tplid=munIcNzze8YqHQveKisr3';
 	url = url + "&tplfbt=" + tplFeedbackType;
 	url = url + "&tpname=" + encodeURIComponent(document.title);
-	url = url + "&tpurl=" + encodeURIComponent(location.href);
+	url = url + "&tpurl=" + encodeURIComponent(tpUrl);
 	url = url + "&cb=" + new Date().getTime();
 	
 	// container
 	var divWrapper = document.createElement("div"); 
-	var cssDiv = "position: relative; width:100%; overflow: hidden;  height: 100px ";
+	var cssDiv = "position: relative; width:"+iframeWidth+"; overflow: hidden;  height: 100px ";
 	divWrapper.setAttribute("style",cssDiv);
 	
 	// iframe 

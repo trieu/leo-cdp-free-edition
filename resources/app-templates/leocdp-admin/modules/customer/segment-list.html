@@ -54,24 +54,52 @@
 	    $('#segment-list').DataTable().ajax.reload();
 	}
 	
+	
 	function loadSegmentList() {
         var usersession = getUserSession();
         
+        var collumnList = [
+        	{
+                "data": "indexScore" // 0
+          	},
+       		{
+               "data": "name" // 1
+           	},
+           	{
+               "data": "totalCount" // 2
+           	},
+           	{
+               "data": "description" // 3
+           	},
+           	{
+               "data": "createdAt" // 4
+           	},
+           	{
+               "data": "updatedAt" // 5
+           	}
+       	];
+        
         if (usersession) {
             $('#segment-list').DataTable({
-            	"lengthMenu": [[10, 20, 30], [10, 20, 30]],
+            	"lengthMenu": [[20, 30, 40], [20, 30, 40]],
             	'processing': true,
                 'serverSide': true,
-                'searching': false,
-                'ordering': false,
+                'searching': true,
+                'ordering': true,
                 'serverMethod': 'POST',
                 'ajax': {
-                    url: baseLeoAdminUrl + '/cdp/segments/filter',
+                    url: baseLeoAdminUrl + "/cdp/segments/filter",
                     contentType: 'application/json',
                     beforeSend: function (request) {
                         request.setRequestHeader("leouss", usersession);
                     },
                     data: function (d) {
+                    	var order = d.order[0];
+                    	d.sortField = collumnList[order.column].data;
+                    	d.sortAsc = order.dir === "asc" ;
+                    	d.searchValue = d.search.value;
+                    	delete d.order; delete d.search;
+                    	
                         return JSON.stringify(d);
                     },
                     dataSrc: function ( json ) {
@@ -151,31 +179,12 @@
                         "targets": 6
                     }
                 ],
-                'columns': [
-                	{
-                         "data": "indexScore" // 0
-                   	},
-                	{
-                        "data": "name" // 1
-                    },
-                    {
-                        "data": "totalCount" // 2
-                    },
-                    {
-                        "data": "description" // 3
-                    },
-                    {
-                        "data": "createdAt" // 4
-                    },
-                    {
-                        "data": "updatedAt" // 5
-                    }
-                ]
+                'columns': collumnList
             });
         }
     }
 	
-	var newSegmentBuilder = newSegmentBuilder || function() {
+	var newSegmentBuilder = function() {
 	 	location.hash = "calljs-leoCdpRouter('Segment_Builder','new')";
 	}
 	

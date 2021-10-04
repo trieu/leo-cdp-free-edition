@@ -182,8 +182,13 @@
 	       						   </li>
 	       						   
 	                               <li class="personal_info" >
-	                                   <b data-persona="key"  > <i class="fa fa-fw fa-map-marker"></i> Living Location  </b>
-	                                   <input class="form-control" type="text" placeholder="Living Location" data-field="livingLocation" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
+	                                   <b data-persona="key"  > <i class="fa fa-fw fa-map-marker"></i> Living Location Address </b>
+	                                   <input class="form-control" type="text" placeholder="Living Location Address" data-field="livingLocation" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
+	                               </li>
+	                               
+	                               <li class="personal_info" >
+	                                   <b data-persona="key"  > <i class="fa fa-fw fa-map-marker"></i> Living Location Code </b>
+	                                   <input class="form-control" type="text" placeholder="Living Location Code" data-field="locationCode" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
 	                               </li>
 	                               
 	                               <li>
@@ -227,12 +232,6 @@
 				               	</li>
 				               	
 				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Education and Learning Paths </b> 
-				                   <a href="javascript: profileAddNewTextHashSet('learningHistory')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
-				                   <p data-field="learningHistory" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
-				               	</li>
-				               	
-				               	<li>
                                    <b data-persona="key" > <i class="fa fa-fw fa-users"></i> Social Media Profiles <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
                                    <a href="javascript: addNewHashMapItem('socialMediaProfiles', SocialMediaIconMap) " > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
                                    <p data-field="socialMediaProfiles" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="socialMediaProfiles" > </p>
@@ -263,7 +262,32 @@
                    </tr>
                </table>
                <hr>
-			   <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Information for Business </h4>
+               <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Educational Information </h4>
+			   <table border=0 class="underlined" style="width: 100%;">
+                   <tr>
+                       <td>
+							<ol class="profile_ext_data" data-field="personal_attributes">
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Soft Skills </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('softSkills')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="softSkills" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Education and Learning Paths </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('learningHistory')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="learningHistory" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Study Certificates </b> 
+				                   <a href="javascript: profileAddNewTextHashSet('studyCertificates')" > <i class="fa fa-plus-circle" aria-hidden="true"></i> Add new </a>
+				                   <p data-field="studyCertificates" data-fieldholder="html_hashset"  data-fieldtype="hashset"  data-editable="true" >  </p>
+				               	</li>
+			               	</ol>
+               	  		</td>
+                   </tr>
+               </table>
+               <hr>
+			   <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Professional Information </h4>
 			   <table border=0 class="underlined" style="width: 100%;">
                    <tr>
                        <td>
@@ -417,6 +441,10 @@
     	        var age = moment().diff(e.date, 'years');
     	        $('#profileAge').val(age);
     	    });
+    		
+    		$('#personal_attributes').find('input[data-field="livingLocation"]').change(function(){ 
+    			$('#personal_attributes').find('input[data-field="locationCode"]').val("")
+    		})
         	return data;
          }
          

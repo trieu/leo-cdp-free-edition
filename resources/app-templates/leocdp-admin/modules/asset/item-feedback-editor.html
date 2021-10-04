@@ -234,6 +234,7 @@
                     
                     document.title = feedbackModel.title ? 'Feedback Form Editor - ' + feedbackModel.title : 'New Feedback Form Template';
                     var templateType = feedbackModel.templateType;
+                    var jsonMetadata = (feedbackModel.jsonMetadata != "" && feedbackModel.jsonMetadata != null) ? feedbackModel.jsonMetadata : "{}"
                     
                  	// breadcrumb link update
         	        updateBreadcrumbInAssetPost(feedbackModel.assetCategories, feedbackModel.assetGroups, feedbackModel.title );
@@ -251,7 +252,8 @@
                                 surveyTemplateEditor.setSize(null, surveyEditorHeight);
                                 $('#embedded_html_form_wrapper').hide();
                                 
-                                var model = JSON.parse(feedbackModel.jsonMetadata);
+                                console.log("jsonMetadata ",jsonMetadata)
+                                var model = JSON.parse(jsonMetadata);
                                 if(typeof model.Language === "string" ){
                                 	$('input[name="surveyLanguage"][value="'+model.Language+'"]').prop('checked', true);
                                 }

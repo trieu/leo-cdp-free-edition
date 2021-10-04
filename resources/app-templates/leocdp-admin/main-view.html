@@ -79,9 +79,9 @@
 				 	Unified Analytics Hub <i id="data_analytics_hub_collapse_icon" class="fa fa-fw fa-caret-down"> </i>
 				</a>
 				<ul id="analytics_hub_menu" class="collapse in" aria-expanded="true">
-					<li id="Main_Data_Dashboard_Menu" >
-						<a id="Main_Data_Dashboard" href="#calljs-leoCdpRouter('Main_Data_Dashboard')" title="Main Data Analytics Dashboard" > 
-							<i class="fa fa-fw fa-bar-chart"></i> Main Data Dashboard </a>
+					<li id="Funnel_Data_Dashboard_Menu" >
+						<a id="Funnel_Data_Dashboard" href="#calljs-leoCdpRouter('Funnel_Data_Dashboard')" title="Main Data Analytics Dashboard" > 
+							<i class="fa fa-fw fa-filter"></i> Funnel Data Dashboard </a>
 					</li>
 					<li>
 						<a id="Event_Data_Dashboard" href="#calljs-leoCdpRouter('Event_Data_Dashboard')" title="Event Data Dashboard" > 
@@ -206,11 +206,15 @@
 	        if (json.httpCode === 0 && json.errorMessage === '') {
 	            if (json.data) {
 	                var systemUser = json.data;
-	                if(systemUser.role > 2){
-	                	// only for admin role and superadmin role 
+	                if(systemUser.role >= 3){
+	                	// ROLE_ADMIN and ROLE_SUPER_ADMIN
 	                	$('#nav_system_management').show();
+	                }
+	                if(systemUser.role === 6) {
+	                	// ROLE_SUPER_ADMIN
 	                	$('#user_menu_system_settings').show();
 	                }
+	                
 	                $('#userDisplayName').html(systemUser.displayName);
 	                window.currentUserProfile = systemUser;
 	            }

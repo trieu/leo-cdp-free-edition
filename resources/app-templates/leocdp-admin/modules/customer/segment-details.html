@@ -23,6 +23,12 @@
 	#segment_disable_date_filter_holder {
 		font-size: 18px;
 	}
+	.label_box {
+	    color: #3300ff!important;
+	    padding: 1px 2px;
+	    border-radius: 6px;
+	}
+	
 </style>
 
 <div class="row">
@@ -204,17 +210,9 @@
 							
 							<div class="form-group" id="segment_purposes" >
 							
-								<div class="col-sm-12 sm_purpose" id="sm_for3rdSynchronization" > 
-									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i> 
-									Data Synchronization </b>
-									<button type="button" class="btn btn-do-now" title="Data Activation" > 
-										<i class="fa fa-check" aria-hidden="true"></i> Activate 
-									</button>
-								</div>
-								
 								<div class="col-sm-12 sm_purpose" id="sm_forPersonalization"  > 
 									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i>
-									Data Personalization </b>
+									Data personalization for all profiles in this segment </b>
 									<button type="button" class="btn btn-do-now" title="Data Activation" >
 										<i class="fa fa-check" aria-hidden="true"></i> Activate 
 									</button>
@@ -222,7 +220,7 @@
 								
 								<div class="col-sm-12 sm_purpose" id="sm_forDeepAnalytics" style="display: none;"> 
 									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i> 
-									Deep Data Analytics </b>
+									Advanced Data analytics </b>
 									<button type="button" class="btn btn-do-now" title="Data Activation" > 
 										<i class="fa fa-check" aria-hidden="true"></i> Activate 
 									</button>
@@ -230,7 +228,7 @@
 								
 								<div class="col-sm-12 sm_purpose" id="sm_forPredictiveAnalytics" style="display: none;" > 
 									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i> 
-									Predictive Analytics </b>
+									Predictive analytics with Jupyter notebook and Google Colab</b>
 									<button type="button" class="btn btn-do-now" title="Data Activation" > 
 										<i class="fa fa-check" aria-hidden="true"></i> Activate 
 									</button>
@@ -238,7 +236,7 @@
 							
 								<div class="col-sm-12 sm_purpose" id="sm_forEmailMarketing"  > 
 									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i>
-									Send Email Directly </b>
+									Direct email marketing with personalized information</b>
 									<button type="button" class="btn btn-do-now" title="Data Activation" > 
 										<i class="fa fa-check" aria-hidden="true"></i> Activate 
 									</button>
@@ -246,7 +244,7 @@
 								
 								<div class="col-sm-12 sm_purpose" id="sm_forRealtimeMarketing" style="display: none;" > 
 									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i> 
-									Push Message Notification</b>
+									Push message notification for real-time marketing</b>
 									<button type="button" class="btn btn-do-now" title="Data Activation" > 
 										<i class="fa fa-check" aria-hidden="true"></i> Activate 
 									</button>
@@ -254,7 +252,7 @@
 								
 								<div class="col-sm-12 sm_purpose" id="sm_forReTargeting" style="display: none;"> 
 									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i> 
-									Retargeting Advertising</b>
+									Retargeting advertising </b>
 									<button type="button" class="btn btn-do-now" title="Data Activation" > 
 										<i class="fa fa-check" aria-hidden="true"></i> Activate 
 									</button>
@@ -262,7 +260,15 @@
 								
 								<div class="col-sm-12 sm_purpose" id="sm_forLookalikeTargeting" style="display: none;"> 
 									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i> 
-									Look-alike Advertising   </b>
+									Look-alike advertising </b>
+									<button type="button" class="btn btn-do-now" title="Data Activation" > 
+										<i class="fa fa-check" aria-hidden="true"></i> Activate 
+									</button>
+								</div>
+								
+								<div class="col-sm-12 sm_purpose" id="sm_for3rdSynchronization" > 
+									<b> <i class="fa fa-superpowers" aria-hidden="true"></i> <i class="fa fa-check-square-o" aria-hidden="true" style="display: none;"></i> 
+									Data synchronization from LEO CDP to third-party systems</b>
 									<button type="button" class="btn btn-do-now" title="Data Activation" > 
 										<i class="fa fa-check" aria-hidden="true"></i> Activate 
 									</button>
@@ -521,7 +527,6 @@
 		} else {
 			iziToast.error({ title: 'Error', message: "Please select a connector to synchronize data"});
 		}
-		
 	}
 	
 	var showDataSynchronizationDialog = function(segmentId, segmentName, segmentSize) {
@@ -642,7 +647,6 @@
 		     });
 		}
 	}
-	
 </script>
 
 <!-- Synchronization dialog html -->
@@ -651,14 +655,23 @@
 		<!-- Modal content-->
 		<div class="modal-content">   
 			<div class="modal-header">
-				<h4 class="modal-title text-center" > Please select a connector for Data Synchronization </h4>
+				<h4 class="modal-title text-center" > Activate Data Synchronization </h4>
 			</div>         
 			<div class="modal-body row">
+				<div class="form-group highlight_box" >
+		     		<div class="col-lg-5">
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total Profile Count </label>
+		     		</div>
+		     		<div class="col-lg-7">
+		     			<b id="synchronizationProfileCount" >0</b>
+		     		</div>
+				</div>
+			
 				<div class="form-group highlight_box"  >
 		     		<div class="col-lg-12 ">
-		     			<label style="background-color: #FAFADE;color: #3300ff!important;" > <i class="fa fa-info-circle" aria-hidden="true"></i> Data Connectors </label>
+		     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Data Connectors </label>
 		     		</div>
-		     		<div class="col-lg-12" id="dataConnectorHolder" style="height: 250px;padding-left: 35px;" >
+		     		<div  id="dataConnectorHolder" style="padding-left: 32px;" >
 		     			 <div class="radio">
 						  	<label for="c_sendinblue" ><input id="c_sendinblue" type="radio" value="sendinblue" name="dataconnector">SendInBlue Email Marketing Automation</label>
 						 </div>
@@ -679,30 +692,18 @@
 	</div>
 </div>
 
-
 <!-- Personalization dialog html -->
 <div class="modal fade" id="dialogDataPersonalization" role="dialog">
 	<div class="modal-dialog modal-lg">
 		<!-- Modal content-->
 		<div class="modal-content">   
 			<div class="modal-header">
-				<h4 class="modal-title text-center" > Please select a Product or Content, then select Asset Group to set data </h4>
+				<h4 class="modal-title text-center" > Activate Data Personalization </h4>
 			</div>         
 			<div class="modal-body row">
-				
 				<div class="form-group highlight_box" >
 		     		<div class="col-lg-5">
-		     			<label style="background-color: #FAFADE;color: #3300ff!important;" > <i class="fa fa-info-circle" aria-hidden="true"></i> Digital asset category </label>
-		     		</div>
-		     		<div class="col-lg-7" id="assetCategoryHolder" >
-		     			<label class="radio-inline"><input type="radio" name="assetCategory" value="product" checked="checked" > Product </label>
-		     			<label class="radio-inline"><input type="radio" name="assetCategory" value="content"  disabled="disabled"> Content </label>
-		     		</div>
-				</div>
-				
-				<div class="form-group highlight_box" >
-		     		<div class="col-lg-5">
-		     			<label style="background-color: #FAFADE;color: #3300ff!important;"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total matched profile in the segment </label>
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total Profile Count </label>
 		     		</div>
 		     		<div class="col-lg-7">
 		     			<b id="personalizationProfileCount" >0</b>
@@ -710,8 +711,18 @@
 				</div>
 				
 				<div class="form-group highlight_box" >
+		     		<div class="col-lg-5">
+		     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Digital asset category </label>
+		     		</div>
+		     		<div class="col-lg-7" id="assetCategoryHolder" >
+		     			<label class="radio-inline"><input type="radio" name="assetCategory" value="product" checked="checked" > Product </label>
+		     			<label class="radio-inline" style="display: none;" ><input type="radio" name="assetCategory" value="content"   > Content </label>
+		     		</div>
+				</div>
+				
+				<div class="form-group highlight_box" >
 					<div class="col-lg-5">
-	                	<label style="background-color: #FAFADE;color: #3300ff!important;"> <i class="fa fa-info-circle" aria-hidden="true"></i> Priority group for matched profiles </label>
+	                	<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Priority group for matched profiles </label>
 	                </div>
 		     		<div class="col-lg-7"  >
 		                <select id="priorityGroupSelector" data-placeholder="Choose a group name" class="select" >
@@ -736,23 +747,42 @@
 		<!-- Modal content-->
 		<div class="modal-content">   
 			<div class="modal-header">
-				<h4 class="modal-title text-center" > Please select a email template to send </h4>
+				<h4 class="modal-title text-center" > Activate Direct Email Marketing </h4>
 			</div>         
-			<div class="modal-body row">
-				
+			<div class="modal-body ">
+				<div class="alert alert-warning" role="alert">
+					<i class="fa fa-info-circle" aria-hidden="true"></i> Before sending email directly to profile, you should set data personalization for this segment !
+				</div>
 				
 				<div class="form-group highlight_box" >
 		     		<div class="col-lg-5">
-		     			<label style="background-color: #FAFADE;color: #3300ff!important;"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total matched profile in the segment </label>
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total Profile Count </label>
 		     		</div>
 		     		<div class="col-lg-7">
 		     			<b id="profileCountToSendEmail" >0</b>
 		     		</div>
 				</div>
+			
+				<div class="form-group highlight_box" >
+		     		<div class="col-lg-12">
+		     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Email Data Connectors </label>
+		     		</div>
+		     		<div id="emailConnectorHolder" style="padding-left: 32px;" >
+		     			 <div class="radio">
+						  	<label for="ec_sendinblue" ><input id="ec_sendinblue" type="radio" value="sendinblue" name="dataconnector">SendInBlue Email Service</label>
+						 </div>
+						 <div class="radio">
+						  	<label for="ec_mailchimp" ><input id="ec_mailchimp" type="radio" value="mailchimp" name="dataconnector">MailChimp Email Service</label>
+						</div>
+						<div class="radio">
+						  	<label for="ec_local_smtp_mail_server" ><input id="ec_local_smtp_mail_server" type="radio" value="local_smtp_mail_server" name="dataconnector">SMTP Mail Server for Direct Marketing</label>
+						</div>
+		     		</div>
+				</div>
 				
 				<div class="form-group highlight_box" >
 					<div class="col-lg-5">
-	                	<label style="background-color: #FAFADE;color: #3300ff!important;"> <i class="fa fa-info-circle" aria-hidden="true"></i> Email Template </label>
+	                	<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Email Template </label>
 	                </div>
 		     		<div class="col-lg-7"  >
 		                <select id="emailTemplateSelector" data-placeholder="Choose a email template" class="select" >
@@ -760,6 +790,25 @@
 		                </select>
 	                </div>
 	            </div>
+	            
+	            <div class="form-group highlight_box" style="height: 50px;">
+		     		<div class="col-lg-5">
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Email Scheduling Time List</label>
+		     		</div>
+		     		<div class="col-lg-7">
+		     			<select class="form-control" id="email_time_interval">
+						    <option value="0"  > Send immediately</option>
+						    <option value="-3" > After 3 hours from now</option>
+						    <option value="-9" > After 9 hours from now</option>
+						    <option value="-12"> After 12 hours from now</option>
+						    <option value="24" > Every 24 hours from now</option>
+						    <option value="48" > Every 48 hours from now</option>
+						    <option value="72" > Every 72 hours from now</option>
+						    <option value="-1" > Every Workday at 7 AM</option>
+						    <option value="-2" > Every Saturday at 10 AM</option>
+						</select>
+		     		</div>
+				</div>
 				
 			</div>  
 			

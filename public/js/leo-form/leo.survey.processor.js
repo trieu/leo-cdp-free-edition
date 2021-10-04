@@ -86,7 +86,7 @@ function initFeedbackSurvey(){
 			      "required": true,
 			      "enum": model.Group_Options
 		}
-		formModel.push({ "key": "Group",  "type": "radios" });
+		formModel.push({ "key": "Group",  "type": "radios" , "fieldHtmlClass" : "leo_form_input" });
 	}
 	
 	// Product_Item
@@ -117,7 +117,7 @@ function initFeedbackSurvey(){
 		      "required": true,
 		      "title": model.Evaluated_Object
 		};
-		formModel.push({ "key": "Evaluated_Object",  "type": "text" , "placeholder" :  placeholderPrefix + model.Evaluated_Object });
+		formModel.push({ "key": "Evaluated_Object", "type": "text", "fieldHtmlClass" : "leo_form_input", "placeholder" :  placeholderPrefix + model.Evaluated_Object });
 		
 		callbacks.push(function(){
 			var objects = [];
@@ -145,7 +145,7 @@ function initFeedbackSurvey(){
 		      "required": true,
 		      "title": model.Evaluated_Person
 		};
-		formModel.push({ "key": "Evaluated_Person",  "type": "text" , "placeholder" :  placeholderPrefix + model.Evaluated_Person });
+		formModel.push({ "key": "Evaluated_Person", "type": "text", "fieldHtmlClass" : "leo_form_input" , "placeholder" :  placeholderPrefix + model.Evaluated_Person });
 		
 		callbacks.push(function(){
 			var objects = [];
@@ -173,7 +173,7 @@ function initFeedbackSurvey(){
 			      "required": true,
 			      "enum": model.Decision_Maker_Options
 		}
-		formModel.push({ "key": "decisionMakers",  "type": "checkboxes" });
+		formModel.push({ "key": "decisionMakers", "type": "checkboxes", "fieldHtmlClass" : "leo_form_input" });
 	}
 	
 	// Survey Original Source
@@ -184,7 +184,7 @@ function initFeedbackSurvey(){
 			      "required": true,
 			      "enum": model.Survey_Original_Source_Options
 		}
-		formModel.push({ "key": "originalSources",  "type": "radios" });
+		formModel.push({ "key": "originalSources",  "type": "radios", "fieldHtmlClass" : "leo_form_input" });
 	}
 	
 	// Survey Media Sources
@@ -195,7 +195,7 @@ function initFeedbackSurvey(){
 			      "required": true,
 			      "enum": model.Survey_Media_Source_Options
 		}
-		formModel.push({ "key": "mediaSources",  "type": "checkboxes" });
+		formModel.push({ "key": "mediaSources",  "type": "checkboxes", "fieldHtmlClass" : "leo_form_input" });
 	} 
 	
 	if(isEnglish) {
@@ -207,7 +207,7 @@ function initFeedbackSurvey(){
 			      "required": true,
 			      "title": model.Profile_First_Name_Label
 			};
-			formModel.push({ "key": "profileFirstName",  "type": "text" , "placeholder" : placeholderPrefix +  model.Profile_First_Name_Label});
+			formModel.push({ "key": "profileFirstName", "type": "text", "fieldHtmlClass" : "leo_form_input" , "placeholder" : placeholderPrefix +  model.Profile_First_Name_Label});
 		}
 		
 		// Profile_Last_Name_Label
@@ -217,7 +217,7 @@ function initFeedbackSurvey(){
 			      "required": true,
 			      "title": model.Profile_Last_Name_Label
 			};
-			formModel.push({ "key": "profileLastName",  "type": "text" , "placeholder" : placeholderPrefix +  model.Profile_Last_Name_Label});
+			formModel.push({ "key": "profileLastName", "type": "text", "fieldHtmlClass" : "leo_form_input" , "placeholder" : placeholderPrefix +  model.Profile_Last_Name_Label});
 		}
 	}
 	else {
@@ -231,7 +231,7 @@ function initFeedbackSurvey(){
 			      "required": true,
 			      "title": model.Profile_Last_Name_Label
 			};
-			formModel.push({ "key": "profileLastName",  "type": "text" , "placeholder" : placeholderPrefix +  model.Profile_Last_Name_Label});
+			formModel.push({ "key": "profileLastName", "type": "text", "fieldHtmlClass" : "leo_form_input" , "placeholder" : placeholderPrefix + model.Profile_Last_Name_Label});
 		}
 		
 		// Profile_First_Name_Label
@@ -241,7 +241,7 @@ function initFeedbackSurvey(){
 			      "required": true,
 			      "title": model.Profile_First_Name_Label
 			};
-			formModel.push({ "key": "profileFirstName",  "type": "text" , "placeholder" : placeholderPrefix +  model.Profile_First_Name_Label});
+			formModel.push({ "key": "profileFirstName", "type": "text", "fieldHtmlClass" : "leo_form_input" , "placeholder" : placeholderPrefix + model.Profile_First_Name_Label});
 		}
 	}
 	
@@ -254,7 +254,7 @@ function initFeedbackSurvey(){
 			      "required": false,
 			      "enum": obj.choices
 		}
-		formModel.push({ "key": "profileGender",  "type": "radios" });
+		formModel.push({ "key": "profileGender", "type": "radios", "fieldHtmlClass" : "leo_form_input" });
 		
 		callbacks.push(function(){
 			$('input[name="profileGender"]').each(function(){ 
@@ -291,7 +291,7 @@ function initFeedbackSurvey(){
 		      "required": true,
 		      "title": model.Profile_Email_Label
 		};
-		formModel.push({ "key": "profileEmail",  "type": "email" , "placeholder" : placeholderPrefix + model.Profile_Email_Label });
+		formModel.push({ "key": "profileEmail", "type": "email", "fieldHtmlClass" : "leo_form_input" , "placeholder" : placeholderPrefix + model.Profile_Email_Label });
 	}
 	
 	// phone
@@ -301,7 +301,7 @@ function initFeedbackSurvey(){
 		      "required": true,
 		      "title": model.Profile_Phone_Label
 		};
-		formModel.push({ "key": "profilePhone",  "type": "tel" , "placeholder" : placeholderPrefix + model.Profile_Phone_Label });
+		formModel.push({ "key": "profilePhone", "type": "tel", "fieldHtmlClass" : "leo_form_input" , "placeholder" : placeholderPrefix + model.Profile_Phone_Label });
 	}
 	
 	// BEGIN ------ profileDateOfBirth OR profileAge OR profileAgeGroup --------
@@ -312,7 +312,7 @@ function initFeedbackSurvey(){
 		      "required": false,
 		      "title": model.Profile_Birth_Date_Label
 		};
-		formModel.push({ "key": "profileDateOfBirth", "type": "date" ,  "placeholder" : placeholderPrefix + model.Profile_Birth_Date_Label });
+		formModel.push({ "key": "profileDateOfBirth", "type": "date", "fieldHtmlClass" : "leo_form_input", "placeholder" : placeholderPrefix + model.Profile_Birth_Date_Label });
 		
 		callbacks.push(function(){
 			$("input[name='profileDateOfBirth']").on("change", function() {
@@ -331,7 +331,7 @@ function initFeedbackSurvey(){
 		      "maximum": 99,
 		      "title": model.Profile_Age_Label
 		};
-		formModel.push({ "key": "profileAge",  "placeholder" : placeholderPrefix + model.Profile_Age_Label });
+		formModel.push({ "key": "profileAge", "fieldHtmlClass" : "leo_form_input",  "placeholder" : placeholderPrefix + model.Profile_Age_Label });
 	}
 	// profileAgeGroup
 	else if( isObject(model.Profile_Age_Group) ) {
@@ -342,7 +342,7 @@ function initFeedbackSurvey(){
 			      "required": false,
 			      "enum": obj.choices
 		}
-		formModel.push({ "key": "profileAgeGroup",  "type": "radios" });
+		formModel.push({ "key": "profileAgeGroup", "fieldHtmlClass" : "leo_form_input", "type": "radios" });
 		// convert to integer value for ProfileAgeGroup
 		callbacks.push(function(){
 			$('input[name="profileAgeGroup"]').each(function(){ 
@@ -379,7 +379,7 @@ function initFeedbackSurvey(){
 		      "type": "string",
 		      "title": model.Profile_Living_Location_Label
 		};
-		formModel.push({ "key": "profileLivingLocation",  "type": "textarea" , "placeholder" :  placeholderPrefix + model.Profile_Living_Location_Label });
+		formModel.push({ "key": "profileLivingLocation", "fieldHtmlClass" : "leo_form_input", "type": "textarea" , "placeholder" :  placeholderPrefix + model.Profile_Living_Location_Label });
 	}
 	
 	// Profile_Location_Code_Label
@@ -388,7 +388,7 @@ function initFeedbackSurvey(){
 		      "type": "string",
 		      "title": model.Profile_Location_Code_Label
 		};
-		formModel.push({ "key": "profileLocationCode",  "type": "text" , "placeholder" : "Plus Code" });
+		formModel.push({ "key": "profileLocationCode", "fieldHtmlClass" : "leo_form_input", "type": "text" , "placeholder" : "Plus Code" });
 		callbacks.push(function(){
 			$('input[name="profileLocationCode"]').focusin(function(){
 				var node = $(this);
@@ -431,7 +431,7 @@ function initFeedbackSurvey(){
 		      "type": "string",
 		      "title": model.Ext_ID
 		};
-		formModel.push({ "key": "ext_id",  "type": "text" , "placeholder" : placeholderPrefix + model.Ext_ID });
+		formModel.push({ "key": "ext_id", "fieldHtmlClass" : "leo_form_input", "type": "text" , "placeholder" : placeholderPrefix + model.Ext_ID });
 	}
 	
 	// Profile_Extra_Attributes
@@ -443,7 +443,7 @@ function initFeedbackSurvey(){
 				      "type": "string",
 				      "title": e.label
 				};
-				formModel.push({ "key": field,  "type": e.inputType , "placeholder" : defaultTextPlaceholder});
+				formModel.push({ "key": field, "fieldHtmlClass" : "leo_form_input", "type": e.inputType , "placeholder" : defaultTextPlaceholder});
 			}
 		});
 	}
@@ -469,7 +469,7 @@ function initFeedbackSurvey(){
 				      "required": true,
 				      "enum": model.Rating_Choices
 			}
-			formModel.push({ "key": e,  "type": "radiobuttons", "activeClass": "btn-success" });
+			formModel.push({ "key": e, "fieldHtmlClass" : "leo_form_input",  "type": "radiobuttons", "activeClass": "btn-success" });
 			totalRatingQuestions++;
 		});
 	}
@@ -490,7 +490,7 @@ function initFeedbackSurvey(){
 			if( isValidData(e.key) && isValidData(e.label) ) {
 				var field = "extraTextQuestion_" + e.key;
 				formSchema[field] = { "type": "string", "title": e.label };
-				formModel.push({ "key": field,  "type": "textarea" , "placeholder" : defaultTextPlaceholder, "htmlClass" : field});
+				formModel.push({ "key": field, "fieldHtmlClass" : "leo_form_input", "type": "textarea" , "placeholder" : defaultTextPlaceholder, "htmlClass" : field});
 			}
 		});
 	}
@@ -510,7 +510,7 @@ function initFeedbackSurvey(){
 				          "enum": obj.choices
 				       }
 			}
-			formModel.push({ "key": field,  "type": "checkboxes" , "htmlClass" : field});
+			formModel.push({ "key": field, "fieldHtmlClass" : "leo_form_input", "type": "checkboxes" , "htmlClass" : field});
 		}
 	} 
 	
@@ -525,7 +525,7 @@ function initFeedbackSurvey(){
 				      "required": true,
 				      "enum": obj.choices
 			}
-			formModel.push({ "key": field,  "type": "radios" , "htmlClass" : field});
+			formModel.push({ "key": field, "fieldHtmlClass" : "leo_form_input", "type": "radios" , "htmlClass" : field});
 		}
 	} 
 	
@@ -535,7 +535,7 @@ function initFeedbackSurvey(){
 		      "type": "string",
 		      "title": model.Comment_Label
 		};
-		formModel.push({ "key": "comment",  "type": "textarea" , "placeholder" : defaultTextPlaceholder});
+		formModel.push({ "key": "comment", "fieldHtmlClass" : "leo_form_input", "type": "textarea" , "placeholder" : defaultTextPlaceholder});
 	}
 	
 	// OK button
@@ -553,6 +553,11 @@ function initFeedbackSurvey(){
 	// process form schema into HTML
 	LeoForm.process('survey_placeholder',formSchema, formModel, callbacks);
 	
+	// add background for UX
+	$('div.form-group').each(function(){ 
+		var n = $(this).attr('class').replace('form-group jsonform-error-','').length; 
+		if(n > 0) $(this).addClass('form-background');
+	})
 	$('#survey_placeholder').show();
 }
 

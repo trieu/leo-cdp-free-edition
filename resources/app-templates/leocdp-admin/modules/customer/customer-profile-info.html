@@ -332,9 +332,9 @@
 		                           <ul class="list-group">
 		                           		<li class="list-group-item">
 		                           			<div class="progress" style="text-transform: uppercase;font-weight: bold;" >
-											  	<div class="journeyScore progress-bar progress-bar-success progress-bar-striped active " role="progressbar"
+											  	<div class="journeyScore progress-bar progress-bar-striped active" role="progressbar"
 											  				aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%" >
-											    	<span data-field="journeyScore" data-fieldholder="html" data-fieldtype="int"  >0</span> % funnel
+											    	<span data-field="journeyScore" data-fieldholder="html" data-fieldtype="int" >0</span> % funnel
 											  	</div>
 										   	</div>
 										   	<div>
@@ -393,8 +393,12 @@
                                    <p class="data_field" data-field="dateOfBirth" data-fieldholder="html" data-fieldtype="date"  > -  </p>
                                </li>
                                <li class="personal_info" >
-                                   <b data-persona="key"  > <i class="fa fa-fw fa-map-marker"></i> Living Location  </b> 
+                                   <b data-persona="key"  > <i class="fa fa-fw fa-map-marker"></i> Living Location Address </b> 
                                    <p class="data_field" class="small" data-field="livingLocation"  data-fieldholder="locationcode" data-fieldtype="string"  > - </p>
+                               </li>
+                               <li class="personal_info" >
+                                   <b data-persona="key" > <i class="fa fa-fw fa-map-marker"></i> Living Location Code </b> 
+                                   <p class="data_field" data-field="locationCode" data-fieldholder="locationcode" data-fieldtype="string" > - </p>
                                </li>
                                <li>
                                   <b data-persona="key" > <i class="fa fa-fw fa-exchange"  ></i> Customer Consent Choices  </b> 
@@ -439,7 +443,7 @@
          <li>
           	<a href="javascript:" data-target-tab="panel_profile_ext_data" title="Extension data of profile" > <i class="fa fa-info-circle" aria-hidden="true"></i> Extension Data </a>
          </li>
-         <li>
+         <li style="display: none;" >
           	<a href="javascript:" data-target-tab="panel_content_suggestions" > <i class="fa fa-list-ol" aria-hidden="true"></i> Recommended Content </a>
          </li>
          <li>
@@ -614,10 +618,6 @@
 				                   <p data-field="personalContacts" data-fieldholder="html_hashmap" data-fieldtype="hashmap" id="personalContacts" > </p>
 				               	</li>
 				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Education and Learning Paths </b> 
-				                   <p data-field="learningHistory" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
-				               	</li>
-				               	<li>
                                    <b data-persona="key"  >  <i class="fa fa-fw fa-users"></i> Social Media Profiles </b> 
                                    <p data-field="socialMediaProfiles" data-fieldholder="html_hashmap"  data-fieldtype="hashmap" id="socialMediaProfiles" >  </p>
                                 </li>
@@ -646,7 +646,29 @@
                    </tr>
                </table>
                <hr>
-               <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Information for Business </h4>
+               <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Educational Information </h4>
+			   <table border=0 class="underlined" style="width: 100%;">
+                   <tr>
+                       <td>
+							<ol class="profile_ext_data" data-field="personal_attributes">
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Soft Skills </b> 
+				                   <p data-field="softSkills" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Education and Learning Paths </b> 
+				                   <p data-field="learningHistory" data-fieldholder="html_hashmap" data-fieldtype="hashmap" id="businessContacts" > </p>
+				               	</li>
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Study Certificates </b> 
+				                   <p data-field="studyCertificates" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+			               	</ol>
+               	  		</td>
+                   </tr>
+               </table>
+               <hr>
+               <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Professional Information </h4>
 			   <table border=0 class="underlined" style="width: 100%;">
                    <tr>
                        <td>
@@ -866,7 +888,7 @@
  </li>
 </script>
 
-<script id='item-view-event-tpl' type="text/html" >
+<script id='key-info-view-event-tpl' type="text/html" >
  <li class="list-group-item view" id="ev_<%- id %>">
    <div class="row">
       <div class="col-md-2 text-center highlight_text" style="margin-top: 15px;"> <i class="fa fa-info-circle" aria-hidden="true" style="font-size:2em" ></i> <br> <div class="event_text"><%- metricName %></div> </div>
@@ -1122,8 +1144,18 @@
          
          var dataProcessor = function(data){
         	// Journey Data Funnel : loyalty percentage 
- 			 data.journeyScore = data.journeyScore == 0 ? 5 : data.journeyScore;
-        	 $('div.journeyScore').attr('aria-valuenow',data.journeyScore).css('width',data.journeyScore+'%');
+ 			 data.journeyScore = data.journeyScore == 0 ? 6 : data.journeyScore;
+         	 var journeyScoreNode = $('div.journeyScore');
+         	 journeyScoreNode.attr('aria-valuenow',data.journeyScore).css('width',data.journeyScore+'%');
+        	 if(data.journeyScore > 90) {
+        		 journeyScoreNode.addClass("progress-bar-danger");
+        	 }
+        	 else if(data.journeyScore >= 50 && data.journeyScore < 90) {
+        		 journeyScoreNode.addClass("progress-bar-success");
+        	 }
+        	 else {
+        		 journeyScoreNode.addClass("progress-bar-info");
+        	 }
         	 
         	 var noinfo = 'No information';
         	 
@@ -1424,8 +1456,8 @@
     			 var eventName = e.metricName;
     			 var tplName = 'view-event-tpl';
     			 
-    			 if (eventName === "item-view" || eventName === "survey-view" ) {
-    				 tplName = 'item-view-event-tpl';
+    			 if (eventName === "item-view" || eventName === "survey-view" || eventName === "course-view" || eventName === "content-view") {
+    				 tplName = 'key-info-view-event-tpl';
     			 }
     			 else if(eventName === "purchase" || eventName === "subscribe" || eventName === "enroll" || eventName === "pay"){
         			 tplName = 'conversion-event-tpl';

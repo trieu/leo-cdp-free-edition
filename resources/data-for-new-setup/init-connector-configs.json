@@ -71,7 +71,7 @@
 		"dataSynchService": true,
 		"periodInSecondsToLoop": 30,
 		"configs": {
-			"service_provider": "",
+			"service_provider": "Facebook for Developers",
 			"service_api_url": "",
 			"service_api_key": ""
 		},

@@ -1,6 +1,6 @@
 # Changelog for LEO CDP
 
-## [0.8.8] - 2021-09-22 18h
+## [0.8.8] - 2021-10-04 14h
 
 ### Added new features 
 
@@ -14,6 +14,10 @@
 - UI: add checkbox "Delete all profiles in the segment" in delete segment modal box
 - user can delete all profiles in segment if check on the checkbox "Delete all profiles"
 - update profile info from Event Stream
+- email marketing to send personalized product directly to contact
+- Segment builder, new fields: referrerChannels, lastTouchpoint__name, lastTouchpoint__url, shoppingItemIds, purchasedItemIds
+- Segment UI: allow sorting and search
+- show locationCode in Profile Info and Profile Editor
 
 ### Updated backend
 
@@ -24,6 +28,8 @@
 - improve JobUpdateProfile
 - improve FeedbackEvent model for Survey Analytics and Customer Analytics
 - add ProfileAgeGroup to classify profile by age group
+- upgrade query-builder java lib for new operators
+- update new fields in DataFilter class: searchValue, sortField, sortAsc
 
 ### Fixed bugs
 
@@ -33,6 +39,7 @@
 - CSS width of survey preview is too small , set 1024px as default 
 - fix XSS script hacked into eventData in customer-profile-info.html
 - update profile funnel stage is not correctly, case happy-customer and returning-visitor
+- classified profile is more correctly
 
 ### Changed
 
@@ -46,7 +53,7 @@
 - System Settings menu is put at the top for Admin Role
 - rename forMarketingActivation to forSegmentDataActivation
 - Profile Model, refactoring code and update: purchasedItemIds, shoppingItemIds, shoppingCartItems+-
-
+- upgrade jsonform 2.2.5 in Leo Feedback Survey, add form-background for UX in survey form
 
 ---
 

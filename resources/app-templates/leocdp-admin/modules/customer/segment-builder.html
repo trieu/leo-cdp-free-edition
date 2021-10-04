@@ -1,3 +1,4 @@
+
 <!-- Segment Builder -->
 
 <div class="row">
@@ -286,6 +287,20 @@
 <script>
 	var segmentDataModel = false;
 	var segmentDataStats = false;
+	var productCatalogMap = {
+		"gxprsWM8DtsMT7Odk7icK" : "Information Rules: A Strategic Guide to the Network Economy",	
+		"6zFXGsbvYXV2wowea87kdT": "Smart Cities: Introducing Digital Innovation to Cities",
+		"3iudnLzDnzIQaHb6dFP38q": "The Social CEO: How Social Media Can Make You A Stronger Leader",
+		"test": "test",
+    }
+	
+    function initProductCatalogMap(callback) {
+    	var urlStr = window.baseLeoAdminUrl + "/item/product-catalog-map";
+    	LeoAdminApiUtil.getSecuredData(urlStr, {}, function (json) { 
+    		productCatalogMap = json.data;
+    		callback();
+    	})
+    }
 	
 	var initSegmentBuilder = function(id) {
 		segmentDataModel = false;
@@ -293,9 +308,11 @@
 		if(id === 'new'){
 			// init UI for new segment
 			$('button.data-control-delete').hide();
-			createNewSegmentModel();
+			initProductCatalogMap(createNewSegmentModel)
 		} else {
-			getSegmentBuilderData(id);
+			initProductCatalogMap(function(){
+				getSegmentBuilderData(id);
+			})
 		}
 	}
 	
@@ -482,8 +499,6 @@
 		$('#sm_for3rdSynchronization').prop("checked", segmentData.for3rdSynchronization ).change(function() {
 			segmentDataModel.for3rdSynchronization = $(this).prop("checked");
 		});
-		
-		
 	}
 	
 	var saveSegment = function() {

@@ -56,6 +56,37 @@
         <p><button id="btn-purchase" onclick="processPurchasing(this)" style="display: none;">Purchase</button></p>
     </div>
 
+    <script id="leoFeedbackForm_munIcNzze8YqHQveKisr3" >
+        (function() {
+                //  Feedback/Survey Form Collector for [Rating] Customer Feedback Score (CFS) by Star Rating
+                var svf = document.title;
+                var tprefurl = location.href;
+                var tplFeedbackType = "RATING";
+                var cb = Math.floor(Math.random() * 100000);
+                
+                var url  = 'https://demotrack.leocdp.net/webform?tplid=munIcNzze8YqHQveKisr3';
+                url = url + "&tplfbt=" + tplFeedbackType;
+                url = url + "&tpname=" + document.title;
+                url = url + "&tpurl=" + location.href;
+                url = url + "&cb=" + cb;
+                
+                // container
+                var divWrapper = document.createElement("div"); 
+                var cssDiv = "position: relative; width:100%; overflow: hidden;  height: 100px ";
+                divWrapper.setAttribute("style",cssDiv);
+                
+                // iframe 
+                var iframe = document.createElement("iframe"); 
+                var cssIframe = "position: absolute; top:0; left:0; bottom:0; right:0; width:100%; border: none; overflow: hidden; height: 100px ";
+                iframe.setAttribute("style",cssIframe);
+                iframe.setAttribute("src",url);
+                divWrapper.appendChild(iframe);
+                
+                var referenceNode = document.getElementById("leoFeedbackForm_munIcNzze8YqHQveKisr3");
+                referenceNode.parentNode.insertBefore(divWrapper, referenceNode.nextSibling);
+            })();
+        </script>
+
     <!-- Data Model for LEO Observer JS -->
     <script>
         // to synch product data into Leo CDP using JavaScript
@@ -63,7 +94,7 @@
         leoCdpTrackedProducts.push({
             name: "Customer Data Platforms",
             productId: "978-1119790112",
-            idType: "ISBN",
+            idType: "ISBN-13",
             originalPrice: 25,
             salePrice: 25,
             quantity: 1,

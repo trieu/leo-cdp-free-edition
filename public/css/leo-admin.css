@@ -434,6 +434,10 @@ div.gridholder {
     overflow: hidden;
 }
 
+.query-builder select.form-control { 
+	margin: 4px!important; 
+}
+
 /* profile */
 
 #attribution_description {

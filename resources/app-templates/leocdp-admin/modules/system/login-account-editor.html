@@ -50,6 +50,30 @@
                         autocapitalize="off" autocomplete="nope"  >
                 </div>
                 <hr>
+                <div class="form-group">
+                    <label> Group or Department </label>
+                    <select name="customData_department" data-placeholder="Choose Department" class="select">
+                        <option value=""> No information</option>
+                        <option value="bod"> Board of Directors (BOD) </option>
+                        <option value="marketing"> Marketing </option>
+                        <option value="finance"> Finance </option>
+                        <option value="operation"> Business Operation </option>
+                        <option value="logistics"> Logistics </option>
+                        <option value="customer_support"> Customer Support </option>
+                        <option value="trading"> Trading </option>
+                        <option value="purchasing"> Purchasing </option>
+                        <option value="sales_team"> Sales team </option>
+                        <option value="tech"> IT / Technology Support </option>
+                        <option value="media_agency"> Media Agency </option>
+                        <option value="sales_agent"> Sales Agent / Sales Representative </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label> Job Title / Job Position </label>
+                    <input type="text" class="form-control" placeholder="Enter Position" name="customData_position"
+                        autocorrect="off" autocapitalize="off" autocomplete="off">
+                </div>
+                <hr>
                 <div class="action-div">
                     <label>User Role</label>
                     <div class="radio" style="display: none;" >
@@ -83,32 +107,10 @@
                         <label><input type="radio" name="status" value="3">EXPIRED</label>
                     </div>
                 </div>
-                <hr>
-                <div class="form-group">
-                    <label> Group or Department </label>
-                    <select name="customData_department" data-placeholder="Choose Department" class="select">
-                        <option value=""> No information</option>
-                        <option value="bod"> Board of Directors (BOD) </option>
-                        <option value="marketing"> Marketing </option>
-                        <option value="finance"> Finance </option>
-                        <option value="operation"> Operation </option>
-                        <option value="sales"> Sales </option>
-                        <option value="tech"> IT / Tech Support </option>
-                        <option value="media"> Media Agency </option>
-                        <option value="sales_agent"> Sales Agent / Representative </option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label> Job Title / Job Position </label>
-                    <input type="text" class="form-control" placeholder="Enter Position" name="customData_position"
-                        autocorrect="off" autocapitalize="off" autocomplete="off">
-                </div>
-               
                 
             </fieldset>
 
         </div>
-       
     </div>
 </div>
 

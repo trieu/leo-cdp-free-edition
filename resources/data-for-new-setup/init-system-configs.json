@@ -1,17 +1,16 @@
 [
 	{
 		"index" : 1,
-		"id": "leo_local_email_server",
-		"name": "Email Service for System Login User",
+		"id": "local_admin_mail_server",
+		"name": "SMTP Mail Server for System Management",
 		"description": "The Email SMTP for user login management and system monitoring alert",
 		"configs": {
 			"icon": "fa-envelope",
 			"read_only": false,
-			"service_provider": "",
-			"service_api_url": "",
-			"service_api_key": "",
 			"active": true,
 			"show": true,
+			"service_api_url": "local_smtp_server",
+			"service_api_key": ".",
 			"smtp_enabled":false,
 			"smtp_username": "",
 			"smtp_password": "",
@@ -23,17 +22,16 @@
 	},
 	{
 		"index" : 2,
-		"id": "leo_marketing_email_server",
-		"name": "Email Service for Customer Profile",
+		"id": "local_smtp_mail_server",
+		"name": "SMTP Mail Server for Direct Marketing",
 		"description": "To target your customers through email, by providing useful content, product information, PR event and feedback survey",
 		"configs": {
 			"icon": "fa-envelope-o",
 			"read_only": false,
-			"service_provider": "https://www.sendinblue.com",
-			"service_api_url": "",
-			"service_api_key": "",
 			"active": true,
 			"show": true,
+			"service_api_url": "local_smtp_server",
+			"service_api_key": ".",
 			"smtp_enabled":false,
 			"smtp_username": "",
 			"smtp_password": "",
@@ -76,7 +74,7 @@
 	{
 		"index" : 5,
 		"id": "leo_exporter",
-		"name": "Raw Data Exporting Service",
+		"name": "Exporting Service for Data Backup",
 		"description": "To set-up the ongoing process of synchronizing data from LEO CDP to digital marketing platforms",
 		"configs": {
 			"icon": "fa-download",
@@ -90,7 +88,7 @@
 	{
 		"index" : 6,
 		"id": "leo_prediction",
-		"name": "Predictive Analytics Service",
+		"name": "Predictive Analytics Service for Smarter Business",
 		"description": "To predict Customer Acquisition Cost (CAC), Customer Lifetime Value (CLV) and Credit Score from behavioral data",
 		"configs": {
 			"icon": "fa-line-chart",
