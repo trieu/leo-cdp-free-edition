@@ -288,11 +288,13 @@
                     {
                         "render": function (data, type, row) {
                         	var name = 'Anonymous Person';
+                        	var cssClass = "";
                         	if(row.firstName.length > 0 || row.lastName.length > 0){
                         		name = textTruncate(row.firstName + ' ' + row.lastName, 32);
+                        		cssClass = "highlight_text";
                         	}
                             var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
-                            return '<a title="Profile Report" href="' + callJsViewStr + '" >' + name + '</a>';
+                            return '<a class="' + cssClass + '" title="Profile Report" href="' + callJsViewStr + '" >' + name + '</a>';
                         },
                         "targets": 1
                     },
@@ -305,7 +307,7 @@
                     {
                         "render": function (data, type, row) {
                         	var score =  new Number(data).toLocaleString();
-                        	if(data > 31  && data <= 60  ) {
+                        	if(data > 25  && data <= 60  ) {
                         		return '<div class="highlight_text text-center" style="font-size:1.1em!important" >'  + score + ' </div>';
                         	}
                         	else if (data > 60 ) {

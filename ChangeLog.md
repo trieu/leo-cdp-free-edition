@@ -1,6 +1,19 @@
 # Changelog for LEO CDP
 
-## [0.8.8] - 2021-10-04 14h
+## [0.8.9] - 2021-10-09 
+
+### Added 
+- [work in progress] Segment Activation: sending personalized email directly from LEO CDP
+- [work in progress] flow to register new setup of free LEO CDP
+
+### Fixed 
+- [backend] save new profile from web is not worked
+
+### Changed
+- [UI] show highlight profile with data quality score from 25 points
+
+
+## [0.8.8] - 2021-10-04
 
 ### Added new features 
 
@@ -18,6 +31,7 @@
 - Segment builder, new fields: referrerChannels, lastTouchpoint__name, lastTouchpoint__url, shoppingItemIds, purchasedItemIds
 - Segment UI: allow sorting and search
 - show locationCode in Profile Info and Profile Editor
+- auto convert transaction event of product in VND to USD
 
 ### Updated backend
 
@@ -30,6 +44,7 @@
 - add ProfileAgeGroup to classify profile by age group
 - upgrade query-builder java lib for new operators
 - update new fields in DataFilter class: searchValue, sortField, sortAsc
+- add new class CurrencyConverterUtil
 
 ### Fixed bugs
 

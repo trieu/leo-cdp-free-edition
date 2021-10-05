@@ -418,13 +418,11 @@
     
     function loadProductTypeSelector(initIdType){
     	var check = function(v, idType) {
-    		if(v === "retail_product"){
-    			if((idType === "" || idType === "external_ID")){
-    				$('#productIdType').val("SKU")
-    			}
-         	}
+    		if( (idType == null ||  idType === "") && v === "retail_product" ){
+				$('#productIdType').val("SKU")
+			}
          	else {
-         		var idType = "external_ID";
+         		var idType = initIdType || "external_ID";
          		$('#productIdType').val(idType);
          	}
     	}
