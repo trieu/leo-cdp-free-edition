@@ -646,5 +646,56 @@
 		"topicIds": [],
 		"type": 9,
 		"updatedAt": "2021-09-12T09:57:28.255Z"
+	},
+	{
+		"activationName": "",
+		"assetType": 13,
+		"bodyCode": "",
+		"categoryIds": [
+			"VDj4XPHaoPBEF19sKxYOk"
+		],
+		"contentClass": "",
+		"createdAt": "2021-10-06T02:04:28.013Z",
+		"creationTime": 1633485868,
+		"customData": {
+			
+		},
+		"description": "UX survey ",
+		"destroyedTime": 0,
+		"groupIds": [
+			"1jlyOnJoPpK6HKICHJRxUH"
+		],
+		"headCode": "",
+		"headlineImageUrl": "",
+		"headlineImages": {
+			
+		},
+		"headlineVideoUrl": "",
+		"isAdItem": false,
+		"jsonMetadata": "{\"Header\":\"Khảo sát ý kiến người dùng về giao diện của website\",\"Multiple_Choice_Question_List\":{},\"Single_Choice_Question_List\":{},\"Group\":\"website_UX\",\"Group_Label\":\"website_UX\",\"Time_Period\":\"2021\",\"Time_Period_Label\":\"Năm 2021\",\"Profile_Last_Name_Label\":\"Họ của bạn\",\"Profile_First_Name_Label\":\"Tên của bạn\",\"Profile_Age_Group\":{\"label\":\"Độ tuổi của bạn\",\"choices\":[\"[18 - 24]\",\"[25 - 34]\",\"[35 - 44]\",\"[45 - 54]\",\"[55 - 64]\",\"[65 - 74]\",\"[75 - 99]\"]},\"Profile_Email_Label\":\"Email\",\"Profile_Extra_Attributes\":[{\"key\":\"personalProblems\",\"label\":\"Bạn đang tìm thông tin gì\",\"inputType\":\"textarea\"},{\"key\":\"workingHistory\",\"label\":\"Bạn đang làm ở công ty nào\",\"inputType\":\"text\"},{\"key\":\"businessIndustries\",\"label\":\"Bạn đang kinh doanh trong lĩnh vực nào\",\"inputType\":\"text\"}],\"Survey_Original_Source_Label\":\"Bạn biết thông tin sản phẩm từ kênh nào ?\",\"Survey_Original_Source_Options\":[\"Facebook\",\"Website\",\"YouTube\"],\"Rating_Question_Guide\":\"Hãy xem xét các câu sau và nhấp vào một câu trả lời theo ý kiến của bạn\",\"Rating_Choices\":[\"[1] Không hài lòng\",\"[2] Không ý kiến\",\"[3] Bình thường\",\"[4] Hài lòng\",\"[5] Rất hài lòng\"],\"Rating_Question_List\":{\"Giao diện chính (UI)\":[\"1: Giao diện đơn giản, dễ sử dụng\",\"2: Giao diện hấp dẫn, thu hút\",\"3: Màu sắc đẹp, dễ nhìn\",\"4: Font chữ, kích thước chữ dễ nhìn\"],\"Khả năng sử dụng (UX) của website\":[\"1: Có thể dễ dàng tìm thấy nội dung quan tâm\",\"2: Bố cục phân bố rõ ràng, khoa học, vị trí hợp lý\",\"3: Cách hiển thị các bài viết hợp lý\",\"4: Cách hiển thị hình ảnh, video hợp lý, dễ nhìn\"]},\"Comment_Label\":\"Bạn muốn góp ý điều gì cho giao diện website để chúng tôi phục vụ bạn tốt hơn\",\"Language\":\"vn\"}",
+		"keywords": [],
+		"mediaInfo": "[Survey Header] Khảo sát ý kiến người dùng về giao diện của website\n[-----------------------------------------------------------------]\n[Survey Group] website_UX => website_UX\n[-----------------------------------------------------------------]\n[Survey Time Period] 2021 => Năm 2021\n[-----------------------------------------------------------------]\n[Profile Last Name] Họ của bạn \n[Profile First Name] Tên của bạn \n[Profile Age Group] Độ tuổi của bạn\n[Profile Email] Email\n[Profile Extra Attribute] textarea => personalProblems => Bạn đang tìm thông tin gì\n[Profile Extra Attribute] workingHistory => Bạn đang làm ở công ty nào \n[Profile Extra Attribute] businessIndustries => Bạn đang kinh doanh trong lĩnh vực nào\n[-----------------------------------------------------------------]\n[Survey Original Source Label] Bạn biết thông tin sản phẩm từ kênh nào ?\n[Survey Original Source Option] Facebook\n[Survey Original Source Option] Website \n[Survey Original Source Option] YouTube\n[-----------------------------------------------------------------]\n[Survey Rating Question Guide] Hãy xem xét các câu sau và nhấp vào một câu trả lời theo ý kiến của bạn\n[Survey Rating Choices]  [1] Không hài lòng; [2] Không ý kiến ; [3] Bình thường ; [4] Hài lòng; [5] Rất hài lòng\n[-----------------------------------------------------------------]\n[Survey Rating Question Group] Giao diện chính (UI)\n[Survey Rating Question] 1: Giao diện đơn giản, dễ sử dụng \n[Survey Rating Question] 2: Giao diện hấp dẫn, thu hút\n[Survey Rating Question] 3: Màu sắc đẹp, dễ nhìn\n[Survey Rating Question] 4: Font chữ, kích thước chữ dễ nhìn\n[-----------------------------------------------------------------]\n[Survey Rating Question Group] Khả năng sử dụng (UX) của website\n[Survey Rating Question] 1: Có thể dễ dàng tìm thấy nội dung quan tâm\n[Survey Rating Question] 2: Bố cục phân bố rõ ràng, khoa học, vị trí hợp lý\n[Survey Rating Question] 3: Cách hiển thị các bài viết hợp lý\n[Survey Rating Question] 4: Cách hiển thị hình ảnh, video hợp lý, dễ nhìn\n[-----------------------------------------------------------------]\n[Survey Comment] Bạn muốn góp ý điều gì cho giao diện website để chúng tôi phục vụ bạn tốt hơn",
+		"mediaInfoUnits": [],
+		"modificationTime": 1633486994980,
+		"networkId": 0,
+		"ownerId": "2764352",
+		"privacyStatus": 0,
+		"publishingTime": 0,
+		"qrCodeUrl": "./public/qrcode/asset-template-item-3TwWjHcTPPn8rTwgFqEBmg.png",
+		"rankingScore": 0,
+		"selectorKey": "default",
+		"selectorWeight": 0.3100000023841858,
+		"shortLinkUrl": "",
+		"slug": "mmO06C3H8dv3CArTYyndj-khao-sat-y-kien-nguoi-dung-ve-giao-dien-cua-website",
+		"status": 0,
+		"systemAsset": false,
+		"targetGeoLocations": [],
+		"targetSegmentIds": [],
+		"targetViewerIds": [],
+		"templateType": 0,
+		"title": "[Survey] Khảo sát ý kiến người dùng về giao diện của website",
+		"topicIds": [],
+		"type": 9,
+		"updatedAt": "2021-10-06T02:23:14.980Z"
 	}
 ]

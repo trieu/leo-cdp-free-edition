@@ -100,7 +100,7 @@
             <table id="profile-list" class="display" style="width:100%">
                 <thead>
                     <tr>
-                        <th class="text-center" title="A profile that has mobile phone or email">Contact Data</th>
+                        <th class="text-center" title="A profile that has mobile phone or email">Contactable</th>
                         <th >Full Name</th>
                         <th >Last-seen Touchpoint</th>
                         <th class="text-center">Data Quality</th>
@@ -287,8 +287,8 @@
                     },
                     {
                         "render": function (data, type, row) {
-                        	var name = 'Anonymous Person';
-                        	var cssClass = "";
+                        	var name = 'Anonymous Visitor';
+                        	var cssClass = "datatable_text";
                         	if(row.firstName.length > 0 || row.lastName.length > 0){
                         		name = textTruncate(row.firstName + ' ' + row.lastName, 32);
                         		cssClass = "highlight_text";
