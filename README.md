@@ -8,7 +8,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # Why is LEO CDP ?
 
-1. You need to do Advanced Data Analytics with Jupyter Notebook to understand Customer Insights
+1. You need to do Advanced Data Analytics with Jupyter Notebook / Google Colab to understand Customer Insights
 2. You need to do Data Segmentation for Customer Personalization and direct-marketing purposes
 3. You need to optimize Customer Journey Map and Customer Experience (CX)
 4. You need an on-premises software solution to deploy in your private cloud servers
@@ -16,7 +16,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # General Data Flow
 
-[![Leo CDP Flow](https://1.bp.blogspot.com/-5LDHS3iflqU/YQOKwcrx_LI/AAAAAAAAMgA/5tmJWbsKNdYiMBGS5SNsOh5weX2owj_9QCLcBGAsYHQ/s2048/LEO%2BCDP%2Bversion%2B1.0%2BChecklist-Data%2BFlow%2BLeo%2BCDP.png)](https://speakerdeck.com/trieu/why-is-leo-cdp-important-for-digital-business)
+[![Leo CDP Flow](https://blogger.googleusercontent.com/img/a/AVvXsEhMgSHVZ0DjWVDc7Q3hxeno-nwJB0juSrtgUaRFgKyksN7tHZ3yHL6K4s1jevo9i03XltuEUUvSK1zuzxmFJ555maAEgmwcU5jXiU5oqha9pqwrPS1s8_13WT4oMuK81246JzV0KCCoPxlCfBU3jGvduSakpr68ByaiE7RNhSHwfhbmCKgLNqZhATiJ=s2048)](https://speakerdeck.com/trieu/why-is-leo-cdp-important-for-digital-business)
 
 # Technology Architecture
 
@@ -70,32 +70,30 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # Software license and quota 
 
-## English 
-
 * Free to use and respect my work
 * Free quota: 1000 profiles in database
 * If you are working in education or non-profit organization, just send me an email to free license for 100,000 profiles
 
-## Vietnamese
-
-* Miễn phí sử dụng, chỉ cần tôn trọng bản quyền tác giả là được
-* Số profile miễn phí là 1000 user profiles
-* Nếu bạn đang làm việc trong lĩnh vực giáo dục hoặc tổ chức phi lợi nhuận, gửi cho tôi email để có miễn phí cho 100.000 profiles
-
-## Ghi chú cho các bạn tính ăn cắp, vi phạm bản quyền mô hình USPA
-
-* Đây là mô hình USPA bằng chứng LEO CDP được phát minh từ 2014 <a href="https://www.facebook.com/photo/?fbid=10158746916044506" target="_blank">  link ý tưởng </a> 
-* USPA framework cho code CDP đã được phát triển từ tháng 10 năm 2019 <a href="https://www.youtube.com/watch?v=tyASsGaE8jg" target="_blank">  link video </a> : 
-* Ăn cắp quen tay, ngủ ngày quen mắt 
-* Chim nhàn bắt cá ngoài khơi, thấy anh chôm chỉa nhiều nơi em buồn
-
 # Community Support 
 
-* This is the beta software, so if you get any bug or issue in operation, just send me a message (trieu@leocdp.com)
-* Facebook: <a href="https://www.facebook.com/groups/leocdp" target="_blank">  LEO CDP Community </a>
+* This is the beta software, so if you get any bug or issue in operation, just send me a message: trieu@leocdp.com
+* Please join this group to get support: <a href="https://www.facebook.com/groups/leocdp" target="_blank">  LEO CDP Community </a>
+* Please join this group to learn more about big data: <a href="https://www.facebook.com/groups/bigdatavietnam.org" target="_blank">  BigdataVietnam.org Community </a>
 
 # Documents 
 
 * All documents and video tutorials are still under development 
 * <a href="https://youtube.com/playlist?list=PL7YpzmBoIETSD7jnVlvfNxhSa8V2BY3-8" target="_blank" > YouTube playlist for training </a>
 * More information will be updated at <a href="https://knowledge.leocdp.net/" target="_blank"> LEO CDP Blog </a>
+
+# For Vietnamese user
+
+* Miễn phí sử dụng, chỉ cần tôn trọng bản quyền tác giả là được
+* Số profile miễn phí là 1000 user profiles
+* Nếu bạn đang làm việc trong lĩnh vực giáo dục hoặc tổ chức phi lợi nhuận, gửi cho tôi email để có miễn phí cho 100.000 profiles
+
+## Bằng chứng về bản quyền mô hình framework USPA và phát minh LEO CDP 
+
+* Đây là bằng chứng ý tưởng cho LEO CDP đã có từ 2014 <a href="https://www.facebook.com/photo/?fbid=10158746916044506" target="_blank"> Link ý tưởng </a> 
+* USPA framework cho code CDP đã được phát triển từ tháng 10 năm 2019 <a href="https://www.youtube.com/watch?v=tyASsGaE8jg" target="_blank"> Link video </a> 
+* <a href="https://www.brandsvietnam.com/congdong/topic/23444-Digital-Transformation-15-Datadriven-Marketing-Tan-dung-du-lieu-de-toi-uu-tiep-thi-Phan-2" target="_blank"> Digital Transformation #15: Data-driven Marketing – Tận dụng dữ liệu để tối ưu tiếp thị </a>
