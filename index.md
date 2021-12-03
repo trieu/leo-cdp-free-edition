@@ -18,6 +18,8 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 [![Leo CDP Flow](https://blogger.googleusercontent.com/img/a/AVvXsEhMgSHVZ0DjWVDc7Q3hxeno-nwJB0juSrtgUaRFgKyksN7tHZ3yHL6K4s1jevo9i03XltuEUUvSK1zuzxmFJ555maAEgmwcU5jXiU5oqha9pqwrPS1s8_13WT4oMuK81246JzV0KCCoPxlCfBU3jGvduSakpr68ByaiE7RNhSHwfhbmCKgLNqZhATiJ=s2048)](https://speakerdeck.com/trieu/why-is-leo-cdp-important-for-digital-business)
 
+[![Leo CDP Flow](https://blogger.googleusercontent.com/img/a/AVvXsEj02mYGBy1EbDXshyGrppyfi_RZAls08cqegjM5UVPD7rTGBAOQXLDHyxImvZ2X9J69DaKIx2qN795z7CcraKfNFIl4h6Ha2OvNy0FvRaRF5eG3J_ZRFEnxbBnpICpOTeFDWPEcsL4g6faa_Tz9nDX7DisdH5zas856A-uIDOKg4LF5sm3vrjkVfsEe=s2501)](https://speakerdeck.com/trieu/why-is-leo-cdp-important-for-digital-business)
+
 # Technology Architecture
 
 ![alt technology-architecture-leo-cdp](https://blogger.googleusercontent.com/img/a/AVvXsEiMumpMfN32dIcKry8UsCvrb2xG85hqxk6iRPI2-oyuTbvtJfGdbtrjoUyelB-01dDhFNH04VyVZsGi1MnIrNaPX1xE697WLooaSta-FwMBm-TvoWi3GmcirzSX56skENUVrp-am8pkqTnfq_sqQFX-cD7CJkRybXVjTRzi3QtWJezWIZzJ52vfEZTB=s2048)
