@@ -177,6 +177,28 @@ function dataTracking() {
 		return true;
 	}
 	
+	// https://tesla.edu.vn/
+	else if (crUrl.indexOf('tesla.edu.vn') > 0) {
+		
+		var indexCourse = location.href.indexOf("chuong-trinh-dao-tao");
+		
+		// course-view tracking
+		if(indexCourse > 0) {
+			
+			var idType = 'web_uri';
+			var courseId = location.href.replace('chuong-trinh-dao-tao','').split('/')[0];
+			window.srcTouchpointName = encodeURIComponent(document.title);
+			
+			var eventData = {"courseId":courseId,"idType":idType}
+			LeoObserverProxy.recordViewEvent("course-view",eventData);
+		}
+		// listing page tracking
+		else {
+			leoTrackEventPageView();
+		}
+		return true;
+	}
+	
 	// Shopee
 	else if (crUrl.indexOf('https://shopee.vn') === 0) {
 		
@@ -243,25 +265,6 @@ function dataTracking() {
 		return true;
 	}
 	
-	// ACFC
-	else if (crUrl.indexOf('https://www.acfc.com.vn') === 0) {
-		
-		if(crUrl.indexOf('.html') > 0 ) {
-			var idType = 'SKU';
-			var productId = jQuery('div[itemprop="sku"]').text().trim();
-			if(productId !== '' ) {
-				
-				leoTrackEventProductView([productId], idType);
-				
-				jQuery('#product-addtocart-button').click(function(){
-					leoTrackEventAddToCart([productId], idType)
-				});
-			}
-		} else {
-			leoTrackEventPageView();
-		}
-		return true;
-	}
 	
 	// Phong Vu
 	else if (crUrl.indexOf('https://phongvu.vn') === 0) {
@@ -333,11 +336,6 @@ function dataTracking() {
 		leoTrackEventPageView();
 	}
 	
-	// VNUK
-	else if( crUrl.indexOf('vnuk.udn.vn') > 0 ) {
-		loadLeoFormCES();
-		leoTrackEventPageView();
-	}
 	
 	// talentnet
 	else if( crUrl.indexOf('talentnet.vn') > 0 ) {
@@ -658,7 +656,7 @@ function addFeedbackPlugin(domId, productId, idType, iframeWidth ){
     var svf = document.title;
 	var tplFeedbackType = "RATING";
 	
-	var url  = 'https://demotrack.leocdp.net/webform?tplid=munIcNzze8YqHQveKisr3';
+	var url  = 'https://demotrack.leocdp.net/webform?tplid=K51ElCv4vobU212aNuw0y';
 	url = url + "&tplfbt=" + tplFeedbackType;
 	url = url + "&tpname=" + encodeURIComponent(document.title);
 	url = url + "&tpurl=" + encodeURIComponent(tpUrl);

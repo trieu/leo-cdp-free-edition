@@ -1,29 +1,31 @@
 [
 	{
 		"id": "sendinblue",
-		"name": "SendInBlue Email Marketing Automation",
+		"name": "SendInBlue Data Connector",
 		"description": "Email Marketing Automation",
 		"builtInConnector": true,
 		"forSegmentDataActivation": true,
 		"dataSynchService": true,
 		"emailSenderService": true,
 		"periodInSecondsToLoop": 30,
+		"status": 0,
 		"configs": {
 			"service_provider": "https://sendinblue.com",
-			"service_api_url": "https://sendinblue.com",
+			"service_api_url": "https://api.sendinblue.com/v3",
 			"service_api_key": ""
 		},
 		"serviceUri": "javaclass:leotech.cdp.job.connector.SendInBlueConnector"
 	},
 	{
 		"id": "mailchimp",
-		"name": "MailChimp Email Marketing Automation",
+		"name": "MailChimp Data Connector",
 		"description": "Email Marketing Automation",
 		"builtInConnector": true,
 		"forSegmentDataActivation": true,
 		"dataSynchService": true,
 		"emailSenderService": true,
 		"periodInSecondsToLoop": 30,
+		"status": 0,
 		"configs": {
 			"service_provider": "https://mailchimp.com",
 			"service_api_url": "https://mailchimp.com",
@@ -40,8 +42,9 @@
 		"dataSynchService": true,
 		"messagePusherService": true,
 		"periodInSecondsToLoop": 30,
+		"status": -1,
 		"configs": {
-			"service_provider": "LEO CDP",
+			"service_provider": "https://onesignal.com/",
 			"service_api_url": "https://app.onesignal.com/",
 			"service_api_key": ""
 		},
@@ -49,32 +52,34 @@
 	},
 	{
 		"id": "database_report",
-		"name": "Database Report Connector",
-		"description": "Data Report Connector for MySQL, PostgreSQL and BigQuery",
+		"name": "MySQL Database Connector",
+		"description": "Data Connector for MySQL Database",
 		"builtInConnector": true,
 		"forSegmentDataActivation": true,
 		"dataSynchService": true,
 		"periodInSecondsToLoop": 30,
+		"status": -1,
 		"configs": {
-			"service_provider": "LEO CDP",
-			"service_api_url": "",
-			"service_api_key": ""
+			"database_url": "",
+			"database_username": "",
+			"database_password": ""
 		},
-		"serviceUri": "javaclass:leotech.cdp.job.connector.DatabaseReportConnector"
+		"serviceUri": "javaclass:leotech.cdp.job.connector.MySqlDatabaseConnector"
 	},
 	{
-		"id": "facebook",
-		"name": "Synch Facebook Data Connector",
-		"description": "Data Connector to synch contact profiles into Facebook Custom Audience",
-		"builtInConnector": false,
+		"id": "google_bigquery",
+		"name": "Google BigQuery Data Connector",
+		"description": "Data Connector for MySQL Database",
+		"builtInConnector": true,
 		"forSegmentDataActivation": true,
 		"dataSynchService": true,
 		"periodInSecondsToLoop": 30,
+		"status": -1,
 		"configs": {
-			"service_provider": "Facebook for Developers",
-			"service_api_url": "",
-			"service_api_key": ""
+			"database_url": "",
+			"database_username": "",
+			"database_password": ""
 		},
-		"serviceUri": "javaclass:leotech.cdp.job.connector.SynchDataConnector"
+		"serviceUri": "javaclass:leotech.cdp.job.connector.GoogleBigQueryConnector"
 	}
 ]

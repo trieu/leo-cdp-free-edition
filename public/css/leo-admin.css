@@ -367,6 +367,7 @@ div.gridholder {
     color: #3300ff;
     font-size: 12px;
     font-weight: bold;
+    border-radius: 8px;
 }
 
 #main-navbar a.active .fa {
@@ -494,6 +495,9 @@ div.long_url_holder {
     font-size: 0.9em;
 }
 
+div.primary_field {
+	margin-top: 4px;
+}
 .scoring_field {
 	 background-color: #FAFADE;
 	 color: #3300ff!important;
@@ -561,6 +565,38 @@ div.long_url_holder {
 }
 .delete-item-btn:hover {
 	color: blue;
+}
+
+.label_box {
+    color: #3300ff!important;
+    padding: 1px 2px;
+    border-radius: 6px;
+}
+
+.collapse-panel-heading {
+  	padding: 0;
+	border:0;
+}
+.collapse-panel-heading .panel-title>a, .collapse-panel-heading .panel-title>a:active{
+	display: block;
+    padding: 15px;
+    color: #555;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    word-spacing: 1px;
+    text-decoration: none;
+}
+.collapse-panel-heading a:before {
+   font-family: 'Glyphicons Halflings';
+   content: "\e114";
+   float: right;
+   transition: all 0.5s;
+}
+.collapse-panel-heading.active a:before {
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	transform: rotate(180deg);
 }
 
 /* radio styled */
@@ -673,4 +709,3 @@ div.long_url_holder {
   color: #fff;
   background-color: #5bc0de;
 }
-

@@ -27,15 +27,7 @@
         <div class="col-lg-9">
 
             <fieldset>
-
-                <div class="form-group">
-                    <label>Slug (SEO-friendly URI)</label>
-                    <div id="slug_div" >
-                        <input type="text" name="slug" class="form-control">
-                    </div>
-                </div>
-
-                <div class="form-group">
+				<div class="form-group">
                     <label>Title</label>
                     <input id="asset_item_title" type="text" class="form-control" placeholder="Enter title" name="title" autocomplete="off">
                 </div>
@@ -45,54 +37,8 @@
                     <div id="description_div" style="display: block;">
                         <textarea class="form-control" rows="2" placeholder="Enter description" name="description"></textarea>
                     </div>
-                   
                 </div>
-                
-                <div class="form-group">
-                    <label>Product Landing Page URL</label>
-                    <input type="text" class="form-control" placeholder="Enter Product Landing page URL" name="fullUrl" autocomplete="off">
-                </div>
-                <hr>
-                
-                <div class="form-group">
-	                <label>Product Type</label>
-	                <select id="productType" name="productType" data-placeholder="Select a Product Type" class="select">
-	                    <option value="general_product" selected >General Product</option>
-	                    <option value="retail_product"> Retail Product </option>
-	                    <option value="event_ticket"> Event Ticket </option>
-	                    <option value="report_research"> Report Research </option>
-	                    <option value="education_service"> Education Service </option>
-	                    <option value="saas_service"> SaaS Service </option>
-	                    <option value="consulting_service"> Consulting Service </option>
-	                    <option value="media_service"> Media Service </option>
-	                </select>
-	            </div>
-                
-                <div class="form-group">
-                    <label>Product ID Type</label>
-                    <input id="productIdType" type="text" class="form-control" placeholder="Enter Product ID Type. E.g: SKU, ISBN" name="productIdType" autocomplete="off">
-                </div>
-                
-                <div class="form-group">
-                    <label>Product ID</label>
-                    <input id="productId" type="text" class="form-control" placeholder="Enter Product ID" name="productId" autocomplete="off">
-                </div>
-                
-                <div class="form-group product_price">
-                    <label> Original Price </label>
-                    <input id="productId" type="number" class="form-control" placeholder="Enter Original PriceL" name="originalPrice" autocomplete="off" value="0">
-                </div>
-                
-                <div class="form-group product_price">
-                    <label> Sale Price </label>
-                    <input type="number" class="form-control" placeholder="Enter Sale Price" name="salePrice" autocomplete="off" value="0">
-                </div>
-                
-                <div class="form-group product_price">
-                    <label> Price Currency </label>
-                    <input type="text" class="form-control" placeholder="Enter Price Currency" name="priceCurrency" autocomplete="off" value="USD">
-                </div>
-                <hr>
+			            
                 
                 <div id="qr_code_holder" style="display:none;">
 	                <div id="short_link_url_holder" class="alert alert-info" role="alert" >
@@ -100,55 +46,161 @@
 						 <a id="short_link_url" class="small-text" href="javascript:" target="_blank" ></a> <br>
 					</div>	
 					<div class="thumbnail">
-					 	 <img id="short_link_qrcode_url" style="max-height: 200px" />
+					 	 <img id="short_link_qrcode_url" style="max-height: 200px;max-width: 300px" />
 					</div>
-					<hr>
 				</div>
-				
-				
-                <div class="form-group">
-                    <label>Product Image URL</label>
-                    <input type="text" class="form-control" placeholder="Enter Product Headline Image URL" name="headlineImageUrl" autocomplete="off" id="headlineImageUrl">
-                    <input id="imageUploader" type="file" class="filepond" name="image" multiple data-max-file-size="2MB"
-	                    data-max-files="1" />
-                </div>
-                
-                <div id="product-headline-images" style="display: none;" ></div>
                 <hr>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading"> <label>Product Video URL</label> </div>
-                    <div class="panel-body">
-                        <input id="headline_video" type="text" name="headlineVideoUrl" placeholder="Enter Video URL of YouTube" class="form-control">
-                        <hr>
-                        <div id="headline_video_view" class="row display-flex" style="padding: 0 50px;width: 520px;margin: auto" >                           
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group" id="customData_div_wrapper" style="display: none;">
-                    <div id="customData_div">
-                        <!--customData fields -->
-                    </div>
-                </div>
-
-
-                <div class="form-group" id="content_div_wrapper">
-                    <label>Product Content</label>
-                    (
-                        <a class="modal-trigger" href="javascript:" onclick="toggleDiv(this,'#content_div')">Hide Content Editor</a> 
-                        |
-                        <a class="modal-trigger" href="javascript:" data-visibilty="hidden" onclick="toggleRawHtmlEditor(this)">Toggle Raw HTML Editor</a> 
-                    )
-                    <div id="content_div">
-                    </div>                   
-                    <div id="raw_media_container" style="width: 100%;" >
-                        <hr>
-                        <textarea id="raw_media_html"></textarea>
-                    </div>                   
-                    <hr>
-                    <div id="mediaInfoPreview" ></div>
-                </div>
+                
+                <div class="panel panel-info">
+				    <div class="panel-heading collapse-panel-heading active" role="tab" id="productMetadataHeader">
+				      	<h4 class="panel-title">
+				        	<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#productMetadataPanel" aria-expanded="false" aria-controls="productMetadataPanel">
+				          		<i class="fa fa-info-circle" aria-hidden="true"></i> Product Metadata
+				        	</a>
+				      	</h4>
+				    </div>
+				    <div id="productMetadataPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="productMetadataHeader">
+				      	<div class="panel-body">
+				      		 <div class="form-group">
+			                    <label>Product Landing Page URL</label>
+			                    <input type="text" class="form-control" placeholder="Enter Product Landing page URL" name="fullUrl" autocomplete="off">
+			                </div>
+			                
+			                <div class="form-group">
+			                    <label>Slug (SEO-friendly URI)</label>
+			                    <div id="slug_div" >
+			                        <input type="text" name="slug" class="form-control">
+			                    </div>
+			                </div>
+			                
+			                <div class="form-group">
+				                <label>Product Item Type</label>
+				                <select id="productType" name="productType" data-placeholder="Select a product item type" class="select">
+				                    <option value="general_product" selected >General Product</option>
+				                    <option value="retail_product"> Retail Product </option>
+				                    <option value="product_review"> Product Review </option>
+				                    <option value="" disabled="disabled"> ───────────────────────────── </option>
+				                    <option value="education_service"> Education Service </option>
+				                    <option value="software_service"> Software Service </option>
+				                    <option value="consulting_service"> Consulting Service </option>
+				                    <option value="media_service"> Media Service </option>
+				                    <option value="healthcare_service"> Healthcare Service </option>
+				                    <option value="beauty_service"> Beauty Service </option>
+				                    <option value="service_review"> Service Review</option>
+				                    <option value="" disabled="disabled"> ───────────────────────────── </option>
+				                   	<option value="event_ticket"> Event Ticket </option>
+				                    <option value="report_research"> Report Research </option>
+				                </select>
+				            </div>
+			                
+			                <div class="form-group">
+			                    <label>Mapping ID Type</label>
+			                    <select id="productIdType" name="productIdType" data-placeholder="Select a Mapping ID Type" class="select">
+				                    <option value="SKU" selected >SKU</option>
+				                    <option value="ISBN-13"> ISBN-13 </option>
+				                    <option value="URL"> URL </option>
+				                    <option value="external_ID"> External ID </option>
+				                </select>
+			                </div>
+			                
+			                <div class="form-group">
+			                    <label>Mapping ID</label>
+			                    <input id="productId" type="text" class="form-control" placeholder="Enter Product ID" name="productId" autocomplete="off">
+			                </div>
+				      	</div>
+				    </div>
+				</div>
+                <hr>
+                
+                <div class="panel panel-info">
+				    <div class="panel-heading collapse-panel-heading active" role="tab" id="pricingMetadataHeader">
+				      	<h4 class="panel-title">
+				        	<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#pricingMetadataPanel" aria-expanded="false" aria-controls="productMetadataPanel">
+				          		<i class="fa fa-info-circle" aria-hidden="true"></i> Product Price
+				        	</a>
+				      	</h4>
+				    </div>
+				    <div id="pricingMetadataPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="pricingMetadataHeader">
+				      	<div class="panel-body">
+				      		<div class="form-group product_price">
+			                    <label> Price Currency </label>
+			                    <input type="text" class="form-control" placeholder="Enter Price Currency" name="priceCurrency" autocomplete="off" value="USD">
+			                </div>
+				      	
+				      		<div class="form-group product_price">
+			                    <label> Original Price </label>
+			                    <input id="productId" type="number" class="form-control" placeholder="Enter Original PriceL" name="originalPrice" autocomplete="off" value="0">
+			                </div>
+			                
+			                <div class="form-group product_price">
+			                    <label> Sale Price </label>
+			                    <input type="number" class="form-control" placeholder="Enter Sale Price" name="salePrice" autocomplete="off" value="0">
+			                </div>
+				      	</div>
+				    </div>
+				</div>
+				<hr>
+				
+				<div class="panel panel-info">
+				    <div class="panel-heading collapse-panel-heading active" role="tab" id="productMediaMetadataHeader">
+				      	<h4 class="panel-title">
+				        	<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#productMediaMetadataPanel" aria-expanded="false" aria-controls="productMetadataPanel">
+				          		<i class="fa fa-info-circle" aria-hidden="true"></i> Product Media
+				        	</a>
+				      	</h4>
+				    </div>
+				    <div id="productMediaMetadataPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="productMediaMetadataHeader">
+				      	<div class="panel-body">
+				      		 <div class="form-group">
+			                    <label>Product Image URL</label>
+			                    <input id="imageUploader" type="file" class="filepond" name="image" multiple data-max-file-size="2MB"
+				                    data-max-files="1" />
+			                    <input type="text" class="form-control" placeholder="Enter Product Headline Image URL" name="headlineImageUrl" autocomplete="off" id="headlineImageUrl">
+			                    <div class="thumbnail">
+			                    	<img id="headlineImage" src="" style="max-height: 200px;max-width: 300px" alt="" >
+			                    </div>
+			                </div>
+			                
+			                <div id="product-headline-images" style="display: none;" ></div>
+			                <hr>
+			
+			                <div class="panel panel-default">
+			                    <div class="panel-heading"> <label>Product Video URL</label> </div>
+			                    <div class="panel-body">
+			                        <input id="headline_video" type="text" name="headlineVideoUrl" placeholder="Enter YouTube Video URL" class="form-control">
+			                        <hr>
+			                        <div id="headline_video_view" class="row display-flex" style="padding: 0 50px;width: 522px;margin: auto" >                           
+			                        </div>
+			                    </div>
+			                </div>
+			
+			                <div class="form-group" id="customData_div_wrapper" style="display: none;">
+			                    <div id="customData_div">
+			                        <!--customData fields -->
+			                    </div>
+			                </div>
+							<hr>
+							<div class="form-group">
+				                <label for="documentUploader"> Editor File Uploader </label>
+				                <input id="documentUploader" type="file" class="filepond" name="document" multiple data-max-file-size="50MB"
+				                    data-max-files="20" />
+				            </div>
+			                <div class="form-group" id="content_div_wrapper">
+			                    <label>Product Content</label>
+			                    ( 
+			                        <a class="modal-trigger" href="javascript:" data-visibilty="hidden" onclick="toggleRawHtmlEditor(this)">Toggle Raw HTML Editor</a> 
+			                    )
+			                    <div id="content_div">
+			                    </div>                   
+			                    <div id="raw_media_container" style="width: 100%;" >
+			                        <textarea id="raw_media_html"></textarea>
+			                    </div>                   
+			                   
+			                    <div id="mediaInfoPreview" ></div>
+			                </div>
+				      	</div>
+				    </div>
+				</div>
               
 
             </fieldset>
@@ -187,13 +239,8 @@
                 <label>Content Keywords</label>
                 <input id="postKeywords" name="keywords" type="text" class="tags" value="" />
             </div>
-            <hr>
-           
-            <div class="action-div">
-                <label for="documentUploader"> Editor File Uploader </label>
-                <input id="documentUploader" type="file" class="filepond" name="document" multiple data-max-file-size="50MB"
-                    data-max-files="20" />
-            </div>
+            
+            
         </div>
     </div>
 </div>
@@ -226,6 +273,7 @@
     
     function initProductItemEditor(params){
     	productData = false;
+    	setupCollapsePanels();
     	LeoCdpAdmin.loadView('/view/common-widgets/headline-images.html?admin=1', '#product-headline-images', function () {
             $('#product-headline-images div.thumbnail p').editable({
                 type: 'text',
@@ -266,7 +314,7 @@
                     document.title = productData.title ? 'Product Item Editor - ' + productData.title : 'New Product Item';
                     
                  	// breadcrumb link update
-        	        updateBreadcrumbInAssetPost(productData.assetCategories, productData.assetGroups, productData.title );
+        	        updateBreadcrumbInAssetPost(productData.assetCategories, productData.assetGroups, productData.title);
                  	
         	        showProductShortLinkUrl();
 
@@ -303,6 +351,13 @@
                                     MediaPlayerOne.create(false, placeHolderId, value, '', [], 1, []);
                                 }                               
                             }
+                            else if(k === "headlineImageUrl") {
+                            	form.find("input[name='" + k + "']").val(value).change(function(){ 
+                                 	var v = $(this).val();
+                                 	$('#headlineImage').attr("src",v)
+                                });
+                            	$('#headlineImage').attr("src",value)
+                            }
                             else if (k === 'productType') {
                                 var dom = $('#productType');
                                 dom.find("option:selected").removeAttr("selected");
@@ -311,6 +366,15 @@
                                 // init widget
                                 loadProductTypeSelector(productData.productIdType);
                             }
+                            else if (k === 'productIdType') {
+                                var dom = $('#productIdType');
+                                dom.find("option:selected").removeAttr("selected");
+                                dom.find('option[value="' + value + '"]').attr('selected', 'selected');
+                                
+                                // init widget
+                                loadProductIdTypeSelector(productData.productIdType);
+                            }
+                            
                             else {
                                 form.find("input[name='" + k + "']").val(value);
                             }
@@ -341,7 +405,7 @@
             var form = $('#post_editor_form');
             productData.title = form.find('input[name="title"]').val();
             productData.productId = form.find('input[name="productId"]').val();
-            productData.productIdType = form.find('input[name="productIdType"]').val();
+            productData.productIdType = form.find('select[name="productIdType"]').val();
             productData.productType = form.find('select[name="productType"]').val();
             
             productData.fullUrl = form.find('input[name="fullUrl"]').val();
@@ -438,6 +502,18 @@
     	
     	check($('#productType').val(), initIdType)
     }
+    
+    function loadProductIdTypeSelector(initIdType){
+    	
+    	$('#productIdType').change(function(){ 
+         	var v = $(this).val();
+         	
+        }).chosen({
+             width: "100%",
+             no_results_text: "Oops, nothing found!"
+        }).trigger("chosen:updated");
+    	
+    }
 
 
     function loadWidgetsOfProductEditor() {
@@ -467,9 +543,7 @@
             var imgSrc = rs.data.fileUrls[0];
             $('#headlineImageUrl').val(baseLeoAdminUrl + imgSrc);
             
-            var obj = {};
-            obj[imgSrc] = '';
-            loadHeadLineImageObjectToView(obj, false, true);
+            loadHeadLineImageObjectToView({imgSrc : ""}, false, true);
         });
 
         $('#headline_video').on('change', function(){
@@ -489,9 +563,8 @@
             var ytVideoId = getYouTubeVideoId(currentVal);
             if(ytVideoId && ytVideoId.length > 5){
                 var headlineImage = 'https://img.youtube.com/vi/'+ytVideoId+'/hqdefault.jpg';
-                var obj = {};
-                obj[headlineImage] = '';
-                loadHeadLineImageObjectToView(obj, false, true);
+
+                loadHeadLineImageObjectToView({headlineImage:""}, false, true);
             }         
         });
     }

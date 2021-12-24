@@ -216,6 +216,7 @@
 	   		    onItemInserting: function(args) {
 	   		    	console.log(args.item)
 	   		    	var channelUrl = args.item.url;
+	   		    	var tpType = args.item.type;
 	   		    	var isAvailable = touchpointHubMap[args.item.name] == null;
 	   		    	if( ! isAvailable ) {
 	   		    	 	args.cancel = true;
@@ -225,14 +226,26 @@
 		    	    	});
 			            return;
 	   		    	}
-	   		    	if( ! isValidURL(channelUrl) ) {
+	   		    	
+	   		    	// check URL if not system data source
+	   		    	if( ! isValidURL(channelUrl) && tpType <= 30) {
 			            args.cancel = true;
 			            iziToast.error({
 		    	    	    title: 'Journey Data Flow',
 		    	    	    message: channelUrl +  ' is not valid URL !'
 		    	    	});
-			        } else {
-			        	if(insertedIndex > 0){
+			        } 
+	   		  		// make sure not have duplicated Leo Observer
+	   		    	else if( tpType == 30) {
+			            args.cancel = true;
+			            iziToast.error({
+		    	    	    title: 'Journey Data Flow',
+		    	    	    message: 'Can not have more than one data observer !'
+		    	    	});
+			        } 
+	   		    	// OK
+	   		    	else {
+			        	if(insertedIndex > 0 ){
 			        		args.item.index = insertedIndex;
 				        	insertedIndex = -1;
 			        	}
@@ -242,10 +255,11 @@
 	   		    	console.log(args.item)
 	   		    	var item = args.item;
 	   		    	var name = item.name;
+	   		    	var tpType = args.item.type;
 	   		    	var channelUrl = item.url;
-	   		    	var editable = item.type > 0 && item.type < 30;
+	   		    	var editable = tpType != 30;
 	   		    	if(editable) {
-		   		    	if( ! isValidURL(channelUrl) ) {
+		   		    	if( ! isValidURL(channelUrl) && tpType != 31 ) {
 				            args.cancel = true;
 				            iziToast.error({
 			    	    	    title: 'Journey Data Flow',
@@ -317,7 +331,7 @@
 	   		    fields: [
 	   		    	{ name: "index", title : "ID", type: "number", width: 12, editing: false },
 	   		    	{ name: "name", title : "Touchpoint Hub Name", type: "text", width: 60, validate: "required", align: "center" },
-	   		     	{ name: "type", title : "Touchpoint Hub Type", type: "select", items: touchpointHubTypeSelects, valueField: "type", textField: "typeName", width: 58 },
+	   		     	{ name: "type", title : "Touchpoint Type", type: "select", items: touchpointHubTypeSelects, valueField: "type", textField: "typeName", width: 58 },
 	   		     	{ name: "journeyLevel", title : "Level", type: "select", items: journeyLevelSelects, valueField: "Id", textField: "Name", width: 24 },
 	   		     	{ name: "firstPartyData", title : "First-party Data", type: "CustomCheckBox",  validate: "required", width: 34, align: "center" },
 	   		     	{ name: "url", title : "Touchpoint Hub URL", type: "text", itemTemplate: jsGridItemUrlTemplate , validate: "required", align: "center" },
@@ -467,8 +481,6 @@
 		}
 	}
 	
-	
-	
 	var getWebLeadFormJsCode =  function(btn) {
 		var json = JSON.parse(decodeURIComponent($(btn).data('json')));
 	
@@ -498,6 +510,7 @@
 				var tpl = $('#webLeadFormCodeDialog .code').val().trim();
 				var code = tpl.replace('__leoObserverId__', leoObserverId)
 				code = code.replace('__tpHubName__', touchpointHubName)
+				code = code.replace('__LeoObserverDomain__', baseLeoObserverDomain);
 				editor.getDoc().setValue( '<script>\n' + code + '\n<\/script>' )
 				editor.refresh();
 				editor.execCommand('selectAll')
@@ -528,16 +541,13 @@
 		var qrCodeImage = qrCodeData.qrCodeImage;
 		var trackingUrl = qrCodeData.trackingUrl;
 		var imageUrl = 'https://' + baseUploadDomain + qrCodeImage.replace('./','/');
-		qrImageList += ('<div class="text-center" ><a target="_blank" href="' +  imageUrl + '"><img src="' +  imageUrl + '" alt="QR Code Image" ></a></div>');
-		qrImageList += ('<h4 class="text-center" >' + landingPageUrl + '</h4>');
-		qrImageList += '<label class="control-label">Touchpoint Hub URL</label>';
-		qrImageList += ('<input  type="text" class="form-control" readonly value="' + landingPageUrl + '" > ');
-		qrImageList += '<label class="control-label">Tracking URL</label>';
-		qrImageList += ('<input  type="text" class="form-control" readonly value="' + trackingUrl + '" > ');
-		qrImageList += '<label class="control-label">QR Code Image URL</label>';
-		qrImageList += ('<input type="text" class="form-control" readonly value="' + imageUrl + '" > <br>');
+		$('#qrHrefUrl').attr("href",imageUrl);
+		$('#qrImgSrc').attr("src",imageUrl);
 		
-		$('#qrImageFormCodeDialog .code').html(qrImageList)
+		$('#qrTouchpointHubURL').val(landingPageUrl);
+		$('#qrTrackingURL').val(trackingUrl);
+		$('#qrCodeImageURL').val(imageUrl);
+		
 	}
 	
 	var getRecommenderJsCode =  function(btn) {
@@ -572,6 +582,8 @@
 				var tpl = $(editorSelector).val().trim();
 				var code = tpl.replace('__observerId__', leoObserverId);
 				code = code.replace('__tpHubName__', touchpointHubName);
+				code = code.replace('__LeoObserverDomain__', baseLeoObserverDomain);
+				
 				
 				var scriptId = 'leo_recommender_'+leoObserverId;
 				editor.getDoc().setValue( '<script id="'+scriptId+'">\n' + code + '\n<\/script>' )
@@ -584,8 +596,68 @@
 			},630);
 		}
 	}
+	
+	var showRedisSourceInfo = function(btn){
+		var jsonStr = decodeURIComponent($(btn).data('json'));
+		
+		var json = JSON.parse(jsonStr);
+		
+		var leoObserverId = json.id;
+		var touchpointHubName = json.name;
+		var type = json.type;
+		var dataSourceUrl = json.dataSourceUrl;
+		var toks = dataSourceUrl.split("/");
 
-	var initDataObserverJsGridPlugin =  function() {
+		var hostAndPort = toks[2];
+		var channelName = toks[3];
+		
+		$('#dataSourceConfigHostAndPort').text(hostAndPort)
+		$('#dataSourceConfigChannelName').text(channelName)
+		
+		$('#redisSourceInfoDialog').modal({
+    		backdrop: 'static',
+    		keyboard: false
+		});
+	}
+	
+	var showObserverApiInfo = function(btn){
+		var jsonStr = decodeURIComponent($(btn).data('json'));
+		
+		var json = JSON.parse(jsonStr);
+		
+		console.log(json)
+		
+		var leoObserverId = json.id;
+		var touchpointHubName = json.name;
+		var type = json.type;
+
+		var default_token = typeof json.accessTokens.default_key === "string" ? json.accessTokens.default_key : "";
+		
+		$('#leoCdpApiTokenKey').val("default_key")
+		$('#leoCdpApiTokenValue').val(default_token);
+		$('#leoCdpGetProfileApiUrl').text(baseLeoObserverUrl + "/api/profile");
+		$('#leoCdpTrackEventApiUrl').text(baseLeoObserverUrl + "/api/event");
+		$('#leoCdpListEventsApiUrl').text(baseLeoObserverUrl + "/api/list-events?profileId=[profile_ID]&startIndex=0&numberResult=10 ");
+		
+		$('#observerApiInfoDialog').modal({
+    		backdrop: 'static',
+    		keyboard: false
+		});
+	}
+	
+	var resetAccessTokenForLeoObserverApi = function(){
+		var urlStr = baseLeoAdminUrl + '/cdp/touchpointhub/reset-access-token';
+	    LeoAdminApiUtil.callPostAdminApi(urlStr, {}, function (json) {
+	         if (json.httpCode === 0 && json.errorMessage === '') {
+	        	 var map = json.data;
+	        	 $('#leoCdpApiTokenKey').val(map.tokenKey)
+	     		 $('#leoCdpApiTokenValue').val(map.tokenValue);
+	        	 iziToast.success({title: 'Reset Access Token', message: "The new access token is generated successfully!"});
+	         }
+	    });
+	}
+
+	var initDataObserverJsGridPlugin = function() {
 		var LeoDataObserver = function(config) {
 		    jsGrid.Field.call(this, config);
 		};
@@ -595,32 +667,52 @@
 		    },
 		
 		    itemTemplate: function(observerModel) {
-		    	console.log("observerModel ", observerModel)
 		    	if(observerModel.data !== '') {
+		    		console.log("observerModel ", observerModel)
 		    		var jsonStr = observerModel.data;
-		    		var mediaType = observerModel.type;
+		    		var tpHubType = observerModel.type;
 		    		var firstPartyData = observerModel.firstPartyData;
 		    		
-		    		if(mediaType != 30){
+		    		var btnHtml = "";
+		    		if(tpHubType === 30){
+		    			btnHtml += '<button type="button" class="btn btn-success  btn-sm btn-do-now" onclick="showObserverApiInfo(this)" ';
+				    	btnHtml += (' data-json="' + jsonStr  + '" ' );
+				    	btnHtml += '><i class="fa fa-info-circle" style="font-size:1.3em" aria-hidden="true"></i> API Information </button>';
+				    	return btnHtml;
+		    		}
+		    		else if(tpHubType === 31) {
+    					btnHtml += '<button type="button" class="btn btn-success  btn-sm btn-do-now" onclick="showRedisSourceInfo(this)" ';
+				    	btnHtml += (' data-json="' + jsonStr  + '" ' );
+				    	btnHtml += '><i class="fa fa-info-circle" style="font-size:1.3em" aria-hidden="true"></i> Redis Information </button>';
+				    	return btnHtml;
+    				}
+    				else if(tpHubType === 32) {
+    					btnHtml += '<button type="button" class="btn btn-success  btn-sm btn-do-now" onclick="showKafkaSourceInfo(this)" ';
+				    	btnHtml += (' data-json="' + jsonStr  + '" ' );
+				    	btnHtml += '><i class="fa fa-info-circle" style="font-size:1.3em" aria-hidden="true"></i> Kafka Information </button>';
+				    	return btnHtml;
+    				}
+		    		else {
 		    			if(firstPartyData) {
-		    				var btnHtml = '<button type="button" class="btn btn-primary btn-sm btn-get-code" onclick="getQrImageFormCode(this)"';
-					    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-					    	btnHtml += '><i class="fa fa-qrcode" style="font-size:1.3em" aria-hidden="true"></i>  QR Code Image </button>';
-		    				
-			    			btnHtml += '<button type="button" class="btn btn-success  btn-sm btn-get-code" onclick="getTrackingJsCode(this)" ';
-					    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-					    	btnHtml += '><i class="fa fa-code" style="font-size:1.3em" aria-hidden="true"></i> Tracking Code JS </button>';
-					    	
-					    	if(mediaType > 0 && mediaType < 12){
-					    		btnHtml += '<button type="button" class="btn btn-goto-router btn-sm btn-get-code" onclick="getCxFeedbackJsCode(this)" ';
+		    				if(tpHubType < 30) {
+		    					btnHtml = '<button type="button" class="btn btn-primary btn-sm btn-get-code" onclick="getQrImageFormCode(this)"';
 						    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-						    	btnHtml += '><i class="fa fa-code" style="font-size:1.2em" aria-hidden="true"></i> CX Data Form JS </button>';
+						    	btnHtml += '><i class="fa fa-qrcode" style="font-size:1.3em" aria-hidden="true"></i>  QR Code Image </button>';
+			    				
+				    			btnHtml += '<button type="button" class="btn btn-success  btn-sm btn-get-code" onclick="getTrackingJsCode(this)" ';
+						    	btnHtml += (' data-json="' + jsonStr  + '" ' );
+						    	btnHtml += '><i class="fa fa-code" style="font-size:1.3em" aria-hidden="true"></i> Tracking Code JS </button>';
 						    	
-						    	btnHtml += '<button type="button" class="btn btn-info  btn-sm btn-get-code" onclick="getRecommenderJsCode(this)" ';
-						    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-						    	btnHtml += '><i class="fa fa-code" style="font-size:1.2em" aria-hidden="true"></i> Recommender JS </button>';
-					    	}
-					    
+						    	if(tpHubType > 0 && tpHubType < 12){
+						    		btnHtml += '<button type="button" class="btn btn-goto-router btn-sm btn-get-code" onclick="getCxFeedbackJsCode(this)" ';
+							    	btnHtml += (' data-json="' + jsonStr  + '" ' );
+							    	btnHtml += '><i class="fa fa-code" style="font-size:1.2em" aria-hidden="true"></i> CX Data Form JS </button>';
+							    	
+							    	btnHtml += '<button type="button" class="btn btn-info  btn-sm btn-get-code" onclick="getRecommenderJsCode(this)" ';
+							    	btnHtml += (' data-json="' + jsonStr  + '" ' );
+							    	btnHtml += '><i class="fa fa-code" style="font-size:1.2em" aria-hidden="true"></i> Recommender JS </button>';
+						    	}
+		    				}
 					        return btnHtml;
 			    		} else {
 			    			var btnHtml = '<button type="button" class="btn btn-primary btn-sm btn-get-code" onclick="getQrImageFormCode(this)"';
@@ -628,8 +720,6 @@
 					    	btnHtml += '><i class="fa fa-qrcode" style="font-size:1.3em" aria-hidden="true"></i> QR Code Image </button>';
 					    	return btnHtml;
 			    		}
-		    		} else {
-		    			return "-";
 		    		}
 		    	}
 		    	return "";
@@ -674,6 +764,9 @@
    				var jsonObj = {id: eventObserver.id, name : eventObserver.name, type : touchpointHubType, typeName : typeName };
    				jsonObj['collectDirectly'] = eventObserver.collectDirectly;
    				jsonObj['qrCodeData'] = eventObserver.qrCodeData;
+   				jsonObj['accessTokens'] = eventObserver.accessTokens;
+   				jsonObj['securityCode'] = eventObserver.securityCode;
+   				jsonObj['dataSourceUrl'] = eventObserver.dataSourceUrl;
    				var jsonStr = JSON.stringify(jsonObj);
    				eventObserver.observerModel = {type : touchpointHubType, data : encodeURIComponent(jsonStr), firstPartyData :firstPartyData};
 	   		}
@@ -688,11 +781,11 @@
 	   		    data: eventObservers,
 	   		    fields: [
 	   		    	{ name: "index", title : "ID", type: "number", width: 16 },
-	   		        { name: "name", title : "Touchpoint Hub Name", type: "BoldText", width: 90, align: "center" },
-	   		     	{ name: "typeName", title : "Touchpoint Hub Type", type: "text", align: "center" },
+	   		        { name: "name", title : "Touchpoint Hub Name", type: "BoldText", width: 100, align: "center" },
+	   		     	{ name: "typeName", title : "Touchpoint Type", type: "text", width: 76, align: "center" },
 	   		     	{ name: "firstPartyData", title : "First-party Data", type: "CheckBoxIcon", width: 40, align: "center" },
 	   		     	{ name: "collectDirectly", title : "Tracking directly", type: "CheckBoxIcon", width: 40, align: "center" },
-	   		     	{ name: "dataSourceUrl", title : "Touchpoint Hub URL", type: "UrlLink", width: 170, align: "center" },
+	   		     	{ name: "dataSourceUrl", title : "Data Source URL", type: "UrlLink", width: 180, align: "center" },
 	   		     	{ name: "observerModel", title : "Actions", type: "LeoDataObserver", width: 70, align: "center"}
 	   		    ]
 	   		});  
@@ -806,7 +899,7 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 		
 		var t = new Date().getTime();
 		var ifrm = document.createElement("iframe");
-        ifrm.setAttribute("src", "https://demotrack.leocdp.net/webform?obsid=" + "__leoObserverId__" + "&_t=" + t);
+        ifrm.setAttribute("src", "https://__LeoObserverDomain__/webform?obsid=" + "__leoObserverId__" + "&_t=" + t);
         ifrm.style.width = "100%";
         ifrm.style.height = "800px";
         ifrm.width = "100%";
@@ -829,9 +922,9 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 		<!-- Modal content-->
 		<div class="modal-content">   
 			<div class="modal-header">
-				<h4 class="modal-title text-center" > QR Code Image of Touchpoint Hub </h4>
+				<h4 class="modal-title text-center" > The QR Code Image of Touchpoint </h4>
 			</div>         
-			<div class="modal-body row">
+			<div class="modal-body">
 				<div class="form-group" style="display: none;">
 	                <label> Landing Pages </label>
 	                <select id="landingPageSelector" data-placeholder="Select a Landing Page" class="select" >
@@ -840,7 +933,18 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 	                <hr> 
 	            </div>
 				<h5 id="landingPageName" > </h5>
-				<div class="code" > </div>
+				<div>
+				   <div class="text-center" >
+				   	 <a target="_blank" href="#" id="qrHrefUrl"> <img src="" alt="QR Code Image" id="qrImgSrc" > </a>
+				   </div>
+				   <label class="control-label">QR Code Image URL </label>
+				   <input type="text" class="form-control" readonly value="" id="qrCodeImageURL" >
+				   <label class="control-label"> Touchpoint Hub URL  </label>
+				   <input type="text" class="form-control" readonly value="" id="qrTouchpointHubURL" > 
+				   <label class="control-label"> Scan QR Tracking URL </label>
+				   <input type="text" class="form-control" readonly value="" id="qrTrackingURL"> 
+				   <br>
+				</div>
 			</div>  
 			<div class="modal-footer">
 		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
@@ -865,7 +969,7 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 	                <hr> 
 	            </div>
 				<h5 class="eventName" >  </h5>
-				 <div id="feedback_form_code_holder" >
+				<div id="feedback_form_code_holder" >
 				   <textarea class="code" >
 	(function() {
 	    //  Feedback/Survey Form Collector for __feedbackFormTitle__
@@ -882,12 +986,12 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 		
 		// container
 		var divWrapper = document.createElement("div"); 
-		var cssDiv = "position: relative; width:100%; overflow: hidden;  height: 100px ";
+		var cssDiv = "position:relative; width:100%; overflow:hidden; height:100px ";
 		divWrapper.setAttribute("style",cssDiv);
 		
 		// iframe 
 		var iframe = document.createElement("iframe"); 
-		var cssIframe = "position: absolute; top:0; left:0; bottom:0; right:0; width:100%; border: none; overflow: hidden; height: 100px ";
+		var cssIframe = "position:absolute; top:0; left:0; bottom:0; right:0; width:100%; border:none; overflow:hidden; height:100px ";
 		iframe.setAttribute("style",cssIframe);
 		iframe.setAttribute("src",url);
 		divWrapper.appendChild(iframe);
@@ -921,7 +1025,7 @@ setTimeout(function(){
 	LeoObserverProxy.synchLeoVisitorId(function(vid) {
 		var observerId = "__observerId__";
 		var cb = Math.floor(Math.random() * 100000);
-		var src = "https://demotrack.leocdp.net/ris/html/products?visid=" + vid;
+		var src = "https://__LeoObserverDomain__/ris/html/products?visid=" + vid;
 		src += ("&obsid=" + observerId );
 		src += ("&tpurl=" + encodeURIComponent(location.href) );
 		src += ("&cb=" + cb );
@@ -929,7 +1033,7 @@ setTimeout(function(){
 		var h = '500px';
 		var w = '300px';
 		var style = "width:"+w+"; height:"+h;
-		style += ";overflow-y:scroll;margin:auto;display:block;border:none;";
+		style += "; overflow-y:scroll; margin:auto; display:block; border:none;";
 		// append DOM
 		var f = document.createElement('iframe');
 		f.setAttribute("src", src);
@@ -945,6 +1049,67 @@ setTimeout(function(){
 			<div class="modal-footer">
 				<button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
 		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="redisSourceInfoDialog" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > Redis Data Source Information </h4>
+			</div>         
+			<div class="modal-body ">
+				<h3> You can write code to send data into Redis </h3>
+				<hr>
+				Redis Information: <b id="dataSourceConfigHostAndPort" > </b> <br>
+				Channel Name: <b id="dataSourceConfigChannelName" > </b> <br>
+				<hr>
+				<a href="https://redis.io/topics/pubsub" target="_blank"> Document about Redis Pub/Sub </a>
+			</div>  
+			<div class="modal-footer">
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close </button>
+		    </div>  
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="observerApiInfoDialog" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > LEO CDP Observer API Information </h4>
+			</div>         
+			<div class="modal-body ">
+				<b> In the HTTP POST body, you should set the "tokenKey" for API Token Key and the "tokenValue" for API Token Value</b> <br>
+				<div class="form-group" >
+	                <label for="leoCdpApiTokenKey" class="highlight_text" > API Token Key (tokenKey) </label> 
+	                <input type="text" class="form-control" readonly value="" id="leoCdpApiTokenKey" >
+	                
+	                <label for="leoCdpApiTokenValue" class="highlight_text" > API Token Value (tokenValue) </label>
+				   <input type="text" class="form-control" readonly value="" id="leoCdpApiTokenValue" >
+	            </div>
+	            <hr>
+	            
+				<label> To create a new profile or update an existed profile, call this API with HTTP POST: </label> <br>
+				<b id="leoCdpGetProfileApiUrl" class="highlight_text" >  </b> 
+				<hr>
+				<label> To track event for a specific profile, call this API with HTTP POST: </label> <br>
+				<b id="leoCdpTrackEventApiUrl"  class="highlight_text" >  </b> <br>
+				<hr>
+				<label> To list all events in a specific profile, call this API with HTTP POST: </label> <br>
+				<b id="leoCdpListEventsApiUrl"  class="highlight_text" > </b> <br>
+				
+			</div>  
+			<div class="modal-footer">
+				<button type="button" class="btn btn-do-now" onclick="resetAccessTokenForLeoObserverApi()" >
+					<i class="fa fa-check" aria-hidden="true"></i> Reset API Token Value </button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close </button>
 		    </div>  
 		</div>
 	</div>

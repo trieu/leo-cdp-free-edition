@@ -77,7 +77,7 @@
 		            </div>
 		        </div>
 		        <div class='col-md-2 col-xs-12 text-center'>
-		        	<button type="button" class="btn btn-primary" style="width: 86%" onclick="showDashboardReport()" > 
+		        	<button type="button" class="btn btn-do-now" style="width: 86%" onclick="showDashboardReport()" > 
 		        		<i class="fa fa-check" aria-hidden="true"></i> OK </button>
 		        </div>
 		    </div>
@@ -88,7 +88,7 @@
                 
 	            <div class="col-md-8">
 	            	<!--  Data Funnel Chart  -->
-	               	<div id="profile_funnel_wrapper" class="vcenter" style="width: 96%; margin: auto;">
+	               	<div id="profile_funnel_wrapper" class="vcenter" style="width: 96%; margin: auto; max-width: 620px;">
 	                  	<div id="profile_funnel"></div>
 	               	</div>
 	            </div>
@@ -168,17 +168,19 @@
 			container.css("width","96%");
 		}
 		else if(ws > 1750 ){
-			container.css("width","100%");
+			container.css("width","98%");
 		}
 		
 		var wh = $(window).height();
-		if(wh > 1000 && ws > 1400){
-			mainDashboardFunnelHeight = wh - (Math.floor(window.innerHeight/3) + 50);
-			dashboardFontSize = 16;
+		var ratio = ws / wh;
+		
+		if(ratio >= 1.7 && ratio < 2.3 && ws > 1400 && wh > 700){
+			mainDashboardFunnelHeight = wh - (Math.floor(window.innerHeight/3) + 186);
+			dashboardFontSize = 15;
 		}
-		else if(wh > 1500 && ws > 1600){
-			mainDashboardFunnelHeight = wh - (Math.floor(window.innerHeight/3) + 100);
-			dashboardFontSize = 17;
+		else if(ratio >= 2.3 && ws > 1400 && wh > 700){
+			mainDashboardFunnelHeight = wh - (Math.floor(window.innerHeight/3) + 116);
+			dashboardFontSize = 16;
 		}
 	}
 	

@@ -1,14 +1,16 @@
-
 <!-- Segment Builder -->
 
 <div class="row">
-	<div class="col-lg-6">
+	<div class="col-lg-8">
 		<h5 class="page-header" id="page_breadcrumb" > </h5>
 	</div>
-	<div class="col-lg-6 text-right" style="padding: 10px">
+	<div class="col-lg-4 text-right" style="padding: 10px">
 		<button type="button" class="btn btn-info" onclick="history.back()"> 
 			<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back 
 		</button>
+		<button type="button" class="btn btn-do-now" onclick="location.reload()" title="Refresh data"  > 
+       		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
+       	</button>
 		<button type="button" class="btn btn-danger data-control-delete" title="Delete this segment"> 
 			<i class="fa fa-trash" aria-hidden="true"></i> Delete 
 		</button>
@@ -45,6 +47,8 @@
 							<textarea class="form-control" rows="2" id="sm_description" name="description"  placeholder="Enter segment description" ></textarea>
 						</div>
 					</div>
+					
+					
 					
 					<div class="form-group row" style="display: none;" >
 						<label class="control-label col-sm-3" for="type">Status</label>
@@ -102,29 +106,27 @@
 						</div>
 					</div>
 					
+					<div class="form-group row"  >
+						<label class="control-label col-sm-3" for="type">Authorized data editors</label>
+						<div class="col-sm-9" >
+							<select id="authorizedEditors" multiple data-placeholder="Choose an authorized account" class="select" style="display: none;" >
+							  	<!-- list of login accounts -->
+							</select>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 		</div>
 		
 		<div class="panel panel-leoadmin"  >
-			<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i>  Activation Plans </b>  </div>
+			<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i>  Purpose </b>  </div>
 			<div class="panel-body">
 				<div class="col-lg-12">
 					<div class="form-group row">
 						
 						<div class="col-sm-12" >
-							<label class="control-label col-sm-3" for="sm_for3rdSynchronization"> Data Synchronization </label>
-							<div class="col-sm-9">
-								<div class="checkbox">
-									<label><input type="checkbox" id="sm_for3rdSynchronization" name="for3rdSynchronization"> To set-up the ongoing process of synchronizing data
-										 from LEO CDP to digital marketing platforms
-									</label>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-sm-12" >
-							<label class="control-label col-sm-3" for="sm_forPersonalization"> Data Personalization </label>
+							<label class="control-label col-sm-3 highlight_text" for="sm_forPersonalization"> Customer Data Personalization </label>
 							<div class="col-sm-9">
 								<div class="checkbox">
 									<label><input type="checkbox" id="sm_forPersonalization" name="forPersonalization"> 
@@ -134,8 +136,8 @@
 							</div>
 						</div>
 						
-						<div class="col-sm-12"  style="display: none;" >
-							<label class="control-label col-sm-3" for="sm_forDeepAnalytics"> Deep Data Analytics </label>
+						<div class="col-sm-12" >
+							<label class="control-label col-sm-3 highlight_text" for="sm_forDeepAnalytics"> Advanced Data Analytics </label>
 							<div class="col-sm-9">
 								<div class="checkbox">
 									<label><input type="checkbox" id="sm_forDeepAnalytics" name="forDeepAnalytics"  > 
@@ -145,8 +147,8 @@
 							</div>
 						</div>
 						
-						<div class="col-sm-12"  style="display: none;" >
-							<label class="control-label col-sm-3" for="sm_forPredictiveAnalytics"> Predictive Analytics </label>
+						<div class="col-sm-12"  >
+							<label class="control-label col-sm-3 highlight_text" for="sm_forPredictiveAnalytics"> Predictive Analytics </label>
 							<div class="col-sm-9">
 								<div class="checkbox">
 									<label><input type="checkbox" id="sm_forPredictiveAnalytics" name="forPredictiveAnalytics" > 
@@ -157,7 +159,7 @@
 						</div>
 						
 						<div class="col-sm-12" >
-							<label class="control-label col-sm-3" for="sm_forEmailMarketing"> Direct Email Marketing </label>
+							<label class="control-label col-sm-3 highlight_text" for="sm_forEmailMarketing"> Direct Email Marketing </label>
 							<div class="col-sm-9">
 								<div class="checkbox">
 									<label><input type="checkbox" id="sm_forEmailMarketing" name="forEmailMarketing" > 
@@ -168,7 +170,7 @@
 						</div>
 						
 						<div class="col-sm-12"  style="display: none;" >
-							<label class="control-label col-sm-3" for="sm_forRealtimeMarketing"> Push Message Notification </label>
+							<label class="control-label col-sm-3 highlight_text" for="sm_forRealtimeMarketing"> Sending SMS and Message Notification </label>
 							<div class="col-sm-9">
 								<div class="checkbox">
 									<label><input type="checkbox" id="sm_forRealtimeMarketing" name="forRealtimeMarketing" > 
@@ -178,8 +180,19 @@
 							</div>
 						</div>
 						
+						<div class="col-sm-12" >
+							<label class="control-label col-sm-3 highlight_text" for="sm_for3rdSynchronization">  Connection & Synchronization</label>
+							<div class="col-sm-9">
+								<div class="checkbox">
+									<label><input type="checkbox" id="sm_for3rdSynchronization" name="for3rdSynchronization"> To set-up the data connection API and ongoing process of synchronizing data
+										 from LEO CDP to digital marketing platforms
+									</label>
+								</div>
+							</div>
+						</div>
+						
 						<div class="col-sm-12"  style="display: none;" >
-							<label class="control-label col-sm-3" for="sm_forReTargeting"> Behavioral Re-targeting </label>
+							<label class="control-label col-sm-3 highlight_text" for="sm_forReTargeting"> Behavioral Re-targeting </label>
 							<div class="col-sm-9">
 								<div class="checkbox">
 									<label><input type="checkbox" id="sm_forReTargeting" name="forReTargeting" > 
@@ -191,7 +204,7 @@
 						</div>
 						
 						<div class="col-sm-12"  style="display: none;" >
-							<label class="control-label col-sm-3" for="sm_forLookalikeTargeting"> Look-alike Targeting </label>
+							<label class="control-label col-sm-3 highlight_text" for="sm_forLookalikeTargeting"> Look-alike Targeting </label>
 							<div class="col-sm-9">
 								<div class="checkbox">
 									<label><input type="checkbox" id="sm_forLookalikeTargeting" name="forLookalikeTargeting" > 
@@ -208,7 +221,7 @@
 		
 		<!--  2 query  -->
 		<div class="panel panel-leoadmin">
-			<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Query Details </b> </div>
+			<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Data Query Rules </b> </div>
 			<div class="panel-body">
 				<div class='col-md-7 col-xs-12'>
 					<div class="col-md-12">
@@ -259,7 +272,7 @@
 		
 		<!--  3 profiles  -->
 		<div class="panel panel-leoadmin" id="profile-list-panel"  >
-			<div class="panel-heading"> <b> <i class="fa fa-list" aria-hidden="true"></i> All matched profiles</b>  </div>
+			<div class="panel-heading"> <b> <i class="fa fa-list" aria-hidden="true"></i> All matched profiles </b>  </div>
 			<div class="panel-body">
 				<div class="table-responsive" id="profilelist_holder" >
 					<table id="profile_list_querybuilder" class="display" style="width:100%;">
@@ -269,7 +282,7 @@
 					            <th>Age</th>
 					            <th>Gender</th>
 					            <th>Primary Email</th>
-					            <th>Data Quality Score</th>
+					            <th>Data Quality</th>
 					            <th>Funnel Stage</th>
 					            <th>Last Modification</th>
 					            <th>Last-seen Touchpoint</th>
@@ -314,6 +327,8 @@
 				getSegmentBuilderData(id);
 			})
 		}
+		
+		
 	}
 	
 	function toggleSegmentDisableDateFilter() {
@@ -417,15 +432,41 @@
                 }
                 
                 setSegmentDataForm(segmentData);
-                
                 loadSegmentBuilder(behavioralEventMap, jsonQueryRules, readOnlyMode, segmentQueryBuilderCallback);
-                
                 setTimeout(loadProfilesInSegment,700);
+                loadAuthorizedEditors(segmentData.authorizedEditors);
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);
             }
         });
     }
+	
+	var loadAuthorizedEditors = function(selectedUsernames){
+		// load login accounts
+		var urlStr = baseLeoAdminUrl + '/user/list-all';
+        LeoAdminApiUtil.callPostAdminApi(urlStr, {} , function (json) {
+            if (json.httpCode === 0 && typeof json.data === 'object') {
+               	var list = json.data;
+               	console.log(list)
+               	var html = "";
+               	list.forEach(function(e){
+               		if(e.role !== 6) {
+               			if(selectedUsernames.includes(e.userLogin)){
+               				html += ('<option selected value="' + e.userLogin + '">' + e.displayName + '</option>')
+               			} else {
+               				html += ('<option value="' + e.userLogin + '">' + e.displayName + '</option>')
+               			}
+               		}
+               	})
+               	$('#authorizedEditors').html(html).show().chosen({
+                    width: "100%",
+                    no_results_text: "Oops, nothing found!"
+                });
+            } else {
+            	console.error(json)
+            }
+        });
+	}
 	
 	var createNewSegmentModel = function() {
         var urlStr = baseLeoAdminUrl + '/cdp/segment/load';
@@ -516,6 +557,7 @@
 			
 			segmentDataModel.type = parseInt($('#sm_type input:checked').val());
 			segmentDataModel.status = parseInt($('#sm_status input:checked').val());
+			segmentDataModel.authorizedEditors = $('#authorizedEditors').val() || [];
 			
 			segmentDataModel.disableDateRangeFilter = segmentDataModel.beginFilterDate === '' && segmentDataModel.endFilterDate === '';
 

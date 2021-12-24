@@ -100,13 +100,13 @@
 				 	Journey Data Hub <i id="journey_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
 				</a>
 				<ul id="journey_hub_menu" class="collapse in" aria-expanded="true">
-					<li id="Journey_Data_Funnel_Menu" >
-						<a id="Journey_Data_Funnel" href="#calljs-leoCdpRouter('Journey_Data_Funnel')" title="Journey Data Funnel" >
-							<i class="fa fa-fw fa-filter"></i> Journey Data Funnel </a>
+					<li id="Event_Data_Management_Menu" >
+						<a id="Event_Data_Management" href="#calljs-leoCdpRouter('Event_Data_Management')" title="Journey Data Funnel" >
+							<i class="fa fa-fw fa-filter"></i> Event Data Management </a>
 					</li>
 					<li>
-						<a id="Journey_Data_Flow" href="#calljs-leoCdpRouter('Journey_Data_Flow')" title="Journey Data Flow"> 
-							<i class="fa fa-fw fa-map-o"></i> Journey Data Flow </a>
+						<a id="Data_Flow_Management" href="#calljs-leoCdpRouter('Data_Flow_Management')" title="Data Flow Management"> 
+							<i class="fa fa-fw fa-map-o"></i> Data Flow Management </a>
 					</li>
 				</ul>
 			</li>
@@ -117,11 +117,11 @@
 					Customer Data Hub <i id="customer_data_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
 				</a>
 				<ul id="customer_hub_menu" class="collapse in" aria-expanded="true">
-					<li>
+					<li id="Profile_Management_Menu" style="display: none;" >
 						<a id="Profile_Management" href="#calljs-leoCdpRouter('Profile_Management')" title="All customer profiles" > 
 							<i class="fa fa-fw fa-users"></i> Profile Management </a>
 					</li>
-					<li>
+					<li id="Segment_Management_Menu" style="display: none;" >
 						<a id="Segment_Management" href="#calljs-leoCdpRouter('Segment_Management')" title="All customer segments"> 
 							<i class="fa fa-object-group" aria-hidden="true"></i> Segment Management </a>
 					</li>
@@ -134,15 +134,15 @@
 					Data Activation Hub <i id="data_activation_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
 				</a>
 				<ul id="data_activation_hub_menu" class="collapse in" aria-expanded="true">
+					<li id="Connector_Management_Menu" style="display: none;" >
+						<a id="Connector_Management" href="#calljs-leoCdpRouter('Connector_Management')">
+							<i class="fa fa-fw fa-exchange" aria-hidden="true" ></i> Connector Management </a>
+					</li>
 					<li>
-						<a id="Data_Asset_Categories" href="#calljs-leoCdpRouter('Data_Asset_Categories')" title="Data Asset Categories" > 
-							<i class="fa fa-fw fa-list" ></i> Data Asset Categories </a>
+						<a id="Data_Asset_Management" href="#calljs-leoCdpRouter('Data_Asset_Management')" title="Data Asset Management" > 
+							<i class="fa fa-fw fa-list" ></i> Data Asset Management </a>
 					</li>
-					<li id="Data_Connector_List_Menu" >
-						<a id="Data_Connector_List" href="#calljs-leoCdpRouter('Data_Connector_List')">
-							<i class="fa fa-fw fa-exchange" aria-hidden="true" ></i> Data Connector List </a>
-					</li>
-					<li style="display: none" >
+					<li style="display: none;">
 						<a id="Campaign_Management" href="javascript:" data-href="#calljs-leoCdpRouter('Campaign_Management')" onclick="underDevelopment(this)" title="Marketing Campaign Management"  > 
 							<i class="fa fa-fw fa-calendar-check-o"></i> Campaign Management </a>
 					</li>
@@ -158,10 +158,6 @@
 					<li>
 						<a id="User_Login_Management" href="#calljs-leoCdpRouter('User_Login_Management')">
 							<i class="fa fa-user-plus" aria-hidden="true"></i> Login Management </a>
-					</li>
-					<li style="display: none" >
-						<a id="Business_Unit_Management" href="#calljs-leoCdpRouter('Business_Unit_Management')">
-							<i class="fa fa-users" aria-hidden="true"></i> Business Unit Management </a>
 					</li>
 				</ul>
 			</li>
@@ -206,11 +202,18 @@
 	        if (json.httpCode === 0 && json.errorMessage === '') {
 	            if (json.data) {
 	                var systemUser = json.data;
-	                if(systemUser.role >= 3){
+	                var role = systemUser.role;
+	                if(role >= 1) {
+	                	$("#Segment_Management_Menu").show();
+	                }
+	                if(role >= 2) {
+	                	$("#Profile_Management_Menu, #Connector_Management_Menu").show();
+	                }
+	                if(role >= 3){
 	                	// ROLE_ADMIN and ROLE_SUPER_ADMIN
 	                	$('#nav_system_management').show();
 	                }
-	                if(systemUser.role === 6) {
+	                if(role === 6) {
 	                	// ROLE_SUPER_ADMIN
 	                	$('#user_menu_system_settings').show();
 	                }
@@ -310,7 +313,6 @@
 			$('#leocdp_version_number').text(leoCdpBuildVersion);
 			
 			$('#uspa_logo').click(function(){ window.open('https://uspa.tech','_blank') });
-			
 			$(window).resize(pageWrapperResize);
 		}
 	};

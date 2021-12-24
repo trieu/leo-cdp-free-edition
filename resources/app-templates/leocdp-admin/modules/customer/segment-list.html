@@ -2,7 +2,12 @@
 <!-- Segment Listing -->
 
 <style>
-.segment_name { min-width: 235px; }
+.segment_name_in_list { 
+	min-width: 235px!important;
+	color: #3300ff!important;
+	font-size:14px!important;
+	font-weight: bold;
+}
 </style>
 
 <div class="row">
@@ -53,7 +58,6 @@
 	    $('#segment-list').DataTable().clear();
 	    $('#segment-list').DataTable().ajax.reload();
 	}
-	
 	
 	function loadSegmentList() {
         var usersession = getUserSession();
@@ -124,7 +128,7 @@
                         "render": function (data, type, row) {
                         	var callJsViewStr = "#calljs-leoCdpRouter('Segment_Details','" + row.id + "')";
                         	var text = textTruncate(data,50);
-                            return '<div class="segment_name"><a title="Segment Report: '+data+'" href="' + callJsViewStr + '" >' + text + '</a></div>';
+                            return '<div class="segment_name_in_list"><a title="Segment Report: '+data+'" href="' + callJsViewStr + '" >' + text + '</a></div>';
                         },
                         "targets": 1
                     },
@@ -160,20 +164,16 @@
                     {
                         "render": function (data, type, row) {
                             var html = '';
-                        	if( canEditData ){
-                        			
+                            var callJsViewStr = "#calljs-leoCdpRouter('Segment_Details','" + row.id + "')";
+                            html += '<a class="control" title="Segment Report" href="' + callJsViewStr + '" > <i class="fa fa-info-circle" aria-hidden="true"></i> View</a>';
+                            
+                        	if( canEditData ){	
                         		var callJsEditStr = "#calljs-leoCdpRouter('Segment_Builder','" + row.id + "')";
-                        		html += ' <a class="control" title="Segment Builder" href="' + callJsEditStr + '" > <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>';
-                        		
+                        		html += '<br> <a class="control" title="Segment Builder" href="' + callJsEditStr + '" > <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a> ';
                         		//var callJsCopyStr = "#calljs-leoCdpRouter('Segment_Builder_Copy','" + row.id + "')";
-                        		//html += ' <br> <a class="control" title="Copy this segment" href="' + callJsCopyStr + '" > <i class="fa fa-clone" aria-hidden="true"></i> Copy</a>';
-                        		
-                        	} else {
-                        		html += '<a class="control" title="Segment Builder Editor" href="javascript:errorNoAuthorization()" > <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>';
-                        		html += ' <br> <a class="control" title="Copy this segment" href="javascript:errorNoAuthorization()" > <i class="fa fa-clone" aria-hidden="true"></i> Copy</a>';
+                        		//html += '<br> <a class="control" title="Copy this segment" href="' + callJsCopyStr + '" > <i class="fa fa-clone" aria-hidden="true"></i> Copy</a>';
                         	}
-                        	var callJsViewStr = "#calljs-leoCdpRouter('Segment_Details','" + row.id + "')";
-                            html += ' <br> <a class="control" title="Segment Report" href="' + callJsViewStr + '" > <i class="fa fa-info-circle" aria-hidden="true"></i> View</a>';
+                        	
                             return html;
                         },
                         "targets": 6

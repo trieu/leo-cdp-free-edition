@@ -1,4 +1,15 @@
  
+<style>
+.has_contact {
+	background-color: #FFF8DC!important;
+	color: #3300ff!important;
+	font-size:14px!important;
+	font-weight: bold;
+}
+.no_contact {
+	color:#000!important;
+}
+</style>
 <div class="row">
     <div class="col-lg-6">
         <h5 class="page-header" id="page_breadcrumb" > </h5>
@@ -31,12 +42,15 @@
       	<div class="col-md-12 row">
 			<div class="col-md-6" style="background-color:#f5f5f5; border-radius: 5px;padding-top: 5px"> 
 				<div class="col-md-12">
-					<label  title="Filter all profiles within the specified date range"> 
-						<input id="disable_date_filter" type="checkbox" onclick="toggleProfileDisableDateFilter(false)" > No Date Range Filter 
+					<label title="Filter all profiles that have mobile phone or email" > 
+							<input id="filterOnlyContactable" type="checkbox" > Filter contact profiles  
 					</label>
-					<label style="float: right;" title="Filter all profiles that have mobile phone or email" > 
-						<input id="filterOnlyContactable" type="checkbox" > Filter contact profiles 
+				</div> 
+				<div class="col-md-12">
+					<label title="Filter all profiles within the specified date range"> 
+						<input id="disable_date_filter" type="checkbox" onclick="toggleProfileDisableDateFilter(false)" > Turn off date filter 
 					</label>
+					
 				</div> 
 				<div id='beginFilterDateHolder' class="col-md-6"> 
 					<div class="form-group">
@@ -100,7 +114,7 @@
             <table id="profile-list" class="display" style="width:100%">
                 <thead>
                     <tr>
-                        <th class="text-center" title="A profile that has mobile phone or email">Contactable</th>
+                        <th class="text-center" title="A profile that has mobile phone or email">Has Contact</th>
                         <th >Full Name</th>
                         <th >Last-seen Touchpoint</th>
                         <th class="text-center">Data Quality</th>
@@ -288,10 +302,10 @@
                     {
                         "render": function (data, type, row) {
                         	var name = 'Anonymous Visitor';
-                        	var cssClass = "datatable_text";
+                        	var cssClass = "datatable_text no_contact";
                         	if(row.firstName.length > 0 || row.lastName.length > 0){
                         		name = textTruncate(row.firstName + ' ' + row.lastName, 32);
-                        		cssClass = "highlight_text";
+                        		cssClass = " has_contact";
                         	}
                             var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
                             return '<a class="' + cssClass + '" title="Profile Report" href="' + callJsViewStr + '" >' + name + '</a>';
@@ -300,7 +314,7 @@
                     },
                     {
                         "render": function (data, type, row) {
-                        	return '<div class="datatable_text" title="'+ row.lastTouchpoint.name +'">'  + textTruncate(row.lastTouchpoint.name, 35) + '</div>';
+                        	return '<div style="font-size:12px;" title="'+ row.lastTouchpoint.name +'">'  + textTruncate(row.lastTouchpoint.name, 35) + '</div>';
                         },
                         "targets": 2
                     },
@@ -339,7 +353,7 @@
                         	if(typeof data === 'string' ) {
                         		var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
                             	var link = '<a title="'+data+'" href="' + callJsViewStr + '" >' + textTruncate(data, 25) + '</a>';
-                            	return '<div class="datatable_text">'  + link + '</div>';
+                            	return '<div class="datatable_text ">'  + link + '</div>';
                         	}
                         	return '';
                         },
@@ -370,12 +384,10 @@
                     {
                         "render": function (data, type, row) {
                         	var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
-                            var html = '<a class="control" title="Profile Report" href="' + callJsViewStr + '" > <i class="fa fa-address-card-o" aria-hidden="true"></i> View</a>';
+                            var html = '<a class="control" title="Profile Report" href="' + callJsViewStr + '" > <i class="fa fa-info-circle" aria-hidden="true"></i> View</a>';
                         	if( canEditData ){
                         		var callJsEditStr = "#calljs-leoCdpRouter('Customer_Profile_Editor','" + row.id + "')";
                         		html += ' <br><a class="control" title="Profile Editor" href="' + callJsEditStr + '" > <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>';
-                        	} else {
-                        		html += ' <br><a class="control" title="Profile Editor" href="javascript:errorNoAuthorization()" > <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>';
                         	}
                             return html;
                         },
