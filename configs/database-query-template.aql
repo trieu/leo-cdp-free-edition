@@ -3,7 +3,7 @@
 #####################################################################
 
 
-###########  Media Channel  ########################################################################################################;
+###########  TOUCHPOINT HUB  ########################################################################################################;
 
 AQL_GET_TOUCHPOINT_HUB_BY_ID =>
 	FOR e in cdp_touchpointhub 
@@ -44,7 +44,66 @@ AQL_GET_ALL_EVENT_OBSERVERS =>
 	RETURN e
 ;
 
-###########  Data Flow Stage  ########################################################################################################;
+########### TOUCHPOINT  ########################################################################################################;
+
+AQL_GET_TOUCHPOINT_BY_ID =>
+	FOR e in cdp_touchpoint 
+	FILTER e._key == @id  
+	RETURN e
+;
+
+AQL_GET_TOUCHPOINTS => 
+	FOR e in cdp_touchpoint 
+	SORT e.createdAt DESC
+	LIMIT @startIndex,@numberResult 
+	RETURN e
+;
+
+AQL_GET_TOUCHPOINT_BY_URL =>
+	FOR e in cdp_touchpoint 
+	FILTER e.url == @url  
+	RETURN e
+;
+
+AQL_GET_TOUCHPOINT_BY_NAME =>
+	FOR e in cdp_touchpoint 
+	FILTER e.name == @name  
+	RETURN e
+;
+
+AQL_GET_TOUCHPOINTS_BY_FILTER =>
+	FOR p in cdp_touchpoint  
+	SORT p.createdAt DESC
+	LIMIT @startIndex,@numberResult 
+	RETURN p
+;
+
+AQL_GET_TOP_1000_TOUCHPOINTS_BY_PROFILE =>
+	FOR p in cdp_profile 
+	FILTER p._key == @profileId
+	    FOR t IN cdp_touchpoint
+	        FILTER t._key IN p.top1000Touchpoints
+	        RETURN t
+;
+
+AQL_GET_TOUCHPOINT_FLOW_BY_PROFILE =>
+	FOR s in cdp_contextsession FILTER s.profileId == @profileId
+        LET refTouchpoints = (
+            FOR t IN cdp_touchpoint
+            FILTER t._key == s.refTouchpointId
+            RETURN DISTINCT t
+        )
+        LET srcTouchpoints = (
+            FOR t IN cdp_touchpoint
+            FILTER t._key == s.srcTouchpointId
+            RETURN DISTINCT t
+        )
+        RETURN {"refMediaHost":s.refMediaHost,"createdAt":s.createdAt,
+                "refTouchpoints":refTouchpoints, 
+                "srcTouchpoints": srcTouchpoints}
+;
+
+###########  DATA_FLOW_STAGE  ########################################################################################################;
 
 AQL_GET_ALL_DATA_FLOW_STAGES =>
 	FOR e in cdp_dataflowstage 
@@ -63,7 +122,7 @@ AQL_GET_DATA_FLOW_STAGE_BY_ID =>
 	RETURN e
 ;
 
-###########  Event Metric  ########################################################################################################;
+###########  EVENT_METRICS  ########################################################################################################;
 
 AQL_GET_EVENT_METRICS_BY_FLOW_NAME =>
 	FOR e in cdp_eventmetric 
@@ -71,7 +130,7 @@ AQL_GET_EVENT_METRICS_BY_FLOW_NAME =>
 	RETURN e
 ;
 
-###########  Event Report   ########################################################################################################;
+###########  DAILY_REPORT_UNITS   ########################################################################################################;
 
 AQL_GET_DAILY_REPORT_UNITS =>
 	FOR d IN cdp_dailyreportunit
@@ -104,7 +163,7 @@ AQL_UPDATE_DAILY_REPORT_UNITS_TO_NEW_PROFILE =>
 	    UPDATE d WITH { objectId: @newProfileId } IN cdp_dailyreportunit
 ;
 
-############# DIGITAL ASSET CONTENT ASSET_CONTENT  ########################################################################################################;
+############# CONTENT ITEM  ########################################################################################################;
 
 AQL_GET_ASSET_CONTENT_BY_ID =>
 	FOR p in cdp_assetcontent 
@@ -294,66 +353,9 @@ AQL_GET_FILE_METADATA_BY_OBJECT =>
 	RETURN f
 ;
 
-########### MEDIA TOUCHPOINT  ########################################################################################################;
 
-AQL_GET_TOUCHPOINT_BY_ID =>
-	FOR e in cdp_touchpoint 
-	FILTER e._key == @id  
-	RETURN e
-;
 
-AQL_GET_TOUCHPOINTS => 
-	FOR e in cdp_touchpoint 
-	SORT e.createdAt DESC
-	LIMIT @startIndex,@numberResult 
-	RETURN e
-;
-
-AQL_GET_TOUCHPOINT_BY_URL =>
-	FOR e in cdp_touchpoint 
-	FILTER e.url == @url  
-	RETURN e
-;
-
-AQL_GET_TOUCHPOINT_BY_NAME =>
-	FOR e in cdp_touchpoint 
-	FILTER e.name == @name  
-	RETURN e
-;
-
-AQL_GET_TOUCHPOINTS_BY_FILTER =>
-	FOR p in cdp_touchpoint  
-	SORT p.createdAt DESC
-	LIMIT @startIndex,@numberResult 
-	RETURN p
-;
-
-AQL_GET_TOP_1000_TOUCHPOINTS_BY_PROFILE =>
-	FOR p in cdp_profile 
-	FILTER p._key == @profileId
-	    FOR t IN cdp_touchpoint
-	        FILTER t._key IN p.top1000Touchpoints
-	        RETURN t
-;
-
-AQL_GET_TOUCHPOINT_FLOW_BY_PROFILE =>
-	FOR s in cdp_contextsession FILTER s.profileId == @profileId
-        LET refTouchpoints = (
-            FOR t IN cdp_touchpoint
-            FILTER t._key == s.refTouchpointId
-            RETURN DISTINCT t
-        )
-        LET srcTouchpoints = (
-            FOR t IN cdp_touchpoint
-            FILTER t._key == s.srcTouchpointId
-            RETURN DISTINCT t
-        )
-        RETURN {"refMediaHost":s.refMediaHost,"createdAt":s.createdAt,
-                "refTouchpoints":refTouchpoints, 
-                "srcTouchpoints": srcTouchpoints}
-;
-
-########### AUDIENCE PROFILE  ########################################################################################################;
+########### PROFILE  ########################################################################################################;
 
 AQL_COUNT_TOTAL_CONTACT_PROFILES =>
 	FOR d IN cdp_profile
@@ -692,7 +694,7 @@ AQL_GET_FEEDBACK_EVENTS_BY_EVENT_NAME =>
 		RETURN e
 ;
 
-########### DIGITAL ASSETS  ########################################################################################################;
+########### PRODUCT ITEM  ########################################################################################################;
 
 AQL_GET_PRODUCT_ITEM_BY_ID =>
 	FOR e in cdp_productitem FILTER e._key == @id  
@@ -701,9 +703,16 @@ AQL_GET_PRODUCT_ITEM_BY_ID =>
 
 AQL_GET_PRODUCT_ITEMS => 
 	FOR e in cdp_productitem 
+		FILTER e.status >= 0  
 		SORT e.createdAt DESC
 		LIMIT @startIndex,@numberResult 
 		RETURN e
+;
+
+AQL_GET_PRODUCT_CATALOG_MAP => 
+	FOR e in cdp_productitem 
+		FILTER e.status >= 0  
+		RETURN {"_key":e._key, "title": e.title }
 ;
 
 AQL_GET_PRODUCT_ITEM_BY_FULL_URL =>
@@ -711,8 +720,8 @@ AQL_GET_PRODUCT_ITEM_BY_FULL_URL =>
 		RETURN e
 ;
 
-AQL_GET_PRODUCT_ITEM_BY_PRODUCT_ID =>
-	FOR e in cdp_productitem FILTER e.productId == @productId  AND e.productId == @productId
+AQL_GET_PRODUCT_ITEM_BY_PRODUCT_ID_AND_ID_TYPE =>
+	FOR e in cdp_productitem FILTER e.productId == @productId AND e.productIdType == @productIdType
 		RETURN e
 ;
 
@@ -737,7 +746,7 @@ AQL_COUNT_PRODUCT_ITEMS_IN_GROUP =>
     RETURN length
 ;
 
-########### DIGITAL ASSET - TEMPLATE ITEM  ########################################################################################################;
+########### TEMPLATE ITEM  ########################################################################################################;
 
 AQL_GET_TEMPLATE_BY_ID =>
 	FOR e IN cdp_assettemplate FILTER e._key == @id  
@@ -790,7 +799,7 @@ AQL_GET_DEVICE_BY_ID =>
 		RETURN e
 ;
 
-###########  TargetMediaUnit  ########################################################################################################;
+###########  TARGET_MEDIA_UNIT  ########################################################################################################;
 
 AQL_GET_TARGET_MEDIA_UNIT_BY_ID =>
 	FOR e in cdp_targetmediaunit 
@@ -804,14 +813,23 @@ AQL_GET_TARGET_MEDIA_UNIT_BY_PROFILE_ID =>
 		RETURN e
 ;
 
-########### Profile SEGMENT  ########################################################################################################;
+###########  SEGMENT  ########################################################################################################;
 
 AQL_GET_SEGMENTS_BY_PAGINATION =>
 	FOR d in cdp_segment  
-		FILTER d.status >= 0
-		SORT d.indexScore
+		FILTER d.status >= 0 AND (@searchValue != "" ? d.name LIKE @searchValue : true)
+				AND (@isUserHasAdminRole == TRUE OR @ownerUsername == d.ownerUsername OR @dataEditorUsername IN d.authorizedEditors)
+		SORT d.@sortField @sortDirection
 		LIMIT @startIndex,@numberResult 
 		RETURN d
+;
+
+AQL_COUNT_SEGMENT_FOR_PAGINATION =>
+	FOR d in cdp_segment  
+	FILTER d.status >= 0 AND (@searchValue != "" ? d.name LIKE @searchValue : true)
+				AND (@isUserHasAdminRole == TRUE OR @ownerUsername == d.ownerUsername OR @dataEditorUsername IN d.authorizedEditors)
+	COLLECT WITH COUNT INTO length
+	RETURN length
 ;
 
 AQL_GET_ALL_SEGMENTS_BY_FILTERING =>
@@ -847,7 +865,7 @@ AQL_GET_MAX_INDEX_SCORE_IN_SEGMENTS =>
 	RETURN s.indexScore
 ;
 
-########### Customer Activation Campaign  ########################################################################################################;
+########### ACTIVATION CAMPAIGN  ########################################################################################################;
 
 AQL_GET_CAMPAIGN_BY_ID =>
 	FOR e in cdp_campaign FILTER e._key == @id AND e.status >= 0
@@ -869,7 +887,7 @@ AQL_GET_CAMPAIGNS_TO_DELETE_FOREVER =>
 	RETURN e
 ;
 
-########### System Configuration  ########################################################################################################;
+########### SYSTEM_CONFIG  ########################################################################################################;
 
 AQL_GET_SYSTEM_CONFIG_BY_ID =>
 	FOR e in system_config FILTER e._key == @id
@@ -882,7 +900,7 @@ AQL_LIST_ALL_SYSTEM_CONFIGS =>
 	RETURN e
 ;
 
-########### Data Connector  ########################################################################################################;
+########### DATA_CONNECTOR  ########################################################################################################;
 
 AQL_GET_DATA_CONNECTOR_BY_ID =>
 	FOR e in cdp_dataconnector FILTER e._key == @id

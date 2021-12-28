@@ -1,16 +1,48 @@
 # Changelog for LEO CDP
 
-## [0.8.9] - 2021-10-09 
+## [0.9.0] - 2022-01-14 
+
+### TODO 
+- [In Progress] Profile Data Insight and Summary Report
+- [In Progress] Segment Activation: sending email directly from LEO CDP
+- [In Progress] Segment Activation: sending web notification directly from LEO CDP
+- [In Progress] Segment Activation: sending SMS directly from LEO CDP
+- [In Progress] Segment Data Synch with time scheduler
+- [In Progress] Profile Data Scoring with Jupyter notebook
+- [In Progress] Profile Data Reporting with Jupyter notebook
+- [In Progress] The flow to register new instance LEO CDP
+
+## [0.8.9] - 2021-12-28
 
 ### Added 
-- [work in progress] Segment Activation: sending personalized email directly from LEO CDP
-- [work in progress] flow to register new setup of free LEO CDP
+- new template survey "Khảo sát ý kiến người dùng về giao diện của website" to collect feedback data
+- add new TouchpointHubType.INPUT_DATA_SOURCE: can import profile data directly from Redis
+- [UI] segment: Data Activation Purposes
+- [UI] profile: re-design UI and UX for better navigation
+- [backend] segment: Data Activation with scheduled data job
+- [Segment] Data Exporting and Data Connection
+- Observer API: to import profile directly, push and pull event data using Server-to-Server API
+- Custom Data Fields for profile model
+- added STATE_CHECKED for TrackingEvent.state
+- added imageUrls and videoUrls for TrackingEvent
+- [IO] show event image in Event Data Stream of Profile, 
+- [JavaScript] added lightbox2 as default library to zoom in images
 
 ### Fixed 
 - [backend] save new profile from web is not worked
+- [Login] User Session in Redis is expired, the Admin UI should let user login again
 
 ### Changed
 - [UI] show highlight profile with data quality score from 25 points
+- [UI] move personalization for segment into a separate tab
+- [UI] improve UX of profile editor
+- [UI] segment tabs
+- [UI] main navigation menu
+- [UI] improve usability of profile reporting and profile editor
+- [UI] CX dashboard
+- update new profile-default-avatar.png
+- update ContactType : rename HUMAN_CONTACT to BUSINESS_CONTACT
+- upgrade core Google, AWS libraries into latest versionn
 
 
 ## [0.8.8] - 2021-10-04
