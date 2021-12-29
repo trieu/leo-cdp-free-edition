@@ -33,10 +33,10 @@
 	        <table id="segment-list" class="display" style="width:100%">
 	            <thead>
 	                <tr>
-	                	 <th>Index</th>
 	                    <th>Segment Name</th>
 	                    <th>Total Profile</th>
 	                    <th>Description</th>
+	                    <th>Data Owner</th>
 	                    <th>Created at</th>
 	                    <th>Updated at</th>
 	                    <th>Actions</th>
@@ -63,18 +63,19 @@
         var usersession = getUserSession();
         
         var collumnList = [
-        	{
-                "data": "indexScore" // 0
-          	},
+        	
        		{
-               "data": "name" // 1
+               "data": "name" // 0 
            	},
            	{
-               "data": "totalCount" // 2
+               "data": "totalCount" // 1
            	},
            	{
-               "data": "description" // 3
+               "data": "description" // 2
            	},
+           	{
+                "data": "ownerUsername" // 3
+          	},
            	{
                "data": "createdAt" // 4
            	},
@@ -120,27 +121,27 @@
                 'columnDefs': [
                 	{
                         "render": function (data, type, row) {
-                        	return  '<div style="width:70px; text-align:center" ><mark>' +  data.toLocaleString() + '</mark></div>';
-                        },
-                        "targets": 0
-                    },
-                	{
-                        "render": function (data, type, row) {
                         	var callJsViewStr = "#calljs-leoCdpRouter('Segment_Details','" + row.id + "')";
                         	var text = textTruncate(data,50);
                             return '<div class="segment_name_in_list"><a title="Segment Report: '+data+'" href="' + callJsViewStr + '" >' + text + '</a></div>';
                         },
-                        "targets": 1
+                        "targets": 0
                     },
                     {
                         "render": function (data, type, row) {
                             return  '<div class="segment_size" style="width:96px" ><mark>' +  data.toLocaleString() + '</mark></div>';
                         },
-                        "targets": 2
+                        "targets": 1
                     },
                 	{
                         "render": function (data, type, row) {
                             return '<div  style="font-size:0.8em;" title="' + data + '" >' + textTruncate(data, 150) + '</div>';
+                        },
+                        "targets": 2
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	return  '<div style="width:70px; text-align:center" ><mark>' +  data.toLocaleString() + '</mark></div>';
                         },
                         "targets": 3
                     },
