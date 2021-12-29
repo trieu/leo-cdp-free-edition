@@ -23,3 +23,7 @@
 hs_err_pid*
 
 *gtm.tags.js
+
+public/qrcode/
+public/uploaded-files/
+public/*
