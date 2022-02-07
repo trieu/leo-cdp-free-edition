@@ -159,9 +159,10 @@
 <script>
     var initCXAnalyticsDashboard = function() {
     	setupTabPanels();
-    	initDateFilterComponent(false, null, null, 30);
+    	initDateFilterComponent(false, null, null, 60);
     	loadFeedbackRatingReport(false);
     	
+    	// when the radio button is clicked, load data
     	$('#feedbackDataTypeHolder').find('input[type="radio"]').click(function(){
     		loadFeedbackRatingReport(true);
     		$('#cxReportHeader').text($(this).parent().text())
@@ -175,12 +176,11 @@
 	var defaultCxScoreLabels = { "positive" : "Positive", "neutral" : "Neutral", "negative" : "Negative"};
 	var defaultNpsScoreLabels = { "positive" : "Promoter", "neutral" : "Passive", "negative" : "Detractor"};
 	
+	// 
     var loadFeedbackRatingReport = function(refresh){
-    		
     	var selectedRadioBtn = $('#feedbackDataTypeHolder').find('input[type="radio"]:checked');
     	var feedbackDataTypeText = selectedRadioBtn.parent().text();
     	var feedbackDataType = parseInt(selectedRadioBtn.val());
-    	
     	var dateFilter = getDateFilterValues();
     	
     	var requestParams = {};

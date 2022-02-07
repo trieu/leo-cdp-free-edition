@@ -36,8 +36,9 @@
 		
 		var pageHeaderLogo =  '{{pageHeaderLogo}}';
 		
-		var webTemplateCache = {{webTemplateCache}};
-		var dataApiCache = {{dataApiCache}};
+		var webTemplateCache = "{{webTemplateCache}}" === "true";
+		var hasB2Bfeatures = "{{hasB2Bfeatures}}" === "true";
+		var dataApiCache = "{{dataApiCache}}" === "true";
 		
 		var leoProductType = '{{leoProductType}}';
 		var leoCdpBuildVersion = '{{leoCdpBuildVersion}}';
@@ -230,7 +231,7 @@
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////// -->
 	
 	<script src="https://{{baseStaticUrl}}/mediaplayer/mediaplayer.one.min.js?_={{cacheBustingKey}}"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.13.6/mermaid.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.13.8/mermaid.min.js"></script>
 	
 	<!-- after deps are loaded -->
 	<script>

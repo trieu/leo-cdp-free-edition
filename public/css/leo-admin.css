@@ -365,12 +365,12 @@ div.gridholder {
 #main-navbar a.active {
     background-color: #e8edca;
     color: #3300ff;
-    font-size: 12px;
+    font-size: 11.6px !important;
     font-weight: bold;
     border-radius: 8px;
 }
 
-#main-navbar a.active .fa {
+#main-navbar a.active i.fa {
     font-size: 15px!important;
 }
 

@@ -21,10 +21,10 @@ The installed server must have Internet connection, please set the outbound fire
 
 	curl -OL https://download.arangodb.com/arangodb38/DEBIAN/Release.key
 	sudo apt-key add - < Release.key
-	echo 'deb https://download.arangodb.com/arangodb37/DEBIAN/ /' | sudo tee /etc/apt/sources.list.d/arangodb.list
+	echo 'deb https://download.arangodb.com/arangodb38/DEBIAN/ /' | sudo tee /etc/apt/sources.list.d/arangodb.list
 	sudo apt-get install apt-transport-https
-	sudo apt-get update; sudo apt-get install arangodb3=3.8.0-1
- 
+	sudo apt-get update
+	sudo apt-get install arangodb3=3.8.5-1
 
 ### Nginx Proxy
 
@@ -61,7 +61,8 @@ The installed server must have Internet connection, please set the outbound fire
 
 ### Redis
 
-[Redis on Ubuntu](https://vitux.com/install-redis-on-ubuntu/)
+* [Redis on Ubuntu](https://vitux.com/install-redis-on-ubuntu/)
+* [Redis Cluster](https://success.outsystems.com/Support/Enterprise_Customers/Installation/Configuring_OutSystems_with_Redis_in-memory_session_storage/Set_up_a_Redis_Cluster_for_Production_environments)
 
     sudo apt-get update; sudo apt -y install redis-server
 
