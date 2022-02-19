@@ -89,13 +89,12 @@
        });
 	}
 	
-	var loadFeedbackTemplateItems = function(){
-		if(!cxFeedbackTemplates && !landingPageTemplates){
-			LeoAdminApiUtil.getSecuredData('/item/asset-templates', [], function(json){ 
-				cxFeedbackTemplates = json.data.cxFeedbackTemplates;
-				landingPageTemplates = json.data.landingPageTemplates;
-	        });
-		}
+	var loadFeedbackTemplateItems = function(obsid, callback){
+		LeoAdminApiUtil.getSecuredData('/item/asset-templates', {"obsid":obsid}, function(json){ 
+			cxFeedbackTemplates = json.data.cxFeedbackTemplates;
+			landingPageTemplates = json.data.landingPageTemplates;
+			callback();
+        });
 	}
 	
 	var loadEventMetrics = function(){
@@ -119,7 +118,6 @@
 
     var initMediaJourneyMap =  function() {
     	setupTabPanels();
-    	loadFeedbackTemplateItems();
     	loadEventMetrics();
     	
     	var CustomCheckBox = function(config) {
@@ -448,36 +446,54 @@
 		var leoObserverId = json.id;
 		var touchpointHubName = json.name;
 		var type = json.type;
-		var hasData = $('#feedbackTemplateSelector option').length === 0 && cxFeedbackTemplates.length > 0;
 		
-		if(type > 0 && type < 12){
-			if( hasData ) {
-				for(var i in cxFeedbackTemplates) { 
-					var feedbackFormData = cxFeedbackTemplates[i];
-					var option = '<option value="'+i+'" >' + feedbackFormData.title + '</option>';
-					$('#feedbackTemplateSelector').append(option);
-				}
-			}
+		if(type > 0 && type < 12 ){
 			
-			var idDialog = "dialogEmbeddedCxFeedbackForm";
-			$('#'+idDialog).modal({
-	    		backdrop: 'static',
-	    		keyboard: false
-			});
-			$('#feedbackTemplateSelector').val("0").change();
-        	initEmbeddedFeedbackForm(idDialog, cxFeedbackTemplates[0]);
+			var callback = function() {
+				
+				var setQrImageData = function(item){
+					var imageUrl = 'https://' + baseUploadDomain + item.qrCodeUrl.replace('./','/');
+	        		$('#cx_qrHrefUrl').attr("href",imageUrl);
+	        		$('#cx_qrImgSrc').attr("src",imageUrl);
+	        		$('#cx_qrCodeImageURL').val(imageUrl);
+				}
+				
+				var hasData = $('#feedbackTemplateSelector option').length === 0 && cxFeedbackTemplates.length > 0;
+				if( hasData ) {
+					for(var i in cxFeedbackTemplates) { 
+						var feedbackFormData = cxFeedbackTemplates[i];
+						var option = '<option value="'+i+'" >' + feedbackFormData.title + '</option>';
+						$('#feedbackTemplateSelector').append(option);
+					}
+				}
+				
+				var idDialog = "dialogEmbeddedCxFeedbackForm";
+				$('#'+idDialog).modal({
+		    		backdrop: 'static',
+		    		keyboard: false
+				});
+				$('#feedbackTemplateSelector').val("0").change();
+	        	initEmbeddedFeedbackForm(leoObserverId, idDialog, cxFeedbackTemplates[0]);
+	        	
+	        	setQrImageData(cxFeedbackTemplates[0])
+
+	        	$('#feedbackTemplateSelector').chosen({
+	                width: "100%",
+	                no_results_text: "Oops, nothing found!"
+	            }).trigger("chosen:updated").change(function(){
+	            	console.log("chosen:updated" + $(this).val())
+	            	var index = parseInt($(this).val());
+	            	var item = cxFeedbackTemplates[index];
+	            	initEmbeddedFeedbackForm(leoObserverId, idDialog, item);
+	            	
+	            	setQrImageData(item)
+	            });
+			}
         	
-        	$('#feedbackTemplateSelector').chosen({
-                width: "100%",
-                no_results_text: "Oops, nothing found!"
-            }).trigger("chosen:updated").change(function(){
-            	console.log("chosen:updated" + $(this).val())
-            	var index = parseInt($(this).val());
-            	var feedbackFormData = cxFeedbackTemplates[index];
-            	initEmbeddedFeedbackForm(idDialog, feedbackFormData);
-            });
-		} else {
-			notifyErrorMessage("Can not get tracking code of offline touchpoint, please use QR code")
+        	loadFeedbackTemplateItems(leoObserverId, callback)
+		} 
+		else {
+			notifyErrorMessage("Can not get feedback form")
 		}
 	}
 	
@@ -706,7 +722,7 @@
 						    	if(tpHubType > 0 && tpHubType < 12){
 						    		btnHtml += '<button type="button" class="btn btn-goto-router btn-sm btn-get-code" onclick="getCxFeedbackJsCode(this)" ';
 							    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-							    	btnHtml += '><i class="fa fa-code" style="font-size:1.2em" aria-hidden="true"></i> CX Data Form JS </button>';
+							    	btnHtml += '><i class="fa fa-code" style="font-size:1.2em" aria-hidden="true"></i> Feedback Form </button>';
 							    	
 							    	btnHtml += '<button type="button" class="btn btn-info  btn-sm btn-get-code" onclick="getRecommenderJsCode(this)" ';
 							    	btnHtml += (' data-json="' + jsonStr  + '" ' );
@@ -939,8 +955,10 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 				   </div>
 				   <label class="control-label">QR Code Image URL </label>
 				   <input type="text" class="form-control" readonly value="" id="qrCodeImageURL" >
+				   
 				   <label class="control-label"> Touchpoint Hub URL  </label>
 				   <input type="text" class="form-control" readonly value="" id="qrTouchpointHubURL" > 
+				   
 				   <label class="control-label"> Scan QR Tracking URL </label>
 				   <input type="text" class="form-control" readonly value="" id="qrTrackingURL"> 
 				   <br>
@@ -958,54 +976,93 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 		<!-- Modal content-->
 		<div class="modal-content">   
 			<div class="modal-header">
-				<h4 class="modal-title text-center" > Please select a Feedback/Survey and copy JavaScript (JS) code to collect CX data </h4>
-			</div>         
+				<h4 class="modal-title text-center" > Please select a survey form or rating form to get feedback data </h4>
+			</div> 
+			  
 			<div class="modal-body">
 				<div class="form-group" >
-	                <label> CX Feedback Forms and Feedback Surveys </label>
+	                <label> Survey/Rating Template for <span class="eventName" > </span> </label>
 	                <select id="feedbackTemplateSelector" data-placeholder="Choose a template name" class="select" >
 	                  <!-- feedbackTemplateSelector -->  
 	                </select>
-	                <hr> 
 	            </div>
-				<h5 class="eventName" >  </h5>
-				<div id="feedback_form_code_holder" >
-				   <textarea class="code" >
-	(function() {
-	    //  Feedback/Survey Form Collector for __feedbackFormTitle__
-	    var svf = document.title;
-		var tprefurl = location.href;
-		var tplFeedbackType = "__tplFeedbackType__";
-		var cb = Math.floor(Math.random() * 100000);
-		
-		var url  = '__feedbackFormFullUrl__';
-		url = url + "&tplfbt=" + tplFeedbackType;
-		url = url + "&tpname=" + document.title;
-		url = url + "&tpurl=" + location.href;
-		url = url + "&cb=" + cb;
-		
-		// container
-		var divWrapper = document.createElement("div"); 
-		var cssDiv = "position:relative; width:100%; overflow:hidden; height:100px ";
-		divWrapper.setAttribute("style",cssDiv);
-		
-		// iframe 
-		var iframe = document.createElement("iframe"); 
-		var cssIframe = "position:absolute; top:0; left:0; bottom:0; right:0; width:100%; border:none; overflow:hidden; height:100px ";
-		iframe.setAttribute("style",cssIframe);
-		iframe.setAttribute("src",url);
-		divWrapper.appendChild(iframe);
-		
-		var referenceNode = document.getElementById("__scriptNodeId__");
-		referenceNode.parentNode.insertBefore(divWrapper, referenceNode.nextSibling);
-	})();
-			    </textarea>
-			  </div>
+				
+				<!--  Tab Navigation Items -->
+				<ul class="nav nav-tabs" data-tab-content="cx_code_tabs" > 
+			   		<li class="active" >
+		        		<a href="javascript:" data-target-tab="panel_cx_web_form" > <i class="fa fa-code" aria-hidden="true"></i> JavaScript Code </a>
+		       		</li>
+		       		<li>
+		       			<a href="javascript:" data-target-tab="panel_cx_qr_code"  > <i class="fa fa-qrcode" aria-hidden="true"></i> QR Code </a>
+		       		</li>
+				</ul>
+
+				<div class="tab-content" id="cx_code_tabs" style="min-height: 380px;" >
+	
+					<!-- tab 1 content  -->
+					<div class="tab-pane active" id="panel_cx_web_form" >
+						
+				    	<div id="feedback_form_code_holder" >
+								<textarea class="code" >
+(function() {
+    //  Feedback/Survey Form Collector for __feedbackFormTitle__
+    var observerId = "__observerId__";
+    var svf = document.title;
+	var tprefurl = location.href;
+	var tplFeedbackType = "__tplFeedbackType__";
+	var cb = Math.floor(Math.random() * 100000);
+	
+	var url  = '__feedbackFormFullUrl__';
+	url = url + "&obsid=" + observerId;
+	url = url + "&tplfbt=" + tplFeedbackType;
+	url = url + "&tpname=" + document.title;
+	url = url + "&tpurl=" + location.href;
+	url = url + "&cb=" + cb;
+	
+	// container
+	var divWrapper = document.createElement("div"); 
+	var cssDiv = "position:relative; width:100%; overflow:hidden; height:100px ";
+	divWrapper.setAttribute("style",cssDiv);
+	
+	// iframe 
+	var iframe = document.createElement("iframe"); 
+	var cssIframe = "position:absolute; top:0;left:0;bottom:0;right:0;width:100%;border:none;overflow:hidden; height:100px";
+	iframe.setAttribute("style",cssIframe);
+	iframe.setAttribute("src",url);
+	divWrapper.appendChild(iframe);
+	
+	var referenceNode = document.getElementById("__scriptNodeId__");
+	referenceNode.parentNode.insertBefore(divWrapper, referenceNode.nextSibling);
+})();
+				    			</textarea>
+				  		</div>
+				  		
+				  		<hr>
+				  		<div class="text-right">
+				  			<button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
+				    		<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+				    	</div>
+					</div>
+				
+					<!-- tab 2 content  -->
+					<div class="tab-pane" id="panel_cx_qr_code" >
+				        <div class="table-responsive">
+				            <div class="text-center" >
+						   	 <a target="_blank" href="#" id="cx_qrHrefUrl"> <img src="" alt="CX QR Code Image" id="cx_qrImgSrc" > </a>
+						   	</div>
+						   	<label class="control-label">QR Code Image URL </label>
+						   	<input type="text" class="form-control" readonly value="" id="cx_qrCodeImageURL" >
+				        </div>
+				        <hr>
+				  		<div class="text-right">
+				    		<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+				    	</div>
+					</div>
+				</div>	
+				
+				
 			</div>  
-			<div class="modal-footer">
-				<button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
-		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
-		    </div>  
+			
 		</div>
 	</div>
 </div>

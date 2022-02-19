@@ -5,6 +5,12 @@
 
 ###########  TOUCHPOINT HUB  ########################################################################################################;
 
+AQL_GET_TOUCHPOINT_BY_OBSERVER_ID => 
+	FOR e in cdp_touchpointhub 
+	FILTER e.observerId == @observerId AND e.status >= 0
+	RETURN e
+;
+
 AQL_GET_TOUCHPOINT_HUB_BY_ID =>
 	FOR e in cdp_touchpointhub 
 	FILTER e._key == @id AND e.status >= 0
