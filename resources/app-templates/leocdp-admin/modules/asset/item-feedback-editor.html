@@ -192,7 +192,7 @@
     
     var updateFeedbackFormIframePreview = function(){
     	if(typeof feedbackModel.id === "string"){
-    		var url = "https://" + baseLeoObserverDomain + "/webform?preview=1&svt=survey&tplid=" + feedbackModel.id + "&cb=" + new Date().getTime();
+    		var url = "https://" + baseLeoObserverDomain + "/webform?preview=1&tplid=" + feedbackModel.id + "&cb=" + new Date().getTime();
      		$('#feedback_form_preview').attr('src',url).parent().show();
      		
      		$("#feedback_form_preview_holder").show();

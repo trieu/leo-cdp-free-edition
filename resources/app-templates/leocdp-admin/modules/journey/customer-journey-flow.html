@@ -1,7 +1,7 @@
 <style>
 .btn-get-code {
-	margin:4px;
-	width: 132px;
+	margin:3px;
+	width: 144px;
 	text-align: left!important;
 }
 #journey_channel_table tr.jsgrid-header-row, #data_observers_table tr.jsgrid-header-row {
@@ -450,12 +450,14 @@
 		if(type > 0 && type < 12 ){
 			
 			var callback = function() {
-				
 				var setQrImageData = function(item){
 					var imageUrl = 'https://' + baseUploadDomain + item.qrCodeUrl.replace('./','/');
 	        		$('#cx_qrHrefUrl').attr("href",imageUrl);
 	        		$('#cx_qrImgSrc').attr("src",imageUrl);
 	        		$('#cx_qrCodeImageURL').val(imageUrl);
+	        		
+	        		var formUrl = "https://" + baseLeoObserverDomain + "/webform?tplid=" + item.id + "&obsid=" + leoObserverId;
+	        		$('#cx_qrFormURL').val(formUrl);
 				}
 				
 				var hasData = $('#feedbackTemplateSelector option').length === 0 && cxFeedbackTemplates.length > 0;
@@ -485,15 +487,13 @@
 	            	var index = parseInt($(this).val());
 	            	var item = cxFeedbackTemplates[index];
 	            	initEmbeddedFeedbackForm(leoObserverId, idDialog, item);
-	            	
 	            	setQrImageData(item)
 	            });
 			}
-        	
         	loadFeedbackTemplateItems(leoObserverId, callback)
 		} 
 		else {
-			notifyErrorMessage("Can not get feedback form")
+			notifyErrorMessage("Can not get feedback code")
 		}
 	}
 	
@@ -691,21 +691,21 @@
 		    		
 		    		var btnHtml = "";
 		    		if(tpHubType === 30){
-		    			btnHtml += '<button type="button" class="btn btn-success  btn-sm btn-do-now" onclick="showObserverApiInfo(this)" ';
+		    			btnHtml += '<button type="button" class="btn btn-success  btn-sm btn-do-now btn-get-code" onclick="showObserverApiInfo(this)" ';
 				    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-				    	btnHtml += '><i class="fa fa-info-circle" style="font-size:1.3em" aria-hidden="true"></i> API Information </button>';
+				    	btnHtml += '><i class="fa fa-info-circle" style="font-size:1.1em" aria-hidden="true"></i> API Information </button>';
 				    	return btnHtml;
 		    		}
 		    		else if(tpHubType === 31) {
-    					btnHtml += '<button type="button" class="btn btn-success  btn-sm btn-do-now" onclick="showRedisSourceInfo(this)" ';
+    					btnHtml += '<button type="button" class="btn btn-success  btn-sm btn-do-now btn-get-code" onclick="showRedisSourceInfo(this)" ';
 				    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-				    	btnHtml += '><i class="fa fa-info-circle" style="font-size:1.3em" aria-hidden="true"></i> Redis Information </button>';
+				    	btnHtml += '><i class="fa fa-info-circle" style="font-size:1.1em" aria-hidden="true"></i> Redis Information </button>';
 				    	return btnHtml;
     				}
     				else if(tpHubType === 32) {
-    					btnHtml += '<button type="button" class="btn btn-success  btn-sm btn-do-now" onclick="showKafkaSourceInfo(this)" ';
+    					btnHtml += '<button type="button" class="btn btn-success  btn-sm btn-do-now btn-get-code" onclick="showKafkaSourceInfo(this)" ';
 				    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-				    	btnHtml += '><i class="fa fa-info-circle" style="font-size:1.3em" aria-hidden="true"></i> Kafka Information </button>';
+				    	btnHtml += '><i class="fa fa-info-circle" style="font-size:1.1em" aria-hidden="true"></i> Kafka Information </button>';
 				    	return btnHtml;
     				}
 		    		else {
@@ -713,27 +713,27 @@
 		    				if(tpHubType < 30) {
 		    					btnHtml = '<button type="button" class="btn btn-primary btn-sm btn-get-code" onclick="getQrImageFormCode(this)"';
 						    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-						    	btnHtml += '><i class="fa fa-qrcode" style="font-size:1.3em" aria-hidden="true"></i>  QR Code Image </button>';
+						    	btnHtml += '><i class="fa fa-qrcode" style="font-size:1.1em" aria-hidden="true"></i>  QR Image Code </button>';
 			    				
-				    			btnHtml += '<button type="button" class="btn btn-success  btn-sm btn-get-code" onclick="getTrackingJsCode(this)" ';
+				    			btnHtml += '<button type="button" class="btn btn-goto-router  btn-sm btn-get-code" onclick="getTrackingJsCode(this)" ';
 						    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-						    	btnHtml += '><i class="fa fa-code" style="font-size:1.3em" aria-hidden="true"></i> Tracking Code JS </button>';
+						    	btnHtml += '><i class="fa fa-code" style="font-size:1.1em" aria-hidden="true"></i> Event Tracking Code </button>';
 						    	
 						    	if(tpHubType > 0 && tpHubType < 12){
-						    		btnHtml += '<button type="button" class="btn btn-goto-router btn-sm btn-get-code" onclick="getCxFeedbackJsCode(this)" ';
+						    		btnHtml += '<button type="button" class="btn btn-success btn-sm btn-get-code" onclick="getCxFeedbackJsCode(this)" ';
 							    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-							    	btnHtml += '><i class="fa fa-code" style="font-size:1.2em" aria-hidden="true"></i> Feedback Form </button>';
+							    	btnHtml += '><i class="fa fa-code" style="font-size:1.1em" aria-hidden="true"></i> CX Tracking Code </button>';
 							    	
 							    	btnHtml += '<button type="button" class="btn btn-info  btn-sm btn-get-code" onclick="getRecommenderJsCode(this)" ';
 							    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-							    	btnHtml += '><i class="fa fa-code" style="font-size:1.2em" aria-hidden="true"></i> Recommender JS </button>';
+							    	btnHtml += '><i class="fa fa-code" style="font-size:1.1em" aria-hidden="true"></i> Personalized Widget </button>';
 						    	}
 		    				}
 					        return btnHtml;
 			    		} else {
 			    			var btnHtml = '<button type="button" class="btn btn-primary btn-sm btn-get-code" onclick="getQrImageFormCode(this)"';
 					    	btnHtml += (' data-json="' + jsonStr  + '" ' );
-					    	btnHtml += '><i class="fa fa-qrcode" style="font-size:1.3em" aria-hidden="true"></i> QR Code Image </button>';
+					    	btnHtml += '><i class="fa fa-qrcode" style="font-size:1.1em" aria-hidden="true"></i> QR Image Code </button>';
 					    	return btnHtml;
 			    		}
 		    		}
@@ -797,12 +797,12 @@
 	   		    data: eventObservers,
 	   		    fields: [
 	   		    	{ name: "index", title : "ID", type: "number", width: 16 },
-	   		        { name: "name", title : "Touchpoint Hub Name", type: "BoldText", width: 100, align: "center" },
-	   		     	{ name: "typeName", title : "Touchpoint Type", type: "text", width: 76, align: "center" },
+	   		        { name: "name", title : "Touchpoint Hub Name", type: "BoldText",  align: "center" },
+	   		     	{ name: "typeName", title : "Touchpoint Type", type: "text", width: 80, align: "center" },
 	   		     	{ name: "firstPartyData", title : "First-party Data", type: "CheckBoxIcon", width: 40, align: "center" },
 	   		     	{ name: "collectDirectly", title : "Tracking directly", type: "CheckBoxIcon", width: 40, align: "center" },
-	   		     	{ name: "dataSourceUrl", title : "Data Source URL", type: "UrlLink", width: 180, align: "center" },
-	   		     	{ name: "observerModel", title : "Actions", type: "LeoDataObserver", width: 70, align: "center"}
+	   		     	{ name: "dataSourceUrl", title : "Data Source URL", type: "UrlLink", width: 160, align: "center" },
+	   		     	{ name: "observerModel", title : "Actions", type: "LeoDataObserver", width: 72, align: "center"}
 	   		    ]
 	   		});  
 	   	})
@@ -976,7 +976,7 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 		<!-- Modal content-->
 		<div class="modal-content">   
 			<div class="modal-header">
-				<h4 class="modal-title text-center" > Please select a survey form or rating form to get feedback data </h4>
+				<h4 class="modal-title text-center" > Please select a survey form or rating form to track CX data </h4>
 			</div> 
 			  
 			<div class="modal-body">
@@ -990,7 +990,7 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 				<!--  Tab Navigation Items -->
 				<ul class="nav nav-tabs" data-tab-content="cx_code_tabs" > 
 			   		<li class="active" >
-		        		<a href="javascript:" data-target-tab="panel_cx_web_form" > <i class="fa fa-code" aria-hidden="true"></i> JavaScript Code </a>
+		        		<a href="javascript:refreshCodeMirrorEditor()" data-target-tab="panel_cx_web_form" > <i class="fa fa-code" aria-hidden="true"></i> JavaScript Code </a>
 		       		</li>
 		       		<li>
 		       			<a href="javascript:" data-target-tab="panel_cx_qr_code"  > <i class="fa fa-qrcode" aria-hidden="true"></i> QR Code </a>
@@ -1036,7 +1036,6 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 })();
 				    			</textarea>
 				  		</div>
-				  		
 				  		<hr>
 				  		<div class="text-right">
 				  			<button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
@@ -1052,6 +1051,8 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 						   	</div>
 						   	<label class="control-label">QR Code Image URL </label>
 						   	<input type="text" class="form-control" readonly value="" id="cx_qrCodeImageURL" >
+						   	<label class="control-label"> CX Survey/Rating Form URL </label>
+						   	<input type="text" class="form-control" readonly value="" id="cx_qrFormURL" >
 				        </div>
 				        <hr>
 				  		<div class="text-right">
