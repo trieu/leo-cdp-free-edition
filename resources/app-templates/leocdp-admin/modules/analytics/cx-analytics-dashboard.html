@@ -62,11 +62,14 @@
 	     	
 	     	<!--  Tab Navigation Items -->
 		    <ul id="cx_report_tab_buttons" class="nav nav-tabs" data-tab-content="cx_report_tabs" >
-				<li data-report-type="rating" onclick="loadFeedbackRatingReport(true)" class="active" >
+				<li data-report-type="rating" onclick="loadCxRatingReport(true)" class="active" >
 					<a href="javascript:" data-target-tab="panel_cx_rating_report" title="CX Data Report" > <i class="fa fa-bar-chart" aria-hidden="true"></i> CX Rating Report </a>
 		       	</li>
-		       	<li data-report-type="survey" onclick="loadFeedbackSurveyReport(true)" >
-					<a href="javascript:" data-target-tab="panel_cx_survey_report" title="CX Survey Report" > <i class="fa fa-list" aria-hidden="true"></i> Feedback Survey List </a>
+		       	<li data-report-type="survey" onclick="loadCxSurveyReport(true)" >
+					<a href="javascript:" data-target-tab="panel_cx_survey_report" title="CX Survey Report" > <i class="fa fa-list" aria-hidden="true"></i> CX Survey Report </a>
+		       	</li>
+		       	<li data-report-type="touchpoint" onclick="loadCxTouchpointReport(true)" style="display:none" >
+					<a href="javascript:" data-target-tab="panel_cx_touchpoint_report" title="CX Touchpoint Report" > <i class="fa fa-list" aria-hidden="true"></i> CX Touchpoint Report </a>
 		       	</li>
 		  	</ul>
 		  	
@@ -135,18 +138,33 @@
 			
 				<!-- tab 2 CX Survey Report -->
 				<div class="tab-pane" id="panel_cx_survey_report" >
-					<div>
-						<div class="col-lg-12"  >
-							<label style="background-color: #FAFADE;color: #3300ff!important;"> <i class="fa fa-info-circle" aria-hidden="true"></i> Feedback Survey Template </label>
-			                <select id="feedbackSurveyList" data-placeholder="Choose a feedback survey" class="select" >
-			                  	<!-- feedbackSurveyList -->  
-			                </select>
-		                </div>
-		                <div class="col-lg-12 container" style="min-height: 1600px; overflow-y: scroll; overflow-x: hidden; margin-top: 12px; " >
-							<ul id="feedback_survey_flow" class="list-group list-group-dividered list-group-full"  >
-				     			<!-- feedback_survey_flow  -->
-							</ul>
-						</div>
+					
+					<div class="col-lg-12"  >
+						<label style="background-color: #FAFADE;color: #3300ff!important;"> <i class="fa fa-info-circle" aria-hidden="true"></i> The list of feedback survey </label>
+		                <select id="feedbackSurveyList" data-placeholder="Choose a feedback survey" class="select" >
+		                  	<!-- feedbackSurveyList -->  
+		                </select>
+	                </div>
+	                <div class="col-lg-12 container" style="min-height: 1600px; overflow-y: scroll; overflow-x: hidden; margin-top: 12px; " >
+						<ul id="feedback_survey_flow" class="list-group list-group-dividered list-group-full"  >
+			     			<!-- feedback_survey_flow  -->
+						</ul>
+					</div>
+					
+				</div>
+				
+				<!-- tab 3 CX Touchpoint Report -->
+				<div class="tab-pane" id="panel_cx_touchpoint_report" >
+					<div class="col-lg-12"  >
+						<label style="background-color: #FAFADE;color: #3300ff!important;"> <i class="fa fa-info-circle" aria-hidden="true"></i> The list of touchpoint hub </label>
+		                <select id="touchpointHubList" data-placeholder="Choose a touchpoint hub" class="select" >
+		                  	<!-- touchpointHubList -->  
+		                </select>
+	                </div>
+	                <div class="col-lg-12 container" style="min-height: 1600px; overflow-y: scroll; overflow-x: hidden; margin-top: 12px; " >
+						<ul id="touchpoint_hub_flow" class="list-group list-group-dividered list-group-full"  >
+			     			<!-- touchpoint_hub_flow  -->
+						</ul>
 					</div>
 				</div>
 	     	  
@@ -159,12 +177,12 @@
 <script>
     var initCXAnalyticsDashboard = function() {
     	setupTabPanels();
-    	initDateFilterComponent(false, null, null, 60);
-    	loadFeedbackRatingReport(false);
+    	initDateFilterComponent(false, null, null, 64);
+    	loadCxRatingReport(false);
     	
     	// when the radio button is clicked, load data
     	$('#feedbackDataTypeHolder').find('input[type="radio"]').click(function(){
-    		loadFeedbackRatingReport(true);
+    		loadCxRatingReport(true);
     		$('#cxReportHeader').text($(this).parent().text())
     	});
     	
@@ -177,7 +195,7 @@
 	var defaultNpsScoreLabels = { "positive" : "Promoter", "neutral" : "Passive", "negative" : "Detractor"};
 	
 	// 
-    var loadFeedbackRatingReport = function(refresh){
+    var loadCxRatingReport = function(refresh){
     	var selectedRadioBtn = $('#feedbackDataTypeHolder').find('input[type="radio"]:checked');
     	var feedbackDataTypeText = selectedRadioBtn.parent().text();
     	var feedbackDataType = parseInt(selectedRadioBtn.val());
@@ -339,7 +357,7 @@
             }).trigger("chosen:updated").change(function(){
             	console.log("chosen:updated" + $(this).val());
             	defaultSurveyTemplateId =  $(this).val();
-            	loadFeedbackSurveyReport(true);
+            	loadCxSurveyReport(true);
             });
     	})
     }
@@ -347,13 +365,14 @@
     var spinnerHtml = '<li class="list-group-item view">  <div style="font-size:30px" class="text-center" > <i class="fa fa-spinner" aria-hidden="true"></i> </div> </li>';
     var noDataHtml = '<li class="list-group-item view" > <div class="alert alert-info" role="alert" > No data available </div> </li>';
     
-    function loadFeedbackSurveyReport(refresh) {
+    function loadCxSurveyReport(refresh) {
     	var feedbackFlowHolder = $('#feedback_survey_flow');
     	
-    	if( defaultSurveyTemplateId === false ){
+    	if( defaultSurveyTemplateId === false ) {
     		feedbackFlowHolder.html(noDataHtml); 
     		return;
-    	} else {
+    	} 
+    	else {
     		feedbackFlowHolder.html(spinnerHtml); 
     		
     		var dateFilter = getDateFilterValues();
@@ -429,12 +448,17 @@
     	}
     }
     
+    function loadCxTouchpointReport(refresh) {
+    	// 5t 5tt5
+    	alert("TODO")
+    }
+    
     function refreshDashboardCX(){
     	var reportType = $('#cx_report_tab_buttons li.active').data('report-type');
     	if(reportType === "rating") {
-    		loadFeedbackRatingReport(true);
+    		loadCxRatingReport(true);
     	} else {
-    		loadFeedbackSurveyReport(true);
+    		loadCxSurveyReport(true);
     	}
     }
     

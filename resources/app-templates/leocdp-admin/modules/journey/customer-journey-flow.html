@@ -873,31 +873,31 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 	            </div>
 				<div id="code_holder" ><textarea id="data_observer_code" class="code">
 // (1) LEO OBSERVER: load JavaScript code for [__tpHubName__]
-	(function() {
-   		window.leoObserverLogDomain = "__leoObserverDomain__";
-   		window.leoObserverCdnDomain = "__staticFileDomain__";
-		window.leoObserverId = "__leoObserverId__";
-		// Data Touchpoint Metadata 
-		window.srcTouchpointName = encodeURIComponent(document.title);
-		window.srcTouchpointUrl = encodeURIComponent(location.href);
-	
-		var leoproxyJsPath = '/js/leo-observer/leo.proxy.min.js';
-	    var src = location.protocol + '//' + window.leoObserverCdnDomain + leoproxyJsPath;
-	    var jsNode = document.createElement('script');
-	    jsNode.async=true; jsNode.defer=true; jsNode.src = src;
-	    var s = document.getElementsByTagName('script')[0];
-	    s.parentNode.insertBefore(jsNode, s);
-	})();
+(function() {
+  		window.leoObserverLogDomain = "__leoObserverDomain__";
+  		window.leoObserverCdnDomain = "__staticFileDomain__";
+	window.leoObserverId = "__leoObserverId__";
+	// Data Touchpoint Metadata 
+	window.srcTouchpointName = encodeURIComponent(document.title);
+	window.srcTouchpointUrl = encodeURIComponent(location.href);
+
+	var leoproxyJsPath = '/js/leo-observer/leo.proxy.min.js';
+    var src = location.protocol + '//' + window.leoObserverCdnDomain + leoproxyJsPath;
+    var jsNode = document.createElement('script');
+    jsNode.async=true; jsNode.defer=true; jsNode.src = src;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jsNode, s);
+})();
 	
 // (2) LEO OBSERVER: set-up all event tracking functions
-    var LeoObserver = {};
-    __eventTrackingFunctions__
+var LeoObserver = {};
+__eventTrackingFunctions__
     
 // (3) LEO OBSERVER is ready
-	function leoObserverProxyReady(session) {
-	   	// auto tracking when LEO CDP JS is ready
-	   	__autoTrackingFunctions__
-	}
+function leoObserverProxyReady(session) {
+   	// auto tracking when LEO CDP JS is ready
+   	__autoTrackingFunctions__
+}
 				</textarea></div>
 			</div>  
 			<div class="modal-footer">
@@ -917,21 +917,21 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 			</div>         
 			<div class="modal-body row">
 				<div id="code_holder" ><textarea id="data_observer_code" class="code">
-	(function() {
-	    // Lead Form Code for touchpoint: __tpHubName__
-		window.srcTouchpointName = encodeURIComponent(document.title);
-		window.srcTouchpointUrl = encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
-		
-		var t = new Date().getTime();
-		var ifrm = document.createElement("iframe");
-        ifrm.setAttribute("src", "https://__LeoObserverDomain__/webform?obsid=" + "__leoObserverId__" + "&_t=" + t);
-        ifrm.style.width = "100%";
-        ifrm.style.height = "800px";
-        ifrm.width = "100%";
-        ifrm.height = "800";
-        ifrm.frameBorder = "0";
-		document.writeln(ifrm.outerHTML);
-	})();
+(function() {
+    // Lead Form Code for touchpoint: __tpHubName__
+	window.srcTouchpointName = encodeURIComponent(document.title);
+	window.srcTouchpointUrl = encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
+	
+	var t = new Date().getTime();
+	var ifrm = document.createElement("iframe");
+       ifrm.setAttribute("src", "https://__LeoObserverDomain__/webform?obsid=" + "__leoObserverId__" + "&_t=" + t);
+       ifrm.style.width = "100%";
+       ifrm.style.height = "800px";
+       ifrm.width = "100%";
+       ifrm.height = "800";
+       ifrm.frameBorder = "0";
+	document.writeln(ifrm.outerHTML);
+})();
 				</textarea></div>
 			</div>  
 			<div class="modal-footer">
@@ -1096,11 +1096,13 @@ setTimeout(function(){
 		src += ("&obsid=" + observerId );
 		src += ("&tpurl=" + encodeURIComponent(location.href) );
 		src += ("&cb=" + cb );
-		// width and height
+		
+		// Set width and height of iframe
 		var h = '500px';
 		var w = '300px';
 		var style = "width:"+w+"; height:"+h;
 		style += "; overflow-y:scroll; margin:auto; display:block; border:none;";
+		
 		// append DOM
 		var f = document.createElement('iframe');
 		f.setAttribute("src", src);
@@ -1109,7 +1111,7 @@ setTimeout(function(){
 		var s = document.getElementById('leo_recommender_'+observerId);
 	    s.parentNode.insertBefore(f, s);
 	})
-},860);
+},800);
 					</textarea>
 				</div>
 			</div>  
@@ -1120,7 +1122,6 @@ setTimeout(function(){
 		</div>
 	</div>
 </div>
-
 
 <div class="modal fade" id="redisSourceInfoDialog" role="dialog">
 	<div class="modal-dialog modal-lg">
@@ -1143,7 +1144,6 @@ setTimeout(function(){
 		</div>
 	</div>
 </div>
-
 
 <div class="modal fade" id="observerApiInfoDialog" role="dialog">
 	<div class="modal-dialog modal-lg">
