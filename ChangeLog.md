@@ -1,20 +1,27 @@
 # Changelog for LEO CDP
 
-## [0.9.0] - 2022-01-14 
+## [0.9.0] - 2022-02-28 
 
-### TODO 
-- [In Progress] Profile Data Insight and Summary Report
+### TODO for version [0.9.x]
+
+#### High priority
+- [In Progress] Segment Data Synch with time scheduler
+- [In Progress] Profile Finance Data Report
+- [In Progress] Profile Journey Flow Report
+- [In Progress] Profile Data Scoring with Jupyter notebook
 - [In Progress] Segment Activation: sending email directly from LEO CDP
+
+#### Low priority
 - [In Progress] Segment Activation: sending web notification directly from LEO CDP
 - [In Progress] Segment Activation: sending SMS directly from LEO CDP
-- [In Progress] Segment Data Synch with time scheduler
-- [In Progress] Profile Data Scoring with Jupyter notebook
 - [In Progress] Profile Data Reporting with Jupyter notebook
 - [In Progress] The flow to register new instance LEO CDP
 
-## [0.8.9] - 2021-12-28
+## [0.8.9] - 2022-02-22
 
 ### Added 
+
+- Get CX tracking code at touchpoint hub
 - new template survey "Khảo sát ý kiến người dùng về giao diện của website" to collect feedback data
 - add new TouchpointHubType.INPUT_DATA_SOURCE: can import profile data directly from Redis
 - [UI] segment: Data Activation Purposes
@@ -29,10 +36,14 @@
 - [JavaScript] added lightbox2 as default library to zoom in images
 
 ### Fixed 
+
 - [backend] save new profile from web is not worked
 - [Login] User Session in Redis is expired, the Admin UI should let user login again
 
 ### Changed
+
+- [UI] UI to track CX rating data
+- [UI] upgrade chartjs version 3.7.1
 - [UI] show highlight profile with data quality score from 25 points
 - [UI] move personalization for segment into a separate tab
 - [UI] improve UX of profile editor
@@ -49,7 +60,7 @@
 
 ### Added new features 
 
-- Ads By Leo CDP: increase ranking "add-to-cart" items and decrease ranking "purchase" items
+- Ads By Leo: increase ranking "add-to-cart" items and decrease ranking "purchase" items
 - optimize flow for ecommerce by tracking events in shopping cart
 - the free quota of Leo CDP is 500 profiles
 - merge Feedback Survey data into Profile data automatically

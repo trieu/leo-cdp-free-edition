@@ -16,9 +16,15 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # General Data Flow
 
-[![Leo CDP Flow](https://blogger.googleusercontent.com/img/a/AVvXsEhMgSHVZ0DjWVDc7Q3hxeno-nwJB0juSrtgUaRFgKyksN7tHZ3yHL6K4s1jevo9i03XltuEUUvSK1zuzxmFJ555maAEgmwcU5jXiU5oqha9pqwrPS1s8_13WT4oMuK81246JzV0KCCoPxlCfBU3jGvduSakpr68ByaiE7RNhSHwfhbmCKgLNqZhATiJ=s2048)](https://speakerdeck.com/trieu/why-is-leo-cdp-important-for-digital-business)
+[![Leo CDP Flow](https://blogger.googleusercontent.com/img/a/AVvXsEhMgSHVZ0DjWVDc7Q3hxeno-nwJB0juSrtgUaRFgKyksN7tHZ3yHL6K4s1jevo9i03XltuEUUvSK1zuzxmFJ555maAEgmwcU5jXiU5oqha9pqwrPS1s8_13WT4oMuK81246JzV0KCCoPxlCfBU3jGvduSakpr68ByaiE7RNhSHwfhbmCKgLNqZhATiJ=s2048)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)
 
-[![Leo CDP Flow](https://blogger.googleusercontent.com/img/a/AVvXsEj02mYGBy1EbDXshyGrppyfi_RZAls08cqegjM5UVPD7rTGBAOQXLDHyxImvZ2X9J69DaKIx2qN795z7CcraKfNFIl4h6Ha2OvNy0FvRaRF5eG3J_ZRFEnxbBnpICpOTeFDWPEcsL4g6faa_Tz9nDX7DisdH5zas856A-uIDOKg4LF5sm3vrjkVfsEe=s2501)](https://speakerdeck.com/trieu/why-is-leo-cdp-important-for-digital-business)
+[![Leo CDP Flow](https://blogger.googleusercontent.com/img/a/AVvXsEi739DAhh9-QKBp_UHKPNVVe_r1NZBoxfWuKc323lNatk-oGjlOrtGV9yoiuuMt_lZr2mLk0lh_CpC-QRDcQManrR9LahcmgQSf6IsmqaVFVKpwLKRFhSyOZ-F0mODcxdGMUd4V8gBeCqQ9s0s3ml2JmLdQv1vB_IRaODRjdXeni1SY-Xmp1Pi9VaKi=s2322)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)
+
+# Documents
+
+* [Data Model and Customer Journey Map Sample](https://docs.google.com/spreadsheets/d/1hzSvkmTE8WuvUFqnpWNfsPMzpjF8gYOSJfkc9eJIjWk/edit?usp=sharing)
+* [Core Functions for Analytics CDP](https://docs.google.com/document/d/1cavhFAs_uX-98qUvtXJI3v859I6h3knl0m_tSQ4235M/edit?usp=sharing)
+* [Data strategy with LEO CDP](https://docs.google.com/document/d/1la6mP21gfd2bHlpwj4hBTRQlxaPfhnpQRL6fV223Es0/edit?usp=sharing)
 
 # Technology Architecture
 
