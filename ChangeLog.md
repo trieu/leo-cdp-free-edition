@@ -5,16 +5,18 @@
 ### TODO for version [0.9.x]
 
 #### High priority
-- [In Progress] Segment Data Synch with time scheduler
+
 - [In Progress] Profile Finance Data Report
 - [In Progress] Profile Journey Flow Report
+- [In Progress] Segment Data Synch with time scheduler
 - [In Progress] Profile Data Scoring with Jupyter notebook
-- [In Progress] Segment Activation: sending email directly from LEO CDP
+- [In Progress] Segment Activation: sending email directly with SMTP from LEO CDP
 
 #### Low priority
+
 - [In Progress] Segment Activation: sending web notification directly from LEO CDP
 - [In Progress] Segment Activation: sending SMS directly from LEO CDP
-- [In Progress] Profile Data Reporting with Jupyter notebook
+- [In Progress] Data Reporting with Jupyter notebook
 - [In Progress] The flow to register new instance LEO CDP
 
 ## [0.8.9] - 2022-02-22

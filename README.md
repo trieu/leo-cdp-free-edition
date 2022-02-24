@@ -36,13 +36,13 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 2. Redis 6
 3. Amazon Java 8 Corretto
 4. Python 3.8
-5. ArangoDB 3.8 (Community or Enterprise Edition or Cloud Oasis)
-6. Jupyter Notebook / Google Colab for advanced data analytics and A.I model
+5. ArangoDB 3.8 (Community Edition or Enterprise Edition or Cloud Oasis)
+6. Jupyter Notebook / Google Colab for advanced data analytics and machine learning services
 7. Apache Airflow for ETL job scheduling and data connector
 8. Prometheus 2 for System Monitoring
 9. Grafana 8 for System Monitoring
 
-## Proposal solutions for digital marketing services
+## Proposal solutions for digital marketing services / data activation services
 
 1. Mailchimp / SendInBlue for Email Marketing
 2. OneSignal / SendPulse / Firebase Cloud Messaging for push notification
@@ -98,7 +98,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 * Miễn phí sử dụng, chỉ cần tôn trọng bản quyền tác giả là được
 * Số profile miễn phí là 1000 user profiles
-* Nếu bạn đang làm việc trong lĩnh vực giáo dục hoặc tổ chức phi lợi nhuận, gửi cho tôi email để có miễn phí cho 100.000 profiles
+* Nếu bạn đang làm việc trong lĩnh vực giáo dục hoặc tổ chức phi lợi nhuận, gửi cho tôi email để có miễn phí cho 10000 profiles
 
 ## Bằng chứng về bản quyền mô hình framework USPA và phát minh LEO CDP 
 
