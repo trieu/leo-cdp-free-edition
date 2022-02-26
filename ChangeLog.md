@@ -40,6 +40,7 @@
 
 ### Fixed 
 
+- [backend] import profile with data validation rules
 - [backend] save new profile from web is not worked
 - [Login] User Session in Redis is expired, the Admin UI should let user login again
 
