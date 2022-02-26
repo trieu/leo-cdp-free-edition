@@ -75,7 +75,6 @@
 					</div>
 				</div>
 				
-				
 			</div>
 			<div class="col-md-6" > 
 				<div class="col-md-6" >
@@ -115,7 +114,8 @@
 <div class="row gridholder">
     <div class="col-lg-12">
         <div class="table-responsive">
-            <table id="profile-list" class="display" style="width:100%">
+        	<div id="profile_list_loader" class="loader"></div>
+            <table id="profile_list" class="display" style="width:100%; display: none;">
                 <thead>
                     <tr>
                         <th class="text-center" title="A profile that has mobile phone or email">Has Contact</th>
@@ -123,8 +123,8 @@
                         <th >Last-seen Touchpoint</th>
                         <th class="text-center">Data Quality</th>
                         <th class="text-center">Journey Score</th>
-                        <th >Primary Email</th>
-                        <th >Primary Phone</th>
+                        <th > Email</th>
+                        <th > Phone</th>
                         <th >Updated at</th>
                         <th >Actions</th>
                     </tr>
@@ -163,8 +163,8 @@
     		var encodedString = Base64.encode(keywords);
     		location.hash = "calljs-leoCdpRouter('Customer_Profile_Search','" + encodedString + "')";
     	} 
-    	$('#profile-list').DataTable().clear();
-	    $('#profile-list').DataTable().ajax.reload();
+    	$('#profile_list').DataTable().clear();
+	    $('#profile_list').DataTable().ajax.reload();
 	}
 	
 	function filterOnlyContactableProfiles(node){
@@ -252,7 +252,7 @@
     	}
         var usersession = getUserSession();
         if (usersession) {
-            dataTable = $('#profile-list').DataTable({
+            dataTable = $('#profile_list').DataTable({
             	"lengthMenu": [[30, 50, 70], [30, 50, 70]],
             	'processing': true,
                 'serverSide': true,
@@ -263,6 +263,9 @@
                     url: baseLeoAdminUrl + '/cdp/profiles/filter',
                     contentType: 'application/json',
                     beforeSend: function (request) {
+                    	$("#profile_list_loader").show();
+                    	$("#profile_list").hide();
+                    	
                         request.setRequestHeader("leouss", usersession);
                     },
                     data: function (d) {
@@ -297,6 +300,9 @@
             				$('button.data-control-insert').attr('disabled','disabled');
             				$('button.data-control-update').attr('disabled','disabled');
             			}
+                		
+                		$("#profile_list").show();
+                		$("#profile_list_loader").hide();
                 		return json.data;
                      }
                 },

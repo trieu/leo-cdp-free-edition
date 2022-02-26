@@ -31,7 +31,8 @@
 			<h4> <i class="fa fa-object-group" aria-hidden="true"></i> Segment Data Management </h4>
 		</div>
 	    <div class="table-responsive">
-	        <table id="segment-list" class="display" style="width:100%">
+	    	<div id="segment_list_loader" class="loader"></div>
+	        <table id="segment_list" class="display" style="width:100%; display: none;">
 	            <thead>
 	                <tr>
 	                    <th>Segment Name</th>
@@ -56,8 +57,8 @@
 	var canEditData = false, canDeteteData = false, dataTable = false;
 	
 	function refreshSegmentTable() {
-	    $('#segment-list').DataTable().clear();
-	    $('#segment-list').DataTable().ajax.reload();
+	    $('#segment_list').DataTable().clear();
+	    $('#segment_list').DataTable().ajax.reload();
 	}
 	
 	function loadSegmentList() {
@@ -86,7 +87,7 @@
        	];
         
         if (usersession) {
-            $('#segment-list').DataTable({
+            $('#segment_list').DataTable({
             	"lengthMenu": [[20, 30, 40], [20, 30, 40]],
             	'processing': true,
                 'serverSide': true,
@@ -97,6 +98,8 @@
                     url: baseLeoAdminUrl + "/cdp/segments/filter",
                     contentType: 'application/json',
                     beforeSend: function (request) {
+                    	$("#segment_list_loader").show();
+                    	$("#segment_list").hide();
                         request.setRequestHeader("leouss", usersession);
                     },
                     data: function (d) {
@@ -116,6 +119,9 @@
                 		if( ! json.canInsertData ){
             				$('button.data-control-insert').attr('disabled','disabled');
             			}
+                		
+                    	$("#segment_list").show();
+                    	$("#segment_list_loader").hide();
                 		return json.data;
                      }
                 },
