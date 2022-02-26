@@ -23,6 +23,7 @@
 
 ### Added 
 
+- upgrade system command-line tool
 - Get CX tracking code at touchpoint hub
 - new template survey "Khảo sát ý kiến người dùng về giao diện của website" to collect feedback data
 - add new TouchpointHubType.INPUT_DATA_SOURCE: can import profile data directly from Redis
