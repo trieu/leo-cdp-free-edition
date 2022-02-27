@@ -22,7 +22,8 @@
       </div>
 </div>
 
-<div class="container-fluid" id="primary_dashboard" >
+<div id="primary_dashboard_loader" class="loader"></div>
+<div id="primary_dashboard" class="container-fluid"  style="display: none;" >
 
     <div class="row">
         
@@ -279,7 +280,12 @@
     		}
     	}
         
+    	$("#primary_dashboard_loader").show();
+    	$("#primary_dashboard").hide();
         LeoAdminApiUtil.getSecuredData(urlStr, datetimeFilter , function (json) {
+        	$("#primary_dashboard_loader").hide();
+        	$("#primary_dashboard").show();
+        	
             if (json.httpCode === 0 && json.errorMessage === '') {
         		
         		var profileTotalStats = json.data.profileTotalStats;
@@ -290,8 +296,6 @@
                 visualizeFunnel('#profile_funnel', profileFunnelData);
                 
                 $('.collector-count').css('font-size',dashboardFontSize+'px');
-                
-
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);
             }

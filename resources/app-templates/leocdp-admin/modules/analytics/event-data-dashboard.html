@@ -40,7 +40,8 @@
 	    </div>
      	  
     	<!--  Time-series -->
-      	<div class="col-lg-12" >
+    	<div id="event_dashboard_loader" class="loader"></div>
+      	<div id="event_dashboard" class="col-lg-12" style="display: none;" >
       		<div class="col-lg-9 highlight_box">
       			<div class='text-center' style="margin-bottom: 15px">
 					<h4> <i class="fa fa-line-chart" aria-hidden="true"></i> Event Data Report from 
@@ -94,7 +95,12 @@
         
     	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/event-report/summary';
     	
+    	$("#event_dashboard_loader").show();
+    	$("#event_dashboard").hide();
     	LeoAdminApiUtil.getSecuredData(urlStr, params , function (json) {
+        	$("#event_dashboard_loader").hide();
+        	$("#event_dashboard").show();
+        	
             if (json.httpCode === 0 && json.errorMessage === '') {
         		//  profile stats
         		var profileCount =  new Number(json.data.profileCount).toLocaleString(); 
