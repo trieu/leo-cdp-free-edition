@@ -33,105 +33,108 @@
 <div class="top_page_header" >
 	<h4> <i class="fa fa-users" aria-hidden="true"></i> Profile Data Management </h4>
 </div>
-		
-<div class="panel panel-info" >
-   	<div class="panel-heading">
-   		<b> <i class="fa fa-search" aria-hidden="true"></i> Data Filter </b>
-   	</div>
-    <div class="panel-body">
-      	<div class="col-md-12 row">
-			<div class="col-md-6" style="background-color:#f5f5f5; border-radius: 5px;padding-top: 5px"> 
-				<div class="col-md-12">
-					<label title="Filter all profiles that have mobile phone or email" > 
-							<input id="filterOnlyContactable" type="checkbox" onchange="filterOnlyContactableProfiles(this)" > Filter contact profiles  
-					</label>
-				</div> 
-				<div class="col-md-12">
-					<label title="Filter all profiles within the specified date range"> 
-						<input id="disable_date_filter" type="checkbox" onclick="toggleProfileDisableDateFilter(false)" > Turn off date filter 
-					</label>
+
+<div id="profile_list_loader" class="loader"></div>
+<div id="profile_list" style="display: none;" >		
+	<div class="panel panel-info" >
+	   	<div class="panel-heading">
+	   		<b> <i class="fa fa-search" aria-hidden="true"></i> Data Filter </b>
+	   	</div>
+	    <div class="panel-body">
+	      	<div class="col-md-12 row">
+				<div class="col-md-6" style="background-color:#f5f5f5; border-radius: 5px;padding-top: 5px"> 
+					<div class="col-md-12">
+						<label title="Filter all profiles that have mobile phone or email" > 
+								<input id="filterOnlyContactable" type="checkbox" onchange="filterOnlyContactableProfiles(this)" > Filter contact profiles  
+						</label>
+					</div> 
+					<div class="col-md-12">
+						<label title="Filter all profiles within the specified date range"> 
+							<input id="disable_date_filter" type="checkbox" onclick="toggleProfileDisableDateFilter(false)" > Turn off date filter 
+						</label>
+						
+					</div> 
+					<div class="col-md-12">
+						<div id='beginFilterDateHolder' class="col-md-6"> 
+							<div class="form-group">
+				            	<b>Since the updated date </b>
+				                <div class='input-group date' id='beginFilterDate'>
+				                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar"></span>
+				                    </span>
+				                </div>
+				            </div>
+						</div>
+						<div id='endFilterDateHolder' class="col-md-6"> 
+							<div class="form-group">
+				           	 	<b> To the last updated date </b>
+				                <div class='input-group date' id='endFilterDate'>
+				                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar"></span>
+				                    </span>
+				                </div>
+				            </div>
+						</div>
+					</div>
 					
-				</div> 
-				<div class="col-md-12">
-					<div id='beginFilterDateHolder' class="col-md-6"> 
-						<div class="form-group">
-			            	<b>Since the updated date </b>
-			                <div class='input-group date' id='beginFilterDate'>
-			                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
-			                        <span class="glyphicon glyphicon-calendar"></span>
-			                    </span>
-			                </div>
-			            </div>
-					</div>
-					<div id='endFilterDateHolder' class="col-md-6"> 
-						<div class="form-group">
-			           	 	<b> To the last updated date </b>
-			                <div class='input-group date' id='endFilterDate'>
-			                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
-			                        <span class="glyphicon glyphicon-calendar"></span>
-			                    </span>
-			                </div>
-			            </div>
-					</div>
 				</div>
-				
-			</div>
-			<div class="col-md-6" > 
-				<div class="col-md-6" >
-					<div class="dropdown">
-					    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter a profile by
-					    <span class="caret"></span></button>
-					    <ul class="dropdown-menu">
-					    	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterEmail')" >Primary Email</a></li>
-					      	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterPhone')" >Primary Phone</a></li>
-					      	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterByVisitorId')" >Web Visitor ID</a></li>
-					      	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterByProfileId')" >Profile ID</a></li>
-					    </ul>
-					</div>
-					<div id="profile_filter_inputs" >
-						<input type="hidden" id="filterName" value="" >
-						<input style="margin-top:10px; " type="text" class="form-control" id="filterEmail" placeholder="Enter primary email" >
-						<input style="margin-top:10px; display: none;" type="text" class="form-control" id="filterPhone" placeholder="Enter primary phone number" >
-				  		<input style="margin-top:10px; display: none;" type="text" class="form-control" id="filterByVisitorId" placeholder="Enter web visitor ID" >
-				  		<input style="margin-top:10px; display: none;" type="text" class="form-control" id="filterByProfileId" placeholder="Enter profile ID" >
-					</div>
-				</div>
-				<div class="col-md-6" >
-					<div class="col-md-12" style="padding:15px;">
-						<div class="col-md-6" >
-						 	<button type="button" class="btn" onclick="resetProfileSearch()" ><i class="fa fa-fw fa-undo"></i> Reset </button>
+				<div class="col-md-6" > 
+					<div class="col-md-6" >
+						<div class="dropdown">
+						    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter a profile by
+						    <span class="caret"></span></button>
+						    <ul class="dropdown-menu">
+						    	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterEmail')" >Primary Email</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterPhone')" >Primary Phone</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterByVisitorId')" >Web Visitor ID</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterByProfileId')" >Profile ID</a></li>
+						    </ul>
 						</div>
-						<div class="col-md-6" >
-						 	<button type="button" class="btn btn-primary" onclick="doProfileSearch()" ><i class="fa fa-fw fa-filter"></i> Filter </button>
+						<div id="profile_filter_inputs" >
+							<input type="hidden" id="filterName" value="" >
+							<input style="margin-top:10px; " type="text" class="form-control" id="filterEmail" placeholder="Enter primary email" >
+							<input style="margin-top:10px; display: none;" type="text" class="form-control" id="filterPhone" placeholder="Enter primary phone number" >
+					  		<input style="margin-top:10px; display: none;" type="text" class="form-control" id="filterByVisitorId" placeholder="Enter web visitor ID" >
+					  		<input style="margin-top:10px; display: none;" type="text" class="form-control" id="filterByProfileId" placeholder="Enter profile ID" >
+						</div>
+					</div>
+					<div class="col-md-6" >
+						<div class="col-md-12" style="padding:15px;">
+							<div class="col-md-6" >
+							 	<button type="button" class="btn" onclick="resetProfileSearch()" ><i class="fa fa-fw fa-undo"></i> Reset </button>
+							</div>
+							<div class="col-md-6" >
+							 	<button type="button" class="btn btn-primary" onclick="doProfileSearch()" ><i class="fa fa-fw fa-filter"></i> Filter </button>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-    </div>
-</div>
+	    </div>
+	</div>
     
-<div class="row gridholder">
-    <div class="col-lg-12">
-        <div class="table-responsive">
-        	<div id="profile_list_loader" class="loader"></div>
-            <table id="profile_list" class="display" style="width:100%; display: none;">
-                <thead>
-                    <tr>
-                        <th class="text-center" title="A profile that has mobile phone or email">Has Contact</th>
-                        <th >Full Name</th>
-                        <th >Last-seen Touchpoint</th>
-                        <th class="text-center">Data Quality</th>
-                        <th class="text-center">Journey Score</th>
-                        <th > Email</th>
-                        <th > Phone</th>
-                        <th >Updated at</th>
-                        <th >Actions</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-    </div>
+	<div class="row gridholder">
+	    <div class="col-lg-12">
+	        <div class="table-responsive">
+	        	
+	            <table id="profile_list_table" class="display" style="width:100%;">
+	                <thead>
+	                    <tr>
+	                        <th class="text-center" title="A profile that has mobile phone or email">Has Contact</th>
+	                        <th >Full Name</th>
+	                        <th >Last-seen Touchpoint</th>
+	                        <th class="text-center">Data Quality</th>
+	                        <th class="text-center">Journey Score</th>
+	                        <th > Email</th>
+	                        <th > Phone</th>
+	                        <th >Updated at</th>
+	                        <th >Actions</th>
+	                    </tr>
+	                </thead>
+	            </table>
+	        </div>
+	    </div>
+	</div>
 </div>
     
 <script>
@@ -163,8 +166,8 @@
     		var encodedString = Base64.encode(keywords);
     		location.hash = "calljs-leoCdpRouter('Customer_Profile_Search','" + encodedString + "')";
     	} 
-    	$('#profile_list').DataTable().clear();
-	    $('#profile_list').DataTable().ajax.reload();
+    	$('#profile_list_table').DataTable().clear();
+	    $('#profile_list_table').DataTable().ajax.reload();
 	}
 	
 	function filterOnlyContactableProfiles(node){
@@ -252,7 +255,7 @@
     	}
         var usersession = getUserSession();
         if (usersession) {
-            dataTable = $('#profile_list').DataTable({
+            dataTable = $('#profile_list_table').DataTable({
             	"lengthMenu": [[30, 50, 70], [30, 50, 70]],
             	'processing': true,
                 'serverSide': true,
@@ -301,8 +304,10 @@
             				$('button.data-control-update').attr('disabled','disabled');
             			}
                 		
-                		$("#profile_list").show();
+                		// done, show UI
                 		$("#profile_list_loader").hide();
+                		$("#profile_list").show();
+                		
                 		return json.data;
                      }
                 },

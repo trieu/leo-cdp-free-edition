@@ -25,14 +25,15 @@
 	</div>
 </div>
 
-<div class="row">
+<div id="segment_list_loader" class="loader"></div>
+<div id="segment_list" class="row" style="display: none;">
 	<div class="col-lg-12">
 		<div class="top_page_header" >
 			<h4> <i class="fa fa-object-group" aria-hidden="true"></i> Segment Data Management </h4>
 		</div>
 	    <div class="table-responsive">
-	    	<div id="segment_list_loader" class="loader"></div>
-	        <table id="segment_list" class="display" style="width:100%; display: none;">
+	    	
+	        <table id="segment_list_table" class="display" style="width:100%;">
 	            <thead>
 	                <tr>
 	                    <th>Segment Name</th>
@@ -57,8 +58,8 @@
 	var canEditData = false, canDeteteData = false, dataTable = false;
 	
 	function refreshSegmentTable() {
-	    $('#segment_list').DataTable().clear();
-	    $('#segment_list').DataTable().ajax.reload();
+	    $('#segment_list_table').DataTable().clear();
+	    $('#segment_list_table').DataTable().ajax.reload();
 	}
 	
 	function loadSegmentList() {
@@ -87,7 +88,7 @@
        	];
         
         if (usersession) {
-            $('#segment_list').DataTable({
+            $('#segment_list_table').DataTable({
             	"lengthMenu": [[20, 30, 40], [20, 30, 40]],
             	'processing': true,
                 'serverSide': true,
@@ -120,8 +121,10 @@
             				$('button.data-control-insert').attr('disabled','disabled');
             			}
                 		
+                		// done show UI
+                		$("#segment_list_loader").hide();
                     	$("#segment_list").show();
-                    	$("#segment_list_loader").hide();
+                    	
                 		return json.data;
                      }
                 },
