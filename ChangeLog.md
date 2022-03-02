@@ -19,6 +19,19 @@
 - [In Progress] Data Reporting with Jupyter notebook
 - [In Progress] The flow to register new instance LEO CDP
 
+## [0.9.0] - 2022-03-06
+
+### Added 
+
+- [Data Model] AbstractProfile
+- [In Progress] BusinessAccount for B2B CDP
+
+### Changed
+
+- [Scoring Rule] profile data quality scoring rule
+- [UI] UI to show profile with data quality score > 200
+
+
 ## [0.8.9] - 2022-02-22
 
 ### Added 

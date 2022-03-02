@@ -472,18 +472,22 @@
         			$('button.data-control-edit').attr('disabled','disabled');
         		}
                 
+        		// init UI after setting data into DOM 
+        		
+        		// segment event report
         		loadSegmentEventReport();
         		
+        		// 
                 setupSegmentDataAndReports(segmentDataModel)
                 
+                //
                 setupSegmentPurposesActivation(segmentDataModel)
-               
-             	// init UI after setting data into DOM
-             	
+
+  				// Activation Plan
                 loadActivationPlanTable(segmentDataModel.allActivationRules);
-                
-                
+                // Segment Statistics
                 loadSegmentStatistics(segmentDataStats);
+                // Segment Query Builder
                 loadSegmentBuilder(behavioralEventMap, jsonQueryRules, true, false);
                 
                 loadProfilesInSegment();
@@ -590,9 +594,10 @@
 	           	   $(buttonSelector).data("url",url);
 	           	   $(aSel).attr("href",url).show();
 	               
-	           	   setTimeout(function(){  $(buttonSelector).data("init-done",true).trigger('click') }, 100);
+	           	   setTimeout(function(){  
+	           		   $(buttonSelector).data("init-done",true).trigger('click') 
+	           	   }, 100);
 
-	               //window.open(url, '_blank');
 	            }
 	        });
 		}
@@ -819,7 +824,6 @@
 	     }
 	}
 	
-
 	
 	var doDataSynchronization = function(node){
 		var connectorId = $('#dataConnectorHolder input[name="dataconnector"]:checked').val();
