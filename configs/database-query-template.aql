@@ -364,29 +364,29 @@ AQL_GET_FILE_METADATA_BY_OBJECT =>
 ########### PROFILE  ########################################################################################################;
 
 AQL_COUNT_TOTAL_CONTACT_PROFILES =>
-	FOR d IN cdp_profile
-    FILTER d.status > 0 AND d.type > 0
+	FOR p IN cdp_profile
+    FILTER p.status > 0 AND p.type > 0
     COLLECT WITH COUNT INTO length
 	RETURN length
 ;
 
 AQL_COUNT_TOTAL_ANONYMOUS_PROFILES => 
-	FOR d IN cdp_profile
-    FILTER d.status > 0 AND d.type == 0 
+	FOR p IN cdp_profile
+    FILTER p.status > 0 AND p.type == 0 
     COLLECT WITH COUNT INTO length
 	RETURN length
 ;
 
 AQL_COUNT_TOTAL_BUSINESS_PROFILES =>
-	FOR d IN cdp_profile
-    FILTER d.status > 0 AND d.type > 0 AND ("purchase" IN d.behavioralEvents || "subscribe" IN d.behavioralEvents)
+	FOR p IN cdp_profile
+    FILTER p.status > 0 AND p.type > 0 AND ("purchase" IN p.behavioralEvents || "subscribe" IN p.behavioralEvents)
     COLLECT WITH COUNT INTO length
 	RETURN length
 ;
 
 AQL_COUNT_TOTAL_UNHAPPY_PROFILES =>
-	FOR d IN cdp_profile
-    FILTER d.status > 0 AND d.type > 0 AND d.funnelStage == "happy-profile" 
+	FOR p IN cdp_profile
+    FILTER p.status > 0 AND p.type > 0 AND p.funnelStage == "happy-profile" 
     COLLECT WITH COUNT INTO length
 	RETURN length
 ;
@@ -406,40 +406,46 @@ AQL_GET_PROFILES_BY_PAGINATION =>
 	RETURN p
 ;
 
-AQL_GET_PROFILE_BY_ID =>
-	FOR e in cdp_profile 
-	FILTER e._key == @id  
-	RETURN e
+AQL_GET_PROFILE_BY_ID_FOR_SYSTEM =>
+	FOR p in cdp_profile 
+	FILTER p._key == @id
+	RETURN p
+;
+
+AQL_GET_PROFILE_BY_ID_FOR_ADMIN =>
+	FOR p in cdp_profile 
+	FILTER p._key == @id AND (@loginUsername IN p.authorizedViewers[*] OR LENGTH(p.authorizedViewers) == 0)
+	RETURN p
 ;
 
 AQL_GET_PROFILE_BY_PRIMARY_EMAIL =>
-	FOR e in cdp_profile 
-	FILTER e.primaryEmail == @email AND e.status == 1
-	RETURN e
+	FOR p in cdp_profile 
+	FILTER p.primaryEmail == @email AND p.status == 1
+	RETURN p
 ;
 
 AQL_GET_PROFILE_BY_PRIMARY_PHONE =>
-	FOR e in cdp_profile 
-	FILTER e.primaryPhone == @phone AND e.status == 1
-	RETURN e
+	FOR p in cdp_profile 
+	FILTER p.primaryPhone == @phone AND p.status == 1
+	RETURN p
 ;
 
 AQL_GET_PROFILE_BY_VISITOR_ID =>
-	FOR e in cdp_profile 
-	FILTER @visitorId == e.visitorId AND e.status == 1
-	RETURN e
+	FOR p in cdp_profile 
+	FILTER @visitorId == p.visitorId AND p.status == 1
+	RETURN p
 ;
 
 AQL_GET_PROFILE_BY_LOGIN_INFO =>
-	FOR e in cdp_profile 
-	FILTER @loginInfo IN e.identities[*] AND e.status == 1
-	RETURN e
+	FOR p in cdp_profile 
+	FILTER @loginInfo IN p.identities[*] AND p.status == 1
+	RETURN p
 ;
 
 AQL_GET_PROFILE_BY_LOGIN_INFO_WITH_PASSWORD =>
-	FOR e in cdp_profile 
-	FILTER @loginInfo IN e.identities[*] AND e.password == @password AND e.status == 1
-	RETURN e
+	FOR p in cdp_profile 
+	FILTER @loginInfo IN p.identities[*] AND p.password == @password AND p.status == 1
+	RETURN p
 ;
 
 AQL_GET_PROFILE_BY_IDENTITY_RESOLUTION => 
@@ -513,7 +519,10 @@ AQL_GET_ALL_PROFILE_IDS_IN_SEGMENT =>
 AQL_INSERT_SEGMENT_REF_KEY_FOR_PROFILE =>
 	FOR p in cdp_profile
 	    FILTER  p._key == @profileId
-	    UPDATE p WITH { inSegments: [ {id: @segmentId, name: @segmentName, indexScore: @segmentIndexScore, queryHashedId: @queryHashedId} ] } IN cdp_profile
+	    UPDATE p WITH { 
+	    	inSegments: [ {id: @segmentId, name: @segmentName, indexScore: @segmentIndexScore, queryHashedId: @queryHashedId} ],
+	    	authorizedViewers : @authorizedViewers, authorizedEditors : @authorizedEditors
+	    } IN cdp_profile
 ;
 
 AQL_UPDATE_SEGMENT_REF_KEY_FOR_PROFILE =>
@@ -524,14 +533,14 @@ AQL_UPDATE_SEGMENT_REF_KEY_FOR_PROFILE =>
 	        LET newItem = ( s.id == @segmentId ? MERGE(s, {name : @segmentName, indexScore: @segmentIndexScore, queryHashedId: @queryHashedId }) : s )
 	        RETURN newItem
 	    )
-	    UPDATE p WITH { inSegments:  alteredList } IN cdp_profile
+	    UPDATE p WITH { inSegments:  alteredList, authorizedViewers : @authorizedViewers, authorizedEditors : @authorizedEditors } IN cdp_profile
 ;
    
 AQL_APPEND_SEGMENT_REF_KEY_FOR_PROFILE =>
 	FOR p in cdp_profile
 	    FILTER p._key == @profileId
 	    LET newList = APPEND(p.inSegments, [ {id: @segmentId, name : @segmentName, indexScore: @segmentIndexScore, queryHashedId: @queryHashedId} ])
-	    UPDATE p WITH { inSegments:  newList } IN cdp_profile    
+	    UPDATE p WITH { inSegments:  newList, authorizedViewers : @authorizedViewers, authorizedEditors : @authorizedEditors } IN cdp_profile    
 ;
 
 AQL_DELETE_SEGMENT_REF_KEY_FOR_PROFILE =>
@@ -824,7 +833,7 @@ AQL_GET_TARGET_MEDIA_UNIT_BY_PROFILE_ID =>
 AQL_GET_SEGMENTS_BY_PAGINATION =>
 	FOR d in cdp_segment  
 		FILTER d.status >= 0 AND (@searchValue != "" ? d.name LIKE @searchValue : true)
-				AND (@isUserHasAdminRole == TRUE OR @ownerUsername == d.ownerUsername OR @dataEditorUsername IN d.authorizedEditors)
+				AND (@isSuperAdmin == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
 		SORT d.@sortField @sortDirection
 		LIMIT @startIndex,@numberResult 
 		RETURN d
@@ -833,7 +842,7 @@ AQL_GET_SEGMENTS_BY_PAGINATION =>
 AQL_COUNT_SEGMENT_FOR_PAGINATION =>
 	FOR d in cdp_segment  
 	FILTER d.status >= 0 AND (@searchValue != "" ? d.name LIKE @searchValue : true)
-				AND (@isUserHasAdminRole == TRUE OR @ownerUsername == d.ownerUsername OR @dataEditorUsername IN d.authorizedEditors)
+				AND (@isSuperAdmin == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
 	COLLECT WITH COUNT INTO length
 	RETURN length
 ;

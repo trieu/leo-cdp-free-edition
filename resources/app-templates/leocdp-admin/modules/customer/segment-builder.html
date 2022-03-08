@@ -35,6 +35,13 @@
 					<div id="error-on-save" class="alert alert-danger" style="display: none;"></div>
 					
 					<div class="form-group row">
+						<label class="control-label col-sm-3" for="sm_indexscore">Index score in data activation plan</label>
+						<div class="col-sm-9">
+							<input type="number" min="1" class="form-control" id="sm_indexscore" placeholder="Enter the ranking index score for activation, less score is more priority" name="indexScore" style="width:150px" >
+						</div>
+					</div>
+					
+					<div class="form-group row">
 						<label class="control-label col-sm-3" for="sm_name">Name</label>
 						<div class="col-sm-9">
 							<input type="text" class="form-control" id="sm_name" placeholder="Enter segment name" name="name">
@@ -99,17 +106,19 @@
 						</div>
 					</div>
 					
-					<div class="form-group row">
-						<label class="control-label col-sm-3" for="sm_indexscore">Index score in data activation plan</label>
-						<div class="col-sm-9">
-							<input type="number" min="1" class="form-control" id="sm_indexscore" placeholder="Enter the ranking index score for activation, less score is more priority" name="indexScore" style="width:150px" >
+					<div class="form-group row"  >
+						<label class="control-label col-sm-3" for="type">Authorized users can view data</label>
+						<div class="col-sm-9" >
+							<select id="authorizedViewers" multiple data-placeholder="Choose an authorized viewer" class="select" style="display: none;" >
+							  	<!-- list of login accounts -->
+							</select>
 						</div>
 					</div>
 					
 					<div class="form-group row"  >
-						<label class="control-label col-sm-3" for="type">Authorized data editors</label>
+						<label class="control-label col-sm-3" for="type">Authorized users can update data</label>
 						<div class="col-sm-9" >
-							<select id="authorizedEditors" multiple data-placeholder="Choose an authorized account" class="select" style="display: none;" >
+							<select id="authorizedEditors" multiple data-placeholder="Choose an authorized editor" class="select" style="display: none;" >
 							  	<!-- list of login accounts -->
 							</select>
 						</div>
@@ -434,31 +443,48 @@
                 setSegmentDataForm(segmentData);
                 loadSegmentBuilder(behavioralEventMap, jsonQueryRules, readOnlyMode, segmentQueryBuilderCallback);
                 setTimeout(loadProfilesInSegment,700);
-                loadAuthorizedEditors(segmentData.authorizedEditors);
+                
+                loadSystemUsersForDataAuthorization(segmentData);
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);
             }
         });
     }
 	
-	var loadAuthorizedEditors = function(selectedUsernames){
+	var loadSystemUsersForDataAuthorization = function(segmentData){
 		// load login accounts
 		var urlStr = baseLeoAdminUrl + '/user/list-all';
         LeoAdminApiUtil.callPostAdminApi(urlStr, {} , function (json) {
             if (json.httpCode === 0 && typeof json.data === 'object') {
+            	var selectedEditors = segmentData.authorizedEditors;
+            	var selectedViewers = segmentData.authorizedViewers;
+            	
                	var list = json.data;
                	console.log(list)
-               	var html = "";
+               	var htmlViewers = "", htmlEditors = "";
                	list.forEach(function(e){
                		if(e.role !== 6) {
-               			if(selectedUsernames.includes(e.userLogin)){
-               				html += ('<option selected value="' + e.userLogin + '">' + e.displayName + '</option>')
+               			// viewer
+               			if(selectedViewers.includes(e.userLogin)){
+               				htmlViewers += ('<option selected value="' + e.userLogin + '">' + e.displayName + '</option>')
                			} else {
-               				html += ('<option value="' + e.userLogin + '">' + e.displayName + '</option>')
+               				htmlViewers += ('<option value="' + e.userLogin + '">' + e.displayName + '</option>')
+               			}
+               			// editor
+               			if(selectedEditors.includes(e.userLogin)){
+               				htmlEditors += ('<option selected value="' + e.userLogin + '">' + e.displayName + '</option>')
+               			} else {
+               				htmlEditors += ('<option value="' + e.userLogin + '">' + e.displayName + '</option>')
                			}
                		}
-               	})
-               	$('#authorizedEditors').html(html).show().chosen({
+               	});
+               	
+               	
+               	$('#authorizedViewers').html(htmlViewers).show().chosen({
+                    width: "100%",
+                    no_results_text: "Oops, nothing found!"
+                });
+               	$('#authorizedEditors').html(htmlEditors).show().chosen({
                     width: "100%",
                     no_results_text: "Oops, nothing found!"
                 });
@@ -557,6 +583,8 @@
 			
 			segmentDataModel.type = parseInt($('#sm_type input:checked').val());
 			segmentDataModel.status = parseInt($('#sm_status input:checked').val());
+			
+			segmentDataModel.authorizedViewers = $('#authorizedViewers').val() || [];
 			segmentDataModel.authorizedEditors = $('#authorizedEditors').val() || [];
 			
 			segmentDataModel.disableDateRangeFilter = segmentDataModel.beginFilterDate === '' && segmentDataModel.endFilterDate === '';

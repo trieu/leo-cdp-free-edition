@@ -24,6 +24,8 @@
 ### Added 
 
 - [Data Model] AbstractProfile
+- [Data Authorization] improve security check for Segment model and Profile model
+- [UI] add new authorized viewers and authorized editors in segment builder and details
 - [In Progress] BusinessAccount for B2B CDP
 
 ### Changed

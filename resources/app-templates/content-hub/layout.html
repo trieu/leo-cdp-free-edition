@@ -257,7 +257,7 @@
 
     function loadSessionUserInfo(callback) {
         if (window.usersession != '') {
-            var urlStr = '/user/get-info';
+            var urlStr = '/user/get';
             LeoAdminApiUtil.callPostAdminApi(urlStr, {}, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
                     if (json.data) {

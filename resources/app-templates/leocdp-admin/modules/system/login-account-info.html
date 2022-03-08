@@ -113,7 +113,7 @@
 
     function initMyLoginInfo() {
     	 var key = currentUserProfile.key;
-         var urlStr = baseLeoAdminUrl + '/user/get-info';
+         var urlStr = baseLeoAdminUrl + '/user/get';
          LeoAdminApiUtil.callPostAdminApi(urlStr, {
              'key': key || 'newuser'
          }, function (json) {

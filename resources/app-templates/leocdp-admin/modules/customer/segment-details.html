@@ -34,6 +34,7 @@
 	div.segment_download_link {
 		float: right; padding-top: 5px; font-weight: bold; font-size: 15px;
 	}
+	
 </style>
 
 <div class="row">
@@ -59,14 +60,20 @@
 <div>
 	<!-- metadata  -->
 	<ul class="list-group">
+		<li class="list-group-item ">
+	  		<b>Index score in activation:</b> <span id="sm_indexScore" class="highlight_text" ></span>
+	  	</li>
 	  	<li class="list-group-item ">
 	 		<b>Segment Name:</b> <span id="sm_name" class="highlight_text"></span>
 	  	</li>
 	  	<li class="list-group-item ">
-	  		<b>Description:</b> <span id="sm_description" ></span>
+	  		<b>Description:</b> <span id="sm_description" class="highlight_text" ></span>
 	  	</li>
 	  	<li class="list-group-item ">
-	  		<b>Authorized data editors:</b> <span id="sm_authorizedEditors" ></span>
+	  		<b>Authorized users can view data:</b> <span id="sm_authorizedViewers" class="highlight_text"></span>
+	  	</li>
+	  	<li class="list-group-item ">
+	  		<b>Authorized users can update data:</b> <span id="sm_authorizedEditors" class="highlight_text" ></span>
 	  	</li>
    	</ul>
 	
@@ -745,9 +752,12 @@
 		 var size = segmentData.totalCount;
 		
 		 var formatDateTime =  'YYYY-MM-DD HH:mm:ss';
+		 $('#sm_indexScore').text(segmentData.indexScore);
 		 $('#sm_name').text(name);
 	     $('#sm_description').text(segmentData.description);
-	     $('#sm_authorizedEditors').text(segmentData.authorizedEditors.join(", "))
+	     $('#sm_authorizedViewers').text(segmentData.authorizedViewers.join(", "));
+	     $('#sm_authorizedEditors').text(segmentData.authorizedEditors.join(", "));
+	     
 	     $('b.segment_size').text(size.toLocaleString())
 	     
 	     var hasActivation = false;
