@@ -414,7 +414,7 @@ AQL_GET_PROFILE_BY_ID_FOR_SYSTEM =>
 
 AQL_GET_PROFILE_BY_ID_FOR_ADMIN =>
 	FOR p in cdp_profile 
-	FILTER p._key == @id AND (@loginUsername IN p.authorizedViewers[*] OR LENGTH(p.authorizedViewers) == 0)
+	FILTER p._key == @id AND @loginUsername IN p.authorizedViewers[*]
 	RETURN p
 ;
 

@@ -309,12 +309,7 @@
 <script>
 	var segmentDataModel = false;
 	var segmentDataStats = false;
-	var productCatalogMap = {
-		"gxprsWM8DtsMT7Odk7icK" : "Information Rules: A Strategic Guide to the Network Economy",	
-		"6zFXGsbvYXV2wowea87kdT": "Smart Cities: Introducing Digital Innovation to Cities",
-		"3iudnLzDnzIQaHb6dFP38q": "The Social CEO: How Social Media Can Make You A Stronger Leader",
-		"test": "test",
-    }
+	var productCatalogMap = {}
 	
     function initProductCatalogMap(callback) {
     	var urlStr = window.baseLeoAdminUrl + "/item/product-catalog-map";
@@ -443,7 +438,6 @@
                 setSegmentDataForm(segmentData);
                 loadSegmentBuilder(behavioralEventMap, jsonQueryRules, readOnlyMode, segmentQueryBuilderCallback);
                 setTimeout(loadProfilesInSegment,700);
-                
                 loadSystemUsersForDataAuthorization(segmentData);
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);
@@ -460,26 +454,28 @@
             	var selectedViewers = segmentData.authorizedViewers;
             	
                	var list = json.data;
-               	console.log(list)
                	var htmlViewers = "", htmlEditors = "";
                	list.forEach(function(e){
                		if(e.role !== 6) {
-               			// viewer
+               			// viewer for all roles not superadmin, only God can do everything
                			if(selectedViewers.includes(e.userLogin)){
                				htmlViewers += ('<option selected value="' + e.userLogin + '">' + e.displayName + '</option>')
                			} else {
                				htmlViewers += ('<option value="' + e.userLogin + '">' + e.displayName + '</option>')
                			}
-               			// editor
-               			if(selectedEditors.includes(e.userLogin)){
-               				htmlEditors += ('<option selected value="' + e.userLogin + '">' + e.displayName + '</option>')
-               			} else {
-               				htmlEditors += ('<option value="' + e.userLogin + '">' + e.displayName + '</option>')
+               			
+               			// editor only for ROLE_OPERATION, ROLE_ADMIN
+               			if(e.role > 1) {
+	               			if(selectedEditors.includes(e.userLogin)){
+	               				htmlEditors += ('<option selected value="' + e.userLogin + '">' + e.displayName + '</option>')
+	               			} else {
+	               				htmlEditors += ('<option value="' + e.userLogin + '">' + e.displayName + '</option>')
+	               			}
                			}
                		}
                	});
                	
-               	
+               	// init UI
                	$('#authorizedViewers').html(htmlViewers).show().chosen({
                     width: "100%",
                     no_results_text: "Oops, nothing found!"
@@ -510,6 +506,7 @@
 				loadSegmentBuilder(behavioralEventMap, false, false, segmentQueryBuilderCallback);
                 initDateFilterComponent(true, segmentData.beginFilterDate , segmentData.endFilterDate );
                 setTimeout(loadProfilesInSegment,700);
+                loadSystemUsersForDataAuthorization(segmentData);
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);
             }
@@ -580,10 +577,9 @@
 			var datetimeFilter = getDateFilterValues();
 			segmentDataModel.beginFilterDate = datetimeFilter.beginFilterDate;
 			segmentDataModel.endFilterDate = datetimeFilter.endFilterDate;
-			
 			segmentDataModel.type = parseInt($('#sm_type input:checked').val());
 			segmentDataModel.status = parseInt($('#sm_status input:checked').val());
-			
+			// segment authorization
 			segmentDataModel.authorizedViewers = $('#authorizedViewers').val() || [];
 			segmentDataModel.authorizedEditors = $('#authorizedEditors').val() || [];
 			

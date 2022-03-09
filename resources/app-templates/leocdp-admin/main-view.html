@@ -121,7 +121,7 @@
 						<a id="Account_Management" href="#calljs-leoCdpRouter('Account_Management')" onclick="underDevelopment(this)" title="All business accounts" > 
 							<i class="fa fa-fw fa-briefcase"></i> Account Management </a>
 					</li>
-					<li id="Profile_Management_Menu" style="display: none;" >
+					<li id="Profile_Management_Menu" >
 						<a id="Profile_Management" href="#calljs-leoCdpRouter('Profile_Management')" title="All customer profiles" > 
 							<i class="fa fa-fw fa-user-circle-o"></i> Profile Management </a>
 					</li>
@@ -211,7 +211,7 @@
 	                	$("#Segment_Management_Menu").show();
 	                }
 	                if(role >= 2) {
-	                	$("#Profile_Management_Menu, #Connector_Management_Menu").show();
+	                	$("#Connector_Management_Menu").show();
 	                }
 	                if(role >= 3){
 	                	// ROLE_ADMIN and ROLE_SUPER_ADMIN
