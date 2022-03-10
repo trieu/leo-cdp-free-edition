@@ -2,6 +2,14 @@
 <html>
 <head>
 	<title>{{pageTitle}}</title>
+	<meta name="description" content="{{{customData.content.description}}}"/>
+	
+	<!-- META FOR FACEBOOK -->
+	<meta property="og:site_name" content="{{host}}"/>
+	<meta property="og:type" content="article"/>
+	<meta property="og:image" itemprop="thumbnailUrl" content="{{{customData.content.headlineImageUrl}}}"/>
+	<meta content="{{customData.content.title}}" itemprop="headline" property="og:title"/>
+	<meta content="{{customData.content.description}}" itemprop="description" property="og:description"/>
 	
 	<link rel="apple-touch-icon" sizes="180x180" href="https://{{baseStaticUrl}}images/leocdp-icon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="https://{{baseStaticUrl}}images/leocdp-icon/favicon-32x32.png">
