@@ -310,6 +310,7 @@ AQL_GET_ALL_CATEGORIES_BY_NETWORK =>
 ;
 
 ########### SYSTEM USER LOGIN ########################################################################################################;
+
 AQL_FIND_KEY_BY_USERLOGIN => 
 	FOR u in system_user 
 	FILTER u.userLogin == @userLogin  
@@ -331,10 +332,12 @@ AQL_GET_USER_BY_KEY =>
 AQL_GET_ALL_USERS_IN_NETWORK => 
 	FOR u in system_user 
 	FILTER u.networkId == @networkId  
+	SORT u.modificationTime DESC
 	RETURN u
 ;
 
 ########### UPLOADER FILE_METADATA  ########################################################################################################;
+
 AQL_GET_FILE_METADATA_BY_PATH => 
 	FOR f in cdp_filemetadata 
 	FILTER f.path == @path  

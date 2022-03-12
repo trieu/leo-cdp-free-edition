@@ -464,7 +464,7 @@
                				htmlViewers += ('<option value="' + e.userLogin + '">' + e.displayName + '</option>')
                			}
                			
-               			// editor only for ROLE_OPERATION, ROLE_ADMIN
+               			// editor only for ROLE_DATA_OPERATOR, ROLE_DATA_ADMIN
                			if(e.role > 1) {
 	               			if(selectedEditors.includes(e.userLogin)){
 	               				htmlEditors += ('<option selected value="' + e.userLogin + '">' + e.displayName + '</option>')

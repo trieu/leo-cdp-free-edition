@@ -19,10 +19,11 @@
 - [In Progress] Data Reporting with Jupyter notebook
 - [In Progress] The flow to register new instance LEO CDP
 
-## [0.9.0] - 2022-03-06
+## [0.9.0] - 2022-03-26
 
 ### Added 
 
+- [SystemTrackedEvent] to tracking user account activities, login for security monitoring
 - [Data Model] AbstractProfile
 - [Data Authorization] improve security check for Segment model and Profile model
 - [UI] add new authorized viewers and authorized editors in segment builder and details
@@ -32,7 +33,7 @@
 
 - [Scoring Rule] profile data quality scoring rule
 - [UI] UI to show profile with data quality score > 200
-
+- [UI] User Login Management
 
 ## [0.8.9] - 2022-02-22
 

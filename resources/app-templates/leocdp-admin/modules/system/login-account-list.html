@@ -20,24 +20,26 @@
                         <tr>
                          	<th>Avatar</th>
                             <th>Display Name</th>
-                            <th>User Login</th>
-                            <th>User Email</th>
+                            <th>Login Username</th>
+                            <th>Email</th>
+                            <th>Created at</th>
+                            <th>Updated at</th>
                             <th>Status</th>
-                            <th>Creation Time</th>
-                            <th>Modification Time</th>
                             <th>Role</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                         	<th>Avatar</th>
                             <th>Display Name</th>
-                            <th>User Login</th>
-                            <th>User Email</th>
-                            <th>Avatar</th>
-                            <th>Creation Time</th>
-                            <th>Modification Time</th>
+                            <th>Login Username</th>
+                            <th>Email</th>
+                            <th>Created at</th>
+                            <th>Updated at</th>
+                            <th>Status</th>
                             <th>Role</th>
+                            <th>Actions</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -89,78 +91,113 @@
                         	if( canEditLoginData ){
                         		callJsStr = "#calljs-leoCdpRouter('User_Login_Editor','" + row.key + "')";
                         	}
-                            return '<a title="' + data + '" href="' + callJsStr + '" >' + data + '</a>';
+                            return '<a class="datatable_text" title="' + data + '" href="' + callJsStr + '" >' + data + '</a>';
                         },
                         "targets": 1
                     },
                     {
                         "render": function (data, type, row) {
-                            if (data == "1") {
-                                return 'ACTIVE';
-                            } else if (data == "2") {
-                                return 'DISABLED';
-                            } else if (data == "3") {
-                                return 'EXPIRED';
-                            }
-                            return 'PENDING';
+                        	var callJsStr = 'javascript:errorNoAuthorization()';
+                        	if( canEditLoginData ){
+                        		callJsStr = "#calljs-leoCdpRouter('User_Login_Editor','" + row.key + "')";
+                        	}
+                            return '<a class="datatable_text" title="' + data + '" href="' + callJsStr + '" >' + data + '</a>';
+                        },
+                        "targets": 2
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	var callJsStr = 'javascript:errorNoAuthorization()';
+                        	if( canEditLoginData ){
+                        		callJsStr = "#calljs-leoCdpRouter('User_Login_Editor','" + row.key + "')";
+                        	}
+                            return '<a class="datatable_text" title="' + data + '" href="' + callJsStr + '" >' + data + '</a>';
+                        },
+                        "targets": 3
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            var date = LeoAdminApiUtil.formater.toDateString(data);
+                            return '<div >'  + date + '</div>';
                         },
                         "targets": 4
                     },
                     {
                         "render": function (data, type, row) {
                             var date = LeoAdminApiUtil.formater.toDateString(data);
-                            return date;
+                            return '<div >'  + date + '</div>';
                         },
                         "targets": 5
                     },
                     {
                         "render": function (data, type, row) {
-                            var date = LeoAdminApiUtil.formater.toDateString(data);
-                            return date;
+                        	var status = 'PENDING';
+                            if (data == "1") {
+                            	status = 'ACTIVE';
+                            } else if (data == "2") {
+                            	status = 'DISABLED';
+                            } else if (data == "3") {
+                            	status = 'EXPIRED';
+                            }
+                            return '<div class="highlight_text" >'  + status + '</div>';
                         },
                         "targets": 6
                     },
                     {
                         "render": function (data, type, row) {
+                        	var label = 'GUEST'
                             if (data == "6") {
-                                return 'ROLE_SUPER_ADMIN';
+                            	label = 'SUPER_ADMIN';
                             } else if (data == "3") {
-                                return 'ROLE_ADMIN';
+                            	label =  'DATA_ADMIN';
                             } else if (data == "2") {
-                                return 'ROLE_OPERATION';
+                            	label =  'DATA_OPERATOR';
                             } else if (data == "1") {
-                                return 'ROLE_STANDARD_USER';
+                            	label =  'STANDARD_USER';
                             }
-                            return 'ROLE_GUEST';
+                        	return '<div class="datatable_text" >' + label + '</div>';
                         },
                         "targets": 7
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	var callJsStr = 'javascript:errorNoAuthorization()';
+                        	if( canEditLoginData ){
+                        		callJsStr = "#calljs-leoCdpRouter('User_Login_Editor','" + data + "')";
+                        	}
+                            return '<a class="control" title="Edit Login Account" href="' + callJsStr + '" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>';
+                        },
+                        "targets": 8
                     }
                    
                 ],
                 "columns": [
                 	{
-                        "data": "avatarUrl"
+                        "data": "avatarUrl" // 0
                     },
                 	{
-                        "data": "displayName"
+                        "data": "displayName" // 1
                     },
                     {
-                        "data": "userLogin"
+                        "data": "userLogin" // 2
                     },
                     {
-                        "data": "userEmail"
+                        "data": "userEmail" // 3
                     },
                     {
-                        "data": "status"
+                        "data": "creationTime" // 4
                     },
                     {
-                        "data": "creationTime"
+                        "data": "modificationTime" // 5
                     },
                     {
-                        "data": "modificationTime"
+                        "data": "status" // 6
                     },
                     {
-                        "data": "role"
+                        "data": "role" // 7
+                    },
+                    {
+                        "data": "key" // 8
                     }
                 ]
             });
