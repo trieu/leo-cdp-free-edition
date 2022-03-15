@@ -16,9 +16,15 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # General Data Flow
 
-[![Leo CDP Flow](https://blogger.googleusercontent.com/img/a/AVvXsEhMgSHVZ0DjWVDc7Q3hxeno-nwJB0juSrtgUaRFgKyksN7tHZ3yHL6K4s1jevo9i03XltuEUUvSK1zuzxmFJ555maAEgmwcU5jXiU5oqha9pqwrPS1s8_13WT4oMuK81246JzV0KCCoPxlCfBU3jGvduSakpr68ByaiE7RNhSHwfhbmCKgLNqZhATiJ=s2048)](https://speakerdeck.com/trieu/why-is-leo-cdp-important-for-digital-business)
+[![Leo CDP Flow](https://raw.githubusercontent.com/trieu/leo-cdp-free-edition/main/leo-cdp-version-1.0.png)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)	
 
-[![Leo CDP Flow](https://blogger.googleusercontent.com/img/a/AVvXsEj02mYGBy1EbDXshyGrppyfi_RZAls08cqegjM5UVPD7rTGBAOQXLDHyxImvZ2X9J69DaKIx2qN795z7CcraKfNFIl4h6Ha2OvNy0FvRaRF5eG3J_ZRFEnxbBnpICpOTeFDWPEcsL4g6faa_Tz9nDX7DisdH5zas856A-uIDOKg4LF5sm3vrjkVfsEe=s2501)](https://speakerdeck.com/trieu/why-is-leo-cdp-important-for-digital-business)
+[![Leo CDP Flow](https://blogger.googleusercontent.com/img/a/AVvXsEi739DAhh9-QKBp_UHKPNVVe_r1NZBoxfWuKc323lNatk-oGjlOrtGV9yoiuuMt_lZr2mLk0lh_CpC-QRDcQManrR9LahcmgQSf6IsmqaVFVKpwLKRFhSyOZ-F0mODcxdGMUd4V8gBeCqQ9s0s3ml2JmLdQv1vB_IRaODRjdXeni1SY-Xmp1Pi9VaKi=s2322)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)
+
+# Documents
+
+* [Data Model and Customer Journey Map Sample](https://docs.google.com/spreadsheets/d/1hzSvkmTE8WuvUFqnpWNfsPMzpjF8gYOSJfkc9eJIjWk/edit?usp=sharing)
+* [Core Functions for Analytics CDP](https://docs.google.com/document/d/1cavhFAs_uX-98qUvtXJI3v859I6h3knl0m_tSQ4235M/edit?usp=sharing)
+* [Data strategy with LEO CDP](https://docs.google.com/document/d/1la6mP21gfd2bHlpwj4hBTRQlxaPfhnpQRL6fV223Es0/edit?usp=sharing)
 
 # Technology Architecture
 
@@ -30,13 +36,13 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 2. Redis 6
 3. Amazon Java 8 Corretto
 4. Python 3.8
-5. ArangoDB 3.8 (Community or Enterprise Edition or Cloud Oasis)
-6. Jupyter Notebook / Google Colab for advanced data analytics and A.I model
+5. ArangoDB 3.8 (Community Edition or Enterprise Edition or Cloud Oasis)
+6. Jupyter Notebook / Google Colab for advanced data analytics and machine learning services
 7. Apache Airflow for ETL job scheduling and data connector
 8. Prometheus 2 for System Monitoring
 9. Grafana 8 for System Monitoring
 
-## Proposal solutions for digital marketing services
+## Proposal solutions for digital marketing services / data activation services
 
 1. Mailchimp / SendInBlue for Email Marketing
 2. OneSignal / SendPulse / Firebase Cloud Messaging for push notification
@@ -92,7 +98,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 * Miễn phí sử dụng, chỉ cần tôn trọng bản quyền tác giả là được
 * Số profile miễn phí là 1000 user profiles
-* Nếu bạn đang làm việc trong lĩnh vực giáo dục hoặc tổ chức phi lợi nhuận, gửi cho tôi email để có miễn phí cho 100.000 profiles
+* Nếu bạn đang làm việc trong lĩnh vực giáo dục hoặc tổ chức phi lợi nhuận, gửi cho tôi email để có miễn phí cho 10000 profiles
 
 ## Bằng chứng về bản quyền mô hình framework USPA và phát minh LEO CDP 
 
