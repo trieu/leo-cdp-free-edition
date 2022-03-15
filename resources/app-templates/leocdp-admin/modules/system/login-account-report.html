@@ -1,0 +1,126 @@
+<div class="container-fluid" id="user_form">
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+		<div class="col-lg-10">
+			<h5 class="page-header" id="page_breadcrumb" > </h5>
+		</div>
+		<div class="col-lg-2 text-right" style="padding: 10px">
+	     	<button type="button" class="btn btn-info" onclick="history.back() " title="Back"  > 
+	       		<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
+	       	</button>
+	       	<button type="button" id="btn_login_account_edit" class="btn btn-goto-router" title="Edit Login Account" style="display: none;" > 
+	     		<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit 
+	     	</button>
+	     </div>
+	</div>
+	
+	<h4> Login Account Information </h4>
+	<hr>
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+        <div class="col-lg-12">
+        
+        	<!--  Tab Navigation Items -->
+		    <ul class="nav nav-tabs" data-tab-content="login_account_tabs" >
+				<li class="active" >
+					<a href="javascript:" data-target-tab="panel_login_account_tab_general" title="General Information" > <i class="fa fa-info-circle" aria-hidden="true"></i> General Information</a>
+		       	</li>
+		  	</ul>
+		  	
+		  	<!-- Tab Contents  -->
+	    	<div id="login_account_tabs" class="tab-content" style="min-height: 750px;"  >
+	    	
+	    		<!-- tab 1 General Login Information  -->
+				<div class="tab-pane active" id="panel_login_account_tab_general" >
+					<div class="form-group">
+	                    <label> Display Name</label>:
+	                    <span id="systemUser_displayName" class="highlight_text"></span>
+	                </div>
+	                <div class="form-group">
+	                    <label> User Name</label>:
+	                    <span id="systemUser_userLogin" class="highlight_text"></span>
+	                </div>
+	                <div class="form-group">
+	                    <label> Email </label>:
+	                    <span id="systemUser_userEmail" class="highlight_text"></span>
+	                </div>
+	                
+	                <div class="form-group">
+	                    <label> Department / Business Unit </label>:
+	                    <span id="systemUser_businessUnit" class="highlight_text"></span>
+	                </div>
+	                <div class="form-group">
+	                    <label> Job Title / Job Position </label>:
+	                    <span id="systemUser_jobPosition" class="highlight_text"></span>
+	                </div>
+	                
+	                <div class="form-group">
+	                    <label>User Role</label>
+	                    <div class="radio" style="display: none;" >
+	                        <label><input type="radio" name="role" value="0" disabled="disabled" > GUEST: the login account can access only the Unified Analytics Hub  </label>
+	                    </div>
+	                    <div class="radio" style="display: none;" >
+	                        <label><input type="radio" name="role" value="1" disabled="disabled"> STANDARD USER: the login account can access Unified Analytics Hub and view authorized data</label>
+	                    </div>
+	                    <div class="radio" style="display: none;" >
+	                        <label><input type="radio" name="role" value="2" disabled="disabled"> DATA OPERATOR: the login account has permissions of STANDARD USER and update authorized data</label>
+	                    </div>
+	                    <div class="radio" style="display: none;" >
+	                        <label><input type="radio" name="role" value="3" disabled="disabled"> DATA ADMIN: the login account has permissions of DATA OPERATOR and manage Data Asset and Data Connector </label>
+	                    </div>
+	                    <div class="radio" style="display: none;" >
+	                        <label><input type="radio" name="role" value="6" disabled="disabled"> SUPER ADMIN: the login account has full of permissions to manage system and manage login accounts</label>
+	                    </div>
+	                </div>
+	               
+				</div>
+				
+	
+			</div>
+
+        </div>
+        
+    </div>
+</div>
+
+<hr>
+
+<script>
+    var userModel = false;
+
+    function initUserLoginReport(userLogin) {
+    	 setupTabPanels();
+    	
+         var urlStr = baseLeoAdminUrl + '/user/get-by-username';
+         LeoAdminApiUtil.callPostAdminApi(urlStr, { 'userLogin': userLogin }, function (json) {
+             if (json.httpCode === 0 && json.errorMessage === '') {
+                 if (json.data) {
+                     userModel = json.data;
+                     var date = LeoAdminApiUtil.formater.toDateString(userModel.creationTime);
+
+                    
+                     $('#systemUser_displayName').text(userModel.displayName);
+                     $('#systemUser_userLogin').text(userModel.userLogin);
+                     $('#systemUser_userEmail').text(userModel.userEmail);
+                     $('#systemUser_businessUnit').text(userModel.businessUnit);
+                     
+                     var position = userModel.customData.position ? userModel.customData.position : '';
+                     $('#systemUser_jobPosition').text(position);
+                     
+                     $('input[name="role"][value=' + userModel.role + ']').attr('checked', '').parent().css("font-weight","bolder").parent().show();
+                     
+                     if(json.canEditData) {
+                    	 $('#btn_login_account_edit').show().click(function(){
+                    		 location.hash = "#calljs-leoCdpRouter('User_Login_Editor','" + userModel.key + "')";
+                    	 })
+                     }
+                     
+                 }
+             }
+         });
+
+    }
+ 
+</script>

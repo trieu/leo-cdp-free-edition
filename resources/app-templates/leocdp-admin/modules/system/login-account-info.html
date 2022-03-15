@@ -6,8 +6,8 @@
 			<h5 class="page-header" id="page_breadcrumb" > </h5>
 		</div>
 		<div class="col-lg-2 text-right" style="padding: 10px">
-	     	<button type="button" class="btn btn-info" onclick="gotoLeoCdpRouter('defaultRouter')" title="Cancel"  > 
-	       		<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Cancel
+	     	<button type="button" class="btn btn-info" onclick="gotoLeoCdpRouter('defaultRouter')" title="Back"  > 
+	       		<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
 	       	</button>
 	       	<button type="button" class="btn btn-success data-control-edit" onclick="saveMyLoginProfile()" title="Save Login Account"  > 
 	     		<i class="fa fa-check-square-o" aria-hidden="true"></i> Save 
@@ -15,7 +15,7 @@
 	     </div>
 	</div>
 	
-	<h4> Login Account Information </h4>
+	<h4> My Login Account Editor </h4>
 	<hr>
 	<div id="error-on-save" class="alert alert-danger" style="display: none;"></div>
 
@@ -26,10 +26,10 @@
         	<!--  Tab Navigation Items -->
 		    <ul class="nav nav-tabs" data-tab-content="login_account_tabs" >
 				<li class="active" >
-					<a href="javascript:" data-target-tab="panel_login_account_tab_general" title="General Information" > <i class="fa fa-info" aria-hidden="true"></i> General Information</a>
+					<a href="javascript:" data-target-tab="panel_login_account_tab_general" title="General Information" > <i class="fa fa-info-circle" aria-hidden="true"></i> General Information</a>
 		       	</li>
 		       	<li>
-					<a href="javascript:" data-target-tab="panel_login_account_tab_permissions" title="Account Permissions" > <i class="fa fa-lock" aria-hidden="true"></i> Account Permissions </a>
+					<a href="javascript:" data-target-tab="panel_login_account_tab_permissions" title="Account Permission" > <i class="fa fa-lock" aria-hidden="true"></i> Account Permission </a>
 		       	</li>
 		       	
 		  	</ul>
@@ -61,7 +61,7 @@
 	                        autocapitalize="off" autocomplete="nope">
 	                </div>
 	                <div class="form-group">
-	                    <label> Department </label>
+	                    <label> Department / Business Unit </label>
 	                    <select name="businessUnit" data-placeholder="Choose Business Unit" class="select">
 	                        <option value=""> No information</option>
 	                        <option value="bod"> Board of Directors (BOD) </option>
@@ -94,7 +94,7 @@
 					<div class="action-div">
 	                    <label>User Role</label>
 	                    <div class="radio" >
-	                        <label><input type="radio" name="role" value="0" disabled="disabled"> GUEST: the login account could access Unified Analytics Hub </label>
+	                        <label><input type="radio" name="role" value="0" disabled="disabled" > GUEST: the login account can access only the Unified Analytics Hub  </label>
 	                    </div>
 	                    <div class="radio"  >
 	                        <label><input type="radio" name="role" value="1" disabled="disabled"> STANDARD USER: the login account can access Unified Analytics Hub and view authorized data</label>
@@ -129,7 +129,7 @@
     	 var key = currentUserProfile.key;
          var urlStr = baseLeoAdminUrl + '/user/get';
          LeoAdminApiUtil.callPostAdminApi(urlStr, {
-             'key': key || 'newuser'
+             'key': key || 'my-login-info'
          }, function (json) {
              if (json.httpCode === 0 && json.errorMessage === '') {
                  if (json.data) {

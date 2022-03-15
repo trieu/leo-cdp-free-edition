@@ -745,6 +745,20 @@
 			}
 		})
 	}
+	
+	var getHtmlForAuthorizedUserLogin = function(users) {
+		var html = '';
+		users.forEach(function(e){
+			if(currentUserProfile.role === 6) {
+				var callJsViewStr = "#calljs-leoCdpRouter('User_Login_Report','" + e + "')";
+			    html += ('<a title="User Login Report" href="' + callJsViewStr + '" >'+e+'</a>, ');
+			}
+			else {
+				html += (e + ', ');
+			}
+		})
+       	return html;
+	}
 
 	var setupSegmentDataAndReports = function(segmentData) {
 		 var segmentId = segmentData.id;
@@ -755,8 +769,8 @@
 		 $('#sm_indexScore').text(segmentData.indexScore);
 		 $('#sm_name').text(name);
 	     $('#sm_description').text(segmentData.description);
-	     $('#sm_authorizedViewers').text(segmentData.authorizedViewers.join(", "));
-	     $('#sm_authorizedEditors').text(segmentData.authorizedEditors.join(", "));
+	     $('#sm_authorizedViewers').html(getHtmlForAuthorizedUserLogin(segmentData.authorizedViewers));
+	     $('#sm_authorizedEditors').html(getHtmlForAuthorizedUserLogin(segmentData.authorizedEditors));
 	     
 	     $('b.segment_size').text(size.toLocaleString())
 	     

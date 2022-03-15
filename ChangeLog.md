@@ -27,10 +27,12 @@
 - [Data Model] AbstractProfile
 - [Data Authorization] improve security check for Segment model and Profile model
 - [UI] add new authorized viewers and authorized editors in segment builder and details
+- [UI] user login information
 - [In Progress] BusinessAccount for B2B CDP
 
 ### Changed
 
+- Improve Data Authorization 
 - [Scoring Rule] profile data quality scoring rule
 - [UI] UI to show profile with data quality score > 200
 - [UI] User Login Management

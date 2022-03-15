@@ -7,7 +7,7 @@
 		</div>
 		<div class="col-lg-3 text-right" style="padding: 10px">
 	     	<button type="button" class="btn btn-info" onclick="history.back()" title="Go back"  > 
-	       		<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Cancel
+	       		<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
 	       	</button>
 	       	<button type="button" class="btn btn-danger data-control-delete" onclick="deleteUserProfile()" title="Delete Login Account" > 
 	     		<i class="fa fa-trash" aria-hidden="true"></i> Delete 
@@ -29,10 +29,10 @@
         	<!--  Tab Navigation Items -->
 		    <ul class="nav nav-tabs" data-tab-content="login_account_tabs" >
 				<li class="active" >
-					<a href="javascript:" data-target-tab="panel_login_account_tab_general" title="General Information" > <i class="fa fa-info" aria-hidden="true"></i> General Information</a>
+					<a href="javascript:" data-target-tab="panel_login_account_tab_general" title="General Information" > <i class="fa fa-info-circle" aria-hidden="true"></i> General Information</a>
 		       	</li>
 		       	<li>
-					<a href="javascript:" data-target-tab="panel_login_account_tab_permissions" title="Account Permissions" > <i class="fa fa-lock" aria-hidden="true"></i> Account Permissions </a>
+					<a href="javascript:" data-target-tab="panel_login_account_tab_permissions" title="Account Permission" > <i class="fa fa-lock" aria-hidden="true"></i> Account Permission </a>
 		       	</li>
 		       	
 		  	</ul>
@@ -80,7 +80,7 @@
 	                <hr>
 	                
 	                <div class="form-group">
-	                    <label> Group or Department </label>
+	                    <label> Department / Business Unit </label>
 	                    <select name="businessUnit" data-placeholder="Choose Business Unit" class="select">
 	                        <option value=""> No information</option>
 	                        <option value="bod"> Board of Directors (BOD) </option>
@@ -114,16 +114,16 @@
 					<div class="action-div">
 	                    <label>User Role</label>
 	                    <div class="radio" >
-	                        <label><input type="radio" name="role" value="0" > <b>GUEST</b>: the login account could access Unified Analytics Hub </label>
+	                        <label><input type="radio" name="role" value="0" > <b>GUEST</b>: the login account can access only the Unified Analytics Hub  </label>
 	                    </div>
 	                    <div class="radio"  >
-	                        <label><input type="radio" name="role" value="1" > <b>STANDARD USER</b>: the login account can access Unified Analytics Hub and view authorized data</label>
+	                        <label><input type="radio" name="role" value="1" > <b>STANDARD USER</b>: the login account can access the Unified Analytics Hub and authorized data</label>
 	                    </div>
 	                    <div class="radio">
 	                        <label><input type="radio" name="role" value="2"> <b>DATA OPERATOR</b>: the login account has permissions of STANDARD USER and update authorized data</label>
 	                    </div>
 	                    <div class="radio">
-	                        <label><input type="radio" name="role" value="3"> <b>DATA ADMIN</b>: the login account has permissions of DATA OPERATOR and manage Data Asset and Data Connector </label>
+	                        <label><input type="radio" name="role" value="3"> <b>DATA ADMIN</b>: the login account has permissions of DATA OPERATOR and manage Data Asset and Data Connector</label>
 	                    </div>
 	                    <div class="radio">
 	                        <label><input type="radio" name="role" value="6"> <b>SUPER ADMIN</b>: the login account has full of permissions to manage system and manage login accounts</label>
@@ -141,13 +141,13 @@
 <script>
     var userModel = false;
 
-    var loadDataUserProfile = loadDataUserProfile || function(key) {
+    var initUserLoginEditor = function(key) {
     	 setupTabPanels();
     	 
          var urlStr = baseLeoAdminUrl + '/user/get';
-         LeoAdminApiUtil.callPostAdminApi(urlStr, {
-             'key': key || 'newuser'
-         }, function (json) {
+         var params = { 'key': key || 'newuser' };
+         
+         LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
              if (json.httpCode === 0 && json.errorMessage === '') {
                  if (json.data) {
                      userModel = json.data;
@@ -183,7 +183,9 @@
                      if(userModel.userLogin === 'superadmin'){
                          $('#btn_delete').hide();                        
                      }
-                 }
+                 } 
+             } else {
+            	 notifyErrorMessage(json.errorMessage)
              }
          });
     }

@@ -52,7 +52,7 @@
 <script>
 	//FIXME 
 	var canEditLoginData = false, canDisableLoginData = false;
-    function loadDataUserList() {
+    function initUserLoginManagement() {
         var usersession = lscache.get('usersession');
         if (usersession) {
             $('#user-list').DataTable({
