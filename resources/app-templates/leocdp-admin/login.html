@@ -14,30 +14,33 @@
                             <h3>Login Information</h3>
                         </div>
 						<hr>
-                        <div class="form-group">
-                            <label>UserName</label>
-                            <input type="text" class="form-control" placeholder="Enter username" name="username" id="username"
-                                autocapitalize="off" autocomplete="off">
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" placeholder="Enter password" name="password" id="password"
-                                 autocapitalize="off" autocomplete="off">
-                        </div>
-                         <div class="form-group">
-                            <label> Captcha Image for Human Verification </label>
-                            
-                            <img id="captcha_img" alt="Captcha Image" src="" style="margin: 10px; display: none;" >
-                            
-                            <input type="text" class="form-control" placeholder="Enter text and number that you see in the above image" name="captcha" id="captcha"
-                                autocapitalize="off" autocomplete="off">
+						
+						<div id="system_user_login_form" >
+	                        <div class="form-group">
+	                            <label>User Login ID</label>
+	                            <input type="text" class="form-control" placeholder="Enter username" name="username" id="username"
+	                                autocapitalize="off" autocomplete="off">
+	                        </div>
+	                        <div class="form-group">
+	                            <label>Password</label>
+	                            <input type="password" class="form-control" placeholder="Enter password" name="password" id="password"
+	                                 autocapitalize="off" autocomplete="off">
+	                        </div>
+	                         <div class="form-group">
+	                            <label> Captcha Image for Human Verification </label>
+	                            
+	                            <img id="captcha_img" alt="Captcha Image" src="" style="margin: 10px; display: none;" >
+	                            
+	                            <input type="text" class="form-control" placeholder="Enter text and number that you see in the above image" name="captcha" id="captcha"
+	                                autocapitalize="off" autocomplete="off">
+	                        </div>
                         </div>
 
-						<div id="info-login" class="alert alert-success" style="display: none;"></div>
-                        <div id="error-login" class="alert alert-danger" style="display: none;"></div>
+						<div id="info-login" class="alert alert-success" style="display: none; font-size: 30px;"></div>
+                        <div id="error-login" class="alert alert-danger" style="display: none; font-size: 20px;"></div>
 
                         <div class="form-group text-right">
-                            <button type="button" class="btn btn-success" id="submitLogin" style="width: 120px"> 
+                            <button type="button" class="btn btn-success" id="btn_system_login" style="width: 120px"> 
 								<i class="fa fa-check-square-o" aria-hidden="true"></i> OK 
 							</button>
                         </div>
@@ -78,37 +81,35 @@
             var pass = $('#password').val();
             var captchaStr = $('#captcha').val();
             
-
-            var data = {
+            var params = {
                 'userlogin': user,
                 'userpass': pass,
                 'usersession': session,
                 'captcha' : captchaStr
             };
-            $('#info-login').text("Sending data ...").show();
-            LeoAdminApiUtil.callPostApi(urlStr, data, function (json) {
+            
+            $('#info-login').html("<b>Sending data ...</b>").show();
+            LeoAdminApiUtil.callPostApi(urlStr, params, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
+                	//OK, set session data
                     encryptionkey = json.data;
                     lscache.set('usersession', session, 10080);
                     lscache.set('encryptionkey', encryptionkey, 10080);
 
-                    //OK
-                    $('#info-login').text("Login OK !");
-                    setTimeout(function () {
-                        window.location = '/admin';
-                    }, 1600);
+                    // update UI
+                    $("#system_user_login_form, #btn_system_login").hide();                    
+                    $('#info-login').html('<i class="fa fa-check-circle fa-2" aria-hidden="true"></i> <b> Login successfully ! </b> ');
+                    setTimeout(function () { window.location = '/admin'; }, 1500);
                 } else {
                 	$('#info-login').hide();
-                    $('#error-login').html(json.errorMessage).show();
+                    $('#error-login').html('<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ' + json.errorMessage).show().delay(3000).fadeOut();
                     // failed
-                    setTimeout(function () {
-                    	LeoAdminApiUtil.logErrorPayload(json);
-                    }, 2300);
+                    setTimeout(function () { LeoAdminApiUtil.logErrorPayload(json); }, 2300);
                 }
             });
         };
 
-        $('#submitLogin').click(apiLoginHandler);
+        $('#btn_system_login').click(apiLoginHandler);
 
         $("#username").on('keyup', function (e) {
             if (e.keyCode == 13) {

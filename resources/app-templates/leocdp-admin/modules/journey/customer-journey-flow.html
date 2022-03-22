@@ -33,7 +33,7 @@
 	   		<li class="active" >
         		<a href="javascript:" data-target-tab="panel_touchpoint_hubs" > <i class="fa fa-list" aria-hidden="true"></i> Touchpoint Hub  </a>
        		</li>
-       		<li>
+       		<li id="tab_data_observers" style="display: none">
        			<a href="javascript:" data-target-tab="panel_data_observers"  > <i class="fa fa-list" aria-hidden="true"></i> Data Observer </a>
        		</li>
 		</ul>
@@ -116,7 +116,10 @@
 	    return $('<div class="long_url_holder" ></div>').append(a);
 	}
 
-    var initMediaJourneyMap =  function() {
+    var initMediaJourneyMap = function() {
+    	if(currentUserProfile.role > 0) {
+    		$("#tab_data_observers").show();
+    	}
     	setupTabPanels();
     	loadEventMetrics();
     	

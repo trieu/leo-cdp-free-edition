@@ -27,11 +27,10 @@
 					<li>
 						<a href="#calljs-leoCdpRouter('My_Login_Editor')"> <i class="fa fa-user"></i> My Login Info </a> 
 					</li>
-					<li style="display: none;" > <a href="#"> <i class="fa fa-fw fa-envelope"></i> Inbox </a> </li>
-					<li id="user_menu_system_settings" style="display: none;" >
-						<a id="System_Settings" href="#calljs-leoCdpRouter('System_Settings')" >
-							<i class="fa fa-gear" aria-hidden="true"></i> System Settings </a>
+					<li style="display: none;" > 
+						<a href="#"> <i class="fa fa-fw fa-envelope"></i> Inbox </a> 
 					</li>
+					
 					<li class="divider"></li>
 					<li>
 						<a href="javascript:LeoAdminApiUtil.logout()"> <i class="fa fa-power-off"></i> Log Out </a>
@@ -74,7 +73,7 @@
 		<ul class="nav navbar-nav side-nav">
 			
 			<!--  1 - Unified Data Hub Menu   -->
-			<li id="nav_analytics_hub" style="display: block;" >
+			<li id="nav_analytics_hub" >
 				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#analytics_hub_menu"> <i class="fa fa-fw fa-pie-chart"></i>
 				 	Unified Analytics Hub <i id="data_analytics_hub_collapse_icon" class="fa fa-fw fa-caret-down"> </i>
 				</a>
@@ -95,7 +94,7 @@
 			</li>
 		
 			<!--  2 - Journey Data Hub   -->
-			<li id="nav_journey_hub" style="display: block;" >
+			<li id="nav_journey_hub" >
 				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#journey_hub_menu"> <i class="fa fa-fw fa-map"></i>
 				 	Journey Data Hub <i id="journey_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
 				</a>
@@ -112,7 +111,7 @@
 			</li>
 		
 			<!--  3 - Customer Data Hub Menu  -->
-			<li id="nav_customer_hub" >
+			<li id="nav_customer_hub" style="display: none;" >
 				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#customer_hub_menu"> <i class="fa fa-fw fa-address-card-o"></i>
 					Customer Data Hub <i id="customer_data_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
 				</a>
@@ -125,15 +124,15 @@
 						<a id="Profile_Management" href="#calljs-leoCdpRouter('Profile_Management')" title="All customer profiles" > 
 							<i class="fa fa-fw fa-user-circle-o"></i> Profile Management </a>
 					</li>
-					<li id="Segment_Management_Menu" style="display: none;" >
+					<li id="Segment_Management_Menu" >
 						<a id="Segment_Management" href="#calljs-leoCdpRouter('Segment_Management')" title="All customer segments"> 
 							<i class="fa fa-object-group" aria-hidden="true"></i> Segment Management </a>
 					</li>
 				</ul>
 			</li>
 			
-			<!-- 4 - Data Activation Hub Menu (TODO for version 2.0) -->
-			<li id="nav_activation_hub"   >
+			<!-- 4 - Data Activation Hub Menu -->
+			<li id="nav_activation_hub" style="display: none;"  >
 				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#data_activation_hub_menu"> <i class="fa fa-fw fa-line-chart"></i>
 					Data Activation Hub <i id="data_activation_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
 				</a>
@@ -162,6 +161,10 @@
 					<li>
 						<a id="User_Login_Management" href="#calljs-leoCdpRouter('User_Login_Management')">
 							<i class="fa fa-user-plus" aria-hidden="true"></i> Login Management </a>
+					</li>
+					<li id="user_menu_System_Data_Settings" style="display: none;" >
+						<a id="System_Data_Settings" href="#calljs-leoCdpRouter('System_Data_Settings')" >
+							<i class="fa fa-gear" aria-hidden="true"></i> System Data Settings </a>
 					</li>
 				</ul>
 			</li>
@@ -207,24 +210,26 @@
 	            if (json.data) {
 	                var systemUser = json.data;
 	                var role = systemUser.role;
+	                
 	                if(role >= 1) {
-	                	$("#Segment_Management_Menu").show();
+	                	$("#nav_customer_hub").show();
 	                }
 	                if(role >= 2) {
-	                	$("#Connector_Management_Menu").show();
+	                	$("#nav_activation_hub").show();
 	                }
 	                if(role >= 3){
 	                	// ROLE_DATA_ADMIN and ROLE_SUPER_ADMIN
-	                	$('#nav_system_management').show();
+	                	$('#Connector_Management_Menu').show();
 	                }
+	                
 	                if(role === 6) {
 	                	// ROLE_SUPER_ADMIN
-	                	$('#user_menu_system_settings').show();
+	                	$('#nav_system_management').show();
 	                }
 	                
 	              	// check to show Account Management
 	                if(role >= 2 && window.hasB2Bfeatures) {
-	                	$("#Account_Management_Menu").show();
+	                	// $("#Account_Management_Menu").show();
 	                }
 	                
 	                $('#userDisplayName').html(systemUser.displayName);

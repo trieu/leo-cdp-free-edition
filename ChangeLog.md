@@ -32,6 +32,7 @@
 
 ### Changed
 
+- [UI] improve UI and UX of System Login
 - Improve Data Authorization 
 - [Scoring Rule] profile data quality scoring rule
 - [UI] UI to show profile with data quality score > 200
