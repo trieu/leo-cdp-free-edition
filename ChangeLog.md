@@ -1,6 +1,6 @@
 # Changelog for LEO CDP
 
-## [0.9.0] - 2022-02-28 
+## [0.9.0] - 2022-04-30
 
 ### TODO for version [0.9.x]
 
@@ -19,7 +19,7 @@
 - [In Progress] Data Reporting with Jupyter notebook
 - [In Progress] The flow to register new instance LEO CDP
 
-## [0.9.0] - 2022-03-26
+## [0.9.0] - 2022-04-30
 
 ### Added 
 
