@@ -13,13 +13,36 @@
 
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="row" style="margin-bottom: 15px">
-				<h4> Configuration Management for Core System Services</h4>
-				<b class="highlight_text" > Please set configs to activate system services </b>
+		
+			<!--  Tab Navigation Items -->
+		    <ul class="nav nav-tabs" data-tab-content="system_info_tabs" >
+				<li class="active" >
+					<a href="javascript:" data-target-tab="panel_profile_data_fields" title="Profile Data Fields" > <i class="fa fa-list-ul" aria-hidden="true"></i> Profile Data Fields</a>
+		       	</li>
+		       	<li style="display: none;">
+					<a href="javascript:" data-target-tab="panel_sys_services" title="System Services" > <i class="fa fa-cogs" aria-hidden="true"></i> System Services </a>
+		       	</li>
+		  	</ul>
+		  	
+		  	<!-- Tab Contents  -->
+	    	<div id="system_info_tabs" class="tab-content" style="min-height: 750px;"  >
+	    	
+		    	<!-- tab 1 Event Report  -->
+				<div class="tab-pane active" id="panel_profile_data_fields" >
+				</div>
+				
+				<!-- tab 2 Event Report  -->
+				<div class="tab-pane " id="panel_sys_services" >
+					<div class="row" style="margin-bottom: 15px">
+						<h4> Configuration Management for Core System Services</h4>
+						<b class="highlight_text" > Please set configs to activate system services </b>
+					</div>
+					<div class="row" id="configs_holder" >
+						<!-- list -->
+					</div>
+				</div>
 			</div>
-			<div class="row" id="configs_holder" >
-				<!-- list -->
-			</div>
+			
 		</div>
 	</div>
 
@@ -28,6 +51,8 @@
 
 <script>
 	var initSystemConfigManagement = function() {
+		setupTabPanels();
+		
 		loadSystemConfigs();
 	}
 	
@@ -43,40 +68,40 @@
 				
 				var id = e.id;
 				var index = e.index;
-				if(index < 7) {
-					systemConfigMap[id] = e;
-					e.disabledText = e.configs.read_only ? 'disabled' : '';
-					if(!e.configs.active) {
-						e.enterpriseEditionText =  "(only available in the Enterprise edition)";
-					} else {
-						e.enterpriseEditionText = "";
-					}
+				
+				systemConfigMap[id] = e;
+				e.disabledText = e.configs.read_only ? 'disabled' : '';
+				if(!e.configs.active) {
+					e.enterpriseEditionText =  "(only available in the Enterprise edition)";
+				} else {
+					e.enterpriseEditionText = "";
+				}
+				
+				if(e.configs.service_api_key && e.configs.service_api_key != ""){
+					e.service_api_key = e.configs.service_api_key.substr(0,5) + "...";
+				} else{
+					e.service_api_key = "";
+				}
+				
+				if(e.configs.show) {
+					var boxTpl = _.template( $('#tpl_system_config_box').html() );
+					holder.append( boxTpl(e) );
 					
-					if(e.configs.service_api_key && e.configs.service_api_key != ""){
-						e.service_api_key = e.configs.service_api_key.substr(0,5) + "...";
-					} else{
-						e.service_api_key = "";
+					$('#header_' + id + '_true').css('color','#0000CD');
+					if(e.configs.service_api_url === 'local-system'){
+						$('#' + id + '_buttons_div').find('button').attr('disabled','disabled');
+						$('#' + id + '_api_key_div').css('visibility','hidden');
 					}
+					$('#' + id + '_api_key').focus(function(){
+						$(this).val("");
+					});
 					
-					if(e.configs.show) {
-						var boxTpl = _.template( $('#tpl_system_config_box').html() );
-						holder.append( boxTpl(e) );
-						
-						$('#header_' + id + '_true').css('color','#0000CD');
-						if(e.configs.service_api_url === 'local-system'){
-							$('#' + id + '_buttons_div').find('button').attr('disabled','disabled');
-							$('#' + id + '_api_key_div').css('visibility','hidden');
-						}
-						$('#' + id + '_api_key').focus(function(){
-							$(this).val("");
-						});
-						
-						if(e.status === 1){
-							var htmlOK = '<i class="fa fa-check" aria-hidden="true"></i> API Key is ready';
-							$('#' + id + '_api_key_label').html(htmlOK).addClass('config_ready');
-						}
+					if(e.status === 1){
+						var htmlOK = '<i class="fa fa-check" aria-hidden="true"></i> API Key is ready';
+						$('#' + id + '_api_key_label').html(htmlOK).addClass('config_ready');
 					}
 				}
+				
 			});
 			holder.find('div.active_false button').attr('class','btn btn-default').attr('disabled','disabled');
 			holder.find('div.panel_active_false').find('input').attr('disabled','disabled');

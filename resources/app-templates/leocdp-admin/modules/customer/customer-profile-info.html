@@ -42,7 +42,6 @@
 	ol.profile_ext_data {
 		margin-left: 28px;
 	}
-
 </style>
 
 <div class="row">
@@ -77,7 +76,7 @@
                    <img id="profile_avatar" src="/public/images/avatars/profile-default-avatar.png" alt="Profile Avatar" class="rounded mx-auto d-block avatar"> <br>
                    <h4 id="profile_full_name"> - </h4>
                </div>
-
+			   <hr>
                <div class="col-md-12" >
                		<div class="col-md-4" >
                      	<b> <i class="fa fa-fw fa-line-chart"></i> Lead Score <a href="https://en.wikipedia.org/wiki/Lead_scoring" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
@@ -112,9 +111,9 @@
                
                <div class="col-md-12" >  
                     <ul class="list-group" style="margin-top: 12px">
-					  	<li class="list-group-item">
-					  		<i class="fa fa-user-circle-o" aria-hidden="true"></i> <b> Type: </b> 
-					  		<span class="data_field" data-field="typeAsText" data-fieldholder="html"  data-fieldtype="string"  > - </span>
+					  	<li class="list-group-item" style="display: none">
+					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Accounts: </b> 
+					  		[<span class="data_field" id="profileInAccounts" > </span> ]
 					  	</li>
 					  	<li class="list-group-item">
 					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Segments: </b> 
@@ -142,6 +141,8 @@
            
 	        	<!-- Primary fields -->
 	        	<div>
+	        		
+                    
 	        		<div class="primary_field" > 
 	        			<b> <i class="fa fa-id-badge" aria-hidden="true"></i> LEO Profile ID: </b> 
 	                	<span class="data_field" data-field="id" data-fieldholder="html" data-fieldtype="string" > - </span>
@@ -156,8 +157,6 @@
 	                	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> CRM User ID: </b> 
 	                	<span class="data_field" data-field="crmRefId" data-fieldholder="html" data-fieldtype="string" > - </span>
 	                </div>
-	                <hr>
-	                
 	                <div class="primary_field" > 
                     	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Created at: </b> 
                     	<span class="data_field" data-field="createdAt" data-fieldholder="html"  data-fieldtype="date_time"  > - </span> 
@@ -165,7 +164,8 @@
                     <div class="primary_field" >   
                     	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Updated at: </b> 
                    		<span class="data_field" data-field="updatedAt" data-fieldholder="html"  data-fieldtype="date_time"  > -  </span> 
-                    </div>  
+                    </div>
+	                  
 	                <hr>  
 	                
 	                <div class="primary_field" > 
@@ -192,6 +192,12 @@
                     	<b class="primary_field"  > <i class="fa fa-fw fa-user-o"></i> Date of Birth </b> 
                     	<span class="data_field" data-field="dateOfBirth" data-fieldholder="html" data-fieldtype="date"  > -  </span> 
 	                </div>
+	                
+	                <hr>
+	        		<div class="primary_field" > 
+                    	<b> <i class="fa fa-user-circle-o" aria-hidden="true"></i> Profile Type: </b> 
+                    	<span class="data_field" data-field="typeAsText" data-fieldholder="html"  data-fieldtype="string"  > - </span>
+                    </div> 
                     
                     <div class="primary_field" > 
                     	<b class="primary_field"  > <i class="fa fa-fw fa-envelope"></i> Primary Email: </b> 
@@ -211,7 +217,6 @@
            <!--  End Profile Key Information -->
        </div>
       
-       
        <!--  Profile Tab Navigation Items -->
        <ul id="profile_info_tabs" class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" >
          <li class="active" onclick="handleProfileTabBehavioralInfo()">
@@ -1205,7 +1210,6 @@
  </li>
 </script>
 
-
 <!-- Modal new event -->
 <div class="modal fade" id="newCustomerSupportCaseDialog" role="dialog">
     <div class="modal-dialog">
@@ -1306,6 +1310,9 @@
         	 
         	 // decode for name of touchpoint
         	 data.lastTouchpoint.name = decodeURI(data.lastTouchpoint.name);
+        	 
+        	 //
+        	 data.totalCLV = 101;
         	
         	 return data;
          }
@@ -1324,32 +1331,47 @@
         	 // in segments
         	 var inSegmentsNode = $('#profileInSegments');
         	 var inSegmentSize = profileData.inSegments.length;
-        	 profileData.inSegments.forEach(function(e){
-        		 inSegmentSize--;
-        		 // FIXME  just make sure do not show deleted segment info
-        		 if(e.name.indexOf("[DELETED]")<0){
-        			 var ahtml = $('<a/>').attr('href',"#calljs-leoCdpRouter('Segment_Details','"+e.id+"')").text(e.name)[0].outerHTML;
-            		 var html = '<b>' + ahtml + '</b>';
-            		 if(inSegmentSize > 0){
-            			 html += ", ";
-            		 }
-            		 inSegmentsNode.append(html);
-        		 }
-        	 });
+       		 profileData.inSegments.forEach(function(e){
+           		 inSegmentSize--;
+           		 // FIXME  just make sure do not show deleted segment info
+           		 if(e.name.indexOf("[DELETED]")<0){
+           			 var ahtml = $('<a/>').attr('href',"#calljs-leoCdpRouter('Segment_Details','"+e.id+"')").text(e.name)[0].outerHTML;
+               		 var html = '<b>' + ahtml + '</b>';
+               		 if(inSegmentSize > 0){
+               			 html += ", ";
+               		 }
+               		 inSegmentsNode.append(html);
+           		 }
+           	 });
         	 
-        	// data labels
+        	 //profileData.inAccounts.push({"id":123,"name":"USPA Technology Company"})
+        	 // in accounts
+        	 var inAccountsNode = $('#profileInAccounts');
+        	 var inAccountSize = profileData.inAccounts.length;
+       		 profileData.inAccounts.forEach(function(e){
+           		 inAccountSize--;
+           		 // FIXME  just make sure do not show deleted account info
+           		 if(e.name.indexOf("[DELETED]")<0){
+           			 var ahtml = $('<a/>').attr('href',"#calljs-leoCdpRouter('Account_Details','"+e.id+"')").text(e.name)[0].outerHTML;
+               		 var html = '<b>' + ahtml + '</b>';
+               		 if(inAccountSize > 0){
+               			 html += ", ";
+               		 }
+               		 inAccountsNode.append(html);
+           		 }
+           	 });
+        	 
+        	 // data labels
         	 var dataLabelsNode = $('#profileDataLabels');
         	 var dataLabelsSize = profileData.dataLabels.length;
-        	 profileData.dataLabels.forEach(function(e){
-        		 dataLabelsSize--;
-           		 var html = '<b>' + e + '</b>';
-           		 if(dataLabelsSize > 0){
-           			 html += ", ";
-           		 }
-           		dataLabelsNode.append(html);
-        	 });
-        	 
-        	 
+       		 profileData.dataLabels.forEach(function(e){
+           		 dataLabelsSize--;
+              		 var html = '<b>' + e + '</b>';
+              		 if(dataLabelsSize > 0){
+              			 html += ", ";
+              		 }
+              		dataLabelsNode.append(html);
+           	 });
         	 
         	 // event flow
         	 loadEventFlow();

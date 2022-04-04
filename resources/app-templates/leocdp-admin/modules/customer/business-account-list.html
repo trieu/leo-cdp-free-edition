@@ -1,0 +1,205 @@
+<!-- Account Listing -->
+
+<style>
+.account_name_in_list { 
+	min-width: 235px!important;
+	color: #3300ff!important;
+	font-size:14px!important;
+	font-weight: bold;
+}
+th.sorting, th.sorting_desc, th.sorting_asc {
+	text-decoration: underline;
+}
+</style>
+
+<div class="row">
+	<div class="col-lg-8">
+		<h5 class="page-header" id="page_breadcrumb" > </h5>
+	</div>
+	<div class="col-lg-4 text-right" style="padding: 10px">
+		<button type="button" class="btn btn-do-now" onclick="location.reload()" title="Refresh Profile List" > 
+    		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
+    	</button>
+		<button type="button" class="btn btn-goto-router data-control-insert" onclick="createAccountEditor()">
+			<i class="fa fa-plus-circle" aria-hidden="true"></i> New Account
+		</button>
+	</div>
+</div>
+
+<div id="account_list_loader" class="loader"></div>
+<div id="account_list" class="row" style="display: none;">
+	<div class="col-lg-12">
+		<div class="top_page_header" >
+			<h4> <i class="fa fa-briefcase" aria-hidden="true"></i> Business Account Management </h4>
+		</div>
+	    <div class="table-responsive">
+	    	
+	        <table id="account_list_table" class="display" style="width:100%;">
+	            <thead>
+	                <tr>
+	                    <th>Account Name</th>
+	                    <th>Description</th>
+	                    <th>Data Owner</th>
+	                    <th>Created at</th>
+	                    <th>Updated at</th>
+	                    <th>Total Profile</th>
+	                    <th>Actions</th>
+	                </tr>
+	            </thead>
+	        </table>
+	    </div>
+	</div>
+</div>
+
+<script>
+	var initAccountList = function() {
+		loadAccountList();
+	}
+	
+	var canEditData = false, canDeteteData = false, dataTable = false;
+	
+	function refreshAccountTable() {
+	    $('#account_list_table').DataTable().clear();
+	    $('#account_list_table').DataTable().ajax.reload();
+	}
+	
+	function loadAccountList() {
+        var usersession = getUserSession();
+        
+        var collumnList = [
+        	
+       		{
+               "data": "name" // 0 
+           	},
+           	{
+               "data": "description" // 1
+           	},
+           	{
+                "data": "ownerUsername" // 2
+          	},
+           	{
+               "data": "createdAt" // 3
+           	},
+           	{
+               "data": "updatedAt" // 4
+           	},
+           	{
+               "data": "totalCount" // 5
+            }
+       	];
+        
+        if (usersession) {
+            $('#account_list_table').DataTable({
+            	"lengthMenu": [[20, 30, 40], [20, 30, 40]],
+            	'processing': true,
+                'serverSide': true,
+                'searching': true,
+                'ordering': true,
+                'serverMethod': 'POST',
+                'ajax': {
+                    url: baseLeoAdminUrl + "/cdp/segments/filter",
+                    contentType: 'application/json',
+                    beforeSend: function (request) {
+                    	$("#account_list_loader").show();
+                    	$("#account_list").hide();
+                        request.setRequestHeader("leouss", usersession);
+                    },
+                    data: function (d) {
+                    	var order = d.order[0];
+                    	d.sortField = collumnList[order.column].data;
+                    	d.sortAsc = order.dir === "asc" ;
+                    	d.searchValue = d.search.value;
+                    	delete d.order; delete d.search;
+                    	
+                        return JSON.stringify(d);
+                    },
+                    dataSrc: function ( json ) {
+                    	
+                    	canEditData = json.canEditData;
+                    	canDeteteData = json.canDeleteData;
+                		
+                		if( ! json.canInsertData ){
+            				$('button.data-control-insert').attr('disabled','disabled');
+            			}
+                		
+                		// done show UI
+                		$("#account_list_loader").hide();
+                    	$("#account_list").show();
+                    	
+                		return json.data;
+                     }
+                },
+                'columnDefs': [
+                	{
+                        "render": function (data, type, row) {
+                        	var callJsViewStr = "#calljs-leoCdpRouter('Business_Account_Info','" + row.id + "')";
+                        	var text = textTruncate(data,50);
+                            return '<div class="account_name_in_list"><a title="Account Report: '+data+'" href="' + callJsViewStr + '" >' + text + '</a></div>';
+                        },
+                        "targets": 0
+                    },
+                	{
+                        "render": function (data, type, row) {
+                            return '<div  style="font-size:0.8em;" title="' + data + '" >' + textTruncate(data, 150) + '</div>';
+                        },
+                        "targets": 1,
+                        "orderable": false
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	return  '<div style="width:90px; text-align:center" ><mark>' +  data.toLocaleString() + '</mark></div>';
+                        },
+                        "targets": 2,
+                        "orderable": false
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            var date = moment.utc(data).local().format('YYYY-MM-DD HH:mm:ss');
+                            return '<div class="small text-center" style="color:#3300ff;width:80px" >'  + date + '</div>';
+                        },
+                        "targets": 3
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	if(data){
+                        		 var date = moment.utc(data).local().format('YYYY-MM-DD HH:mm:ss');
+                        		 return '<div class="small text-center" style="color:#3300ff;width:80px" >'  + date + '</div>';
+                        	}
+                           return '-';
+                        },
+                        "targets": 4
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            return  '<div class="account_size" style="width:96px" ><mark>' +  data.toLocaleString() + '</mark></div>';
+                        },
+                        "targets": 5
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            var html = '';
+                            var callJsViewStr = "#calljs-leoCdpRouter('Business_Account_Info','" + row.id + "')";
+                            html += '<a class="control" title="Account Report" href="' + callJsViewStr + '" > <i class="fa fa-info-circle" aria-hidden="true"></i> View</a>';
+                            
+                        	if( canEditData ){	
+                        		var callJsEditStr = "#calljs-leoCdpRouter('Business_Account_Editor','" + row.id + "')";
+                        		html += '<br> <a class="control" title="Account Builder" href="' + callJsEditStr + '" > <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a> ';
+                        		//var callJsCopyStr = "#calljs-leoCdpRouter('Account_Builder_Copy','" + row.id + "')";
+                        		//html += '<br> <a class="control" title="Copy this segment" href="' + callJsCopyStr + '" > <i class="fa fa-clone" aria-hidden="true"></i> Copy</a>';
+                        	}
+                        	
+                            return html;
+                        },
+                        "targets": 6
+                    }
+                ],
+                'columns': collumnList
+            });
+        }
+    }
+	
+	var createAccountEditor = function() {
+	 	location.hash = "calljs-leoCdpRouter('Business_Account_Editor','new')";
+	}
+	
+</script>

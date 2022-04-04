@@ -23,6 +23,7 @@
 
 ### Added 
 
+- [UI] add sortable list by Data Quality Score, Journey Score and Updated At in Profile Data Management
 - [SystemTrackedEvent] to tracking user account activities, login for security monitoring
 - [Data Model] AbstractProfile
 - [Data Authorization] improve security check for Segment model and Profile model
@@ -38,10 +39,15 @@
 - [UI] UI to show profile with data quality score > 200
 - [UI] User Login Management
 
-## [0.8.9] - 2022-02-22
+### Fixed 
+
+- [UI] sorting fields in segment list
+
+## [0.8.9] - 2022-04-04
 
 ### Added 
 
+- upgrade core java library deps
 - upgrade system command-line tool
 - Get CX tracking code at touchpoint hub
 - new template survey "Khảo sát ý kiến người dùng về giao diện của website" to collect feedback data

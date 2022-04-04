@@ -9,6 +9,9 @@
 .no_contact {
 	color:#000!important;
 }
+th.sorting, th.sorting_desc, th.sorting_asc {
+	text-decoration: underline;
+}
 </style>
 <div class="row">
     <div class="col-lg-6">
@@ -257,12 +260,39 @@
     	
         var usersession = getUserSession();
         if (usersession) {
+        	var tableSchema = [
+                {
+                    "data": "type" // 0
+                },
+                {
+                    "data": "firstName" // 1
+                },
+                {
+                    "data": "lastTouchpoint" // 2
+                },
+                {
+                    "data": "dataQualityScore" // 3
+                },
+                {
+                    "data": "journeyScore" // 4
+                },
+                {
+                    "data": "primaryEmail" // 5
+                },
+                {
+                    "data": "primaryPhone" // 6
+                },
+                {
+                    "data": "updatedAt" // 7
+                }
+            ];
+        	
             dataTable = $('#profile_list_table').DataTable({
             	"lengthMenu": [[30, 50, 70], [30, 50, 70]],
             	'processing': true,
                 'serverSide': true,
                 'searching': false,
-                'ordering': false,
+                'ordering': true,
                 'serverMethod': 'POST',
                 'ajax': {
                     url: baseLeoAdminUrl + '/cdp/profiles/filter',
@@ -292,6 +322,12 @@
             			if(name.length >= 2 ){
             				d.name = name;
             			}
+            			
+            			d.order.map(function(e){
+            				e.field = tableSchema[e.column] ? tableSchema[e.column].data : "";
+            			})
+            			
+            			
                         return JSON.stringify(d);
                     },
                     dataSrc: function ( json ) {
@@ -318,7 +354,8 @@
                         	var html = getCheckedBoxIcon(hasContactInfo);
                             return '<div class="datatable_text text-center" style="color:#41A317!important;font-size:16px!important" >' + html + '</div>';
                         },
-                        "targets": 0
+                        "targets": 0,
+                        "orderable": false
                     },
                     {
                         "render": function (data, type, row) {
@@ -331,13 +368,15 @@
                             var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
                             return '<a class="' + cssClass + '" title="Profile Report" href="' + callJsViewStr + '" >' + name + '</a>';
                         },
-                        "targets": 1
+                        "targets": 1,
+                        "orderable": false
                     },
                     {
                         "render": function (data, type, row) {
                         	return '<div style="font-size:12px;" title="'+ row.lastTouchpoint.name +'">'  + textTruncate(row.lastTouchpoint.name, 50) + '</div>';
                         },
-                        "targets": 2
+                        "targets": 2,
+                        "orderable": false
                     },
                     {
                         "render": function (data, type, row) {
@@ -381,7 +420,8 @@
                         	}
                         	return '';
                         },
-                        "targets": 5
+                        "targets": 5,
+                        "orderable": false
                     },
                     {
                         "render": function (data, type, row) {
@@ -393,7 +433,8 @@
                         	}
                         	return '';
                         },
-                        "targets": 6
+                        "targets": 6,
+                        "orderable": false
                     },
                     {
                         "render": function (data, type, row) {
@@ -418,32 +459,8 @@
                         "targets": 8
                     }
                 ],
-                'columns': [
-                    {
-                        "data": "type" // 0
-                    },
-                    {
-                        "data": "firstName" // 1
-                    },
-                    {
-                        "data": "lastTouchpoint" // 2
-                    },
-                    {
-                        "data": "dataQualityScore" // 3
-                    },
-                    {
-                        "data": "journeyScore" // 4
-                    },
-                    {
-                        "data": "primaryEmail" // 5
-                    },
-                    {
-                        "data": "primaryPhone" // 6
-                    },
-                    {
-                        "data": "updatedAt" // 7
-                    }
-                ]
+                'columns': tableSchema,
+                'order': [[7, 'desc']]
             });
         }
     }    

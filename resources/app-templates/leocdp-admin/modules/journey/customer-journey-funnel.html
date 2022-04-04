@@ -235,16 +235,15 @@
                     .click(function(e) {
                     	console.log("setRules button ", $(this).data('eventName'));
                     	
-                    	infoEnterpriseVersion(this);
+                    	underDevelopment(this);
                         e.stopPropagation();
                     });       
                     
                     var cssClass = "customGridEditbutton jsgrid-button jsgrid-edit-button";
                     var $customEditButton = $("<button>").data("eventName",eventName).attr({class: cssClass,title:"Edit Event Metric"})
                     .click(function(e) {
-                    	//infoEnterpriseVersion(this);
+                    	//underDevelopment(this);
                         //e.stopPropagation();
-                       
                         
                         console.log("Edit button ", $(this).data('eventName'))
                     });

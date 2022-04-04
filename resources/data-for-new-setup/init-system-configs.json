@@ -88,7 +88,7 @@
 	{
 		"index" : 6,
 		"id": "leo_prediction",
-		"name": "Predictive Analytics Service for Smarter Business",
+		"name": "Predictive Analytics Service",
 		"description": "To predict Customer Acquisition Cost (CAC), Customer Lifetime Value (CLV) and Credit Score from behavioral data",
 		"configs": {
 			"icon": "fa-line-chart",
@@ -100,15 +100,10 @@
 		}
 	},
 	{
-		"index" : 7,
+		"index" : -1,
 		"id": "leo_cdp_metadata",
 		"name": "Leo CDP Meta Data",
 		"description": "Metadata for core system",
-		"configs": {
-			"icon": "fa-database",
-			"read_only": false,
-			"active": true,
-			"show": true
-		}
+		"configs": {}
 	}
 ]

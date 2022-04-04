@@ -1,0 +1,914 @@
+
+<!-- Account Details -->
+<style>
+
+	#account_disable_date_filter_holder {
+		font-size: 18px;
+	}
+	#panel_account_data_personalization .highlight_box {
+		background-color: #e8e8e8!important;
+    	border-radius: 10px!important;;
+		padding: 8px 8px 34px 8px!important;
+	}
+	input.url_holder {
+		background-color: #FFF8DC!important;
+	}
+	div.account_download_link {
+		float: right; padding-top: 5px; font-weight: bold; font-size: 15px;
+	}
+	
+</style>
+
+<div class="row">
+	<div class="col-lg-8">
+		<h5 class="page-header" id="page_breadcrumb" > </h5>
+	</div>
+	<div class="col-lg-4 text-right" style="padding: 10px">
+		<button type="button" class="btn btn-info" title="Go back" onclick="history.back()" > 
+			<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back 
+		</button>
+		<button type="button" class="btn btn-do-now" onclick="location.reload()" title="Refresh data"  > 
+       		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
+       	</button>
+		<button type="button" class="btn btn-danger data-control-delete" title="Delete this account" > 
+			<i class="fa fa-trash" aria-hidden="true"></i> Delete 
+		</button>
+		<button type="button" class="btn btn-goto-router data-control-edit" title="Edit this account" > 
+			<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit 
+		</button>
+	</div>
+</div>
+
+<div>
+	<!-- metadata  -->
+	<ul class="list-group">
+	  	<li class="list-group-item ">
+	 		<b>Account Name:</b> <span id="sm_name" class="highlight_text"></span>
+	  	</li>
+	  	<li class="list-group-item ">
+	  		<b>Description:</b> <span id="sm_description" class="highlight_text" ></span>
+	  	</li>
+	  	<li class="list-group-item ">
+	  		<b>Authorized users can view data:</b> <span id="sm_authorizedViewers" class="highlight_text"></span>
+	  	</li>
+	  	<li class="list-group-item ">
+	  		<b>Authorized users can update data:</b> <span id="sm_authorizedEditors" class="highlight_text" ></span>
+	  	</li>
+   	</ul>
+	
+	<div class="panel-group">
+	
+		<!--  Tab Navigation Items -->
+	    <ul class="nav nav-tabs" data-tab-content="account_info_tabs" >
+			<li class="active" >
+				<a href="javascript:" data-target-tab="panel_account_report_and_profiles" title="Account Event Report" > <i class="fa fa-line-chart" aria-hidden="true"></i> Report and Profiles</a>
+	       	</li>
+	       	<li>
+				<a href="javascript:" data-target-tab="panel_account_query_details" title="Data Query Rule Details" > <i class="fa fa-filter" aria-hidden="true"></i> Data Query Rules </a>
+	       	</li>
+	       	<li>
+				<a href="javascript:" data-target-tab="panel_account_data_exporting" title="Data Exporting" > <i class="fa fa-download" aria-hidden="true"></i> Data Exporting </a>
+	       	</li>
+	  	</ul>
+	  	
+	  	<!-- Tab Contents  -->
+	    <div id="account_info_tabs" class="tab-content" style="min-height: 750px;"  >
+	    	
+	    	<!-- tab 1 Event Report  -->
+			<div class="tab-pane active" id="panel_account_report_and_profiles" >
+				<div class="panel panel-leoadmin">
+					<div class="panel-heading"> <b> <i class="fa fa-line-chart" aria-hidden="true"></i> 
+						 Event Data Report <span id="eventDataFromDate" class="highlight_text">  </span> 
+										<i class="fa fa-arrow-right" aria-hidden="true"></i> <span id="eventDataToDate" class="highlight_text" > </span> </b> 
+					</div>
+					<div class="panel-body row">
+						<div class="col-lg-9">
+							<div class="row float-right">
+						        <div class='col-lg-5 col-xs-12'>
+						            <div class="form-group">
+						                <div class='input-group date' id='beginFilterDate'>
+						                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
+						                        <span class="glyphicon glyphicon-calendar"></span>
+						                    </span>
+						                </div>
+						            </div>
+						        </div>
+						        <div class='col-lg-5 col-xs-12'>
+						            <div class="form-group">
+						                <div class='input-group date' id='endFilterDate'>
+						                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
+						                        <span class="glyphicon glyphicon-calendar"></span>
+						                    </span>
+						                </div>
+						            </div>
+						        </div>
+						        <div class='col-lg-2 col-xs-12 text-center'>
+						        	<button type="button" class="btn btn-primary" style="width: 110px" onclick="loadAccountEventReport(true)" > 
+						        		<i class="fa fa-check" aria-hidden="true"></i> Refresh </button>
+						        </div>
+						    </div>
+							<div class="highlight_box">
+				      			
+				      			<canvas id="accountEventChart"></canvas>
+				      		</div>
+						</div>
+						<div class="col-lg-3 text-center">
+							<div id="account_size_chart" style="max-width: 300px; margin: 70px auto; "></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="panel panel-leoadmin" id="profile-list-panel"  >
+					<div class="panel-heading">
+						<div class="row"> 
+							<div class="col-lg-12">
+			                      <b> <i class="fa fa-list-ul" aria-hidden="true"></i> <label> All Matched Profiles </label> </b>                     
+			                </div>
+		                </div> 
+					</div>
+					<div class="panel-body row">
+						<div class="table-responsive" id="profilelist_holder" style="display: none;">
+						 	<table id="profile_list_querybuilder" class="display" style="width:100%;">
+						    	<thead>
+						        	<tr>
+							            <th>Full Name</th>
+							            <th>Age</th>
+							            <th>Gender</th>
+							            <th>Primary Email</th>
+							            <th>Data Quality</th>
+							            <th>Funnel Stage</th>
+							            <th>Last Updated at</th>
+							            <th>Last-seen Touchpoint</th>
+						        	</tr>
+						    	</thead>
+						 	</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- tab 2 Query Details  -->
+			<div class="tab-pane" id="panel_account_query_details" >
+				<div class="panel panel-leoadmin">
+					<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Data Query Rules </b> </div>
+					<div class="panel-body row">
+						
+						<div id="account_disable_date_filter_holder" class='col-lg-9 text-center' >
+							<span id='beginFilterDate'> </span>
+							<i class="fa fa-long-arrow-right" aria-hidden="true" style="font-weight: bold;" ></i>
+							<span  id='endFilterDate'> </span>
+						</div>
+						
+						<div class="col-lg-12">
+							<div id="account-builder-holder"></div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			
+			<!-- tab 3 Data Exporting  -->
+			<div class="tab-pane" id="panel_account_data_exporting" >
+				<div class="form-group highlight_box" >
+		     		<div class="col-lg-5">
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total Profile Count </label>
+		     		</div>
+		     		<div class="col-lg-7">
+		     			<b class="account_size" >0</b>
+		     		</div>
+				</div>
+				
+				<div class="form-group" >
+
+					<div class="col-sm-12 sm_purpose" > 
+						<div class="col-sm-10" >
+							<label class="label_box" > <i class="fa fa-file-excel-o" aria-hidden="true"></i> 
+								Export CSV data, the file is formated for Excel or Google Sheets (The URL is valid in 15 minutes)</label>
+							<input type="text" class="form-control url_holder" id="txt_exported_excel_csv" readonly placeholder="URL to download CSV data for Excel / Google Sheets" >
+						</div>
+						<div class="col-sm-2" >
+							<button type="button" class="btn btn-do-now" id="btn_exported_excel_csv" style="margin-top:10px;" onclick="getAccountDownloadUrl(this,'txt_exported_excel_csv')" > 
+								<i class="fa fa-check" aria-hidden="true"></i> Generate & Copy URL 
+							</button>
+							<div class="account_download_link" >
+								<a id="ahref_exported_excel_csv" style="display: none;" target="_blank" > Click here to download </a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-sm-12 sm_purpose" > 
+						<div class="col-sm-10" >
+							<label class="label_box" > <i class="fa fa-facebook-official" aria-hidden="true"></i> 
+								Export CSV data, the file is formated for Facebook Custom Audience (The URL is valid in 15 minutes) </label>
+							<input type="text" class="form-control url_holder" id="txt_exported_facebook_csv" readonly placeholder="URL to download CSV data for Facebook Custom Audience" >
+						</div>
+						<div class="col-sm-2" >
+							<button type="button" class="btn btn-do-now" id="btn_exported_facebook_csv" style="margin-top:10px;" onclick="getAccountDownloadUrl(this,'txt_exported_facebook_csv')"> 
+								<i class="fa fa-check" aria-hidden="true"></i> Generate & Copy URL 
+							</button>
+							<div class="account_download_link">
+								<a id="ahref_exported_facebook_csv" style="display: none;" target="_blank" > Click here to download </a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+	    </div>
+	</div>
+</div>
+
+
+<script>
+	var accountDataModel = false;
+	var accountDataStats = false;
+	
+	var initBusinessAccountInfo = function(id) {
+		// init UI tab
+		setupTabPanels();
+		setupCollapsePanels();
+		
+		// init date filter
+		initDateFilterComponent(true, null, null, 30);
+		
+		// Date Range Filtering Controller
+		var urlStr = baseLeoAdminUrl + '/cdp/account/load';
+        LeoAdminApiUtil.callPostAdminApi(urlStr, { 'id': id }, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+        		// only super-admin role can remove the account 
+        		var behavioralEventMap = json.data.behavioralEventMap;
+        		accountDataModel = json.data.accountData;
+        		accountDataStats = json.data.accountStats;
+                var accountId = accountDataModel.id;
+                var managedBySystem = accountDataModel.managedBySystem;
+                var jsonQueryRules = JSON.parse( accountDataModel.jsonQueryRules );
+                
+                document.title = 'Account Details - ' + accountDataModel.name;
+        		
+           	 	if(managedBySystem){
+                	$('button.data-control-delete').attr('disabled','disabled');
+                	$('button.data-control-delete').attr('title','Can not delete this account, which is managed by system');
+                }
+                else {
+                	if( json.canDeleteData){
+            			$('button.data-control-delete').click(deleteAccount);
+        			} else {
+        				$('button.data-control-delete').attr('disabled','disabled');
+        			}
+                }
+        		
+        		if( json.canEditData ){
+        			$('button.data-control-edit').click(function(){
+        				location.hash = "calljs-leoCdpRouter('Account_Builder','" + id + "')";
+        			});
+        		} else {
+        			$('button.data-control-edit').attr('disabled','disabled');
+        		}
+                
+        		// init UI after setting data into DOM 
+        		
+        		// account event report
+        		loadAccountEventReport();
+        		
+        		// 
+                setupAccountDataAndReports(accountDataModel)
+                
+                //
+                setupAccountPurposesActivation(accountDataModel)
+
+  				// Activation Plan
+                loadActivationPlanTable(accountDataModel.allActivationRules);
+                // Account Statistics
+                loadAccountStatistics(accountDataStats);
+                // Account Query Builder
+                loadAccountBuilder(behavioralEventMap, jsonQueryRules, true, false);
+                
+                loadProfilesInAccount();
+                $('#profilelist_holder').show();
+                
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
+	}
+	
+	 
+	var getSecuredDataJson = function(){
+		var buttonSelector =  "#btn_account_json_url";
+		
+		var generatingUrl = function(){
+			iziToast.info({ timeout : 2000, message: 'LEO CDP is processing data for the account "'+accountDataModel.name +'"' });
+			
+			var paramObj = { 'accountId': accountDataModel.id };
+	        var url = window.baseLeoAdminUrl + '/cdp/account/export-json';
+	        LeoAdminApiUtil.getSecuredData(url, paramObj, function (json) {
+	            if (json.httpCode === 0 && json.errorMessage === '' && json.data) {
+	               	var securedJsonUrl = window.baseLeoAdminUrl + json.data ;
+	               	$('#account_json_url').val(securedJsonUrl);
+	               	$(buttonSelector).data("url",securedJsonUrl);
+	        		
+	               	setTimeout(function(){  $(buttonSelector).data("init-done",true).trigger('click') }, 100);
+	            }
+	        });
+		}
+		
+		if(mapClipboardJS[buttonSelector] == null){
+			mapClipboardJS[buttonSelector] = true;
+			
+			generatingUrl();
+    		new ClipboardJS(buttonSelector, {
+     		    text: function(trigger) {
+     		    	if( $(buttonSelector).data("init-done") ) {
+     		    		notifySuccessMessage("Successfully copied URL into clipboard!");
+     		    	}
+     		        return $(buttonSelector).data("url");
+     		    }
+     		})
+     	}
+	}
+	
+	var getSecuredDataCsv = function(){
+		var buttonSelector =  "#btn_account_csv_url";
+		
+		var generatingUrl = function(){
+			iziToast.info({ timeout : 2000, message: 'LEO CDP is processing data for the account "'+accountDataModel.name +'"' });
+			
+			var paramObj = { 'accountId': accountDataModel.id, 'csvType': 0 };
+	        var url = window.baseLeoAdminUrl + '/cdp/account/export-csv';
+	        LeoAdminApiUtil.getSecuredData(url, paramObj, function (json) {
+	            if (json.httpCode === 0 && json.errorMessage === '' && json.data) {
+	               	var securedJsonUrl = window.baseLeoAdminUrl + json.data ;
+	               	$('#account_csv_url').val(securedJsonUrl);
+	               	$(buttonSelector).data("url",securedJsonUrl);
+	        		
+	               	setTimeout(function(){  $(buttonSelector).data("init-done",true).trigger('click') }, 100);
+	            }
+	        });
+		}
+		
+		if(mapClipboardJS[buttonSelector] == null){
+			mapClipboardJS[buttonSelector] = true;
+			
+			generatingUrl();
+    		new ClipboardJS(buttonSelector, {
+     		    text: function(trigger) {
+     		    	if( $(buttonSelector).data("init-done") ) {
+     		    		notifySuccessMessage("Successfully copied URL into clipboard!");
+     		    	}
+     		        return $(buttonSelector).data("url");
+     		    }
+     		})
+     	}
+	}
+	
+	var getAccountDownloadUrl = function(node, dataFor){
+		var buttonSelector = "#"+$(node).attr('id');
+		var csvType = 0; var aSel = "";
+
+		if(dataFor === "txt_exported_excel_csv") {
+			csvType = 0;
+			aSel = "#ahref_exported_excel_csv";
+		}
+		else if(dataFor === "txt_exported_facebook_csv") {
+			csvType = 1;
+			aSel = "#ahref_exported_facebook_csv";
+		}
+		
+		var generatingUrl = function(){
+			// noti
+			iziToast.info({ timeout : 2000, message: 'LEO CDP is processing data for the account "'+accountDataModel.name +'"' });
+			var paramObj = { 'accountId': accountDataModel.id, 'csvType': csvType };
+	        var url = window.baseLeoAdminUrl + '/cdp/account/export-csv';
+	        LeoAdminApiUtil.getSecuredData(url, paramObj, function (json) {
+	            if (json.httpCode === 0 && json.errorMessage === '' && json.data) {
+	               var url = window.baseLeoAdminUrl + json.data ;
+	              
+	               $('#' + dataFor).val(url);
+	           	   $(buttonSelector).data("url",url);
+	           	   $(aSel).attr("href",url).show();
+	               
+	           	   setTimeout(function(){  
+	           		   $(buttonSelector).data("init-done",true).trigger('click') 
+	           	   }, 100);
+
+	            }
+	        });
+		}
+		
+		if(mapClipboardJS[buttonSelector] == null){
+			mapClipboardJS[buttonSelector] = true;
+			
+			generatingUrl();
+    		new ClipboardJS(buttonSelector, {
+     		    text: function(trigger) {
+     		    	if( $(buttonSelector).data("init-done") ) {
+     		    		notifySuccessMessage("Successfully copied URL into clipboard!");
+     		    	}
+     		    	return $(buttonSelector).data("url");
+     		    }
+     		})
+     	}
+	}
+	
+	function removeActivationRuleForAccount(node){
+		var id = $(node).data("activation-rule-id");
+		alert("delete " + id)
+	}
+	
+	var initActivationJsGridPlugin = function() {
+		var ActivationButtons = function(config) {
+		    jsGrid.Field.call(this, config);
+		};
+		ActivationButtons.prototype = new jsGrid.Field({
+		    sorter: function(date1, date2) {
+		        return 0;
+		    },
+		
+		    itemTemplate: function(activationRuleId) {
+		    	console.log("activationRuleId ", activationRuleId)
+		    	var btnHtml = '<button type="button" class="btn btn-danger btn-sm" onclick="removeActivationRuleForAccount(this)"';
+		    	btnHtml += (' data-activation-rule-id="' + activationRuleId  + '" ' );
+		    	btnHtml += '><i class="fa fa-trash" style="font-size:1.2em" aria-hidden="true"></i> Remove </button>';
+		    	return btnHtml;
+		    },
+		    
+		    insertTemplate: function(value) {
+	            return this._insertCode = value;
+	        },
+
+	        editTemplate: function(value) {
+	            return this._editCode = value;
+	        },
+
+	        insertValue: function() {
+	            return this._insertCode;
+	        },
+
+	        editValue: function() {
+	            return this._editCode;
+	        }
+		});
+		jsGrid.fields.ActivationButtons = ActivationButtons;
+	}
+	
+	function loadActivationPlanTable(dataList){
+		//
+		dataList.forEach(function(e){
+			e.action = e.actions.join("-")
+		});
+		//
+		initActivationJsGridPlugin();
+		$("#activation_plan_table").jsGrid({
+   		    width: "100%",
+   		    height: "auto",
+   		    inserting: false,
+   		    editing: false,
+   		    sorting: false,
+   		    paging: false,
+   		    data: dataList,
+   		    fields: [
+   		    	{ name: "activationType", title : "Activation Type", type: "BoldText", width: 120, align: "center" },
+   		        { name: "action", title : "Action", type: "text", width: 70, align: "center" },
+   		     	{ name: "dataConnectorName", title : "Data Connector", type: "text", align: "center" },
+   		        { name: "assetTemplateName", title : "Asset Template", type: "text", align: "center" },
+   		     	{ name: "priority", title : "Priority", type: "number", width: 30, align: "center" },
+   		        { name: "schedulingTime", title : "Scheduling Time", type: "number", width: 64, align: "center" },
+   		     	{ name: "id", title : "Actions", type: "ActivationButtons", width: 50, align: "center"}
+   		    ]
+   		});  
+	}
+	
+	window.accountEventChart = false;
+    var loadAccountEventReport = function(refresh){
+    		
+    	var formatDate = 'YYYY-MM-DD HH:mm:ss';
+    	var params = getDateFilterValues();
+    	params["accountId"] = accountDataModel.id;
+    	
+    	var beginReportDate = params.beginFilterDate;
+    	$('#eventDataFromDate').text(new moment(beginReportDate).format(formatDate))
+    	
+    	var endReportDate = params.endFilterDate;
+    	$('#eventDataToDate').text(new moment(endReportDate).format(formatDate))
+        
+    	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/event-report/account';
+    	
+    	LeoAdminApiUtil.getSecuredData(urlStr, params , function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+	    		// 3) render chart data
+	    		var chartId = 'accountEventChart';
+	    		if(refresh === true && accountEventChart !== false){
+	    			renderTimeseriesChart(chartId, json.data , true, accountEventChart);
+	    		}
+	    		else {
+	    			window.accountEventChart = renderTimeseriesChart(chartId, json.data , false);
+	    		}		   		
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
+    }
+	
+	var setupAccountPurposesActivation = function(accountData) {
+		var accountId = accountData.id;
+		var name = accountData.name;
+		var size = accountData.totalCount;
+		
+		$('button[data-purpose]').click(function(){
+			var purpose = $(this).data("purpose");
+			if(purpose === "forEmailMarketing"){
+				showEmailMarketingDialog(accountId, name, size)
+			}
+			else if(purpose === "for3rdSynchronization"){
+				showDataSynchronizationDialog(accountId, name, size)
+			}
+			else {
+				// window.open("https://colab.research.google.com/notebooks/","_blank")
+				iziToast.info({
+		    	    title: 'Information',
+		    	    message: 'This function is under development and is not yet available'
+		    	});
+			}
+		})
+	}
+	
+	var getHtmlForAuthorizedUserLogin = function(users) {
+		var html = '';
+		users.forEach(function(e){
+			if(currentUserProfile.role === 6) {
+				var callJsViewStr = "#calljs-leoCdpRouter('User_Login_Report','" + e + "')";
+			    html += ('<a title="User Login Report" href="' + callJsViewStr + '" >'+e+'</a>, ');
+			}
+			else {
+				html += (e + ', ');
+			}
+		})
+       	return html;
+	}
+
+	var setupAccountDataAndReports = function(accountData) {
+		 var accountId = accountData.id;
+		 var name = accountData.name;
+		 var size = accountData.totalCount;
+		
+		 var formatDateTime =  'YYYY-MM-DD HH:mm:ss';
+		 $('#sm_indexScore').text(accountData.indexScore);
+		 $('#sm_name').text(name);
+	     $('#sm_description').text(accountData.description);
+	     $('#sm_authorizedViewers').html(getHtmlForAuthorizedUserLogin(accountData.authorizedViewers));
+	     $('#sm_authorizedEditors').html(getHtmlForAuthorizedUserLogin(accountData.authorizedEditors));
+	     
+	     $('b.account_size').text(size.toLocaleString())
+	     
+	     var hasActivation = false;
+	     
+	     if( ! accountData.disableDateRangeFilter ) {
+	    	 $('#beginFilterDate').text( moment.utc(accountData.beginFilterDate).local().format(formatDateTime)  );
+		     $('#endFilterDate').text( moment.utc(accountData.endFilterDate).local().format(formatDateTime) );
+	     } else {
+	    	 $('#account_disable_date_filter_holder').hide();
+	     }
+	     
+	     if(accountData.for3rdSynchronization){
+	    	 $('#sm_for3rdSynchronization').show();
+	    	 hasActivation = true;
+	     } else {
+	    	 $('#sm_for3rdSynchronization').hide()
+	     }
+	     
+	     if(accountData.forDeepAnalytics){
+	    	 //$('#sm_forDeepAnalytics').show();
+	    	 hasActivation = true;
+	     } else {
+	    	 $('#sm_forDeepAnalytics').hide()
+	     }
+	     
+	     if(accountData.forPredictiveAnalytics ){
+	    	 //$('#sm_forPredictiveAnalytics').show();
+	    	 hasActivation = true;
+	     } else {
+	    	 $('#sm_forPredictiveAnalytics').hide()
+	     }
+	     
+	     if(accountData.forPersonalization){
+	    	 accountDataPersonalization(accountId, name, size)
+	    	 $('#account_data_personalization').show();
+	    	 $('#sm_forPersonalization').show();
+	    	 hasActivation = true;
+	     } else {
+	    	 $('#sm_forPersonalization').hide()
+	     }
+	     
+	     if(accountData.forEmailMarketing && accountData.forPersonalization ){
+	    	//$('#sm_forEmailMarketing').show();
+	    	hasActivation = true;
+	     } else {
+	    	 $('#sm_forEmailMarketing').hide()
+	     }
+	     
+	     if(accountData.forRealtimeMarketing && accountData.forPersonalization ){
+	    	 //$('#sm_forRealtimeMarketing').show();
+	    	 hasActivation = true;
+	     } else {
+	    	 $('#sm_forRealtimeMarketing').hide()
+	     }
+	     
+	     // in version 2.0
+	     if(accountData.forReTargeting){
+	    	 //$('#sm_forReTargeting').show();
+	    	 hasActivation = true;
+	     } else {
+	    	 $('#sm_forReTargeting').hide();
+	     }
+	     
+	  	 // in version 2.0
+	     if(accountData.forLookalikeTargeting){
+	    	 //$('#sm_forLookalikeTargeting').show();
+	    	 hasActivation = true;
+	     } else {
+	    	 $('#sm_forLookalikeTargeting').hide();
+	     }
+	     
+	     if(!hasActivation){
+	    	 $('#sm_no_activation_plan').show()
+	     }
+	}
+	
+	
+	var doDataSynchronization = function(node){
+		var connectorId = $('#dataConnectorHolder input[name="dataconnector"]:checked').val();
+		if(typeof connectorId === "string"){
+			var accountId = $(node).data('accountId');
+			var accountName = $(node).data('accountName')
+
+			var info = accountName + " is being synchronized to [" + connectorId + "]";
+			iziToast.info({ title: 'Information',message: info });
+			$('#dialogDataSynchronization').modal('hide');
+			
+			LeoAdminApiUtil.callPostAdminApi('/cdp/data-connector/trigger',{"accountId" : accountId, "connectorId" : connectorId}, function(json) { 
+				if(json.data === connectorId){
+					var info =  'Data Synchronization is OK for the account [' + accountName + ']';
+					iziToast.success({title: 'OK', message: info});
+				}
+				else {
+					var msg = 'Data Synchronization is failed for the account [' + accountName + '], please set valid API keys for ' + connectorId;
+					iziToast.error({ title: 'Error', message: msg});
+				}
+			})
+		} else {
+			iziToast.error({ title: 'Error', message: "Please select a connector to synchronize data"});
+		}
+	}
+	
+	var showDataSynchronizationDialog = function(accountId, accountName, accountSize) {	
+		$('#dialogDataSynchronization').modal({
+    		backdrop: 'static',
+    		keyboard: false
+		});
+		$('#synchronizationOkButton').data("accountId",accountId).data("accountName",accountName);
+	}
+	
+	var emailTemplateToActivateAccount = false;
+	var showEmailMarketingDialog = function(accountId, accountName, accountSize) {
+		
+  		$('#dialogEmailMarketing').modal({
+      		backdrop: 'static',
+      		keyboard: false
+  		});
+		
+		// EMAIL_CONTENT
+		var urlStr = window.baseLeoAdminUrl + "/item/asset-templates-for-email";
+    	LeoAdminApiUtil.getSecuredData(urlStr, {}, function (json) { 
+    		// priority group selector
+			var pgSelector = $('#emailTemplateSelector');
+			pgSelector.find("option").remove();
+			
+			var firstId = false;
+    		json.data.forEach(function(group,i){ 
+    			var id = group.id;
+    			var option = '<option value="'+id+'" >' + group.title + '</option>';
+    			pgSelector.append(option);
+    			if(emailTemplateToActivateAccount === false) {
+    				emailTemplateToActivateAccount = id;
+    			}
+    		})
+    		
+    		// select the first
+    		if(typeof emailTemplateToActivateAccount === "string"){
+    			pgSelector.val(emailTemplateToActivateAccount).change();
+    		}
+    		
+    		// set the first
+    		pgSelector.chosen({
+                width: "100%",
+                no_results_text: "Oops, nothing found!"
+            }).trigger("chosen:updated").change(function(){
+            	console.log("chosen:updated" + $(this).val());
+            	emailTemplateToActivateAccount = $(this).val();
+            });
+    	})
+	}
+	
+	var accountDataPersonalization = function(accountId, accountName, accountSize) {
+		// PRODUCT_ITEM_CATALOG
+		var paramObj = { 'assetType': 2 };
+		var urlStr = window.baseLeoAdminUrl + "/group/list-by-asset-type";
+		LeoAdminApiUtil.getSecuredData(urlStr, paramObj , function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+            	
+            	// priority group selector
+    			var pgSelector = $('#priorityGroupSelector');
+    			pgSelector.find("option").remove();
+    			
+	    		json.data.forEach(function(group,i){ 
+	    			var id = group.id;
+	    			var option = '<option value="'+id+'" >' + group.title + '</option>';
+	    			pgSelector.append(option);
+	    		})
+	    		
+	    		// set the first
+	    		pgSelector.chosen({
+	                width: "100%",
+	                no_results_text: "Oops, nothing found!"
+	            }).trigger("chosen:updated").change(function(){
+	            	console.log("chosen:updated" + $(this).val())
+	            });
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
+	}
+	
+	function doSetItemsToRecommenderSystem() {
+		var accountId = accountDataModel.id;
+		var groupId = $('#priorityGroupSelector').val();
+		
+		if(groupId && groupId !== ""){
+			iziToast.info({
+			    title: 'Information Box',
+			    color : 'green',
+			    message: 'Starting the process to set data for recommmender system'
+			});
+		    
+		    var urlStr = baseLeoAdminUrl + '/group/set-items-to-recommender-system';
+		    var params = { "groupId": groupId, "accountId" : accountId };
+		    
+		    LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
+		         if (json.httpCode === 0 && json.errorMessage === '') {
+		        	 var c = json.data;
+		        	 iziToast.info({
+		       		    title: 'Information Box',
+		       		    color : 'green',
+		       		    message: 'Finished the process to set data for recommmender system, total graph edges: ' + c 
+		       		});
+		         }
+		    });
+		}
+	}
+</script>
+
+
+<!-- Email Marketing dialog html -->
+<div class="modal fade" id="dialogEmailMarketing" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > Activate Direct Email Marketing </h4>
+			</div>         
+			<div class="modal-body ">
+				<div class="alert alert-warning" role="alert">
+					<i class="fa fa-info-circle" aria-hidden="true"></i> Before sending email directly to profile, you should set data personalization for this account !
+				</div>
+				
+				<div class="form-group highlight_box" >
+		     		<div class="col-lg-5">
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total Profile Count </label>
+		     		</div>
+		     		<div class="col-lg-7">
+		     			<b class="account_size" >0</b>
+		     		</div>
+				</div>
+			
+				<div class="form-group highlight_box" >
+		     		<div class="col-lg-12">
+		     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Email Data Connectors </label>
+		     		</div>
+		     		<div id="emailConnectorHolder" style="padding-left: 32px;" >
+		     			 <div class="radio">
+						  	<label for="ec_sendinblue" ><input id="ec_sendinblue" type="radio" value="sendinblue" name="dataconnector">SendInBlue email service</label>
+						 </div>
+						 <div class="radio">
+						  	<label for="ec_mailchimp" ><input id="ec_mailchimp" type="radio" value="mailchimp" name="dataconnector">MailChimp email service</label>
+						</div>
+						<div class="radio">
+						  	<label for="ec_local_smtp_mail_server" ><input id="ec_local_smtp_mail_server" type="radio" value="local_smtp_mail_server" name="dataconnector">SMTP mail server to send email directly</label>
+						</div>
+		     		</div>
+				</div>
+				
+				<div class="form-group highlight_box" >
+					<div class="col-lg-5">
+	                	<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Email Template </label>
+	                </div>
+		     		<div class="col-lg-7"  >
+		                <select id="emailTemplateSelector" data-placeholder="Choose a email template" class="select" >
+		                  	<!-- emailTemplateSelector -->  
+		                </select>
+	                </div>
+	            </div>
+	            
+	            <div class="form-group highlight_box" style="height: 50px;">
+		     		<div class="col-lg-5">
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Scheduling Time </label>
+		     		</div>
+		     		<div class="col-lg-7">
+		     			<select class="form-control" id="email_time_interval">
+						    <option value="0"  > Send email immediately</option>
+						    <option value="-6" > After 6 hours from now</option>
+						    <option value="-8" > After 8 hours from now</option>
+						    <option value="-12"> After 12 hours from now</option>
+						    <option value="24" > Every 24 hours at 7 AM</option>
+						    <option value="48" > Every 48 hours at 7 AM</option>
+						    <option value="72" > Every 72 hours at 7 AM</option>
+						    <option value="-1" > Every Workday at 7 AM</option>
+						    <option value="-2" > Every Saturday at 10 AM</option>
+						</select>
+		     		</div>
+				</div>
+				
+			</div>  
+			
+			<div class="modal-footer" >
+				<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+				<button type="button" class="btn btn-do-now" onclick="sendEmailToAllProfileInAccount()"><i class="fa fa-check" aria-hidden="true"></i> OK </button>
+		    </div>  
+		</div>
+	</div>
+</div>
+
+<!-- Synchronization dialog html -->
+<div class="modal fade" id="dialogDataSynchronization" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > Data Connection for Synchronization </h4>
+			</div>         
+			<div class="modal-body row">
+				<div class="form-group highlight_box" >
+		     		<div class="col-lg-5">
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total Profile Count </label>
+		     		</div>
+		     		<div class="col-lg-7">
+		     			<b class="account_size" >0</b>
+		     		</div>
+				</div>
+			
+				<div class="form-group highlight_box"  >
+		     		<div class="col-lg-12 ">
+		     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Data Connectors </label>
+		     		</div>
+		     		<div id="dataConnectorHolder" style="padding-left: 32px;" >
+		     			 <div class="radio">
+						  	<label for="c_sendinblue" ><input id="c_sendinblue" type="radio" value="sendinblue" name="dataconnector"> SendInBlue Email Marketing Automation </label>
+						 </div>
+						 <div class="radio">
+						  	<label for="c_mailchimp" ><input id="c_mailchimp" type="radio" value="mailchimp" name="dataconnector"> MailChimp Email Marketing Automation </label>
+						</div>
+		     		</div>
+				</div>
+				
+				<div class="form-group highlight_box" style="height: 50px;">
+		     		<div class="col-lg-5">
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Scheduling Time </label>
+		     		</div>
+		     		<div class="col-lg-7">
+		     			<select class="form-control" id="data_synch_time_interval">
+						    <option value="0" > Synch data immediately</option>
+						    <!--  
+						    <option value="1" > Every 1 hour from now </option>
+						    <option value="2" > Every 2 hours from now </option>
+						    <option value="3" > Every 3 hours from now </option>
+						    <option value="6" > Every 6 hours from now </option>
+						    <option value="12" > Every 12 hours from now </option>
+						    <option value="24" > Every 24 hours from now </option>
+						    <option value="48" > Every 48 hours from now </option>
+						    <option value="72" > Every 72 hours from now </option>
+						    <option value="168" > Every week from now </option>
+						    -->
+						</select>
+		     		</div>
+				</div>
+			</div>  
+			
+			<div class="modal-footer" >
+				<button type="button" class="btn btn-do-now" id="synchronizationOkButton" onclick="doDataSynchronization(this)">
+					<i class="fa fa-check" aria-hidden="true"></i> OK 
+				</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>

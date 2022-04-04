@@ -8,7 +8,9 @@
 	font-size:14px!important;
 	font-weight: bold;
 }
-
+th.sorting, th.sorting_desc, th.sorting_asc {
+	text-decoration: underline;
+}
 </style>
 
 <div class="row">
@@ -37,11 +39,11 @@
 	            <thead>
 	                <tr>
 	                    <th>Segment Name</th>
-	                    <th>Total Profile</th>
 	                    <th>Description</th>
 	                    <th>Data Owner</th>
 	                    <th>Created at</th>
 	                    <th>Updated at</th>
+	                    <th>Total Profile</th>
 	                    <th>Actions</th>
 	                </tr>
 	            </thead>
@@ -71,20 +73,20 @@
                "data": "name" // 0 
            	},
            	{
-               "data": "totalCount" // 1
+               "data": "description" // 1
            	},
            	{
-               "data": "description" // 2
-           	},
-           	{
-                "data": "ownerUsername" // 3
+                "data": "ownerUsername" // 2
           	},
            	{
-               "data": "createdAt" // 4
+               "data": "createdAt" // 3
            	},
            	{
-               "data": "updatedAt" // 5
-           	}
+               "data": "updatedAt" // 4
+           	},
+           	{
+               "data": "totalCount" // 5
+            }
        	];
         
         if (usersession) {
@@ -137,30 +139,26 @@
                         },
                         "targets": 0
                     },
-                    {
-                        "render": function (data, type, row) {
-                            return  '<div class="segment_size" style="width:96px" ><mark>' +  data.toLocaleString() + '</mark></div>';
-                        },
-                        "targets": 1
-                    },
                 	{
                         "render": function (data, type, row) {
                             return '<div  style="font-size:0.8em;" title="' + data + '" >' + textTruncate(data, 150) + '</div>';
                         },
-                        "targets": 2
+                        "targets": 1,
+                        "orderable": false
                     },
                     {
                         "render": function (data, type, row) {
                         	return  '<div style="width:90px; text-align:center" ><mark>' +  data.toLocaleString() + '</mark></div>';
                         },
-                        "targets": 3
+                        "targets": 2,
+                        "orderable": false
                     },
                     {
                         "render": function (data, type, row) {
                             var date = moment.utc(data).local().format('YYYY-MM-DD HH:mm:ss');
                             return '<div class="small text-center" style="color:#3300ff;width:80px" >'  + date + '</div>';
                         },
-                        "targets": 4
+                        "targets": 3
                     },
                     {
                         "render": function (data, type, row) {
@@ -169,6 +167,12 @@
                         		 return '<div class="small text-center" style="color:#3300ff;width:80px" >'  + date + '</div>';
                         	}
                            return '-';
+                        },
+                        "targets": 4
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            return  '<div class="segment_size" style="width:96px" ><mark>' +  data.toLocaleString() + '</mark></div>';
                         },
                         "targets": 5
                     },

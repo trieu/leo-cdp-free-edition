@@ -117,16 +117,16 @@
 				</a>
 				<ul id="customer_hub_menu" class="collapse in" aria-expanded="true">
 					<li id="Account_Management_Menu" style="display: none;" >
-						<a id="Account_Management" href="#calljs-leoCdpRouter('Account_Management')" onclick="underDevelopment(this)" title="All business accounts" > 
-							<i class="fa fa-fw fa-briefcase"></i> Account Management </a>
+						<a id="Account_Management" href="#calljs-leoCdpRouter('Business_Account_Management')" title="All Business Accounts" > 
+							<i class="fa fa-fw fa-briefcase"></i> Business Accounts </a>
 					</li>
 					<li id="Profile_Management_Menu" >
-						<a id="Profile_Management" href="#calljs-leoCdpRouter('Profile_Management')" title="All customer profiles" > 
-							<i class="fa fa-fw fa-user-circle-o"></i> Profile Management </a>
+						<a id="Profile_Management" href="#calljs-leoCdpRouter('Profile_Management')" title="All Customer Profiles" > 
+							<i class="fa fa-fw fa-user-circle-o"></i> Customer Data Profiles </a>
 					</li>
 					<li id="Segment_Management_Menu" >
-						<a id="Segment_Management" href="#calljs-leoCdpRouter('Segment_Management')" title="All customer segments"> 
-							<i class="fa fa-object-group" aria-hidden="true"></i> Segment Management </a>
+						<a id="Segment_Management" href="#calljs-leoCdpRouter('Segment_Management')" title="All Customer Segments"> 
+							<i class="fa fa-object-group" aria-hidden="true"></i> Customer Segments </a>
 					</li>
 				</ul>
 			</li>
@@ -139,15 +139,11 @@
 				<ul id="data_activation_hub_menu" class="collapse in" aria-expanded="true">
 					<li>
 						<a id="Digital_Data_Asset" href="#calljs-leoCdpRouter('Digital_Data_Asset')" title="Digital Data Asset Management" > 
-							<i class="fa fa-fw fa-list" ></i> Digital Data Asset </a>
+							<i class="fa fa-fw fa-list" ></i> Data Asset Categories </a>
 					</li>
 					<li id="Connector_Management_Menu" style="display: none;" >
 						<a id="Connector_Management" href="#calljs-leoCdpRouter('Connector_Management')">
-							<i class="fa fa-fw fa-exchange" aria-hidden="true" ></i> Connector Management </a>
-					</li>
-					<li id="Campaign_Management_Menu" style="display: none;">
-						<a id="Campaign_Management" href="javascript:" data-href="#calljs-leoCdpRouter('Campaign_Management')" onclick="underDevelopment(this)" title="Marketing Campaign Management"  > 
-							<i class="fa fa-fw fa-calendar-check-o"></i> Campaign Management</a>
+							<i class="fa fa-fw fa-exchange" aria-hidden="true" ></i> Data Connectors </a>
 					</li>
 				</ul>
 			</li>
@@ -162,7 +158,7 @@
 						<a id="User_Login_Management" href="#calljs-leoCdpRouter('User_Login_Management')">
 							<i class="fa fa-user-plus" aria-hidden="true"></i> Login Management </a>
 					</li>
-					<li id="user_menu_System_Data_Settings" style="display: none;" >
+					<li id="System_Data_Settings_Menu" style="display: none;" >
 						<a id="System_Data_Settings" href="#calljs-leoCdpRouter('System_Data_Settings')" >
 							<i class="fa fa-gear" aria-hidden="true"></i> System Data Settings </a>
 					</li>
@@ -213,6 +209,7 @@
 	                
 	                if(role >= 1) {
 	                	$("#nav_customer_hub").show();
+	                	//$("#Account_Management_Menu").show();
 	                }
 	                if(role >= 2) {
 	                	$("#nav_activation_hub").show();
@@ -225,11 +222,6 @@
 	                if(role === 6) {
 	                	// ROLE_SUPER_ADMIN
 	                	$('#nav_system_management').show();
-	                }
-	                
-	              	// check to show Account Management
-	                if(role >= 2 && window.hasB2Bfeatures) {
-	                	// $("#Account_Management_Menu").show();
 	                }
 	                
 	                $('#userDisplayName').html(systemUser.displayName);
