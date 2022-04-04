@@ -111,7 +111,7 @@
                
                <div class="col-md-12" >  
                     <ul class="list-group" style="margin-top: 12px">
-					  	<li class="list-group-item">
+					  	<li class="list-group-item" style="display: none">
 					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Accounts: </b> 
 					  		[<span class="data_field" id="profileInAccounts" > </span> ]
 					  	</li>
@@ -1398,6 +1398,29 @@
              //personalityDiagram();
              
          });
+    }
+    
+    var newObservedEvent = function(){
+    	var eventMap = {
+    		"search":true,
+    		"join-community":true,
+    		"join-webinar":true,
+    		"join-workshop":true,
+    		"check-in":true,
+    		
+    		"ask-question":true,
+    		"product-trial":true,
+    		"purchase": true,
+    		"enroll": true,
+    		"subscribe": true,
+    		
+    		"engage":true,
+    		"negative-social-review":true,
+    		"positive-social-review":true,
+    		"viral-positive-review":true,
+    		"viral-negative-review":true
+    	}
+    	// TODO set observed event from LEO CDP Admin
     }
     
 </script>
