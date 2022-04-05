@@ -44,10 +44,12 @@
 
 - [UI] sorting fields in segment list
 
-## [0.8.9] - 2022-04-04
+## [0.8.9] - 2022-04-05
 
 ### Added 
 
+- save Touchpoint Name and URL in Tracking Event
+- data segmentation with tracking event, touchpoint, device
 - upgrade core java library deps
 - upgrade system command-line tool
 - Get CX tracking code at touchpoint hub
