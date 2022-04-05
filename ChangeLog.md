@@ -75,6 +75,7 @@
 
 ### Changed
 
+- [UI] refresh segment data should update segment size and Reference Key in all matched profiles
 - [UI] UI to track CX rating data
 - [UI] upgrade chartjs version 3.7.1
 - [UI] show highlight profile with data quality score from 25 points

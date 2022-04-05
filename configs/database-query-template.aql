@@ -865,10 +865,10 @@ AQL_GET_SEGMENTS_BY_PAGINATION =>
 
 AQL_COUNT_SEGMENT_FOR_PAGINATION =>
 	FOR d in cdp_segment  
-	FILTER d.status >= 0 AND (@searchValue != "" ? d.name LIKE @searchValue : true)
-				AND (@isSuperAdmin == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
-	COLLECT WITH COUNT INTO length
-	RETURN length
+		FILTER d.status >= 0 AND (@searchValue != "" ? d.name LIKE @searchValue : true)
+					AND (@isSuperAdmin == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
+		COLLECT WITH COUNT INTO length
+		RETURN length
 ;
 
 AQL_GET_ALL_SEGMENTS_BY_FILTERING =>
@@ -887,21 +887,29 @@ AQL_GET_SEGMENTS_TO_DELETE_FOREVER =>
 ;
 
 AQL_GET_SEGMENT_BY_ID =>
-	FOR d in cdp_segment FILTER d._key == @id AND d.status >= 0
-	RETURN d
+	FOR d in cdp_segment 
+		FILTER d._key == @id AND d.status >= 0
+		RETURN d
 ;
 
 AQL_GET_SEGMENTS_FOR_RECOMMENDER =>
 	FOR d IN cdp_segment
-	FILTER d.forPersonalization == TRUE
-	RETURN d
+		FILTER d.forPersonalization == TRUE AND d.status >= 0 
+		RETURN d
 ;
 
 AQL_GET_MAX_INDEX_SCORE_IN_SEGMENTS =>
 	FOR s in cdp_segment
-	SORT s.indexScore DESC
-	LIMIT 1
-	RETURN s.indexScore
+		FILTER d.status >= 0 
+		SORT s.indexScore DESC
+		LIMIT 1
+		RETURN s.indexScore
+;
+
+AQL_GET_ALL_SEGMENTS =>
+	FOR d in cdp_segment  
+		FILTER d.status >= 0 
+		RETURN d
 ;
 
 ###########  BUSINESS ACCOUNT  ########################################################################################################;
