@@ -169,6 +169,27 @@ AQL_UPDATE_DAILY_REPORT_UNITS_TO_NEW_PROFILE =>
 	    UPDATE d WITH { objectId: @newProfileId } IN cdp_dailyreportunit
 ;
 
+AQL_SEGMENT_SIZE_DAILY_REPORT_UNITS =>
+	RETURN LENGTH
+	(
+		FOR p in cdp_profile
+   			FOR d IN cdp_dailyreportunit
+    			FILTER @segmentId IN p.inSegments[*].id AND d.createdAt >= @fromDate AND d.createdAt <= @toDate 
+        				AND d.objectName == "cdp_profile" AND d.objectId == p._key AND p.status > 0 
+    		RETURN DISTINCT p._key
+	)
+;
+
+AQL_SEGMENT_DAILY_REPORT_UNITS =>
+	FOR d IN cdp_dailyreportunit
+		FOR p in cdp_profile
+    			FILTER @segmentId IN p.inSegments[*].id AND d.createdAt >= @fromDate AND d.createdAt <= @toDate 
+        				AND d.objectName == "cdp_profile" AND d.objectId == p._key AND p.status > 0 
+    SORT d.createdAt
+	RETURN DISTINCT d
+;
+
+
 ############# CONTENT ITEM  ########################################################################################################;
 
 AQL_GET_ASSET_CONTENT_BY_ID =>
@@ -883,6 +904,36 @@ AQL_GET_MAX_INDEX_SCORE_IN_SEGMENTS =>
 	RETURN s.indexScore
 ;
 
+###########  BUSINESS ACCOUNT  ########################################################################################################;
+
+AQL_GET_ACCOUNTS_BY_PAGINATION =>
+	FOR d in cdp_businessaccount  
+		FILTER d.status >= 0 AND (@searchValue != "" ? d.name LIKE @searchValue : true || @searchValue != "" ? d.description LIKE @searchValue : true)
+				AND (@isSuperAdmin == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
+		SORT d.@sortField @sortDirection
+		LIMIT @startIndex,@numberResult 
+		RETURN d
+;
+
+AQL_COUNT_ACCOUNT_FOR_PAGINATION =>
+	FOR d in cdp_businessaccount  
+	FILTER d.status >= 0 AND (@searchValue != "" ? d.name LIKE @searchValue : true || @searchValue != "" ? d.description LIKE @searchValue : true)
+				AND (@isSuperAdmin == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
+	COLLECT WITH COUNT INTO length
+	RETURN length
+;
+
+AQL_GET_ACCOUNTS_TO_DELETE_FOREVER =>
+	FOR d in cdp_businessaccount  
+		FILTER d.status < 0
+		RETURN d
+;
+
+AQL_GET_ACCOUNT_BY_ID =>
+	FOR d in cdp_businessaccount FILTER d._key == @id AND d.status >= 0
+	RETURN d
+;
+
 ########### ACTIVATION CAMPAIGN  ########################################################################################################;
 
 AQL_GET_CAMPAIGN_BY_ID =>
@@ -913,7 +964,7 @@ AQL_GET_SYSTEM_CONFIG_BY_ID =>
 ;
 
 AQL_LIST_ALL_SYSTEM_CONFIGS =>
-	FOR e in system_config  
+	FOR e in system_config FILTER e.index >= 0
 	SORT e.index
 	RETURN e
 ;
