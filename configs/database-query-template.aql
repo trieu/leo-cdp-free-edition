@@ -575,6 +575,12 @@ AQL_DELETE_SEGMENT_REF_KEY_FOR_PROFILE =>
 		UPDATE p WITH { inSegments:  finalList } IN cdp_profile
 ;
 
+AQL_DELETE_ALL_INVALID_PROFILES =>
+	FOR p in cdp_profile  
+	FILTER p.type == 0 AND p.dataQualityScore == 0 AND LENGTH(p.eventStatistics) == 0 AND p.funnelStage == "new-visitor" AND DATE_DIFF(p.updatedAt, DATE_NOW(), "minute") > 3
+    REMOVE { _key: p._key } IN cdp_profile
+;
+
 ###########  CONTEXT_SESSION  ########################################################################################################;
 
 AQL_GET_CONTEXT_SESSION_BY_KEY =>
