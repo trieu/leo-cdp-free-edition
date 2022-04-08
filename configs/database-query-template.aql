@@ -109,6 +109,12 @@ AQL_GET_TOUCHPOINT_FLOW_BY_PROFILE =>
                 "srcTouchpoints": srcTouchpoints}
 ;
 
+AQL_UPDATE_CONTEXT_SESSION_AFTER_MERGE =>
+	FOR d IN cdp_contextsession
+		FILTER d.profileId == @oldProfileId 
+		UPDATE d WITH { profileId: @newProfileId, visitorId: @newVisitorId } IN cdp_contextsession
+;
+
 ###########  DATA_FLOW_STAGE  ########################################################################################################;
 
 AQL_GET_ALL_DATA_FLOW_STAGES =>
@@ -444,19 +450,19 @@ AQL_GET_PROFILE_BY_ID_FOR_ADMIN =>
 
 AQL_GET_PROFILE_BY_PRIMARY_EMAIL =>
 	FOR p in cdp_profile 
-	FILTER p.primaryEmail == @email AND p.status == 1
+	FILTER (p.primaryEmail == @email OR @email IN p.identities[*]) AND p.status == 1
 	RETURN p
 ;
 
 AQL_GET_PROFILE_BY_PRIMARY_PHONE =>
 	FOR p in cdp_profile 
-	FILTER p.primaryPhone == @phone AND p.status == 1
+	FILTER (p.primaryPhone == @phone OR @phone IN p.identities[*]) AND p.status == 1
 	RETURN p
 ;
 
 AQL_GET_PROFILE_BY_VISITOR_ID =>
 	FOR p in cdp_profile 
-	FILTER @visitorId == p.visitorId AND p.status == 1
+	FILTER (@visitorId == p.visitorId OR @visitorId IN p.identities[*]) AND p.status == 1
 	RETURN p
 ;
 

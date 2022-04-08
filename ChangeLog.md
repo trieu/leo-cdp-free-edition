@@ -23,6 +23,7 @@
 
 ### Added 
 
+- [Data Deduplication] merge context session keys for duplicated profiles
 - [Data Segmentation] implement 2 new operators: data_filter_equals, data_filter_contains
 - [UI] add sortable list by Data Quality Score, Journey Score and Updated At in Profile Data Management
 - [SystemTrackedEvent] to tracking user account activities, login for security monitoring

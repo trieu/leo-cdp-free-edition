@@ -292,34 +292,34 @@
                        <td>
 							<ol class="profile_ext_data" data-field="personal_attributes">
 								<li class="personal_info" >
-                                   <b data-persona="key"  > <i class="fa fa-fw fa-map-marker"></i> Living Location Address </b>
-                                   <input class="form-control" type="text" placeholder="Living Location Address" data-field="livingLocation" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
+                                   	<b data-persona="key" > <i class="fa fa-fw fa-map-marker"></i> Living Location Address </b>
+                                   	<input class="form-control" type="text" placeholder="Living Location Address" data-field="livingLocation" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
                                 </li>
-	                               
-	                            <li class="personal_info" >
-                                   <b data-persona="key"  > <i class="fa fa-fw fa-map-marker"></i> Living Location Code </b>
-                                   <input class="form-control" type="text" placeholder="Living Location Code" data-field="locationCode" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
+	                            <li class="personal_info" > 
+                                   	<b data-persona="key" > <i class="fa fa-fw fa-map-marker"></i> Living Location Code 
+                                   		(<a id="locationCodeSearch" class="small_highlight_text" href="https://www.google.com/maps/?q=" target="_blank">Search the location code</a>)
+                                   	</b>
+                                   	<input class="form-control" type="text" placeholder="Living Location Code" data-field="locationCode" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
 	                            </li>
-				               	
 								<li>
-	                                 <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Primary Nationality  </b> 
-	                                 <input class="form-control" type="text" placeholder="Primary Nationality" data-field="primaryNationality" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                                <b data-persona="key"> <i class="fa fa-fw fa-globe"></i> Primary Nationality  </b> 
+	                                <input class="form-control" type="text" placeholder="Primary Nationality" data-field="primaryNationality" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                            </li>
 	                            <li>
-	                                 <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current Living City </b> 
-	                                 <input class="form-control" type="text" placeholder="Current Living City" data-field="livingCity" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                                <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current Living City </b> 
+	                                <input class="form-control" type="text" placeholder="Current Living City" data-field="livingCity" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                            </li>
 	                            <li>
-	                                 <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current Living State </b> 
-	                                 <input class="form-control" type="text" placeholder="Current Living State" data-field="livingState" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                                <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current Living State </b> 
+	                                <input class="form-control" type="text" placeholder="Current Living State" data-field="livingState" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                            </li>
 	                            <li>
-	                                 <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current Living Country </b> 
-	                                 <input class="form-control" type="text" placeholder="Current Living Country" data-field="livingCountry" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                                <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current Living Country </b> 
+	                                <input class="form-control" type="text" placeholder="Current Living Country" data-field="livingCountry" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                            </li>
 	                            <li>
-	                                 <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current ZipCode </b> 
-	                                 <input class="form-control" type="text" placeholder="Current ZipCode" data-field="currentZipCode" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                                <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current ZipCode </b> 
+	                                <input class="form-control" type="text" placeholder="Current ZipCode" data-field="currentZipCode" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                            </li>							
 							</ol>
 						</td>
@@ -548,9 +548,7 @@
     	        $('#profileAge').val(age);
     	    });
     		
-    		$('#personal_attributes').find('input[data-field="livingLocation"]').change(function(){ 
-    			$('#personal_attributes').find('input[data-field="locationCode"]').val("")
-    		})
+
         	return data;
          }
          
@@ -579,7 +577,27 @@
          	 $('input[name="type"]').click(function(){
          		$('input[name="type"]').parent().removeClass('data_field');
          		$(this).parent().addClass('data_field');
-         	 })
+         	 });
+         	 
+         	 // set search link
+         	 if(typeof editedProfileModel.livingLocation === "string") {
+         		$('#locationCodeSearch').attr("href", 'https://www.google.com/maps/?q=' +  editedProfileModel.livingLocation);
+         	 }
+         	 
+     		 $('#panel_profile_location').find('input[data-field="locationCode"]').change(function(){
+   				var newValue = $(this).val();
+   				// remove iframe tag in Google Map embedded HTML Code
+   				if( newValue.indexOf("<iframe") >= 0 ) {
+   					newValue = $(newValue).attr("src");
+   					$(this).val(newValue);
+   				}
+   			 });
+    		
+    		 $('#panel_profile_location').find('input[data-field="livingLocation"]').change(function(){ 
+    			// set new search link
+    			var newVal = encodeURIComponent($(this).val()) ;
+    			$('#locationCodeSearch').attr("href", 'https://www.google.com/maps/?q=' +  newVal);
+    		 })
          });
     }
     
