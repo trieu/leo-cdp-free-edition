@@ -12,7 +12,7 @@
 th.sorting, th.sorting_desc, th.sorting_asc {
 	text-decoration: underline;
 }
-#profile_filter_inputs input{
+#profile_filter_input_label{
 	margin-top:10px;
 }
 </style>
@@ -87,33 +87,34 @@ th.sorting, th.sorting_desc, th.sorting_asc {
 				<div class="col-md-6" > 
 					<div class="col-md-6" >
 						<div class="dropdown">
-						    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter a profile by
+						    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter profiles by
 						    <span class="caret"></span></button>
 						    <ul class="dropdown-menu">
-						    	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterEmail')" >Primary Email</a></li>
-						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterPhone')" >Primary Phone</a></li>
-						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterByVisitorId')" >Web Visitor ID</a></li>
-						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterByProfileId')" >Profile ID</a></li>
-						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterByLastTouchpoint')" >Last Touchpoint Name</a></li>
+						    	<li><a href="javascript:" onclick="handleProfileFilterTextbox(this,'#filterEmail')" >Primary Email</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox(this,'#filterPhone')" >Primary Phone</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox(this,'#filterByVisitorId')" >Web Visitor ID</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox(this,'#filterByProfileId')" >Profile ID</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox(this,'#filterByLastTouchpoint')" >Last Touchpoint Name</a></li>
 						      	
 						    </ul>
 						</div>
 						<div id="profile_filter_inputs" >
+							<label id="profile_filter_input_label">Primary Email</label>
 							<input type="hidden" id="filterName" value="" >
-							<input type="text" class="form-control" id="filterEmail" placeholder="Enter primary email" >
-							<input style="display: none;" type="text" class="form-control" id="filterPhone" placeholder="Enter primary phone number" >
+							<input type="text" class="form-control" id="filterEmail" placeholder="Enter email" >
+							<input style="display: none;" type="text" class="form-control" id="filterPhone" placeholder="Enter phone number" >
 					  		<input style="display: none;" type="text" class="form-control" id="filterByVisitorId" placeholder="Enter web visitor ID" >
 					  		<input style="display: none;" type="text" class="form-control" id="filterByProfileId" placeholder="Enter profile ID" >
-					  		<input style="display: none;" type="text" class="form-control" id="filterByLastTouchpoint" placeholder="Last Touchpoint Name" >
+					  		<input style="display: none;" type="text" class="form-control" id="filterByLastTouchpoint" placeholder="Enter Touchpoint Name" >
 						</div>
 					</div>
 					<div class="col-md-6" >
 						<div class="col-md-12" style="padding:15px;">
-							<div class="col-md-6" >
-							 	<button type="button" class="btn" onclick="resetProfileSearch()" ><i class="fa fa-fw fa-undo"></i> Reset </button>
+							<div class="col-md-5" style="text-align: right;">
+							 	<button type="button" class="btn btn-info" onclick="resetProfileSearch()" ><i class="fa fa-fw fa-undo"></i> Reset </button>
 							</div>
-							<div class="col-md-6" >
-							 	<button type="button" class="btn btn-primary" onclick="doProfileSearch()" ><i class="fa fa-fw fa-filter"></i> Filter </button>
+							<div class="col-md-7" >
+							 	<button type="button" class="btn btn-primary" onclick="doProfileListing()" ><i class="fa fa-fw fa-filter"></i> Filter </button>
 							</div>
 						</div>
 					</div>
@@ -164,12 +165,14 @@ th.sorting, th.sorting_desc, th.sorting_asc {
 		}
 	}
 	
-	function handleProfileFilterTextbox(selector){
+	function handleProfileFilterTextbox(domNode, selector){
 		$('#profile_filter_inputs > input').val('').hide();
 		$(selector).show();
+		$('#profile_filter_input_label').text($(domNode).text()).show()
+		$('#main_search_profile').val('');
 	}
 	
-	function doProfileSearch() {
+	function doProfileListing() {
 		var keywords = $('#main_search_profile').val().trim();
     	if(keywords.length > 1){
     		var encodedString = Base64.encode(keywords);
@@ -205,7 +208,7 @@ th.sorting, th.sorting_desc, th.sorting_asc {
 			$('#beginFilterDate > .form-control').show();
 			$('#endFilterDate > .form-control').show();
 			$('#disable_date_filter').prop('checked', false);
-			doProfileSearch();
+			doProfileListing();
 		}
 	}
 	
@@ -250,14 +253,22 @@ th.sorting, th.sorting_desc, th.sorting_asc {
     function initCustomerProfileList(encodedKeywords) {
     	// Date Range Filtering Controller
     	initDateFilterComponent();
+    	$("#profile_filter_inputs > input.form-control").on('keyup', function (e) {
+    	    if (e.key === 'Enter' || e.keyCode === 13) {
+    	        // press enter key to update profile list 
+    	    	doProfileListing();
+    	    }
+    	});
     	
     	if(typeof encodedKeywords === 'string' ) {
     		var nameToSearch = Base64.decode(encodedKeywords);
     		document.title = "Customer Data Hub - profile search by name: " + nameToSearch;
     		$('#filterName').val(nameToSearch);
     		$('#main_search_profile').val(nameToSearch);
-    		$('#filterEmail').hide();
-    		$('#filterPhone').hide();
+    		
+    		
+    		$('#filterEmail, #profile_filter_input_label, #filterPhone').hide();
+ 
     		$('#filterByVisitorId').hide();
     		$('#filterByProfileId').hide();
     		$('#filterByLastTouchpoint').hide();
