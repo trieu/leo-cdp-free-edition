@@ -498,10 +498,11 @@ div.long_url_holder {
 div.primary_field {
 	margin-top: 4px;
 }
+
 .scoring_field {
 	 background-color: #FAFADE;
 	 color: #3300ff!important;
-	 font-size: 14px;
+	 font-size: 15px;
 	 font-weight: bold;
 	 padding: 5px;
 	 border-radius: 7px;
@@ -509,7 +510,7 @@ div.primary_field {
 .scoring_field_profit {
 	 background-color: #D6F0E1;
 	 color: #3300ff!important;
-	 font-size: 14px;
+	 font-size: 15px;
 	 font-weight: bold;
 	 padding: 5px;
 	 border-radius: 7px;
@@ -517,7 +518,7 @@ div.primary_field {
 .scoring_field_experience {
 	 background-color: #FFE1A1;
 	 color: #3300ff!important;
-	 font-size: 14px;
+	 font-size: 15px;
 	 font-weight: bold;
 	 padding: 5px;
 	 border-radius: 7px;
@@ -525,7 +526,7 @@ div.primary_field {
 .scoring_field_credit {
 	 background-color: #E8DAEF;
 	 color: #3300ff!important;
-	 font-size: 14px;
+	 font-size: 15px;
 	 font-weight: bold;
 	 padding: 5px;
 	 border-radius: 7px;

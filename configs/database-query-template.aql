@@ -563,7 +563,7 @@ AQL_UPDATE_SEGMENT_REF_KEY_FOR_PROFILE =>
 	        LET newItem = ( s.id == @segmentId ? MERGE(s, {name : @segmentName, indexScore: @segmentIndexScore, queryHashedId: @queryHashedId }) : s )
 	        RETURN newItem
 	    )
-	    UPDATE p WITH { inSegments:  alteredList, authorizedViewers : @authorizedViewers, authorizedEditors : @authorizedEditors } IN cdp_profile
+	    UPDATE p WITH { inSegments: alteredList, authorizedViewers : @authorizedViewers, authorizedEditors : @authorizedEditors } IN cdp_profile
 ;
    
 AQL_APPEND_SEGMENT_REF_KEY_FOR_PROFILE =>
@@ -878,7 +878,7 @@ AQL_GET_SEGMENTS_BY_PAGINATION =>
 AQL_COUNT_SEGMENT_FOR_PAGINATION =>
 	FOR d in cdp_segment  
 		FILTER d.status >= 0 AND (@searchValue != "" ? d.name LIKE @searchValue : true)
-					AND (@isSuperAdmin == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
+				AND (@isSuperAdmin == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
 		COLLECT WITH COUNT INTO length
 		RETURN length
 ;
@@ -911,11 +911,11 @@ AQL_GET_SEGMENTS_FOR_RECOMMENDER =>
 ;
 
 AQL_GET_MAX_INDEX_SCORE_IN_SEGMENTS =>
-	FOR s in cdp_segment
+	FOR d in cdp_segment
 		FILTER d.status >= 0 
-		SORT s.indexScore DESC
+		SORT d.indexScore DESC
 		LIMIT 1
-		RETURN s.indexScore
+		RETURN d.indexScore
 ;
 
 AQL_GET_ALL_SEGMENTS =>

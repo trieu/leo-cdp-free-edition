@@ -12,6 +12,9 @@
 th.sorting, th.sorting_desc, th.sorting_asc {
 	text-decoration: underline;
 }
+#profile_filter_inputs input{
+	margin-top:10px;
+}
 </style>
 <div class="row">
     <div class="col-lg-6">
@@ -91,14 +94,17 @@ th.sorting, th.sorting_desc, th.sorting_asc {
 						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterPhone')" >Primary Phone</a></li>
 						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterByVisitorId')" >Web Visitor ID</a></li>
 						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterByProfileId')" >Profile ID</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox('#filterByLastTouchpoint')" >Last Touchpoint Name</a></li>
+						      	
 						    </ul>
 						</div>
 						<div id="profile_filter_inputs" >
 							<input type="hidden" id="filterName" value="" >
-							<input style="margin-top:10px; " type="text" class="form-control" id="filterEmail" placeholder="Enter primary email" >
-							<input style="margin-top:10px; display: none;" type="text" class="form-control" id="filterPhone" placeholder="Enter primary phone number" >
-					  		<input style="margin-top:10px; display: none;" type="text" class="form-control" id="filterByVisitorId" placeholder="Enter web visitor ID" >
-					  		<input style="margin-top:10px; display: none;" type="text" class="form-control" id="filterByProfileId" placeholder="Enter profile ID" >
+							<input type="text" class="form-control" id="filterEmail" placeholder="Enter primary email" >
+							<input style="display: none;" type="text" class="form-control" id="filterPhone" placeholder="Enter primary phone number" >
+					  		<input style="display: none;" type="text" class="form-control" id="filterByVisitorId" placeholder="Enter web visitor ID" >
+					  		<input style="display: none;" type="text" class="form-control" id="filterByProfileId" placeholder="Enter profile ID" >
+					  		<input style="display: none;" type="text" class="form-control" id="filterByLastTouchpoint" placeholder="Last Touchpoint Name" >
 						</div>
 					</div>
 					<div class="col-md-6" >
@@ -125,7 +131,7 @@ th.sorting, th.sorting_desc, th.sorting_asc {
 	                    <tr>
 	                        <th class="text-center" title="A profile that has mobile phone or email">Has Contact</th>
 	                        <th >Full Name</th>
-	                        <th >Last-seen Touchpoint</th>
+	                        <th >Last Touchpoint Name</th>
 	                        <th class="text-center">Data Quality</th>
 	                        <th class="text-center">Journey Score</th>
 	                        <th > Email</th>
@@ -191,6 +197,8 @@ th.sorting, th.sorting_desc, th.sorting_asc {
 			$('#filterPhone').val('');
 			$('#filterByVisitorId').val('');
 			$('#filterByProfileId').val('');
+			$('#filterByLastTouchpoint').val('');
+			
 			$('#filterName').val('');
 			
 			$('#main_search_profile').val('');
@@ -252,6 +260,8 @@ th.sorting, th.sorting_desc, th.sorting_asc {
     		$('#filterPhone').hide();
     		$('#filterByVisitorId').hide();
     		$('#filterByProfileId').hide();
+    		$('#filterByLastTouchpoint').hide();
+    		
     		toggleProfileDisableDateFilter(true);
     	} 
     	else {
@@ -317,6 +327,7 @@ th.sorting, th.sorting_desc, th.sorting_asc {
             			d.phone = $('#filterPhone').val().trim();
             			d.visitorId = $('#filterByVisitorId').val().trim();
             			d.profileId = $('#filterByProfileId').val().trim();
+            			d.lastTouchpointName = $('#filterByLastTouchpoint').val().trim();
             			
             			var name =  $('#filterName').val();
             			if(name.length >= 2 ){
