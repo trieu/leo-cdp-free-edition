@@ -18,8 +18,6 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 [![Leo CDP Flow](https://raw.githubusercontent.com/trieu/leo-cdp-free-edition/main/leo-cdp-version-1.0.png)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)	
 
-[![Leo CDP Flow](https://blogger.googleusercontent.com/img/a/AVvXsEi739DAhh9-QKBp_UHKPNVVe_r1NZBoxfWuKc323lNatk-oGjlOrtGV9yoiuuMt_lZr2mLk0lh_CpC-QRDcQManrR9LahcmgQSf6IsmqaVFVKpwLKRFhSyOZ-F0mODcxdGMUd4V8gBeCqQ9s0s3ml2JmLdQv1vB_IRaODRjdXeni1SY-Xmp1Pi9VaKi=s2322)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)
-
 # Documents
 
 * [Data Model and Customer Journey Map Sample](https://docs.google.com/spreadsheets/d/1hzSvkmTE8WuvUFqnpWNfsPMzpjF8gYOSJfkc9eJIjWk/edit?usp=sharing)
@@ -64,7 +62,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 ## How to install
 
-[Please check this LEO CDP Installation Guide](https://github.com/trieu/leo-cdp-free-edition/blob/main/all-documents/NOTES-FOR-NEW-SETUP.md)
+[Please check this LEO CDP Installation Guide](https://github.com/trieu/leo-cdp-free-edition/blob/main/NOTES-FOR-NEW-SETUP.md)
 
 ---
 
