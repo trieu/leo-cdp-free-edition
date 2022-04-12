@@ -1,8 +1,8 @@
 # Changelog for LEO CDP
 
-## [0.9.0] - 2022-04-30
+## Feature Plan for the final release [1.0.0] - 2022-05-01
 
-### TODO for version [0.9.x]
+### TODO for version [1.0.0]
 
 #### High priority
 
@@ -11,13 +11,14 @@
 - [In Progress] Segment Data Synch with time scheduler
 - [In Progress] Profile Data Scoring with Jupyter notebook
 - [In Progress] Segment Activation: sending email directly with SMTP from LEO CDP
+- [In Progress] Can create new observed event in LEO CDP Admin
 
 #### Low priority
 
-- [In Progress] Segment Activation: sending web notification directly from LEO CDP
+- [In Progress] Segment Activation: sending web push notification directly from LEO CDP
 - [In Progress] Segment Activation: sending SMS directly from LEO CDP
 - [In Progress] Data Reporting with Jupyter notebook
-- [In Progress] The flow to register new instance LEO CDP
+- [In Progress] New Data Connector and connector protocol
 
 ## [0.9.0] - 2022-04-30
 
