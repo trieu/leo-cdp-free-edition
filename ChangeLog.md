@@ -10,17 +10,17 @@
 - [In Progress] Profile Journey Flow Report
 - [In Progress] Segment Data Synch with time scheduler
 - [In Progress] Profile Data Scoring with Jupyter notebook
-- [In Progress] Segment Activation: sending email directly with SMTP from LEO CDP
 - [In Progress] Can create new observed event in LEO CDP Admin
 
 #### Low priority
 
 - [In Progress] Segment Activation: sending web push notification directly from LEO CDP
 - [In Progress] Segment Activation: sending SMS directly from LEO CDP
+- [In Progress] Segment Activation: sending email directly with SMTP from LEO CDP
 - [In Progress] Data Reporting with Jupyter notebook
 - [In Progress] New Data Connector and connector protocol
 
-## [0.9.0] - 2022-04-30
+## [0.9.0] - 2022-04-12
 
 ### Added 
 
