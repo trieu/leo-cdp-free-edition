@@ -16,7 +16,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # General Data Flow
 
-[![Leo CDP Flow](https://cdn.jsdelivr.net/gh/trieu/leo-cdp-free-edition@latest/leo-cdp-version-1.0.png)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)	
+[![Leo CDP Flow](https://raw.githubusercontent.com/trieu/leo-cdp-free-edition/main/leo-cdp-version-1.0.png)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)	
 
 # Documents
 
