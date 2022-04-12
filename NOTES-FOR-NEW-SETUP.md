@@ -15,7 +15,7 @@ The installed server must have Internet connection, please set the outbound fire
 
 ## Software requirements for new server
 
-### ArangoDB
+### ArangoDB database
 
 [ArangoDB download](https://www.arangodb.com/download-major/ubuntu)
 
@@ -24,7 +24,7 @@ The installed server must have Internet connection, please set the outbound fire
 	echo 'deb https://download.arangodb.com/arangodb38/DEBIAN/ /' | sudo tee /etc/apt/sources.list.d/arangodb.list
 	sudo apt-get install apt-transport-https
 	sudo apt-get update
-	sudo apt-get install arangodb3=3.8.5-1
+	sudo apt-get install arangodb3=3.8.6-1
 
 ### Nginx Proxy
 
@@ -59,7 +59,7 @@ The installed server must have Internet connection, please set the outbound fire
     sudo apt-get update; sudo apt-get install -y java-11-amazon-corretto-jdk
     sudo apt-get install fontconfig
 
-### Redis
+### Redis Caching
 
 * [Redis on Ubuntu](https://vitux.com/install-redis-on-ubuntu/)
 * [Redis Cluster](https://success.outsystems.com/Support/Enterprise_Customers/Installation/Configuring_OutSystems_with_Redis_in-memory_session_storage/Set_up_a_Redis_Cluster_for_Production_environments)
@@ -91,11 +91,10 @@ Command to edit hosts:
 - [the network IP of LeoCDP Admin] leocdp.admin
 - [the network IP of LeoCDP Data Observer] leocdp.observer0
 
-#### Example DNS for 1 ArangoDB server, 1 Redis server, 1 Admin Dashboard and 2 data observers
+#### Example DNS for 1 ArangoDB database server, 1 Redis cache server, 1 Admin server and 2 data observers
 
 	10.2.0.5 leocdp.database
 	10.4.0.3 leocdp.redis
 	10.4.0.3 leocdp.admin
 	10.1.0.8 leocdp.observer1
 	10.1.0.11 leocdp.observer2
-	

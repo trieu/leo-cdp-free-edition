@@ -62,7 +62,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 ## How to install
 
-[Please check this LEO CDP Installation Guide](https://github.com/trieu/leo-cdp-free-edition/blob/main/all-documents/NOTES-FOR-NEW-SETUP.md)
+[Please check this LEO CDP Installation Guide](https://github.com/trieu/leo-cdp-free-edition/blob/main/NOTES-FOR-NEW-SETUP.md)
 
 ---
 
