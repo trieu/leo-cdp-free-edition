@@ -32,11 +32,9 @@ The installed server must have Internet connection, please set the outbound fire
 
 	sudo wget https://nginx.org/keys/nginx_signing.key
 	sudo apt-key add nginx_signing.key
-	
 	sudo nano /etc/apt/sources.list
 	deb https://nginx.org/packages/mainline/ubuntu/ focal nginx
 	deb-src https://nginx.org/packages/mainline/ubuntu/ focal nginx
-	
 	sudo apt-get remove nginx-common
 	sudo apt-get update && sudo apt-get install nginx
 	sudo service nginx start
@@ -54,10 +52,10 @@ The installed server must have Internet connection, please set the outbound fire
 
 [Java 11 from Amazon](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/generic-linux-install.html)
 
-    wget -O- https://apt.corretto.aws/corretto.key | sudo apt-key add - 
- 	sudo add-apt-repository 'deb https://apt.corretto.aws stable main'
-    sudo apt-get update; sudo apt-get install -y java-11-amazon-corretto-jdk
-    sudo apt-get install fontconfig
+	wget -O- https://apt.corretto.aws/corretto.key | sudo apt-key add - 
+	sudo add-apt-repository 'deb https://apt.corretto.aws stable main'
+	sudo apt-get update; sudo apt-get install -y java-11-amazon-corretto-jdk
+	sudo apt-get install fontconfig
 
 ### Redis Caching
 
@@ -70,11 +68,12 @@ The installed server must have Internet connection, please set the outbound fire
 
 ### Clone binary code for new server
 
+	sudo apt install git
 	sudo adduser leocdp; sudo usermod -aG sudo leocdp
+	echo 'leocdp ALL=(ALL) NOPASSWD: ALL' | sudo tee -a /etc/sudoers > /dev/null
 	sudo -iu leocdp
-	sudo visudo 
-	=> At the end of file, add this line: leocdp ALL=(ALL) NOPASSWD: ALL
-	sudo mkdir /build; sudo chown leocdp:leocdp /build/
+	sudo mkdir /build
+	sudo chown leocdp:leocdp /build/
 	cd /build
 	git clone https://github.com/trieu/leo-cdp-free-edition.git leo-cdp
 
