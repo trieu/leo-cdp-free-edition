@@ -20,7 +20,7 @@
 - [In Progress] Data Reporting with Jupyter notebook
 - [In Progress] New Data Connector and connector protocol
 
-## [0.9.0] - 2022-04-12
+## [0.9.0] - 2022-04-14
 
 ### Added 
 
@@ -44,6 +44,7 @@
 
 ### Fixed 
 
+- [Segment] CSV data exporting is JSON if segment'size larger than 100, not CSV
 - [UI] sorting fields in segment list
 
 ## [0.8.9] - 2022-04-05
