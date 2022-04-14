@@ -36,6 +36,7 @@
 
 ### Changed
 
+- [shell script] refactoring code
 - [UI] improve UI and UX of System Login
 - Improve Data Authorization 
 - [Scoring Rule] profile data quality scoring rule
