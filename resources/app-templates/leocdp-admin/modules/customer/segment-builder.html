@@ -353,6 +353,10 @@
 			$('#segment-builder-holder').queryBuilder('reset');
 		});
 		
+		// show UI
+        $("#segment_builder_div").show();
+        $("#segment_builder_loader").hide();
+        
 		loadSegmentStatistics(segmentDataStats);
 		
 		// compute segment size by submiting query to database
@@ -379,6 +383,8 @@
 		               	var datetimeFilter = getDateFilterValues();
 		   				segmentDataModel.beginFilterDate = datetimeFilter.beginFilterDate;
 		   				segmentDataModel.endFilterDate = datetimeFilter.endFilterDate;
+		   				
+		   			    // load profile list table
 		               	loadProfilesInSegment(true);
 		            } else {
 		            	iziToast.error({
@@ -440,12 +446,10 @@
                 
                 setSegmentDataForm(segmentData);
                 loadSegmentBuilder(behavioralEventMap, jsonQueryRules, readOnlyMode, segmentQueryBuilderCallback);
+                
+                // load profile list table
                 setTimeout(loadProfilesInSegment,700);
                 loadSystemUsersForDataAuthorization(segmentData);
-                
-                // done
-                $("#segment_builder_div").show();
-                $("#segment_builder_loader").hide();
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);
             }
@@ -512,11 +516,10 @@
              	//initDateFilterComponent(true);
 				loadSegmentBuilder(behavioralEventMap, false, false, segmentQueryBuilderCallback);
                 initDateFilterComponent(true, segmentData.beginFilterDate , segmentData.endFilterDate );
+                
+                // load profile list table
                 setTimeout(loadProfilesInSegment,700);
                 loadSystemUsersForDataAuthorization(segmentData);
-                
-                $("#segment_builder_div").show();
-                $("#segment_builder_loader").hide();
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);
             }

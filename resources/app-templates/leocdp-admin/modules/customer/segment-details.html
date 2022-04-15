@@ -499,16 +499,20 @@
 
   				// Activation Plan
                 loadActivationPlanTable(segmentDataModel.allActivationRules);
-                // Segment Statistics
-                loadSegmentStatistics(segmentDataStats);
+                
                 // Segment Query Builder
                 loadSegmentBuilder(behavioralEventMap, jsonQueryRules, true, false);
                 
+                // load profile list table
                 loadProfilesInSegment();
-                $('#profilelist_holder').show();
                 
+                // show UI
+                $('#profilelist_holder').show();
                 $("#segment_details_div").show();
                 $("#segment_details_loader").hide();
+                
+             	// Segment Statistics
+                loadSegmentStatistics(segmentDataStats);
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);
             }
