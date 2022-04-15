@@ -62,7 +62,9 @@
 	</div>
 </div>
 
-<div>
+<div id="segment_details_loader" class="loader"></div>
+
+<div id="segment_details_div" style="display: none;" >
 	<!-- metadata  -->
 	<ul class="list-group">
 		<li class="list-group-item ">
@@ -505,6 +507,8 @@
                 loadProfilesInSegment();
                 $('#profilelist_holder').show();
                 
+                $("#segment_details_div").show();
+                $("#segment_details_loader").hide();
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);
             }

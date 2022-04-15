@@ -20,7 +20,9 @@
 	</div>
 </div>
 
-<div>
+<div id="segment_builder_loader" class="loader"></div>
+
+<div id="segment_builder_div" style="display: none;" >
 	<h4 id="segment_name" class="highlight_text" >  </h4>
 	<p> Enter the name of segment and set query builder to search profiles </p>
 	
@@ -325,13 +327,12 @@
 		if(id === 'new'){
 			// init UI for new segment
 			$('button.data-control-delete').hide();
-			initProductCatalogMap(createNewSegmentModel)
+			initProductCatalogMap(createNewSegmentModel);
 		} else {
 			initProductCatalogMap(function(){
 				getSegmentBuilderData(id);
 			})
 		}
-		
 		
 	}
 	
@@ -394,7 +395,9 @@
 	}
 	
 	var getSegmentBuilderData = function(id) {
-        var urlStr = baseLeoAdminUrl + '/cdp/segment/load';
+        
+		var urlStr = baseLeoAdminUrl + '/cdp/segment/load';
+        // call server
         LeoAdminApiUtil.callPostAdminApi(urlStr, { 'id': id }, function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
             	segmentDataStats = json.data.segmentStats;
@@ -439,6 +442,10 @@
                 loadSegmentBuilder(behavioralEventMap, jsonQueryRules, readOnlyMode, segmentQueryBuilderCallback);
                 setTimeout(loadProfilesInSegment,700);
                 loadSystemUsersForDataAuthorization(segmentData);
+                
+                // done
+                $("#segment_builder_div").show();
+                $("#segment_builder_loader").hide();
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);
             }
@@ -507,6 +514,9 @@
                 initDateFilterComponent(true, segmentData.beginFilterDate , segmentData.endFilterDate );
                 setTimeout(loadProfilesInSegment,700);
                 loadSystemUsersForDataAuthorization(segmentData);
+                
+                $("#segment_builder_div").show();
+                $("#segment_builder_loader").hide();
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);
             }
