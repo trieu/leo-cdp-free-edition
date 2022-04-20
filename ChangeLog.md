@@ -20,7 +20,7 @@
 - [In Progress] Data Reporting with Jupyter notebook
 - [In Progress] New Data Connector and connector protocol
 
-## [0.9.0] - 2022-04-14
+## [0.9.0] - 2022-04-20
 
 ### Added 
 
@@ -36,6 +36,7 @@
 
 ### Changed
 
+- [UI] improve UI of load events in profile
 - [shell script] refactoring code
 - [UI] improve UI and UX of System Login
 - Improve Data Authorization 
