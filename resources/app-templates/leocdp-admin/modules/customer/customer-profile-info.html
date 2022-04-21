@@ -527,6 +527,10 @@
 				                                   <p class="data_field" data-field="lastTrackingEvent.deviceId" data-fieldholder="html" data-fieldtype="string" > - </p>
 				                               </li>
 				                               <li>
+				                                   <b> Fingerprint ID </b> 
+				                                   <p class="data_field" data-field="lastTrackingEvent.fingerprintId" data-fieldholder="html" data-fieldtype="string" > - </p>
+				                               </li>
+				                               <li>
 				                                   <b> Data Environment </b> 
 				                                   <p class="data_field" data-field="lastTrackingEvent.environment" data-fieldholder="html" data-fieldtype="string" > - </p>
 				                               </li>
@@ -1314,6 +1318,7 @@
         	 
         	 if(data.lastTrackingEvent){
         		 data.lastTrackingEvent.createdAt = moment.utc(data.lastTrackingEvent.createdAt).local().format('YYYY-MM-DD HH:mm:ss');
+        		 data.lastTrackingEvent.fingerprintId = data.lastTrackingEvent.fingerprintId ? data.lastTrackingEvent.fingerprintId : "-";
         		 if(data.lastTrackingEvent.refTouchpoint){
         			 data.lastTrackingEvent.refTouchpoint.name = decodeURI(data.lastTrackingEvent.refTouchpoint.name);
         		 }
