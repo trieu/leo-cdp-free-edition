@@ -153,8 +153,18 @@
     var categoryId = '';
     var assetGroupModel = false;
     var trixElement = document.querySelector("trix-editor");
+    
+    function loadDataPageEditor(params){
+   	  	LeoCdpAdmin.loadView('/view/common-widgets/headline-images.html?admin=1', '#page-headline-images', function () {
+            $('#page-headline-images .thumbnail p').editable({
+                type: 'text',
+                title: 'Enter Image Label Value'
+            });
+            loadAssetGroupEditor(params)
+        }, true);
+    }
 
-    function loadDataPageEditor(params) {
+    function loadAssetGroupEditor(params) {
         if (params) {
             groupId = params.groupId;
             categoryId = params.categoryId;
@@ -163,7 +173,7 @@
             if(groupId === ''){
             	$('#slug_holder').hide();
             }
-
+            
             var urlStr = baseLeoAdminUrl + '/cdp/asset-group/get-info';
 
             LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
@@ -356,10 +366,5 @@
         });
     }
 
-    LeoCdpAdmin.loadView('/view/common-widgets/headline-images.html?admin=1', '#page-headline-images', function () {
-        $('#page-headline-images .thumbnail p').editable({
-            type: 'text',
-            title: 'Enter Image Label Value'
-        });
-    }, true);
+
 </script>

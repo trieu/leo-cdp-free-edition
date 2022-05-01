@@ -8,10 +8,14 @@
 <!-- Group Details -->
 
 <div class="row">
-    <div class="col-lg-10">
+    <div class="col-lg-9">
       <h5 class="page-header" id="page_breadcrumb" > </h5>
     </div>
-   	<div class="col-lg-2 text-right">
+    <div class="col-lg-3 text-right">
+   		<button type="button" class="btn btn-info" onclick="history.back()">
+         	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+         	Back
+        </button>
      	<button type="button" class="btn btn-danger data-control-delete" id="btn_delete_group" style="display: ;" >
          	<i class="fa fa-trash" aria-hidden="true"></i> Delete
      	</button>
@@ -81,8 +85,14 @@
 
     var initGroupDetails = function(pId) {
         assetGroupId = pId;
-       
-        var urlStr = baseLeoAdminUrl + '/cdp/asset-group/get-info';
+        
+     // callLeoBotForIdeasRecommender('context-page')
+     	
+       LeoCdpAdmin.loadView('/view/common-widgets/headline-images.html?admin=1', '#asset_page_headline_images', loadGroupDetails, true);
+    }
+    
+    function loadGroupDetails(){
+    	var urlStr = baseLeoAdminUrl + '/cdp/asset-group/get-info';
         var params = { 'groupId': assetGroupId };
         
         LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
@@ -383,7 +393,6 @@
         return '<i class="fa fa-file-text-o" '+style+' > META DATA</i>';
     }
     
-    // callLeoBotForIdeasRecommender('context-page')
-    LeoCdpAdmin.loadView('/view/common-widgets/headline-images.html?admin=1', '#asset_page_headline_images', false, true);
+    
 </script>
 
