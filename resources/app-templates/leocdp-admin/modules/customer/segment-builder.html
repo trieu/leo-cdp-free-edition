@@ -57,8 +57,6 @@
 						</div>
 					</div>
 					
-					
-					
 					<div class="form-group row" style="display: none;" >
 						<label class="control-label col-sm-3" for="type">Status</label>
 						<div id="sm_status" style="font-size: 12px;"  class="col-sm-9" >
@@ -109,7 +107,7 @@
 					</div>
 					
 					<div class="form-group row"  >
-						<label class="control-label col-sm-3" for="type">Authorized users can view data</label>
+						<label class="control-label col-sm-3" for="authorizedViewers">Authorized users can view data</label>
 						<div class="col-sm-9" >
 							<select id="authorizedViewers" multiple data-placeholder="Choose an authorized viewer" class="select" style="display: none;" >
 							  	<!-- list of login accounts -->
@@ -118,7 +116,7 @@
 					</div>
 					
 					<div class="form-group row"  >
-						<label class="control-label col-sm-3" for="type">Authorized users can update data</label>
+						<label class="control-label col-sm-3" for="authorizedEditors">Authorized users can update data</label>
 						<div class="col-sm-9" >
 							<select id="authorizedEditors" multiple data-placeholder="Choose an authorized editor" class="select" style="display: none;" >
 							  	<!-- list of login accounts -->
@@ -131,7 +129,7 @@
 		</div>
 		
 		<div class="panel panel-leoadmin"  >
-			<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i>  Purpose </b>  </div>
+			<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Purpose </b>  </div>
 			<div class="panel-body">
 				<div class="col-lg-12">
 					<div class="form-group row">
@@ -192,7 +190,7 @@
 						</div>
 						
 						<div class="col-sm-12" >
-							<label class="control-label col-sm-3 highlight_text" for="sm_for3rdSynchronization">  Connection & Synchronization</label>
+							<label class="control-label col-sm-3 highlight_text" for="sm_for3rdSynchronization"> Connection & Synchronization </label>
 							<div class="col-sm-9">
 								<div class="checkbox">
 									<label><input type="checkbox" id="sm_for3rdSynchronization" name="for3rdSynchronization"> To set-up the data connection API and ongoing process of synchronizing data
@@ -207,7 +205,7 @@
 							<div class="col-sm-9">
 								<div class="checkbox">
 									<label><input type="checkbox" id="sm_forReTargeting" name="forReTargeting" > 
-										Behavioral retargeting is a form of online targeted advertising  by which online advertising 
+										Behavioral re-targeting is a form of online targeted advertising by which online advertising 
 										is targeted to consumers based on their previous Internet actions
 									</label>
 								</div>
@@ -234,48 +232,18 @@
 		<div class="panel panel-leoadmin">
 			<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Data Query Rules </b> </div>
 			<div class="panel-body">
-				<div class='col-md-7 col-xs-12'>
-					<div class="col-md-12">
-						<label style="padding: 8px;"> 
-							<input id="disable_date_filter" type="checkbox" onclick="toggleSegmentDisableDateFilter(false)" > No Date Range Filter 
-						</label>
-					</div>
-					<div id="segment_disable_date_filter_holder" class="col-md-12">
-						<div class='col-md-5 col-xs-12'>
-							<div class="form-group">
-								<div class='input-group date' id='beginFilterDate'>
-									<input type='text' class="form-control" autocomplete="off" /> 
-									<span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
-								</div>
-							</div>
-						</div>
-						<div class='col-md-2 col-xs-12 text-center'>
-							<i class="fa fa-long-arrow-right" aria-hidden="true" style="font-size: 32px" ></i>
-						</div>
-						<div class='col-md-5 col-xs-12'>
-							<div class="form-group">
-								<div class='input-group date' id='endFilterDate'>
-									<input type='text' class="form-control" autocomplete="off" /> 
-									<span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-				
-				<div class="btn-group col-md-5 col-xs-12">
-					<button type="button" class="btn btn-warning" id="btn-reset-querybuilder"> 
-						<i class="fa fa-undo" aria-hidden="true"></i> Reset Query </button>
-					<button type="button" class="btn btn-primary" id="btn-run-querybuilder"> 
-						<i class="fa fa-check-circle-o" aria-hidden="true"></i> Run Query </button>
-				</div>
 				
 				<!-- Query Details -->
 				<div class="col-lg-9">
 					<div id="segment-builder-holder"></div>
 				</div>
 				<div class="col-lg-3 text-center">
+					<div class="btn-group" style="margin-bottom: 20px;" >
+						<button type="button" class="btn btn-goto-router" id="btn-run-querybuilder"> 
+							<i class="fa fa-check-circle-o" aria-hidden="true"></i> Run Query </button>
+						<button type="button" class="btn btn-danger" id="btn-reset-querybuilder"> 
+							<i class="fa fa-trash" aria-hidden="true"></i> Delete Query </button>
+					</div>
 					<div id="segment_size_chart" style="max-width: 300px; margin: auto;"></div>
 				</div>
 			</div>
@@ -293,9 +261,10 @@
 					            <th>Age</th>
 					            <th>Gender</th>
 					            <th>Primary Email</th>
-					            <th>Data Quality</th>
-					            <th>Funnel Stage</th>
-					            <th>Last Modification</th>
+					            <th class="text-center">Data Quality</th>
+					            <th class="text-center">Lead Score</th>
+					            <th class="text-center">CLV Score</th>
+					            <th>Last Updated at</th>
 					            <th>Last-seen Touchpoint</th>
 				        	</tr>
 				    	</thead>
@@ -314,9 +283,9 @@
 	var productCatalogMap = {}
 	
     function initProductCatalogMap(callback) {
-    	var urlStr = window.baseLeoAdminUrl + "/item/product-catalog-map";
+    	var urlStr = window.baseLeoAdminUrl + "/cdp/asset-item/product-catalog-map";
     	LeoAdminApiUtil.getSecuredData(urlStr, {}, function (json) { 
-    		productCatalogMap = json.data;
+    		productCatalogMap = json.data.allProductItems;
     		callback();
     	})
     }
@@ -336,17 +305,7 @@
 		
 	}
 	
-	function toggleSegmentDisableDateFilter() {
-		var checked = $('#disable_date_filter:checked').length === 1;
-		if(checked) {
-			$('#segment_disable_date_filter_holder').hide();
-		} else {
-			$('#segment_disable_date_filter_holder').show();
-			var beginFilterDate = new Date();
-			var endFilterDate = new moment().add(2,'days')
-			initDateFilterComponent(true, beginFilterDate , endFilterDate );
-		}
-	}
+
 	
 	var segmentQueryBuilderCallback =  function(){
 		$('#btn-reset-querybuilder').on('click', function() {
@@ -369,20 +328,12 @@
 				var params = {};
 				params.jsonQueryRules = jsonQueryStr;
 				
-				var datetimeFilter = getDateFilterValues();
-				params.beginFilterDate = datetimeFilter.beginFilterDate;
-				params.endFilterDate = datetimeFilter.endFilterDate;
 				
 				// call and show statistics
 				var urlStr = baseLeoAdminUrl + '/cdp/segment/statistics';
 		        LeoAdminApiUtil.callPostAdminApi(urlStr, params , function (json) {
 		            if (json.httpCode === 0 && typeof json.data === 'object') {
 		               	loadSegmentStatistics(json.data);
-		               
-		               	// segmentDataModel
-		               	var datetimeFilter = getDateFilterValues();
-		   				segmentDataModel.beginFilterDate = datetimeFilter.beginFilterDate;
-		   				segmentDataModel.endFilterDate = datetimeFilter.endFilterDate;
 		   				
 		   			    // load profile list table
 		               	loadProfilesInSegment(true);
@@ -408,6 +359,8 @@
             if (json.httpCode === 0 && json.errorMessage === '') {
             	segmentDataStats = json.data.segmentStats;
             	var behavioralEventMap = json.data.behavioralEventMap;
+            	var assetGroups = json.data.assetGroups;
+            	var touchpointHubs = json.data.touchpointHubs;
             	
         		// only super-admin role can remove the segment 
         		var readOnlyMode = ! json.canEditData;
@@ -424,13 +377,7 @@
                 $('#sm_type input[value="'+segmentData.type+'"]').prop('checked', true);
                 $('#sm_status input[value="'+segmentData.status+'"]').prop('checked', true);
                 
-                // date range filter
-                if(segmentData.disableDateRangeFilter){
-                	$('#disable_date_filter').prop('checked', true );
-                	$('#segment_disable_date_filter_holder').hide();
-                } else {
-                    initDateFilterComponent(true, segmentData.beginFilterDate , segmentData.endFilterDate );
-                }
+
         		
                 if(managedBySystem){
                 	$('button.data-control-delete').attr('disabled','disabled');
@@ -444,8 +391,11 @@
         			}
                 }
                 
+                // web form
                 setSegmentDataForm(segmentData);
-                loadSegmentBuilder(behavioralEventMap, jsonQueryRules, readOnlyMode, segmentQueryBuilderCallback);
+                
+                // visual query builder
+                loadSegmentBuilder(touchpointHubs, behavioralEventMap, assetGroups, jsonQueryRules, readOnlyMode, segmentQueryBuilderCallback);
                 
                 // load profile list table
                 setTimeout(loadProfilesInSegment,700);
@@ -468,7 +418,7 @@
                	var htmlViewers = "", htmlEditors = "";
                	list.forEach(function(e){
                		if(e.role !== 6) {
-               			// viewer for all roles not superadmin, only God can do everything
+               			// viewer for all roles not superadmin, only a God can do everything
                			if(selectedViewers.includes(e.userLogin)){
                				htmlViewers += ('<option selected value="' + e.userLogin + '">' + e.displayName + '</option>')
                			} else {
@@ -507,15 +457,18 @@
             if (json.httpCode === 0 && json.errorMessage === '') {
             	var behavioralEventMap = json.data.behavioralEventMap;
             	var segmentData = json.data.segmentData;
+            	var assetGroups = json.data.assetGroups;
+            	var touchpointHubs = json.data.touchpointHubs;
+            	
+            	// set web form
             	setSegmentDataForm(segmentData)
     			
                 document.title = 'New Segment Builder';
-            	 $('#segment_name').text('New Segment Builder: ');
+            	$('#segment_name').text('New Segment Builder: ');
                
              	// init UI after setting data into DOM
              	//initDateFilterComponent(true);
-				loadSegmentBuilder(behavioralEventMap, false, false, segmentQueryBuilderCallback);
-                initDateFilterComponent(true, segmentData.beginFilterDate , segmentData.endFilterDate );
+				loadSegmentBuilder(touchpointHubs, behavioralEventMap, assetGroups , false, false, segmentQueryBuilderCallback);
                 
                 // load profile list table
                 setTimeout(loadProfilesInSegment,700);
@@ -587,17 +540,14 @@
 			} else {
 				segmentDataModel.jsonQueryRules = "";
 			}
-			var datetimeFilter = getDateFilterValues();
-			segmentDataModel.beginFilterDate = datetimeFilter.beginFilterDate;
-			segmentDataModel.endFilterDate = datetimeFilter.endFilterDate;
+
 			segmentDataModel.type = parseInt($('#sm_type input:checked').val());
 			segmentDataModel.status = parseInt($('#sm_status input:checked').val());
+			
 			// segment authorization
 			segmentDataModel.authorizedViewers = $('#authorizedViewers').val() || [];
 			segmentDataModel.authorizedEditors = $('#authorizedEditors').val() || [];
 			
-			segmentDataModel.disableDateRangeFilter = segmentDataModel.beginFilterDate === '' && segmentDataModel.endFilterDate === '';
-
 			//done set data model, POST to API
 			var dataJsonStr = JSON.stringify(segmentDataModel) ;
 	        var urlStr = baseLeoAdminUrl + '/cdp/segment/save';

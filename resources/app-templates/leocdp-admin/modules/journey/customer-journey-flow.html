@@ -23,8 +23,8 @@
 <div class="row">
 	<div class="col-lg-12">
       	<div class="row">
-	      		<h4 class="chart_header text-center" > Journey Data Flow </h4>
-	       	<div id="journeyFlowChart" class="experience_journey_flow" style="height:390px;"></div>
+	      	<h4 class="chart_header text-center" > Journey Data Flow </h4>
+	       	<div id="journeyFlowChart" class="experience_journey_flow" style="height:420px;"></div>
 	    </div>
     	<hr>
 	    
@@ -90,7 +90,7 @@
 	}
 	
 	var loadFeedbackTemplateItems = function(obsid, callback){
-		LeoAdminApiUtil.getSecuredData('/item/asset-templates', {"obsid":obsid}, function(json){ 
+		LeoAdminApiUtil.getSecuredData('/cdp/asset-item/asset-templates', {"obsid":obsid}, function(json){ 
 			cxFeedbackTemplates = json.data.cxFeedbackTemplates;
 			landingPageTemplates = json.data.landingPageTemplates;
 			callback();
@@ -169,14 +169,14 @@
 	   		touchpointHubMap = journeyMap.touchpointHubMap;
 	   		
 	   		var defaultMetricName = journeyMap.defaultMetricName;
-	   		var journeyStageMetrics = journeyMap.journeyStageMetrics;
+	   		
 	   		var journeyStages = journeyMap.journeyStages;
 	   		var journeyLinks = journeyMap.journeyLinks;
 	   		var journeyNodes =  journeyMap.journeyNodes;
 	   		
 	   		var touchpointHubIndex = journeyMap.touchpointHubIndex;
 	   		
-	   		renderJourneyFlowChart(domSelector, defaultMetricName, journeyStages, journeyStageMetrics, journeyNodes, journeyLinks, touchpointHubMap);
+	   		renderJourneyFlowChart(domSelector, defaultMetricName, journeyStages, journeyNodes, journeyLinks, touchpointHubMap);
 	   		
 	   		var touchpointHubs = [];
 	   		

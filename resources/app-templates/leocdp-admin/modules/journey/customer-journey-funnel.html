@@ -37,28 +37,28 @@
     <div class="row" >
   		<div class="row col-lg-12 text-center">
 
-			<div class="col-md-6">
-                 <h4 class="chart_header text-center" > Journey Data Funnel </h4>
+			 <div class="col-md-6 ">
+                 <h4 class="chart_header text-center" > Data Funnel for Customer Journey Segmentation </h4>
                  <div class="summary_metric data_funnel" >
 	               <div class="vcenter">
 	                  <div id="journey_funnel" ></div>
 	               </div>
 	           	</div>
-             </div>
+            </div>
 
-             <div class="col-md-6">
-                 <h4 class="chart_header text-center" > Profile Data Funnel </h4>
+  			<div class="col-md-6" >
+                 <h4 class="chart_header text-center" > Data Funnel for Customer Profile Segmentation </h4>
                  <div class="summary_metric data_funnel" >
 	               <div class="vcenter">
 	                  <div id="profile_funnel" ></div>
 	               </div>
 	           	</div>
-             </div>
-             
+            </div>
+
         </div>
         
         <div class="col-lg-12" style="margin-top: 8px;">
-         	<h4 class="text-center"> <mark> All Event Metrics in Journey Data Hub</mark> (The table is sorted by the Event Score) </h4>
+         	<h4 class="text-center"> <mark> All Event Metrics for Data Segmentation</mark> (The table is sorted by the Event Score) </h4>
             <div class="table-responsive">
                 <div id="behavioral_metrics_table"></div>
             </div>
@@ -126,8 +126,7 @@
 		                }
 		            }
 		        }
-		};
-
+		}
 	
 	    var eventDataTypes = [
 	        { name: "First-party Data", id: 1 },
@@ -177,7 +176,7 @@
 	       });
 		}
 	    
-	    var deleteEventMetricMetaData = function(eventName){
+	    var deleteEventMetricMetaData = function(eventName) {
     	 	$('#delete_callback').val('');
 	    	$('#confirmDeleteDialog').modal({ focus: true });
 	    	if (typeof eventName === "string" ) {
@@ -352,12 +351,12 @@
 			    fields: [
 			        { name: "eventName", title : "Event Name", align: 'center' , type: "text", validate: "required", validate: "required" },
 			        { name: "eventLabel", title : "Event Label", align: 'center' , type: "text", width: 116, validate: "required" },
+			        { name: "metricType", type: "select", title : "Metric Type", items: metricTypes, align: 'center', width: 68, valueField: "id", textField: "name" },
+			        { name: "scoreModel", title : "Score Model", type: "select", items: scoringModels, width: 80, valueField: "id", textField: "name" },
 			        { name: "score", title : "Event Score", type: "number", align: 'center', width: 40, validate: "required" },
 			        { name: "cumulativePoint", title : "Loyalty Point", type: "number", width: 38, align: 'center', validate: "required" },
 			        { name: "eventStageId", title : "Default Journey Stage", type: "select", items: journeyFunnelStages, valueField: "id", textField: "name" },
-			        { name: "scoreModel", title : "Score Model", type: "select", items: scoringModels, width: 80, valueField: "id", textField: "name" },
-			        { name: "funnelStageId", title : "Default Profile Stage", type: "select", items: customerFunnelStages, valueField: "id", textField: "name" },
-			        { name: "metricType", type: "select", title : "Metric Type", items: metricTypes, align: 'center', width: 68, valueField: "id", textField: "name" }
+			        { name: "funnelStageId", title : "Default Profile Stage", type: "select", items: customerFunnelStages, valueField: "id", textField: "name" }
 			        ,gridControls
 			    ]
 			});  
@@ -365,5 +364,3 @@
 	}
 	
 </script>
-
-

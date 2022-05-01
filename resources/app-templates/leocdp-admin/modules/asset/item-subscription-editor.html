@@ -216,7 +216,7 @@
                 // off select post type  $('#postTypeSelectionDialog').modal({ focus: true })
                 postTypeSelectionCallback(1);//default post type is text
             }
-            var urlStr = baseLeoAdminUrl + '/item/get';
+            var urlStr = baseLeoAdminUrl + '/cdp/asset-item/get';
 
             LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
@@ -321,7 +321,7 @@
             }            
 
             //done set data model, POST to API
-            var urlStr = baseLeoAdminUrl + '/item/save';
+            var urlStr = baseLeoAdminUrl + '/cdp/asset-item/save';
             LeoAdminApiUtil.callPostAdminApi(urlStr, postModel, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
                     if (typeof callback === 'function') {
@@ -530,7 +530,7 @@
                 //related products
                 $('input[name="related_product_ids"]').parent().hide();
                 var paramObj = {'contentClass':'product'};
-                var url = window.baseLeoAdminUrl + '/item/by-content-class-and-keywords';
+                var url = window.baseLeoAdminUrl + '/cdp/asset-item/by-content-class-and-keywords';
                 LeoAdminApiUtil.getSecuredData(url, paramObj, function (json) {
                     var stUrl = json.staticBaseUrl || '';
                     if (json.httpCode === 0 && json.errorMessage === '' && json.data) { 

@@ -1,0 +1,249 @@
+<style>
+#short_link_url_holder {
+	font-size: 11.5px;
+    font-weight: bold;
+    color: #3300ff;
+}
+</style>
+<div class="container-fluid" id="short_link_form">
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+        <div class="col-lg-10">
+	         <h5 class="page-header" id="page_breadcrumb" > </h5>
+        </div>
+       	<div class="col-lg-2 text-right">
+	        <button type="button" class="btn btn-danger data-control-delete" id="btn_delete_page" style="display: none;" >
+	            <i class="fa fa-trash" aria-hidden="true"></i> Delete
+	        </button>
+	        <button type="button" class="btn btn-primary data-control-edit" id="btn_edit_page" style="display: none;"  > 
+	       		<i class="fa fa-fw fa-pencil-square-o"></i> Edit 
+	       	</button>
+        </div>
+    </div>
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+        <div class="col-lg-9">
+
+            <fieldset>
+				<div class="form-group">
+                    <label>Title</label>
+                    <input id="asset_item_title" type="text" class="form-control" placeholder="Enter title" name="title" autocomplete="off" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Landing Page URL</label>
+                    <input type="text" class="form-control" placeholder="Enter Product Landing page URL" name="fullUrl" autocomplete="off" required >
+                </div>
+                
+                <div class="form-group">
+                    <label>Description</label>
+                    <div id="description_div" style="display: block;">
+                        <textarea class="form-control" rows="2" placeholder="Enter description" name="description"></textarea>
+                    </div>
+                </div>
+                
+                <div id="qr_code_holder" style="display:none;">
+	                <div id="short_link_url_holder" class="alert alert-info" role="alert" >
+						 <i class="fa fa-qrcode" aria-hidden="true" style="font-size: 1.1em" ></i>  <b>Short Link URL</b> 
+						 <a id="short_link_url" class="small-text" href="javascript:" target="_blank" ></a> <br>
+					</div>	
+					<div class="thumbnail">
+					 	 <img id="short_link_qrcode_url" style="max-height: 200px;max-width: 300px" />
+					</div>
+				</div>
+                <hr>
+              
+            </fieldset>
+
+        </div>
+        
+        <div class="col-lg-3">
+            <div id="error-on-save" class="alert alert-danger" style="display: none;"></div>
+            <div class="action-div row-centered ">
+            	<button style="display: none;" type="button" class="btn btn-success" onclick="callLeoBotForIdeasRecommender('context-page')">Hi LEO</button>
+            
+                <button type="button" class="btn btn-info" onclick="history.back()">
+                	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
+                </button>
+                <button type="button" class="btn btn-danger" onclick="LeoCdpAdmin.navFunctions.deleteItemAsset(productData)">
+                	<i class="fa fa-trash" aria-hidden="true"></i> Delete
+                </button>
+                <button type="button" class="btn btn-success data-control-edit" onclick="shortUrlLinkEditorSave()"  > 
+	        		<i class="fa fa-fw fa-check"></i> Save 
+	        	</button>  
+            </div>
+            <hr>
+            
+            <div class="action-div">
+                <label>Keywords</label>
+                <input id="shortLinkKeywords" name="keywords" type="text" class="tags" value="" />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<hr>
+
+<script>
+
+    var itemId = "";
+    var groupId = "";
+    var categoryId = "";
+    
+    var shortLinkData = false;
+    var trixElement = false;
+    var postType = 1; // HTML
+
+    
+    function initShortUrlLinkEditor(params){
+    	shortLinkData = false;
+    	setupCollapsePanels();
+    	LeoCdpAdmin.loadView('/view/common-widgets/headline-images.html?admin=1', '#product-headline-images', function () {
+            $('#product-headline-images div.thumbnail p').editable({
+                type: 'text',
+                title: 'Enter Image Label Value'
+            },true);
+            loadShortUrlLinkEditor(params)
+        }, true);
+    }
+    
+    var showContentShortLinkUrl = function() {
+    	if(shortLinkData) {
+     		$('#short_link_url').attr('href',shortLinkData.shortLinkUrl).text(shortLinkData.shortLinkUrl);
+     		var qrCodeFullUrl = baseLeoAdminUrl + shortLinkData.qrCodeUrl.substr(1);
+     		$('#short_link_qrcode_url').attr('src',qrCodeFullUrl);
+    	}
+ 	}
+
+    function loadShortUrlLinkEditor(params) {
+        if (params) {
+            itemId = params.itemId;
+            groupId = params.groupId;
+            categoryId = params.categoryId;
+            console.log('=====> loadShortUrlLinkEditor itemId ' + itemId);
+
+            if (itemId === '') {
+            	// create mode
+            } else {
+            	// edit mode
+            	$('#qr_code_holder').show();
+            }
+            var urlStr = baseLeoAdminUrl + '/cdp/asset-item/get';
+
+            LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
+                if (json.httpCode === 0 && json.errorMessage === '') {
+                    shortLinkData = json.data;
+                    document.title = shortLinkData.title ? 'Short URL Link Editor - ' + shortLinkData.title : 'New Short URL Link';
+                    
+                 	// breadcrumb link update
+        	        updateBreadcrumbInAssetPost(shortLinkData.assetCategories, shortLinkData.assetGroups, shortLinkData.title);
+                 	
+        	        showContentShortLinkUrl();
+
+                    var form = $('#short_link_form');
+                    for (var k in shortLinkData) {
+                        var value = shortLinkData[k];
+                        var fieldType = typeof value;
+
+                        if (fieldType === 'object') {
+                            if (k === 'keywords') {
+                                form.find("input[name='keywords']").val(value.join(","));
+                            } 
+                        } else if (fieldType === 'number' || fieldType === 'string') {
+                            if (k === 'description') {
+                                form.find("textarea[name='description']").val(value);
+                            } 
+                            else {
+                                form.find("input[name='" + k + "']").val(value);
+                            }
+                        }
+                        console.log(k + " : " + value + " fieldType :" + fieldType)
+                    }
+                    loadWidgetsOfShortUrlLinkEditor();
+                    
+                    //focus the title
+                    $('#asset_item_title').focus();
+                } else {
+                    LeoAdminApiUtil.logErrorPayload(json);
+                }
+            });
+        }
+    }
+
+    function saveShortUrlLink(callback) {
+        if (shortLinkData) {
+        	shortLinkData.contentClass = "ShortUrlLink";
+            shortLinkData.itemId = itemId;
+            shortLinkData.groupId = groupId;
+            shortLinkData.categoryId = categoryId;
+           
+            console.log('=====> saveShortUrlLink itemId ' + itemId);
+           
+            //get DOM view and set into shortLinkData
+            var form = $('#short_link_form');
+            
+            shortLinkData.title = form.find('input[name="title"]').val();
+            shortLinkData.fullUrl = form.find('input[name="fullUrl"]').val();
+            
+            shortLinkData.slug = form.find('input[name="slug"]').val();
+            shortLinkData.keywords = form.find('input[name="keywords"]').val().split(',');            
+            shortLinkData.description = form.find('textarea[name="description"]').val();
+        
+            shortLinkData.customData = {};
+            shortLinkData.mediaInfoUnits = [];
+            shortLinkData.mediaInfo = "";
+
+            if(shortLinkData.title === "" || shortLinkData.fullUrl === "" ) {
+            	iziToast.error({
+            	    title: 'Error',
+            	    message: 'The title, product landing page URL, product ID and product ID type can not be empty !'
+            	});
+            } else {
+            	$('#ajaxLoaderDialog').modal({
+            		backdrop: 'static',
+            		keyboard: false
+        		});
+            	
+            	//done set data model, POST to API
+                var urlStr = baseLeoAdminUrl + '/cdp/asset-item/save';
+                LeoAdminApiUtil.callPostAdminApi(urlStr, shortLinkData, function (json) {
+                    if (json.httpCode === 0 && json.errorMessage === '') {
+                        if (typeof callback === 'function') {
+                            if(json.data === ''){
+                                $('#error-on-save').html('Data is not valid !').show().delay(6000).fadeOut('slow');
+                            } else {
+                                callback(json.data);
+                            }                        
+                        }
+                    } else {
+                        $('#error-on-save').html(json.errorMessage).show().delay(6000).fadeOut('slow');
+                        LeoAdminApiUtil.logErrorPayload(json);
+                    }
+                });
+            }
+        }
+    }
+
+    function shortUrlLinkEditorSave() {
+        var onSaveOk = function (itemId) {
+            console.log('=====> shortUrlLinkEditorSave ', itemId);   
+            $('#ajaxLoaderDialog').modal('hide');   
+            setTimeout(function(){
+            	//gotoAssetItemView(itemId, groupId, categoryId);
+            	history.back()
+            },1000);
+        }
+        saveShortUrlLink(onSaveOk);
+    }
+
+    function loadWidgetsOfShortUrlLinkEditor() {
+        //keyword input widget with highlights
+        $('#shortLinkKeywords').tagsInput({
+            width: 'auto',
+            'defaultText': 'add a keyword'
+        });
+    }
+</script>

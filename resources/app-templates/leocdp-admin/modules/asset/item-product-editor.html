@@ -29,7 +29,7 @@
             <fieldset>
 				<div class="form-group">
                     <label>Title</label>
-                    <input id="asset_item_title" type="text" class="form-control" placeholder="Enter title" name="title" autocomplete="off">
+                    <input id="asset_item_title" type="text" class="form-control" placeholder="Enter title" name="title" autocomplete="off" required >
                 </div>
                 
                 <div class="form-group">
@@ -63,7 +63,7 @@
 				      	<div class="panel-body">
 				      		 <div class="form-group">
 			                    <label>Product Landing Page URL</label>
-			                    <input type="text" class="form-control" placeholder="Enter Product Landing page URL" name="fullUrl" autocomplete="off">
+			                    <input type="text" class="form-control" placeholder="Enter Product Landing page URL" name="fullUrl" autocomplete="off" required >
 			                </div>
 			                
 			                <div class="form-group">
@@ -105,7 +105,7 @@
 			                
 			                <div class="form-group">
 			                    <label>Mapping ID</label>
-			                    <input id="productId" type="text" class="form-control" placeholder="Enter Product ID" name="productId" autocomplete="off">
+			                    <input id="productId" type="text" class="form-control" placeholder="Enter Product ID" name="productId" autocomplete="off" required>
 			                </div>
 				      	</div>
 				    </div>
@@ -124,17 +124,17 @@
 				      	<div class="panel-body">
 				      		<div class="form-group product_price">
 			                    <label> Price Currency </label>
-			                    <input type="text" class="form-control" placeholder="Enter Price Currency" name="priceCurrency" autocomplete="off" value="USD">
+			                    <input type="text" class="form-control" placeholder="Enter Price Currency" name="priceCurrency" autocomplete="off" value="USD" required>
 			                </div>
 				      	
 				      		<div class="form-group product_price">
 			                    <label> Original Price </label>
-			                    <input id="productId" type="number" class="form-control" placeholder="Enter Original PriceL" name="originalPrice" autocomplete="off" value="0">
+			                    <input id="productId" type="number" class="form-control" placeholder="Enter Original PriceL" name="originalPrice" autocomplete="off" value="0" required>
 			                </div>
 			                
 			                <div class="form-group product_price">
 			                    <label> Sale Price </label>
-			                    <input type="number" class="form-control" placeholder="Enter Sale Price" name="salePrice" autocomplete="off" value="0">
+			                    <input type="number" class="form-control" placeholder="Enter Sale Price" name="salePrice" autocomplete="off" value="0" required>
 			                </div>
 				      	</div>
 				    </div>
@@ -237,10 +237,8 @@
             </div>
             <div class="action-div">
                 <label>Content Keywords</label>
-                <input id="postKeywords" name="keywords" type="text" class="tags" value="" />
+                <input id="productKeywords" name="keywords" type="text" class="tags" value="" />
             </div>
-            
-            
         </div>
     </div>
 </div>
@@ -306,7 +304,7 @@
             	// edit mode
             	$('#qr_code_holder').show();
             }
-            var urlStr = baseLeoAdminUrl + '/item/get';
+            var urlStr = baseLeoAdminUrl + '/cdp/asset-item/get';
 
             LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
@@ -449,7 +447,7 @@
         		});
             	
             	//done set data model, POST to API
-                var urlStr = baseLeoAdminUrl + '/item/save';
+                var urlStr = baseLeoAdminUrl + '/cdp/asset-item/save';
                 LeoAdminApiUtil.callPostAdminApi(urlStr, productData, function (json) {
                     if (json.httpCode === 0 && json.errorMessage === '') {
                         if (typeof callback === 'function') {
@@ -518,17 +516,9 @@
 
     function loadWidgetsOfProductEditor() {
         //keyword input widget with highlights
-        $('#postKeywords').tagsInput({
+        $('#productKeywords').tagsInput({
             width: 'auto',
-            'defaultText': 'add a keyword',
-            onChange: function (elem, elem_tags) {
-                var productTags = ['Coated', 'Lysaght', 'Retail'];
-                $('.tag', elem_tags).each(function () {
-                    if ($(this).text().search(new RegExp('\\b(' + productTags.join('|') + ')\\b')) >=0){
-                        $(this).css('background-color', 'yellow');
-                    }                       
-                });
-            }
+            'defaultText': 'add a keyword'
         });
 
         //document or image uploader

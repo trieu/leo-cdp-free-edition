@@ -577,12 +577,7 @@
 	     
 	     $('b.account_size').text(size.toLocaleString())
 
-	     if( ! accountData.disableDateRangeFilter ) {
-	    	 $('#beginFilterDate').text( moment.utc(accountData.beginFilterDate).local().format(formatDateTime)  );
-		     $('#endFilterDate').text( moment.utc(accountData.endFilterDate).local().format(formatDateTime) );
-	     } else {
-	    	 $('#account_disable_date_filter_holder').hide();
-	     }
+	     
 	}
 </script>
 

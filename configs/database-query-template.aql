@@ -314,6 +314,12 @@ AQL_GET_PUBLIC_ASSET_GROUPS_BY_CATEGORY =>
 	RETURN p
 ;
 
+AQL_GET_ASSET_GROUPS_FOR_SEGMENTATION =>
+	FOR e in cdp_assetgroup
+	FILTER LENGTH(e.eventNamesForSegmentation) > 0
+	RETURN e
+;
+
 ########### DIGITAL ASSET CATEGORY  ########################################################################################################;
 
 AQL_GET_ALL_CATEGORIES =>

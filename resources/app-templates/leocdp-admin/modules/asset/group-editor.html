@@ -14,7 +14,7 @@
              <button type="button" class="btn btn-danger" onclick="LeoCdpAdmin.navFunctions.deleteGroup(assetGroupModel)">
               	<i class="fa fa-trash" aria-hidden="true"></i> Delete
              </button>
-	         <button type="button" class="btn btn-success data-control-edit" onclick="pageEditorSave()"  > 
+	         <button type="button" class="btn btn-success data-control-edit" onclick="assetGroupEditorSave()"  > 
 	       		<i class="fa fa-fw fa-check"></i> Save 
 	       	 </button>
         </div>
@@ -25,17 +25,17 @@
     <div class="row">
         <div class="col-lg-9">
 
-            <fieldset>
+            <div class="col-lg-12">
 
                 <div id="error-on-save" class="alert alert-danger" style="display: none;">
                 </div>
 
-                <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" class="form-control" placeholder="Enter new title" name="title" autocomplete="off">
+                <div class="form-group row">
+                    <label>Digital Asset Group Name</label>
+                    <input type="text" class="form-control" placeholder="Group Name" name="title" autocomplete="off">
                 </div>
 
-                <div id="slug_holder" class="form-group" style="display: none;" >
+                <div id="slug_holder" class="form-group row" style="display: none;" >
                     <label>Slug (SEO-friendly URI)</label>
                     <div id="slug_div">
                         <input type="text" name="slug" class="form-control">
@@ -43,9 +43,18 @@
                 </div>
                 
                 <div id="page-headline-images" style="display: none;" ></div>
+                
+                <div class="form-group row">
+	                <label for="eventNamesForSegmentation"> Event Names For Segmentation and Reporting </label>
+					<div>
+						<select id="eventNamesForSegmentation" multiple data-placeholder="Choose Event Names For Segmentation" class="select" >
+						  	<!-- Event Names For Segmentation -->
+						</select>
+					</div>
+	            </div> 
 
-                <div class="form-group">
-                    <label>Basic Information Details</label>
+                <div class="form-group row">
+                    <label>Description</label>
                     <div id="content_div">
                         <input id="mediaInfo" value="" type="hidden" name="mediaInfo">
                         <trix-editor input="mediaInfo" class="trix-content" autofocus></trix-editor>
@@ -60,7 +69,7 @@
 	                 <hr> 
 	            </div>
 
-            </fieldset>
+            </div>
 
         </div>
         <div class="col-lg-3">
@@ -104,7 +113,7 @@
            
             <div class="action-div">
                 <label>Keywords </label>
-                <input id="pageKeywords" name="keywords" type="text" class="tags" value="" />
+                <input id="assetGroupKeywords" name="keywords" type="text" class="tags" value="" />
                 <hr> 
             </div>
            
@@ -155,7 +164,7 @@
             	$('#slug_holder').hide();
             }
 
-            var urlStr = baseLeoAdminUrl + '/group/get-info';
+            var urlStr = baseLeoAdminUrl + '/cdp/asset-group/get-info';
 
             LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
@@ -173,8 +182,13 @@
                         if (fieldType === 'object') {
                             if (k === 'keywords') {
                                 form.find("input[name='keywords']").val(value.join(","));
-                            } else if (k === 'headlineImages') {
+                            } 
+                            else if (k === 'headlineImages') {
                                 loadHeadLineImageObjectToView(assetGroupModel.headlineImages, true);
+                            }
+                            else if (k === "eventNamesForSegmentation") {
+                            	//
+                            	loadEventMetricsForAssetGroup(value)
                             }
                         } 
                         else if (fieldType === 'boolean') {
@@ -198,7 +212,8 @@
                         else if (fieldType === 'number' || fieldType === 'string') {
                             if (k === 'mediaInfo') {
                                 trixElement.editor.insertHTML(value);
-                            } else if (k === 'privacyStatus') {
+                            } 
+                            else if (k === 'privacyStatus') {
                                 form.find("input[name='privacyStatus'][value='" + value + "']").attr('checked','checked');
                             } 
                             else if (k === 'contentClass') {
@@ -214,20 +229,42 @@
                         console.log(k + " : " + value + " fieldType :" + fieldType)
                     }
 
-                    loadWidgetsOfPageForm();
-                    console.log(assetGroupModel);
+                    loadWidgetsOfAssetGroupEditor();
+                    
                 } else {
                     LeoAdminApiUtil.logErrorPayload(json);
                 }
             });
         }
     }
+    
+    function loadEventMetricsForAssetGroup(selectedEventNames){
+    	//
+    	LeoAdminApiUtil.getSecuredData('/cdp/funnel/event-metrics', {} , function(json){  
+    		var eventMetrics = json.data;
+			var htmlSelectedEvents = "";
+			
+			eventMetrics.forEach(function(e){
+				var eventName = e.eventName;
+				if(selectedEventNames.includes(eventName)){
+					htmlSelectedEvents += ('<option selected value="' + e.id + '">' + e.eventLabel + '</option>')
+       			} else {
+       				htmlSelectedEvents += ('<option value="' + e.id + '">' + e.eventLabel + '</option>')
+       			}
+           	});
+			
+        	$('#eventNamesForSegmentation').html(htmlSelectedEvents).chosen({
+                width: "100%",
+                no_results_text: "Oops, nothing found!"
+            });
+		})
+    }
 
-    function saveDataPageEditor(callback) {
+    function saveAssetGroupEditor(callback) {
         if (assetGroupModel) {
             assetGroupModel.groupId = groupId;
             assetGroupModel.categoryId = categoryId;
-            console.log('=====> saveDataPageEditor groupId ' + groupId);
+            console.log('=====> saveAssetGroupEditor groupId ' + groupId);
 
             //get DOM view and set into PageModel
             var form = $('#page_editor_form');
@@ -238,9 +275,10 @@
             assetGroupModel.headlineImages = getHeadLinesImagsObject();
             assetGroupModel.contentClass = form.find('select[name="contentClass"]').val();
             assetGroupModel.slug = form.find('input[name="slug"]').val();
-            assetGroupModel.rankingScore = parseInt(form.find('input[name="rankingScore"]').val());            
+            assetGroupModel.rankingScore = parseInt(form.find('input[name="rankingScore"]').val());  
+            assetGroupModel.eventNamesForSegmentation = $('#eventNamesForSegmentation').val() || [];
 
-            var urlStr = baseLeoAdminUrl + '/group/save';
+            var urlStr = baseLeoAdminUrl + '/cdp/asset-group/save';
             LeoAdminApiUtil.callPostAdminApi(urlStr, assetGroupModel, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
                     if (typeof callback === 'function') {
@@ -269,31 +307,21 @@
     });
 
 
-    function pageEditorSave() {
-        console.log('=====> pageEditorSave groupId ' + groupId);
+    function assetGroupEditorSave() {
+        console.log('=====> assetGroupEditorSave groupId ' + groupId);
         var onSaveOk = function (data) {
             groupId = data;
             location.hash = "calljs-leoCdpRouter('Asset_Group_Details','" + groupId + "')";
         }
-        saveDataPageEditor(onSaveOk);
+        saveAssetGroupEditor(onSaveOk);
     }
 
-    function loadWidgetsOfPageForm() {
-        $('#pageKeywords').tagsInput({
-            'autocomplete': {
-                'php': 'php',
-                "java": "java"
-            },
-            'defaultText': 'add a keyword',
-            width: 'auto',
-            onChange: function (elem, elem_tags) {
-                var productTags = ['Coated', 'Lysaght', 'Retail'];
-                $('.tag', elem_tags).each(function () {
-                    if ($(this).text().search(new RegExp('\\b(' + productTags.join('|') + ')\\b')) >=
-                        0)
-                        $(this).css('background-color', 'yellow');
-                });
-            }
+    function loadWidgetsOfAssetGroupEditor() {
+        $('#assetGroupKeywords').tagsInput({
+            'defaultText': 'Enter...',
+             width: '100%',
+             maxChars: 99,
+             trimValue: true
         });
 
         $('#contentClass').chosen({

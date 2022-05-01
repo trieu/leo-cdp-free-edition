@@ -41,7 +41,7 @@
                     [0, "asc"]
                 ],
                 "ajax": {
-                    "url": baseLeoAdminUrl + '/category/list-all',
+                    "url": baseLeoAdminUrl + '/cdp/asset-category/list-all',
                     "type": "POST",
                     "contentType": 'application/x-www-form-urlencoded',
                     "data": function (d) {
@@ -124,7 +124,7 @@
                             	icon = '<i class="fa fa-trophy" aria-hidden="true"></i>';
                             }
                             
-                            if(row.navigationOrder < 4){
+                            if(row.navigationOrder <= 4){
                             	var params = leoCdpRouterParams([row.id, row.assetType, row.name]) ;
                                	var callJsStr = "#calljs-leoCdpRouter('Asset_Groups','" + params + "')";
                                	return '<div> <a title="' + data + '" href="' + callJsStr + '" >' + icon + ' ' + data + '</a> </div>';

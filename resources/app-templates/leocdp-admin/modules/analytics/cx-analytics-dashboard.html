@@ -334,7 +334,7 @@
     
     var defaultSurveyTemplateId = false;
     function initFeedbackSurveySelection() {
-    	var urlStr = window.baseLeoAdminUrl + "/item/asset-templates-for-survey";
+    	var urlStr = window.baseLeoAdminUrl + "/cdp/asset-item/asset-templates-for-survey";
     	LeoAdminApiUtil.getSecuredData(urlStr, {}, function (json) { 
     		
     		// priority group selector

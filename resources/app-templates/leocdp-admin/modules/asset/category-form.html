@@ -76,7 +76,7 @@
 	var categoryModel = false;
 
 	function loadDataCategoryInfo(key) {
-		var urlStr = baseLeoAdminUrl + '/category/get-info';
+		var urlStr = baseLeoAdminUrl + '/cdp/asset-category/get-info';
 		LeoAdminApiUtil.callPostAdminApi(urlStr, {
 			'key' : key || 'newcategory'
 		}, function(json) {
@@ -107,9 +107,9 @@
 
 		//TODO more data field here
 
-		var urlStr = baseLeoAdminUrl + '/category/create-new';
+		var urlStr = baseLeoAdminUrl + '/cdp/asset-category/create-new';
 		if (typeof categoryModel.id === 'string') {
-			urlStr = baseLeoAdminUrl + '/category/update-info';
+			urlStr = baseLeoAdminUrl + '/cdp/asset-category/update-info';
 		}
 
 		var onSaveOk = function(data) {
@@ -143,7 +143,7 @@
 					location.href = '/admin';
 				}, 500);
 			}
-			var urlStr = baseLeoAdminUrl + '/category/delete';
+			var urlStr = baseLeoAdminUrl + '/cdp/asset-category/delete';
 			LeoAdminApiUtil.callPostAdminApi(urlStr, categoryModel,
 					function(json) {
 						if (json.httpCode === 0 && json.errorMessage === '') {

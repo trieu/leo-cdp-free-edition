@@ -82,7 +82,7 @@
     var initGroupDetails = function(pId) {
         assetGroupId = pId;
        
-        var urlStr = baseLeoAdminUrl + '/group/get-info';
+        var urlStr = baseLeoAdminUrl + '/cdp/asset-group/get-info';
         var params = { 'groupId': assetGroupId };
         
         LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
@@ -247,21 +247,31 @@
                     	 var style = 'style="font-size:12.5px;width:140px; color: blue"';
                          if (data === 1) {
                              return '<i class="fa fa-html5" '+style+' > WEB BLOG POST</i>';
-                         } else if (data === 2) {
+                         } 
+                         else if (data === 2) {
                              return '<i class="fa fa-shopping-cart" '+style+' > PRODUCT ITEM</i>';
-                         } else if (data === 3) {
+                         } 
+                         else if (data === 3) {
                              return '<i class="fa fa-heartbeat" '+style+' > SERVICE ITEM</i>';
-                         } else if (data === 4) {
+                         } 
+                         else if (data === 4) {
                              return '<i class="fa fa-envelope-open-o" '+style+' > EMAIL TEMPLATE</i>';
-                         } else if (data === 5) {
+                         } 
+                         else if (data === 5) {
                              return '<i class="fa fa-facebook-square" '+style+' > SOCIAL MEDIA POST</i>';
-                         } else if (data === 6) {
+                         } 
+                         else if (data === 6) {
                              return '<i class="fa fa-paper-plane-o" '+style+' > PUSH MESSAGE TEMPLATE</i>';
-                         } else if (data === 10 ) {
+                         } 
+                         else if (data === 10 ) {
                              return '<i class="fa fa-television" '+style+' > AD BANNER PLACEHOLDER</i>';
-                         }  else if (data === 13 ) {
+                         } 
+                         else if (data === 13 ) {
 	                        return '<i class="fa fa-comments-o" '+style+' > FEEDBACK FORM</i>';
-	                     } 
+                         } 
+                         else if (data === 15 ) {
+ 	                        return '<i class="fa fa-link" '+style+' > SHORT URL LINK</i>';
+ 	                     }  
                          return '<i class="fa fa-dot-circle-o" '+style+' > UNCLASSIFIED</i>';
                     },
                     "targets": 3
@@ -334,7 +344,7 @@
                 'searching': false,
                 'serverMethod': 'POST',
                 "ajax": {
-                    "url": baseLeoAdminUrl + '/item/filter-by-group',
+                    "url": baseLeoAdminUrl + '/cdp/asset-item/filter-by-group',
                     "contentType": 'application/json',
                     "type": "POST",
                     "data": function (d) {

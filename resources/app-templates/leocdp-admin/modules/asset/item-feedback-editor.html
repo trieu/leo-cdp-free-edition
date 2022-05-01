@@ -226,7 +226,7 @@
             
             console.log('=====> load template editor for id ' + itemId);
 
-            var urlStr = baseLeoAdminUrl + '/item/get';
+            var urlStr = baseLeoAdminUrl + '/cdp/asset-item/get';
 
             LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
@@ -404,7 +404,7 @@
             	}
             	
                 //done set data model, POST to API
-                var urlStr = baseLeoAdminUrl + '/item/save';
+                var urlStr = baseLeoAdminUrl + '/cdp/asset-item/save';
                 LeoAdminApiUtil.callPostAdminApi(urlStr, feedbackModel, function (json) {
                     if (json.httpCode === 0 && json.errorMessage === '') {
                         if (typeof callback === 'function') {

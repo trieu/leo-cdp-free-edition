@@ -99,13 +99,13 @@
 				 	Journey Data Hub <i id="journey_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
 				</a>
 				<ul id="journey_hub_menu" class="collapse in" aria-expanded="true">
-					<li id="Event_Data_Management_Menu" >
-						<a id="Event_Data_Management" href="#calljs-leoCdpRouter('Event_Data_Management')" title="Journey Data Funnel" >
-							<i class="fa fa-fw fa-filter"></i> Event Data Management </a>
-					</li>
 					<li>
 						<a id="Data_Flow_Management" href="#calljs-leoCdpRouter('Data_Flow_Management')" title="Data Flow Management"> 
 							<i class="fa fa-fw fa-map-o"></i> Data Flow Management </a>
+					</li>
+					<li id="Event_Data_Management_Menu" >
+						<a id="Event_Data_Management" href="#calljs-leoCdpRouter('Event_Data_Management')" title="Journey Data Funnel" >
+							<i class="fa fa-fw fa-filter"></i> Event Data Management </a>
 					</li>
 				</ul>
 			</li>
@@ -165,7 +165,7 @@
 				</ul>
 			</li>
 			
-			<li id="promo_panel">
+			<li id="promo_panel" style="visibility: visible;" >
 				<div class="panel panel-default">
 				    <div class="panel-body" style="font-size: 11px;" >
 				    	<div>
@@ -313,6 +313,7 @@
 			
 			$('#main_admin_navigation').show();
 			$('#logo-img').attr('src',window.pageHeaderLogo).show();
+			$('#promo_panel').css("visibility",promoVisibility);
 			
 			$('#leo_product_type').text(leoProductType);
 			$('#leocdp_version_type').text(leoCdpEdition.toUpperCase());

@@ -135,7 +135,8 @@ th.sorting, th.sorting_desc, th.sorting_asc {
 	                        <th >Full Name</th>
 	                        <th >Last Touchpoint Name</th>
 	                        <th class="text-center">Data Quality</th>
-	                        <th class="text-center">Journey Score</th>
+	                        <th class="text-center">Lead Score</th>
+	                        <th class="text-center">CLV Score</th>
 	                        <th > Email</th>
 	                        <th > Phone</th>
 	                        <th >Updated at</th>
@@ -296,16 +297,19 @@ th.sorting, th.sorting_desc, th.sorting_asc {
                     "data": "dataQualityScore" // 3
                 },
                 {
-                    "data": "journeyScore" // 4
+                    "data": "totalLeadScore" // 4
                 },
                 {
-                    "data": "primaryEmail" // 5
+                    "data": "totalCLV" // 5
                 },
                 {
-                    "data": "primaryPhone" // 6
+                    "data": "primaryEmail" // 6
                 },
                 {
-                    "data": "updatedAt" // 7
+                    "data": "primaryPhone" // 7
+                },
+                {
+                    "data": "updatedAt" // 8
                 }
             ];
         	
@@ -421,18 +425,34 @@ th.sorting, th.sorting_desc, th.sorting_asc {
                         "render": function (data, type, row) {
                         	var score =  new Number(data).toLocaleString();
                         	if(data < 20 ){
-                        		return '<div class="datatable_text text-center">'  + score + ' % </div>';
+                        		return '<div class="datatable_text text-center">'  + score + ' </div>';
                         	}
-                        	else if(data >= 20 && data < 70 ){
-                        		return '<div class="highlight_text text-center" style="font-size:1.1em!important" >'  + score + ' % </div>';
+                        	else if(data >= 20 && data < 100 ){
+                        		return '<div class="highlight_text text-center" style="font-size:1.1em!important" >'  + score + ' </div>';
                         	}
-                        	else if(data >= 70 && data < 100){
-                        		return '<div class="highlight_text text-center" style="color:#41A317!important;font-size:1.2em!important" >'  + score + ' % </div>';
+                        	else if(data >= 100){
+                        		return '<div class="highlight_text text-center" style="color:#41A317!important;font-size:1.2em!important" >'  + score + ' </div>';
                         	}
-                        	return '<div class="highlight_text text-center" style="color:#404040!important;font-size:0.8em!important" >'  + score + ' % </div>';
+                        	return '<div class="highlight_text text-center" style="color:#404040!important;font-size:0.8em!important" >'  + score + ' </div>';
                         },
                         "targets": 4
-                    },               
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	var score =  new Number(data).toLocaleString();
+                        	if(data < 20 ){
+                        		return '<div class="datatable_text text-center">'  + score + ' </div>';
+                        	}
+                        	else if(data >= 20 && data < 100 ){
+                        		return '<div class="highlight_text text-center" style="font-size:1.1em!important" >'  + score + ' </div>';
+                        	}
+                        	else if(data >= 100){
+                        		return '<div class="highlight_text text-center" style="color:#41A317!important;font-size:1.2em!important" >'  + score + ' </div>';
+                        	}
+                        	return '<div class="highlight_text text-center" style="color:#404040!important;font-size:0.8em!important" >'  + score + ' </div>';
+                        },
+                        "targets": 5
+                    },   
                     {
                         "render": function (data, type, row) {
                         	//format email
@@ -443,7 +463,7 @@ th.sorting, th.sorting_desc, th.sorting_asc {
                         	}
                         	return '';
                         },
-                        "targets": 5,
+                        "targets": 6,
                         "orderable": false
                     },
                     {
@@ -456,7 +476,7 @@ th.sorting, th.sorting_desc, th.sorting_asc {
                         	}
                         	return '';
                         },
-                        "targets": 6,
+                        "targets": 7,
                         "orderable": false
                     },
                     {
@@ -467,7 +487,7 @@ th.sorting, th.sorting_desc, th.sorting_asc {
                         	}
                         	return '-';
                         },
-                        "targets": 7
+                        "targets": 8
                     },
                     {
                         "render": function (data, type, row) {
@@ -479,7 +499,7 @@ th.sorting, th.sorting_desc, th.sorting_asc {
                         	}
                             return html;
                         },
-                        "targets": 8
+                        "targets": 9
                     }
                 ],
                 'columns': tableSchema,

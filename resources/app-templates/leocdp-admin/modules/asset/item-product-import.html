@@ -55,7 +55,7 @@
 
 <script>
 	var initProductImporter = function (assetGroupId) {
-		var urlStr = baseLeoAdminUrl + '/group/get-info';
+		var urlStr = baseLeoAdminUrl + '/cdp/asset-group/get-info';
         var params = { 'groupId': assetGroupId };
         
         LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
@@ -84,7 +84,7 @@
 		            console.log(importFileUrl);
 		            
 		            var params = {'importFileUrl' : importFileUrl, 'groupId': assetGroupId};
-		            LeoAdminApiUtil.getSecuredData('/item/import-product-preview', params , function(json){ 
+		            LeoAdminApiUtil.getSecuredData('/cdp/asset-item/import-product-preview', params , function(json){ 
 		            	var list = json.data;
 		            	var len = list.length;
 		            	// init preview
@@ -125,7 +125,7 @@
 	
 	function doProductImportingJob(assetGroupId,importFileUrl){
 		var params = {'importFileUrl' : importFileUrl, 'groupId': assetGroupId};
-		LeoAdminApiUtil.callPostAdminApi('/item/import-product', params, function (json) {
+		LeoAdminApiUtil.callPostAdminApi('/cdp/asset-item/import-product', params, function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
     			var importedOk = json.data.importedOk;
     			var importedFail = json.data.importedFail;

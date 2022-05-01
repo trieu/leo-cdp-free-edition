@@ -228,7 +228,7 @@
          </li>
          
          <li onclick="handleProfileTabExtInfo()" >
-          	<a href="javascript:" data-target-tab="panel_profile_information" title="Data of profile" > <i class="fa fa-info-circle" aria-hidden="true"></i> Profile Information </a>
+          	<a href="javascript:" data-target-tab="panel_profile_information" title="Data of profile" > <i class="fa fa-info-circle" aria-hidden="true"></i> Profile Data </a>
          </li>
          
          <li style="display: none;"  >
@@ -245,6 +245,10 @@
          
          <li>
          	<a href="javascript:" data-target-tab="panel_purchased_items" title="Purchased Product Items" > <i class="fa fa-shopping-cart" aria-hidden="true"></i> Purchased Items </a>
+         </li>
+         
+         <li style="display: none"  >
+         	<a href="javascript:" data-target-tab="panel_financial_information"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Financial Data </a>
          </li>
 	   </ul>
 
@@ -263,9 +267,9 @@
 		                	<li><a href="#panel_profile_scoring_data" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Advanced Scores</a></li>
 		                    <li><a href="#panel_event_statistics" data-toggle="tab"  > <i class="fa fa-line-chart" aria-hidden="true"></i> Event Statistics</a></li>
 		                    <li><a href="#panel_referral_channels" data-toggle="tab"  > <i class="fa fa-globe" aria-hidden="true"></i> Referral Channels </a></li>
-		                    <li><a href="#panel_data_touchpoints" data-toggle="tab"> <i class="fa fa-hand-pointer-o" aria-hidden="true"></i> Data Touchpoints </a></li>
-		                    <li><a href="#panel_user_consent" data-toggle="tab"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> User Consent Data</a></li>
-		                    <li><a href="#panel_last_session_details" data-toggle="tab"> <i class="fa fa-hourglass-end" aria-hidden="true"></i> Last Session Data</a></li>
+		                    <li><a href="#panel_data_touchpoints" data-toggle="tab"> <i class="fa fa-hand-pointer-o" aria-hidden="true"></i> Engaged Touchpoints </a></li>
+		                    <li><a href="#panel_user_consent" data-toggle="tab"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Data Privacy Consent </a></li>
+		                    <li><a href="#panel_last_session_details" data-toggle="tab"> <i class="fa fa-hourglass-end" aria-hidden="true"></i> Last Session Data </a></li>
 		                </ul>
 		                
 		                <div id="event_flow_vertital_tabs" class="tab-content col-md-10" >
@@ -435,7 +439,7 @@
 		                    <!-- vertical tab Consent Information  -->
 		                    <div class="tab-pane" id="panel_user_consent" >
 		                    	<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-check-circle-o" aria-hidden="true"></i> User Consent Data </h4> 
+									<h4 class="highlight_text" > <i class="fa fa-check-circle-o" aria-hidden="true"></i> Data Privacy Consent/Agreement </h4> 
 								</div>
 								<div id="user_consent_choices" class="funkyradio">
                                   	  <div class="funkyradio-primary">
@@ -701,31 +705,31 @@
 											<ol class="profile_ext_data" data-field="personal_attributes">
 								               <li>
 				                                   <b data-persona="key"  > <i class="fa fa-fw fa-map-marker"></i> Living Location Address </b> 
-				                                   <p class="data_field" class="small" data-field="livingLocation"  data-fieldholder="locationcode" data-fieldtype="string"  > - </p>
+				                                   <p class="data_field highlight_text" data-field="livingLocation"  data-fieldholder="locationcode" data-fieldtype="string"  > - </p>
 				                                </li>
 				                                <li>
 				                                   <b data-persona="key" > <i class="fa fa-fw fa-map-marker"></i> Living Location Code </b> 
-				                                   <p class="data_field" data-field="locationCode" data-fieldholder="locationcode" data-fieldtype="string" > - </p>
+				                                   <p class="data_field highlight_text" data-field="locationCode" data-fieldholder="locationcode" data-fieldtype="string" > - </p>
 				                                </li>
 				                                <li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Primary Nationality </b> 
-								                   <p data-field="primaryNationality" data-fieldholder="html" data-fieldtype="string"  > </p>
+								                   <p class="data_field highlight_text" data-field="primaryNationality" data-fieldholder="html" data-fieldtype="string"  > </p>
 								               	</li>
 								               	<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current Living City </b> 
-								                   <p data-field="livingCity" data-fieldholder="html" data-fieldtype="string"  > </p>
+								                   <p class="data_field highlight_text" data-field="livingCity" data-fieldholder="html" data-fieldtype="string"  > </p>
 								               	</li>
 								               	<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current Living State </b> 
-								                   <p data-field="livingState" data-fieldholder="html" data-fieldtype="string" > </p>
+								                   <p class="data_field highlight_text" data-field="livingState" data-fieldholder="html" data-fieldtype="string" > </p>
 								               	</li>
 								               	<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current Living Country </b> 
-								                   <p data-field="livingCountry" data-fieldholder="html" data-fieldtype="string"  > </p>
+								                   <p class="data_field highlight_text" data-field="livingCountry" data-fieldholder="html" data-fieldtype="string"  > </p>
 								               	</li>
 								               	<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-globe"></i> Current ZipCode </b> 
-								                   <p data-field="currentZipCode" data-fieldholder="html" data-fieldtype="string" > </p>
+								                   <p class="data_field highlight_text" data-field="currentZipCode" data-fieldholder="html" data-fieldtype="string" > </p>
 								               	</li>
 							               	</ol>
 				               	  		</td>
@@ -741,6 +745,11 @@
 				                       <td>
 											<ol class="profile_ext_data" data-field="personal_attributes">
 												<li>
+								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Job Type and Skills </b> 
+								                   <p class="highlight_text" data-field="jobTypeAsString" data-fieldholder="html" data-fieldtype="string" data-editable="true"  >  </p>
+								               	</li>
+								               	
+												<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Soft Skills </b> 
 								                   <p data-field="softSkills" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 								               	</li>
@@ -752,7 +761,7 @@
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Study Certificates </b> 
 								                   <p data-field="studyCertificates" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 								               	</li>
-											
+								               	
 								               	<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Job Titles </b> 
 								                   <p data-field="jobTitles" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
@@ -909,7 +918,7 @@
 			
 			<!-- tab 6 recommended products -->
 			<div class="tab-pane" id="panel_recommended_products"  >
-				<!-- tab 5 content  -->
+				<!-- tab 6 content  -->
 		     	<h4 class="highlight_text" > <i class="fa fa-list-ol" aria-hidden="true"></i> Top recommended products for customer personalization </h4>
 		     	<h5> <i class="fa fa-info" aria-hidden="true"></i> Drag and drop the items below to customize item ranking </h5>
 		     	<div id="recommended_product_list" class="list-group col">
@@ -920,14 +929,23 @@
 			
 			<!-- tab 7 purchased items -->
 			<div class="tab-pane" id="panel_purchased_items"  >
-				<!-- tab 6 content  -->
+				<!-- tab 7 content  -->
 		     	<h4 class="highlight_text" > <i class="fa fa-shopping-cart" aria-hidden="true"></i> Top 100 recently purchased items </h4>
 		     	<div id="purchased_items_list" class="list-group col">
-		     		<!-- purchased_product_list -->
 		     		<div class="list-group-item" > No data available </div>
 				</div>
 				<div  id="purchased_items_pagination" ></div>
-			</div>			
+			</div>	
+			
+			<!-- tab 8 purchased items -->
+			<div class="tab-pane" id="panel_financial_information"  >
+				<!-- tab 8 content  -->
+		     	<h4 class="highlight_text" > <i class="fa fa-list-ul" aria-hidden="true"></i> Financial Data Event </h4>
+		     	<div id="financial_event_list" class="list-group col">
+		     		<div class="list-group-item" > No data available </div>
+				</div>
+			</div>
+					
 			
 			<!-- /tabs -->
 	   </div>
@@ -1228,6 +1246,26 @@
  </li>
 </script>
 
+
+<script id='financial-event-tpl' type="text/html" >
+ <div class="list-group-item col-md-12"  >
+	<div class="col-md-2 text-center" > 
+		<i class="fa <%- riskIcon %>" aria-hidden="true" style="margin-top:42%; font-size:72px; color:<%- riskIconColor %> "></i>
+	</div>
+	 <div class="col-md-10">
+		<h4 class="media-heading highlight_text" style="color:<%- riskIconColor %>"> <b><i class="fa fa-info-circle" aria-hidden="true"></i> Credit Risk: <%- risk %> </b>  </h4>
+		<hr>
+		<div class="highlight_text" > <b><i class="fa fa-usd" aria-hidden="true"></i> Credit Amount: <%- creditAmount %> </b> </div> 
+		<div class="highlight_text" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Purpose of spending: <%- purpose %> </b> </div>
+		<hr>
+ 		<div class="highlight_text" > <b><i class="fa fa-calendar-o" aria-hidden="true"></i> Duration in month: <%- duration %> </b> </div>
+		<div class="highlight_text" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Saving Account Status: <%- savingAccountStatus %> </b> </div>
+		<div class="highlight_text" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Checking Account Status: <%- checkingAccountStatus %> </b> </div>
+	</div>
+  </div>
+</script>
+
+
 <!-- Modal new event -->
 <div class="modal fade" id="newCustomerSupportCaseDialog" role="dialog">
     <div class="modal-dialog">
@@ -1312,7 +1350,25 @@
         	 }
         	 if(data.primaryEmail === ''){
         		 data.primaryEmail = noinfo;
-        	 } 
+        	 }
+        	 if(typeof data.jobType === "number" ) {
+        		 var t = data.jobType;
+        		 if(t === 0){
+        			 data.jobTypeAsString = "UNSKILLED AND NON-RESIDENT";	 
+        		 }
+        		 else if(t === 1){
+        			 data.jobTypeAsString = "UNSKILLED AND RESIDENT";	 
+        		 }
+        		 else if(t === 2){
+        			 data.jobTypeAsString = "SKILLED";	 
+        		 }
+        		 else if(t === 3){
+        			 data.jobTypeAsString = "HIGHLY SKILLED";	 
+        		 }
+        		 else {
+        			 data.jobTypeAsString = noinfo;
+        		 }
+        	 }
         	 
         	 data.funnelStage = data.funnelStage ? data.funnelStage.toUpperCase() : noinfo;
         	 
@@ -1403,6 +1459,9 @@
         	 
         	 // Transactions
         	 loadPurchasedItems();
+        	 
+        	 // Financial Events
+        	 loadFinancialEventList();
         	 
         	 // touchpoint
         	 renderEngagedTouchpoints(profileData.topEngagedTouchpoints)
