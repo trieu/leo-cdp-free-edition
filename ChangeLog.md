@@ -20,7 +20,7 @@
 - [In Progress] Data Reporting with Jupyter notebook
 - [In Progress] New Data Connector and connector protocol
 
-## [0.9.0] - 2022-06-20
+## [0.9.0] - 2022-06-30
 
 ### Added 
 
@@ -49,10 +49,11 @@
 - [Segment] CSV data exporting is JSON if segment'size larger than 100, not CSV
 - [UI] sorting fields in segment list
 
-## [0.8.9] - 2022-04-28
+## [0.8.9] - 2022-05-02
 
 ### Added 
 
+- add industryDataModels in leocdp-metadata.properties to show profile data for specific industry
 - [Data Asset] add Short URL Link as new asset category
 - save Touchpoint Name and URL in Tracking Event
 - data segmentation with tracking event, touchpoint, device
@@ -81,7 +82,7 @@
 
 ### Changed
 
-- [UI] improve UI for segment
+- [UI] improve UI for segment and profile
 - [UI] refresh segment data should update segment size and Reference Key in all matched profiles
 - [UI] UI to track CX rating data
 - [UI] upgrade chartjs version 3.7.1

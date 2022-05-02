@@ -15,6 +15,12 @@ th.sorting, th.sorting_desc, th.sorting_asc {
 #profile_filter_input_label{
 	margin-top:10px;
 }
+div.profile_medium_score {
+	color:#1A529E!important; font-size:1.1em!important;
+}
+div.profile_high_score {
+	color:#3300ff!important;font-size:1.2em!important
+}
 </style>
 <div class="row">
     <div class="col-lg-6">
@@ -131,16 +137,16 @@ th.sorting, th.sorting_desc, th.sorting_asc {
 	            <table id="profile_list_table" class="display" style="width:100%;">
 	                <thead>
 	                    <tr>
-	                        <th class="text-center" title="A profile that has mobile phone or email">Has Contact</th>
+	                        <th class="text-center" title="A profile that has mobile phone or email"> Contact Data</th>
 	                        <th >Full Name</th>
 	                        <th >Last Touchpoint Name</th>
 	                        <th class="text-center">Data Quality</th>
 	                        <th class="text-center">Lead Score</th>
 	                        <th class="text-center">CLV Score</th>
-	                        <th > Email</th>
-	                        <th > Phone</th>
-	                        <th >Updated at</th>
-	                        <th >Actions</th>
+	                        <th class="text-center"> Primary Email</th>
+	                        <th class="text-center"> Phone</th>
+	                        <th class="text-center">Updated at</th>
+	                        <th class="text-center">Actions</th>
 	                    </tr>
 	                </thead>
 	            </table>
@@ -408,14 +414,14 @@ th.sorting, th.sorting_desc, th.sorting_asc {
                     {
                         "render": function (data, type, row) {
                         	var score =  new Number(data).toLocaleString();
-                        	if( data <= 60  ) {
-                        		return '<div class="highlight_text text-center" style="font-size:1.1em!important" >'  + score + ' </div>';
+                        	if( data <= 50  ) {
+                        		return '<div class="datatable_text text-center">'  + score + ' </div>';
                         	}
-                        	else if (data > 60 && data < 200) {
-                        		return '<div class="highlight_text text-center" style="color:#41A317!important;font-size:1.1em!important" >'  + score + '</div>';
+                        	else if (data > 50 && data < 200) {
+                        		return '<div class="highlight_text text-center profile_medium_score" >'  + score + '</div>';
                         	}
                         	else {
-                        		return '<div class="highlight_text text-center" style="color:#06D210!important;font-size:1.2em!important" >'  + score + '</div>';
+                        		return '<div class="highlight_text text-center profile_high_score"  >'  + score + '</div>';
                         	}
                         	return '<div class="datatable_text text-center">'  + score + ' </div>';
                         },
@@ -428,10 +434,10 @@ th.sorting, th.sorting_desc, th.sorting_asc {
                         		return '<div class="datatable_text text-center">'  + score + ' </div>';
                         	}
                         	else if(data >= 20 && data < 100 ){
-                        		return '<div class="highlight_text text-center" style="font-size:1.1em!important" >'  + score + ' </div>';
+                        		return '<div class="highlight_text text-center profile_medium_score" >'  + score + '</div>';
                         	}
                         	else if(data >= 100){
-                        		return '<div class="highlight_text text-center" style="color:#41A317!important;font-size:1.2em!important" >'  + score + ' </div>';
+                        		return '<div class="highlight_text text-center profile_high_score" >'  + score + '</div>';
                         	}
                         	return '<div class="highlight_text text-center" style="color:#404040!important;font-size:0.8em!important" >'  + score + ' </div>';
                         },
@@ -444,10 +450,10 @@ th.sorting, th.sorting_desc, th.sorting_asc {
                         		return '<div class="datatable_text text-center">'  + score + ' </div>';
                         	}
                         	else if(data >= 20 && data < 100 ){
-                        		return '<div class="highlight_text text-center" style="font-size:1.1em!important" >'  + score + ' </div>';
+                        		return '<div class="highlight_text text-center profile_medium_score" >'  + score + '</div>';
                         	}
                         	else if(data >= 100){
-                        		return '<div class="highlight_text text-center" style="color:#41A317!important;font-size:1.2em!important" >'  + score + ' </div>';
+                        		return '<div class="highlight_text text-center profile_high_score" >'  + score + ' </div>';
                         	}
                         	return '<div class="highlight_text text-center" style="color:#404040!important;font-size:0.8em!important" >'  + score + ' </div>';
                         },
