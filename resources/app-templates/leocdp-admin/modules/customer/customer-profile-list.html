@@ -458,10 +458,10 @@ th.sorting, th.sorting_desc, th.sorting_asc {
                         	//format email
                         	if(typeof data === 'string' ) {
                         		var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
-                            	var link = '<a title="'+data+'" href="' + callJsViewStr + '" >' + textTruncate(data, 25) + '</a>';
+                            	var link = '<a title="'+data+'" href="' + callJsViewStr + '" >' + textTruncate(data, 30) + '</a>';
                             	return '<div class="datatable_text ">'  + link + '</div>';
                         	}
-                        	return '';
+                        	return '-';
                         },
                         "targets": 6,
                         "orderable": false
@@ -471,10 +471,10 @@ th.sorting, th.sorting_desc, th.sorting_asc {
                         	//format phone
                         	if(typeof data === 'string' ){
                         		var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
-                            	var link = '<a title="'+data+'" href="' + callJsViewStr + '" >' + data + '</a>';
+                            	var link = '<a title="'+data+'" href="' + callJsViewStr + '" >' + textTruncate(data, 30) +'</a>';
                             	return '<div class="datatable_text">'  + link + '</div>';
                         	}
-                        	return '';
+                        	return '-';
                         },
                         "targets": 7,
                         "orderable": false
