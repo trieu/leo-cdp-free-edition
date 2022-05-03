@@ -4,7 +4,7 @@
 	width: 144px;
 	text-align: left!important;
 }
-#journey_channel_table tr.jsgrid-header-row, #data_observers_table tr.jsgrid-header-row {
+#touchpoint_hub_table tr.jsgrid-header-row, #data_observers_table tr.jsgrid-header-row {
 	font-size:13px;
 }
 </style>
@@ -29,7 +29,7 @@
     	<hr>
 	    
 		<!--  Tab Navigation Items -->
-		<ul class="nav nav-tabs" data-tab-content="journey_channel_tabs" > 
+		<ul class="nav nav-tabs" data-tab-content="journey_touchpoint_tabs" > 
 	   		<li class="active" >
         		<a href="javascript:" data-target-tab="panel_touchpoint_hubs" > <i class="fa fa-list" aria-hidden="true"></i> Touchpoint Hub  </a>
        		</li>
@@ -38,7 +38,7 @@
        		</li>
 		</ul>
 
-		<div class="tab-content" id="journey_channel_tabs" style="min-height: 450px;" >
+		<div class="tab-content" id="journey_touchpoint_tabs" style="min-height: 450px;" >
 
 			<!-- tab 1 content  -->
 			<div class="tab-pane active" id="panel_touchpoint_hubs" >
@@ -47,7 +47,7 @@
 					<h4> All Touchpoint Hubs in Journey Data Flow </h4>
 				</div>
 				<div class="table-responsive">
-		    		<div id="journey_channel_table"></div>
+		    		<div id="touchpoint_hub_table"></div>
 		    	</div>
 			</div>
 			
@@ -78,7 +78,7 @@
     		}
     	};
     	
-    	var touchpointHubData = $("#journey_channel_table").jsGrid("option", "data");
+    	var touchpointHubData = $("#touchpoint_hub_table").jsGrid("option", "data");
 		var params = {'touchpointHubJson' : JSON.stringify(touchpointHubData) };
     	LeoAdminApiUtil.callPostAdminApi('/cdp/journeymap/update', params, function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
@@ -202,7 +202,7 @@
 	   		
 	   		var insertRowMoved = false, insertedIndex = -1;
 	   		
-	   		$("#journey_channel_table").jsGrid({
+	   		$("#touchpoint_hub_table").jsGrid({
 	   		    width: "100%",
 	   		    height: "auto",
 	   		 	inserting: canInsertData,
@@ -211,12 +211,12 @@
 			    paging: false,
 	   		    
 	   		    deleteConfirm: function(item) {
-	   	            return "The channel [" + item.name + "] will be removed. Are you sure?";
+	   	            return "The touchpoint hub [" + item.name + "] will be removed. Are you sure?";
 	   	        },
 	   		    data: touchpointHubs,
 	   		    onItemInserting: function(args) {
 	   		    	console.log(args.item)
-	   		    	var channelUrl = args.item.url;
+	   		    	var touchpointUrl = args.item.url;
 	   		    	var tpType = args.item.type;
 	   		    	var isAvailable = touchpointHubMap[args.item.name] == null;
 	   		    	if( ! isAvailable ) {
@@ -229,20 +229,17 @@
 	   		    	}
 	   		    	
 	   		    	// check URL if not system data source
-	   		    	if( ! isValidURL(channelUrl) && tpType <= 30) {
+	   		    	if( ! isValidURL(touchpointUrl) && tpType <= 30) {
 			            args.cancel = true;
 			            iziToast.error({
 		    	    	    title: 'Journey Data Flow',
-		    	    	    message: channelUrl +  ' is not valid URL !'
+		    	    	    message: touchpointUrl +  ' is not valid URL !'
 		    	    	});
 			        } 
 	   		  		// make sure not have duplicated Leo Observer
 	   		    	else if( tpType == 30) {
 			            args.cancel = true;
-			            iziToast.error({
-		    	    	    title: 'Journey Data Flow',
-		    	    	    message: 'Can not have more than one data observer !'
-		    	    	});
+			            iziToast.error({ title: 'Journey Data Flow', message: 'Can not have more than one data observer !' });
 			        } 
 	   		    	// OK
 	   		    	else {
@@ -255,23 +252,24 @@
 	   		 	onItemUpdating : function(args) {
 	   		    	console.log(args.item)
 	   		    	var item = args.item;
+	   		    	var tpType = item.type;
+	   		    	
 	   		    	var name = item.name;
-	   		    	var tpType = args.item.type;
-	   		    	var channelUrl = item.url;
+	   		    	var touchpointUrl = item.url;
 	   		    	var editable = tpType != 30;
 	   		    	if(editable) {
-		   		    	if( ! isValidURL(channelUrl) && tpType != 31 ) {
+		   		    	if( ! isValidURL(touchpointUrl) && tpType != 31 ) {
 				            args.cancel = true;
 				            iziToast.error({
 			    	    	    title: 'Journey Data Flow',
-			    	    	    message: channelUrl +  ' is not valid URL !'
+			    	    	    message: touchpointUrl +  ' is not valid URL !'
 			    	    	});
 				        }
 	   		    	} else {
 	   		    		args.cancel = true;
 			            iziToast.error({
 		    	    	    title: 'Journey Data Flow',
-		    	    	    message: name +  ' is read-only channel, you can not update it !'
+		    	    	    message: name +  ' is read-only touchpoint, you can not update it !'
 		    	    	});
 	   		    	}
 	   		    }, 
@@ -302,7 +300,7 @@
 	   		    		args.cancel = true;
 			            iziToast.error({
 		    	    	    title: 'Journey Data Flow',
-		    	    	    message: name +  ' is read-only channel, you can not delete it !'
+		    	    	    message: name +  ' is read-only touchpoint hub, you can not delete it !'
 		    	    	});
 	   		    	}
 	   		    },      
@@ -332,7 +330,26 @@
 	   		    fields: [
 	   		    	{ name: "index", title : "ID", type: "number", width: 12, editing: false },
 	   		    	{ name: "name", title : "Touchpoint Hub Name", type: "text", width: 60, validate: "required", align: "center" },
-	   		     	{ name: "type", title : "Touchpoint Type", type: "select", items: touchpointHubTypeSelects, valueField: "type", textField: "typeName", width: 58 },
+	   		     	{ name: "type", title : "Touchpoint Type", type: "select", items: touchpointHubTypeSelects, valueField: "type", textField: "typeName", width: 58,
+	   		            insertTemplate: function () {
+	   		                var $insertControl = jsGrid.fields.select.prototype.insertTemplate.call(this);
+	   		                $insertControl.change(function () {
+	   		                    var selectedValue = $(this).val();
+	   		                    if( selectedValue == 30 ){
+	   		                    	iziToast.error({ title: 'Journey Data Flow', message: 'Can not have more than one data observer !' });
+	   		                    	$("#touchpoint_hub_table").jsGrid("cancelEdit");
+	   		                    }
+	   		                });
+	   		                return $insertControl;
+	   		            },
+	   		            editTemplate: function (value) {
+	   		                var $editControl = jsGrid.fields.select.prototype.editTemplate.call(this, value);
+	   		                if(value == 30) {
+	   		                	return "LEO CDP OBSERVER";
+	   		                }	   		                
+	   		                return $editControl;
+	   		            }
+	   		        },	   		     	
 	   		     	{ name: "journeyLevel", title : "Level", type: "select", items: journeyLevelSelects, valueField: "Id", textField: "Name", width: 24 },
 	   		     	{ name: "firstPartyData", title : "First-party Data", type: "CustomCheckBox",  validate: "required", width: 34, align: "center" },
 	   		     	{ name: "url", title : "Touchpoint Hub URL", type: "text", itemTemplate: jsGridItemUrlTemplate , validate: "required", align: "center" },
@@ -340,7 +357,7 @@
 	   		    ]
 	   		}); 
 	   		if( ! canInsertData || ! canEditData ){
-	   			$("#journey_channel_table").find('.jsgrid-button').click(errorNoAuthorization);
+	   			$("#touchpoint_hub_table").find('.jsgrid-button').click(errorNoAuthorization);
 	   		}
 	   		// load data observer tags
 	   		initDataObserverList();
@@ -633,10 +650,10 @@
 		var toks = dataSourceUrl.split("/");
 
 		var hostAndPort = toks[2];
-		var channelName = toks[3];
+		var touchpointName = toks[3];
 		
 		$('#dataSourceConfigHostAndPort').text(hostAndPort)
-		$('#dataSourceConfigChannelName').text(channelName)
+		$('#dataSourceConfigTouchpointName').text(touchpointName)
 		
 		$('#redisSourceInfoDialog').modal({
     		backdrop: 'static',
@@ -1137,7 +1154,7 @@ setTimeout(function(){
 				<h3> You can write code to send data into Redis </h3>
 				<hr>
 				Redis Information: <b id="dataSourceConfigHostAndPort" > </b> <br>
-				Channel Name: <b id="dataSourceConfigChannelName" > </b> <br>
+				Touchpoint Name: <b id="dataSourceConfigTouchpointName" > </b> <br>
 				<hr>
 				<a href="https://redis.io/topics/pubsub" target="_blank"> Document about Redis Pub/Sub </a>
 			</div>  
