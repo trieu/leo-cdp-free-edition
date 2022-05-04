@@ -43,6 +43,8 @@ var formSchema = {}, formModel = [], callbacks = [];
 
 function initFeedbackSurvey(){
 	var model = JSON.parse($('#surveyJsonMetaData').val());
+	model.Rating_Question_List = typeof model.Rating_Question_List === "object" ? model.Rating_Question_List : [];
+	// set as global var
 	window.surveyTemplateModel = model;
 	console.log(model);
 	
@@ -454,7 +456,7 @@ function initFeedbackSurvey(){
 	}		
 	// Questions
 	var ratingQuestionLength = Object.keys(model.Rating_Question_List).length;
-	for (var questionGroup in model.Rating_Question_List ){
+	for (var questionGroup in model.Rating_Question_List ) {
 		if(ratingQuestionLength > 1){
 			formModel.push({ "type": "help", "helpvalue": "<li class='question_group'>"+questionGroup+"</li>" });
 		} else {
@@ -571,7 +573,7 @@ function initFeedbackSurvey(){
 		}
 
 		function process(holderId, formSchema, formModel, callbacks) {
-			var formSelector = jQuery('#Rating_Question_List');
+			var formSelector = jQuery('#form_leo_survey');
 			formSelector.jsonForm({ schema : formSchema, form: formModel, onSubmit : onSubmitForm });
 			jQuery('#' + holderId).show();
 			
@@ -726,7 +728,8 @@ var onSubmitForm = function(errors, formData) {
 		console.log("totalRatingAnswers " + totalRatingAnswers)
 		console.log(submitModel);
 		
-		if(totalRatingQuestions > 0){
+		var justSubmitProfileData = surveyTemplateModel.Rating_Question_List.length === 0;
+		if(totalRatingQuestions > 0 || justSubmitProfileData){
 			if(totalRatingQuestions > totalRatingAnswers) {
 				var errorMsg = '<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Please answer all ' + totalRatingQuestions +' questions !';
 				jQuery('#leo_form_error').html(errorMsg).show().delay(5000).fadeOut('slow');
@@ -747,6 +750,10 @@ var onSubmitForm = function(errors, formData) {
 				// go to top
 				window.scrollTo(0,0);
 			}
+		}
+		else {
+			var errorMsg = '<i class="fa fa-exclamation-circle" aria-hidden="true"></i> There are some errors !';
+			jQuery('#leo_form_error').html(errorMsg).show().delay(5000).fadeOut('slow');
 		}
 	}
 }
