@@ -18,6 +18,12 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 [![Leo CDP Flow](https://raw.githubusercontent.com/trieu/leo-cdp-free-edition/main/leo-cdp-version-1.0.png)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)	
 
+# System Demo
+
+* Login URL: https://vnuk.leocdp.net
+* Username: demo
+* Password: 123456 
+
 # Documents
 
 * [Data Model and Customer Journey Map Sample](https://docs.google.com/spreadsheets/d/1hzSvkmTE8WuvUFqnpWNfsPMzpjF8gYOSJfkc9eJIjWk/edit?usp=sharing)
@@ -88,7 +94,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # Documents 
 
-* All documents and video tutorials are still under development 
+* Video tutorials are still under development 
 * <a href="https://youtube.com/playlist?list=PL7YpzmBoIETSD7jnVlvfNxhSa8V2BY3-8" target="_blank" > YouTube playlist for training </a>
 * More information will be updated at <a href="https://knowledge.leocdp.net/" target="_blank"> LEO CDP Blog </a>
 
