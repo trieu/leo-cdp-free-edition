@@ -49,10 +49,12 @@
 - [Segment] CSV data exporting is JSON if segment'size larger than 100, not CSV
 - [UI] sorting fields in segment list
 
-## [0.8.9] - 2022-05-02
+## [0.8.9] - 2022-05-06
 
 ### Added 
 
+- add 2 new roles: customer data viewer and editor, add SystemUserRole
+- add secondary emails and phones when merge duplicated profile data
 - add industryDataModels in leocdp-metadata.properties to show profile data for specific industry
 - [Data Asset] add Short URL Link as new asset category
 - save Touchpoint Name and URL in Tracking Event

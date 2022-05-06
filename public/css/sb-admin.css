@@ -1556,7 +1556,7 @@ translateX
 .navbar-brand {
 	position: relative;
 	display: inline-block;
-	padding: 0 15px;
+	padding: 0 2.2%;
 	min-height: 50px !important;
 }
 

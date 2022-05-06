@@ -96,14 +96,23 @@
 	                    <div class="radio" >
 	                        <label><input type="radio" name="role" value="0" disabled="disabled" > REPORT VIEWER: the login account can access Unified Analytics Hub and Journey Data Hub </label>
 	                    </div>
+	                    <hr>
 	                    <div class="radio"  >
-	                        <label><input type="radio" name="role" value="1" disabled="disabled"> STANDARD USER: the login account has permissions of REPORT VIEWER and can view authorized data</label>
+	                        <label><input type="radio" name="role" value="1" disabled="disabled"> CUSTOMER DATA VIEWER:  the login account has permissions to view only authorized customer data (profiles and segments)</label>
+	                    </div>
+	                    <div class="radio"  >
+	                        <label><input type="radio" name="role" value="2" disabled="disabled"> STANDARD USER: the login account has permissions of REPORT VIEWER and can view authorized data</label>
+	                    </div>
+	                    <hr>
+	                    <div class="radio">
+	                        <label><input type="radio" name="role" value="3" disabled="disabled"> CUSTOMER DATA EDITOR: the login account has permissions to manage only authorized customer data (profiles and segments)</label>
 	                    </div>
 	                    <div class="radio">
-	                        <label><input type="radio" name="role" value="2" disabled="disabled"> DATA OPERATOR: the login account has permissions of STANDARD USER and can update authorized data</label>
+	                        <label><input type="radio" name="role" value="4" disabled="disabled"> DATA OPERATOR: the login account has permissions of STANDARD USER and can update authorized data</label>
 	                    </div>
+	                    <hr>
 	                    <div class="radio">
-	                        <label><input type="radio" name="role" value="3" disabled="disabled"> DATA ADMIN: the login account has permissions of DATA OPERATOR and manage Data Asset and Data Connector </label>
+	                        <label><input type="radio" name="role" value="5" disabled="disabled"> DATA ADMIN: the login account has permissions of DATA OPERATOR and manage Data Asset and Data Connector </label>
 	                    </div>
 	                    <div class="radio">
 	                        <label><input type="radio" name="role" value="6" disabled="disabled"> SUPER ADMIN: the login account has full of permissions to manage system and manage login accounts</label>

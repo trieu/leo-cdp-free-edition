@@ -41,12 +41,12 @@
 		
 		
 		<!-- Top User Menu -->
-		<ul class="nav navbar-right top-nav-sub" style="display: none">
+		<ul class="nav navbar-right top-nav-sub" style="display: none;">
 			<li class="dropdown">
 				<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">
 					<i class="fa fa-university"></i> Knowledge Base <b class="caret"></b>
 				</a>
-				<ul class="dropdown-menu" style="width: 270px">
+				<ul class="dropdown-menu" style="width: 275px">
 					<li>
 						<a target="_blank" href="https://knowledge.leocdp.net/p/what-is-uspa-framework.html"> <i class="fa fa-book" aria-hidden="true"></i> Introduction to USPA framework</a>
 					</li>
@@ -54,7 +54,7 @@
 						<a target="_blank" href="https://knowledge.leocdp.net/p/introduction-to-leo-cdp-101.html"> <i class="fa fa-book" aria-hidden="true"></i> Introduction to LEO CDP </a>
 					</li>
 					<li>
-						<a target="_blank" href="https://knowledge.leocdp.net/p/how-to-do-customer-analytics.html"> <i class="fa fa-book" aria-hidden="true"></i> What is Unique Scored Profile ?</a>
+						<a target="_blank" href="https://knowledge.leocdp.net/p/how-to-do-customer-analytics.html"> <i class="fa fa-book" aria-hidden="true"></i> How to do Customer Analytics </a>
 					</li>
 					<li>
 						<a target="_blank" href="https://knowledge.leocdp.net/p/how-to-design-customer-journey.html"> <i class="fa fa-book" aria-hidden="true"></i> How to design customer journey</a>
@@ -73,7 +73,7 @@
 		<ul class="nav navbar-nav side-nav">
 			
 			<!--  1 - Unified Data Hub Menu   -->
-			<li id="nav_analytics_hub" >
+			<li id="nav_analytics_hub" style="display: none;" data-system-user-roles="0,2,4,5" >
 				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#analytics_hub_menu"> <i class="fa fa-fw fa-pie-chart"></i>
 				 	Unified Analytics Hub <i id="data_analytics_hub_collapse_icon" class="fa fa-fw fa-caret-down"> </i>
 				</a>
@@ -94,7 +94,7 @@
 			</li>
 		
 			<!--  2 - Journey Data Hub   -->
-			<li id="nav_journey_hub" >
+			<li id="nav_journey_hub" style="display: none;" data-system-user-roles="0,2,4,5" >
 				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#journey_hub_menu"> <i class="fa fa-fw fa-map"></i>
 				 	Journey Data Hub <i id="journey_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
 				</a>
@@ -111,7 +111,7 @@
 			</li>
 		
 			<!--  3 - Customer Data Hub Menu  -->
-			<li id="nav_customer_hub" style="display: none;" >
+			<li id="nav_customer_hub" style="display: none;" data-system-user-roles="1,2,3,4,5" >
 				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#customer_hub_menu"> <i class="fa fa-fw fa-address-card-o"></i>
 					Customer Data Hub <i id="customer_data_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
 				</a>
@@ -132,7 +132,7 @@
 			</li>
 			
 			<!-- 4 - Data Activation Hub Menu -->
-			<li id="nav_activation_hub" style="display: none;"  >
+			<li id="nav_activation_hub" style="display: none;" data-system-user-roles="4,5" >
 				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#data_activation_hub_menu"> <i class="fa fa-fw fa-line-chart"></i>
 					Data Activation Hub <i id="data_activation_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
 				</a>
@@ -141,7 +141,7 @@
 						<a id="Digital_Asset_Management" href="#calljs-leoCdpRouter('Digital_Asset_Management')" title="Digital Asset Management" > 
 							<i class="fa fa-fw fa-list" ></i> Asset Management </a>
 					</li>
-					<li id="Connector_Management_Menu" style="display: none;" >
+					<li id="Connector_Management_Menu" >
 						<a id="Connector_Management" href="#calljs-leoCdpRouter('Connector_Management')">
 							<i class="fa fa-fw fa-exchange" aria-hidden="true" ></i> Connector Management</a>
 					</li>
@@ -207,23 +207,19 @@
 	                var systemUser = json.data;
 	                var role = systemUser.role;
 	                
-	                if(role >= 1) {
-	                	$("#nav_customer_hub").show();
-	                	//$("#Account_Management_Menu").show();
-	                }
-	                if(role >= 2) {
-	                	$("#nav_activation_hub").show();
-	                }
-	                if(role >= 3){
-	                	// ROLE_DATA_ADMIN and ROLE_SUPER_ADMIN
-	                	$('#Connector_Management_Menu').show();
-	                }
-	                
 	                if(role === 6) {
-	                	// ROLE_SUPER_ADMIN
-	                	$('#nav_system_management').show();
-	                }
-	                
+	                	$("#nav_system_management").show();
+	                	$('#main-navbar').find("li[data-system-user-roles]").show();
+	                } 
+	                else {
+	                	$('#main-navbar').find("li[data-system-user-roles]").each(function(){
+	                		var roles = $(this).data("system-user-roles");
+	                		//console.log("roles " + roles)
+	                		if(roles.indexOf(role)>=0){
+	                			$(this).show()
+	                		}
+	                	});
+	                }	                
 	                $('#userDisplayName').html(systemUser.displayName);
 	                window.currentUserProfile = systemUser;
 	            }
@@ -302,7 +298,8 @@
 			navigationSetup();
 			
 			$('#main_search_profile').on('keyup', function (e) {
-		        if (e.keyCode == 13) {
+				// enter to search
+		        if (e.keyCode === 13) {
 		        	var keywords = $(this).val().trim();
 		        	if(keywords.length > 1){
 		        		var encodedString = Base64.encode(keywords);

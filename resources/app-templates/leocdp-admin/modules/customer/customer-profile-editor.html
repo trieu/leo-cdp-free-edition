@@ -174,27 +174,43 @@
                        <td>
 							<ol class="profile_ext_data" data-field="personal_attributes">
 								<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Personal ID and Contacts <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i>  Secondary Emails </b> 
+				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('secondaryEmails')" title="Add new email"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Email 
+				    			   </button>
+				                   <p data-field="secondaryEmails" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+				               	
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Secondary Phones </b> 
+				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('secondaryPhones')" title="Add new phone"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Phone 
+				    			   </button>
+				                   <p data-field="secondaryPhones" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+							
+								<li>
+                                   <b data-persona="key" > <i class="fa fa-fw fa-users"></i> Social Media Profiles <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+                                   <button type="button" class="btn btn-do-now btn-xs" onclick="addNewHashMapItem('socialMediaProfiles', SocialMediaIconMap)" title="Add new profile"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Profile 
+				    			   </button>
+                                   <p data-field="socialMediaProfiles" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="socialMediaProfiles" > </p>
+                                </li>
+							    
+                                <li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Business Contacts <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+				                   <button type="button" class="btn btn-do-now btn-xs" onclick="addNewHashMapItem('businessContacts', ContactIconsMap)" title="Add new"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Contact 
+				    			   </button>
+				                   <p data-field="businessContacts" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="businessContacts" > </p>
+				               	</li>
+				               	
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Citizen ID / Passport ID <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="addNewHashMapItem('personalContacts', PersonalContactIconsMap)" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
 				    			   </button>
 				                   <p data-field="personalContacts" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="personalContacts" > </p>
-				               	</li>
-				               	
-				               	<li>
-                                   <b data-persona="key" > <i class="fa fa-fw fa-users"></i> Social Media Profiles <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-                                   <button type="button" class="btn btn-do-now btn-xs" onclick="addNewHashMapItem('socialMediaProfiles', SocialMediaIconMap)" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
-				    			   </button>
-                                   <p data-field="socialMediaProfiles" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="socialMediaProfiles" > </p>
-                                </li>
-                                
-                                <li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Business Contacts <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-				                   <button type="button" class="btn btn-do-now btn-xs" onclick="addNewHashMapItem('businessContacts', ContactIconsMap)" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
-				    			   </button>
-				                   <p data-field="businessContacts" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="businessContacts" > </p>
 				               	</li>
 			               	</ol>
                	  		</td>

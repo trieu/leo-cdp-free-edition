@@ -114,19 +114,28 @@
 					<div class="action-div">
 	                    <label>User Role</label>
 	                    <div class="radio" >
-	                        <label><input type="radio" name="role" value="0" > <b>REPORT VIEWER</b>: the login account can access Unified Analytics Hub and Journey Data Hub </label>
+	                        <label><input type="radio" name="role" value="0"  > REPORT VIEWER: the login account can access Unified Analytics Hub and Journey Data Hub </label>
+	                    </div>
+	                    <hr>
+	                    <div class="radio"  >
+	                        <label><input type="radio" name="role" value="1" > CUSTOMER DATA VIEWER:  the login account has permissions to view only authorized customer data (profiles and segments)</label>
 	                    </div>
 	                    <div class="radio"  >
-	                        <label><input type="radio" name="role" value="1" > <b>STANDARD USER</b>: the login account has permissions of REPORT VIEWER and can view authorized data</label>
+	                        <label><input type="radio" name="role" value="2" > STANDARD USER: the login account has permissions of REPORT VIEWER and can view authorized data</label>
+	                    </div>
+	                    <hr>
+	                    <div class="radio">
+	                        <label><input type="radio" name="role" value="3" > CUSTOMER DATA EDITOR: the login account has permissions to manage only authorized customer data (profiles and segments)</label>
 	                    </div>
 	                    <div class="radio">
-	                        <label><input type="radio" name="role" value="2"> <b>DATA OPERATOR</b>: the login account has permissions of STANDARD USER and can update authorized data</label>
+	                        <label><input type="radio" name="role" value="4" > DATA OPERATOR: the login account has permissions of STANDARD USER and can update authorized data</label>
+	                    </div>
+	                    <hr>
+	                    <div class="radio">
+	                        <label><input type="radio" name="role" value="5" > DATA ADMIN: the login account has permissions of DATA OPERATOR and manage Data Asset and Data Connector </label>
 	                    </div>
 	                    <div class="radio">
-	                        <label><input type="radio" name="role" value="3"> <b>DATA ADMIN</b>: the login account has permissions of DATA OPERATOR and manage Data Asset and Data Connector</label>
-	                    </div>
-	                    <div class="radio">
-	                        <label><input type="radio" name="role" value="6"> <b>SUPER ADMIN</b>: the login account has full of permissions to manage system and manage login accounts</label>
+	                        <label><input type="radio" name="role" value="6" > SUPER ADMIN: the login account has full of permissions to manage system and manage login accounts</label>
 	                    </div>
 	                </div>
 				</div>

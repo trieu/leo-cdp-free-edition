@@ -148,12 +148,21 @@
                         	var label = 'REPORT VIEWER'
                             if (data == "6") {
                             	label = 'SUPER_ADMIN';
-                            } else if (data == "3") {
+                            }
+                            else if (data == "5") {
                             	label =  'DATA_ADMIN';
-                            } else if (data == "2") {
+                            }
+                            else if (data == "4") {
                             	label =  'DATA_OPERATOR';
-                            } else if (data == "1") {
+                            }
+                            else if (data == "3") {
+                            	label =  'CUSTOMER_DATA_EDITOR';
+                            }
+                            else if (data == "2") {
                             	label =  'STANDARD_USER';
+                            }
+                            else if (data == "1") {
+                            	label =  'CUSTOMER_DATA_VIEWER';
                             }
                         	return '<div class="datatable_text" >' + label + '</div>';
                         },
