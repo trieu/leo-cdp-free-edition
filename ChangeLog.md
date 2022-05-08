@@ -77,6 +77,7 @@
 
 ### Fixed 
 
+- [backend] fix bugs of data authorization when delete a segment
 - [backend] segment dashboard should load data faster
 - [backend] import profile with data validation rules
 - [backend] save new profile from web is not worked

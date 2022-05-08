@@ -5,11 +5,13 @@
 	var successInfo = '<div class="alert alert-success"><strong>Success!</strong> Your data is submitted successfully.</div>';
 	
     if (typeof window.LeoForm === "undefined") {
-    	var extractRootDomain = function(url){
-         	try {
-         	    return new URL(url).hostname.split('.').slice(-2).join('.');
-         	} catch(e) {} return "";
-    	}
+
+        var extractRootDomain = function(url){
+        	try {
+        		var toks = new URL(url).hostname.split('.');
+        		return toks.slice(-1 * (toks.length - 1)).join('.');
+        	} catch(e) {} return "";
+        };
     	
     	function render(formId, holderId, contentKeywords){
     		var formSelector = jQuery('#'+formId);

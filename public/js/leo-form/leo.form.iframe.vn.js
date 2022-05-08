@@ -5,12 +5,12 @@
     '<div class="alert alert-success" style="margin-top: 20px" ><strong> Thông tin bạn đã được ghi nhận thành công.</strong></div>';
 
   if (typeof window.LeoForm === "undefined") {
-    var extractRootDomain = function (url) {
-      try {
-        return new URL(url).hostname.split(".").slice(-2).join(".");
-      } catch (e) {}
-      return "";
-    };
+      var extractRootDomain = function(url){
+      	try {
+      		var toks = new URL(url).hostname.split('.');
+      		return toks.slice(-1 * (toks.length - 1)).join('.');
+      	} catch(e) {} return "";
+      };
 
     var LeoForm = {};
 

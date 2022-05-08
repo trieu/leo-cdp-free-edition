@@ -565,12 +565,12 @@ function initFeedbackSurvey(){
 
 (function() {
 	if (typeof window.LeoForm === "undefined") {
-		var extractRootDomain = function(url) {
-			try {
-				return new URL(url).hostname.split('.').slice(-2).join('.');
-			} catch (e) {}
-			return "";
-		}
+        var extractRootDomain = function(url){
+        	try {
+        		var toks = new URL(url).hostname.split('.');
+        		return toks.slice(-1 * (toks.length - 1)).join('.');
+        	} catch(e) {} return "";
+        };
 
 		function process(holderId, formSchema, formModel, callbacks) {
 			var formSelector = jQuery('#form_leo_survey');

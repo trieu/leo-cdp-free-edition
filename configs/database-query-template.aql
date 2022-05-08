@@ -582,9 +582,13 @@ AQL_APPEND_SEGMENT_REF_KEY_FOR_PROFILE =>
 AQL_DELETE_SEGMENT_REF_KEY_FOR_PROFILE =>
 	FOR p in cdp_profile
 		FILTER p._key == @profileId
-		LET alteredList = ( FOR s IN p.inSegments LET newItem = ( s.id != @segmentId ? s : 0 ) RETURN newItem )
-		LET finalList = ( FOR s in alteredList FILTER s != 0 RETURN s)     
-		UPDATE p WITH { inSegments:  finalList } IN cdp_profile
+		LET matchedSegmentRefs = ( FOR s IN p.inSegments LET newItem = ( s.id != @segmentId ? s : 0 ) RETURN newItem )
+		LET finalSegmentRefs = ( FOR s in matchedSegmentRefs FILTER s != 0 RETURN s)     
+		LET newViewers = ( FOR u IN p.authorizedViewers LET newItem = ( u NOT IN @oldAuthorizedViewers ? u : 0 ) RETURN newItem )
+		LET finalViewers = ( FOR u in newViewers FILTER u != 0 RETURN u) 
+		LET newEditors = ( FOR u IN p.authorizedEditors LET newItem = ( u NOT IN @oldAuthorizedEditors ? u : 0 ) RETURN newItem )
+		LET finalEditors = ( FOR u in newEditors FILTER u != 0 RETURN u) 
+		UPDATE p WITH { inSegments:  finalSegmentRefs, authorizedViewers: finalViewers, authorizedEditors: finalEditors } IN cdp_profile
 ;
 
 AQL_DELETE_ALL_INVALID_PROFILES =>
@@ -875,7 +879,7 @@ AQL_GET_TARGET_MEDIA_UNIT_BY_PROFILE_ID =>
 AQL_GET_SEGMENTS_BY_PAGINATION =>
 	FOR d in cdp_segment  
 		FILTER d.status >= 0 AND (@searchValue != "" ? d.name LIKE @searchValue : true)
-				AND (@isSuperAdmin == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
+				AND (@hasAdminRole == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
 		SORT d.@sortField @sortDirection
 		LIMIT @startIndex,@numberResult 
 		RETURN d
@@ -884,7 +888,7 @@ AQL_GET_SEGMENTS_BY_PAGINATION =>
 AQL_COUNT_SEGMENT_FOR_PAGINATION =>
 	FOR d in cdp_segment  
 		FILTER d.status >= 0 AND (@searchValue != "" ? d.name LIKE @searchValue : true)
-				AND (@isSuperAdmin == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
+				AND (@hasAdminRole == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
 		COLLECT WITH COUNT INTO length
 		RETURN length
 ;
@@ -935,7 +939,7 @@ AQL_GET_ALL_SEGMENTS =>
 AQL_GET_ACCOUNTS_BY_PAGINATION =>
 	FOR d in cdp_businessaccount  
 		FILTER d.status >= 0 AND (@searchValue != "" ? d.name LIKE @searchValue : true || @searchValue != "" ? d.description LIKE @searchValue : true)
-				AND (@isSuperAdmin == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
+				AND (@hasAdminRole == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
 		SORT d.@sortField @sortDirection
 		LIMIT @startIndex,@numberResult 
 		RETURN d
@@ -944,7 +948,7 @@ AQL_GET_ACCOUNTS_BY_PAGINATION =>
 AQL_COUNT_ACCOUNT_FOR_PAGINATION =>
 	FOR d in cdp_businessaccount  
 	FILTER d.status >= 0 AND (@searchValue != "" ? d.name LIKE @searchValue : true || @searchValue != "" ? d.description LIKE @searchValue : true)
-				AND (@isSuperAdmin == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
+				AND (@hasAdminRole == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
 	COLLECT WITH COUNT INTO length
 	RETURN length
 ;
