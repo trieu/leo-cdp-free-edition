@@ -36,6 +36,7 @@
 
 ### Changed
 
+- [UI] can not delete profile that has event data stream
 - [UI] improve UI of load events in profile
 - [shell script] refactoring code
 - [UI] improve UI and UX of System Login
@@ -53,13 +54,14 @@
 
 ### Added 
 
-- add 2 new roles: customer data viewer and editor, add SystemUserRole
-- add secondary emails and phones when merge duplicated profile data
-- add industryDataModels in leocdp-metadata.properties to show profile data for specific industry
+- [Profile] support compute data quality using saved profile field configs
+- [Authorization] add 2 new roles: customer data viewer and editor, add SystemUserRole
+- [Profile] add secondary emails and phones when merge duplicated profile data
+- [Profile] add industryDataModels in leocdp-metadata.properties to show profile data for specific industry
 - [Data Asset] add Short URL Link as new asset category
-- save Touchpoint Name and URL in Tracking Event
-- data segmentation with tracking event, touchpoint, device
-- upgrade core java library deps
+- [Event]  save Touchpoint Name and URL in Tracking Event
+- [Segment]  data segmentation with tracking event, touchpoint, device
+- [Java Lib] upgrade core java library deps
 - upgrade system command-line tool
 - Get CX tracking code at touchpoint hub
 - new template survey "Khảo sát ý kiến người dùng về giao diện của website" to collect feedback data

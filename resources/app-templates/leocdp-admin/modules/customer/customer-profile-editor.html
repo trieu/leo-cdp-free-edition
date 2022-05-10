@@ -16,7 +16,7 @@
      	<button type="button" class="btn btn-info" onclick="history.back()" title="Go back"  > 
        		<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
        	</button>
-       	<button type="button" class="btn btn-danger data-control-delete" onclick="removeCurrentProfile()" title="Delete this profile" > 
+       	<button type="button" class="btn btn-danger data-control-delete" onclick="deleteCurrentProfile()" title="Delete this profile" > 
      		<i class="fa fa-trash" aria-hidden="true"></i> Delete 
      	</button>
        	<button type="button" class="btn btn-success data-control-edit" onclick="saveProfileHandler()" title="Edit this profile"  > 
@@ -87,15 +87,16 @@
        <!--  Tab Navigation Items -->
        <ul class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" >
        		<li class="active" >
-       			<a href="javascript:" data-target-tab="panel_personal_info" > <i class="fa fa-user-circle-o" aria-hidden="true"></i> Identity </a>
+       			<a href="javascript:" data-target-tab="panel_personal_info" > <i class="fa fa-user-circle-o" aria-hidden="true"></i> Identity Data</a>
        		</li>	
           
-          	<li ><a href="javascript:" data-target-tab="panel_profile_contact" > <i class="fa fa-address-card-o" aria-hidden="true"></i> Contacts </a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_contact" > <i class="fa fa-address-card-o" aria-hidden="true"></i> Contact Data </a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_taxonomy" > <i class="fa fa-tags" aria-hidden="true"></i> Taxonomy </a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_location" > <i class="fa fa-map-marker" aria-hidden="true"></i> Living Location </a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_business" > <i class="fa fa-briefcase" aria-hidden="true"></i> Business </a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_location" > <i class="fa fa-map-marker" aria-hidden="true"></i> Location Data</a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_business" > <i class="fa fa-briefcase" aria-hidden="true"></i> Business Data</a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_marketing" > <i class="fa fa-line-chart" aria-hidden="true"></i> Marketing Data </a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_custom" > <i class="fa fa-table" aria-hidden="true"></i> Custom Data </a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_data_authorization" > <i class="fa fa-lock" aria-hidden="true"></i> Data Authorization </a></li>
           	
 	   </ul>
 
@@ -396,7 +397,7 @@
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('businessIndustries')" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
 				    			   </button>
-				                   <p data-field="businessIndustries" data-fieldholder="html_hashset"  data-fieldtype="hashset"  data-editable="true" >  </p>
+				                   <p data-field="businessIndustries" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
 				               	</li>
 			               	</ol>
                	  		</td>
@@ -494,6 +495,36 @@
                 </div>
 			</div>
 			
+			<!-- tab 7 Data Authorization  -->
+			<div class="tab-pane" id="panel_profile_data_authorization" >
+				<h4 class="highlight_text" > <i class="fa fa-lock" aria-hidden="true"></i> Data Authorization </h4>
+				<table border=0 class="underlined" style="width: 100%;">
+                   <tr>
+                       <td>
+							<ol class="profile_ext_data" data-field="personal_attributes">
+
+                                <li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Authorized Viewers </b> 
+				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('authorizedViewers')" title="Add Username"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Viewer 
+				    			   </button>
+				                   <p data-field="authorizedViewers" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
+				               	</li>
+				               	
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i>  Authorized Editors </b> 
+				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('authorizedEditors')" title="Add Username"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Editor 
+				    			   </button>
+				                   <p data-field="authorizedEditors" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
+				               	</li>
+				               
+			               	</ol>
+               	  		</td>
+                   </tr>
+               </table>
+			</div>
+			
 	   </div>
       
        <div class="line"></div>
@@ -540,8 +571,13 @@
        	}, callback);
     }
     
-    var removeCurrentProfile = function (){
-    	LeoCdpAdmin.navFunctions.deleteCustomerProfile(editedProfileModel.id);
+    var deleteCurrentProfile = function (){
+    	var hasEventData = Object.keys(LeoCdpAdmin.routerContext.dataObject.eventStatistics).length > 0;
+    	if(hasEventData) {
+    		notifyErrorMessage("The system can not delete a profile that has event data stream");
+    	} else {
+    		LeoCdpAdmin.navFunctions.deleteCustomerProfile(viewProfileId);	
+    	}
     }
     
     var loadProfileData = function (profileId) {

@@ -112,11 +112,10 @@
          var urlStr = baseLeoAdminUrl + '/user/get-by-username';
          LeoAdminApiUtil.callPostAdminApi(urlStr, { 'userLogin': userLogin }, function (json) {
              if (json.httpCode === 0 && json.errorMessage === '') {
-                 if (json.data) {
+                 if (typeof json.data === "object") {
                      userModel = json.data;
                      var date = LeoAdminApiUtil.formater.toDateString(userModel.creationTime);
 
-                    
                      $('#systemUser_displayName').text(userModel.displayName);
                      $('#systemUser_userLogin').text(userModel.userLogin);
                      $('#systemUser_userEmail').text(userModel.userEmail);
@@ -132,8 +131,13 @@
                     		 location.hash = "#calljs-leoCdpRouter('User_Login_Editor','" + userModel.key + "')";
                     	 })
                      }
-                     
                  }
+                 else {
+                	 notifyErrorMessage("Can not get system user username: " + userLogin)
+                 }
+             }
+             else {
+            	 notifyErrorMessage("Can not get system user username: " + userLogin)
              }
          });
 

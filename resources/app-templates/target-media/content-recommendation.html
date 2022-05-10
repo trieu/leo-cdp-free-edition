@@ -50,7 +50,8 @@
 		
 		$.get( url , function( list ) {
 		  	var holder = $('#itemlist');
-		  	for(var i=0; i < maxResult; i++){
+		  	var size = list.length < maxResult ?  list.length : maxResult;
+		  	for(var i=0; i < size; i++){
 		  		var e = list[i];
 		  		var name = e.landingPageName;
 				var maxName = 96;

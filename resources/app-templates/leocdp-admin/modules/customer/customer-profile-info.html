@@ -55,7 +55,7 @@
        	<button type="button" class="btn btn-do-now" onclick="location.reload()" title="Refresh data"  > 
        		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
        	</button>
-     	<button type="button" class="btn btn-danger data-control-delete" onclick="removeCurrentProfile()" title="Delete this profile" > 
+     	<button type="button" class="btn btn-danger data-control-delete" onclick="deleteCurrentProfile()" title="Delete this profile" > 
      		<i class="fa fa-trash" aria-hidden="true"></i> Delete 
      	</button>
        	<button type="button" class="btn btn-goto-router data-control-edit" onclick="editCurrentProfile()" title="Edit this profile"  > 
@@ -661,18 +661,19 @@
 			<div class="tab-pane" id="panel_profile_information" >
 				<div class="tabbable">
 		                <ul id="profile_ext_info_tabs" class="nav nav-pills nav-stacked col-md-2">
-		                	<li class="active" ><a href="#tab_profile_contact_info" data-toggle="tab"> Contact Data </a></li>
-		                	<li><a href="#tab_profile_location_info" data-toggle="tab"> Living Location </a></li>
-		                	<li><a href="#tab_profile_professional_info" data-toggle="tab"> Business Data </a></li>
-		                	<li><a href="#tab_profile_marketing_info" data-toggle="tab"> Marketing Data </a></li>
-		                	<li><a href="#tab_profile_custom_fields" data-toggle="tab"> Custom Data </a></li>
+		                	<li class="active" ><a href="#tab_profile_contact_info" data-toggle="tab"> <i class="fa fa-envelope-o" aria-hidden="true"></i> Contact Data </a></li>
+		                	<li><a href="#tab_profile_location_info" data-toggle="tab"> <i class="fa fa-map-marker" aria-hidden="true"></i> Living Location </a></li>
+		                	<li><a href="#tab_profile_professional_info" data-toggle="tab"> <i class="fa fa-briefcase" aria-hidden="true"></i> Business Data </a></li>
+		                	<li><a href="#tab_profile_marketing_info" data-toggle="tab"> <i class="fa fa-briefcase" aria-hidden="true"></i> Marketing Data </a></li>
+		                	<li><a href="#tab_profile_custom_fields" data-toggle="tab"> <i class="fa fa-table" aria-hidden="true"></i> Custom Data </a></li>
+		                	<li><a href="#tab_profile_data_authorization" data-toggle="tab"> <i class="fa fa-lock" aria-hidden="true"></i> Data Authorization </a></li>
 		                </ul>
 		                
 		                <div id="profile_ext_info_vertital_tabs" class="tab-content col-md-10" >
 		                	
 		                    <div class="tab-pane active" id="tab_profile_contact_info" >
 		                    	<!-- profile info tab 1 -->
-								<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Contact Data </h4>
+								<h4 class="highlight_text" > <i class="fa fa-envelope-o" aria-hidden="true"></i> Contact Data </h4>
 							 	<table border=0 class="underlined" style="width: 100%;">
 				                   <tr>
 				                       <td>
@@ -706,7 +707,7 @@
 		                    
 		                    <div class="tab-pane" id="tab_profile_location_info" >
 				               <!-- profile info tab 2 -->
-				               <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Living Location Data</h4>
+				               <h4 class="highlight_text" > <i class="fa fa-map-marker" aria-hidden="true"></i> Living Location Data</h4>
 							   <table border=0 class="underlined" style="width: 100%;">
 				                   <tr>
 				                       <td>
@@ -747,7 +748,7 @@
 		                    
 		                    <div class="tab-pane" id="tab_profile_professional_info" >
 				               <!-- profile info tab 3 -->
-				               <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Business Data </h4>
+				               <h4 class="highlight_text" > <i class="fa fa-briefcase" aria-hidden="true"></i> Business Data </h4>
 							   <table border=0 class="underlined" style="width: 100%;">
 				                   <tr>
 				                       <td>
@@ -769,12 +770,10 @@
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Study Certificates </b> 
 								                   <p data-field="studyCertificates" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 								               	</li>
-								               	
 								               	<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Job Titles </b> 
 								                   <p data-field="jobTitles" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 								               	</li>
-								               
 								               	<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Working History / Company Names </b> 
 								                   <p data-field="workingHistory" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
@@ -791,7 +790,7 @@
 		                    
 		                    <div class="tab-pane" id="tab_profile_marketing_info" >
 				               <!-- profile info tab 4 -->
-				               <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing Data </h4>
+				               <h4 class="highlight_text" > <i class="fa fa-briefcase" aria-hidden="true"></i> Marketing Data </h4>
 							   <table border=0 class="underlined" style="width: 100%;">
 				                   <tr>
 				                       <td>
@@ -832,13 +831,35 @@
 		                    
 		                    <div class="tab-pane" id="tab_profile_custom_fields" >
 				               <!-- profile info tab 5 -->
-				               <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Custom Data </h4>
+				               <h4 class="highlight_text" > <i class="fa fa-table" aria-hidden="true"></i> Custom Data </h4>
 				               <div class="col-md-12" style="padding: 4px 8px; background-color: #f6f6f6; border-radius: 8px" >
 									<p id="profile_extAttributes" data-field="extAttributes" data-fieldholder="html_custom_field" data-fieldtype="custom_field" data-editable="true" > 
 										-
 									</p>
 				                </div>		                    
 		                    </div>
+		                    
+		                    <div class="tab-pane" id="tab_profile_data_authorization" >
+				               <!-- profile info tab 6 -->
+				               <h4 class="highlight_text" > <i class="fa fa-lock" aria-hidden="true"></i> Data Authorization </h4>
+							   <table border=0 class="underlined" style="width: 100%;">
+				                   <tr>
+				                       <td>
+											<ol class="profile_ext_data" data-field="personal_attributes">
+												<li>
+								                   <b> <i class="fa fa-fw fa-list"></i> Authorized Viewers </b> 
+								                   <p data-field="authorizedViewers" data-fieldholder="html_hashset" data-fieldtype="system_user"  > - </p>
+								               	</li>
+								               	<li>
+								                   <b> <i class="fa fa-fw fa-list"></i> Authorized Editors </b> 
+								                   <p data-field="authorizedEditors" data-fieldholder="html_hashset" data-fieldtype="system_user"  > - </p>
+								               	</li>
+							               	</ol>
+				               	  		</td>
+				                   </tr>
+				               </table>			                    
+		                    </div>
+		                    
 		                </div>
 		        </div>
                
@@ -1310,8 +1331,13 @@
     	gotoLeoCdpRouter('Customer_Profile_Editor', viewProfileId );
     }
     
-    var removeCurrentProfile = function (){
-    	LeoCdpAdmin.navFunctions.deleteCustomerProfile(viewProfileId);
+    var deleteCurrentProfile = function (){
+    	var hasEventData = Object.keys(LeoCdpAdmin.routerContext.dataObject.eventStatistics).length > 0;
+    	if(hasEventData) {
+    		notifyErrorMessage("The system can not delete a profile that has event data stream");
+    	} else {
+    		LeoCdpAdmin.navFunctions.deleteCustomerProfile(viewProfileId);	
+    	}
     }
     
     var loadProfile360Analytics = function (profileId) {
