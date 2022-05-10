@@ -238,8 +238,8 @@
 					             </li>
 					              
 								 <li>
-	                                   <b data-persona="key" > <i class="fa fa-fw fa-user-o"></i> Status </b> 
-	                                   <div style="font-size: 12px;">
+	                                  <b data-persona="key" > <i class="fa fa-fw fa-user-o"></i> Status </b> 
+	                                  <div style="font-size: 12px;">
 		                                   <div class="radio">
 											  <label><input type="radio" name="status" value="1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >ACTIVE</label>
 										   </div>
@@ -247,10 +247,10 @@
 											  <label><input type="radio" name="status" value="0" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >INACTIVE</label>
 										   </div>
 										   <div class="radio ">
-											  <label><input type="radio" name="status" value="-1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >MERGED</label>
+											  <label><input type="radio" name="status" value="-1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >INVALID</label>
 										   </div>
 										   <div class="radio ">
-											  <label><input type="radio" name="status" value="-4" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >REMOVED</label>
+											  <label><input type="radio" name="status" value="-4" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >DELETED</label>
 										   </div>
 	                                   </div>
 	                              </li>
@@ -580,6 +580,14 @@
     	}
     }
     
+    var formatSelectionList = function(selector) {
+    	$(selector + ":checked").parent().addClass('data_field');
+    	$(selector).click(function(){
+			$(selector).parent().removeClass('data_field');
+			$(this).parent().addClass('data_field');
+    	});
+    }
+    
     var loadProfileData = function (profileId) {
          console.log('loadProfileData profileId ' + profileId);
          
@@ -625,11 +633,13 @@
 	       	 }
          	 
          	 // profile type
-         	 $('input[name="type"]:checked').parent().addClass('data_field');
-         	 $('input[name="type"]').click(function(){
-         		$('input[name="type"]').parent().removeClass('data_field');
-         		$(this).parent().addClass('data_field');
-         	 });
+         	 formatSelectionList('input[name="type"]')
+         	 
+         	 // profile status
+         	 formatSelectionList('input[name="status"]')
+         	 
+         	 // profile gender
+         	 formatSelectionList('input[name="gender"]')
          	 
          	 // set search link
          	 if(typeof editedProfileModel.livingLocation === "string") {

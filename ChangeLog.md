@@ -36,7 +36,6 @@
 
 ### Changed
 
-- [UI] can not delete profile that has event data stream
 - [UI] improve UI of load events in profile
 - [shell script] refactoring code
 - [UI] improve UI and UX of System Login
@@ -50,10 +49,11 @@
 - [Segment] CSV data exporting is JSON if segment'size larger than 100, not CSV
 - [UI] sorting fields in segment list
 
-## [0.8.9] - 2022-05-06
+## [0.8.9] - 2022-05-10
 
 ### Added 
 
+- [UI] Filter by profile status
 - [Profile] support compute data quality using saved profile field configs
 - [Authorization] add 2 new roles: customer data viewer and editor, add SystemUserRole
 - [Profile] add secondary emails and phones when merge duplicated profile data

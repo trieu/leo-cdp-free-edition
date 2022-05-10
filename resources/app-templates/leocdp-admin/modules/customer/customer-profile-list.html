@@ -51,7 +51,7 @@ div.profile_high_score {
 <div id="profile_list" style="display: none;" >		
 	<div class="panel panel-info" >
 	   	<div class="panel-heading">
-	   		<b> <i class="fa fa-search" aria-hidden="true"></i> Data Filter </b>
+	   		<b> <i class="fa fa-search" aria-hidden="true"></i> Data Query Filter </b>
 	   	</div>
 	    <div class="panel-body">
 	      	<div class="col-md-12 row">
@@ -97,22 +97,32 @@ div.profile_high_score {
 						    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter profiles by
 						    <span class="caret"></span></button>
 						    <ul class="dropdown-menu">
-						    	<li><a href="javascript:" onclick="handleProfileFilterTextbox(this,'#filterEmail')" >Primary Email</a></li>
-						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox(this,'#filterPhone')" >Primary Phone</a></li>
-						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox(this,'#filterByVisitorId')" >Web Visitor ID</a></li>
-						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox(this,'#filterByProfileId')" >Profile ID</a></li>
-						      	<li><a href="javascript:" onclick="handleProfileFilterTextbox(this,'#filterByLastTouchpoint')" >Last Touchpoint Name</a></li>
-						      	
+						    	<li><a href="javascript:" onclick="handleProfileFiltersBy(this,'#filterByStatus')" >Profile Status</a></li>
+						    	<li><a href="javascript:" onclick="handleProfileFiltersBy(this,'#filterEmail')" >Primary Email</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileFiltersBy(this,'#filterPhone')" >Primary Phone</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileFiltersBy(this,'#filterByVisitorId')" >Web Visitor ID</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileFiltersBy(this,'#filterByProfileId')" >Profile ID</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileFiltersBy(this,'#filterByLastTouchpoint')" >Last Touchpoint Name</a></li>
 						    </ul>
 						</div>
 						<div id="profile_filter_inputs" >
-							<label id="profile_filter_input_label">Primary Email</label>
+							<label id="profile_filter_input_label">Profile Status</label>
+							
 							<input type="hidden" id="filterName" value="" >
-							<input type="text" class="form-control" id="filterEmail" placeholder="Enter email" >
+							
+							<select class="form-control" id="filterByStatus" >
+						    	<option value="">ACTIVE PROFILES</option>
+						    	<option value="0">INACTIVE PROFILES</option>
+						    	<option value="-1">INVALID PROFILES</option>
+						    	<option value="-4">DELETED PROFILES</option>
+						    </select>
+							
+							<input style="display: none;" type="text" class="form-control" id="filterEmail" placeholder="Enter email" >
 							<input style="display: none;" type="text" class="form-control" id="filterPhone" placeholder="Enter phone number" >
 					  		<input style="display: none;" type="text" class="form-control" id="filterByVisitorId" placeholder="Enter web visitor ID" >
 					  		<input style="display: none;" type="text" class="form-control" id="filterByProfileId" placeholder="Enter profile ID" >
 					  		<input style="display: none;" type="text" class="form-control" id="filterByLastTouchpoint" placeholder="Enter Touchpoint Name" >
+					  		
 						</div>
 					</div>
 					<div class="col-md-6" >
@@ -137,15 +147,16 @@ div.profile_high_score {
 	            <table id="profile_list_table" class="display" style="width:100%;">
 	                <thead>
 	                    <tr>
-	                        <th class="text-center" title="A profile that has mobile phone or email"> Contact Data</th>
+	                        <th class="text-center" title="A profile that has mobile phone or email">Contact</th>
 	                        <th >Full Name</th>
 	                        <th >Last Touchpoint Name</th>
 	                        <th class="text-center">Data Quality</th>
 	                        <th class="text-center">Lead Score</th>
 	                        <th class="text-center">CLV Score</th>
-	                        <th class="text-center"> Primary Email</th>
-	                        <th class="text-center"> Phone</th>
-	                        <th class="text-center">Updated at</th>
+	                        <th class="text-center">Email</th>
+	                        <th class="text-center">Phone</th>
+	                        <th class="text-center">Updated</th>
+	                        <th class="text-center">Status</th>
 	                        <th class="text-center">Actions</th>
 	                    </tr>
 	                </thead>
@@ -173,8 +184,8 @@ div.profile_high_score {
 		}
 	}
 	
-	function handleProfileFilterTextbox(domNode, selector){
-		$('#profile_filter_inputs > input').val('').hide();
+	function handleProfileFiltersBy(domNode, selector){
+		$('#profile_filter_inputs > .form-control').val("").hide();
 		$(selector).show();
 		$('#profile_filter_input_label').text($(domNode).text()).show()
 		$('#main_search_profile').val('');
@@ -209,6 +220,7 @@ div.profile_high_score {
 			$('#filterByVisitorId').val('');
 			$('#filterByProfileId').val('');
 			$('#filterByLastTouchpoint').val('');
+			$('#filterByStatus').val('');
 			
 			$('#filterName').val('');
 			
@@ -273,14 +285,7 @@ div.profile_high_score {
     		document.title = "Customer Data Hub - profile search by name: " + nameToSearch;
     		$('#filterName').val(nameToSearch);
     		$('#main_search_profile').val(nameToSearch);
-    		
-    		
-    		$('#filterEmail, #profile_filter_input_label, #filterPhone').hide();
- 
-    		$('#filterByVisitorId').hide();
-    		$('#filterByProfileId').hide();
-    		$('#filterByLastTouchpoint').hide();
-    		
+    		$('#profile_filter_inputs > .form-control, #profile_filter_input_label').hide();
     		toggleProfileDisableDateFilter(true);
     	} 
     	else {
@@ -316,6 +321,9 @@ div.profile_high_score {
                 },
                 {
                     "data": "updatedAt" // 8
+                },
+                {
+                    "data": "status" // 9
                 }
             ];
         	
@@ -336,6 +344,7 @@ div.profile_high_score {
                     },
                     data: function (d) {
                         
+                    	
                         // get data in DOM to build filtering params
                         var checked = $('#disable_date_filter:checked').length === 1;
                         if( ! checked ) {
@@ -350,6 +359,9 @@ div.profile_high_score {
             			d.visitorId = $('#filterByVisitorId').val().trim();
             			d.profileId = $('#filterByProfileId').val().trim();
             			d.lastTouchpointName = $('#filterByLastTouchpoint').val().trim();
+            			
+            			var statusStr = $('#filterByStatus').val().trim();
+            			d.status = parseInt(statusStr === "" ? 1 : statusStr);
             			
             			var name =  $('#filterName').val();
             			if(name.length >= 2 ){
@@ -385,7 +397,7 @@ div.profile_high_score {
                         "render": function (data, type, row) {
                         	var hasContactInfo = (row.primaryEmail != '' || row.primaryPhone != '') && data > 0;
                         	var html = getCheckedBoxIcon(hasContactInfo);
-                            return '<div class="datatable_text text-center" style="color:#41A317!important;font-size:16px!important" >' + html + '</div>';
+                            return '<div class="datatable_text text-center" style="color:#41A317!important;font-size:15px!important" >' + html + '</div>';
                         },
                         "targets": 0,
                         "orderable": false
@@ -406,6 +418,9 @@ div.profile_high_score {
                     },
                     {
                         "render": function (data, type, row) {
+                        	if(typeof row.lastTouchpoint !== "object") {
+                        		row.lastTouchpoint = {"name":"No data"};
+                        	}
                         	return '<div style="font-size:12px;" title="'+ row.lastTouchpoint.name +'">'  + textTruncate(row.lastTouchpoint.name, 50) + '</div>';
                         },
                         "targets": 2,
@@ -497,6 +512,22 @@ div.profile_high_score {
                     },
                     {
                         "render": function (data, type, row) {
+                        	var text = "ACTIVE";
+                        	if(data === 0) {
+                        		text = "INACTIVE";
+                        	}
+                        	else if(data === -1) {
+                        		text = "INVALID";
+                        	}
+                        	else if(data === -4) {
+                        		text = "DELETED";
+                        	}
+                        	return '<div class="small text-center" style="color:#3300ff!important" title="The profile status is '+ text +'">'  + text + '</div>';
+                        },
+                        "targets": 9
+                    },
+                    {
+                        "render": function (data, type, row) {
                         	var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
                             var html = '<a class="control" title="Profile Report" href="' + callJsViewStr + '" > <i class="fa fa-info-circle" aria-hidden="true"></i> View</a>';
                         	if( canEditData ){
@@ -505,7 +536,7 @@ div.profile_high_score {
                         	}
                             return html;
                         },
-                        "targets": 9
+                        "targets": 10
                     }
                 ],
                 'columns': tableSchema,
