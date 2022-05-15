@@ -429,10 +429,10 @@
                     {
                         "render": function (data, type, row) {
                         	var score =  new Number(data).toLocaleString();
-                        	if( data <= 50  ) {
+                        	if( data <= 100  ) {
                         		return '<div class="datatable_text text-center">'  + score + ' </div>';
                         	}
-                        	else if (data > 50 && data < 200) {
+                        	else if (data > 100 && data < 250) {
                         		return '<div class="highlight_text text-center profile_medium_score" >'  + score + '</div>';
                         	}
                         	else {

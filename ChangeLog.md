@@ -53,8 +53,9 @@
 
 ### Added 
 
+- [Profile] support compute data quality using saved profile attribute configs
+- [UI] can not delete profile that has event data stream
 - [UI] Filter by profile status
-- [Profile] support compute data quality using saved profile field configs
 - [Authorization] add 2 new roles: customer data viewer and editor, add SystemUserRole
 - [Profile] add secondary emails and phones when merge duplicated profile data
 - [Profile] add industryDataModels in leocdp-metadata.properties to show profile data for specific industry

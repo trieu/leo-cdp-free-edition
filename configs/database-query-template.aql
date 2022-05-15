@@ -454,6 +454,12 @@ AQL_GET_PROFILE_BY_ID_FOR_ADMIN =>
 	RETURN p
 ;
 
+AQL_GET_PROFILE_BY_CRM_ID =>
+	FOR p in cdp_profile 
+	FILTER p.crmRefId == @crmRefId AND (@loginUsername IN p.authorizedViewers[*] OR @hasAdminRole == TRUE)
+	RETURN p
+;
+
 AQL_GET_PROFILE_BY_PRIMARY_EMAIL =>
 	FOR p in cdp_profile 
 	FILTER (p.primaryEmail == @email OR @email IN p.identities[*]) AND p.status == 1
@@ -594,6 +600,12 @@ AQL_DELETE_SEGMENT_REF_KEY_FOR_PROFILE =>
 AQL_DELETE_ALL_INVALID_PROFILES =>
 	FOR p in cdp_profile  
 	FILTER p.type == 0 AND p.dataQualityScore == 0 AND LENGTH(p.eventStatistics) == 0 AND p.funnelStage == "new-visitor" AND DATE_DIFF(p.updatedAt, DATE_NOW(), "minute") > 3
+    REMOVE { _key: p._key } IN cdp_profile
+;
+
+AQL_DELETE_PROFILE_BY_ID =>
+	FOR p in cdp_profile  
+	FILTER p.status == -4 AND p._key == @profileId
     REMOVE { _key: p._key } IN cdp_profile
 ;
 
@@ -993,8 +1005,14 @@ AQL_GET_SYSTEM_CONFIG_BY_ID =>
 	RETURN e
 ;
 
-AQL_LIST_ALL_SYSTEM_CONFIGS =>
+AQL_GET_PUBLIC_SYSTEM_CONFIGS =>
 	FOR e in system_config FILTER e.index >= 0
+	SORT e.index
+	RETURN e
+;
+
+AQL_GET_ALL_SYSTEM_CONFIGS =>
+	FOR e in system_config 
 	SORT e.index
 	RETURN e
 ;

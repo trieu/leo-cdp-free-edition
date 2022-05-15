@@ -1,4 +1,16 @@
 
+<style>
+.positive_dqs {
+	color: #3300ff!important;
+    font-size: 1.2em!important;
+}
+.negative_dqs {
+	color: #FF0000!important;
+    font-size: 1.1em!important;
+}
+</style>
+
+
 <div class="row">
     <div class="col-lg-12">
         <h5 class="page-header" id="page_breadcrumb" > </h5>
@@ -15,9 +27,9 @@
 			<!--  Tab Navigation Items -->
 		    <ul class="nav nav-tabs" data-tab-content="system_info_tabs" >
 				<li class="active" >
-					<a href="javascript:" data-target-tab="panel_profile_data_fields" title="Profile Data Fields" > <i class="fa fa-list-ul" aria-hidden="true"></i> Profile Data Fields</a>
+					<a href="javascript:" data-target-tab="panel_data_quality_scoring" title="Profile Metadata to compute the total of Data Quality Score" > <i class="fa fa-list-ul" aria-hidden="true"></i> Data Quality Scoring </a>
 		       	</li>
-		       	<li style="display: none;">
+		       	<li style="display: none" >
 					<a href="javascript:" data-target-tab="panel_sys_services" title="System Services" > <i class="fa fa-cogs" aria-hidden="true"></i> System Services </a>
 		       	</li>
 		  	</ul>
@@ -26,7 +38,20 @@
 	    	<div id="system_info_tabs" class="tab-content" style="min-height: 750px;"  >
 	    	
 		    	<!-- tab 1 Event Report  -->
-				<div class="tab-pane active" id="panel_profile_data_fields" >
+				<div class="tab-pane active" id="panel_data_quality_scoring" >
+					<div class="col-lg-9">
+		         		<h4 class="text-center"> <mark> There are <span id="profileAttributeCount"></span> attributes in the Profile Model to compute the total of data quality score </mark> </h4>
+		         	</div>
+		         	<div class="col-lg-3" style="display: none;">
+			         	<button type="button" class="btn btn-goto-router" onclick="callDataQualityScoreRecomputation()" title="Recompute and update data quality score for all profiles"  > 
+				     		<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Data Quality Score Recomputation
+				     	</button>
+			     	</div>
+					<div class="col-lg-12" style="margin-top: 8px;">
+			            <div class="table-responsive">
+			                <div id="profile_metadata_table"></div>
+			            </div>
+			        </div>
 				</div>
 				
 				<!-- tab 2 Event Report  -->
@@ -56,7 +81,7 @@
 	
 	var systemConfigMap = {};
 
-	var loadSystemConfigs = function(){
+	var loadSystemConfigs = function() {
 		
 		LeoAdminApiUtil.getSecuredData('/cdp/system-config/list-all',{}, function(json) { 
 			var holder = $('#configs_holder');
@@ -81,7 +106,7 @@
 					e.service_api_key = "";
 				}
 				
-				if(e.configs.show) {
+				if(e.configs.show === true) {
 					var boxTpl = _.template( $('#tpl_system_config_box').html() );
 					holder.append( boxTpl(e) );
 					
@@ -104,7 +129,23 @@
 			holder.find('div.active_false button').attr('class','btn btn-default').attr('disabled','disabled');
 			holder.find('div.panel_active_false').find('input').attr('disabled','disabled');
 			
-			holder.find('i.config_description').tooltip()
+			holder.find('i.config_description').tooltip();
+			
+
+			var profileMetadata = _.map(systemConfigMap['profile_data_fields'].coreFieldConfigs, function(e,k){
+				if(e.dataQualityScore > 0){
+					e['coreAttribute'] = true;
+					return e;	
+				}
+				return false; 
+			})
+			profileMetadata = _.filter(profileMetadata, function(e) { 
+			    return e !== false; 
+			});
+			profileMetadata = _.sortBy(profileMetadata, [function(o) { return o.attributeName; }]);
+
+			$('#profileAttributeCount').text(profileMetadata.length)
+			loadProfileMetadataView(profileMetadata)
 		})
 	}
 	
@@ -247,6 +288,145 @@
 			}
 		});
 	}
+	
+	function loadProfileMetadataView(profileMetadata){
+		 var gridControls =  { title : "Controls", type: "control", width: 80, editButton: true, deleteButton: false, itemTemplate:  function(value, item) {
+	             var $result = jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
+	             
+	             var isCoreAttribute = item.coreAttribute;
+	             var attributeName = item.attributeName;
+	             var setRuleIcon, setRulesLabel;
+	             setRuleIcon = '<i class="fa fa-cogs event-set-rules" style="" aria-hidden="true"></i>';
+	             setRulesLabel = 'Edit Event Name: ' + attributeName;
+	             
+	             var $setRulesButton = $("<button>").data("attributeName",attributeName).attr({class: "jsgrid-custom-button", title : setRulesLabel}).html(setRuleIcon)
+	             .click(function(e) {
+	             	console.log("setRules button ", $(this).data('attributeName'));
+	             	
+	             	underDevelopment(this);
+	                 e.stopPropagation();
+	             });       
+	             
+	             var cssClass = "customGridEditbutton jsgrid-button jsgrid-edit-button";
+	             var $customEditButton = $("<button>").data("attributeName",attributeName).attr({class: cssClass,title:"Edit Attribute"})
+	             .click(function(e) {
+	             	//underDevelopment(this);
+	                 //e.stopPropagation();
+	                 
+	                 console.log("Edit button ", $(this).data('attributeName'))
+	             });
+	
+	             var cssClass = "customGridDeletebutton jsgrid-button jsgrid-delete-button";
+	            	var $customDeleteButton = $("<button>").data("attributeName",attributeName).attr({class: cssClass,title:"Delete Attribute"})
+	            	.click(function(e) {
+	            		var attributeName = $(this).data('attributeName');
+	            		if( isCoreAttribute ){
+	            			iziToast.info({
+			    	    	    title: 'Information Box',
+			    	    	    message: "The attribute <b>[" + attributeName + "]</b> is the <b>attribute of system</b>. You can not delete this attribute."
+			    	    	});
+	            		} else {
+	                		deleteEventMetricMetaData(attributeName)
+	            		}
+	            		
+	               	e.stopPropagation();
+	             });
+	
+	           	var rs = $("<div>");
+	           	if(! isCoreAttribute ) {
+	           		rs.addClass("editable_profile_attribute");
+	           		rs.attr("title","Click to edit or delete")
+	           	} else {
+	           		rs.attr("title","The attribute of system")
+	           	}
+	           	rs.append($customEditButton).append($customDeleteButton);
+	           	
+	           	return rs;
+          	}
+      	}
+		
+		$("#profile_metadata_table").jsGrid({
+		    width: "100%",
+		    height: "auto",
+
+		    inserting: false,
+		    editing: true,
+		    sorting: true,
+		    paging: false,
+		    data: profileMetadata,
+		    
+		    confirmDeleting : true,
+		    deleteConfirm: function(item) {
+		    	if(item.coreAttribute) {
+		    		return "The attribute <b>[" + item.attributeName + "]</b> is the <b>attribute of system</b>. You can not delete this attribute.";
+			    }
+	            return "The attribute [" + item.attributeName + "] will be removed. Are you sure ? ";
+	        },
+
+	        onItemInserting: function(args) {
+	        	
+   		    },
+		   
+		    onItemInserted: function(args) {
+		    	
+		    }, 
+		    
+		    onItemEditing: function(args) {
+	           
+		    },
+		    
+		    onItemUpdated: function(args) {
+		    	var item = args.item;
+		    	console.log(item)
+		    	var profileConfigs = systemConfigMap['profile_data_fields'];
+		    	var obj = profileConfigs.coreFieldConfigs[item.attributeName];
+		    	if(obj) {
+		    		obj.dataQualityScore = item.dataQualityScore;
+		    		
+		    		var params = {'objectJson' : JSON.stringify(profileConfigs) };
+		    		LeoAdminApiUtil.callPostAdminApi('/cdp/system-config/save', params, function (json) {
+		                if (json.httpCode === 0 && json.errorMessage === '') {
+		                	iziToast.success({
+			    	    	    title: 'Information Box',
+			    	    	    message: 'The attribute <b>[' + item.attributeName +  ']</b> is saved successfully !'
+			    	    	});
+		                } else {
+		                    LeoAdminApiUtil.logErrorPayload(json);
+		                }
+		           	});
+		    	}
+		    }, 
+		    
+		    onItemDeleting: function(args) {
+		       
+		    },
+		    
+		    onRefreshed: function (args) {
+		    	
+		    },
+
+		    fields: [
+		        { name: "attributeName", title : "Attribute Name", align: 'center' , type: "text", validate: "required", validate: "required", editing: false },
+		        { name: "type", title : "Data Type", align: 'center' , type: "text", validate: "required", editing: false },
+		        { name: "dataQualityScore", title : "Data Quality Score", type: "number", align: 'center', width: 70, validate: "required",
+		        	itemTemplate: function(value, item) { 
+		        		if(value > 0){
+		        			return '<div class="highlight_text positive_dqs"> ' + value + ' </div>'; 
+		        		}
+		        		else if(value < 0){
+		        			return '<div class="highlight_text negative_dqs"> ' + value + ' </div>'; 
+		        		}
+		        		return value;
+		        	},
+		        }
+		        , gridControls
+		    ]
+		});  
+	}
+	
+	function callDataQualityScoreRecomputation(){
+		
+	}
 </script>
 
 
@@ -294,8 +474,8 @@
 
 <script id='tpl_config_row_item' type="text/html" >
 <div class="row form-group">
-	<label id="config_label_<%- inputName %>" class="control-label col-md-3" for="<%- inputName %>" ><%- inputName %></label>
-	<div class="col-md-9 float-left" style="background-color:#DCDCDC!important;padding:2px">
+	<label id="config_label_<%- inputName %>" class="control-label col-md-4" for="<%- inputName %>" ><%- inputName %></label>
+	<div class="col-md-8 float-left" style="background-color:#DCDCDC!important;padding:2px">
     	<input disabled type="<%- inputType %>" name="<%- inputName %>" placeholder="Enter the value of <%- inputName %>" class="form-control" style="border: none!important;margin:0!important">
    	</div>
 </div>
@@ -314,7 +494,7 @@
 				<div id="systemServiceDescription" >  </div>
 				<hr>
 				<strong >Configuration List</strong>
-				<div id="systemServiceConfigList" style="max-height: 450px; overflow-y: scroll; overflow-x: hidden;" >
+				<div id="systemServiceConfigList" style="max-height: 450px; overflow-y: scroll; overflow-x: hidden;width: 100%" >
 					<!--  -->
 				</div>
 			</div>

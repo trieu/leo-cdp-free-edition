@@ -1,6 +1,6 @@
 [
 	{
-		"index" : 1,
+		"index" : -1,
 		"id": "local_admin_mail_server",
 		"name": "SMTP Mail Server for System Management",
 		"description": "The Email SMTP for user login management and system monitoring alert",
@@ -21,7 +21,7 @@
 		}
 	},
 	{
-		"index" : 2,
+		"index" : -2,
 		"id": "local_smtp_mail_server",
 		"name": "SMTP Mail Server for Direct Marketing",
 		"description": "To target your customers through email, by providing useful content, product information, PR event and feedback survey",

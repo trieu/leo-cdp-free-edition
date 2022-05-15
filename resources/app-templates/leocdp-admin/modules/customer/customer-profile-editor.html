@@ -89,7 +89,6 @@
        		<li class="active" >
        			<a href="javascript:" data-target-tab="panel_personal_info" > <i class="fa fa-user-circle-o" aria-hidden="true"></i> Identity Data</a>
        		</li>	
-          
           	<li ><a href="javascript:" data-target-tab="panel_profile_contact" > <i class="fa fa-address-card-o" aria-hidden="true"></i> Contact Data </a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_taxonomy" > <i class="fa fa-tags" aria-hidden="true"></i> Taxonomy </a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_location" > <i class="fa fa-map-marker" aria-hidden="true"></i> Location Data</a></li>
@@ -97,7 +96,6 @@
           	<li ><a href="javascript:" data-target-tab="panel_profile_marketing" > <i class="fa fa-line-chart" aria-hidden="true"></i> Marketing Data </a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_custom" > <i class="fa fa-table" aria-hidden="true"></i> Custom Data </a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_data_authorization" > <i class="fa fa-lock" aria-hidden="true"></i> Data Authorization </a></li>
-          	
 	   </ul>
 
 	   <!-- Tab Contents  -->
@@ -121,7 +119,7 @@
 	                               
 	                               <li>
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-id-badge"></i> Last Name </b> 
-	                                   <input class="form-control" type="text" placeholder="Last Name" data-field="lastName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
+	                                   <input class="form-control" type="text" placeholder="Last Name" data-field="lastName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                               </li>
 	                               
 	                               <li>
@@ -131,7 +129,7 @@
 	                               
 	                               <li>
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-phone-square"></i> Primary Mobile Phone <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-	                                   <input class="form-control" type="number" placeholder="Mobile Phone" data-field="primaryPhone" data-fieldholder="inputvalue" data-fieldtype="int" autocomplete="off">
+	                                   <input class="form-control" type="number" placeholder="Mobile Phone" data-field="primaryPhone" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                               </li>
 	                               
 	                               <li class="personal_info" >
@@ -262,7 +260,7 @@
 											  	<label><input type="radio" name="type" value="0" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >ANONYMOUS_VISITOR</label>
 										   	</div>
 		                                   	<div class="radio">
-											  	<label><input type="radio" name="type" value="1" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >SSO_LOGIN_CONTACT</label>
+											  	<label><input type="radio" name="type" value="1" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >LOGIN_USER_CONTACT</label>
 										   	</div>
 										   	<div class="radio">
 											  	<label><input type="radio" name="type" value="2" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >BUSINESS_CONTACT</label>
@@ -613,7 +611,7 @@
         	return data;
          }
          
-         loadProfileDataIntoDOM(true, profileId, dataProcessor, function(){
+         loadProfileDataIntoDOM(true, profileId, false, dataProcessor, function(){
         	 //console.log(LeoCdpAdmin.routerContext.dataObject);
         	 editedProfileModel = LeoCdpAdmin.routerContext.dataObject;
         	 // avatar
