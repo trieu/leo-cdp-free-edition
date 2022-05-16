@@ -328,7 +328,6 @@
 				var params = {};
 				params.jsonQueryRules = jsonQueryStr;
 				
-				
 				// call and show statistics
 				var urlStr = baseLeoAdminUrl + '/cdp/segment/statistics';
 		        LeoAdminApiUtil.callPostAdminApi(urlStr, params , function (json) {
@@ -377,8 +376,6 @@
                 $('#sm_type input[value="'+segmentData.type+'"]').prop('checked', true);
                 $('#sm_status input[value="'+segmentData.status+'"]').prop('checked', true);
                 
-
-        		
                 if(managedBySystem){
                 	$('button.data-control-delete').attr('disabled','disabled');
                 	$('button.data-control-delete').attr('title','Can not delete this segment, which is managed by system');

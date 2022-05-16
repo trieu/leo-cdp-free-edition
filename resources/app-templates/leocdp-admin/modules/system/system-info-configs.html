@@ -42,9 +42,9 @@
 					<div class="col-lg-9">
 		         		<h4 class="text-center"> <mark> There are <span id="profileAttributeCount"></span> attributes in the Profile Model to compute the total of data quality score </mark> </h4>
 		         	</div>
-		         	<div class="col-lg-3" style="display: none;">
-			         	<button type="button" class="btn btn-goto-router" onclick="callDataQualityScoreRecomputation()" title="Recompute and update data quality score for all profiles"  > 
-				     		<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Data Quality Score Recomputation
+		         	<div class="col-lg-3" >
+			         	<button type="button" class="btn btn-goto-router" onclick="callDataQualityComputeJob()" title="Recompute and update data quality score for all profiles"  > 
+				     		<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Run Data Quality Compute Job
 				     	</button>
 			     	</div>
 					<div class="col-lg-12" style="margin-top: 8px;">
@@ -425,8 +425,17 @@
 		});  
 	}
 	
-	function callDataQualityScoreRecomputation(){
-		
+	function callDataQualityComputeJob(){		
+		LeoAdminApiUtil.callPostAdminApi('/cdp/system-config/call-data-quality-compute-job', {}, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+            	iziToast.success({
+    	    	    title: 'Information Box',
+    	    	    message: '<b>Call Data Quality Compute Job</b> is called successfully!'
+    	    	});
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+       });
 	}
 </script>
 
