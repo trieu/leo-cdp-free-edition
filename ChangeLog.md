@@ -49,7 +49,7 @@
 - [Segment] CSV data exporting is JSON if segment'size larger than 100, not CSV
 - [UI] sorting fields in segment list
 
-## [0.8.9] - 2022-05-10
+## [0.8.9] - 2022-05-16
 
 ### Added 
 
@@ -80,6 +80,7 @@
 
 ### Fixed 
 
+- fix bugs synch data to mailchimp, improve data quality scoring configs
 - [backend] fix bugs of data authorization when delete a segment
 - [backend] segment dashboard should load data faster
 - [backend] import profile with data validation rules

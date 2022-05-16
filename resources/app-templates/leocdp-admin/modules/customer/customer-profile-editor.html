@@ -111,7 +111,24 @@
 	                   <tr>
 	                       <td>
 	                           <ol id="personal_attributes" data-field="personal_attributes">
-	                           	 
+	                           	 	<li>
+	                                  <b data-persona="key" > <i class="fa fa-fw fa-user-o"></i> Status </b> 
+	                                  <div style="font-size: 12px;">
+		                                   <div class="radio">
+											  <label><input type="radio" name="status" value="1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >ACTIVE</label>
+										   </div>
+		                                   <div class="radio">
+											  <label><input type="radio" name="status" value="0" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >INACTIVE</label>
+										   </div>
+										   <div class="radio ">
+											  <label><input type="radio" name="status" value="-1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >INVALID</label>
+										   </div>
+										   <div class="radio ">
+											  <label><input type="radio" name="status" value="-4" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >DELETED</label>
+										   </div>
+	                                   </div>
+	                               </li>
+	                              
 	                           	   <li>
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-id-badge"></i> First Name </b> 
 	                                   <input class="form-control" type="text" placeholder="First Name" data-field="firstName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
@@ -173,7 +190,7 @@
                        <td>
 							<ol class="profile_ext_data" data-field="personal_attributes">
 								<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i>  Secondary Emails </b> 
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i>  Secondary Emails <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('secondaryEmails')" title="Add new email"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Email 
 				    			   </button>
@@ -181,11 +198,19 @@
 				               	</li>
 				               	
 				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Secondary Phones </b> 
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Secondary Phones <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('secondaryPhones')" title="Add new phone"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Phone 
 				    			   </button>
 				                   <p data-field="secondaryPhones" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+				               	
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Citizen ID Number / Passport ID Number <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('governmentIssuedIDs')"title="Add New ID Number"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New ID Number
+				    			   </button>
+				                   <p data-field="governmentIssuedIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
 				               	</li>
 							
 								<li>
@@ -202,14 +227,6 @@
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Contact 
 				    			   </button>
 				                   <p data-field="businessContacts" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="businessContacts" > </p>
-				               	</li>
-				               	
-				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Citizen ID / Passport ID <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-				                   <button type="button" class="btn btn-do-now btn-xs" onclick="addNewHashMapItem('personalContacts', PersonalContactIconsMap)" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
-				    			   </button>
-				                   <p data-field="personalContacts" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="personalContacts" > </p>
 				               	</li>
 			               	</ol>
                	  		</td>
@@ -234,27 +251,9 @@
 					    			 </button>
 					                 <p data-field="dataLabels" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" >  </p>
 					             </li>
-					              
-								 <li>
-	                                  <b data-persona="key" > <i class="fa fa-fw fa-user-o"></i> Status </b> 
-	                                  <div style="font-size: 12px;">
-		                                   <div class="radio">
-											  <label><input type="radio" name="status" value="1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >ACTIVE</label>
-										   </div>
-		                                   <div class="radio">
-											  <label><input type="radio" name="status" value="0" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >INACTIVE</label>
-										   </div>
-										   <div class="radio ">
-											  <label><input type="radio" name="status" value="-1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >INVALID</label>
-										   </div>
-										   <div class="radio ">
-											  <label><input type="radio" name="status" value="-4" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >DELETED</label>
-										   </div>
-	                                   </div>
-	                              </li>
 					               	
 					              <li>
-			                           <b> <i class="fa fa-id-card-o" aria-hidden="true"></i> Profile Type </b>  <br>
+			                           <b> <i class="fa fa-id-card-o" aria-hidden="true"></i> Profile Type <span class="small_highlight_text">(Data for Identity Resolution)</span> </b>  <br>
 		                               <div style="font-size: 13px; background-color: #fff;padding: 8px 25px;" >
 		                                   	<div class="radio">
 											  	<label><input type="radio" name="type" value="0" data-field="type" data-fieldholder="inputvalue" data-fieldtype="int" >ANONYMOUS_VISITOR</label>
