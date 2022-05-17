@@ -146,7 +146,7 @@
 	                               
 	                               <li>
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-phone-square"></i> Primary Mobile Phone <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-	                                   <input class="form-control" type="number" placeholder="Mobile Phone" data-field="primaryPhone" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                                   <input class="form-control" type="tel" placeholder="Mobile Phone" data-field="primaryPhone" data-fieldholder="inputvalue" data-fieldtype="tel" autocomplete="off" >
 	                               </li>
 	                               
 	                               <li class="personal_info" >
@@ -682,6 +682,11 @@
     	dataDomHolder.find('input[data-field][type="text"],input[data-field][type="email"]').each(function(){ 
     		var field = $(this).data('field'); 
     		var val = $(this).val();
+    		editedProfileModel[field] = val;
+    	});
+    	dataDomHolder.find('input[data-field][type="tel"]').each(function(){ 
+    		var field = $(this).data('field'); 
+    		var val = $(this).val().replace(/\D/g,'');
     		editedProfileModel[field] = val;
     	});
     	dataDomHolder.find('input[data-field][type="number"]').each(function(){ 

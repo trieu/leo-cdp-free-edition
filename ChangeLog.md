@@ -81,6 +81,7 @@
 
 ### Fixed 
 
+- fix bugs load and save primaryPhone, add input type for telephone
 - fix bugs synch data to mailchimp, improve data quality scoring configs
 - [backend] fix bugs of data authorization when delete a segment
 - [backend] segment dashboard should load data faster
