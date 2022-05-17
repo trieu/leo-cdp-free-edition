@@ -49,10 +49,11 @@
 - [Segment] CSV data exporting is JSON if segment'size larger than 100, not CSV
 - [UI] sorting fields in segment list
 
-## [0.8.9] - 2022-05-16
+## [0.8.9] - 2022-05-17
 
 ### Added 
 
+- [LEO JS SDK] parse UTM data and mapping into profile data model
 - [Profile] support compute data quality using saved profile attribute configs
 - [UI] can not delete profile that has event data stream
 - [UI] Filter by profile status
