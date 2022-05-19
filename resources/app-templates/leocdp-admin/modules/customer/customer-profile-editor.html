@@ -571,16 +571,6 @@
        	}, callback);
     }
     
-    var deleteCurrentProfile = function (){
-    	var profile = LeoCdpAdmin.routerContext.dataObject;
-    	var canNotDelete = Object.keys(profile.eventStatistics).length > 0 && profile.status === 1;
-    	if(canNotDelete) {
-    		notifyErrorMessage("The system can not delete a profile that has event data stream");
-    	} else {
-    		LeoCdpAdmin.navFunctions.deleteCustomerProfile(viewProfileId);	
-    	}
-    }
-    
     var formatSelectionList = function(selector) {
     	$(selector + ":checked").parent().addClass('data_field');
     	$(selector).click(function(){
