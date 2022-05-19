@@ -492,12 +492,12 @@ AQL_GET_PROFILE_BY_LOGIN_INFO_WITH_PASSWORD =>
 
 AQL_GET_PROFILE_BY_IDENTITY_RESOLUTION => 
 	LET rs1 = (
-        FOR e in cdp_profile 
-        FILTER  e.status == 1 AND ( 
-        	( @visitorId != "" AND @visitorId IN e.identities[*] ) 
-        	OR ( @email != "" AND @email IN e.identities[*] )
-        	)
-    	RETURN e
+        FOR p in cdp_profile 
+        FILTER  p.status == 1 AND ( 
+        	(p.primaryEmail == @email AND @email != "" )
+        	OR (p.primaryPhone == @phone AND @phone != "" )
+        	) 
+    	RETURN p
     )
 	RETURN { "deterministic" : rs1, "probabilistic" : [] }
 ;
@@ -718,7 +718,11 @@ AQL_EVENT_TIMESERIES_COLLECTOR =>
 	    RETURN { "dateTime" : dateTime, "collectorKey" : collectorKey, "collectorCount" : length }
 ;
 
-
+AQL_DELETE_TRACKING_EVENTS_BY_PROFILE_ID =>
+	FOR e in cdp_trackingevent  
+	FILTER e.refProfileId == @refProfileId  
+    REMOVE { _key: e._key } IN cdp_trackingevent
+;
 
 ###########  FEEDBACK DATA: EVENT AND REPORT ########################################################################################################;
 
@@ -765,6 +769,12 @@ AQL_GET_FEEDBACK_EVENTS_BY_EVENT_NAME =>
 		SORT e.createdAt DESC
 		LIMIT @startIndex,@numberResult 
 		RETURN e
+;
+
+AQL_DELETE_FEEDBACK_EVENTS_BY_PROFILE_ID =>
+	FOR e in cdp_feedbackdata  
+	FILTER e.refProfileId == @refProfileId  
+    REMOVE { _key: e._key } IN cdp_feedbackdata
 ;
 
 ########### PRODUCT ITEM  ########################################################################################################;
