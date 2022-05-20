@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  arangodb_db_container:
+    image: arangodb:latest
+    environment:
+      ARANGO_ROOT_PASSWORD: FormulaLeo#2020
+    ports:
+      - 8601:8529
+    volumes:
+      - arangodb_data_container:/var/lib/arangodb3
+      - arangodb_apps_data_container:/var/lib/arangodb3-apps
+
+volumes:
+  arangodb_data_container:
+  arangodb_apps_data_container:
