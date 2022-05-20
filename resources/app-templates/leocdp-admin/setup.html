@@ -1,0 +1,89 @@
+
+<!-- Setup new system  -->
+
+<div class="container-fluid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <img id="login_logo" src="" alt="MainLogo" style="display: none; width: 42%" class="img-responsive center-block" />
+                <script>
+                	$('#login_logo').attr('src', window.pageHeaderLogo).show();
+                </script>
+                <hr>
+                <div>
+                    <fieldset>
+                        <div id="legend">
+                            <h1>LEO CDP - Setup New System</h1>
+                        </div>
+						<hr>
+						
+						<div id="system_user_login_form" >
+	                        <div class="form-group">
+	                            <input type="text" class="form-control" placeholder="Enter username" name="username" id="username" value="superadmin"
+	                                disabled="disabled">
+	                        </div>
+	                        <div class="alert alert-info" role="alert">Please enter the superadmin password</div>
+	                        <div class="form-group">
+	                            <label> Password for superadmin</label>
+	                            <input type="password" class="form-control" placeholder="Enter superadmin password" name="password" id="password"
+	                                 autocapitalize="off" autocomplete="off">
+	                        </div>
+                        </div>
+
+						<div id="info-setup" class="alert alert-success" style="display: none; font-size: 24px;"></div>
+                        <div id="error-login" class="alert alert-danger" style="display: none; font-size: 18px;"></div>
+
+                        <div class="form-group text-left">
+                            <button type="button" class="btn btn-success" id="btn_system_setup" style="width: 220px"> 
+								<i class="fa fa-check-square-o" aria-hidden="true"></i> OK to setup New System 
+							</button>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+    function initSetupNewSystem() {
+        var systemSetup = function () {
+            var urlStr = baseLeoAdminUrl + '/cdp/system-control/setup';
+
+            var params = { 'superAdminPassword': $('#password').val() };
+            
+            $('#info-setup').html("<b>Sending data ...</b>").show();
+            LeoAdminApiUtil.callPostApi(urlStr, params, function (json) {
+                if (json.httpCode === 0 && json.errorMessage === '') {
+                	//OK, set session data
+                    
+                	 setTimeout(function () { 
+                		 $("#system_user_login_form, #btn_system_setup").hide();                    
+                         $('#info-setup').html('<i class="fa fa-check-circle fa-2" aria-hidden="true"></i> <b> Setup successfully ! </b> ');
+                         setTimeout(function () { window.location = '/admin'; }, 3000);
+                	 }, 2000);
+                    
+                } else {
+                	$('#info-setup').hide();
+                    $('#error-login').html('<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ' + json.errorMessage).show().delay(3000).fadeOut();
+                    // failed
+                    setTimeout(function () { LeoAdminApiUtil.logErrorPayload(json); }, 2300);
+                }
+            });
+        };
+
+        $('#btn_system_setup').click(systemSetup);
+
+        $("#password").on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                systemSetup();
+            }
+        });
+    }
+    
+    initSetupNewSystem();
+
+</script>

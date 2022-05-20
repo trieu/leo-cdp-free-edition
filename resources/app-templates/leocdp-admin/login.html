@@ -39,8 +39,8 @@
 						<div id="info-login" class="alert alert-success" style="display: none; font-size: 24px;"></div>
                         <div id="error-login" class="alert alert-danger" style="display: none; font-size: 18px;"></div>
 
-                        <div class="form-group text-right">
-                            <button type="button" class="btn btn-success" id="btn_system_login" style="width: 120px"> 
+                        <div class="form-group text-left">
+                            <button type="button" class="btn btn-success" id="btn_system_login" style="width: 160px"> 
 								<i class="fa fa-check-square-o" aria-hidden="true"></i> OK 
 							</button>
                         </div>
@@ -99,7 +99,11 @@
                     // update UI
                     $("#system_user_login_form, #btn_system_login").hide();                    
                     $('#info-login').html('<i class="fa fa-check-circle fa-2" aria-hidden="true"></i> <b> Login successfully ! </b> ');
-                    setTimeout(function () { window.location = '/admin'; }, 1500);
+                    
+                    //wait and reload
+                    setTimeout(function () { 
+                    	window.location.reload(true);
+                    }, 2000);
                 } else {
                 	$('#info-login').hide();
                     $('#error-login').html('<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ' + json.errorMessage).show().delay(3000).fadeOut();
