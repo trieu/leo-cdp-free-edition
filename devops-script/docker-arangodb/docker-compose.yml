@@ -1,7 +1,9 @@
 version: '3.7'
+
 services:
   arangodb_db_container:
     image: arangodb:latest
+    container_name: arangodb
     environment:
       ARANGO_ROOT_PASSWORD: FormulaLeo#2020
     ports:
