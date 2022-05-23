@@ -580,25 +580,29 @@
     }
     
     var loadProfileData = function (profileId) {
-         console.log('loadProfileData profileId ' + profileId);
          
          var dataProcessor = function(data){
         	var formatDateTime = 'YYYY-MM-DD';
         	var dateOfBirth = false;
+        	
         	if(data.dateOfBirth) {
         		dateOfBirth = data.dateOfBirth;
-        	} else {
+        	} 
+        	else if(data.age > 0){
         		dateOfBirth = new moment().subtract(data.age, "years").toDate();
         	}
-    		$('#profileDateOfBirth').datetimepicker({
-    	        useCurrent: false, 
-    	        format: formatDateTime,
-    	        defaultDate: moment.utc(dateOfBirth).local().format('YYYY-MM-DD')
-    	    }).on('dp.change', function(e){ 
+        	
+        	var dateOfBirthUI = {
+       	        useCurrent: false, 
+       	        format: formatDateTime
+       	    };
+        	if(dateOfBirth !== false) {
+        		dateOfBirthUI['defaultDate'] = moment.utc(dateOfBirth).local().format('YYYY-MM-DD');
+        	}
+    		$('#profileDateOfBirth').datetimepicker(dateOfBirthUI).on('dp.change', function(e){ 
     	        var age = moment().diff(e.date, 'years');
     	        $('#profileAge').val(age);
     	    });
-    		
 
         	return data;
          }
@@ -737,8 +741,14 @@
     		}
     	});
     	
-    	var dob = new moment.utc( $('#profileDateOfBirth').data("DateTimePicker").date() );
-    	editedProfileModel.dateOfBirth = dob;
+    	var dateOfBirth = $('#profileDateOfBirth').data("DateTimePicker").date();
+    	if(dateOfBirth != null) {
+    		editedProfileModel.dateOfBirth = new moment.utc(dateOfBirth);
+    	}
+    	else {
+    		editedProfileModel.dateOfBirth = null;
+    	}
+    	
     	console.log(editedProfileModel);
     }
     

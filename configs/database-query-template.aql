@@ -496,6 +496,7 @@ AQL_GET_PROFILE_BY_IDENTITY_RESOLUTION =>
         FILTER  p.status == 1 AND ( 
         	(p.primaryEmail == @email AND @email != "" )
         	OR (p.primaryPhone == @phone AND @phone != "" )
+        	OR (@citizenId != "" AND @citizenId IN p.governmentIssuedIDs[*])
         	) 
     	RETURN p
     )

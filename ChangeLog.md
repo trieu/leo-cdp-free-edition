@@ -1,6 +1,6 @@
 # Changelog for LEO CDP
 
-## Feature Plan for the final release [1.0.0] - 2022-05-01
+## Feature Plan for the final release [1.0.0] - 2022-06-30
 
 ### TODO for version [1.0.0]
 
@@ -20,48 +20,28 @@
 - [In Progress] Data Reporting with Jupyter notebook
 - [In Progress] New Data Connector and connector protocol
 
-## [0.9.0] - 2022-06-30
+
+## [0.8.9] - 2022-05-23
 
 ### Added 
 
+- [Data Processor] observer can save tracking event in Kafka, data is processed in different worker
+- [LEO JS SDK] parse UTM data and mapping into profile data model
+- [Profile] support compute data quality using saved profile attribute configs
+- [UI] can not delete profile that has event data stream
+- [UI] Filter by profile status
 - [Data Deduplication] merge context session keys for duplicated profiles
 - [Data Segmentation] implement 2 new operators: data_filter_equals, data_filter_contains
 - [UI] add sortable list by Data Quality Score, Journey Score and Updated At in Profile Data Management
 - [SystemTrackedEvent] to tracking user account activities, login for security monitoring
 - [Data Model] AbstractProfile
 - [Data Authorization] improve security check for Segment model and Profile model
-- [UI] add new authorized viewers and authorized editors in segment builder and details
-- [UI] user login information
-- [In Progress] BusinessAccount for B2B CDP
-
-### Changed
-
-- [UI] improve UI of load events in profile
-- [shell script] refactoring code
-- [UI] improve UI and UX of System Login
-- Improve Data Authorization 
-- [Scoring Rule] profile data quality scoring rule
-- [UI] UI to show profile with data quality score > 200
-- [UI] User Login Management
-
-### Fixed 
-
-- [Segment] CSV data exporting is JSON if segment'size larger than 100, not CSV
-- [UI] sorting fields in segment list
-
-## [0.8.9] - 2022-05-17
-
-### Added 
-
-- [LEO JS SDK] parse UTM data and mapping into profile data model
-- [Profile] support compute data quality using saved profile attribute configs
-- [UI] can not delete profile that has event data stream
-- [UI] Filter by profile status
 - [Authorization] add 2 new roles: customer data viewer and editor, add SystemUserRole
 - [Profile] add secondary emails and phones when merge duplicated profile data
 - [Profile] add industryDataModels in leocdp-metadata.properties to show profile data for specific industry
 - [Data Asset] add Short URL Link as new asset category
 - [Event]  save Touchpoint Name and URL in Tracking Event
+- [Segment] add new authorized viewers and authorized editors in segment builder and details
 - [Segment]  data segmentation with tracking event, touchpoint, device
 - [Java Lib] upgrade core java library deps
 - upgrade system command-line tool
@@ -81,6 +61,8 @@
 
 ### Fixed 
 
+- [Segment] CSV data exporting is JSON if segment'size larger than 100, not CSV
+- [UI] sorting fields in segment list
 - fix bugs load and save primaryPhone, add input type for telephone
 - fix bugs synch data to mailchimp, improve data quality scoring configs
 - [backend] fix bugs of data authorization when delete a segment
@@ -91,6 +73,13 @@
 
 ### Changed
 
+- [UI] improve UI of load events in profile
+- [shell script] refactoring code
+- [UI] improve UI and UX of System Login
+- Improve Data Authorization 
+- [Scoring Rule] profile data quality scoring rule
+- [UI] UI to show profile with data quality score > 200
+- [UI] User Login Management
 - [UI] improve UI for segment and profile
 - [UI] refresh segment data should update segment size and Reference Key in all matched profiles
 - [UI] UI to track CX rating data
