@@ -478,6 +478,12 @@ AQL_GET_PROFILE_BY_VISITOR_ID =>
 	RETURN p
 ;
 
+AQL_GET_PROFILE_ID_BY_VISITOR_ID =>
+	FOR p in cdp_profile 
+	FILTER @visitorId == p.visitorId AND p.status == 1
+	RETURN p._key
+;
+
 AQL_GET_PROFILE_BY_LOGIN_INFO =>
 	FOR p in cdp_profile 
 	FILTER @loginInfo IN p.identities[*] AND p.status == 1
