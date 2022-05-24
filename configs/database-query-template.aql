@@ -480,7 +480,7 @@ AQL_GET_PROFILE_BY_VISITOR_ID =>
 
 AQL_GET_PROFILE_ID_BY_VISITOR_ID =>
 	FOR p in cdp_profile 
-	FILTER @visitorId == p.visitorId AND p.status == 1
+	FILTER @visitorId == p.visitorId
 	RETURN p._key
 ;
 

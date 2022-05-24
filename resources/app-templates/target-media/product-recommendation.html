@@ -42,7 +42,7 @@
 		
 		var url = "https://" + leoObserverLogDomain + "/ris/json/products?visid="+visitorId;
 		var cb = Math.floor(Math.random() * 100000);
-		url += ("&tpurl=" + encodeURIComponent(location.href) ); // touchpointUrl
+		url += ("&tpurl=" + encodeURIComponent(touchpointUrl) ); 
 		url += ("&obsid=" + observerId );
 		url += ("&sidx=" + sidx );//START_INDEX
 		url += ("&nrs=" + nrs );//NUMBER_RESULT

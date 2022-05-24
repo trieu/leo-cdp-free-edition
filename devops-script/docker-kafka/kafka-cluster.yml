@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+
+  zookeeper2:
+    image: wurstmeister/zookeeper
+    hostname: zookeeper2
+    container_name: zookeeper2
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "12181:2181"
+    restart: unless-stopped
+    volumes: 
+      - ${KAFKA_DATA}/zookeeper/data:/var/lib/zookeeper/data
+      - ${KAFKA_DATA}/zookeeper/log:/var/lib/zookeeper/log  
+
+  kafka1:
+    image: wurstmeister/kafka
+    container_name: kafka1
+    ports:
+      - "19091:19091"
+    restart: unless-stopped  
+    environment:
+      KAFKA_BROKER_ID: 501
+      KAFKA_LOG_DIRS: /kafka/logs                
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper2:2181      
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_HOST://0.0.0.0:19091
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:9092,PLAINTEXT_HOST://localhost:19091
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT      
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${KAFKA_DATA}/501:/kafka
+    links:
+      - zookeeper2
+    depends_on:
+      - zookeeper2
+
+  kafka2:
+    image: wurstmeister/kafka
+    container_name: kafka2
+    ports:
+      - "19092:19092"
+    restart: unless-stopped  
+    environment:
+      KAFKA_BROKER_ID: 502
+      KAFKA_LOG_DIRS: /kafka/logs                
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper2:2181      
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9093,PLAINTEXT_HOST://0.0.0.0:19092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka2:9093,PLAINTEXT_HOST://localhost:19092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT      
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${KAFKA_DATA}/502:/kafka
+    links:
+      - zookeeper2
+    depends_on:
+      - zookeeper2  
+      - kafka1
