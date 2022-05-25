@@ -16,10 +16,10 @@
 		margin-top:10px;
 	}
 	div.profile_medium_score {
-		color:#1A529E!important; font-size:1.1em!important;
+		color:#1A529E!important;font-size:14px!important;
 	}
 	div.profile_high_score {
-		color:#3300ff!important;font-size:1.2em!important
+		color:#3300ff!important;font-size:16px!important;
 	}
 </style>
 <div class="row">
@@ -343,8 +343,6 @@
                         request.setRequestHeader("leouss", usersession);
                     },
                     data: function (d) {
-                        
-                    	
                         // get data in DOM to build filtering params
                         var checked = $('#disable_date_filter:checked').length === 1;
                         if( ! checked ) {
@@ -372,7 +370,6 @@
             				e.field = tableSchema[e.column] ? tableSchema[e.column].data : "";
             			})
             			
-            			
                         return JSON.stringify(d);
                     },
                     dataSrc: function ( json ) {
@@ -397,7 +394,7 @@
                         "render": function (data, type, row) {
                         	var hasContactInfo = (row.primaryEmail != '' || row.primaryPhone != '') && data > 0;
                         	var html = getCheckedBoxIcon(hasContactInfo);
-                            return '<div class="datatable_text text-center" style="color:#41A317!important;font-size:15px!important" >' + html + '</div>';
+                            return '<div class="datatable_text text-center" style="color:#41A317!important;font-size:14px!important" >' + html + '</div>';
                         },
                         "targets": 0,
                         "orderable": false
@@ -421,7 +418,7 @@
                         	if(typeof row.lastTouchpoint !== "object") {
                         		row.lastTouchpoint = {"name":"No data"};
                         	}
-                        	return '<div style="font-size:12px;" title="'+ row.lastTouchpoint.name +'">'  + textTruncate(row.lastTouchpoint.name, 50) + '</div>';
+                        	return '<div style="font-size:11.4px;" title="'+ row.lastTouchpoint.name +'">'  + textTruncate(row.lastTouchpoint.name, 40) + '</div>';
                         },
                         "targets": 2,
                         "orderable": false
@@ -504,7 +501,7 @@
                         "render": function (data, type, row) {
                         	if(data){
                         		var date = moment.utc(data).local().format('YYYY-MM-DD HH:mm:ss');
-                                return '<div class="small text-center" style="color:#3300ff;width:80px" >'  + date + '</div>';
+                                return '<div class="small text-center" style="color:#3300ff;width:74px" >'  + date + '</div>';
                         	}
                         	return '-';
                         },
