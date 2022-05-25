@@ -80,6 +80,7 @@
                    <h4 id="profile_full_name"> - </h4>
                </div>
 			   <hr>
+			   
                <div class="col-md-12" >
                		<div class="col-md-4" >
                      	<b> <i class="fa fa-fw fa-line-chart"></i> Lead Score <a href="https://en.wikipedia.org/wiki/Lead_scoring" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
@@ -237,15 +238,11 @@
           	<a href="javascript:" data-target-tab="panel_content_suggestions" > <i class="fa fa-list-ol" aria-hidden="true"></i> Suggested Contents </a>
          </li>
          
-         <li data-industry="COMMERCE" style="display: none;">
+         <li data-industry="COMMERCE" style="display: none;" onclick="loadRecommendedProducts()" >
          	<a href="javascript:" data-target-tab="panel_recommended_products"  title="Recommended Product Items" > <i class="fa fa-list-ol" aria-hidden="true"></i> Suggested Items </a>
          </li>
          
-         <li data-industry="COMMERCE" style="display: none;">
-         	<a href="javascript:" data-target-tab="panel_purchased_items" title="Purchased Product Items" > <i class="fa fa-shopping-cart" aria-hidden="true"></i> Purchased Items </a>
-         </li>
-         
-         <li data-industry="FINANCE" style="display: none"  >
+         <li data-industry="FINANCE" style="display: none"  onclick="loadFinancialEventList()" >
          	<a href="javascript:" data-target-tab="panel_financial_information"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Financial Data </a>
          </li>
          
@@ -272,6 +269,9 @@
 		                    <li><a href="#panel_data_touchpoints" data-toggle="tab"> <i class="fa fa-hand-pointer-o" aria-hidden="true"></i> Data Touchpoints </a></li>
 		                    <li><a href="#panel_user_consent" data-toggle="tab"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Data Privacy </a></li>
 		                    <li><a href="#panel_last_session_details" data-toggle="tab"> <i class="fa fa-hourglass-end" aria-hidden="true"></i> Last Session Data </a></li>
+		                    <li>
+		                    	<a href="#panel_purchased_items" data-toggle="tab" onclick="loadPurchasedItems()" ><i class="fa fa-shopping-cart" aria-hidden="true"></i> Purchased Items </a>
+		                    </li>
 		                </ul>
 		                
 		                <div id="event_flow_vertital_tabs" class="tab-content col-md-10" >
@@ -551,6 +551,16 @@
 				                   </tr>
 				               </table>
 							</div>
+							
+							<!-- tab : purchased items  -->
+							<div class="tab-pane" id="panel_purchased_items"  >
+								<!-- tab 7 content  -->
+						     	<h4 class="highlight_text" > <i class="fa fa-shopping-cart" aria-hidden="true"></i> Top 100 recently purchased items </h4>
+						     	<div id="purchased_items_list" class="list-group col">
+						     		<div class="list-group-item" > No data available </div>
+								</div>
+								<div  id="purchased_items_pagination" ></div>
+							</div>	
 		                    
 		                </div>
 		            </div>
@@ -873,7 +883,6 @@
                
 			</div>
 			
-
 			<!-- tab 4 Insights and Predictive Reports  -->
        		<div class="tab-pane" id="panel_insights" >
        			<!-- tab 3 content  -->
@@ -964,17 +973,7 @@
 				</div>
 			</div>
 			
-			<!-- tab 7 purchased items -->
-			<div class="tab-pane" id="panel_purchased_items"  >
-				<!-- tab 7 content  -->
-		     	<h4 class="highlight_text" > <i class="fa fa-shopping-cart" aria-hidden="true"></i> Top 100 recently purchased items </h4>
-		     	<div id="purchased_items_list" class="list-group col">
-		     		<div class="list-group-item" > No data available </div>
-				</div>
-				<div  id="purchased_items_pagination" ></div>
-			</div>	
-			
-			<!-- tab 8 purchased items -->
+			<!-- tab 7 financial event -->
 			<div class="tab-pane" id="panel_financial_information"  >
 				<!-- tab 8 content  -->
 		     	<h4 class="highlight_text" > <i class="fa fa-list-ul" aria-hidden="true"></i> Financial Data Event </h4>
@@ -1165,7 +1164,7 @@
 	</div>
 	<div class="col-md-10">
 		<small class="text-muted pull-right"> Updated at: <%- updatedAt %> </small>
-		<span class="rank_item_info" > Rank: <span class="rank_info" id="rank_content_<%- key %>" data-key="<%- key %>" ><%- indexScore %></span> </span> <br> 
+		<span class="rank_item_info" > Ranking Index: <span class="rank_info" id="rank_content_<%- key %>" data-key="<%- key %>" ><%- indexScore %></span> </span> <br> 
 		<h5 class="media-heading">  <%- content.title %> </h5>
 		<span class="small item_link" > <a target="_blank" href="<%- content.headlineVideoUrl %>" > <%- content.headlineVideoUrl %> </a> </span> 
 	</div>
@@ -1180,7 +1179,7 @@
 	 <div class="col-md-10">
 		<small class="text-muted pull-right"> Updated at: <%- updatedAt %> </small>
 
-		<span class="rank_item_info" > Rank: <span class="rank_info" id="rank_product_<%- key %>" data-key="<%- key %>" ><%- indexScore %></span> </span> <br> 
+		<span class="rank_item_info" > Ranking Index: <span class="rank_info" id="rank_product_<%- key %>" data-key="<%- key %>" ><%- indexScore %></span> </span> <br> 
 		<h5 class="media-heading">  <%- product.title %> </h5>
 
 		<div class="row">
@@ -1483,16 +1482,13 @@
         	 loadEventsInProfileIndex=0;
         	 loadEventsInProfile();
         	 
-        	 // feedback
+        	 // feedback data from customer
         	 loadFeedbacksInProfileIndex = 0;
         	 loadFeedbackEventsInProfile();
         	 
-        	 // Recommender
+        	 // Recommender for Data Personalization
         	 loadRecommendedContents();
         	 loadRecommendedProducts();
-        	 
-        	 // Transactions
-        	 loadPurchasedItems();
         	 
         	 // Financial Events
         	 loadFinancialEventList();
