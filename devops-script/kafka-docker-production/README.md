@@ -9,7 +9,7 @@
 
 ### Commands
 
-* sudo docker-compose -f path-to-zookeeper-1.yml --env-file config.env up -d
-* sudo docker-compose -f path-to-kafka-broker-1.yml --env-file config.env up -d
-* sudo docker-compose -f path-to-kafka-broker-2.yml --env-file config.env up -d
-* sudo docker-compose -f path-to-kafka-broker-3.yml --env-file config.env up -d
+* sudo docker-compose -f zookeeper-1.yml --env-file config.env up -d
+* sudo docker-compose -f kafka-broker-1.yml --env-file config.env up -d
+* sudo docker-compose -f kafka-broker-2.yml --env-file config.env up -d
+* sudo docker-compose -f kafka-broker-3.yml --env-file config.env up -d

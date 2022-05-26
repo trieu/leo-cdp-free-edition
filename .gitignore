@@ -27,3 +27,6 @@ hs_err_pid*
 public/qrcode/
 public/uploaded-files/
 public/*
+
+devops-script/kafka-docker-production/data
+data

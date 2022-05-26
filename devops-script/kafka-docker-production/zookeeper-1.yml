@@ -1,14 +1,15 @@
 version: '3'
 services:
-  zookeeper1:
+  zookeeper1:  	
     image: zookeeper:3.4.14
     hostname: zookeeper1
+    container_name: zookeeper1
     ports:
-      - "${DOCKER_HOST_IP:-127.0.0.1}:2181:2181"
+      - "${ZOOKEEPER_IP:-127.0.0.1}:2181:2181"
     environment:
       ZOO_MY_ID: 1
       ZOO_PORT: 2181
-      ZOO_SERVERS: server.1=${DOCKER_HOST_IP:-127.0.0.1}:2888:3888
+      ZOO_SERVERS: server.1=${ZOOKEEPER_IP:-127.0.0.1}:2888:3888
     volumes:
       - ./data/zookeeper1/data:/data
       - ./data/zookeeper1/datalog:/datalog
