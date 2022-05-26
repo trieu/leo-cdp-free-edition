@@ -1,4 +1,6 @@
-kafka3:
+version: '3'
+services:	
+  kafka3:
     image: confluentinc/cp-kafka:5.3.8
     container_name: kafka3
     restart: unless-stopped
@@ -15,7 +17,7 @@ kafka3:
     volumes:
       - ./data/kafka3/data:/var/lib/kafka/data
 
-kafka4:
+  kafka4:
     image: confluentinc/cp-kafka:5.3.8
     container_name: kafka4
     restart: unless-stopped

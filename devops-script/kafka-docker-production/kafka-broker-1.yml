@@ -16,6 +16,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     volumes:
       - ./data/kafka1/data:/var/lib/kafka/data
+
   kafka2:
     image: confluentinc/cp-kafka:5.3.8
     container_name: kafka2
