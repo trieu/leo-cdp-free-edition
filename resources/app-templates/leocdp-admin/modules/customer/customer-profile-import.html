@@ -92,7 +92,8 @@
     	   			else {
     	   				obj.genderStr = "Unknown";
     	   			}
-    	   			obj.dateOfBirth = moment.utc(obj.dateOfBirth).local().format('YYYY-MM-DD');
+    	   			obj.age = obj.age > 0 ? obj.age : "";
+    	   			obj.dateOfBirth = obj.dateOfBirth ? moment.utc(obj.dateOfBirth).local().format('YYYY-MM-DD') : "";
     	   			obj.learningHistory = obj.learningHistory.join("; ");
     	   			obj.workingHistory = obj.workingHistory.join("; ");
             	}
