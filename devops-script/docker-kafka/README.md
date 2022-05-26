@@ -1,4 +1,4 @@
-# Kafka for DEV
+# Kafka for DEVELOPMENT
 
 ## Login to shellbash of kafka
 
@@ -16,6 +16,7 @@
 
 ## Links
 
+* https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04
 * https://github.com/wurstmeister/kafka-docker/wiki/Connectivity
 * Running Kafka on Docker with Compose https://www.youtube.com/watch?v=ncTosfaZ5cQ
 * Installing a Kafka Cluster and Creating a Topic https://docs.google.com/document/d/1Mme73cSDWIRP53t7MHXKEZOij9gFG7aIHzyilaTpSYQ/edit?usp=sharing

@@ -1,0 +1,33 @@
+kafka5:
+    image: confluentinc/cp-kafka:5.3.8
+    container_name: kafka5
+    restart: unless-stopped
+    hostname: kafka5
+    ports:
+      - "${DOCKER_HOST_IP:-127.0.0.1}:1005:1005"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka5:19095,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:1005
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_EXTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: ${DOCKER_HOST_IP:-127.0.0.1}:2181
+      KAFKA_BROKER_ID: 5
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    volumes:
+      - ./data/kafka3/data:/var/lib/kafka/data
+
+kafka6:
+    image: confluentinc/cp-kafka:5.3.8
+    container_name: kafka6
+    restart: unless-stopped
+    hostname: kafka6
+    ports:
+      - "${DOCKER_HOST_IP:-127.0.0.1}:1006:1006"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka6:19096,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:1006
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_EXTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: ${DOCKER_HOST_IP:-127.0.0.1}:2181
+      KAFKA_BROKER_ID: 6
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    volumes:
+      - ./data/kafka4/data:/var/lib/kafka/data
