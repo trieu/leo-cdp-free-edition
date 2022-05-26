@@ -148,13 +148,13 @@
 	                <thead>
 	                    <tr>
 	                        <th class="text-center" title="A profile that has mobile phone or email">Contact</th>
-	                        <th class="text-center">Name</th>
+	                        <th class="text-center">Full Name</th>
+	                        <th class="text-center">Email</th>
+	                        <th class="text-center">Phone</th>
 	                        <th class="text-center">Last-seen Touchpoint</th>
 	                        <th class="text-center">Data Quality</th>
 	                        <th class="text-center">Lead Score</th>
-	                        <th class="text-center">CLV Score</th>
-	                        <th class="text-center">Email</th>
-	                        <th class="text-center">Phone</th>
+	                        <th class="text-center">CLV Score</th>	                        
 	                        <th class="text-center">Updated</th>
 	                        <th class="text-center">Status</th>
 	                        <th class="text-center">Actions</th>
@@ -302,23 +302,23 @@
                     "data": "firstName" // 1
                 },
                 {
-                    "data": "lastTouchpoint" // 2
+                    "data": "primaryEmail" // 2
                 },
                 {
-                    "data": "dataQualityScore" // 3
+                    "data": "primaryPhone" // 3
                 },
                 {
-                    "data": "totalLeadScore" // 4
+                    "data": "lastTouchpoint" // 4
                 },
                 {
-                    "data": "totalCLV" // 5
+                    "data": "dataQualityScore" // 5
                 },
                 {
-                    "data": "primaryEmail" // 6
+                    "data": "totalLeadScore" // 6
                 },
                 {
-                    "data": "primaryPhone" // 7
-                },
+                    "data": "totalCLV" // 7
+                },                
                 {
                     "data": "updatedAt" // 8
                 },
@@ -404,7 +404,7 @@
                         	var name = 'Web Visitor';
                         	var cssClass = "datatable_text no_contact";
                         	if(row.firstName.length > 0 || row.lastName.length > 0){
-                        		name = textTruncate(row.firstName + ' ' + row.lastName, 32);
+                        		name = textTruncate(row.firstName + ' ' + row.lastName, 30);
                         		cssClass = " has_contact";
                         	}
                             var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
@@ -415,12 +415,38 @@
                     },
                     {
                         "render": function (data, type, row) {
+                        	//format email
+                        	if(typeof data === 'string' ) {
+                        		var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
+                            	var link = '<a title="'+data+'" href="' + callJsViewStr + '" >' + textTruncate(data, 30) + '</a>';
+                            	return '<div class="datatable_text ">'  + link + '</div>';
+                        	}
+                        	return '-';
+                        },
+                        "targets": 2,
+                        "orderable": false
+                    },
+                    {
+                        "render": function (data, type, row) {
+                        	//format phone
+                        	if(typeof data === 'string' ){
+                        		var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
+                            	var link = '<a title="'+data+'" href="' + callJsViewStr + '" >' + textTruncate(data, 30) +'</a>';
+                            	return '<div class="datatable_text">'  + link + '</div>';
+                        	}
+                        	return '-';
+                        },
+                        "targets": 3,
+                        "orderable": false
+                    },
+                    {
+                        "render": function (data, type, row) {
                         	if(typeof row.lastTouchpoint !== "object") {
                         		row.lastTouchpoint = {"name":"No data"};
                         	}
-                        	return '<div style="font-size:11.4px;" title="'+ row.lastTouchpoint.name +'">'  + textTruncate(row.lastTouchpoint.name, 40) + '</div>';
+                        	return '<div style="font-size:11.4px;" title="'+ row.lastTouchpoint.name +'">'  + textTruncate(row.lastTouchpoint.name, 45) + '</div>';
                         },
-                        "targets": 2,
+                        "targets": 4,
                         "orderable": false
                     },
                     {
@@ -437,7 +463,7 @@
                         	}
                         	return '<div class="datatable_text text-center">'  + score + ' </div>';
                         },
-                        "targets": 3
+                        "targets": 5
                     },
                     {
                         "render": function (data, type, row) {
@@ -453,7 +479,7 @@
                         	}
                         	return '<div class="highlight_text text-center" style="color:#404040!important;font-size:0.8em!important" >'  + score + ' </div>';
                         },
-                        "targets": 4
+                        "targets": 6
                     },
                     {
                         "render": function (data, type, row) {
@@ -469,33 +495,7 @@
                         	}
                         	return '<div class="highlight_text text-center" style="color:#404040!important;font-size:0.8em!important" >'  + score + ' </div>';
                         },
-                        "targets": 5
-                    },   
-                    {
-                        "render": function (data, type, row) {
-                        	//format email
-                        	if(typeof data === 'string' ) {
-                        		var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
-                            	var link = '<a title="'+data+'" href="' + callJsViewStr + '" >' + textTruncate(data, 30) + '</a>';
-                            	return '<div class="datatable_text ">'  + link + '</div>';
-                        	}
-                        	return '-';
-                        },
-                        "targets": 6,
-                        "orderable": false
-                    },
-                    {
-                        "render": function (data, type, row) {
-                        	//format phone
-                        	if(typeof data === 'string' ){
-                        		var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
-                            	var link = '<a title="'+data+'" href="' + callJsViewStr + '" >' + textTruncate(data, 30) +'</a>';
-                            	return '<div class="datatable_text">'  + link + '</div>';
-                        	}
-                        	return '-';
-                        },
-                        "targets": 7,
-                        "orderable": false
+                        "targets": 7
                     },
                     {
                         "render": function (data, type, row) {

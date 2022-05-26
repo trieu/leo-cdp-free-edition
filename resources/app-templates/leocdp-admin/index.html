@@ -154,19 +154,19 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js"></script>
 	
 	<!-- ChartJS -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js"></script>
 	
 	<!-- CodeMirror for HTML Editor -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/codemirror.css" rel="stylesheet" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/codemirror.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/xml/xml.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/css/css.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/javascript/javascript.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/htmlmixed/htmlmixed.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/addon/fold/xml-fold.min.js" ></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/addon/edit/matchbrackets.min.js" ></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/addon/edit/matchtags.min.js" ></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/codemirror.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/codemirror.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/mode/xml/xml.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/mode/css/css.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/mode/javascript/javascript.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/mode/htmlmixed/htmlmixed.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/addon/fold/xml-fold.min.js" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/addon/edit/matchbrackets.min.js" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/addon/edit/matchtags.min.js" ></script>
 	
 	<script src="https://{{baseStaticUrl}}/js/codemirror/codemirror.yaml.js?_={{cacheBustingKey}}"></script>
 	<script src="https://{{baseStaticUrl}}/js/codemirror/codemirror.formatting.js?_={{cacheBustingKey}}"></script>
@@ -234,7 +234,7 @@
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////// -->
 	
 	<script src="https://{{baseStaticUrl}}/mediaplayer/mediaplayer.one.min.js?_={{cacheBustingKey}}"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.13.8/mermaid.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.13.10/mermaid.min.js"></script>
 	
 	<!-- after deps are loaded -->
 	<script>
@@ -248,8 +248,8 @@
 	    });
 		// inject dynamic configs
 		(function() {
-			var systemJsonStr = '{{systemConfigJson}}';
-			window.systemConfig = JSON.parse($('<textarea />').html(systemJsonStr).text())
+			window.systemConfig = JSON.parse($('<textarea />').html("{{systemConfigJson}}").text())
+			window.profileContactTypes = JSON.parse($('<textarea />').html("{{contactTypeJson}}").text())
 		})();
 	</script>
 	

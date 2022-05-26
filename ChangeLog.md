@@ -21,7 +21,7 @@
 - [In Progress] New Data Connector and connector protocol
 
 
-## [0.8.9] - 2022-05-25
+## [0.8.9] - 2022-05-26
 
 ### Added 
 
@@ -73,6 +73,7 @@
 
 ### Changed
 
+- [UI] improve UI and UX of profile listing in segment
 - upgrade core java libraries: Google Cloud, AWS, arangodb driver
 - [UI] improve UI of load events in profile
 - [shell script] refactoring code
