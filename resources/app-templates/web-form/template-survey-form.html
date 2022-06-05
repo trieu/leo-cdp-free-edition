@@ -73,17 +73,24 @@
 		
 		// load core js
 		(function() {
-		    //LEO Web Observer for channel: 
+		    //LEO Web Observer for touchpoint
+		    
+		    // event name all Survey Templates and observer
 		    window.submitEventName = "submit-feedback-form";
-	   		window.leoObserverLogDomain = "{{baseLeoObserverUrl}}";
+		    window.leoObserverId = "{{customData.observerId}}";
+	   		
+		    // CDN of observer JS 
+		    window.leoObserverLogDomain = "{{baseLeoObserverUrl}}";
 	   		window.leoObserverCdnDomain = "{{baseStaticUrl}}";
 	   		
+	   		// feedback from what ?
 			window.srcTouchpointName = "{{pageTitle}}";
 			window.srcTouchpointUrl = '{{customData.srcTouchpointUrl}}';
 			
+			// feedback form template 
 			window.refTemplateId = "{{customData.templateId}}";	
 			window.feedbackTypeAsText = "{{customData.feedbackTypeAsText}}";
-			window.leoObserverId = "{{customData.observerId}}";
+			
 			
 			var referer = '{{customData.referer}}';
 			if(referer === "") {

@@ -148,7 +148,7 @@
 	                <thead>
 	                    <tr>
 	                        <th class="text-center" title="A profile that has mobile phone or email">Contact</th>
-	                        <th class="text-center">Full Name</th>
+	                        <th >Full Name</th>
 	                        <th class="text-center">Email</th>
 	                        <th class="text-center">Phone</th>
 	                        <th class="text-center">Last-seen Touchpoint</th>
@@ -394,7 +394,7 @@
                         "render": function (data, type, row) {
                         	var hasContactInfo = (row.primaryEmail != '' || row.primaryPhone != '') && data > 0;
                         	var html = getCheckedBoxIcon(hasContactInfo);
-                            return '<div class="datatable_text text-center" style="color:#41A317!important;font-size:14px!important" >' + html + '</div>';
+                            return '<div class="datatable_text text-center" style="color:#41A317!important;font-size:13px!important" >' + html + '</div>';
                         },
                         "targets": 0,
                         "orderable": false

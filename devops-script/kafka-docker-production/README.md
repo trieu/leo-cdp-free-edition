@@ -13,3 +13,11 @@
 * sudo docker-compose -f kafka-broker-1.yml --env-file config.env up -d
 * sudo docker-compose -f kafka-broker-2.yml --env-file config.env up -d
 * sudo docker-compose -f kafka-broker-3.yml --env-file config.env up -d
+
+### Test commands
+
+#### Producer
+* ./kafka-console-producer.sh --topic test --broker-list 10.229.0.38:1001,10.229.0.39:1003,10.229.0.40:1005
+
+#### Consumer
+* ./kafka-console-consumer.sh --topic test --bootstrap-server 10.229.0.38:1001,10.229.0.39:1003,10.229.0.40:1005

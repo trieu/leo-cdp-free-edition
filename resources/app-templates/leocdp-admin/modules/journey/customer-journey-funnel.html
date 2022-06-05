@@ -10,10 +10,9 @@
 	.modal-body .eventName {
 		font-size:1.5em; color:blue; font-weight: bold;
 	}
-	tr > td.jsgrid-cell:nth-of-type(1) {
-		font-size:13px; color:blue;
+	tr > td.jsgrid-cell:nth-of-type(1), tr > td.jsgrid-cell:nth-of-type(3) {
+		font-size:13px; color:blue; font-weight: bold;
 	}
-	
 	.editable_event_metric {
 		background-color: #FFF8DC;
     	border-radius: 8px;
@@ -37,17 +36,8 @@
     <div class="row" >
   		<div class="row col-lg-12 text-center">
 
-			 <div class="col-md-6 ">
-                 <h4 class="chart_header text-center" > Data Funnel for Customer Journey Segmentation </h4>
-                 <div class="summary_metric data_funnel" >
-	               <div class="vcenter">
-	                  <div id="journey_funnel" ></div>
-	               </div>
-	           	</div>
-            </div>
-
-  			<div class="col-md-6" >
-                 <h4 class="chart_header text-center" > Data Funnel for Customer Profile Segmentation </h4>
+  			<div class="col-md-12" >
+                 <h4 class="chart_header text-center" > Data Funnel for Customer Analytics </h4>
                  <div class="summary_metric data_funnel" >
 	               <div class="vcenter">
 	                  <div id="profile_funnel" ></div>
@@ -58,7 +48,7 @@
         </div>
         
         <div class="col-lg-12" style="margin-top: 8px;">
-         	<h4 class="text-center"> <mark> All Event Metrics for Data Segmentation</mark> (The table is sorted by the Event Score) </h4>
+         	<h4 class="text-center"> <mark> All Event Metrics for Customer Analytics </mark> (The table is sorted by the Event Score) </h4>
             <div class="table-responsive">
                 <div id="behavioral_metrics_table"></div>
             </div>
@@ -69,7 +59,7 @@
 
 <script>
 	// global var
-	var behavioralMetricsData = [], journeyFunnelStages, customerFunnelStages;
+	var behavioralMetricsData = [], customerFunnelStages;
 
 	var initBehavioralEventList = function() {
 		var profileFunnelOptions = {
@@ -101,62 +91,33 @@
 		};
 		
 		var journeyFunnelOptions = {
-				block: {
-	   	   			highlight: true,
-		   	   		fill: {
-		                type: 'gradient'
-		            }
-	   	   	    },
-		        chart: {
-		        	curve: { enabled: true, height: 36 },
-		            height: 360,
-		            bottomWidth : 0.57,
-		            bottomPinch: 1
-		        },
-		        tooltip: {
-		            enabled: true
-		        },
-		        label: {
-		            fontSize: '14px'
-		        },
-		        events: {
-		            click: {
-		                block: function (data) {
-		                    console.log(data.label.raw);
-		                }
-		            }
-		        }
+			block: {
+   	   			highlight: true,
+	   	   		fill: {
+	                type: 'gradient'
+	            }
+   	   	    },
+	        chart: {
+	        	curve: { enabled: true, height: 36 },
+	            height: 360,
+	            bottomWidth : 0.57,
+	            bottomPinch: 1
+	        },
+	        tooltip: {
+	            enabled: true
+	        },
+	        label: {
+	            fontSize: '14px'
+	        },
+	        events: {
+	            click: {
+	                block: function (data) {
+	                    console.log(data.label.raw);
+	                }
+	            }
+	        }
 		}
 	
-	    var eventDataTypes = [
-	        { name: "First-party Data", id: 1 },
-	        { name: "Second-party Data", id: 2 },
-	        { name: "Third-party Data", id: 3 }
-	    ];
-	    
-	    var metricTypes = [
-	        { name: "IMPRESSION", id: 1 },
-	        { name: "ACTION", id: 2 },
-	        { name: "CONVERSION ", id: 3 },
-	        { name: "FEEDBACK", id: 4 },
-	        { name: "PROMOTION", id: 5 }
-	    ];
-	    
-	    var scoringModels = [
-	        { name: "LEAD", id: 1 },
-	        { name: "PROSPECT", id: 2 },
-	        { name: "ENGAGEMENT", id: 3 },
-	        { name: "ACQUISITION", id: 5 },
-	        { name: "LIFETIME_VALUE", id: 6 },
-	        { name: "CX_EFFORT", id: 7 },
-	        { name: "CX_SATISFACTION", id: 8 },
-	        { name: "CX_FEEDBACK", id: 9 },
-	        { name: "CX_PROMOTER", id: 10 },
-	        { name: "CREDIT_SCORING", id: 11 },
-	        { name: "CX_LOYALTY", id: 12 },
-	        { name: "CX_DETRACTOR", id: 13}
-	    ];
-	    
 	    var saveEventMetricMetaData = function(item){
 			var callback = function(json){
 	    		if(json.data != ""){
@@ -198,7 +159,6 @@
 	    	     $('#deletedInfoMsg').html('Delete Data Confirmation');
 	    	}
 		}
-	   
 	    
 	    LeoAdminApiUtil.getSecuredData('/cdp/funnel/metadata', {} , function(json){ 
 			 //console.log(json.data);	
@@ -213,11 +173,9 @@
 			 behavioralMetricsData = json.data['behavioral_metrics'];
 			 var currentFlowName = behavioralMetricsData[0] ? behavioralMetricsData[0].flowName : "general_business_event";
 			 
-			 journeyFunnelStages = json.data['business_event_flow'];
 			 customerFunnelStages = json.data['general_data_funnel']; 
 			 
 			 renderFunnelChart("#profile_funnel",customerFunnelStages, profileFunnelOptions, getColorCodeProfileFunnel)
-			 renderFunnelChart("#journey_funnel",journeyFunnelStages, journeyFunnelOptions, getColorCodeJourneyFunnel)
 			 
 			 // TODO
 			 var insertItemReady = false, insertedIndex = -1;
@@ -322,13 +280,13 @@
 			    }, 
 			    
 			    onItemEditing: function(args) {
-		            if(args.item.systemMetric) {
-		            	iziToast.info({
+			    	if(args.item.systemMetric) {
+				    	iziToast.info({
 		    	    	    title: 'Information Box',
-		    	    	    message: 'The event <b>[' + args.item.eventName +  ']</b> is the <b>event metric of system</b>. You can not edit this metric !'
+		    	    	    message: 'The event <b>[' + args.item.eventName +  ']</b> is the event metric of system. Be careful when you edit this metric !',
+		    	    	    timeout: 5000
 		    	    	});
-		            	args.cancel = true;
-		            }
+			    	}
 			    },
 			    
 			    onItemUpdated: function(args) {
@@ -349,15 +307,14 @@
 			    },
 	
 			    fields: [
+			    	{ name: "journeyStage", type: "select", title : "Journey Stage", items: journeyStages, align: 'center', width: 70, valueField: "id", textField: "name" },
+			    	{ name: "funnelStageId", title : "Funnel Stage", type: "select", items: customerFunnelStages, valueField: "id", textField: "name" },
 			        { name: "eventName", title : "Event Name", align: 'center' , type: "text", validate: "required", validate: "required" },
-			        { name: "eventLabel", title : "Event Label", align: 'center' , type: "text", width: 116, validate: "required" },
-			        { name: "metricType", type: "select", title : "Metric Type", items: metricTypes, align: 'center', width: 68, valueField: "id", textField: "name" },
-			        { name: "scoreModel", title : "Score Model", type: "select", items: scoringModels, width: 80, valueField: "id", textField: "name" },
+			        { name: "eventLabel", title : "Event Label", align: 'center' , type: "text", validate: "required" },			        
+			        { name: "scoreModel", title : "Scoring Model", type: "select", items: scoringModels, width: 80, valueField: "id", textField: "name" },
 			        { name: "score", title : "Event Score", type: "number", align: 'center', width: 40, validate: "required" },
-			        { name: "cumulativePoint", title : "Loyalty Point", type: "number", width: 38, align: 'center', validate: "required" },
-			        { name: "eventStageId", title : "Default Journey Stage", type: "select", items: journeyFunnelStages, valueField: "id", textField: "name" },
-			        { name: "funnelStageId", title : "Default Profile Stage", type: "select", items: customerFunnelStages, valueField: "id", textField: "name" }
-			        ,gridControls
+			        { name: "cumulativePoint", title : "Loyalty Point", type: "number", width: 44, align: 'center', validate: "required" },
+			        gridControls
 			    ]
 			});  
 		});

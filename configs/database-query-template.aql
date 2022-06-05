@@ -2,12 +2,155 @@
 #######  ####### LEO CDP ARANGODB DATABASE QUERY ####### ####### 
 #####################################################################
 
+########### JourneyMap  ########################################################################################################;
+
+AQL_GET_JOURNEY_MAP_BY_ID => 
+	FOR e in cdp_journeymap 
+	FILTER e._key == @id AND e.status > 0
+	RETURN e
+;
+
+AQL_GET_JOURNEY_MAP_BY_NAME =>
+	FOR e in cdp_journeymap 
+	FILTER e.name == @name
+	RETURN e
+;
+
+AQL_GET_ALL_JOURNEY_MAPS =>
+	FOR e in cdp_journeymap  
+	FILTER e.status > 0
+	SORT e.updatedAt DESC 
+	RETURN e
+;
+
+AQL_GET_JOURNEY_MAP_REFKEYS_BY_IDS =>
+	FOR e in cdp_journeymap  
+	FILTER e.status > 0 AND e._key IN @idList
+	SORT e.updatedAt DESC 
+	RETURN {"id":e._key, "name": e.name }
+;
+
+AQL_GET_JOURNEY_PROFILE_STATISTICS => 
+	LET vcAwareness = LENGTH(
+	    FOR p in cdp_profile
+	        FOR s in p.inJourneyMaps 
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 1 AND s.type == "VISITOR" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	    RETURN DISTINCT p._key
+	)
+	LET vcAttraction = LENGTH(
+	    FOR p in cdp_profile
+	        FOR s in p.inJourneyMaps
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 2 AND s.type == "VISITOR" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	    RETURN DISTINCT p._key
+	)
+	LET vcAsk = LENGTH(
+	    FOR p in cdp_profile
+	        FOR s in p.inJourneyMaps
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 3 AND s.type == "VISITOR" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	    RETURN DISTINCT p._key
+	)
+	LET vcAction = LENGTH(
+	    FOR p in cdp_profile
+	        FOR s in p.inJourneyMaps
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 4 AND s.type == "VISITOR" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	    RETURN DISTINCT p._key
+	)
+	LET vcAdvocacy = LENGTH(
+	    FOR p in cdp_profile
+	        FOR s in p.inJourneyMaps
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 5 AND s.type == "VISITOR" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	    RETURN DISTINCT p._key
+	)
+		
+	LET ccAwareness = LENGTH(
+	    FOR p in cdp_profile
+	        FOR s in p.inJourneyMaps 
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 1 AND s.type == "CONTACT" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	    RETURN DISTINCT p._key
+	)
+	LET ccAttraction = LENGTH(
+	    FOR p in cdp_profile
+	        FOR s in p.inJourneyMaps
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 2 AND s.type == "CONTACT" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	    RETURN DISTINCT p._key
+	)
+	LET ccAsk = LENGTH(
+	    FOR p in cdp_profile
+	        FOR s in p.inJourneyMaps
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 3 AND s.type == "CONTACT" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	    RETURN DISTINCT p._key
+	)
+	LET ccAction = LENGTH(
+	    FOR p in cdp_profile
+	        FOR s in p.inJourneyMaps
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 4 AND s.type == "CONTACT" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	    RETURN DISTINCT p._key
+	)
+	LET ccAdvocacy = LENGTH(
+	    FOR p in cdp_profile
+	        FOR s in p.inJourneyMaps
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 5 AND s.type == "CONTACT" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	    RETURN DISTINCT p._key
+	)
+	
+	RETURN {
+		"visitorCountAwareness":vcAwareness, "visitorCountAttraction":vcAttraction, "visitorCountAsk":vcAsk, "visitorCountAction":vcAction, "visitorCountAdvocacy":vcAdvocacy,
+		"contactCountAwareness":ccAwareness, "contactCountAttraction":ccAttraction, "contactCountAsk":ccAsk, "contactCountAction":ccAction, "contactCountAdvocacy":ccAdvocacy
+		}
+;
+
+AQL_GET_JOURNEY_EVENT_STATISTICS => 
+	LET eAwareness = LENGTH(
+	    FOR e in cdp_trackingevent
+        FILTER (e.refJourneyId == @journeyMapId OR @journeyMapId == "") AND e.journeyStage >= 1 AND e.refProfileId == @profileId 
+	    RETURN DISTINCT e._key
+	)
+	LET eAttraction = LENGTH(
+	    FOR e in cdp_trackingevent
+        FILTER (e.refJourneyId == @journeyMapId OR @journeyMapId == "") AND e.journeyStage >= 2 AND e.refProfileId == @profileId 
+	    RETURN DISTINCT e._key
+	)
+	LET eAsk = LENGTH(
+	    FOR e in cdp_trackingevent
+        FILTER (e.refJourneyId == @journeyMapId OR @journeyMapId == "") AND e.journeyStage >= 3 AND e.refProfileId == @profileId 
+	    RETURN DISTINCT e._key
+	)
+	LET eAction = LENGTH(
+	    FOR e in cdp_trackingevent
+        FILTER (e.refJourneyId == @journeyMapId OR @journeyMapId == "") AND e.journeyStage >= 4 AND e.refProfileId == @profileId 
+	    RETURN DISTINCT e._key
+	)
+	LET eAdvocacy = LENGTH(
+	    FOR e in cdp_trackingevent
+        FILTER (e.refJourneyId == @journeyMapId OR @journeyMapId == "") AND e.journeyStage >= 5 AND e.refProfileId == @profileId 
+	    RETURN DISTINCT e._key
+	)
+	LET funnelIndexList = (
+	    FOR p in cdp_profile
+	        FOR s in p.inJourneyMaps
+	        FILTER s.id == @journeyMapId AND p._key == @profileId 
+	    RETURN s.funnelIndex
+	)
+	RETURN {"countAwareness":eAwareness, "countAttraction":eAttraction, "countAsk":eAsk, "countAction":eAction, "countAdvocacy":eAdvocacy, "funnelIndex": LENGTH(funnelIndexList) > 0 ? funnelIndexList[0] : 0}
+;
 
 ###########  TOUCHPOINT HUB  ########################################################################################################;
 
-AQL_GET_TOUCHPOINT_BY_OBSERVER_ID => 
+AQL_GET_TOUCHPOINT_HUB_BY_HOSTNAME => 
+	FOR e in cdp_touchpointhub 
+	FILTER e.url LIKE @hostname
+	RETURN e
+;
+
+AQL_GET_TOUCHPOINT_HUB_BY_OBSERVER => 
 	FOR e in cdp_touchpointhub 
 	FILTER e.observerId == @observerId AND e.status >= 0
+	RETURN e
+;
+
+AQL_GET_TOUCHPOINT_HUBS_BY_JOURNEY_MAP => 
+	FOR e in cdp_touchpointhub 
+	FILTER (e.journeyMapId == @journeyMapId OR e._key == "leo_data_observer") AND e.status >= 0
 	RETURN e
 ;
 
@@ -38,9 +181,15 @@ AQL_GET_EVENT_OBSERVERS_BY_TYPE =>
 	RETURN e
 ;
 
-AQL_GET_EVENT_OBSERVER_BY_CHANNEL_ID =>
+AQL_GET_EVENT_OBSERVERS_BY_JOURNEY_MAP =>
 	FOR e in cdp_eventobserver 
-	FILTER e.channelId == @channelId 
+	FILTER (e.journeyMapId == @journeyMapId OR e._key == "leo_data_observer") AND e.status >= 0
+	RETURN e
+;
+
+AQL_GET_EVENT_OBSERVER_BY_TOUCHPOINT_HUB =>
+	FOR e in cdp_eventobserver 
+	FILTER e.touchpointHubId == @touchpointHubId AND e.status >= 0
 	RETURN e
 ;
 
@@ -128,6 +277,12 @@ AQL_GET_DATA_FLOW_STAGES_BY_FLOW_NAME =>
 	RETURN e
 ;
 
+AQL_DELETE_DATA_FLOW_STAGES_BY_FLOW_NAME =>
+	FOR e in cdp_dataflowstage  
+	FILTER e.flowName == @flowName 
+    REMOVE { _key: e._key } IN cdp_dataflowstage
+;
+
 AQL_GET_DATA_FLOW_STAGE_BY_ID =>
 	FOR e in cdp_dataflowstage
 	FILTER e._key >= @id
@@ -140,6 +295,12 @@ AQL_GET_EVENT_METRICS_BY_FLOW_NAME =>
 	FOR e in cdp_eventmetric 
 	FILTER e.flowName == @flowName 
 	RETURN e
+;
+
+AQL_DELETE_EVENT_METRICS_BY_FLOW_NAME =>
+	FOR e in cdp_eventmetric  
+	FILTER e.flowName == @flowName 
+    REMOVE { _key: e._key } IN cdp_eventmetric
 ;
 
 ###########  DAILY_REPORT_UNITS   ########################################################################################################;
@@ -547,15 +708,16 @@ AQL_DATA_STATS_COLLECTOR =>
 
 AQL_PROFILE_COLLECTOR_IN_DATE_RANGE =>
 	FOR d IN cdp_profile
-	    FILTER d.status > 0 AND d.createdAt >= @beginFilterDate AND d.createdAt <= @endFilterDate
+		FOR s in d.inJourneyMaps
+	    FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND d.status > 0 AND (d.updatedAt >= @beginFilterDate AND d.updatedAt <= @endFilterDate)
 	    COLLECT funnelStage = d.funnelStage WITH COUNT INTO length
 	    RETURN { "collectorKey" : funnelStage, "collectorCount" : length }
 ;
 
 AQL_PROFILE_TIMESERIES_COLLECTOR => 
 	FOR d IN cdp_profile
-	    FILTER d.createdAt >= @beginFilterDate AND d.createdAt <= @endFilterDate
-	   	COLLECT dateTime = DATE_TRUNC(d.createdAt, @truncatedUnit), collectorKey = d.funnelStage WITH COUNT INTO length
+	    FILTER d.updatedAt >= @beginFilterDate AND d.updatedAt <= @endFilterDate
+	   	COLLECT dateTime = DATE_TRUNC(d.updatedAt, @truncatedUnit), collectorKey = d.funnelStage WITH COUNT INTO length
 	    RETURN { "dateTime" : dateTime, "collectorKey" : collectorKey, "collectorCount" : length }
 ;
 
@@ -713,7 +875,7 @@ AQL_EVENT_COLLECTOR_TOTAL =>
 
 AQL_EVENT_COLLECTOR_TOTAL_IN_DATE_RANGE => 
 	FOR e IN cdp_trackingevent
-	    FILTER e.createdAt >= @beginFilterDate AND e.createdAt <= @endFilterDate
+	    FILTER (e.createdAt >= @beginFilterDate AND e.createdAt <= @endFilterDate) AND (e.refJourneyId == @journeyMapId OR @journeyMapId == "")
 	    COLLECT metricName = e.metricName WITH COUNT INTO length
 	    RETURN { "collectorKey" : metricName, "collectorCount" : length }
 ;
@@ -929,6 +1091,13 @@ AQL_GET_ALL_SEGMENTS_BY_FILTERING =>
 			OR d.forReTargeting == @forReTargeting OR d.forLookalikeTargeting == @forLookalikeTargeting)
 		SORT d.indexScore
 		RETURN d
+;
+
+AQL_GET_SEGMENT_REFKEYS_BY_IDS =>
+	FOR d in cdp_segment  
+	FILTER d.status > 0 AND d._key IN @idList
+	SORT d.indexScore 
+	RETURN {"id":d._key, "name":d.name, "indexScore": d.indexScore}
 ;
 
 AQL_GET_SEGMENTS_TO_DELETE_FOREVER =>

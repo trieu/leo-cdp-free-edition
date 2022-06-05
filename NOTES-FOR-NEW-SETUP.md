@@ -74,8 +74,8 @@ The installed server must have Internet connection, please set the outbound fire
 	# make folder to git pull 
 	sudo mkdir /build/
 	sudo git clone https://github.com/trieu/leo-cdp-free-edition.git /build/leo-cdp
-	sudo chown -R leocdp:leocdp /build/
-	sudo chmod +x /build/leo-cdp/*.sh 
+	sudo chown -R leocdp:leocdp /build/ ; sudo chmod +x /build/leo-cdp/*.sh
+	sudo mkdir -p /home/leocdp/ ; sudo chown -R leocdp:leocdp /home/leocdp/ 
 	
 
 ### DNS hosts for LEO CDP servers 

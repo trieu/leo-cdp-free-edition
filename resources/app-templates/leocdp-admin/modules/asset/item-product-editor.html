@@ -99,7 +99,8 @@
 				                    <option value="SKU" selected >SKU</option>
 				                    <option value="ISBN-13"> ISBN-13 </option>
 				                    <option value="URL"> URL </option>
-				                    <option value="external_ID"> External ID </option>
+				                    <option value="ASIN"> ASIN </option>
+				                    <option value="item_ID"> Item ID </option>
 				                </select>
 			                </div>
 			                
@@ -484,7 +485,7 @@
 				$('#productIdType').val("SKU")
 			}
          	else {
-         		var idType = initIdType || "external_ID";
+         		var idType = initIdType || "item_ID";
          		$('#productIdType').val(idType);
          	}
     	}

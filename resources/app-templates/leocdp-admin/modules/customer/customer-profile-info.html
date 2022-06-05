@@ -115,6 +115,10 @@
                
                <div class="col-md-12" >  
                     <ul class="list-group" style="margin-top: 12px">
+                    	<li class="list-group-item" >
+					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Journey Map: </b> 
+					  		[<span class="data_field" id="profileInJourneyMaps" > </span> ]
+					  	</li>
 					  	<li class="list-group-item" style="display: none">
 					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Accounts: </b> 
 					  		[<span class="data_field" id="profileInAccounts" > </span> ]
@@ -132,17 +136,7 @@
            </div>
            
            <div class="col-md-5">
-           		<!-- Funnel Data -->
-	        	<div>
-		            <b>Current Funnel Stage </b> 
-			  		<div class="progress" style="text-transform: uppercase;font-weight: bold;" >
-					  	<div id="profileJourneyScore" class="progress-bar progress-bar-striped active" role="progressbar"
-					  				aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%" >
-					    	<span data-field="journeyScore" data-fieldholder="html" data-fieldtype="int" >0</span> % funnel
-					  	</div>
-				   	</div>              	  
-	        	</div>
-           
+	        	
 	        	<!-- Primary fields -->
 	        	<div>
   
@@ -174,41 +168,39 @@
 	                <div class="primary_field" > 
 	                	<b > <i class="fa fa-fw fa-id-badge"></i> First Name: </b> 
                     	<span class="data_field" data-field="firstName" data-fieldholder="html" data-fieldtype="string" >  - </span> 
-	                </div>
-                    
+	                </div>                    
                     <div class="primary_field" > 
                     	<b > <i class="fa fa-fw fa-id-badge"></i> Last Name: </b> 
                     	<span class="data_field" data-field="lastName" data-fieldholder="html" data-fieldtype="string" >  - </span> 
-                    </div>
-                    
+                    </div>                    
                     <div class="primary_field" > 
 	                	<b > <i class="fa fa-fw fa-user-o"></i> Gender: </b> 
 	                	<span class="data_field" data-field="genderAsText" data-fieldholder="html" data-fieldtype="string" > - </span>  
-	                </div>
-	                
+	                </div>	                
 	                <div class="primary_field" > 
 	                	<b class="primary_field"  > <i class="fa fa-fw fa-user-o"></i> Age: </b> 
 	                	<span class="data_field" data-field="age" data-fieldholder="html" data-fieldtype="int" > - </span> 
-	                </div>
-	                     
+	                </div>	                     
 	                <div class="primary_field" > 
                     	<b class="primary_field"  > <i class="fa fa-fw fa-user-o"></i> Date of Birth </b> 
                     	<span class="data_field" data-field="dateOfBirth" data-fieldholder="html" data-fieldtype="date"  > -  </span> 
 	                </div>
 	                
 	                <hr>
-	        		<div class="primary_field" > 
-                    	<b> <i class="fa fa-user-circle-o" aria-hidden="true"></i> Contact Type: </b> 
+	                <div class="primary_field" >
+                    	<b class="primary_field" > <i class="fa fa-filter" aria-hidden="true"></i> Data Funnel Stage: </b> 
+                    	<span class="data_field" data-field="funnelStage" data-fieldholder="html" data-fieldtype="string" > - </span>
+                    </div>    
+                    <div class="primary_field" > 
+                    	<b class="primary_field" > <i class="fa fa-user-circle-o" aria-hidden="true"></i> Contact Type: </b> 
                     	<span class="data_field" data-field="typeAsText" data-fieldholder="html"  data-fieldtype="string"  > - </span>
                     </div> 
-                    
-                    <div class="primary_field" > 
-                    	<b class="primary_field"  > <i class="fa fa-fw fa-envelope"></i> Primary Email: </b> 
+                    <div class="primary_field" >
+                    	<b class="primary_field" > <i class="fa fa-envelope-o" aria-hidden="true"></i> Primary Email: </b>  
                     	<span class="data_field" data-field="primaryEmail" data-fieldholder="html" data-fieldtype="string" >  - </span>
-                    </div>
-                    
-                    <div class="primary_field" > 
-                    	<b class="primary_field"  >  <i class="fa fa-fw fa-phone-square"></i> Primary Mobile Phone: </b> 
+                    </div>                    
+                    <div class="primary_field" >
+                    	<b class="primary_field" > <i class="fa fa-phone" aria-hidden="true"></i> Primary Phone: </b>  
                     	<span class="data_field" data-field="primaryPhone" data-fieldholder="html" data-fieldtype="tel" > - </span>
                     </div>
                     
@@ -261,10 +253,10 @@
 		            <!-- tabs left -->
 		            <div class="tabbable">
 		                <ul id="event_flow_tabs" class="nav nav-pills nav-stacked col-md-2">
-		                	<li class="active" ><a href="#event_report" data-toggle="tab"> <i class="fa fa-line-chart" aria-hidden="true"></i> Event Data Report</a></li>
-		                	<li><a href="#panel_event_stream" data-toggle="tab"> <i class="fa fa-list-ol" aria-hidden="true"></i> Event Data Stream</a></li>
-		                	<li><a href="#panel_profile_scoring_data" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Advanced Scores</a></li>
-		                    <li><a href="#panel_event_statistics" data-toggle="tab"  > <i class="fa fa-line-chart" aria-hidden="true"></i> Event Statistics</a></li>
+		                	<li class="active" ><a href="#panel_event_journey_report" data-toggle="tab"> <i class="fa  fa-map-o " aria-hidden="true"></i> Data Journey </a></li>
+		                	<li><a href="#panel_event_report" data-toggle="tab"> <i class="fa fa-line-chart" aria-hidden="true"></i> Event Stream</a></li>
+		                	<li><a href="#panel_event_statistics" data-toggle="tab"  > <i class="fa fa-line-chart" aria-hidden="true"></i> Event Statistics</a></li>
+		                	<li><a href="#panel_profile_scoring_data" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Advanced Scores</a></li>		                    
 		                    <li><a href="#panel_referral_channels" data-toggle="tab"  > <i class="fa fa-globe" aria-hidden="true"></i> Referral Channels </a></li>
 		                    <li><a href="#panel_data_touchpoints" data-toggle="tab"> <i class="fa fa-hand-pointer-o" aria-hidden="true"></i> Data Touchpoints </a></li>
 		                    <li><a href="#panel_user_consent" data-toggle="tab"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Data Privacy </a></li>
@@ -277,13 +269,35 @@
 		                <div id="event_flow_vertital_tabs" class="tab-content col-md-10" >
 		                	
 		                    <!-- vertical tab: Event Data Report  -->
-		                    <div class="tab-pane active" id="event_report" >
-		                    	
+		                    <div class="tab-pane active" id="panel_event_journey_report" >
+		                    	<div style="padding-bottom: 10px">
+				        			<label for="journeyMapList">Data Journey Map</label>
+				        			<div style="width: 400px">
+				        				<select id="journeyMapList" data-placeholder="Choose an Journey Map" class="select" > </select>
+				        			</div>
+				        		</div>
+				        		<div>
+				        			<label> Journey Progress <span class="data_field" id="profileFunnelIndexName"  > </span>  </label> 
+							  		<div class="progress" style="text-transform: uppercase;font-weight: bold;" >
+									  	<div id="profileJourneyFunnel" class="progress-bar progress-bar-striped active" role="progressbar"
+									  				aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%" >
+									    	<span id="profileJourneyFunnelValue" >0</span> % journey
+									  	</div>
+								   	</div>
+							   	</div>
+		                    	<div class="vcenter highlight_box" style="width: 100%; padding: 30px">
+		                    		<h4 id="event_journey_funnel_nodata" style="display: none;"> No data available </h4>
+	                  				<div id="event_journey_funnel" class="funnel" ></div>
+	               				</div>
+		                    </div>  
+		                    
+		                    <!-- vertical tab: Event Data Stream  -->
+		                    <div class="tab-pane" id="panel_event_report" >
+		                    	<!-- Time Series Report -->
 		                    	<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Data Report </h4> 
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Time Series Report </h4> 
 								</div>
-									
-								<div class="col-lg-12 highlight_box" >
+								<div class="col-lg-12 highlight_box row" >
 									<div class="col-lg-12 float-right">
 								        <div class='col-lg-5 col-xs-12'>
 								            <div class="form-group">
@@ -312,22 +326,18 @@
 										<h5> Data from <span id="eventDataFromDate" class="highlight_text">  </span> 
 											to <span id="eventDataToDate" class="highlight_text" >  </span> </h5> 
 									</div>
-									<div >
+									<div>
 										<canvas id="timeseriesProfileEventChart" ></canvas>
 									</div>
 					      		</div>
-		                    	
-		                    </div>
-		                    
-		                    <!-- vertical tab: Event Data Stream  -->
-		                    <div class="tab-pane" id="panel_event_stream"  >
-		                    	<div class="col-lg-12">
+					      		
+					      		<!-- Event Data Stream -->
+		                    	<div class="col-lg-12" style="margin-top: 10px" >
 									<h4 class="highlight_text" > <i class="fa fa-line-chart" aria-hidden="true"></i> Event Data Stream </h4> 
 								</div>
-		                    	
-		                    	<!-- controls -->
 		                    	<div class="row">
 									<div class="col-lg-12" style="margin-bottom: 6px" >
+										
 										<div class="col-lg-6">
 											<input id="keywords_filter_events" class="form-control" type="text" placeholder="Enter keywords to filter tracking events"  autocomplete="off"  >
 										</div>
@@ -341,8 +351,6 @@
 										</div>
 									</div>
 								</div>
-								
-								<!-- container -->
 								<div id="profile_activitiy_flow_container" class="row" style="margin-right: 16px; height: 1600px; overflow-y: scroll;overflow-x: hidden;" >
 									<ul id="profile_activitiy_flow" class="list-group list-group-dividered list-group-full"  >
 						     			<!-- data  -->
@@ -359,7 +367,16 @@
 								</div>
 		                    </div>
 		                    
-		                     <!-- vertical tab Event Statistics  -->
+							<!-- vertical tab: Event Statistics  -->
+		                    <div class="tab-pane" id="panel_event_statistics" >
+								<div class="col-lg-12">
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Statistics </h4> 
+								</div>
+								<div id="profileEventStatistics" class="col-lg-12" data-field="eventStatistics" data-fieldholder="html_list_key_value" data-fieldtype="hashmap" >
+								</div>
+		                    </div>
+		                    
+		                    <!-- vertical tab Event Statistics  -->
 		                    <div class="tab-pane" id="panel_profile_scoring_data" >
 		                    	<div class="col-lg-12">
 									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> More Scoring Data </h4> 
@@ -403,15 +420,6 @@
 					                       </td>
 					                   </tr>
 					            </table>
-		                    </div>
-		                    
-		                    <!-- vertical tab: Event Statistics  -->
-		                    <div class="tab-pane" id="panel_event_statistics" >
-								<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Statistics </h4> 
-								</div>
-								<div id="profileEventStatistics" class="col-lg-12" data-field="eventStatistics" data-fieldholder="html_list_key_value" data-fieldtype="hashmap" >
-								</div>
 		                    </div>
 		                    
 		                    <!-- vertical tab: Referrer Channels  -->
@@ -1344,21 +1352,7 @@
          var dataProcessor = function(data){
         	 viewProfileId = data.id;
         	 
-        	 // Journey Data Funnel : loyalty percentage 
- 			 data.journeyScore = data.journeyScore == 0 ? 6 : data.journeyScore;
-         	 var journeyScoreNode = $('#profileJourneyScore');
-         	 journeyScoreNode.attr('aria-valuenow',data.journeyScore).css('width',data.journeyScore+'%');
-        	 if(data.journeyScore > 90) {
-        		 journeyScoreNode.addClass("progress-bar-danger");
-        	 }
-        	 else if(data.journeyScore >= 50 && data.journeyScore < 90) {
-        		 journeyScoreNode.addClass("progress-bar-success");
-        	 }
-        	 else {
-        		 journeyScoreNode.addClass("progress-bar-info");
-        	 }
-        	 
-        	 var noinfo = 'No data';
+        	 var noinfo = '-';
         	 
         	 if(data.firstName !== "" || data.lastName !== ""){
         		 data.fullName = data.firstName +  " " + data.lastName;
@@ -1438,15 +1432,28 @@
         	 var inSegmentSize = profileData.inSegments.length;
        		 profileData.inSegments.forEach(function(e){
            		 inSegmentSize--;
-           		 // FIXME  just make sure do not show deleted segment info
-           		 if(e.name.indexOf("[DELETED]")<0){
-           			 var ahtml = $('<a/>').attr('href',"#calljs-leoCdpRouter('Segment_Details','"+e.id+"')").text(e.name)[0].outerHTML;
-               		 var html = '<b>' + ahtml + '</b>';
-               		 if(inSegmentSize > 0){
-               			 html += ", ";
-               		 }
-               		 inSegmentsNode.append(html);
+           		 var title = "Segment: " + e.name;
+           		 var ahtml = $('<a/>').attr('title',title).attr('href',"#calljs-leoCdpRouter('Segment_Details','"+e.id+"')").text(e.name)[0].outerHTML;
+           		 var html = '<b>' + ahtml + '</b>';
+           		 if(inSegmentSize > 0){
+           			 html += ", ";
            		 }
+           		 inSegmentsNode.append(html);
+           	 });
+       		 
+       		 // in Journey Maps
+        	 var inJourneyMapsNode = $('#profileInJourneyMaps');
+        	 var inJourneyMapsSize = profileData.inJourneyMaps.length;
+       		 profileData.inJourneyMaps.forEach(function(e){
+       			inJourneyMapsSize--;
+       			var title = "Journey Map: " + e.name + " => At Stage: " + journeyStagesMap[e.indexScore];
+       			var name = e.name;
+       			var ahtml = $('<a/>').attr('title',title).attr('href',"#calljs-leoCdpRouter('Data_Journey_Map','"+e.id+"')").html(name)[0].outerHTML;
+          		var html = '<b>' + ahtml + '</b>';
+          		if(inJourneyMapsSize > 0){
+          			 html += ", ";
+          		}
+          		inJourneyMapsNode.append(html);
            	 });
         	 
         	 //profileData.inAccounts.push({"id":123,"name":"USPA Technology Company"})
@@ -1457,7 +1464,7 @@
            		 inAccountSize--;
            		 // FIXME  just make sure do not show deleted account info
            		 if(e.name.indexOf("[DELETED]")<0){
-           			 var ahtml = $('<a/>').attr('href',"#calljs-leoCdpRouter('Account_Details','"+e.id+"')").text(e.name)[0].outerHTML;
+           			 var ahtml = $('<a/>').attr('href',"#calljs-leoCdpRouter('Account_Details','"+e.id+"')").html(e.name)[0].outerHTML;
                		 var html = '<b>' + ahtml + '</b>';
                		 if(inAccountSize > 0){
                			 html += ", ";
@@ -1497,8 +1504,11 @@
         	 renderEngagedTouchpoints(profileData.topEngagedTouchpoints)
         	 
         	 // Analytics
+        	 reportJourneyOfSingleProfile('#event_journey_funnel',profileId);
         	 initDateFilterComponent(true, null, null, daysToQueryEventData);
         	 loadProfileEventDailyReportUnit(profileId)
+        	 
+        	 
         	 //renderJourneyFlowChart();
         	 //loadProfileAttribution();
              //loadMediaTouchpoints();

@@ -21,10 +21,12 @@
 - [In Progress] New Data Connector and connector protocol
 
 
-## [0.8.9] - 2022-05-26
+## [0.8.9] - 2022-06-06
 
 ### Added 
 
+- [Data Journey] main report and profile
+- [Data Journey] can manage multiple journey map for a customer profile
 - [Data Processor] observer can save tracking event in Kafka, data is processed in different worker
 - [LEO JS SDK] parse UTM data and mapping into profile data model
 - [Profile] support compute data quality using saved profile attribute configs
@@ -73,6 +75,7 @@
 
 ### Changed
 
+- [UI] restructure and improve UI/UX of admin dashboard
 - [UI] improve UI and UX of profile listing in segment
 - upgrade core java libraries: Google Cloud, AWS, arangodb driver
 - [UI] improve UI of load events in profile

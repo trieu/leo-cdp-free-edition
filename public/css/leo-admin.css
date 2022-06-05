@@ -16,6 +16,18 @@
 	color:#3300ff!important
 }
 
+.report_page_header {
+	width: 100%;float: left;min-height: 1px; margin-bottom: 20px; 
+}
+
+.panel-summary {
+    border-color: #FF7C67 ;
+}
+.panel-summary>.panel-heading {
+    color: #410F06;
+    background-color: #F5DBD6;
+    border-color: #FF7C67;
+}
 .panel-marketing {
     border-color: #28a4bd ;
 }

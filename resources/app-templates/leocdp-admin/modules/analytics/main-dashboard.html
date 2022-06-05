@@ -8,58 +8,47 @@
     #primary_dashboard svg {
     	margin:auto; display:block;
     }
-    #event_total_stats {
-		overflow-y:scroll;
-	}
 	.collector-item {
 		padding: 4px!important; 
 	}
+	#data_journey_funnel_wrapper {
+		width: 96%; margin: auto; padding-bottom:40px; padding-top:15px;
+	}
+	#profile_funnel_wrapper {
+		padding-bottom:20px; padding-top:10px;
+	}
+	.stats_item {
+		background-color: #FFF8DC;
+	    color: #0000CD;
+	    border-radius: 6px;
+	    padding: 3px;
+	    font-weight: bold;
+	    overflow: hidden;
+	}
 </style>
 
-<div class="row">
-      <div class="col-lg-12">
-          <h5 class="page-header" id="page_breadcrumb" > </h5>
-      </div>
-</div>
 
 <div id="primary_dashboard_loader" class="loader"></div>
 <div id="primary_dashboard" class="container-fluid"  style="display: none;" >
 
     <div class="row">
         
-        <div class="row">
-        	<div class="col-md-4">
-            	<div class="panel panel-marketing">
-            		<div class="panel-heading"> <h3 class="panel-title text-center"> Marketing Metrics in Total</h3> </div>
-				  	<div class="panel-body" id="marketing_metrics_holder" >
-				  	</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-            	<div class="panel panel-business">
-            		<div class="panel-heading"> <h3 class="panel-title text-center"> Key Business Metrics in Total</h3> </div>
-				  	<div class="panel-body" id="sales_metrics_holder" >
-				  	</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-            	<div class="panel panel-cx">
-            		<div class="panel-heading"> <h3 class="panel-title text-center"> Customer Experience Metrics in Total</h3> </div>
-				  	<div class="panel-body" id="cx_metrics_holder" >
-				  	</div>
-				</div>
-			</div>
-        </div>
-        
-        <div class="col-md-8 highlight_box">
+        <div class="col-md-9">
 				
-         	<div class='text-center' style="margin-bottom: 20px">
-				<h4> <i class="fa fa-filter" aria-hidden="true"></i> Funnel Data Reporting from
-						<mark id="beginReportDate"></mark> to <mark id="endReportDate" ></mark> </h4>
+         	<div class="report_page_header">
+				<h4> <i class="fa fa-area-chart" aria-hidden="true"></i> 
+					Customer Data Report from <mark id="beginReportDate"></mark> to <mark id="endReportDate" ></mark> 
+				</h4>
 			</div>
 			
         	<div class="row float-right">
-		        <div class='col-md-5 col-xs-12'>
+        		<div class='col-md-4 col-xs-12' style="border-right:1px solid #000;height: 60px;" >
+        			<label for="journeyMapList">Data Journey Map</label>
+        			<div>
+        				<select id="journeyMapList" data-placeholder="Choose an Journey Map" class="select" > </select>
+        			</div>
+        		</div>
+		        <div class='col-md-3 col-xs-12'  >
 		            <div class="form-group">
 		                <div class='input-group date' id='beginFilterDate'>
 		                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
@@ -68,7 +57,7 @@
 		                </div>
 		            </div>
 		        </div>
-		        <div class='col-md-5 col-xs-12'>
+		        <div class='col-md-3 col-xs-12'>
 		            <div class="form-group">
 		                <div class='input-group date' id='endFilterDate'>
 		                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
@@ -78,46 +67,71 @@
 		            </div>
 		        </div>
 		        <div class='col-md-2 col-xs-12 text-center'>
-		        	<button type="button" class="btn btn-do-now" style="width: 86%" onclick="showDashboardReport()" > 
+		        	<button type="button" class="btn btn-do-now" style="width: 86%" onclick="showDashboardReport(true)" > 
 		        		<i class="fa fa-check" aria-hidden="true"></i> OK </button>
 		        </div>
 		    </div>
 	       
-            <div class="row chart_box"  >
-            	
-                <div class="col-md-2"></div>
-                
-	            <div class="col-md-8">
-	            	<!--  Data Funnel Chart  -->
-	               	<div id="profile_funnel_wrapper" class="vcenter" style="width: 96%; margin: auto; max-width: 620px;">
-	                  	<div id="profile_funnel"></div>
-	               	</div>
-	            </div>
-	            
-	            <div class="col-md-2"></div>
+            <div class="chart_box"  >
+            	<ul class="nav nav-tabs" data-tab-content="main_dashboard_report_tabs" >
+		         	<li class="active" onclick="showDashboardReport(false)" >
+		          		<a href="javascript:" data-target-tab="panel_journey_map_report" title="Journey Map Report"> <i class="fa fa-map-o" aria-hidden="true"></i> Data Journey Report </a>
+		         	</li>
+		         	<li>
+		         		<a href="javascript:" data-target-tab="panel_data_funnel_report" title="Data Funnel Report" > <i class="fa fa-filter" aria-hidden="true"></i> Profile Funnel Report </a>
+		         	</li>
+	   			</ul>
+	   			
+	   			<div class="tab-content" id="main_dashboard_report_tabs" style="min-height: 450px"  >
+
+					<!-- tab 1 Journey Map Report  -->
+					<div class="highlight_box tab-pane active" id="panel_journey_map_report"  >
+						<div id="data_journey_funnel_wrapper" class="vcenter" >
+	                  		<div id="data_journey_funnel" class="funnel" ></div>
+	               		</div>
+					</div>
+					
+					<!-- tab 2 Data Funnel Report   -->
+					<div class="highlight_box tab-pane" id="panel_data_funnel_report" >
+						<div id="profile_funnel_wrapper" class="vcenter" >
+	                  		<div id="profile_funnel"></div>
+	               		</div>
+					</div>
+				</div>
 	            
             </div>
+            
         </div>
         
         <!-- holder for Total Customer Statistics and Total Event Statistics -->
-        <div class="col-md-4 "> 
+        <div class="col-md-3"> 
         	<div class="chart_box">
-	        	<h4 class="highlight_text text-center" > Summary Statistics in Total </h4>
-	            <div class="summary_metric">
-	                <div class="vcenter" id="profile_total_stats" >
-	 					<!--  Summary: profile, segment, revenue -->
-	                </div>
-	            </div>
+	        		            
+	            <div class="panel panel-summary" >
+            		<div class="panel-heading"> <h4 class="panel-title text-center"> <i class="fa fa-info-circle" aria-hidden="true"></i> Summary Report </h4> </div>
+				  	<div class="panel-body" id="profile_total_stats">
+				  		<!--  Summary: profile, segment, revenue -->
+				  	</div>
+				</div>
 	            
-	            <h4 class="highlight_text text-center" > Event Statistics in Total </h4>
-	            <div class="summary_metric">
-	                <div class="vcenter" id="event_total_stats" >
-	                    <!--  Events -->
-	                    <div class="highlight_text text-center" style="padding: 10px">
-	                    	No data available
-	                    </div>
-	                </div>
-	            </div>
+	            <div class="panel panel-marketing">
+            		<div class="panel-heading"> <h4 class="panel-title text-center"> <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing Report in Total</h4> </div>
+				  	<div class="panel-body" id="marketing_metrics_holder" >
+				  	</div>
+				</div>
+				
+				<div class="panel panel-business">
+            		<div class="panel-heading"> <h4 class="panel-title text-center"> <i class="fa fa-info-circle" aria-hidden="true"></i> Sales Report in Total</h4> </div>
+				  	<div class="panel-body" id="sales_metrics_holder" >
+				  	</div>
+				</div>
+				
+				<div class="panel panel-cx">
+            		<div class="panel-heading"> <h4 class="panel-title text-center"> <i class="fa fa-info-circle" aria-hidden="true"></i> CX Report in Total</h4> </div>
+				  	<div class="panel-body" id="cx_metrics_holder" >
+				  	</div>
+				</div>
+	            
 	       	</div>
         </div>
         
@@ -142,13 +156,19 @@
 
 <script>
 	//select date
-
+	var journeyMapIdToReport = "id_default_journey"; 
     var initPrimaryDashboard = function () {
-    	updateProfileChartWrapper();
-		
-    	initDateFilterComponent(false);
+    	setupTabPanels();
+    	updateProfileChartWrapper();		
+    	//initDateFilterComponent(false);
+    	initDateFilterComponent(false, null, null, 45);
     	
-    	showDashboardReport();
+    	showDashboardReport(true);
+    	
+    	loadJourneyMapList(false, function(id){
+    		journeyMapIdToReport = id;
+    		showDashboardReport(true)
+        });
     	
     	//loadEventStatistics()
         
@@ -156,7 +176,7 @@
       	//loadCustomerVenn();
     }
 	
-	var mainDashboardFunnelHeight = 350;
+	var mainDashboardFunnelHeight = 420;
 	var dashboardFontSize = 14;
 	
 	var updateProfileChartWrapper = function() {
@@ -185,18 +205,19 @@
 		}
 	}
 	
-    var showDashboardReport = function() {
-    	var datetimeFilter = getDateFilterValues();
+	var dashboardDataModel = false;
+	
+    var showDashboardReport = function(refresh) {
     	
-    	var beginReportDate = datetimeFilter.beginFilterDate;
+    	var queryFilter = getDateFilterValues();
+    	
+    	var beginReportDate = queryFilter.beginFilterDate;
     	$('#beginReportDate').text(new moment(beginReportDate).format(defaultDateFormat))
     	
-    	var endReportDate = datetimeFilter.endFilterDate;
+    	var endReportDate = queryFilter.endFilterDate;
     	$('#endReportDate').text(new moment(endReportDate).format(defaultDateFormat))
         
-    	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/dashboard-primary';
-    	
-    	var dashboardFunnelOption = {
+    	var dataFunnelOptions = {
    	   		block: {
    	   			highlight: true,
 	   	   		fill: {
@@ -206,11 +227,12 @@
    	        chart: {
    	         	curve: {
    	                 enabled: true,
-   	                 height: 30
+   	                 height: 32
    	             },
    	             height: mainDashboardFunnelHeight,
    	             bottomWidth : 0.64,
-	             bottomPinch: 1
+	             bottomPinch: 1,
+	             width: mainDashboardFunnelHeight * 4/3
    	         },
    	         tooltip: {
    	             enabled: true
@@ -236,14 +258,13 @@
 	  			data.push([e.collectorKey, value, colorCode ]);
 	  		}
   	        var chart = new D3Funnel(domSelector);
-  	        chart.draw(data, dashboardFunnelOption);
+  	        chart.draw(data, dataFunnelOptions);
   	    }
     	
-    	var renderStatsTotal = function(profileTotalStats, eventTotalStats){
-    		var sel = '#profile_total_stats';
-    		$(sel).empty();
+    	var showTotalStatistics = function(profileTotalStats) {
     		
-    		// empty 3 main boxs at the top
+    		// empty 4 data boxes 
+    		$('#profile_total_stats').empty();
     		$('#marketing_metrics_holder').empty();
     		$('#sales_metrics_holder').empty();
     		$('#cx_metrics_holder').empty();
@@ -255,50 +276,77 @@
 				var flowType = obj.flowType;
 				
     			if(flowType === 0){
-    				appendItemCount(sel, label, value);
+    				$('#profile_total_stats').append('<div class="stats_item" > '+label+' : '+value+' </div>');
     			}
     			else if(flowType === 1) {
-    				$('#marketing_metrics_holder').append('<div class="highlight_text text-center" > '+label+' : '+value+' </div>');
+    				$('#marketing_metrics_holder').append('<div class="stats_item" > '+label+' : '+value+' </div>');
     			}
 				else if(flowType === 2) {
-					$('#sales_metrics_holder').append('<div class="highlight_text text-center" > '+label+' : '+value+' </div>');
+					$('#sales_metrics_holder').append('<div class="stats_item" > '+label+' : '+value+' </div>');
     			}
 				else if(flowType === 3) {
-					$('#cx_metrics_holder').append('<div class="highlight_text text-center" > '+label+' : '+value+' </div>');
+					$('#cx_metrics_holder').append('<div class="stats_item" > '+label+' : '+value+' </div>');
     			}
     		}
-    		
-    		var sel = '#event_total_stats';
-    		$(sel).css('height',mainDashboardFunnelHeight-50);
-    		var len = eventTotalStats.length;
-    		if(len > 0) {
-    			$(sel).empty();
-        		for(var i=0; i < len; i++){
-        			var obj = eventTotalStats[i];
-        			appendItemCount(sel, obj.collectorKey, obj.collectorCount);
-        		}
-    		}
+    	}
+    	
+    	var updateChartDashboard = function(){
+   			var profileTotalStats = dashboardDataModel.profileTotalStats;
+   	        showTotalStatistics(profileTotalStats);
+   	        
+   	        var profileFunnelData = dashboardDataModel.profileFunnelData;
+   	        visualizeFunnel('#profile_funnel', profileFunnelData);
+   	        
+   	        var journeyStatsData = dashboardDataModel.journeyStatsData;
+   	        
+   	        $('#data_journey_funnel').empty();
+   	        reportJourneyOfAllProfiles('#data_journey_funnel', journeyStatsData);
     	}
         
-    	$("#primary_dashboard_loader").show();
-    	$("#primary_dashboard").hide();
-        LeoAdminApiUtil.getSecuredData(urlStr, datetimeFilter , function (json) {
-        	$("#primary_dashboard_loader").hide();
-        	$("#primary_dashboard").show();
+    	if(dashboardDataModel === false || refresh === true){
+    		$("#primary_dashboard_loader").show();
+        	$("#primary_dashboard").hide();
         	
-            if (json.httpCode === 0 && json.errorMessage === '') {
-        		
-        		var profileTotalStats = json.data.profileTotalStats;
-                var eventTotalStats = json.data.eventTotalStats;
-                renderStatsTotal(profileTotalStats, eventTotalStats);
-                
-                var profileFunnelData = json.data.profileFunnelData;
-                visualizeFunnel('#profile_funnel', profileFunnelData);
-                
-                $('.collector-count').css('font-size',dashboardFontSize+'px');
-            } else {
-                LeoAdminApiUtil.logErrorPayload(json);
-            }
+        	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/dashboard-primary';
+        	queryFilter['journeyMapId'] = journeyMapIdToReport;
+            LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {
+            	$("#primary_dashboard_loader").hide();
+            	$("#primary_dashboard").show();
+            	
+                if (json.httpCode === 0 && json.errorMessage === '') {
+                	dashboardDataModel = json.data;
+                	updateChartDashboard();
+                } else {
+                    LeoAdminApiUtil.logErrorPayload(json);
+                }
+            });
+    	}
+    	else {
+    		updateChartDashboard();
+    	}
+    }
+    
+    var reportJourneyOfAllProfiles = function(containerId, journeyStatsData) {
+    	var dataModel = {
+            labels: journeyLabel5A,
+            subLabels: ['VISITOR PROFILE', 'CONTACT PROFILE'],
+            colors: [            
+                ['#D6EAF8', '#85C1E9', '#3498DB'],
+                ['#B7F0B7', '#8CF08C', '#5CF45C']
+            ],
+            values: journeyStatsData
+        };
+    	var containerWidth = $(containerId).parent().width();
+    	var graph = new FunnelGraph({
+            container: containerId,
+            gradientDirection: 'horizontal',
+            data: dataModel,
+            displayPercent: true,
+            direction: 'horizontal',
+            width: containerWidth,
+            height: 350,
+            subLabelValue: 'percent'
         });
+    	graph.draw();
     }
 </script>
