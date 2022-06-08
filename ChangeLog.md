@@ -21,10 +21,11 @@
 - [In Progress] New Data Connector and connector protocol
 
 
-## [0.8.9] - 2022-06-06
+## [0.8.9] - 2022-06-08
 
 ### Added 
 
+- [Chrome Ext] test data observer in sandbox
 - [Data Journey] main report and profile
 - [Data Journey] can manage multiple journey map for a customer profile
 - [Data Processor] observer can save tracking event in Kafka, data is processed in different worker
@@ -63,6 +64,7 @@
 
 ### Fixed 
 
+- [Data Journey] improve and fix bugs profile model
 - [Segment] CSV data exporting is JSON if segment'size larger than 100, not CSV
 - [UI] sorting fields in segment list
 - fix bugs load and save primaryPhone, add input type for telephone

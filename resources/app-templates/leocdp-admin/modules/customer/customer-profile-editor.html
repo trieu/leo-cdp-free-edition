@@ -41,16 +41,6 @@
 	        	</div>
       		</div>
       		<div class="col-md-5">
-      			<!-- Funnel Data -->
-	        	<div>
-		            <b>Current Funnel Stage </b> 
-			  		<div class="progress" style="text-transform: uppercase;font-weight: bold;" >
-					  	<div id="profileJourneyScore" class="progress-bar progress-bar-striped active" role="progressbar"
-					  				aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%" >
-					    	<span data-field="journeyScore" data-fieldholder="html" data-fieldtype="int" >0</span> % funnel
-					  	</div>
-				   	</div>              	  
-	        	</div>
       		
 	        	<!-- Primary fields -->
 	        	<div>
@@ -612,20 +602,6 @@
         	 editedProfileModel = LeoCdpAdmin.routerContext.dataObject;
         	 // avatar
         	 initProfileAvatarUploader(editedProfileModel);
-        	 
-        	 // Journey Data Funnel : journey percentage 
-         	 var journeyScoreNode = $('#profileJourneyScore');
-        	 var journeyScore = editedProfileModel.journeyScore;
-         	 journeyScoreNode.attr('aria-valuenow', journeyScore).css('width', journeyScore+'%');
-	       	 if(journeyScore > 90) {
-	       		 journeyScoreNode.addClass("progress-bar-danger");
-	       	 }
-	       	 else if(journeyScore >= 50 && journeyScore < 90) {
-	       		 journeyScoreNode.addClass("progress-bar-success");
-	       	 }
-	       	 else {
-	       		 journeyScoreNode.addClass("progress-bar-info");
-	       	 }
          	 
          	 // profile type
          	 formatSelectionList('input[name="type"]')

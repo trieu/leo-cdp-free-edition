@@ -246,7 +246,7 @@
 	
 	var mergeDuplicatesCallback = function(){
 		iziToast.success({
-    	    title: 'Merge Duplicated Profile',
+    	    title: 'Merge Duplicate Profile',
     	    onClosed: function(){
     	    	location.reload();
     	    },
@@ -259,7 +259,7 @@
             if (json.httpCode === 0 && json.errorMessage === '') {
     			if(json.data){
     				iziToast.info({
-    		    	    title: 'Merge Duplicated Profile',
+    		    	    title: 'Merge Duplicate Profile',
     		    	    message: 'LEO CDP is processing all profiles in the database. It takes several minutes for this job'
     		    	});
     			}

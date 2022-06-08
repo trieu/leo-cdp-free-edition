@@ -125,13 +125,15 @@ AQL_GET_JOURNEY_EVENT_STATISTICS =>
         FILTER (e.refJourneyId == @journeyMapId OR @journeyMapId == "") AND e.journeyStage >= 5 AND e.refProfileId == @profileId 
 	    RETURN DISTINCT e._key
 	)
-	LET funnelIndexList = (
+LET journeyData = (
 	    FOR p in cdp_profile
 	        FOR s in p.inJourneyMaps
 	        FILTER s.id == @journeyMapId AND p._key == @profileId 
-	    RETURN s.funnelIndex
+	    RETURN {funnelIndex:  s.funnelIndex, scoreCX: s.scoreCX }
 	)
-	RETURN {"countAwareness":eAwareness, "countAttraction":eAttraction, "countAsk":eAsk, "countAction":eAction, "countAdvocacy":eAdvocacy, "funnelIndex": LENGTH(funnelIndexList) > 0 ? funnelIndexList[0] : 0}
+	RETURN {"countAwareness":eAwareness, "countAttraction":eAttraction, "countAsk":eAsk, "countAction":eAction, "countAdvocacy":eAdvocacy, 
+			"funnelIndex": journeyData[0] != null ? journeyData[0].funnelIndex : 0, 
+			"scoreCX" : journeyData[0] != null ? journeyData[0].scoreCX : null}
 ;
 
 ###########  TOUCHPOINT HUB  ########################################################################################################;

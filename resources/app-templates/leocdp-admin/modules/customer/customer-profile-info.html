@@ -187,10 +187,7 @@
 	                </div>
 	                
 	                <hr>
-	                <div class="primary_field" >
-                    	<b class="primary_field" > <i class="fa fa-filter" aria-hidden="true"></i> Data Funnel Stage: </b> 
-                    	<span class="data_field" data-field="funnelStage" data-fieldholder="html" data-fieldtype="string" > - </span>
-                    </div>    
+	                    
                     <div class="primary_field" > 
                     	<b class="primary_field" > <i class="fa fa-user-circle-o" aria-hidden="true"></i> Contact Type: </b> 
                     	<span class="data_field" data-field="typeAsText" data-fieldholder="html"  data-fieldtype="string"  > - </span>
@@ -277,15 +274,18 @@
 				        			</div>
 				        		</div>
 				        		<div>
-				        			<label> Journey Progress <span class="data_field" id="profileFunnelIndexName"  > </span>  </label> 
-							  		<div class="progress" style="text-transform: uppercase;font-weight: bold;" >
+				        			<label> Journey Progress 
+				        				<span class="data_field" style="border-right:1px solid #000; padding-right: 10px" id="profileFunnelIndexName"  >-</span>
+				        				<span class="data_field" >Sentiment Score: <span id="profileJourneySentimentScore">0</span></span> 
+				        			</label> 
+							   	</div>
+		                    	<div class="vcenter highlight_box" style="width: 100%; padding: 30px">
+		                    		<div class="progress" style="text-transform: uppercase;font-weight: bold;" >
 									  	<div id="profileJourneyFunnel" class="progress-bar progress-bar-striped active" role="progressbar"
 									  				aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%" >
 									    	<span id="profileJourneyFunnelValue" >0</span> % journey
 									  	</div>
 								   	</div>
-							   	</div>
-		                    	<div class="vcenter highlight_box" style="width: 100%; padding: 30px">
 		                    		<h4 id="event_journey_funnel_nodata" style="display: none;"> No data available </h4>
 	                  				<div id="event_journey_funnel" class="funnel" ></div>
 	               				</div>

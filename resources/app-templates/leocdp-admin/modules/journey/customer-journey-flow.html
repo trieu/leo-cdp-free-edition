@@ -7,6 +7,15 @@
 #touchpoint_hub_table tr.jsgrid-header-row, #data_observers_table tr.jsgrid-header-row {
 	font-size:13px;
 }
+.observer_id {
+	font-size: 11px;
+    font-weight: bold;
+    color: #3300ff;
+    padding: 10px;
+}
+.observer_name, .touchpoint_hub_name {
+	color: #3300ff;
+}
 </style>
 
 <div class="row">
@@ -223,6 +232,7 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 				<div id="code_holder" ><textarea id="data_observer_code" class="code">
 // (1) LEO OBSERVER: load JavaScript code for [__tpHubName__]
 (function() { 	
+	// Observer ID
 	window.leoObserverId = "__leoObserverId__";
 	
 	// CDN of JS
@@ -245,7 +255,8 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 var parseDataUTM = window.parseDataUTM || function () {
     if (location.search.indexOf('utm_') > 0) {
         var search = location.search.substring(1);
-        return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
+        var json = decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"');
+        return JSON.parse('{"' + json + '"}');
     }
 }
 	
@@ -260,6 +271,7 @@ function leoObserverProxyReady(session) {
 				</textarea></div>
 			</div>  
 			<div class="modal-footer">
+				<button type="button" id="testObserverChromeExtBtn" class="btn btn-info" style="float: left;" ><i class="fa fa-external-link" aria-hidden="true"></i> Test Observer with Chrome Extension</button>
 		        <button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
 		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
 		    </div>  
@@ -399,7 +411,7 @@ function leoObserverProxyReady(session) {
 	
 	// iframe 
 	var iframe = document.createElement("iframe"); 
-	var cssIframe = "position:absolute; top:0;left:0;bottom:0;right:0;width:100%;border:none;overflow:hidden; height:" + iframeHeight + "px";
+	var cssIframe = "position:absolute;top:0;left:0;bottom:0;right:0;width:100%;border:none;overflow:hidden;height:"+iframeHeight+"px";
 	iframe.setAttribute("style",cssIframe);
 	iframe.setAttribute("src",url);
 	divWrapper.appendChild(iframe);
