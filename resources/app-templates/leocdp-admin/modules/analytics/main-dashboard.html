@@ -110,7 +110,6 @@
 					<!-- tab 3 Touchpoint Report   -->
 					<div class="highlight_box tab-pane" id="panel_touchpoint_report" >
 						<div id="touchpoint_report_wrapper" class="vcenter" >
-	                  		
 	               		</div>
 					</div>
 				</div>
@@ -363,18 +362,22 @@
                 }
             });
             
-            // touchpoint report
-            queryFilter['touchpointType'] = -1;
-            queryFilter['startIndex'] = 0;
-            queryFilter['numberResult'] = 30;
-            var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-report';
-            LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {
-                if (json.httpCode === 0 && json.errorMessage === '') {
-                	updateTouchpointReport(json.data);
-                } else {
-                    LeoAdminApiUtil.logErrorPayload(json);
-                }
-            });
+            
+            $('#touchpoint_report_wrapper').html('<div class="loader"></div>');
+            setTimeout(function(){
+            	 // touchpoint report
+                queryFilter['touchpointType'] = -1;
+                queryFilter['startIndex'] = 0;
+                queryFilter['numberResult'] = 30;
+                var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-report';
+                LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {
+                    if (json.httpCode === 0 && json.errorMessage === '') {
+                    	updateTouchpointReport(json.data);
+                    } else {
+                        LeoAdminApiUtil.logErrorPayload(json);
+                    }
+                });
+            },1200)
     	}
     	else {
     		updateChartDashboard();
