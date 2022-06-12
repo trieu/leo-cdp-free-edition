@@ -125,7 +125,7 @@ AQL_GET_JOURNEY_EVENT_STATISTICS =>
         FILTER (e.refJourneyId == @journeyMapId OR @journeyMapId == "") AND e.journeyStage >= 5 AND e.refProfileId == @profileId 
 	    RETURN DISTINCT e._key
 	)
-LET journeyData = (
+	LET journeyData = (
 	    FOR p in cdp_profile
 	        FOR s in p.inJourneyMaps
 	        FILTER s.id == @journeyMapId AND p._key == @profileId 
@@ -264,6 +264,24 @@ AQL_UPDATE_CONTEXT_SESSION_AFTER_MERGE =>
 	FOR d IN cdp_contextsession
 		FILTER d.profileId == @oldProfileId 
 		UPDATE d WITH { profileId: @newProfileId, visitorId: @newVisitorId } IN cdp_contextsession
+;
+
+AQL_GET_TOUCHPOINTS_AND_REPORT =>
+	FOR t in cdp_touchpoint
+	    LET tpStats = (
+		    FOR e in cdp_trackingevent 
+		    FILTER (e.refJourneyId == @journeyId OR @journeyId == "") AND e.srcTouchpointId == t._key AND e.createdAt >= @beginFilterDate AND e.createdAt <= @endFilterDate
+		    COLLECT srcTouchpointId = e.srcTouchpointId  
+		    AGGREGATE eventCount = COUNT_DISTINCT(e._key),profileCount = COUNT_DISTINCT(e.refProfileId)
+		    RETURN {"touchpointId": srcTouchpointId, "eventCount": eventCount, "profileCount":profileCount}
+	    	)
+		FOR s in tpStats  
+	    	LET profileCount =  s.profileCount
+	    	LET eventCount =  s.eventCount
+			FILTER s.touchpointId == t._key AND (profileCount > 0 AND eventCount > 0) AND (t.type == @touchpointType OR @touchpointType < 0)
+			SORT profileCount DESC 
+		LIMIT @startIndex,@numberResult 
+		RETURN {"touchpoint":t, "profileCount":profileCount, "eventCount": eventCount}
 ;
 
 ###########  DATA_FLOW_STAGE  ########################################################################################################;

@@ -21,10 +21,11 @@
 - [In Progress] New Data Connector and connector protocol
 
 
-## [0.8.9] - 2022-06-08
+## [0.8.9] - 2022-06-12
 
 ### Added 
 
+- [Touchpoint] data query and reporting in admin dashboard
 - [Chrome Ext] test data observer in sandbox
 - [Data Journey] main report and profile
 - [Data Journey] can manage multiple journey map for a customer profile

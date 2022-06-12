@@ -81,9 +81,11 @@
        		</li>	
           	<li ><a href="javascript:" data-target-tab="panel_profile_contact" > <i class="fa fa-address-card-o" aria-hidden="true"></i> Contact Data </a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_taxonomy" > <i class="fa fa-tags" aria-hidden="true"></i> Taxonomy </a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_location" > <i class="fa fa-map-marker" aria-hidden="true"></i> Location Data</a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_business" > <i class="fa fa-briefcase" aria-hidden="true"></i> Business Data</a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_marketing" > <i class="fa fa-line-chart" aria-hidden="true"></i> Marketing Data </a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_location" > <i class="fa fa-map-marker" aria-hidden="true"></i> Living Location</a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_education" > <i class="fa fa-graduation-cap" aria-hidden="true"></i> Education </a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_work" > <i class="fa fa-briefcase" aria-hidden="true"></i> Work Experience </a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_marketing" > <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing Data </a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_salesources" > <i class="fa fa-info-circle" aria-hidden="true"></i> Sale Sources </a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_custom" > <i class="fa fa-table" aria-hidden="true"></i> Custom Data </a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_data_authorization" > <i class="fa fa-lock" aria-hidden="true"></i> Data Authorization </a></li>
 	   </ul>
@@ -289,8 +291,7 @@
                 </table>
 			</div>
 			
-			
-			<!-- tab 5 Location  -->
+			<!-- tab 4 Location  -->
 			<div class="tab-pane" id="panel_profile_location" >
 				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Living Location </h4>
 				
@@ -334,9 +335,9 @@
 				</table>
 			</div>
 			
-			<!-- tab 5 Business  -->
-			<div class="tab-pane" id="panel_profile_business" >
-				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Business </h4>
+			<!-- tab 5 education  -->
+			<div class="tab-pane" id="panel_profile_education" >
+				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Education </h4>
 				
 			    <table border=0 class="underlined" style="width: 100%;">
                    <tr>
@@ -365,7 +366,21 @@
 				    			   </button>
 				                   <p data-field="studyCertificates" data-fieldholder="html_hashset"  data-fieldtype="hashset"  data-editable="true" >  </p>
 				               	</li>
-				               	
+			               	</ol>
+               	  		</td>
+                   </tr>
+                </table>
+               
+			</div>
+			
+			<!-- tab 6 Work  -->
+			<div class="tab-pane" id="panel_profile_work" >
+				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Work Experience </h4>
+				
+			    <table border=0 class="underlined" style="width: 100%;">
+                   <tr>
+                       <td>
+							<ol class="profile_ext_data" data-field="personal_attributes">
 				               	<li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Job Titles </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('jobTitles')" title="Add new"  > 
@@ -396,7 +411,7 @@
                
 			</div>
 			
-			<!-- tab 6 Marketing  -->
+			<!-- tab 7 Marketing  -->
 			<div class="tab-pane" id="panel_profile_marketing" >
 				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing Data </h4>
 				<table border=0 class="underlined" style="width: 100%;">
@@ -465,8 +480,38 @@
                </table>
 			</div>
 			
+			<!-- tab 8 Sale Sources  -->
+			<div class="tab-pane" id="panel_profile_salesources" >
+				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Sale Sources </h4>
+				
+			    <table border=0 class="underlined" style="width: 100%;">
+                   <tr>
+                       <td>
+							<ol class="profile_ext_data" data-field="personal_attributes">
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Sale Agencies </b> 
+				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('saleAgencies')" title="Add new"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+				    			   </button>
+				                   <p data-field="saleAgencies" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+				               	
+				               	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Sale Agents </b> 
+				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('saleAgents')" title="Add new"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+				    			   </button>
+				                   <p data-field="saleAgents" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				               	</li>
+			               	</ol>
+               	  		</td>
+                   </tr>
+                </table>
+               
+			</div>
 			
-			<!-- tab 6 Custom  -->
+			
+			<!-- tab 9 Custom  -->
 			<div class="tab-pane" id="panel_profile_custom" >
 				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Custom Data Fields </h4>
 				<div class="col-md-12">
@@ -485,7 +530,7 @@
                 </div>
 			</div>
 			
-			<!-- tab 7 Data Authorization  -->
+			<!-- tab 10 Data Authorization  -->
 			<div class="tab-pane" id="panel_profile_data_authorization" >
 				<h4 class="highlight_text" > <i class="fa fa-lock" aria-hidden="true"></i> Data Authorization </h4>
 				<table border=0 class="underlined" style="width: 100%;">

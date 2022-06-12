@@ -45,6 +45,27 @@
 	#profile_info_tabs {
 		margin-top: 15px;
 	}
+	
+	.funnel-flow {
+		text-transform: uppercase;
+		font-size: 12px!important;
+	}
+	.funnel-stage {
+		float: left;
+		width: 11.11%!important;
+		margin-top:10px;
+		border-right: 1px solid black;
+		height: 36px;
+		min-height: 1px;
+    	padding-right: 5px;
+    	padding-left: 5px;
+    	font-size: 0.96em;
+    	text-align: center;
+	} 
+	.funnel-stage-active {
+		font-weight: bold;
+		color: #3300ff!important;
+	} 
 </style>
 
 <div class="row">
@@ -273,19 +294,45 @@
 				        				<select id="journeyMapList" data-placeholder="Choose an Journey Map" class="select" > </select>
 				        			</div>
 				        		</div>
-				        		<div>
-				        			<label> Journey Progress 
-				        				<span class="data_field" style="border-right:1px solid #000; padding-right: 10px" id="profileFunnelIndexName"  >-</span>
-				        				<span class="data_field" >Sentiment Score: <span id="profileJourneySentimentScore">0</span></span> 
-				        			</label> 
-							   	</div>
-		                    	<div class="vcenter highlight_box" style="width: 100%; padding: 30px">
-		                    		<div class="progress" style="text-transform: uppercase;font-weight: bold;" >
+				        		<div class="" > 
+				        			<label class="col-ld-12" > Journey Progress <span class="data_field" >Sentiment Score: <span id="profileJourneySentimentScore">0</span></span> </label> 
+				        			<div class="col-md-12 funnel-flow" id="profile_funnel_report" >
+				               			<div class="funnel-stage" id="profile_funnel_stage_1" >
+				               				New Visitor
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_2" >
+				               				Returning Visitor
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_3" >
+				               				Lead
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_4" >
+				               				Prospect
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_5" >
+				               				New Customer
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_6" >
+				               				Engaged Customer
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_7" >
+				               				Happy Customer
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_8" >
+				               				Customer Advocate
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_9" >
+				               				Unhappy Customer
+				               			</div>
+				               		</div>
+				               		<div class="progress col-ld-12" style="text-transform: uppercase;font-weight: bold;width: 99%!important;" >
 									  	<div id="profileJourneyFunnel" class="progress-bar progress-bar-striped active" role="progressbar"
 									  				aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%" >
 									    	<span id="profileJourneyFunnelValue" >0</span> % journey
 									  	</div>
 								   	</div>
+							   	</div>
+		                    	<div class="vcenter highlight_box col-md-12" style="padding: 30px">
 		                    		<h4 id="event_journey_funnel_nodata" style="display: none;"> No data available </h4>
 	                  				<div id="event_journey_funnel" class="funnel" ></div>
 	               				</div>
@@ -689,8 +736,10 @@
 		                <ul id="profile_ext_info_tabs" class="nav nav-pills nav-stacked col-md-2">
 		                	<li class="active" ><a href="#tab_profile_contact_info" data-toggle="tab"> <i class="fa fa-envelope-o" aria-hidden="true"></i> Contact Data </a></li>
 		                	<li><a href="#tab_profile_location_info" data-toggle="tab"> <i class="fa fa-map-marker" aria-hidden="true"></i> Living Location </a></li>
-		                	<li><a href="#tab_profile_professional_info" data-toggle="tab"> <i class="fa fa-briefcase" aria-hidden="true"></i> Business Data </a></li>
-		                	<li><a href="#tab_profile_marketing_info" data-toggle="tab"> <i class="fa fa-briefcase" aria-hidden="true"></i> Marketing Data </a></li>
+		                	<li><a href="#tab_profile_education" data-toggle="tab"> <i class="fa fa-graduation-cap" aria-hidden="true"></i> Education </a></li>
+		                	<li><a href="#tab_profile_work_experience" data-toggle="tab"> <i class="fa fa-briefcase" aria-hidden="true"></i> Work Experience</a></li>
+		                	<li><a href="#tab_profile_marketing_data" data-toggle="tab"> <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing Data </a></li>
+		                	<li><a href="#tab_profile_sale_sources" data-toggle="tab"> <i class="fa fa-info-circle" aria-hidden="true"></i> Sale Sources </a></li>
 		                	<li><a href="#tab_profile_custom_fields" data-toggle="tab"> <i class="fa fa-table" aria-hidden="true"></i> Custom Data </a></li>
 		                	<li><a href="#tab_profile_data_authorization" data-toggle="tab"> <i class="fa fa-lock" aria-hidden="true"></i> Data Authorization </a></li>
 		                </ul>
@@ -733,7 +782,7 @@
 		                    
 		                    <div class="tab-pane" id="tab_profile_location_info" >
 				               <!-- profile info tab 2 -->
-				               <h4 class="highlight_text" > <i class="fa fa-map-marker" aria-hidden="true"></i> Living Location Data</h4>
+				               <h4 class="highlight_text" > <i class="fa fa-map-marker" aria-hidden="true"></i> Living Location Data </h4>
 							   <table border=0 class="underlined" style="width: 100%;">
 				                   <tr>
 				                       <td>
@@ -772,29 +821,41 @@
 				               </table>		                    
 		                    </div>
 		                    
-		                    <div class="tab-pane" id="tab_profile_professional_info" >
+		                   <div class="tab-pane" id="tab_profile_education" >
 				               <!-- profile info tab 3 -->
-				               <h4 class="highlight_text" > <i class="fa fa-briefcase" aria-hidden="true"></i> Business Data </h4>
+				               <h4 class="highlight_text" > <i class="fa fa-graduation-cap" aria-hidden="true"></i> Education </h4>
 							   <table border=0 class="underlined" style="width: 100%;">
 				                   <tr>
 				                       <td>
-											<ol class="profile_ext_data" data-field="personal_attributes">
+											<ol class="profile_ext_data" >
 												<li>
-								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Job Type and Skills </b> 
-								                   <p class="highlight_text" data-field="jobTypeAsString" data-fieldholder="html" data-fieldtype="string" data-editable="true"  >  </p>
+								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Education and Learning Paths </b> 
+								                   <p data-field="learningHistory" data-fieldholder="html_hashmap" data-fieldtype="hashmap" id="businessContacts" > </p>
 								               	</li>
-								               	
 												<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Soft Skills </b> 
 								                   <p data-field="softSkills" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 								               	</li>
 								               	<li>
-								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Education and Learning Paths </b> 
-								                   <p data-field="learningHistory" data-fieldholder="html_hashmap" data-fieldtype="hashmap" id="businessContacts" > </p>
-								               	</li>
-								               	<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Study Certificates </b> 
 								                   <p data-field="studyCertificates" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+								               	</li>
+							               	</ol>
+				               	  		</td>
+				                   </tr>
+				               </table>		                    
+		                    </div>
+		                    
+		                    <div class="tab-pane" id="tab_profile_work_experience" >
+				               <!-- profile info tab 3 -->
+				               <h4 class="highlight_text" > <i class="fa fa-briefcase" aria-hidden="true"></i> Work Experience </h4>
+							   <table border=0 class="underlined" style="width: 100%;">
+				                   <tr>
+				                       <td>
+											<ol class="profile_ext_data" >
+												<li>
+								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Job Type and Skills </b> 
+								                   <p class="highlight_text" data-field="jobTypeAsString" data-fieldholder="html" data-fieldtype="string" data-editable="true"  >  </p>
 								               	</li>
 								               	<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Job Titles </b> 
@@ -814,7 +875,7 @@
 				               </table>		                    
 		                    </div>
 		                    
-		                    <div class="tab-pane" id="tab_profile_marketing_info" >
+		                    <div class="tab-pane" id="tab_profile_marketing_data" >
 				               <!-- profile info tab 4 -->
 				               <h4 class="highlight_text" > <i class="fa fa-briefcase" aria-hidden="true"></i> Marketing Data </h4>
 							   <table border=0 class="underlined" style="width: 100%;">
@@ -822,11 +883,11 @@
 				                       <td>
 											<ol class="profile_ext_data" data-field="personal_attributes">
 												<li>
-								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Keywords for Content Marketing  </b> 
+								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Keywords for Content Marketing </b> 
 								                   <p data-field="contentKeywords" data-fieldholder="html_hashset"  data-fieldtype="hashmap"  > - </p>
 								               	</li>
 								               	<li>
-								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Keywords for Product/Service Marketing  </b> 
+								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Keywords for Product/Service Marketing </b> 
 								                   <p data-field="productKeywords" data-fieldholder="html_hashset"  data-fieldtype="hashmap"  > - </p>
 								               	</li>
 								               	<li>
@@ -848,6 +909,27 @@
 								               	<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Next Best Actions </b> 
 								                   <p data-field="nextBestActions" data-fieldholder="html_hashset"  data-fieldtype="hashset" > - </p>
+								               	</li>
+							               	</ol>
+				               	  		</td>
+				                   </tr>
+				               </table>		                    
+		                    </div>
+		                    
+							<div class="tab-pane" id="tab_profile_sale_sources" >
+				               <!-- profile info tab 4 -->
+				               <h4 class="highlight_text" > <i class="fa fa-briefcase" aria-hidden="true"></i> Sale Sources </h4>
+							   <table border=0 class="underlined" style="width: 100%;">
+				                   <tr>
+				                       <td>
+											<ol class="profile_ext_data" >
+												<li>
+								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Sale Agencies </b> 
+								                   <p data-field="saleAgencies" data-fieldholder="html_hashset"  data-fieldtype="hashmap"  > - </p>
+								               	</li>
+								               	<li>
+								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Sale Agents </b> 
+								                   <p data-field="saleAgents" data-fieldholder="html_hashset"  data-fieldtype="hashmap"  > - </p>
 								               	</li>
 							               	</ol>
 				               	  		</td>

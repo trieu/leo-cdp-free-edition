@@ -109,7 +109,8 @@
 		            <div id="data_observers_table"></div>
 		        </div>
 			</div>
-		</div>		
+		</div>	
+			
    </div>
 </div>
 
@@ -172,7 +173,6 @@
 </div>
 
 <!-- Templates -->
-
 <script id='leo-tracking-view-event-code-tpl' type="text/html" >
 // (2.<%- counter %>) function to track View Event "<%- eventMetricName %>"
 LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
@@ -390,6 +390,7 @@ function leoObserverProxyReady(session) {
     // default the height of iframe but you can set it to optimize best view 
     var iframeHeight = __iframeHeight__;
     
+    // LEO Observer ID
     var observerId = "__observerId__";
     var templateId = "__templateId__";
     var svf = document.title;

@@ -75,10 +75,19 @@
             <div class="chart_box"  >
             	<ul class="nav nav-tabs" data-tab-content="main_dashboard_report_tabs" >
 		         	<li class="active" onclick="showDashboardReport(false)" >
-		          		<a href="javascript:" data-target-tab="panel_journey_map_report" title="Journey Map Report"> <i class="fa fa-map-o" aria-hidden="true"></i> Data Journey Report </a>
+		          		<a href="javascript:" data-target-tab="panel_journey_map_report" title="Journey Map Report"> 
+		          			<i class="fa fa-map-o" aria-hidden="true"></i> Data Journey Report 
+		          		</a>
 		         	</li>
 		         	<li>
-		         		<a href="javascript:" data-target-tab="panel_data_funnel_report" title="Data Funnel Report" > <i class="fa fa-filter" aria-hidden="true"></i> Profile Funnel Report </a>
+		         		<a href="javascript:" data-target-tab="panel_data_funnel_report" title="Data Funnel Report" > 
+		         			<i class="fa fa-filter" aria-hidden="true"></i> Profile Funnel Report 
+		         		</a>
+		         	</li>
+		         	<li>
+		         		<a href="javascript:" data-target-tab="panel_touchpoint_report" title="Touchpoint Report" > 
+		         			<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Touchpoint Report
+		         		</a>
 		         	</li>
 	   			</ul>
 	   			
@@ -95,6 +104,13 @@
 					<div class="highlight_box tab-pane" id="panel_data_funnel_report" >
 						<div id="profile_funnel_wrapper" class="vcenter" >
 	                  		<div id="profile_funnel"></div>
+	               		</div>
+					</div>
+					
+					<!-- tab 3 Touchpoint Report   -->
+					<div class="highlight_box tab-pane" id="panel_touchpoint_report" >
+						<div id="touchpoint_report_wrapper" class="vcenter" >
+	                  		
 	               		</div>
 					</div>
 				</div>
@@ -168,7 +184,7 @@
     	loadJourneyMapList(false, function(id){
     		journeyMapIdToReport = id;
     		showDashboardReport(true)
-        });
+        },true);
     	
     	//loadEventStatistics()
         
@@ -262,7 +278,6 @@
   	    }
     	
     	var showTotalStatistics = function(profileTotalStats) {
-    		
     		// empty 4 data boxes 
     		$('#profile_total_stats').empty();
     		$('#marketing_metrics_holder').empty();
@@ -290,6 +305,31 @@
     		}
     	}
     	
+        var reportJourneyOfAllProfiles = function(containerId, journeyStatsData) {
+        	if(journeyStatsData.length === 0) return; // end
+        	var dataModel = {
+                labels: journeyLabel5A,
+                subLabels: ['VISITOR PROFILE', 'CONTACT PROFILE'],
+                colors: [            
+                    ['#D6EAF8', '#85C1E9', '#3498DB'],
+                    ['#B7F0B7', '#8CF08C', '#5CF45C']
+                ],
+                values: journeyStatsData
+            };
+        	var containerWidth = $(containerId).parent().width();
+        	var graph = new FunnelGraph({
+                container: containerId,
+                gradientDirection: 'horizontal',
+                data: dataModel,
+                displayPercent: true,
+                direction: 'horizontal',
+                width: containerWidth,
+                height: 350,
+                subLabelValue: 'percent'
+            });
+        	graph.draw();
+        }
+    	
     	var updateChartDashboard = function(){
    			var profileTotalStats = dashboardDataModel.profileTotalStats;
    	        showTotalStatistics(profileTotalStats);
@@ -307,8 +347,10 @@
     		$("#primary_dashboard_loader").show();
         	$("#primary_dashboard").hide();
         	
-        	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/dashboard-primary';
         	queryFilter['journeyMapId'] = journeyMapIdToReport;
+        	
+        	// journey and funnel report
+        	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/dashboard-primary';
             LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {
             	$("#primary_dashboard_loader").hide();
             	$("#primary_dashboard").show();
@@ -320,33 +362,26 @@
                     LeoAdminApiUtil.logErrorPayload(json);
                 }
             });
+            
+            // touchpoint report
+            queryFilter['touchpointType'] = -1;
+            queryFilter['startIndex'] = 0;
+            queryFilter['numberResult'] = 30;
+            var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-report';
+            LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {
+                if (json.httpCode === 0 && json.errorMessage === '') {
+                	updateTouchpointReport(json.data);
+                } else {
+                    LeoAdminApiUtil.logErrorPayload(json);
+                }
+            });
     	}
     	else {
     		updateChartDashboard();
     	}
     }
     
-    var reportJourneyOfAllProfiles = function(containerId, journeyStatsData) {
-    	var dataModel = {
-            labels: journeyLabel5A,
-            subLabels: ['VISITOR PROFILE', 'CONTACT PROFILE'],
-            colors: [            
-                ['#D6EAF8', '#85C1E9', '#3498DB'],
-                ['#B7F0B7', '#8CF08C', '#5CF45C']
-            ],
-            values: journeyStatsData
-        };
-    	var containerWidth = $(containerId).parent().width();
-    	var graph = new FunnelGraph({
-            container: containerId,
-            gradientDirection: 'horizontal',
-            data: dataModel,
-            displayPercent: true,
-            direction: 'horizontal',
-            width: containerWidth,
-            height: 350,
-            subLabelValue: 'percent'
-        });
-    	graph.draw();
-    }
+
+    
+
 </script>
