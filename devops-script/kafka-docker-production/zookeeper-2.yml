@@ -1,0 +1,15 @@
+version: '3'
+services:
+  zookeeper1:  	
+    image: zookeeper:3.4.14
+    hostname: zookeeper1
+    container_name: zookeeper1
+    ports:
+      - "${ZOOKEEPER2_IP:-127.0.0.1}:2182:2182"
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_PORT: 2182
+      ZOO_SERVERS: server.2=${ZOOKEEPER2_IP:-127.0.0.1}:2888:3888
+    volumes:
+      - ./data/zookeeper2/data:/data
+      - ./data/zookeeper2/datalog:/datalog

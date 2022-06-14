@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+
   kafdrop:
     image: obsidiandynamics/kafdrop:latest
     container_name: kafdrop_dev
@@ -12,11 +13,13 @@ services:
       JVM_OPTS: "-Xms16M -Xmx48M -Xss180K -XX:-TieredCompilation -XX:+UseStringDeduplication -noverify"
     depends_on:
       - "kafka"
+
   zookeeper:
     image: wurstmeister/zookeeper
     container_name: zookeeper
     ports:
       - "2181:2181"
+
   kafka:
     image: wurstmeister/kafka
     container_name: kafka
@@ -27,6 +30,8 @@ services:
     environment:
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_NUM_PARTITIONS: 2
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 1
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
       KAFKA_DELETE_TOPIC_ENABLE: 'true'
       KAFKA_CREATE_TOPICS: LeoCdpEvent:2:1, LeoCdpProfile:2:1
@@ -39,4 +44,3 @@ services:
       KAFKA_RESTART_ATTEMPTS: "10"
       KAFKA_RESTART_DELAY: "5"
       ZOOKEEPER_AUTOPURGE_PURGE_INTERVAL: "0"
-      
