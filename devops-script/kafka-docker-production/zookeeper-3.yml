@@ -1,9 +1,9 @@
 version: '3'
 services:
-  zookeeper1:  	
+  zookeeper3:
     image: zookeeper:3.4.14
-    hostname: zookeeper1
-    container_name: zookeeper1
+    hostname: zookeeper3
+    container_name: zookeeper3
     ports:
       - "${ZOOKEEPER3_IP:-127.0.0.1}:2183:2183"
     environment:

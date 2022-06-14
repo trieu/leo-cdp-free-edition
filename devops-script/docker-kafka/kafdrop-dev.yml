@@ -8,5 +8,5 @@ services:
     ports:
       - "9000:9000"
     environment:
-      KAFKA_BROKERCONNECT: "kafka:29092"
+      KAFKA_BROKERCONNECT: "etl1.mirae.vn:1001,etl2.mirae.vn:1003,etl3.mirae.vn:1005"
       JVM_OPTS: "-Xms16M -Xmx48M -Xss180K -XX:-TieredCompilation -XX:+UseStringDeduplication -noverify"  
