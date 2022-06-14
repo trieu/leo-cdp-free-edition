@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  kafdrop:
+    image: obsidiandynamics/kafdrop:latest
+    container_name: kafdrop_dev
+    restart: "no"
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: "kafka:29092"
+      JVM_OPTS: "-Xms16M -Xmx48M -Xss180K -XX:-TieredCompilation -XX:+UseStringDeduplication -noverify"  

@@ -77,17 +77,17 @@
        <!--  Tab Navigation Items -->
        <ul class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" >
        		<li class="active" >
-       			<a href="javascript:" data-target-tab="panel_personal_info" > <i class="fa fa-user-circle-o" aria-hidden="true"></i> Identity Data</a>
+       			<a href="javascript:" data-target-tab="panel_personal_info" > <i class="fa fa-user-circle-o" aria-hidden="true"></i> Personal Info </a>
        		</li>	
-          	<li ><a href="javascript:" data-target-tab="panel_profile_contact" > <i class="fa fa-address-card-o" aria-hidden="true"></i> Contact Data </a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_contact" > <i class="fa fa-address-card-o" aria-hidden="true"></i> Contact </a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_taxonomy" > <i class="fa fa-tags" aria-hidden="true"></i> Taxonomy </a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_location" > <i class="fa fa-map-marker" aria-hidden="true"></i> Living Location</a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_location" > <i class="fa fa-map-marker" aria-hidden="true"></i> Location</a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_education" > <i class="fa fa-graduation-cap" aria-hidden="true"></i> Education </a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_work" > <i class="fa fa-briefcase" aria-hidden="true"></i> Work Experience </a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_marketing" > <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing Data </a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_work" > <i class="fa fa-briefcase" aria-hidden="true"></i> Work Info </a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_marketing" > <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing Info </a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_salesources" > <i class="fa fa-info-circle" aria-hidden="true"></i> Sale Sources </a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_custom" > <i class="fa fa-table" aria-hidden="true"></i> Custom Data </a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_data_authorization" > <i class="fa fa-lock" aria-hidden="true"></i> Data Authorization </a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_custom" > <i class="fa fa-table" aria-hidden="true"></i> Custom </a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_data_authorization" > <i class="fa fa-lock" aria-hidden="true"></i> Authorization </a></li>
 	   </ul>
 
 	   <!-- Tab Contents  -->
@@ -97,30 +97,13 @@
 			<div class="tab-pane active" id="panel_personal_info"  >
 		     	
 		     	<!--  Begin Profile Key Information -->
-           	   	<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Identity  </h4>
+           	   	<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Personal Information </h4>
 	           	<div class="col-md-12">
 	               <table border=0 class="underlined" style="width: 100%;">
 	                   <tr>
 	                       <td>
 	                           <ol id="personal_attributes" data-field="personal_attributes">
-	                           	 	<li>
-	                                  <b data-persona="key" > <i class="fa fa-fw fa-user-o"></i> Status </b> 
-	                                  <div style="font-size: 12px;">
-		                                   <div class="radio">
-											  <label><input type="radio" name="status" value="1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >ACTIVE</label>
-										   </div>
-		                                   <div class="radio">
-											  <label><input type="radio" name="status" value="0" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >INACTIVE</label>
-										   </div>
-										   <div class="radio ">
-											  <label><input type="radio" name="status" value="-1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >INVALID</label>
-										   </div>
-										   <div class="radio ">
-											  <label><input type="radio" name="status" value="-4" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >DELETED</label>
-										   </div>
-	                                   </div>
-	                               </li>
-	                              
+	                           	  
 	                           	   <li>
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-id-badge"></i> First Name </b> 
 	                                   <input class="form-control" type="text" placeholder="First Name" data-field="firstName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
@@ -140,6 +123,22 @@
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-phone-square"></i> Primary Mobile Phone <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
 	                                   <input class="form-control" type="tel" placeholder="Mobile Phone" data-field="primaryPhone" data-fieldholder="inputvalue" data-fieldtype="tel" autocomplete="off" >
 	                               </li>
+	                               
+	                               <li>
+					                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Citizen/Passport ID List <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+					                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('governmentIssuedIDs')"title="Add New Citizen/Passport ID"  > 
+					    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add New Citizen/Passport ID 
+					    			   </button>
+					                   <p data-field="governmentIssuedIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
+					               </li>
+					               
+					                <li>
+					                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Application ID List <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+					                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('applicationIDs')"title="Add New Application ID"  > 
+					    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add New Application ID 
+					    			   </button>
+					                   <p data-field="applicationIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
+					               </li>
 	                               
 	                               <li class="personal_info" >
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-user-o"></i> Gender </b> 
@@ -166,6 +165,26 @@
 											<span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
 									  </div>
 	       						   </li>
+	       						   
+	       						   
+					               
+					               <li>
+	                                  <b data-persona="key" > <i class="fa fa-fw fa-user-o"></i> Profile Status </b> 
+	                                  <div style="font-size: 12px;">
+		                                   <div class="radio">
+											  <label><input type="radio" name="status" value="1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >ACTIVE</label>
+										   </div>
+		                                   <div class="radio">
+											  <label><input type="radio" name="status" value="0" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >INACTIVE</label>
+										   </div>
+										   <div class="radio ">
+											  <label><input type="radio" name="status" value="-1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >INVALID</label>
+										   </div>
+										   <div class="radio ">
+											  <label><input type="radio" name="status" value="-4" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >DELETED</label>
+										   </div>
+	                                   </div>
+	                               </li>
 	                           </ol>
 	                       </td>
 	                   </tr>
@@ -176,7 +195,7 @@
 
 			<!-- tab 2 Personal Extension Data  -->
 			<div class="tab-pane" id="panel_profile_contact" >
-				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Contacts </h4>
+				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Contact Information </h4>
 				<table border=0 class="underlined" style="width: 100%;">
                    <tr>
                        <td>
@@ -184,7 +203,7 @@
 								<li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i>  Secondary Emails <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('secondaryEmails')" title="Add new email"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Email 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add New Email 
 				    			   </button>
 				                   <p data-field="secondaryEmails" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 				               	</li>
@@ -192,23 +211,15 @@
 				               	<li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Secondary Phones <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('secondaryPhones')" title="Add new phone"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Phone 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add New Phone 
 				    			   </button>
 				                   <p data-field="secondaryPhones" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
-				               	</li>
-				               	
-				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Citizen ID Number / Passport ID Number <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('governmentIssuedIDs')"title="Add New ID Number"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New ID Number
-				    			   </button>
-				                   <p data-field="governmentIssuedIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
 				               	</li>
 							
 								<li>
                                    <b data-persona="key" > <i class="fa fa-fw fa-users"></i> Social Media Profiles <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
                                    <button type="button" class="btn btn-do-now btn-xs" onclick="addNewHashMapItem('socialMediaProfiles', SocialMediaIconMap)" title="Add new profile"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Profile 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add New Social Media Profile 
 				    			   </button>
                                    <p data-field="socialMediaProfiles" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="socialMediaProfiles" > </p>
                                 </li>
@@ -216,7 +227,7 @@
                                 <li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Business Contacts <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="addNewHashMapItem('businessContacts', ContactIconsMap)" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Contact 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add New Business Contact 
 				    			   </button>
 				                   <p data-field="businessContacts" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="businessContacts" > </p>
 				               	</li>
@@ -375,7 +386,7 @@
 			
 			<!-- tab 6 Work  -->
 			<div class="tab-pane" id="panel_profile_work" >
-				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Work Experience </h4>
+				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Work Information </h4>
 				
 			    <table border=0 class="underlined" style="width: 100%;">
                    <tr>
@@ -413,7 +424,7 @@
 			
 			<!-- tab 7 Marketing  -->
 			<div class="tab-pane" id="panel_profile_marketing" >
-				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing Data </h4>
+				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing Information </h4>
 				<table border=0 class="underlined" style="width: 100%;">
                    <tr>
                        <td>

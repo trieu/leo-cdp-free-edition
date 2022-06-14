@@ -21,10 +21,12 @@
 - [In Progress] New Data Connector and connector protocol
 
 
-## [0.8.9] - 2022-06-12
+## [0.8.9] - 2022-06-14
 
 ### Added 
 
+- [DEVOPS] add kafdrop as UI tool to monitor Kafka 
+- [Profile Model] add new field: applicationIds
 - [Touchpoint] data query and reporting in admin dashboard
 - [Chrome Ext] test data observer in sandbox
 - [Data Journey] main report and profile
@@ -65,6 +67,7 @@
 
 ### Fixed 
 
+- [Event] ref touchpoint domain should extract from URL
 - [Data Journey] improve and fix bugs profile model
 - [Segment] CSV data exporting is JSON if segment'size larger than 100, not CSV
 - [UI] sorting fields in segment list
