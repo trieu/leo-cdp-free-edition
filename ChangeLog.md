@@ -21,10 +21,11 @@
 - [In Progress] New Data Connector and connector protocol
 
 
-## [0.8.9] - 2022-06-14
+## [0.8.9] - 2022-06-15
 
 ### Added 
 
+- [Data Funnel] add STAGE_TERMINATED_CUSTOMER
 - [DEVOPS] add kafdrop as UI tool to monitor Kafka 
 - [Profile Model] add new field: applicationIds
 - [Touchpoint] data query and reporting in admin dashboard
@@ -81,6 +82,7 @@
 
 ### Changed
 
+- [UI] improve touchpoint report: add legend and title
 - [UI] restructure and improve UI/UX of admin dashboard
 - [UI] improve UI and UX of profile listing in segment
 - upgrade core java libraries: Google Cloud, AWS, arangodb driver

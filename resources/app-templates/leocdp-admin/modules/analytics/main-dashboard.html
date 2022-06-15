@@ -246,7 +246,7 @@
    	             },
    	             height: mainDashboardFunnelHeight,
    	             bottomWidth : 0.64,
-	             bottomPinch: 1,
+	             bottomPinch: 2,
 	             width: mainDashboardFunnelHeight * 4/3
    	         },
    	         tooltip: {
@@ -368,7 +368,7 @@
             	 // touchpoint report
                 queryFilter['touchpointType'] = -1;
                 queryFilter['startIndex'] = 0;
-                queryFilter['numberResult'] = 30;
+                queryFilter['numberResult'] = 22;
                 var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-report';
                 LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {
                     if (json.httpCode === 0 && json.errorMessage === '') {

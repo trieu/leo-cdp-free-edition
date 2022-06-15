@@ -14,6 +14,10 @@
 * docker exec -it kafka1 kafka-topics.sh --describe --bootstrap-server kafka1:19091 --topic LeoCdpEvent
 * docker exec -it kafka1 kafka-topics.sh --describe --bootstrap-server kafka1:19091 --topic LeoCdpProfile
 
+## Kafka Admin UI 
+
+* docker run -d --rm -p 9000:9000 -e KAFKA_BROKERCONNECT=<host:port,host:port> -e JVM_OPTS="-Xms32M -Xmx64M" -e SERVER_SERVLET_CONTEXTPATH="/" obsidiandynamics/kafdrop
+
 ## Links
 
 * https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04
