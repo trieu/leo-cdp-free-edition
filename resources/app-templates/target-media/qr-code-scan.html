@@ -42,12 +42,30 @@
 		var trackingOk = false;
 		function leoObserverProxyReady(session) {
 			if(typeof window.targetMediaUrl === 'string' && window.targetMediaUrl.indexOf('http') === 0 ){
-				trackingOk = true;
-				LeoObserverProxy.recordActionEvent("qr-code-scan", {"touchpointHubId":touchpointHubId, "observerId": leoObserverId});
-				setTimeout(function(){
-					location.href = targetMediaUrl;
-				},1000)
-			} 
+				LeoObserverProxy.synchLeoVisitorId(visitorDataReady);
+			}
+			else {
+				console.log("targetMediaUrl is not an URL !");
+			}
+		}
+		
+		function visitorDataReady(vid) {
+			// tracking
+			trackingOk = true;
+			LeoObserverProxy.recordActionEvent("qr-code-scan", {"touchpointHubId":touchpointHubId, "observerId": leoObserverId, "visitorId":vid});
+			
+			// set visitor ID into URL
+			if(targetMediaUrl.indexOf('?') > 0){
+				targetMediaUrl += ("&leosyn=" + vid);
+			}
+			else {
+				targetMediaUrl += ("?leosyn=" + vid);
+			}
+			
+			// wait for recordActionEvent and redirect
+			setTimeout(function(){
+				location.href = targetMediaUrl;	
+			},789);
 		}
 		
 		//force redirect event if failed to track
@@ -55,7 +73,7 @@
 			if( ! trackingOk ) {
 				location.href = targetMediaUrl;
 			} 
-		},6000)
+		},6500)
 	</script>
 </body>
 </html>
