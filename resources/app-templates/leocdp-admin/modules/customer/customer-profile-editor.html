@@ -53,13 +53,7 @@
 	                	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Web Visitor ID </b> 
 	                	<span class="data_field" data-field="visitorId" data-fieldholder="html"  data-fieldtype="string" > - </span>
 	                </div>
-	                    
-	                <div class="primary_field" >      	      
-	                	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> CRM User ID </b> 
-	                	<input class="form-control" type="text" placeholder="CRM User ID" data-field="crmRefId" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
-	                </div>
-	                <hr>
-	                
+
 	                <div class="primary_field" > 
                     	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Created at </b> 
                     	<span class="data_field" data-field="createdAt" data-fieldholder="html"  data-fieldtype="date_time"  > - </span> 
@@ -68,6 +62,28 @@
                     	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Updated at </b> 
                    		<span class="data_field" data-field="updatedAt" data-fieldholder="html"  data-fieldtype="date_time"  > -  </span> 
                     </div>
+                    <hr>
+                    <div class="primary_field" >      	      
+	                	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> CRM Profile ID / Imported Customer ID </b> 
+	                	<input class="form-control" type="text" placeholder="CRM User ID" data-field="crmRefId" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                </div>
+                    <div class="primary_field" >
+					   <b> <i class="fa fa-user-o" aria-hidden="true"></i> Profile Status </b> 
+					   <div style="font-size:11px; padding-left: 20px;">
+					      <div class="radio">
+					         <label><input type="radio" name="status" value="1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >ACTIVE</label>
+					      </div>
+					      <div class="radio">
+					         <label><input type="radio" name="status" value="0" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >INACTIVE</label>
+					      </div>
+					      <div class="radio ">
+					         <label><input type="radio" name="status" value="-1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >INVALID</label>
+					      </div>
+					      <div class="radio ">
+					         <label><input type="radio" name="status" value="-4" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >DELETED</label>
+					      </div>
+					   </div>
+					</div>
 	                             
 	        	</div>
       		</div>
@@ -75,19 +91,19 @@
        <hr>
 
        <!--  Tab Navigation Items -->
-       <ul class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" >
+       <ul class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" style="font-size:13.5px;" >
        		<li class="active" >
        			<a href="javascript:" data-target-tab="panel_personal_info" > <i class="fa fa-user-circle-o" aria-hidden="true"></i> Personal Info </a>
        		</li>	
-          	<li ><a href="javascript:" data-target-tab="panel_profile_contact" > <i class="fa fa-address-card-o" aria-hidden="true"></i> Contact </a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_taxonomy" > <i class="fa fa-tags" aria-hidden="true"></i> Taxonomy </a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_contact" > <i class="fa fa-address-card-o" aria-hidden="true"></i> Contact</a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_taxonomy" > <i class="fa fa-tags" aria-hidden="true"></i> Taxonomy</a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_location" > <i class="fa fa-map-marker" aria-hidden="true"></i> Location</a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_education" > <i class="fa fa-graduation-cap" aria-hidden="true"></i> Education </a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_work" > <i class="fa fa-briefcase" aria-hidden="true"></i> Work Info </a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_marketing" > <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing Info </a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_salesources" > <i class="fa fa-info-circle" aria-hidden="true"></i> Sales Sources </a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_custom" > <i class="fa fa-table" aria-hidden="true"></i> Custom </a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_data_authorization" > <i class="fa fa-lock" aria-hidden="true"></i> Authorization </a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_work" > <i class="fa fa-briefcase" aria-hidden="true"></i> Work Info</a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_marketing" > <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing Info</a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_salesources" > <i class="fa fa-info-circle" aria-hidden="true"></i> Sales Sources</a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_custom" > <i class="fa fa-table" aria-hidden="true"></i> Custom</a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_data_authorization" > <i class="fa fa-lock" aria-hidden="true"></i> Authorization</a></li>
 	   </ul>
 
 	   <!-- Tab Contents  -->
@@ -107,6 +123,11 @@
 	                           	   <li>
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-id-badge"></i> First Name </b> 
 	                                   <input class="form-control" type="text" placeholder="First Name" data-field="firstName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                               </li>
+	                               
+	                               <li>
+	                                   <b data-persona="key" > <i class="fa fa-fw fa-id-badge"></i> Middle Name </b> 
+	                                   <input class="form-control" type="text" placeholder="Middle Name" data-field="middleName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                               </li>
 	                               
 	                               <li>
@@ -166,25 +187,35 @@
 									  </div>
 	       						   </li>
 	       						   
-	       						   
-					               
-					               <li>
-	                                  <b data-persona="key" > <i class="fa fa-fw fa-user-o"></i> Profile Status </b> 
-	                                  <div style="font-size: 12px;">
-		                                   <div class="radio">
-											  <label><input type="radio" name="status" value="1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >ACTIVE</label>
-										   </div>
-		                                   <div class="radio">
-											  <label><input type="radio" name="status" value="0" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >INACTIVE</label>
-										   </div>
-										   <div class="radio ">
-											  <label><input type="radio" name="status" value="-1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >INVALID</label>
-										   </div>
-										   <div class="radio ">
-											  <label><input type="radio" name="status" value="-4" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >DELETED</label>
-										   </div>
-	                                   </div>
+	       						   <li class="personal_info" >
+	                                   <b data-persona="key"  > <i class="fa fa-fw fa-venus-mars"></i> Marital Status </b> 
+	                                   <div class="radio ">
+										  <label>
+										  	<input type="radio" name="maritalStatus" value="6" data-field="maritalStatus" data-fieldholder="inputvalue" data-fieldtype="int" >Unknown
+										  </label>
+									   </div>
+	                                   <div class="radio">
+										  <label>
+										  	<input type="radio" name="maritalStatus" value="5" data-field="maritalStatus" data-fieldholder="inputvalue" data-fieldtype="int" >Single
+										  </label>
+									   </div>
+	                                   <div class="radio">
+										  <label>
+										  	<input type="radio" name="maritalStatus" value="7" data-field="maritalStatus" data-fieldholder="inputvalue" data-fieldtype="int" >Married
+										  </label>
+									   </div>
+									   <div class="radio">
+										  <label>
+										  	<input type="radio" name="maritalStatus" value="4" data-field="maritalStatus" data-fieldholder="inputvalue" data-fieldtype="int" >Divorced
+										  </label>
+									   </div>
+									   <div class="radio">
+										  <label>
+										  	<input type="radio" name="maritalStatus" value="11" data-field="maritalStatus" data-fieldholder="inputvalue" data-fieldtype="int" >Widowed
+										  </label>
+									   </div>
 	                               </li>
+					               
 	                           </ol>
 	                       </td>
 	                   </tr>
@@ -667,6 +698,9 @@
          	 
          	 // profile gender
          	 formatSelectionList('input[name="gender"]')
+         	 
+         	 // profile maritalStatus
+         	 formatSelectionList('input[name="maritalStatus"]')
          	 
          	 // set search link
          	 if(typeof editedProfileModel.livingLocation === "string") {
