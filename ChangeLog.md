@@ -1,6 +1,6 @@
 # Changelog for LEO CDP
 
-## Feature Plan for the final release [1.0.0] - 2022-06-30
+## Feature Plan for the final release [1.0.0] - 2022-07-30
 
 ### TODO for version [1.0.0]
 
@@ -21,10 +21,11 @@
 - [In Progress] New Data Connector and connector protocol
 
 
-## [0.8.9] - 2022-06-15
+## [0.8.9] - 2022-06-21
 
 ### Added 
 
+- [Event Metric] add showInObserverJS to show/hide event tracking JS method in Leo Observer JavaScript
 - [Data Funnel] add STAGE_TERMINATED_CUSTOMER
 - [DEVOPS] add kafdrop as UI tool to monitor Kafka 
 - [Profile Model] add new field: applicationIds
