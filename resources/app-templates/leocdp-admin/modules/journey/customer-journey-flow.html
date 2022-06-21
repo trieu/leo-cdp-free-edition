@@ -266,7 +266,20 @@ __eventTrackingFunctions__
 // (3) LEO OBSERVER is ready
 function leoObserverProxyReady(session) {
    	// auto tracking when LEO CDP JS is ready
-   	__autoTrackingFunctions__
+   	__autoTrackingFunctions__ ;
+   	
+   	// set tracking LEO visitor ID into all a[href] nodes
+	LeoObserverProxy.synchLeoVisitorId(function(vid){
+		var aNodes = document.querySelectorAll('a');
+		[].forEach.call(aNodes, function(aNode) {
+			var hrefUrl = aNode.href;
+			if(hrefUrl) {
+				if(hrefUrl.indexOf('?') > 0) {hrefUrl += ("&leosyn=" + vid);}
+				else {hrefUrl += ("?leosyn=" + vid);}
+				aNode.href = hrefUrl;
+			}
+		});
+	});
 }
 				</textarea></div>
 			</div>  
