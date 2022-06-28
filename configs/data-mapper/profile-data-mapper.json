@@ -1,0 +1,91 @@
+{
+	"ProfileSingleView": {
+		"fromFieldNames": [
+			"J_DATA"
+		]
+	},
+	"NOTE_1": {
+		"_": "___________ Profile Keys for Indentity Resolution ___________"
+	},
+	"primaryPhone": {
+		"fromFieldNames": [
+			"mobile"
+		]
+	},
+	"primaryEmail": {
+		"fromFieldNames": [
+			"email"
+		]
+	},
+	"governmentIssuedIDs": {
+		"fromFieldNames": [
+			"NATIONALID","ALT_NATIONALID"
+		]
+	},
+	"applicationIDs": {
+		"fromFieldNames": [
+			"LPMS.LPMSAPP.APPLICATION_ID",
+			"LPMS.LPMSAPP.CUSTOMER._ID",
+			"APPLICATIONID",
+			"applicationId"
+		]
+	},
+	"crmRefId": {
+		"fromFieldNames": [
+			"CUSTOMERID"
+		]
+	},
+	"NOTE_2": {
+		"_": "___________ Personal Data __________________________"
+	},
+	"firstName": {
+		"fromFieldNames": [
+			"FNAME"
+		]
+	},
+	"middleName": {
+		"fromFieldNames": [
+			"MNAME"
+		]
+	},
+	"lastName": {
+		"fromFieldNames": [
+			"LNAME"
+		]
+	},
+	"gender": {
+		"fromFieldNames": [
+			"SEX"
+		],
+		"transformDataMap": {
+			"F": 0,
+			"M": 1,
+			"default": 7
+		}
+	},
+	"maritalStatus": {
+		"fromFieldNames": [
+			"MARITALSTATUS"
+		],
+		"transformDataMap": {
+			"Độc thân": 5,
+			"Đã kết hôn": 7,
+			"default": 6
+		}
+	},
+	"dateOfBirth": {
+		"fromFieldNames": [
+			"DOB"
+		]
+	},
+	"housingType": {
+		"fromFieldNames": [
+			"HOUSESTATUS"
+		]
+	},
+	"purchasedBrands": {
+		"fromFieldNames": [
+			"assetBrand"
+		]
+	}
+}

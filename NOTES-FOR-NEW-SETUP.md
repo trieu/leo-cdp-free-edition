@@ -44,7 +44,7 @@ The installed server must have Internet connection, please set the outbound fire
 
 [SSL certbot](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04)
 
-	sudo apt-get update; sudo apt install certbot python3-certbot-nginx
+	sudo apt-get update; sudo apt-get install python-is-python3; sudo apt install certbot python3-certbot-nginx
 	sudo certbot --nginx certonly
 
 

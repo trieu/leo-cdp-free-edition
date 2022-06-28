@@ -661,7 +661,7 @@ AQL_GET_PROFILE_BY_VISITOR_ID =>
 
 AQL_GET_PROFILE_ID_BY_VISITOR_ID =>
 	FOR p in cdp_profile 
-	FILTER @visitorId == p.visitorId
+	FILTER @visitorId == p.visitorId 
 	RETURN p._key
 ;
 
@@ -675,6 +675,31 @@ AQL_GET_PROFILE_BY_LOGIN_INFO_WITH_PASSWORD =>
 	FOR p in cdp_profile 
 	FILTER @loginInfo IN p.identities[*] AND p.password == @password AND p.status == 1
 	RETURN p
+;
+
+AQL_GET_PROFILES_BY_EMAILS => 
+	FOR email in @emails 
+    	FOR p in cdp_profile 
+		FILTER (email == p.primaryEmail OR email IN p.secondaryEmails) AND p.status == 1
+		RETURN DISTINCT p
+;
+
+AQL_GET_PROFILES_BY_PHONES => 
+	FOR phone in @phones 
+    	FOR p in cdp_profile 
+		FILTER (phone == p.primaryPhone OR phone IN p.secondaryPhones) AND p.status == 1
+		RETURN DISTINCT p
+;
+
+AQL_GET_PROFILES_BY_APPLICATION_IDS =>
+	FOR applicationID in @applicationIDs FOR p in cdp_profile FILTER applicationID IN p.applicationIDs AND p.status == 1 RETURN DISTINCT p
+;
+
+AQL_GET_PROFILES_BY_GOVERNMENT_ISSUED_IDS =>
+	FOR governmentIssuedID in @governmentIssuedIDs 
+    	FOR p in cdp_profile 
+		FILTER governmentIssuedID IN p.governmentIssuedIDs AND p.status == 1
+		RETURN DISTINCT p
 ;
 
 AQL_GET_PROFILE_BY_IDENTITY_RESOLUTION => 

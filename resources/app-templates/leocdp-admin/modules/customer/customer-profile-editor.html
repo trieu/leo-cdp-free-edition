@@ -67,7 +67,7 @@
 	                	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> CRM Profile ID / Imported Customer ID </b> 
 	                	<input class="form-control" type="text" placeholder="CRM User ID" data-field="crmRefId" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                </div>
-                    <div class="primary_field" >
+                    <div class="primary_field" style="padding-top: 10px;">
 					   <b> <i class="fa fa-user-o" aria-hidden="true"></i> Profile Status </b> 
 					   <div style="font-size:11px; padding-left: 20px;">
 					      <div class="radio">
@@ -93,14 +93,14 @@
        <!--  Tab Navigation Items -->
        <ul class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" style="font-size:13.5px;" >
        		<li class="active" >
-       			<a href="javascript:" data-target-tab="panel_personal_info" > <i class="fa fa-user-circle-o" aria-hidden="true"></i> Personal Info </a>
+       			<a href="javascript:" data-target-tab="panel_personal_info" > <i class="fa fa-user-circle-o" aria-hidden="true"></i> Personal </a>
        		</li>	
           	<li ><a href="javascript:" data-target-tab="panel_profile_contact" > <i class="fa fa-address-card-o" aria-hidden="true"></i> Contact</a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_taxonomy" > <i class="fa fa-tags" aria-hidden="true"></i> Taxonomy</a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_taxonomy" > <i class="fa fa-tags" aria-hidden="true"></i> ID & Taxonomy</a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_location" > <i class="fa fa-map-marker" aria-hidden="true"></i> Location</a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_education" > <i class="fa fa-graduation-cap" aria-hidden="true"></i> Education </a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_work" > <i class="fa fa-briefcase" aria-hidden="true"></i> Work Info</a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_marketing" > <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing Info</a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_work" > <i class="fa fa-briefcase" aria-hidden="true"></i> Work & Income </a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_marketing" > <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing </a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_salesources" > <i class="fa fa-info-circle" aria-hidden="true"></i> Sales Sources</a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_custom" > <i class="fa fa-table" aria-hidden="true"></i> Custom</a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_data_authorization" > <i class="fa fa-lock" aria-hidden="true"></i> Authorization</a></li>
@@ -134,33 +134,7 @@
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-id-badge"></i> Last Name </b> 
 	                                   <input class="form-control" type="text" placeholder="Last Name" data-field="lastName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                               </li>
-	                               
-	                               <li>
-	                                   <b data-persona="key" > <i class="fa fa-fw fa-envelope"></i> Primary Email <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-	                                   <input class="form-control" type="email" placeholder="Email" data-field="primaryEmail" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
-	                               </li>
-	                               
-	                               <li>
-	                                   <b data-persona="key" > <i class="fa fa-fw fa-phone-square"></i> Primary Mobile Phone <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-	                                   <input class="form-control" type="tel" placeholder="Mobile Phone" data-field="primaryPhone" data-fieldholder="inputvalue" data-fieldtype="tel" autocomplete="off" >
-	                               </li>
-	                               
-	                               <li>
-					                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Citizen/Passport ID List <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-					                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('governmentIssuedIDs')"title="Add New Citizen/Passport ID"  > 
-					    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add New Citizen/Passport ID 
-					    			   </button>
-					                   <p data-field="governmentIssuedIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
-					               </li>
 					               
-					                <li>
-					                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Application ID List <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-					                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('applicationIDs')"title="Add New Application ID"  > 
-					    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add New Application ID 
-					    			   </button>
-					                   <p data-field="applicationIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
-					               </li>
-	                               
 	                               <li class="personal_info" >
 	                                   <b data-persona="key" > <i class="fa fa-fw fa-user-o"></i> Gender </b> 
 	                                   <div class="radio">
@@ -232,35 +206,45 @@
                        <td>
 							<ol class="profile_ext_data" data-field="personal_attributes">
 								<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i>  Secondary Emails <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('secondaryEmails')" title="Add new email"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add New Email 
-				    			   </button>
-				                   <p data-field="secondaryEmails" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+                                   	<b data-persona="key" > <i class="fa fa-fw fa-envelope"></i> Primary Personal Email <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+                                   	<input class="form-control" type="email" placeholder="Email" data-field="primaryEmail" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                            </li>
+	                               
+                                <li>
+                                   	<b data-persona="key" > <i class="fa fa-fw fa-phone-square"></i> Primary Personal Mobile <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+                                   	<input class="form-control" type="tel" placeholder="Mobile Phone" data-field="primaryPhone" data-fieldholder="inputvalue" data-fieldtype="tel" autocomplete="off" >
+                               	</li>
+	                               
+								<li>
+				                   	<b data-persona="key" > <i class="fa fa-fw fa-list"></i>  Secondary Personal Emails <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+				                   	<button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('secondaryEmails')" title="Add new email"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Email 
+				    			   	</button>
+				                   	<p data-field="secondaryEmails" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 				               	</li>
 				               	
 				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Secondary Phones <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('secondaryPhones')" title="Add new phone"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add New Phone 
-				    			   </button>
-				                   <p data-field="secondaryPhones" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+				                   	<b data-persona="key" > <i class="fa fa-fw fa-list"></i> Secondary Personal Phones <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+				                   	<button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('secondaryPhones')" title="Add new phone"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Phone 
+				    			   	</button>
+				                  	<p data-field="secondaryPhones" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 				               	</li>
 							
 								<li>
-                                   <b data-persona="key" > <i class="fa fa-fw fa-users"></i> Social Media Profiles <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-                                   <button type="button" class="btn btn-do-now btn-xs" onclick="addNewHashMapItem('socialMediaProfiles', SocialMediaIconMap)" title="Add new profile"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add New Social Media Profile 
-				    			   </button>
-                                   <p data-field="socialMediaProfiles" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="socialMediaProfiles" > </p>
+                                   	<b data-persona="key" > <i class="fa fa-fw fa-users"></i> Social Media Profiles <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+                                   	<button type="button" class="btn btn-do-now btn-xs" onclick="addNewHashMapItem('socialMediaProfiles', SocialMediaIconMap)" title="Add new profile"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Social Media Profile 
+				    			   	</button>
+                                   	<p data-field="socialMediaProfiles" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="socialMediaProfiles" > </p>
                                 </li>
 							    
                                 <li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Business Contacts <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-				                   <button type="button" class="btn btn-do-now btn-xs" onclick="addNewHashMapItem('businessContacts', ContactIconsMap)" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add New Business Contact 
-				    			   </button>
-				                   <p data-field="businessContacts" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="businessContacts" > </p>
+				                   	<b data-persona="key" > <i class="fa fa-fw fa-list"></i> Business Contacts <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+				                   	<button type="button" class="btn btn-do-now btn-xs" onclick="addNewHashMapItem('businessContacts', ContactIconsMap)" title="Add new"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Business Contact 
+				    			   	</button>
+				                   	<p data-field="businessContacts" data-fieldholder="html_hashmap" data-fieldtype="hashmap" data-editable="true" id="businessContacts" > </p>
 				               	</li>
 			               	</ol>
                	  		</td>
@@ -272,21 +256,46 @@
 			
 			<!-- tab 3 Taxonomy  -->
 			<div class="tab-pane" id="panel_profile_taxonomy" >
-				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Taxonomy </h4>
-					<table border=0 class="underlined" style="width: 100%;">
+			    <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Identity Information </h4>
+			    <table border=0 class="underlined" style="width: 100%;">
+                   <tr>
+                       <td>
+							<ol class="profile_ext_data" data-field="personal_attributes">
+			              	 	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> List of Citizen/Passport ID (Government Issued IDs) <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('governmentIssuedIDs')"title="Add New Citizen/Passport ID"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Citizen/Passport ID 
+				    			   </button>
+				                   <p data-field="governmentIssuedIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
+				              	</li>
+				               
+                              	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> List of Application ID <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('applicationIDs')"title="Add New Application ID"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Application ID 
+				    			   </button>
+				                   <p data-field="applicationIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
+				              	</li>
+			               	</ol>
+               	  		</td>
+                   </tr>
+                </table>
+                
+				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Taxonomy Information </h4>
+				<table border=0 class="underlined" style="width: 100%;">
                    	<tr>
                        <td>
 							<ol class="profile_ext_data" data-field="personal_attributes">
 							
 								 <li>
 					                 <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Data Labels </b> 
-					                 <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('dataLabels')" title="Add new"  > 
-					    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+					                 <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('dataLabels')" title="Add new label"  > 
+					    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Label 
 					    			 </button>
 					                 <p data-field="dataLabels" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" >  </p>
 					             </li>
 					               	
-					              <li>
+					             <li>
 			                           <b> <i class="fa fa-id-card-o" aria-hidden="true"></i> Contact Type <span class="small_highlight_text">(Data for Identity Resolution)</span> </b>  <br>
 		                               <div style="font-size: 13px; background-color: #fff;padding: 8px 25px;" >
 		                                   	<div class="radio">
@@ -327,6 +336,7 @@
 										   	</div>
 										</div>
 	                              </li>
+	                              
 	             			</ol>
                	  		</td>
                    </tr>
@@ -388,7 +398,7 @@
 				               	<li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Soft Skills </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('softSkills')" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Skill 
 				    			   </button>
 				                   <p data-field="softSkills" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 				               	</li>
@@ -396,7 +406,7 @@
 				               	<li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Learning History </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('learningHistory')" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Value 
 				    			   </button>
 				                   <p data-field="learningHistory" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 				               	</li>
@@ -404,7 +414,7 @@
 				               	<li>
 				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Study Certificates </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('studyCertificates')" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Certificate 
 				    			   </button>
 				                   <p data-field="studyCertificates" data-fieldholder="html_hashset"  data-fieldtype="hashset"  data-editable="true" >  </p>
 				               	</li>
@@ -418,7 +428,6 @@
 			<!-- tab 6 Work  -->
 			<div class="tab-pane" id="panel_profile_work" >
 				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Work Information </h4>
-				
 			    <table border=0 class="underlined" style="width: 100%;">
                    <tr>
                        <td>
@@ -426,7 +435,7 @@
 				               	<li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Job Titles </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('jobTitles')" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Job Title 
 				    			   </button>
 				                   <p data-field="jobTitles" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 				               	</li>
@@ -434,7 +443,7 @@
 				               	<li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Working History </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('workingHistory')" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Value 
 				    			   </button>
 				                   <p data-field="workingHistory" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 				               	</li>
@@ -442,7 +451,7 @@
 				               	<li>
 				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Experience in Business Industries </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('businessIndustries')" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Value 
 				    			   </button>
 				                   <p data-field="businessIndustries" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
 				               	</li>
@@ -450,6 +459,22 @@
                	  		</td>
                    </tr>
                 </table>
+                
+			    <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Income Information </h4>
+				<div class="col-md-12">
+					<button type="button" class="btn btn-do-now btn-sm" onclick="profileAddNewCustomField('incomeHistory')" title="Add Income Information Record"  > 
+    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Income Information Record
+    				</button>
+				</div>
+				<div class="col-md-12" >
+					<div class="col-md-3" > <h5>Time Range Key</h5> </div>
+			    	<div class="col-md-9" > <h5>Income Value</h5> </div>
+				</div>
+			    <div class="col-md-12" style="padding: 4px 8px; background-color: #f6f6f6; border-radius: 8px" >
+					<p id="profile_incomeHistory" data-field="incomeHistory" data-fieldholder="html_custom_field" data-fieldtype="custom_field" data-editable="true" > 
+						-
+					</p>
+                </div>
                
 			</div>
 			
@@ -464,7 +489,7 @@
                                 <li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Content Marketing Keywords </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('contentKeywords')" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Keyword 
 				    			   </button>
 				                   <p data-field="contentKeywords" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
 				               	</li>
@@ -472,7 +497,7 @@
 				               	<li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Product Marketing Keywords </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('productKeywords')" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Keyword 
 				    			   </button>
 				                   <p data-field="productKeywords" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
 				               	</li>
@@ -480,7 +505,7 @@
 				                <li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Personal Interests </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('personalInterests')" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Value 
 				    			   </button>
 				                   <p data-field="personalInterests" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
 				               	</li>
@@ -488,7 +513,7 @@
 				               	<li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Reachable Media Channels </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('mediaChannels')" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Media Channel
 				    			   </button>
 				                   <p data-field="mediaChannels" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 				               	</li>
@@ -496,7 +521,7 @@
 				               	<li>
 				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Personal Problems or Pain-points </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('personalProblems')" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Value 
 				    			   </button>
 				                   <p data-field="personalProblems" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
 				               	</li>
@@ -504,7 +529,7 @@
 				               	<li>
 				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Solutions for Customer </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('solutionsForCustomer')" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Solution 
 				    			   </button>
 				                   <p data-field="solutionsForCustomer" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
 				               	</li>
@@ -512,7 +537,7 @@
 				               	<li>
 				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Next Best Actions </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('nextBestActions')" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Value 
 				    			   </button>
 				                   <p data-field="nextBestActions" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
 				               	</li>
@@ -533,7 +558,7 @@
 				               	<li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-users"></i> List of Sales Agency </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('saleAgencies')" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Sales Agency 
 				    			   </button>
 				                   <p data-field="saleAgencies" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 				               	</li>
@@ -541,7 +566,7 @@
 				               	<li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-user"></i> List of Salesperson </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('saleAgents')" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Value 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Salesperson 
 				    			   </button>
 				                   <p data-field="saleAgents" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 				               	</li>
@@ -555,10 +580,10 @@
 			
 			<!-- tab 9 Custom  -->
 			<div class="tab-pane" id="panel_profile_custom" >
-				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Custom Data Fields </h4>
+				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Custom Fields </h4>
 				<div class="col-md-12">
 					<button type="button" class="btn btn-do-now btn-sm" onclick="profileAddNewCustomField('extAttributes')" title="Add new custom field"  > 
-    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Custom Data Field 
+    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Custom Field 
     				</button>
 				</div>
 				<div class="col-md-12" >
@@ -583,7 +608,7 @@
                                 <li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Authorized Viewers </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('authorizedViewers')" title="Add Username"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Viewer 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Viewer 
 				    			   </button>
 				                   <p data-field="authorizedViewers" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
 				               	</li>
@@ -591,7 +616,7 @@
 				               	<li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i>  Authorized Editors </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('authorizedEditors')" title="Add Username"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> New Editor 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Editor 
 				    			   </button>
 				                   <p data-field="authorizedEditors" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true" >  </p>
 				               	</li>

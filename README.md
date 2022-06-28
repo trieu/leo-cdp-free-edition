@@ -32,7 +32,12 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # Technology Architecture
 
+## Overview
 ![alt technology-architecture-leo-cdp](https://blogger.googleusercontent.com/img/a/AVvXsEiMumpMfN32dIcKry8UsCvrb2xG85hqxk6iRPI2-oyuTbvtJfGdbtrjoUyelB-01dDhFNH04VyVZsGi1MnIrNaPX1xE697WLooaSta-FwMBm-TvoWi3GmcirzSX56skENUVrp-am8pkqTnfq_sqQFX-cD7CJkRybXVjTRzi3QtWJezWIZzJ52vfEZTB=s2048)
+
+## Data Pipeline for Batch Processing
+![alt data-pipeline-leo-cdp](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhsX4J45FQeWPBqIWfwHvskj2nGw_hG3kKAKNcA-JEgnzkctmhTI0MJ0mgyhRiGl5kpMBDwIEBXylKoFYVOxnX2PedPQLtl3_GsNdHHr1rEdNUSEHcszTq5CYvu3XakA5txciDjS-IkmCm2Yif_2a0TvrDKNh1YYz5alrIB-8Ul39rgLeC5JNdYOdhI/s1651/Architecture%20and%20Data%20Pipeline%20of%20LEO%20CDP-Data%20Pipeline.drawio%20(1).png)
+
 
 ## Software Requirements
 
