@@ -114,14 +114,16 @@
 					
 					<!-- tab 3 Touchpoint Hub Report   -->
 					<div class="highlight_box tab-pane" id="panel_observer_report" >
-						<div id="observer_report_wrapper" class="vcenter" >
-	               		</div>
+						<div id="observer_report_wrapper" class="vcenter" ></div>
+						<hr>
+						<div id="observer_report_table"></div>
 					</div>
 					
 					<!-- tab 4 Touchpoint Details Report   -->
 					<div class="highlight_box tab-pane" id="panel_touchpoint_report" >
-						<div id="touchpoint_report_wrapper" class="vcenter" >
-	               		</div>
+						<div id="touchpoint_report_wrapper" class="vcenter" ></div>
+						<hr>
+						<div id="touchpoint_report_table"></div>
 					</div>
 				</div>
 	            
@@ -393,10 +395,17 @@
                 if (json.httpCode === 0 && json.errorMessage === '') {
              	   
              	   var w = $('#main_dashboard_report_tabs').width() - 6;
-             	   var canvas = $('<canvas/>').width(w).height(700);
+             	   var canvas = $('<canvas/>').width(w).height(550);
              	   container.empty().append(canvas);
              	   
              	   showProfileEventBubbleChart("Observer Report", container, canvas, json.data, "observer");
+             	   
+             	   var fieldsSchema = [
+				        { name: "observer.name", title : "Name", align: 'center' , type: "text" },			        
+				        { name: "profileCount", title : "Profile Count", type: "number", align: 'center', width: 60 },
+				        { name: "eventCount", title : "Event Count", type: "number", align: 'center', width: 60 }
+				    ];
+             	    $("#observer_report_table").jsGrid({ editing: false, paging: false, width: "100%", height:"auto", data: json.data, fields: fieldsSchema})
                 } else {
                     LeoAdminApiUtil.logErrorPayload(json);
                 }
@@ -416,10 +425,17 @@
                 if (json.httpCode === 0 && json.errorMessage === '') {
                 	
                 	var w = $('#main_dashboard_report_tabs').width() - 6;
-              	   	var canvas = $('<canvas/>').width(w).height(700);
+              	   	var canvas = $('<canvas/>').width(w).height(550);
               	   	container.empty().append(canvas);
                 	
                 	showProfileEventBubbleChart("Touchpoint Report", container, canvas, json.data, "touchpoint");
+                	
+                	var fieldsSchema = [
+ 				        { name: "touchpoint.name", title : "Name", align: 'center' , type: "text" },			        
+ 				        { name: "profileCount", title : "Profile Count", type: "number", align: 'center', width: 60 },
+ 				        { name: "eventCount", title : "Event Count", type: "number", align: 'center', width: 60 }
+ 				    ];
+              	    $("#touchpoint_report_table").jsGrid({ editing: false, paging: false, width: "100%", height:"auto", data: json.data, fields: fieldsSchema})
                 } else {
                     LeoAdminApiUtil.logErrorPayload(json);
                 }
