@@ -284,6 +284,24 @@ AQL_GET_TOUCHPOINTS_AND_REPORT =>
 		RETURN {"touchpoint":t, "profileCount":profileCount, "eventCount": eventCount}
 ;
 
+AQL_GET_OBSERVERS_AND_REPORT =>
+	FOR o in cdp_eventobserver
+	    LET observerStats = (
+		    FOR e in cdp_trackingevent 
+		    FILTER (e.refJourneyId == @journeyId OR @journeyId == "") AND e.observerId == o._key AND e.createdAt >= @beginFilterDate AND e.createdAt <= @endFilterDate
+		    COLLECT observerId = e.observerId  
+		    AGGREGATE eventCount = COUNT_DISTINCT(e._key),profileCount = COUNT_DISTINCT(e.refProfileId)
+		    RETURN {"observerId": observerId, "eventCount": eventCount, "profileCount":profileCount}
+	    	)
+		FOR s in observerStats  
+	    	LET profileCount = s.profileCount
+	    	LET eventCount = s.eventCount
+			FILTER s.observerId == o._key AND (profileCount > 0 AND eventCount > 0) AND (o.type == @touchpointType OR @touchpointType < 0)
+			SORT profileCount DESC 
+		LIMIT @startIndex,@numberResult 
+		RETURN {"observer":o, "profileCount":profileCount, "eventCount": eventCount}
+;
+
 ###########  DATA_FLOW_STAGE  ########################################################################################################;
 
 AQL_GET_ALL_DATA_FLOW_STAGES =>

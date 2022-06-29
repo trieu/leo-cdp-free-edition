@@ -76,16 +76,21 @@
             	<ul class="nav nav-tabs" data-tab-content="main_dashboard_report_tabs" >
 		         	<li class="active" onclick="showDashboardReport(false)" >
 		          		<a href="javascript:" data-target-tab="panel_journey_map_report" title="Journey Map Report"> 
-		          			<i class="fa fa-map-o" aria-hidden="true"></i> Data Journey Report 
+		          			<i class="fa fa-map-o" aria-hidden="true"></i> Journey Report 
 		          		</a>
 		         	</li>
 		         	<li>
 		         		<a href="javascript:" data-target-tab="panel_data_funnel_report" title="Data Funnel Report" > 
-		         			<i class="fa fa-filter" aria-hidden="true"></i> Profile Funnel Report 
+		         			<i class="fa fa-filter" aria-hidden="true"></i> Funnel Report 
 		         		</a>
 		         	</li>
 		         	<li>
-		         		<a href="javascript:" data-target-tab="panel_touchpoint_report" title="Touchpoint Report" > 
+		         		<a href="javascript:" data-target-tab="panel_observer_report" title="Event Observer Report" > 
+		         			<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Observer Report
+		         		</a>
+		         	</li>
+		         	<li>
+		         		<a href="javascript:" data-target-tab="panel_touchpoint_report" title="Touchpoint Details Report" > 
 		         			<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Touchpoint Report
 		         		</a>
 		         	</li>
@@ -107,7 +112,13 @@
 	               		</div>
 					</div>
 					
-					<!-- tab 3 Touchpoint Report   -->
+					<!-- tab 3 Touchpoint Hub Report   -->
+					<div class="highlight_box tab-pane" id="panel_observer_report" >
+						<div id="observer_report_wrapper" class="vcenter" >
+	               		</div>
+					</div>
+					
+					<!-- tab 4 Touchpoint Details Report   -->
 					<div class="highlight_box tab-pane" id="panel_touchpoint_report" >
 						<div id="touchpoint_report_wrapper" class="vcenter" >
 	               		</div>
@@ -362,29 +373,58 @@
                 }
             });
             
-            
-            $('#touchpoint_report_wrapper').html('<div class="loader"></div>');
-            setTimeout(function(){
-            	 // touchpoint report
-                queryFilter['touchpointType'] = -1;
-                queryFilter['startIndex'] = 0;
-                queryFilter['numberResult'] = 22;
-                var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-report';
-                LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {
-                    if (json.httpCode === 0 && json.errorMessage === '') {
-                    	updateTouchpointReport(json.data);
-                    } else {
-                        LeoAdminApiUtil.logErrorPayload(json);
-                    }
-                });
-            },1200)
+            loadObserverReport(queryFilter);
+            loadTouchpointReport(queryFilter);
     	}
     	else {
     		updateChartDashboard();
     	}
     }
     
-
+    function loadObserverReport(queryFilter) {
+    	var container = $('#observer_report_wrapper').html('<div class="loader"></div>');
+        setTimeout(function(){
+        	 	// touchpoint detail report
+            queryFilter['touchpointType'] = -1;
+            queryFilter['startIndex'] = 0;
+            queryFilter['numberResult'] = 22;
+            var urlStr = baseLeoAdminUrl + '/cdp/analytics360/observer-report';
+            LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {
+                if (json.httpCode === 0 && json.errorMessage === '') {
+             	   
+             	   var w = $('#main_dashboard_report_tabs').width() - 6;
+             	   var canvas = $('<canvas/>').width(w).height(700);
+             	   container.empty().append(canvas);
+             	   
+             	   showProfileEventBubbleChart("Observer Report", container, canvas, json.data, "observer");
+                } else {
+                    LeoAdminApiUtil.logErrorPayload(json);
+                }
+            });
+        },800);
+    }
     
+    function loadTouchpointReport(queryFilter){
+        var container = $('#touchpoint_report_wrapper').html('<div class="loader"></div>');
+        setTimeout(function(){
+        	 // touchpoint detail report
+            queryFilter['touchpointType'] = -1;
+            queryFilter['startIndex'] = 0;
+            queryFilter['numberResult'] = 22;
+            var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-report';
+            LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {
+                if (json.httpCode === 0 && json.errorMessage === '') {
+                	
+                	var w = $('#main_dashboard_report_tabs').width() - 6;
+              	   	var canvas = $('<canvas/>').width(w).height(700);
+              	   	container.empty().append(canvas);
+                	
+                	showProfileEventBubbleChart("Touchpoint Report", container, canvas, json.data, "touchpoint");
+                } else {
+                    LeoAdminApiUtil.logErrorPayload(json);
+                }
+            });
+        },800);
+    }
 
 </script>
