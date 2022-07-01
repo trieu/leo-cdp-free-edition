@@ -171,7 +171,7 @@
     
 <script>
 	var canEditData = false, canDeleteData = false, canInsertData = false, dataTable = false;
-	var journeyMapIdToFilter = "";
+	var currentJourneyMapId = "";
 	
 	function toggleProfileDisableDateFilter(disableBySearch) {
 		var checked = $('#disable_date_filter:checked').length === 1;
@@ -286,7 +286,7 @@
     	
     	// journey map
     	loadJourneyMapList(false, function(id){
-    		journeyMapIdToFilter = id;
+    		currentJourneyMapId = id;
         },true);
     	
     	if(typeof encodedKeywords === 'string' ) {
@@ -366,7 +366,7 @@
             			d.visitorId = $('#filterByVisitorId').val().trim();
             			d.profileId = $('#filterByProfileId').val().trim();
             			d.lastTouchpointName = $('#filterByLastTouchpoint').val().trim();
-            			d.journeyMapId = journeyMapIdToFilter;
+            			d.journeyMapId = currentJourneyMapId;
             			
             			var statusStr = $('#filterByStatus').val().trim();
             			d.status = parseInt(statusStr === "" ? 1 : statusStr);

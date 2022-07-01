@@ -1,27 +1,26 @@
 <style>
-.btn-get-code {
-	margin:3px;
-	width: 144px;
-	text-align: left!important;
-}
-#touchpoint_hub_table tr.jsgrid-header-row, #data_observers_table tr.jsgrid-header-row {
-	font-size:13px;
-}
-.observer_id {
-	font-size: 11px;
-    font-weight: bold;
-    padding: 10px;
-}
-.observer_url a {
-    color: #3300ff!important;
-}
-.observer_name, .touchpoint_hub_name {
-	color: #3300ff;
-}
+	.btn-get-code {
+		margin:3px;
+		width: 144px;
+		text-align: left!important;
+	}
+	#touchpoint_hub_table tr.jsgrid-header-row, #data_observers_table tr.jsgrid-header-row {
+		font-size:13px;
+	}
+	.observer_id {
+		font-size: 11px;
+	    font-weight: bold;
+	    padding: 10px;
+	}
+	.observer_url a {
+	    color: #3300ff!important;
+	}
+	.observer_name, .touchpoint_hub_name {
+		color: #3300ff;
+	}
 </style>
 
 <div class="row">
-
     <div class="col-lg-7" >
 		<h5 class="page-header" id="page_breadcrumb" > </h5>
 	</div> 
@@ -120,7 +119,7 @@
 
 <script>
 	var currentJourneyMapId = "id_default_journey";
-	var touchpointHubMap = false, eventMetrics = false;
+	var eventMetrics = false;
 	var cxFeedbackTemplates = false, landingPageTemplates = false;
 	
 	var initJourneyMap = function(id) {
@@ -137,9 +136,16 @@
     		$("#tab_data_observers").show();
     	}
     	setupTabPanels();
-    	loadEventMetrics();    	
-		loadJourneyDataMap();
-		loadJourneyMapList();
+    	loadEventMetrics();   
+    	
+    	// the journey map selection
+    	loadJourneyMapList();
+    	
+    	// the flow
+		loadJourneyMapAndTouchpointHubs(currentJourneyMapId, '#journeyFlowChart', '#journeyMapName', "#touchpoint_hub_table");
+		
+		// load data observer tags
+   		loadDataObserverList("#data_observers_table");
 		
 		// name editor
 		initJourneyMapNameEditor();

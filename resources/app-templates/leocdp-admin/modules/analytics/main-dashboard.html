@@ -184,7 +184,7 @@
 
 <script>
 	//select date
-	var journeyMapIdToReport = ""; 
+	var currentJourneyMapId = ""; 
     var initPrimaryDashboard = function () {
     	setupTabPanels();
     	updateProfileChartWrapper();		
@@ -194,7 +194,7 @@
     	showDashboardReport(true);
     	
     	loadJourneyMapList(false, function(id){
-    		journeyMapIdToReport = id;
+    		currentJourneyMapId = id;
     		showDashboardReport(true)
         },true);
     	
@@ -359,7 +359,7 @@
     		$("#primary_dashboard_loader").show();
         	$("#primary_dashboard").hide();
         	
-        	queryFilter['journeyMapId'] = journeyMapIdToReport;
+        	queryFilter['journeyMapId'] = currentJourneyMapId;
         	
         	// journey and funnel report
         	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/dashboard-primary';
@@ -398,12 +398,12 @@
              	   var canvas = $('<canvas/>').width(w).height(550);
              	   container.empty().append(canvas);
              	   
-             	   showProfileEventBubbleChart("Observer Report", container, canvas, json.data, "observer");
+             	   showProfileEventBubbleChart("Data Observer Report", container, canvas, json.data);
              	   
              	   var fieldsSchema = [
-				        { name: "observer.name", title : "Name", align: 'center' , type: "text" },			        
-				        { name: "profileCount", title : "Profile Count", type: "number", align: 'center', width: 60 },
-				        { name: "eventCount", title : "Event Count", type: "number", align: 'center', width: 60 }
+				        { name: "name", title : "Name", align: 'center' , type: "text" },			        
+				        { name: "profileCount", title : "Total Profile", type: "number", align: 'center', width: 60 },
+				        { name: "eventCount", title : "Total Event", type: "number", align: 'center', width: 60 }
 				    ];
              	    $("#observer_report_table").jsGrid({ editing: false, paging: false, width: "100%", height:"auto", data: json.data, fields: fieldsSchema})
                 } else {
@@ -431,9 +431,9 @@
                 	showProfileEventBubbleChart("Touchpoint Report", container, canvas, json.data, "touchpoint");
                 	
                 	var fieldsSchema = [
- 				        { name: "touchpoint.name", title : "Name", align: 'center' , type: "text" },			        
- 				        { name: "profileCount", title : "Profile Count", type: "number", align: 'center', width: 60 },
- 				        { name: "eventCount", title : "Event Count", type: "number", align: 'center', width: 60 }
+ 				        { name: "touchpoint.name", title : "Touchpoint Name", align: 'center' , type: "text" },			        
+ 				        { name: "profileCount", title : "Total Profile", type: "number", align: 'center', width: 60 },
+ 				        { name: "eventCount", title : "Total Event", type: "number", align: 'center', width: 60 }
  				    ];
               	    $("#touchpoint_report_table").jsGrid({ editing: false, paging: false, width: "100%", height:"auto", data: json.data, fields: fieldsSchema})
                 } else {

@@ -21,10 +21,13 @@
 - [In Progress] New Data Connector and connector protocol
 
 
-## [0.8.9] - 2022-06-21
+## [0.8.9] - 2022-07-01
 
 ### Added 
 
+- [Report] add journey map report in profile
+- [Report] add Observer Report in main dashboard
+- [LEO Data Pipeline] implement to process batch data from kafka and write data into database
 - [Event Metric] add showInObserverJS to show/hide event tracking JS method in Leo Observer JavaScript
 - [Data Funnel] add STAGE_TERMINATED_CUSTOMER
 - [DEVOPS] add kafdrop as UI tool to monitor Kafka 
@@ -69,6 +72,7 @@
 
 ### Fixed 
 
+- [Profile] fix bugs of De-duplicate profile
 - [Event] ref touchpoint domain should extract from URL
 - [Data Journey] improve and fix bugs profile model
 - [Segment] CSV data exporting is JSON if segment'size larger than 100, not CSV

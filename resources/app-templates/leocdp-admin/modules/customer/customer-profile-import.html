@@ -113,7 +113,7 @@
 
 <script>
 	
-	var journeyIdToImport = "id_default_journey"; 
+	var currentJourneyMapId = "id_default_journey"; 
 	var journeyStageToImport = 1;// awareness
 	var contactTypeToImport = 4;
 	
@@ -158,7 +158,7 @@
         }, ['text/csv']);
         
         loadJourneyMapList(false, function(id){
-        	journeyIdToImport = id;
+        	currentJourneyMapId = id;
         });
         
         loadJourneyStagesList(function(id){
@@ -207,7 +207,7 @@
 			location.hash = "calljs-leoCdpRouter('Profile_Management')";
 		}
 		var dataLabels = $('#profileImpoterDataLabel').val().trim();
-		var params = {'importFileUrl' : importFileUrl, "dataLabels" : dataLabels, "journeyMapId": journeyIdToImport, "journeyStage": journeyStageToImport, "contactType": contactTypeToImport}
+		var params = {'importFileUrl' : importFileUrl, "dataLabels" : dataLabels, "journeyMapId": currentJourneyMapId, "journeyStage": journeyStageToImport, "contactType": contactTypeToImport}
 		LeoAdminApiUtil.callPostAdminApi('/cdp/profiles/import', params , function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
     			var importedOk = json.data.importedOk;
