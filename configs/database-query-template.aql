@@ -284,7 +284,7 @@ AQL_GET_TOUCHPOINTS_AND_REPORT =>
 		RETURN {"touchpoint":t, "profileCount":profileCount, "eventCount": eventCount}
 ;
 
-AQL_GET_OBSERVERS_AND_REPORT =>
+AQL_GET_OBSERVER_REPORT =>
 	FOR o in cdp_eventobserver
 	    LET observerStats = (
 		    FOR e in cdp_trackingevent 
@@ -299,7 +299,23 @@ AQL_GET_OBSERVERS_AND_REPORT =>
 			FILTER s.observerId == o._key AND (profileCount > 0 AND eventCount > 0) AND (o.type == @touchpointType OR @touchpointType < 0)
 			SORT profileCount DESC 
 		LIMIT @startIndex,@numberResult 
-		RETURN {"observer":o, "profileCount":profileCount, "eventCount": eventCount}
+		RETURN {"observerId":o._key, "touchpointHubId": o.touchpointHubId, "name": o.name, "dataSourceUrl": o.dataSourceUrl, "profileCount":profileCount, "eventCount": eventCount}
+;
+
+AQL_GET_OBSERVER_REPORT_FOR_PROFILE =>
+	FOR o in cdp_eventobserver
+	    LET observerStats = (
+		    FOR e in cdp_trackingevent 
+		    FILTER (e.refJourneyId == @journeyId OR @journeyId == "") AND e.observerId == o._key AND e.refProfileId == @refProfileId
+		    COLLECT observerId = e.observerId  
+		    AGGREGATE eventCount = COUNT_DISTINCT(e._key)
+		    RETURN {"observerId": observerId, "eventCount": eventCount}
+	    	)
+		FOR s in observerStats
+	    	LET eventCount = s.eventCount
+			FILTER s.observerId == o._key AND eventCount > 0
+			SORT eventCount DESC
+		RETURN {"observerId":o._key, "touchpointHubId": o.touchpointHubId, "name": o.name, "dataSourceUrl": o.dataSourceUrl, "eventCount": eventCount}
 ;
 
 ###########  DATA_FLOW_STAGE  ########################################################################################################;
