@@ -25,7 +25,7 @@
 
 ### Added 
 
-- [Report] add bar chart for Event Statistics and Referral Channel
+- [Report] add bar chart for Touchpoint Observer, Event Metric and Referral Channel
 - [Report] add journey map report in profile
 - [Report] add Observer Report in main dashboard
 - [LEO Data Pipeline] implement to process batch data from kafka and write data into database
