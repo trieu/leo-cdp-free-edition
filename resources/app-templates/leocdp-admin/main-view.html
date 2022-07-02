@@ -233,18 +233,6 @@
 		$('#page-wrapper').attr('style', 'width:'+($(window).width() - 220 ) + 'px!important');
 	}
 	
-	function loadCommonModalHtml() {
-	    var list = [
-	        '/view/common-widgets/query-filter-modal.html?admin=1',
-	        '/view/common-widgets/post-type-selection-modal.html?admin=1',
-	        '/view/common-widgets/confirm-delete-data-modal.html?admin=1',
-	        '/view/common-widgets/leo-recommender.html?admin=1'
-	    ];
-	    list.forEach(function (e) {
-	        loadModalboxHtml(e);
-	    });
-	}
-	
 	function navigationSetup(){
 		// 1 analytics menu
 		$("#analytics_hub_menu").on("hide.bs.collapse", function(){
@@ -293,7 +281,6 @@
 			$('#page-main-notification').show().html(msg);
 		} else {
 			pageWrapperResize();
-			loadCommonModalHtml();
 			loadUserInfoWidget();
 			navigationSetup();
 			

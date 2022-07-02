@@ -1,0 +1,448 @@
+<style>
+	.btn-get-code {
+		margin:3px;
+		width: 144px;
+		text-align: left!important;
+	}
+	#touchpoint_hub_table tr.jsgrid-header-row, #data_observers_table tr.jsgrid-header-row {
+		font-size:13px;
+	}
+	.observer_id {
+		font-size: 11px;
+	    font-weight: bold;
+	    padding: 10px;
+	}
+	.observer_url a {
+	    color: #3300ff!important;
+	}
+	.observer_name, .touchpoint_hub_name {
+		color: #3300ff;
+	}
+</style>
+
+<!-- Templates for customer-journey-flow.html -->
+<script id='leo-tracking-view-event-code-tpl' type="text/html" >
+// (2.<%- counter %>) function to track View Event "<%- eventMetricName %>"
+LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
+	eventData = eventData ? eventData : {};
+	LeoObserverProxy.recordViewEvent("<%- eventMetricId %>",eventData);
+}
+</script>
+
+<script id='leo-tracking-action-event-code-tpl' type="text/html" >
+// (2.<%- counter %>) function to track Action Event "<%- eventMetricName %>"
+LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
+	eventData = eventData ? eventData : {};
+	LeoObserverProxy.recordActionEvent("<%- eventMetricId %>",eventData);
+}
+</script>
+
+<!--  -->
+<script id='leo-tracking-conversion-event-code-tpl' type="text/html" >
+// (2.<%- counter %>) function to track Conversion Event "<%- eventMetricName %>"
+LeoObserver.recordEvent<%- eventMetricName %> = function(eventData, shoppingCartItems, transactionId, transactionValue, currencyCode) {
+	// need 5 params
+	eventData = typeof eventData === "object" ? eventData : {};
+	shoppingCartItems = typeof shoppingCartItems === "object" ? shoppingCartItems : [];
+	transactionId = typeof transactionId === "string" ? transactionId : "";
+	transactionValue = typeof transactionValue === "number" ? transactionValue : 0;
+	currencyCode = typeof currencyCode === "string" ? currencyCode : "USD";
+	// submit data
+	LeoObserverProxy.recordConversionEvent("<%- eventMetricId %>", eventData , transactionId, shoppingCartItems, transactionValue, currencyCode);
+
+}
+</script>
+
+<script id='leo-tracking-feedback-event-code-tpl' type="text/html" >
+// (2.<%- counter %>) function to track Feedback Event "<%- eventMetricName %>"
+LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
+	eventData = eventData ? eventData : {};
+	LeoObserverProxy.recordFeedbackEvent("<%- eventMetricId %>",eventData);
+}
+</script>
+
+<div class="modal fade" id="webDataObserverCodeDialog" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > JavaScript Tag Code of LEO CDP to collect behavioral profile data </h4>
+			</div>         
+			<div class="modal-body">
+				<div class="form-group" >
+	                <div class="checkbox">
+					  	<label><input type="checkbox" id="leo_observer_auto_track" checked="checked" > Auto tracking "page-view" event when the web page is fully loaded </label>
+					</div>
+					<div class="checkbox">
+						<label><input type="checkbox" id="leo_observer_auto_collect_UTM" checked="checked" > Auto collect data of UTM (Google Analytics) </label>
+					</div>
+	            </div>
+				<div id="code_holder" ><textarea id="data_observer_code" class="code">
+// (1) LEO OBSERVER: load JavaScript code for [__tpHubName__]
+(function() { 	
+	// Observer ID
+	window.leoObserverId = "__leoObserverId__";
+	
+	// CDN of JS
+	window.leoObserverLogDomain = "__leoObserverDomain__";
+  	window.leoObserverCdnDomain = "__staticFileDomain__";
+	
+	// Data Touchpoint Metadata 
+	window.srcTouchpointName = encodeURIComponent(document.title);
+	window.srcTouchpointUrl = encodeURIComponent(location.href);
+
+	// the main proxy LEO JS
+	var leoproxyJsPath = '/js/leo-observer/leo.proxy.min.js';
+    var src = location.protocol + '//' + window.leoObserverCdnDomain + leoproxyJsPath;
+    var jsNode = document.createElement('script');
+    jsNode.async=true; jsNode.defer=true; jsNode.src = src;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jsNode, s);
+})();
+
+var parseDataUTM = window.parseDataUTM || function () {
+    if (location.search.indexOf('utm_') > 0) {
+        var search = location.search.substring(1);
+        var json = decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"');
+        return JSON.parse('{"' + json + '"}');
+    }
+}
+	
+// (2) LEO OBSERVER: set-up all event tracking functions
+var LeoObserver = {};
+__eventTrackingFunctions__
+// (3) LEO OBSERVER is ready
+function leoObserverProxyReady(session) {
+   	// auto tracking when LEO CDP JS is ready
+   	__autoTrackingFunctions__ ;
+   	
+   	// set tracking LEO visitor ID into all a[href] nodes
+	LeoObserverProxy.synchLeoVisitorId(function(vid){
+		var aNodes = document.querySelectorAll('a');
+		[].forEach.call(aNodes, function(aNode) {
+			var hrefUrl = aNode.href;
+			if(hrefUrl) {
+				if(hrefUrl.indexOf('?') > 0) {hrefUrl += ("&leosyn=" + vid);}
+				else {hrefUrl += ("?leosyn=" + vid);}
+				aNode.href = hrefUrl;
+			}
+		});
+	});
+}
+				</textarea></div>
+			</div>  
+			<div class="modal-footer">
+				<button type="button" id="testObserverChromeExtBtn" class="btn btn-info" style="float: left;" ><i class="fa fa-external-link" aria-hidden="true"></i> Test Observer with Chrome Extension</button>
+		        <button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="webLeadFormCodeDialog" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > Embedded JavaScript Code to collect contact data of profile </h4>
+			</div>         
+			<div class="modal-body row">
+				<div id="code_holder" ><textarea id="data_observer_code" class="code">
+(function() {
+    // Lead Form Code for touchpoint: __tpHubName__
+	window.srcTouchpointName = encodeURIComponent(document.title);
+	window.srcTouchpointUrl = encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
+	
+	var t = new Date().getTime();
+	var ifrm = document.createElement("iframe");
+       ifrm.setAttribute("src", "https://__LeoObserverDomain__/webform?obsid=" + "__leoObserverId__" + "&_t=" + t);
+       ifrm.style.width = "100%";
+       ifrm.style.height = "800px";
+       ifrm.width = "100%";
+       ifrm.height = "800";
+       ifrm.frameBorder = "0";
+	document.writeln(ifrm.outerHTML);
+})();
+				</textarea></div>
+			</div>  
+			<div class="modal-footer">
+		       <button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
+		       <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="qrImageFormCodeDialog" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > The QR Code Image of Touchpoint </h4>
+			</div>         
+			<div class="modal-body">
+				<div class="form-group" style="display: none;">
+	                <label> Landing Pages </label>
+	                <select id="landingPageSelector" data-placeholder="Select a Landing Page" class="select" >
+	                  <!-- landingPageSelector -->  
+	                </select>
+	                <hr> 
+	            </div>
+				<h5 id="landingPageName" > </h5>
+				<div>
+				   <div class="text-center" >
+				   	 <a target="_blank" href="#" id="qrHrefUrl"> <img src="" alt="QR Code Image" id="qrImgSrc" > </a>
+				   </div>
+				   <label class="control-label">QR Code Image URL </label>
+				   <input type="text" class="form-control" readonly value="" id="qrCodeImageURL" >
+				   
+				   <label class="control-label"> Touchpoint Hub URL  </label>
+				   <input type="text" class="form-control" readonly value="" id="qrTouchpointHubURL" > 
+				   
+				   <label class="control-label"> Scan QR Tracking URL </label>
+				   <input type="text" class="form-control" readonly value="" id="qrTrackingURL"> 
+				   <br>
+				</div>
+			</div>  
+			<div class="modal-footer">
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="dialogEmbeddedCxFeedbackForm" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > Please select a survey form or rating form to track CX data </h4>
+			</div> 
+			  
+			<div class="modal-body">
+				<div class="form-group" >
+	                <label> Survey/Rating Template for <span class="eventName" > </span> </label>
+	                <select id="feedbackTemplateSelector" data-placeholder="Choose a template name" class="select" >
+	                  <!-- feedbackTemplateSelector -->  
+	                </select>
+	            </div>
+				
+				<!--  Tab Navigation Items -->
+				<ul class="nav nav-tabs" data-tab-content="cx_code_tabs" > 
+			   		<li class="active" id="tab_panel_cx_web_form"  >
+		        		<a href="javascript:refreshCodeMirrorEditor()" data-target-tab="panel_cx_web_form" > <i class="fa fa-code" aria-hidden="true"></i> JavaScript Code </a>
+		       		</li>
+		       		<li id="tab_panel_cx_qr_code">
+		       			<a href="javascript:" data-target-tab="panel_cx_qr_code"  > <i class="fa fa-qrcode" aria-hidden="true"></i> QR Code </a>
+		       		</li>
+				</ul>
+
+				<div class="tab-content" id="cx_code_tabs" style="min-height: 380px;" >
+	
+					<!-- tab 1 content  -->
+					<div class="tab-pane active" id="panel_cx_web_form"  >
+						
+				    	<div id="feedback_form_code_holder" >
+								<textarea class="code" >
+(function() {
+    //  Feedback/Survey Form Collector for __feedbackFormTitle__
+    
+    // default the height of iframe but you can set it to optimize best view 
+    var iframeHeight = __iframeHeight__;
+    
+    // LEO Observer ID
+    var observerId = "__observerId__";
+    var templateId = "__templateId__";
+    var svf = document.title;
+	var tprefurl = location.href;
+	var tplFeedbackType = "__tplFeedbackType__";
+	var cb = Math.floor(Math.random() * 100000);
+	
+	var url  = '__feedbackFormFullUrl__' + templateId;
+	url = url + "&obsid=" + observerId;
+	url = url + "&tplfbt=" + tplFeedbackType;
+	url = url + "&tpname=" + document.title;
+	url = url + "&tpurl=" + location.href;
+	url = url + "&cb=" + cb;
+	
+	// container
+	var divWrapper = document.createElement("div");
+	var cssDiv = "position:relative; width:100%; overflow:hidden; height:" + iframeHeight + "px ";
+	divWrapper.setAttribute("style",cssDiv);
+	
+	// iframe 
+	var iframe = document.createElement("iframe"); 
+	var cssIframe = "position:absolute;top:0;left:0;bottom:0;right:0;width:100%;border:none;overflow:hidden;height:"+iframeHeight+"px";
+	iframe.setAttribute("style",cssIframe);
+	iframe.setAttribute("src",url);
+	divWrapper.appendChild(iframe);
+	
+	var referenceNode = document.getElementById("__scriptNodeId__");
+	referenceNode.parentNode.insertBefore(divWrapper, referenceNode.nextSibling);
+})();
+				    			</textarea>
+				  		</div>
+				  		<hr>
+				  		<div class="text-right">
+				  			<button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
+				    		<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+				    	</div>
+					</div>
+				
+					<!-- tab 2 content  -->
+					<div class="tab-pane" id="panel_cx_qr_code" >
+				        <div class="table-responsive">
+				            <div class="text-center" >
+						   	 <a target="_blank" href="#" id="cx_qrHrefUrl"> <img src="" alt="CX QR Code Image" id="cx_qrImgSrc" > </a>
+						   	</div>
+						   	<label class="control-label">QR Code Image URL </label>
+						   	<input type="text" class="form-control" readonly value="" id="cx_qrCodeImageURL" >
+						   	<label class="control-label"> CX Survey/Rating Form URL </label>
+						   	<input type="text" class="form-control" readonly value="" id="cx_qrFormURL" >
+				        </div>
+				        <hr>
+				  		<div class="text-right">
+				    		<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+				    	</div>
+					</div>
+				</div>	
+				
+				
+			</div>  
+			
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="dialogEmbeddedRecomender" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > Copy the embedded JavaScript code for show recommended information </h4>
+			</div>         
+			<div class="modal-body row">
+				<div id="recommender_code_holder" >
+					<textarea class="code">
+// Recommender JavaScript code for [__tpHubName__]
+setTimeout(function(){
+	LeoObserverProxy.synchLeoVisitorId(function(vid) {
+		var observerId = "__observerId__";
+		var cb = Math.floor(Math.random() * 100000);
+		var src = "https://__LeoObserverDomain__/ris/html/products?visid=" + vid;
+		src += ("&obsid=" + observerId );
+		src += ("&tpurl=" + encodeURIComponent(location.href) );
+		src += ("&cb=" + cb );
+		
+		// Set width and height of iframe
+		var h = '500px';
+		var w = '300px';
+		var style = "width:"+w+"; height:"+h;
+		style += "; overflow-y:scroll; margin:auto; display:block; border:none;";
+		
+		// append DOM
+		var f = document.createElement('iframe');
+		f.setAttribute("src", src);
+		f.setAttribute("style", style);
+		f.setAttribute("frameBorder", "0");
+		var s = document.getElementById('leo_recommender_'+observerId);
+	    s.parentNode.insertBefore(f, s);
+	})
+},800);
+					</textarea>
+				</div>
+			</div>  
+			<div class="modal-footer">
+				<button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="redisSourceInfoDialog" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > Redis Data Source Information </h4>
+			</div>         
+			<div class="modal-body ">
+				<h3> You can write code to send data into Redis </h3>
+				<hr>
+				Redis Information: <b id="dataSourceConfigHostAndPort" > </b> <br>
+				Touchpoint Name: <b id="dataSourceConfigTouchpointName" > </b> <br>
+				<hr>
+				<a href="https://redis.io/topics/pubsub" target="_blank"> Document about Redis Pub/Sub </a>
+			</div>  
+			<div class="modal-footer">
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close </button>
+		    </div>  
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="observerApiInfoDialog" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > LEO CDP Observer API Information </h4>
+			</div>         
+			<div class="modal-body ">
+				<b> In the HTTP POST body, you should set the "tokenKey" for API Token Key and the "tokenValue" for API Token Value</b> <br>
+				<div class="form-group" >
+	                <label for="leoCdpApiTokenKey" class="highlight_text" > API Token Key (tokenKey) </label> 
+	                <input type="text" class="form-control" readonly value="" id="leoCdpApiTokenKey" >
+	                
+	                <label for="leoCdpApiTokenValue" class="highlight_text" > API Token Value (tokenValue) </label>
+				   <input type="text" class="form-control" readonly value="" id="leoCdpApiTokenValue" >
+	            </div>
+	            <hr>
+	            
+				<label> To create a new profile or update an existed profile, call this API with HTTP POST: </label> <br>
+				<b id="leoCdpGetProfileApiUrl" class="highlight_text" >  </b> 
+				<hr>
+				<label> To track event for a specific profile, call this API with HTTP POST: </label> <br>
+				<b id="leoCdpTrackEventApiUrl"  class="highlight_text" >  </b> <br>
+				<hr>
+				<label> To list all events in a specific profile, call this API with HTTP POST: </label> <br>
+				<b id="leoCdpListEventsApiUrl"  class="highlight_text" > </b> <br>
+				
+			</div>  
+			<div class="modal-footer">
+				<button type="button" class="btn btn-do-now" onclick="resetAccessTokenForLeoObserverApi()" >
+					<i class="fa fa-check" aria-hidden="true"></i> Reset API Token Value </button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close </button>
+		    </div>  
+		</div>
+	</div>
+</div>
+
+<!-- Synchronization dialog html -->
+<div class="modal fade" id="dialogCreateNewJourneyMap" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">   
+			<div class="modal-header">
+				<h4 class="modal-title text-center" > New Journey Map Creation </h4>
+			</div>         
+			<div class="modal-body row">
+				<div class="row form-group">
+					<label  class="control-label col-md-3" for="connectorName" > Name </label>
+					<div class="col-md-9 float-left" >
+				    	<input type="text" id="newJourneyMapName"  placeholder="Enter Name" class="form-control" style="width: 98%" >
+				   	</div>
+				</div>
+			</div>  
+			
+			<div class="modal-footer" >
+				<button type="button" class="btn btn-do-now" onclick="saveNewJourneyMap()">
+					<i class="fa fa-check" aria-hidden="true"></i> OK 
+				</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		    </div>  
+		</div>
+	</div>
+</div>

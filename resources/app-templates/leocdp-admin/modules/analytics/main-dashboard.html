@@ -384,6 +384,7 @@
     }
     
     function loadObserverReport(queryFilter) {
+    	var textTitle = "Touchpoint Observer Report";
     	var container = $('#observer_report_wrapper').html('<div class="loader"></div>');
         setTimeout(function(){
         	 	// touchpoint detail report
@@ -395,14 +396,15 @@
                 if (json.httpCode === 0 && json.errorMessage === '') {
              	   
              	   var w = $('#main_dashboard_report_tabs').width() - 6;
-             	   var canvas = $('<canvas/>').width(w).height(550);
+             	   var h = 580;
+             	   var canvas = $('<canvas/>').width(w).height(h);
              	   container.empty().append(canvas);
              	   
-             	   showProfileEventBubbleChart("Data Observer Report", container, canvas, json.data);
+             	   showProfileEventBubbleChart(textTitle, container, canvas, json.data);
              	   
              	   var fieldsSchema = [
 				        { name: "name", title : "Name", align: 'center' , type: "text" },			        
-				        { name: "profileCount", title : "Total Profile", type: "number", align: 'center', width: 60 },
+				        { name: "profileCount", title : "Total Reached Profile", type: "number", align: 'center', width: 60 },
 				        { name: "eventCount", title : "Total Event", type: "number", align: 'center', width: 60 }
 				    ];
              	    $("#observer_report_table").jsGrid({ editing: false, paging: false, width: "100%", height:"auto", data: json.data, fields: fieldsSchema})
@@ -414,6 +416,7 @@
     }
     
     function loadTouchpointReport(queryFilter){
+    	var textTitle = "Touchpoint Details Report";
         var container = $('#touchpoint_report_wrapper').html('<div class="loader"></div>');
         setTimeout(function(){
         	 // touchpoint detail report
@@ -425,14 +428,15 @@
                 if (json.httpCode === 0 && json.errorMessage === '') {
                 	
                 	var w = $('#main_dashboard_report_tabs').width() - 6;
-              	   	var canvas = $('<canvas/>').width(w).height(550);
+                	var h = 800;
+              	   	var canvas = $('<canvas/>').width(w).height(h);
               	   	container.empty().append(canvas);
                 	
-                	showProfileEventBubbleChart("Touchpoint Report", container, canvas, json.data, "touchpoint");
+                	showProfileEventBubbleChart(textTitle, container, canvas, json.data, "touchpoint");
                 	
                 	var fieldsSchema = [
  				        { name: "touchpoint.name", title : "Touchpoint Name", align: 'center' , type: "text" },			        
- 				        { name: "profileCount", title : "Total Profile", type: "number", align: 'center', width: 60 },
+ 				        { name: "profileCount", title : "Total Reached Profile", type: "number", align: 'center', width: 60 },
  				        { name: "eventCount", title : "Total Event", type: "number", align: 'center', width: 60 }
  				    ];
               	    $("#touchpoint_report_table").jsGrid({ editing: false, paging: false, width: "100%", height:"auto", data: json.data, fields: fieldsSchema})

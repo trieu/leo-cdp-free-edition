@@ -21,10 +21,11 @@
 - [In Progress] New Data Connector and connector protocol
 
 
-## [0.8.9] - 2022-07-01
+## [0.8.9] - 2022-07-02
 
 ### Added 
 
+- [Report] add bar chart for Event Statistics and Referral Channel
 - [Report] add journey map report in profile
 - [Report] add Observer Report in main dashboard
 - [LEO Data Pipeline] implement to process batch data from kafka and write data into database
@@ -87,6 +88,7 @@
 
 ### Changed
 
+- [UI] caching handlebar templates to improve performance
 - [UI] improve touchpoint report: add legend and title
 - [UI] restructure and improve UI/UX of admin dashboard
 - [UI] improve UI and UX of profile listing in segment

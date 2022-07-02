@@ -30,7 +30,7 @@ AQL_GET_JOURNEY_MAP_REFKEYS_BY_IDS =>
 	RETURN {"id":e._key, "name": e.name }
 ;
 
-AQL_GET_JOURNEY_PROFILE_STATISTICS => 
+AQL_COUNT_PROFILE_WITH_JOURNEY => 
 	LET vcAwareness = LENGTH(
 	    FOR p in cdp_profile
 	        FOR s in p.inJourneyMaps 
@@ -99,7 +99,7 @@ AQL_GET_JOURNEY_PROFILE_STATISTICS =>
 		}
 ;
 
-AQL_GET_JOURNEY_EVENT_STATISTICS => 
+AQL_COUNT_JOURNEY_EVENT_PROFILE => 
 	LET eAwareness = LENGTH(
 	    FOR e in cdp_trackingevent
         FILTER (e.refJourneyId == @journeyMapId OR @journeyMapId == "") AND e.journeyStage >= 1 AND e.refProfileId == @profileId 
@@ -201,6 +201,40 @@ AQL_GET_ALL_EVENT_OBSERVERS =>
 	RETURN e
 ;
 
+AQL_GET_OBSERVER_REPORT =>
+	FOR o in cdp_eventobserver
+	    LET observerStats = (
+		    FOR e in cdp_trackingevent 
+		    FILTER (e.refJourneyId == @journeyId OR @journeyId == "") AND e.observerId == o._key AND e.createdAt >= @beginFilterDate AND e.createdAt <= @endFilterDate
+		    COLLECT observerId = e.observerId  
+		    AGGREGATE eventCount = COUNT_DISTINCT(e._key),profileCount = COUNT_DISTINCT(e.refProfileId)
+		    RETURN {"observerId": observerId, "eventCount": eventCount, "profileCount":profileCount}
+	    	)
+		FOR s in observerStats  
+	    	LET profileCount = s.profileCount
+	    	LET eventCount = s.eventCount
+			FILTER s.observerId == o._key AND (profileCount > 0 AND eventCount > 0) AND (o.type == @touchpointType OR @touchpointType < 0)
+			SORT profileCount DESC 
+		LIMIT @startIndex,@numberResult 
+		RETURN {"observerId":o._key, "touchpointHubId": o.touchpointHubId, "name": o.name, "dataSourceUrl": o.dataSourceUrl, "profileCount":profileCount, "eventCount": eventCount}
+;
+
+AQL_GET_OBSERVER_REPORT_FOR_PROFILE =>
+	FOR o in cdp_eventobserver
+	    LET observerStats = (
+		    FOR e in cdp_trackingevent 
+		    FILTER (e.refJourneyId == @journeyId OR @journeyId == "") AND e.observerId == o._key AND e.refProfileId == @refProfileId
+		    COLLECT observerId = e.observerId  
+		    AGGREGATE eventCount = COUNT_DISTINCT(e._key)
+		    RETURN {"observerId": observerId, "eventCount": eventCount}
+	    	)
+		FOR s in observerStats
+	    	LET eventCount = s.eventCount
+			FILTER s.observerId == o._key AND eventCount > 0
+			SORT eventCount DESC
+		RETURN {"observerId":o._key, "touchpointHubId": o.touchpointHubId, "name": o.name, "dataSourceUrl": o.dataSourceUrl, "eventCount": eventCount}
+;
+
 ########### TOUCHPOINT  ########################################################################################################;
 
 AQL_GET_TOUCHPOINT_BY_ID =>
@@ -266,7 +300,7 @@ AQL_UPDATE_CONTEXT_SESSION_AFTER_MERGE =>
 		UPDATE d WITH { profileId: @newProfileId, visitorId: @newVisitorId } IN cdp_contextsession
 ;
 
-AQL_GET_TOUCHPOINTS_AND_REPORT =>
+AQL_GET_TOUCHPOINT_REPORT =>
 	FOR t in cdp_touchpoint
 	    LET tpStats = (
 		    FOR e in cdp_trackingevent 
@@ -284,39 +318,6 @@ AQL_GET_TOUCHPOINTS_AND_REPORT =>
 		RETURN {"touchpoint":t, "profileCount":profileCount, "eventCount": eventCount}
 ;
 
-AQL_GET_OBSERVER_REPORT =>
-	FOR o in cdp_eventobserver
-	    LET observerStats = (
-		    FOR e in cdp_trackingevent 
-		    FILTER (e.refJourneyId == @journeyId OR @journeyId == "") AND e.observerId == o._key AND e.createdAt >= @beginFilterDate AND e.createdAt <= @endFilterDate
-		    COLLECT observerId = e.observerId  
-		    AGGREGATE eventCount = COUNT_DISTINCT(e._key),profileCount = COUNT_DISTINCT(e.refProfileId)
-		    RETURN {"observerId": observerId, "eventCount": eventCount, "profileCount":profileCount}
-	    	)
-		FOR s in observerStats  
-	    	LET profileCount = s.profileCount
-	    	LET eventCount = s.eventCount
-			FILTER s.observerId == o._key AND (profileCount > 0 AND eventCount > 0) AND (o.type == @touchpointType OR @touchpointType < 0)
-			SORT profileCount DESC 
-		LIMIT @startIndex,@numberResult 
-		RETURN {"observerId":o._key, "touchpointHubId": o.touchpointHubId, "name": o.name, "dataSourceUrl": o.dataSourceUrl, "profileCount":profileCount, "eventCount": eventCount}
-;
-
-AQL_GET_OBSERVER_REPORT_FOR_PROFILE =>
-	FOR o in cdp_eventobserver
-	    LET observerStats = (
-		    FOR e in cdp_trackingevent 
-		    FILTER (e.refJourneyId == @journeyId OR @journeyId == "") AND e.observerId == o._key AND e.refProfileId == @refProfileId
-		    COLLECT observerId = e.observerId  
-		    AGGREGATE eventCount = COUNT_DISTINCT(e._key)
-		    RETURN {"observerId": observerId, "eventCount": eventCount}
-	    	)
-		FOR s in observerStats
-	    	LET eventCount = s.eventCount
-			FILTER s.observerId == o._key AND eventCount > 0
-			SORT eventCount DESC
-		RETURN {"observerId":o._key, "touchpointHubId": o.touchpointHubId, "name": o.name, "dataSourceUrl": o.dataSourceUrl, "eventCount": eventCount}
-;
 
 ###########  DATA_FLOW_STAGE  ########################################################################################################;
 

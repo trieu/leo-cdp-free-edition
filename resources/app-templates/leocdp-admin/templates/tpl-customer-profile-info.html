@@ -1,0 +1,403 @@
+<style>
+	.item-headline-img {
+		vertical-align: middle;
+	    max-width: 96px;
+	    max-height: 96px;
+	    border-radius: 8%;
+	}
+	.rank_item_info {
+		color: blue;
+		font-weight: bold;
+		font-size: 16px;
+	}
+	.item_link {
+		text-overflow: ellipsis; 
+		width: 100%;
+	}
+	.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+		background-color: #FAFADE!important;
+	    color: #3300ff!important;
+	    font-size: 14px;
+	    font-weight: bold;
+	}
+	ul.nav > li.active > a {
+		color: #3300ff!important;
+		background-color: #f6f6f6!important;
+		font-weight: bold;
+	}
+	.text_ellipsis {
+	  max-width: 420px; 
+	  overflow: hidden;
+	  text-overflow: ellipsis; 
+	}
+	#profileInSegments mark {
+		margin-left: 3px;
+		border-radius: 8px;
+	}
+	#profileInSegments a {
+		color: #0000CD!important;
+	}
+	ol.profile_ext_data {
+		margin-left: 28px;
+	}
+	#profile_info_tabs {
+		margin-top: 15px;
+	}
+	
+	.funnel-flow {
+		text-transform: uppercase;
+		font-size: 12px!important;
+	}
+	.funnel-stage {
+		float: left;
+		width: 10%!important;
+		margin-top:10px;
+		border-right: 1px solid black;
+		height: 36px;
+		min-height: 1px;
+    	padding-right: 5px;
+    	padding-left: 5px;
+    	font-size: 0.96em;
+    	text-align: center;
+	} 
+	.funnel-stage-active {
+		font-weight: bold;
+		color: #3300ff!important;
+	} 
+</style>
+
+<script id='engaged-touchpoint-tpl' type="text/html" >
+ <li class="list-group-item view" id="tp_<%- id %>">
+   <div class="row">
+      <div class="col-md-2 text-center"> <i class="fa <%- faIcon %>" aria-hidden="true" style="font-size:1.6em" ></i> <br> <%- typeAsType %> </div>
+      <div class="col-md-10">
+         <small class="text-muted pull-right"> Updated: <%- updatedAt %> </small>
+         <h5 class="media-heading"> <a target="_blank" href="<%- url %>" > <%- name %> </a> </h5>
+         <div class="text-nowrap " >  
+			 <i class="fa fa-link" aria-hidden="true"></i> <span class="small"><%- truncatedUrl %></span> 
+		 </div>
+ 		 <div class="text-nowrap" style="display: <%- cssStyleDisplay %>" >  
+			<i class="fa fa-map-marker" aria-hidden="true"></i>  
+			<span class="small" > Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','Touchpoint Location')" > </a>  </span> 
+		 </div>
+      </div>
+   </div>
+ </li>
+</script>
+
+<script id='view-event-tpl' type="text/html" >
+ <li class="list-group-item view" id="ev_<%- id %>">
+   <div class="row">
+      <div class="col-md-2 text-center" style="margin-top: 15px;" > <i class="fa fa-internet-explorer" aria-hidden="true" style="font-size:2em" ></i> <br> <div class="event_text"><%- metricName %></div> </div>
+      <div class="col-md-10">
+         <small class="text-muted pull-right"> <%- createdAt %> </small>
+         <h5 class="media-heading"> <a target="_blank" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
+         <div class="text-nowrap " >  
+			 <i class="fa fa-link" aria-hidden="true"></i> <span class="small"><%- srcTouchpoint.truncatedUrl %></span> 
+		 </div>
+ 		 <div class="text-nowrap " >  
+			<i class="fa fa-map-marker" aria-hidden="true"></i>  
+			<span class="small" > Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a>  </span> 
+		 </div>
+ 		 <div class="text-wrap" style="display: <%- cssStyleDisplay %>" >  
+			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br> 
+			<ul>
+			<% _.forOwn(eventData, function(value, key) { %>
+				<li> <%- key %> : <%- value %> </li>
+			<% }) %>
+			<ul>
+			</span> 
+		 </div>
+ 		 <div style="margin-top:8px">
+			<% _.forOwn(imageUrls, function(imageUrl) { %>
+				<div class="col-xs-6 col-md-3">
+    				<a href="<%- imageUrl %>" data-lightbox="image-1" data-title="Event Image" class="thumbnail">
+						<img src="<%- imageUrl %>" class="img-rounded" alt="Event Image">
+					</a>
+  				</div>
+			<% }) %>
+		 </div>
+      </div>
+   </div>
+ </li>
+</script>
+
+<script id='key-info-view-event-tpl' type="text/html" >
+ <li class="list-group-item view" id="ev_<%- id %>">
+   <div class="row">
+      <div class="col-md-2 text-center highlight_text" style="margin-top: 15px;"> <i class="fa fa-info-circle" aria-hidden="true" style="font-size:2em" ></i> <br> <div class="event_text"><%- metricName %></div> </div>
+      <div class="col-md-10">
+         <small class="text-muted pull-right"> <%- createdAt %> </small>
+         <h5 class="media-heading"> <a target="_blank" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
+         <div class="text-nowrap " >  
+			 <i class="fa fa-link" aria-hidden="true"></i> <span class="small"><%- srcTouchpoint.truncatedUrl %></span> 
+		 </div>
+ 		 <div class="text-nowrap " >  
+			<i class="fa fa-map-marker" aria-hidden="true"></i>  
+			<span class="small" > Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a>  </span> 
+		 </div>
+		 <div class="text-wrap" style="display: <%- cssStyleDisplay %>" >  
+			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br>
+			<ul>
+			<% _.forOwn(eventData, function(value, key) { %>
+				<li> <%- key %> : <%- value %> </li>
+			<% }) %>
+			<ul>
+			</span> 
+		 </div>
+ 		 <div style="margin-top:8px">
+			<% _.forOwn(imageUrls, function(imageUrl) { %>
+				<div class="col-xs-6 col-md-3">
+    				<a href="<%- imageUrl %>" data-lightbox="image-1" data-title="Event Image" class="thumbnail">
+						<img src="<%- imageUrl %>" class="img-rounded" alt="Event Image">
+					</a>
+  				</div>
+			<% }) %>
+		 </div>
+      </div>
+   </div>
+ </li>
+</script>
+
+<script id='action-event-tpl' type="text/html" >
+ <li class="list-group-item action" id="ev_<%- id %>" >
+   <div class="row">
+      <div class="col-md-2 text-center highlight_text" style="margin-top: 15px;"> <i class="fa fa-sign-in" aria-hidden="true" style="font-size:2.5em" ></i> <br> <div class="event_text"><%- metricName %></div> </div>
+      <div class="col-md-10">
+         <small class="text-muted pull-right"> <%- createdAt %> </small>
+         <h5 class="media-heading"> <a target="_blank" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
+         <div class="text-nowrap " >  
+			 <i class="fa fa-link" aria-hidden="true"></i> <span class="small" ><%- srcTouchpoint.truncatedUrl %></span> 
+		 </div>
+		 <div class="text-nowrap " >  
+			<i class="fa fa-map-marker" aria-hidden="true"></i>
+			<span class="small" > Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a>  </span> 
+		 </div>
+ 		 <div class="text-wrap" style="display: <%- cssStyleDisplay %>" >   
+			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br> 
+			<ul>
+			<% _.forOwn(eventData, function(value, key) { %>
+				<li> <%- key %> : <%- value %> </li>
+			<% }) %>
+			<ul>
+			</span> 
+		 </div>
+ 		 <div style="margin-top:8px">
+			<% _.forOwn(imageUrls, function(imageUrl) { %>
+				<div class="col-xs-6 col-md-3">
+    				<a href="<%- imageUrl %>" data-lightbox="image-1" data-title="Event Image" class="thumbnail">
+						<img src="<%- imageUrl %>" class="img-rounded" alt="Event Image">
+					</a>
+  				</div>
+			<% }) %>
+		 </div>
+      </div>
+   </div>
+ </li>
+</script>
+
+<script id='conversion-event-tpl' type="text/html" >
+ <li class="list-group-item conversion" id="ev_<%- id %>" >
+   <div class="row">
+      <div class="col-md-2 text-center highlight_text" style="margin-top: 15px;" >  <i class="fa fa-cart-plus" aria-hidden="true" style="font-size:3em" ></i> <br> <div class="event_text"><%- metricName %></div> </div>
+      <div class="col-md-10">
+         <small class="text-muted pull-right"> <%- createdAt %>  </small>
+         <h5 class="media-heading"> <a target="_blank" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
+         <div class="text-nowrap " >  
+			Transaction ID Code: <mark> <%- transactionId %> </mark> <br>
+			<i class="fa fa-link" aria-hidden="true"></i> <span class="small" ><%- srcTouchpoint.truncatedUrl %></span> 
+		 </div>
+		 <div class="text-nowrap " >  
+			<i class="fa fa-map-marker" aria-hidden="true"></i>  
+			<span class="small" > Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a>  </span> 
+		 </div>
+		 <div class="text-wrap" style="display: <%- cssStyleDisplay %>" >  
+			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br> 
+			<ul>
+			<% _.forOwn(eventData, function(value, key) { %>
+				<li> <%- key %> : <%- value %> </li>
+			<% }) %>
+			<ul>
+			</span> 
+		 </div>
+ 		 <div style="margin-top:8px">
+			<% _.forOwn(imageUrls, function(imageUrl) { %>
+				<div class="col-xs-6 col-md-3">
+    				<a href="<%- imageUrl %>" data-lightbox="image-1" data-title="Event Image" class="thumbnail">
+						<img src="<%- imageUrl %>" class="img-rounded" alt="Event Image">
+					</a>
+  				</div>
+			<% }) %>
+		 </div>
+      </div>
+   </div>
+ </li>
+</script>
+
+
+
+<script id='recommended-content-tpl' type="text/html" >
+ <div class="list-group-item col-md-12" id="content_item_<%- key %>" data-key="<%- key %>" >
+	<div class="col-md-2 text-center" > 
+		<img src="<%- content.headlineImageUrl %>" alt="Content Image" class="rounded mx-auto d-block item-headline-img"  > 
+	</div>
+	<div class="col-md-10">
+		<small class="text-muted pull-right"> Updated at: <%- updatedAt %> </small>
+		<span class="rank_item_info" > Ranking Index: <span class="rank_info" id="rank_content_<%- key %>" data-key="<%- key %>" ><%- indexScore %></span> </span> <br> 
+		<h5 class="media-heading">  <%- content.title %> </h5>
+		<span class="small item_link" > <a target="_blank" href="<%- content.headlineVideoUrl %>" > <%- content.headlineVideoUrl %> </a> </span> 
+	</div>
+ </div>
+</script>
+
+<script id='recommended-product-tpl' type="text/html" >
+ <div class="list-group-item col-md-12" id="product_item_<%- key %>" data-key="<%- key %>" style="cursor:pointer" title="Drag and drop to update item ranking" >
+	<div class="col-md-2 text-center"> 
+		<img src="<%- product.headlineImageUrl %>" alt="Product Image" class="rounded mx-auto d-block item-headline-img"  > 
+	</div>
+	 <div class="col-md-10">
+		<small class="text-muted pull-right"> Updated at: <%- updatedAt %> </small>
+
+		<span class="rank_item_info" > Ranking Index: <span class="rank_info" id="rank_product_<%- key %>" data-key="<%- key %>" ><%- indexScore %></span> </span> <br> 
+		<h5 class="media-heading">  <%- product.title %> </h5>
+
+		<div class="row">
+			<div class="col-md-3">
+				<h5> <i class="fa fa-info" aria-hidden="true"></i> Short URL for click tracking </h5>
+			</div>
+			<div class="col-md-9">
+				<input class="form-control autoselectall" type="url" value="<%- targetMediaUnit.trackingLinkUrl %>" autocomplete="off" readonly > 
+			</div>		
+		</div>
+
+		<div class="row" style="margin-top:8px;">
+			<div class="col-md-3">
+				<h5> <i class="fa fa-info" aria-hidden="true"></i> Full URL of landing page </h5>
+			</div>
+			<div class="col-md-9">
+				<input class="form-control autoselectall" type="url" value="<%- product.fullUrl %>" autocomplete="off"  readonly >
+			</div>		
+		</div>
+
+ 		<div class="text-nowrap" style="margin-top:5px;">
+
+			<div class="col-lg-6">
+				<i class="fa fa-info" aria-hidden="true"></i> <span class="small" > Original Price: <%- product.originalPrice %> <%- product.priceCurrency %> </span> 				
+			</div>
+			<div class="col-lg-6">
+				<i class="fa fa-info" aria-hidden="true"></i> <span class="small" > <%- product.productIdType %> : <%- product.productId %> </span> <br>
+			</div>
+			<br>
+			<div class="col-lg-6">
+				<i class="fa fa-info" aria-hidden="true"></i> <span class="small" > Sale Price: <%- product.salePrice %> <%- product.priceCurrency %> </span> 
+			</div>
+			<div class="col-lg-6">
+				<i class="fa fa-info" aria-hidden="true"></i> <span class="small" > Keywords: <%- product.keywords %> </span>
+			</div>
+		</div>
+
+	</div>
+  </div>
+</script>
+
+
+<script id='purchased-product-tpl' type="text/html" >
+ <div class="list-group-item col-md-12" id="purchased_item_<%- key %>" data-key="<%- key %>" >
+	<div class="col-md-2 text-center"> 
+		<img src="<%- product.headlineImageUrl %>" alt="Product Image" class="rounded mx-auto d-block item-headline-img"  > 
+	</div>
+	 <div class="col-md-10">
+		<small class="text-muted pull-right"> Created at: <%- createdAt %> </small>
+		<h5 class="media-heading">  <%- product.title %> </h5>
+		<span class="small item_link" > <a target="_blank" href="<%- product.fullUrl %>" > <%- product.fullUrl %> </a>  </span> 
+ 		<div class="text-nowrap" > 
+			<i class="fa fa-info" aria-hidden="true"></i> Transaction ID: <mark> <%- transactionId %> </mark> <br>
+			<i class="fa fa-info" aria-hidden="true"></i> <%- product.productIdType %> : <mark> <%- product.productId %> </mark>
+		</div>
+	</div>
+  </div>
+</script>
+
+<script id='feedback-event-tpl' type="text/html" >
+ <li class="list-group-item view" id="ev_<%- id %>">
+   <div class="row">
+      <div class="col-md-2 text-center highlight_text" style="margin-top: 15px;"> 
+		<i class="fa <%- eventIcon %>" aria-hidden="true" style="font-size:2em" ></i> <br> 
+		<div class="event_text"> <%- eventName %> </div> 
+      </div>
+      <div class="col-md-10">
+         <small class="text-muted pull-right"> <%- createdAt %> </small>
+
+         <h5> Feedback Form: <%- header %>  </h5> 
+		 <h6> Group: <%- group %>  </h6> 
+		 <h6> Type: <%- feedbackType %> </h6>
+
+         <div class="text-nowrap " >  
+			Touchpoint: <strong title="<%- touchpointName %>"> <%- touchpointName.length > 90 ? touchpointName.substring(0,90) + "..." : touchpointName %> </strong> <br>
+			<i class="fa fa-link" aria-hidden="true"></i> <span class="small"> Touchpoint URL: <a target="_blank" href="<%- previewUrl %>" > <%- previewUrl %> </a> </span> 
+		 </div>
+ 		 <div class="text-nowrap " >  
+			<i class="fa fa-star" aria-hidden="true"></i>  
+			<span class="small" > Feedback Score: </span>  <mark style="font-weight:bold;font-size: 1.2em;"><%- feedbackScore %></mark>
+		 </div>
+		 <div class="text-wrap" > 
+			<i class="fa fa-smile-o" aria-hidden="true"></i> <span class="small" > CX Sentiment Score </span> 
+			<div class="progress">
+			   	<div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="<%- scoreCX.negative %>"
+			  		aria-valuemin="0" aria-valuemax="100" style="width:<%- scoreCX.negative %>%">
+			    		<span><%- scoreCX.negative %></span>% Negative
+			  	</div>
+			  	<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="<%- scoreCX.neutral %>"
+			  		aria-valuemin="0" aria-valuemax="100" style="width:<%- scoreCX.neutral %>%">
+			    		<span><%- scoreCX.neutral %></span>% Neutral
+			  	</div>
+			  	<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="<%- scoreCX.positive %>"
+			  		aria-valuemin="0" aria-valuemax="100" style="width:<%- scoreCX.positive %>%">
+			    		<span><%- scoreCX.positive %></span>% Positive
+			  	</div>
+	   		</div>
+		 </div>
+      </div>
+   </div>
+ </li>
+</script>
+
+
+<script id='financial-event-tpl' type="text/html" >
+ <div class="list-group-item col-md-12"  >
+	<div class="col-md-2 text-center" > 
+		<i class="fa <%- riskIcon %>" aria-hidden="true" style="margin-top:42%; font-size:72px; color:<%- riskIconColor %> "></i>
+	</div>
+	 <div class="col-md-10">
+		<h4 class="media-heading highlight_text" style="color:<%- riskIconColor %>"> <b><i class="fa fa-info-circle" aria-hidden="true"></i> Credit Risk: <%- risk %> </b>  </h4>
+		<hr>
+		<div class="highlight_text" > <b><i class="fa fa-usd" aria-hidden="true"></i> Credit Amount: <%- creditAmount %> </b> </div> 
+		<div class="highlight_text" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Purpose of spending: <%- purpose %> </b> </div>
+		<hr>
+ 		<div class="highlight_text" > <b><i class="fa fa-calendar-o" aria-hidden="true"></i> Duration in month: <%- duration %> </b> </div>
+		<div class="highlight_text" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Saving Account Status: <%- savingAccountStatus %> </b> </div>
+		<div class="highlight_text" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Checking Account Status: <%- checkingAccountStatus %> </b> </div>
+	</div>
+  </div>
+</script>
+
+<!-- Modal new event -->
+<div class="modal fade" id="newCustomerSupportCaseDialog" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> Creat New Observed Event </h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+            	<button type="button" class="btn btn-primary" data-dismiss="modal"> Cancel </button>
+                <button type="button" class="btn btn-success" onclick="okSaveNewObservedEvent()"> OK </button>
+            </div>
+        </div>
+
+    </div>
+</div>
