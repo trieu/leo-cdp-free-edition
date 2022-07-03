@@ -318,6 +318,23 @@ AQL_GET_TOUCHPOINT_REPORT =>
 		RETURN {"touchpoint":t, "profileCount":profileCount, "eventCount": eventCount}
 ;
 
+AQL_GET_TOUCHPOINT_REPORT_FOR_PROFILE =>
+	FOR t in cdp_touchpoint
+	    LET tpStats = (
+		    FOR e in cdp_trackingevent 
+		    FILTER (e.refJourneyId == @journeyId OR @journeyId == "") AND e.srcTouchpointId == t._key AND e.refProfileId == @refProfileId
+		    COLLECT srcTouchpointId = e.srcTouchpointId  
+		    AGGREGATE eventCount = COUNT_DISTINCT(e._key)
+		    RETURN {"touchpointId": srcTouchpointId, "eventCount": eventCount}
+	    	)
+		FOR s in tpStats
+	    	LET eventCount =  s.eventCount
+			FILTER s.touchpointId == t._key AND eventCount > 0 AND (t.type == @touchpointType OR @touchpointType < 0)
+			SORT eventCount DESC 
+		LIMIT @startIndex,@numberResult 
+		RETURN {"touchpoint":t, "eventCount": eventCount}
+;
+
 
 ###########  DATA_FLOW_STAGE  ########################################################################################################;
 

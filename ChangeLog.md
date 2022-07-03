@@ -21,11 +21,11 @@
 - [In Progress] New Data Connector and connector protocol
 
 
-## [0.8.9] - 2022-07-02
+## [0.8.9] - 2022-07-04
 
 ### Added 
 
-- [Report] add bar chart for Touchpoint Observer, Event Metric and Referral Channel
+- [Report] add bar chart for Engaged Touchpoint, Touchpoint Observer, Event Metric and Referral Channel
 - [Report] add journey map report in profile
 - [Report] add Observer Report in main dashboard
 - [LEO Data Pipeline] implement to process batch data from kafka and write data into database
