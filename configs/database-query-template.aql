@@ -318,25 +318,16 @@ AQL_GET_TOUCHPOINT_REPORT_FOR_PROFILE =>
 		RETURN {"touchpoint":t, "eventCount": eventCount}
 ;
 
-AQL_GET_TOUCHPOINT_FLOW_STATS_BY_PROFILE =>
-	FOR e in cdp_trackingevent 
-	FILTER e.refProfileId == @refProfileId AND (e.refJourneyId == @refJourneyId OR @refJourneyId == "") 
-			AND ((e.createdAt >= @beginFilterDate OR @beginFilterDate == "") AND (e.createdAt <= @endFilterDate OR @endFilterDate == ""))
-	COLLECT refTouchpointId = e.refTouchpointId, refTouchpointName = e.refTouchpointName, srcTouchpointId = e.srcTouchpointId, srcTouchpointName = e.srcTouchpointName
-	AGGREGATE eventCount = COUNT_DISTINCT(e._key)
-	SORT eventCount DESC
-	RETURN {"refTouchpointId": refTouchpointId,"refTouchpointName":refTouchpointName, "srcTouchpointId": srcTouchpointId, "srcTouchpointName":srcTouchpointName, "eventCount": eventCount}
-;
 
-AQL_GET_TOUCHPOINT_FLOW_STATS_BY_JOURNEY =>
+AQL_GET_TOUCHPOINT_FLOW_STATISTICS =>
 	LET stats = 
 	(
 		FOR e in cdp_trackingevent 
-			FILTER (e.refJourneyId == @refJourneyId OR @refJourneyId == "") 
+			FILTER (e.refJourneyId == @refJourneyId OR @refJourneyId == "") AND (e.refProfileId == @refProfileId OR @refProfileId == "")
 				   AND ((e.createdAt >= @beginFilterDate OR @beginFilterDate == "") AND (e.createdAt <= @endFilterDate OR @endFilterDate == ""))
 			COLLECT refTouchpointId = e.refTouchpointId, srcTouchpointId = e.srcTouchpointId
 			AGGREGATE eventCount = COUNT_DISTINCT(e._key), profileCount = COUNT_DISTINCT(e.refProfileId)
-			SORT profileCount DESC 
+			SORT eventCount DESC 
 		RETURN {"refTouchpointId": refTouchpointId, "srcTouchpointId": srcTouchpointId, "eventCount": eventCount, "profileCount": profileCount}
 	)
 	LET refStats = (
