@@ -277,23 +277,6 @@ AQL_GET_TOP_1000_TOUCHPOINTS_BY_PROFILE =>
 	        RETURN t
 ;
 
-AQL_GET_TOUCHPOINT_FLOW_BY_PROFILE =>
-	FOR s in cdp_contextsession FILTER s.profileId == @profileId
-        LET refTouchpoints = (
-            FOR t IN cdp_touchpoint
-            FILTER t._key == s.refTouchpointId
-            RETURN DISTINCT t
-        )
-        LET srcTouchpoints = (
-            FOR t IN cdp_touchpoint
-            FILTER t._key == s.srcTouchpointId
-            RETURN DISTINCT t
-        )
-        RETURN {"refMediaHost":s.refMediaHost,"createdAt":s.createdAt,
-                "refTouchpoints":refTouchpoints, 
-                "srcTouchpoints": srcTouchpoints}
-;
-
 AQL_UPDATE_CONTEXT_SESSION_AFTER_MERGE =>
 	FOR d IN cdp_contextsession
 		FILTER d.profileId == @oldProfileId 
@@ -335,6 +318,38 @@ AQL_GET_TOUCHPOINT_REPORT_FOR_PROFILE =>
 		RETURN {"touchpoint":t, "eventCount": eventCount}
 ;
 
+AQL_GET_TOUCHPOINT_FLOW_STATS_BY_PROFILE =>
+	FOR e in cdp_trackingevent 
+	FILTER e.refProfileId == @refProfileId AND (e.refJourneyId == @refJourneyId OR @refJourneyId == "") 
+			AND ((e.createdAt >= @beginFilterDate OR @beginFilterDate == "") AND (e.createdAt <= @endFilterDate OR @endFilterDate == ""))
+	COLLECT refTouchpointId = e.refTouchpointId, refTouchpointName = e.refTouchpointName, srcTouchpointId = e.srcTouchpointId, srcTouchpointName = e.srcTouchpointName
+	AGGREGATE eventCount = COUNT_DISTINCT(e._key)
+	SORT eventCount DESC
+	RETURN {"refTouchpointId": refTouchpointId,"refTouchpointName":refTouchpointName, "srcTouchpointId": srcTouchpointId, "srcTouchpointName":srcTouchpointName, "eventCount": eventCount}
+;
+
+AQL_GET_TOUCHPOINT_FLOW_STATS_BY_JOURNEY =>
+	LET stats = 
+	(
+		FOR e in cdp_trackingevent 
+			FILTER (e.refJourneyId == @refJourneyId OR @refJourneyId == "") 
+				   AND ((e.createdAt >= @beginFilterDate OR @beginFilterDate == "") AND (e.createdAt <= @endFilterDate OR @endFilterDate == ""))
+			COLLECT refTouchpointId = e.refTouchpointId, srcTouchpointId = e.srcTouchpointId
+			AGGREGATE eventCount = COUNT_DISTINCT(e._key), profileCount = COUNT_DISTINCT(e.refProfileId)
+			SORT profileCount DESC 
+		RETURN {"refTouchpointId": refTouchpointId, "srcTouchpointId": srcTouchpointId, "eventCount": eventCount, "profileCount": profileCount}
+	)
+	LET refStats = (
+	    FOR s in stats
+	        FOR t in cdp_touchpoint 
+	        FILTER t._key == s.refTouchpointId 
+	    RETURN {"refTouchpointId": s.refTouchpointId, "refTouchpointName":t.name, "srcTouchpointId": s.srcTouchpointId, "eventCount": s.eventCount, "profileCount": s.profileCount}
+	)
+	FOR s in refStats
+		FOR t in cdp_touchpoint 
+		FILTER t._key == s.srcTouchpointId
+	RETURN {"refTouchpointId":s.refTouchpointId,"refTouchpointName":s.refTouchpointName,"srcTouchpointId": s.srcTouchpointId,"srcTouchpointName":t.name,"eventCount": s.eventCount, "profileCount": s.profileCount}
+;
 
 ###########  DATA_FLOW_STAGE  ########################################################################################################;
 

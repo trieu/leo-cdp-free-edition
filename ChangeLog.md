@@ -21,10 +21,11 @@
 - [In Progress] New Data Connector and connector protocol
 
 
-## [0.8.9] - 2022-07-04
+## [0.8.9] - 2022-07-08
 
 ### Added 
 
+- [Report] touchpoint flow network in profile info
 - [Report] add bar chart for Engaged Touchpoint, Touchpoint Observer, Event Metric and Referral Channel
 - [Report] add journey map report in profile
 - [Report] add Observer Report in main dashboard

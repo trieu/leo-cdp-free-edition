@@ -230,6 +230,7 @@
 		                	
 		                    <!-- vertical tab: Event Data Report  -->
 		                    <div class="tab-pane active" id="panel_event_journey_report" >
+		                    	
 		                    	<div style="padding-bottom: 10px" class="col-lg-12">
 				        			<h4 class="highlight_text" > <i class="fa fa-map-o" aria-hidden="true"></i> Report for Journey Map: <span id="profileJourneyName"></span> </h4> 
 				        			<div class='col-lg-6 col-xs-12'>
@@ -280,6 +281,8 @@
 								   	</div>
 							   	</div>
 							   	
+							   	
+							   	
 		                    	<div class="vcenter highlight_box col-md-12" style="padding: 20px 20px 40px 20px;">
 		                    		<h4 id="event_journey_funnel_nodata" style="display: none;"> No data available </h4>		                    		
 	                  				<div id="event_journey_funnel" class="funnel" ></div>
@@ -291,18 +294,24 @@
 	               					<div id="journeyFlowChart" class="experience_journey_flow" style="height:420px;display: none;"></div>
 	               				</div>
 	               				
-	               				
 	               				<!-- Event Observer Bar Chart -->
 	               				<div class="col-lg-12">
 									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Touchpoint Observer Report </h4> 
+									<div id="profileObserverChart" class="col-lg-12"> </div>
 								</div>
-								<div id="profileObserverChart" class="col-lg-12"> </div>
+								
 	               				
 	               				<!-- Event Statistics Bar Chart -->
 	               				<div class="col-lg-12">
 									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Metric Report </h4> 
+									<div id="profileEventStatsChart" class="col-lg-12"> </div>
 								</div>
-								<div id="profileEventStatsChart" class="col-lg-12"> </div>
+								
+								<!-- Touchpoint Flow Network -->
+								<div class="col-md-12" >
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Touchpoint Flow Network </h4> 
+									<div id="profileTouchpointFlow" style="height: 640px; width: 100%;"></div>
+								</div>
 	               				
 	               				<div class="col-md-12" style="display: none;">
 					                <div id="venn_two" style=float:left>
@@ -725,11 +734,11 @@
 											<ol class="profile_ext_data" data-field="personal_attributes">
 												<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Secondary Emails </b> 
-								                   <p data-field="secondaryEmails" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+								                   <p data-field="secondaryEmails" data-fieldholder="html_hashset"  data-fieldtype="hashset"   >  </p>
 								               	</li>
 								               	<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Secondary Phones </b> 
-								                   <p data-field="secondaryPhones" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+								                   <p data-field="secondaryPhones" data-fieldholder="html_hashset"  data-fieldtype="hashset"   >  </p>
 								               	</li>
 												<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> List of Citizen/Passport ID (Government Issued IDs) </b> 
@@ -808,11 +817,11 @@
 								               	</li>
 												<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Soft Skills </b> 
-								                   <p data-field="softSkills" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+								                   <p data-field="softSkills" data-fieldholder="html_hashset"  data-fieldtype="hashset"   >  </p>
 								               	</li>
 								               	<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Study Certificates </b> 
-								                   <p data-field="studyCertificates" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+								                   <p data-field="studyCertificates" data-fieldholder="html_hashset"  data-fieldtype="hashset"   >  </p>
 								               	</li>
 							               	</ol>
 				               	  		</td>
@@ -830,15 +839,15 @@
 												
 								               	<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Job Titles </b> 
-								                   <p data-field="jobTitles" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+								                   <p data-field="jobTitles" data-fieldholder="html_hashset"  data-fieldtype="hashset"   >  </p>
 								               	</li>
 								               	<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Working History / Company Names </b> 
-								                   <p data-field="workingHistory" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
+								                   <p data-field="workingHistory" data-fieldholder="html_hashset"  data-fieldtype="hashset"   >  </p>
 								               	</li>
 								               	<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Work Experience in Business Industries </b> 
-								                   <p data-field="businessIndustries" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true"  >  </p>
+								                   <p data-field="businessIndustries" data-fieldholder="html_hashset" data-fieldtype="hashset"   >  </p>
 								               	</li>
 							               	</ol>
 				               	  		</td>
@@ -915,17 +924,17 @@
 				               </table>		                    
 		                    </div>
 		                    
-		                    <div class="tab-pane" id="tab_profile_custom_fields" >
+		                  	<div class="tab-pane" id="tab_profile_custom_fields" >
 				               <!-- profile info tab 5 -->
 				               <h4 class="highlight_text" > <i class="fa fa-table" aria-hidden="true"></i> Custom Fields </h4>
 				               <div class="col-md-12" style="padding: 4px 8px; background-color: #f6f6f6; border-radius: 8px" >
-									<p id="profile_extAttributes" data-field="extAttributes" data-fieldholder="html_custom_field" data-fieldtype="custom_field" data-editable="true" > 
+									<p id="profile_extAttributes" data-field="extAttributes" data-fieldholder="html_custom_field" data-fieldtype="custom_field"  > 
 										-
 									</p>
 				                </div>		                    
-		                    </div>
+		                   </div>
 		                    
-		                    <div class="tab-pane" id="tab_profile_data_authorization" >
+		                   <div class="tab-pane" id="tab_profile_data_authorization" >
 				               <!-- profile info tab 6 -->
 				               <h4 class="highlight_text" > <i class="fa fa-lock" aria-hidden="true"></i> Data Authorization </h4>
 							   <table border=0 class="underlined" style="width: 100%;">
@@ -944,9 +953,9 @@
 				               	  		</td>
 				                   </tr>
 				               </table>			                    
-		                    </div>
+		                   </div>
 		                    
-		                </div>
+					</div>
 		        </div>
                
 			</div>
@@ -1042,8 +1051,7 @@
 		     		<div class="list-group-item" > No data available </div>
 				</div>
 			</div>
-					
-			
+
 			<!-- /tabs -->
 	   </div>
       
