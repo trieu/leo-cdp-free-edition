@@ -25,6 +25,10 @@
 	    font-weight: bold;
 	    overflow: hidden;
 	}
+	
+	#flow_network_report_wrapper {
+		display:block; height:680px; width:100%; background-color:#e8e8e8; border-radius:10px;
+	}
 </style>
 
 
@@ -94,6 +98,11 @@
 		         			<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Touchpoint Report
 		         		</a>
 		         	</li>
+		         	<li>
+		         		<a href="javascript:setFlowNetworkGraphFitView()" data-target-tab="panel_flow_network_report" title="Touchpoint Flow Network Report" > 
+		         			<i class="fa fa-connectdevelop" aria-hidden="true"></i> Flow Network Report
+		         		</a>
+		         	</li>
 	   			</ul>
 	   			
 	   			<div class="tab-content" id="main_dashboard_report_tabs" style="min-height: 450px"  >
@@ -105,25 +114,30 @@
 	               		</div>
 					</div>
 					
-					<!-- tab 2 Data Funnel Report   -->
+					<!-- tab 2 Data Funnel Report  -->
 					<div class="highlight_box tab-pane" id="panel_data_funnel_report" >
 						<div id="profile_funnel_wrapper" class="vcenter" >
 	                  		<div id="profile_funnel"></div>
 	               		</div>
 					</div>
 					
-					<!-- tab 3 Touchpoint Hub Report   -->
+					<!-- tab 3 Touchpoint Hub Report  -->
 					<div class="highlight_box tab-pane" id="panel_observer_report" >
 						<div id="observer_report_wrapper" class="vcenter" ></div>
 						<hr>
 						<div id="observer_report_table"></div>
 					</div>
 					
-					<!-- tab 4 Touchpoint Details Report   -->
+					<!-- tab 4 Touchpoint Details Report  -->
 					<div class="highlight_box tab-pane" id="panel_touchpoint_report" >
 						<div id="touchpoint_report_wrapper" class="vcenter" ></div>
 						<hr>
 						<div id="touchpoint_report_table"></div>
+					</div>
+					
+					<!-- tab 5 Flow Network Report  -->
+					<div class="tab-pane" id="panel_flow_network_report" >
+						<div id="flow_network_report_wrapper" ></div>
 					</div>
 				</div>
 	            
@@ -377,6 +391,7 @@
             
             loadObserverReport(queryFilter);
             loadTouchpointReport(queryFilter);
+            loadFlowNetworkReport(queryFilter)
     	}
     	else {
     		updateChartDashboard();
@@ -445,6 +460,35 @@
                 }
             });
         },800);
+    }
+    
+ 	// touchpoint flow network
+    var flowNetworkGraph = false;
+    function loadFlowNetworkReport(queryFilter) {
+    	var containerId = 'flow_network_report_wrapper';
+    	var containerNode = $('#'+containerId).empty().html('<div class="loader"></div>');
+    	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-flow-report';
+    	
+    	setTimeout(function(){
+    		LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {    	
+                if (json.httpCode === 0 && json.errorMessage === '') {
+                	containerNode.empty()
+                	var graphElements = { nodes: json.data.nodes, edges: json.data.edges }
+                	var rootNodeId = json.data.rootNodeId;
+                	flowNetworkGraph = renderDirectedGraph(containerId, graphElements, rootNodeId);
+                } else {
+                    LeoAdminApiUtil.logErrorPayload(json);
+                }
+            });
+    	},900);
+    }
+    function setFlowNetworkGraphFitView(){
+    	if(typeof flowNetworkGraph === 'object') {
+    		// hack to show graph
+    		setTimeout(function(){
+    			flowNetworkGraph.fit(true)
+    		},300)
+    	}
     }
 
 </script>
