@@ -465,13 +465,14 @@
  	// touchpoint flow network
     var flowNetworkGraph = false;
     function loadFlowNetworkReport(queryFilter) {
-    	queryFilter['startIndex'] = 0;
-    	queryFilter["numberResult"] = 120;
+    	
     	var containerId = 'flow_network_report_wrapper';
     	var containerNode = $('#'+containerId).empty().html('<div class="loader"></div>');
     	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-flow-report';
     	
     	setTimeout(function(){
+    		queryFilter['startIndex'] = 0;
+        	queryFilter["numberFlow"] = 10; // number of flow edges
     		LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {    	
                 if (json.httpCode === 0 && json.errorMessage === '') {
                 	containerNode.empty()
