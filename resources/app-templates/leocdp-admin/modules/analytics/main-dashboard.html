@@ -472,7 +472,7 @@
     	
     	setTimeout(function(){
     		queryFilter['startIndex'] = 0;
-        	queryFilter["numberFlow"] = 10; // number of flow edges
+        	queryFilter["numberFlow"] = 600; // number of flow edges
     		LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {    	
                 if (json.httpCode === 0 && json.errorMessage === '') {
                 	containerNode.empty()
