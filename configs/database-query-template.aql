@@ -328,6 +328,7 @@ AQL_GET_TOUCHPOINT_FLOW_STATISTICS =>
 			COLLECT refTouchpointId = e.refTouchpointId, srcTouchpointId = e.srcTouchpointId
 			AGGREGATE eventCount = COUNT_DISTINCT(e._key), profileCount = COUNT_DISTINCT(e.refProfileId)
 			SORT eventCount DESC 
+			LIMIT @startIndex,@numberResult 
 		RETURN {"refTouchpointId": refTouchpointId, "srcTouchpointId": srcTouchpointId, "eventCount": eventCount, "profileCount": profileCount}
 	)
 	LET refStats = (

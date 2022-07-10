@@ -465,6 +465,8 @@
  	// touchpoint flow network
     var flowNetworkGraph = false;
     function loadFlowNetworkReport(queryFilter) {
+    	queryFilter['startIndex'] = 0;
+    	queryFilter["numberResult"] = 120;
     	var containerId = 'flow_network_report_wrapper';
     	var containerNode = $('#'+containerId).empty().html('<div class="loader"></div>');
     	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-flow-report';
@@ -480,7 +482,7 @@
                     LeoAdminApiUtil.logErrorPayload(json);
                 }
             });
-    	},900);
+    	},1600);
     }
     function setFlowNetworkGraphFitView(){
     	if(typeof flowNetworkGraph === 'object') {
