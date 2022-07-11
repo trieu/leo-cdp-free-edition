@@ -335,12 +335,13 @@ AQL_GET_TOUCHPOINT_FLOW_STATISTICS =>
 	    FOR s in stats
 	        FOR t in cdp_touchpoint 
 	        FILTER t._key == s.refTouchpointId 
-	    RETURN {"refTouchpointId": s.refTouchpointId, "refTouchpointName":t.name, "srcTouchpointId": s.srcTouchpointId, "eventCount": s.eventCount, "profileCount": s.profileCount}
+	    RETURN {"refTouchpointId": s.refTouchpointId, "refTouchpointName":t.name, "refTouchpointUrl":t.url, "srcTouchpointId": s.srcTouchpointId, "eventCount": s.eventCount, "profileCount": s.profileCount}
 	)
 	FOR s in refStats
 		FOR t in cdp_touchpoint 
 		FILTER t._key == s.srcTouchpointId
-	RETURN {"refTouchpointId":s.refTouchpointId,"refTouchpointName":s.refTouchpointName,"srcTouchpointId": s.srcTouchpointId,"srcTouchpointName":t.name,"eventCount": s.eventCount, "profileCount": s.profileCount}
+	RETURN {"refTouchpointId":s.refTouchpointId,"refTouchpointName":s.refTouchpointName, "refTouchpointUrl":s.refTouchpointUrl, 
+			"srcTouchpointId": s.srcTouchpointId,"srcTouchpointName":t.name, "srcTouchpointUrl": t.url, "eventCount": s.eventCount, "profileCount": s.profileCount}
 ;
 
 ###########  DATA_FLOW_STAGE  ########################################################################################################;
