@@ -596,6 +596,12 @@ AQL_GET_USER_BY_USERLOGIN =>
 	RETURN u
 ;
 
+AQL_GET_USERLOGIN_BY_EMAIL => 
+	FOR u in system_user 
+	FILTER u.userEmail == @email  
+	RETURN u.userLogin
+;
+
 AQL_GET_USER_BY_KEY => 
 	FOR u in system_user 
 	FILTER u._key == @key  
@@ -878,7 +884,7 @@ AQL_DELETE_ALL_INVALID_PROFILES =>
 
 AQL_DELETE_PROFILE_BY_ID =>
 	FOR p in cdp_profile  
-	FILTER p.status == -4 AND p._key == @profileId
+	FILTER p.status != 1 AND p._key == @profileId
     REMOVE { _key: p._key } IN cdp_profile
 ;
 

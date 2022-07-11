@@ -129,13 +129,16 @@
 						</div>
 					</div>
 					<div class="col-md-6" >
-						<div class="col-md-12" style="padding-top:20px;">
+						<div class="col-md-12" style="padding-top:25px;">
 							<div class="col-md-6" style="text-align: right;">
 							 	<button type="button" class="btn btn-do-now" onclick="resetProfileSearch()" ><i class="fa fa-fw fa-undo"></i> Reset </button>
 							</div>
 							<div class="col-md-6" >
 							 	<button type="button" class="btn btn-goto-router" onclick="doProfileListing()" ><i class="fa fa-fw fa-filter"></i> Filter </button>
 							</div>
+						</div>
+						<div id="holder_deleteNotActiveProfile" class="col-md-12 text-center" style="padding-top:15px; display: none;" >
+						 	<button type="button" class="btn btn-danger" onclick="deleteNotActiveProfile()" ><i class="fa fa-fw fa-trash"></i> Delete All Not-Active Profiles </button>
 						</div>
 					</div>
 				</div>
@@ -193,6 +196,36 @@
 		$(selector).show();
 		$('#profile_filter_input_label').text($(domNode).text()).show()
 		$('#main_search_profile').val('');
+		showDeleteNotActiveProfile();
+	}
+	
+	function showDeleteNotActiveProfile(){
+		var selected = $("#filterByStatus").val();
+		if(selected === ""){
+			$('#holder_deleteNotActiveProfile').hide()
+		}
+		else {
+			$('#holder_deleteNotActiveProfile').show()
+		}
+	}
+	
+	function deleteNotActiveProfile() {
+		var status = $("#filterByStatus").val();
+		var statusValue = -4;
+		if(status != ""){
+			statusValue = parseInt(status);
+		}
+		LeoAdminApiUtil.callPostAdminApi('/cdp/profiles/delete-not-active', {'status' : statusValue}, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+            	iziToast.info({
+		    	    title: 'Profile Data Management',
+		    	    message: 'Deleted ' + json.data + ' profiles'
+		    	});
+            	resetProfileSearch();
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+       });
 	}
 	
 	function doProfileListing() {
@@ -203,6 +236,7 @@
     	} 
     	$('#profile_list_table').DataTable().clear();
 	    $('#profile_list_table').DataTable().ajax.reload();
+	    showDeleteNotActiveProfile()
 	}
 	
 	function filterOnlyContactableProfiles(node){
