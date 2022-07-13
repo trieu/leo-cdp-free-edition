@@ -83,27 +83,27 @@
             	<ul class="nav nav-tabs" data-tab-content="main_dashboard_report_tabs" >
 		         	<li class="active" onclick="showDashboardReport(false)" >
 		          		<a href="javascript:" data-target-tab="panel_journey_map_report" title="Journey Map Report"> 
-		          			<i class="fa fa-map-o" aria-hidden="true"></i> Journey Report 
+		          			<i class="fa fa-map-o" aria-hidden="true"></i> Profile Journey  
 		          		</a>
 		         	</li>
 		         	<li>
 		         		<a href="javascript:" data-target-tab="panel_data_funnel_report" title="Data Funnel Report" > 
-		         			<i class="fa fa-filter" aria-hidden="true"></i> Funnel Report 
+		         			<i class="fa fa-filter" aria-hidden="true"></i> Profile Funnel 
 		         		</a>
 		         	</li>
 		         	<li>
 		         		<a href="javascript:" data-target-tab="panel_observer_report" title="Event Observer Report" > 
-		         			<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Observer Report
+		         			<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Touchpoint Hub
 		         		</a>
 		         	</li>
 		         	<li>
 		         		<a href="javascript:" data-target-tab="panel_touchpoint_report" title="Touchpoint Details Report" > 
-		         			<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Touchpoint Report
+		         			<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Touchpoint Item
 		         		</a>
 		         	</li>
 		         	<li>
-		         		<a href="javascript:setFlowNetworkGraphFitView()" data-target-tab="panel_flow_network_report" title="Network Flow Report" > 
-		         			<i class="fa fa-connectdevelop" aria-hidden="true"></i> Network Flow Report
+		         		<a href="javascript:setJourneyFlowGraphView()" data-target-tab="panel_flow_network_report" title="Network Flow Report" > 
+		         			<i class="fa fa-connectdevelop" aria-hidden="true"></i> Journey Flow
 		         		</a>
 		         	</li>
 	   			</ul>
@@ -392,17 +392,17 @@
                 }
             });
             
-            loadObserverReport(queryFilter);
-            loadTouchpointReport(queryFilter);
-            loadFlowNetworkReport(queryFilter)
+            loadTouchpointHubReport(queryFilter);
+            loadTouchpointItemReport(queryFilter);
+            loadJourneyFlowReport(queryFilter)
     	}
     	else {
     		updateChartDashboard();
     	}
     }
     
-    function loadObserverReport(queryFilter) {
-    	var textTitle = "Touchpoint Observer Report";
+    function loadTouchpointHubReport(queryFilter) {
+    	var textTitle = "Touchpoint Hub Report";
     	var container = $('#observer_report_wrapper').html('<div class="loader"></div>');
         setTimeout(function(){
         	 	// touchpoint detail report
@@ -421,8 +421,8 @@
              	   showProfileEventBubbleChart(textTitle, container, canvas, json.data);
              	   
              	   var fieldsSchema = [
-				        { name: "name", title : "Name", align: 'center' , type: "text" },			        
-				        { name: "profileCount", title : "Total Reached Profile", type: "number", align: 'center', width: 60 },
+				        { name: "name", title : "Touchpoint Hub Name", align: 'center' , type: "text" },			        
+				        { name: "profileCount", title : "Total Profile", type: "number", align: 'center', width: 60 },
 				        { name: "eventCount", title : "Total Event", type: "number", align: 'center', width: 60 }
 				    ];
              	    $("#observer_report_table").jsGrid({ editing: false, paging: false, width: "100%", height:"auto", data: json.data, fields: fieldsSchema})
@@ -433,8 +433,8 @@
         },800);
     }
     
-    function loadTouchpointReport(queryFilter){
-    	var textTitle = "Touchpoint Details Report";
+    function loadTouchpointItemReport(queryFilter){
+    	var textTitle = "Touchpoint Item Report";
         var container = $('#touchpoint_report_wrapper').html('<div class="loader"></div>');
         setTimeout(function(){
         	 // touchpoint detail report
@@ -453,8 +453,8 @@
                 	showProfileEventBubbleChart(textTitle, container, canvas, json.data, "touchpoint");
                 	
                 	var fieldsSchema = [
- 				        { name: "touchpoint.name", title : "Touchpoint Name", align: 'center' , type: "text" },			        
- 				        { name: "profileCount", title : "Total Reached Profile", type: "number", align: 'center', width: 60 },
+ 				        { name: "touchpoint.name", title : "Touchpoint Item Name", align: 'center' , type: "text" },			        
+ 				        { name: "profileCount", title : "Total Profile", type: "number", align: 'center', width: 60 },
  				        { name: "eventCount", title : "Total Event", type: "number", align: 'center', width: 60 }
  				    ];
               	    $("#touchpoint_report_table").jsGrid({ editing: false, paging: false, width: "100%", height:"auto", data: json.data, fields: fieldsSchema})
@@ -467,7 +467,7 @@
     
  	// touchpoint flow network
     var flowNetworkGraph = false;
-    function loadFlowNetworkReport(queryFilter) {
+    function loadJourneyFlowReport(queryFilter) {
     	
     	var containerId = 'flow_network_report_wrapper';
     	var containerNode = $('#'+containerId).empty().html('<div class="loader"></div>');
@@ -488,7 +488,7 @@
             });
     	},1600);
     }
-    function setFlowNetworkGraphFitView(){
+    function setJourneyFlowGraphView(){
     	if(typeof flowNetworkGraph === 'object') {
     		// hack to show graph
     		setTimeout(function(){

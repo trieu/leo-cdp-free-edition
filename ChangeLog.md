@@ -21,7 +21,7 @@
 - [In Progress] New Data Connector and connector protocol
 
 
-## [0.8.9] - 2022-07-11
+## [0.8.9] - 2022-07-14
 
 ### Added 
 
@@ -75,6 +75,7 @@
 
 ### Fixed 
 
+- [Report] touchpoint hub in dashboard and profile
 - [Profile] fix bugs of De-duplicate profile
 - [Event] ref touchpoint domain should extract from URL
 - [Data Journey] improve and fix bugs profile model
@@ -90,6 +91,7 @@
 
 ### Changed
 
+- [TrackingEvent] add touchpoint data fields
 - [UI] caching handlebar templates to improve performance
 - [UI] improve touchpoint report: add legend and title
 - [UI] restructure and improve UI/UX of admin dashboard
