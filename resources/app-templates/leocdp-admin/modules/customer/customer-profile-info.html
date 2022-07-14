@@ -33,7 +33,6 @@
                    <h4 id="profile_full_name"> - </h4>
                </div>
 			   <hr>
-			   
                <div class="col-md-12" >
                		<div class="col-md-4" >
                      	<b> <i class="fa fa-fw fa-line-chart"></i> Lead Score <a href="https://en.wikipedia.org/wiki/Lead_scoring" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
@@ -1062,89 +1061,22 @@
     
     var currentJourneyMapId = "id_default_journey";
     var viewProfileId = '';
-    var initProfile360Analytics = function(profileId, crmRefId) {
+    
+    function initProfile360Analytics(profileId, crmRefId) {
     	viewProfileId = profileId;
     	//setup tab navigation 
 		setupTabPanels();
 		loadProfile360Analytics(profileId, crmRefId);
     }
     
-    var editCurrentProfile = function (){
+    function editCurrentProfile(){
     	gotoLeoCdpRouter('Customer_Profile_Editor', viewProfileId );
     }
     
-    var loadProfile360Analytics = function(profileId, crmRefId) {
+    function loadProfile360Analytics(profileId, crmRefId) {
          console.log('loadProfile360Analytics profileId:' + profileId + " crmRefId:" + crmRefId);
          
-         var dataProcessor = function(data){
-        	 viewProfileId = data.id;
-        	 
-        	 var noinfo = '-';
-        	 
-        	 if(data.firstName !== "" || data.lastName !== ""){
-        		 data.fullName = data.firstName +  " " + data.lastName;
-        	 }
-        	 else {
-        		 data.fullName = "Web Visitor";
-        	 }
-        	 
-        	 if(data.age <= 0){
-        		 data.age = noinfo;
-        	 } 
-        	 if(data.livingLocation === ''){
-        		 data.livingLocation = "_";
-        	 }
-        	 if(data.primaryPhone === ''){
-        		 data.primaryPhone = noinfo;
-        	 }
-        	 if(data.firstName === ''){
-        		 data.firstName = noinfo;
-        	 }
-        	 if(data.lastName === ''){
-        		 data.lastName = noinfo;
-        	 }
-        	 if(data.primaryEmail === ''){
-        		 data.primaryEmail = noinfo;
-        	 }
-        	 if(typeof data.jobType === "number" ) {
-        		 var t = data.jobType;
-        		 if(t === 0){
-        			 data.jobTypeAsString = "UNSKILLED AND NON-RESIDENT";	 
-        		 }
-        		 else if(t === 1){
-        			 data.jobTypeAsString = "UNSKILLED AND RESIDENT";	 
-        		 }
-        		 else if(t === 2){
-        			 data.jobTypeAsString = "SKILLED";	 
-        		 }
-        		 else if(t === 3){
-        			 data.jobTypeAsString = "HIGHLY SKILLED";	 
-        		 }
-        		 else {
-        			 data.jobTypeAsString = noinfo;
-        		 }
-        	 }
-        	 
-        	 data.funnelStage = data.funnelStage ? data.funnelStage.toUpperCase() : noinfo;
-        	 
-        	 if(data.lastTrackingEvent){
-        		 data.lastTrackingEvent.createdAt = moment.utc(data.lastTrackingEvent.createdAt).local().format('YYYY-MM-DD HH:mm:ss');
-        		 data.lastTrackingEvent.fingerprintId = data.lastTrackingEvent.fingerprintId ? data.lastTrackingEvent.fingerprintId : "-";
-        		 if(data.lastTrackingEvent.refTouchpoint){
-        			 data.lastTrackingEvent.refTouchpoint.name = decodeURI(data.lastTrackingEvent.refTouchpoint.name);
-        		 }
-        	 }
-        	 else {
-        		 data.lastTrackingEvent.createdAt = noinfo;
-        	 }
-        	 
-        	 // decode for name of touchpoint
-        	 data.lastTouchpoint.name = decodeURI(data.lastTouchpoint.name);
-        	
-        	 return data;
-         }
-         
-         loadProfileDataIntoDOM(false, profileId, crmRefId, dataProcessor, function(){
+         loadProfileDataIntoDOM(false, profileId, crmRefId, profileInfoLoadProcessor, function(){
         	 //console.log(LeoCdpAdmin.routerContext.dataObject);
 			 var daysToQueryEventData = 30; // 30 days
 			 
@@ -1231,17 +1163,19 @@
         	 renderProfileTouchpointChart(profileId, -1, 0, 30)
         	 
         	 // Profile Analytics Report
-        	 reportJourneyOfSingleProfile(profileId, profileData);
+        	 loadJourneyReportForProfile(profileId, profileData);
         	 
-        	 initDateFilterComponent(true, null, null, daysToQueryEventData);
-        	 loadProfileEventDailyReportUnit(profileId)
+        	 // timeseries
+        	 setTimeout(function(){
+        		 initDateFilterComponent(true, null, null, daysToQueryEventData);
+            	 loadProfileEventDailyReportUnit(profileId)
+			 },5000)
         	 
         	 
         	 //renderJourneyFlowChart();
         	 //loadProfileAttribution();
              //loadMediaTouchpoints();
              //personalityDiagram();
-             
          });
     }    
 </script>

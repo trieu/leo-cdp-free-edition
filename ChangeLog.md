@@ -21,7 +21,7 @@
 - [In Progress] New Data Connector and connector protocol
 
 
-## [0.8.9] - 2022-07-14
+## [0.8.9] - 2022-07-15
 
 ### Added 
 
@@ -91,6 +91,7 @@
 
 ### Changed
 
+- apply cache and improve performance of product recommendation
 - [TrackingEvent] add touchpoint data fields
 - [UI] caching handlebar templates to improve performance
 - [UI] improve touchpoint report: add legend and title

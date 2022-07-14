@@ -409,7 +409,7 @@
             queryFilter['touchpointType'] = -1;
             queryFilter['startIndex'] = 0;
             queryFilter['numberResult'] = 22;
-            var urlStr = baseLeoAdminUrl + '/cdp/analytics360/observer-report';
+            var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-hub-report';
             LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
              	   
