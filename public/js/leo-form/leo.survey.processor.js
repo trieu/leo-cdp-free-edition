@@ -72,6 +72,13 @@ function initFeedbackSurvey(){
 		$('#Header_Image_URL').attr("src",model.Header_Image_URL).show();
 	}
 	
+	// Survey_URL
+	if( isValidData(model.Survey_URL) ){
+		var text = model.Survey_URL_Text || model.Survey_URL;
+		var value = '<div class="alert alert-description" ><i class="fa fa-info-circle event-get-code" style="font-size:1.1em" aria-hidden="true"></i> <a target="_blank" href="' + model.Survey_URL + '"  >' + text + "</a></div>";
+		formModel.push({"type": "htmlsnippet", "value": value})
+	}
+	
 	if( isValidData(model.Footer) ) {
 		$('#Footer').html(model.Footer);
 	}
