@@ -107,18 +107,18 @@
 					</div>
 					
 					<div class="form-group row"  >
-						<label class="control-label col-sm-3" for="authorizedViewers">Authorized users can view data</label>
+						<label class="control-label col-sm-3" for="authorizedSegmentViewers">Authorized login users can view segment</label>
 						<div class="col-sm-9" >
-							<select id="authorizedViewers" multiple data-placeholder="Choose an authorized viewer" class="select" style="display: none;" >
+							<select id="authorizedSegmentViewers" multiple data-placeholder="Choose an authorized viewer" class="select" style="display: none;" >
 							  	<!-- list of login accounts -->
 							</select>
 						</div>
 					</div>
 					
 					<div class="form-group row"  >
-						<label class="control-label col-sm-3" for="authorizedEditors">Authorized users can update data</label>
+						<label class="control-label col-sm-3" for="authorizedSegmentEditors">Authorized login users can update segment</label>
 						<div class="col-sm-9" >
-							<select id="authorizedEditors" multiple data-placeholder="Choose an authorized editor" class="select" style="display: none;" >
+							<select id="authorizedSegmentEditors" multiple data-placeholder="Choose an authorized editor" class="select" style="display: none;" >
 							  	<!-- list of login accounts -->
 							</select>
 						</div>
@@ -397,57 +397,14 @@
                 
                 // load profile list table
                 setTimeout(loadProfilesInSegment,700);
-                loadSystemUsersForDataAuthorization(segmentData);
+                loadSystemUsersForDataAuthorization(segmentData, $('#authorizedSegmentViewers'), $('#authorizedSegmentEditors'));
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);
             }
         });
     }
 	
-	var loadSystemUsersForDataAuthorization = function(segmentData){
-		// load login accounts
-		var urlStr = baseLeoAdminUrl + '/user/list-all';
-        LeoAdminApiUtil.callPostAdminApi(urlStr, {} , function (json) {
-            if (json.httpCode === 0 && typeof json.data === 'object') {
-            	var selectedEditors = segmentData.authorizedEditors;
-            	var selectedViewers = segmentData.authorizedViewers;
-            	
-               	var list = json.data;
-               	var htmlViewers = "", htmlEditors = "";
-               	list.forEach(function(e){
-               		if(e.role !== 6) {
-               			// viewer for all roles not superadmin, only a God can do everything
-               			if(selectedViewers.includes(e.userLogin)){
-               				htmlViewers += ('<option selected value="' + e.userLogin + '">' + e.displayName + '</option>')
-               			} else {
-               				htmlViewers += ('<option value="' + e.userLogin + '">' + e.displayName + '</option>')
-               			}
-               			
-               			// editor only for ROLE_DATA_OPERATOR, ROLE_DATA_ADMIN
-               			if(e.role > 1) {
-	               			if(selectedEditors.includes(e.userLogin)){
-	               				htmlEditors += ('<option selected value="' + e.userLogin + '">' + e.displayName + '</option>')
-	               			} else {
-	               				htmlEditors += ('<option value="' + e.userLogin + '">' + e.displayName + '</option>')
-	               			}
-               			}
-               		}
-               	});
-               	
-               	// init UI
-               	$('#authorizedViewers').html(htmlViewers).show().chosen({
-                    width: "100%",
-                    no_results_text: "Oops, nothing found!"
-                });
-               	$('#authorizedEditors').html(htmlEditors).show().chosen({
-                    width: "100%",
-                    no_results_text: "Oops, nothing found!"
-                });
-            } else {
-            	console.error(json)
-            }
-        });
-	}
+
 	
 	var createNewSegmentModel = function() {
         var urlStr = baseLeoAdminUrl + '/cdp/segment/load';
@@ -470,7 +427,7 @@
                 
                 // load profile list table
                 setTimeout(loadProfilesInSegment,700);
-                loadSystemUsersForDataAuthorization(segmentData);
+                loadSystemUsersForDataAuthorization(segmentData, $('#authorizedSegmentViewers'), $('#authorizedSegmentEditors'));
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);
             }
@@ -543,8 +500,8 @@
 			segmentDataModel.status = parseInt($('#sm_status input:checked').val());
 			
 			// segment authorization
-			segmentDataModel.authorizedViewers = $('#authorizedViewers').val() || [];
-			segmentDataModel.authorizedEditors = $('#authorizedEditors').val() || [];
+			segmentDataModel.authorizedViewers = $('#authorizedSegmentViewers').val() || [];
+			segmentDataModel.authorizedEditors = $('#authorizedSegmentEditors').val() || [];
 			
 			//done set data model, POST to API
 			var dataJsonStr = JSON.stringify(segmentDataModel) ;

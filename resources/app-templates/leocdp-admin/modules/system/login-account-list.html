@@ -63,6 +63,7 @@
                     "contentType": 'application/x-www-form-urlencoded',
                     "data": function (d) {
                         d.usersession = usersession;
+                        d.isLoginManagement = true;
                     },
                     "dataSrc": function ( json ) {
                     	canEditLoginData = json.canEditData;

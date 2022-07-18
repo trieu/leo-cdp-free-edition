@@ -21,7 +21,7 @@
 - [In Progress] New Data Connector and connector protocol
 
 
-## [0.8.9] - 2022-07-15
+## [0.8.9] - 2022-07-18
 
 ### Added 
 
@@ -75,6 +75,7 @@
 
 ### Fixed 
 
+- [Profile] edit profile with better data authorization UI/UX
 - [Report] touchpoint hub in dashboard and profile
 - [Profile] fix bugs of De-duplicate profile
 - [Event] ref touchpoint domain should extract from URL
