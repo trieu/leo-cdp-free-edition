@@ -16,8 +16,8 @@
      	<button type="button" class="btn btn-info" onclick="history.back()" title="Go back"  > 
        		<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
        	</button>
-       	<button type="button" class="btn btn-danger data-control-delete" onclick="deleteCurrentProfile()" title="Delete this profile" > 
-     		<i class="fa fa-trash" aria-hidden="true"></i> Delete 
+       	<button type="button" class="btn btn-danger data-control-delete" onclick="removeCurrentProfile()" title="Remove this profile" > 
+     		<i class="fa fa-trash" aria-hidden="true"></i> Remove 
      	</button>
        	<button type="button" class="btn btn-success data-control-edit" onclick="saveProfileHandler()" title="Edit this profile"  > 
      		<i class="fa fa-check-square-o" aria-hidden="true"></i> Save 
@@ -80,7 +80,7 @@
 					         <label><input type="radio" name="status" value="-1" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >INVALID</label>
 					      </div>
 					      <div class="radio ">
-					         <label><input type="radio" name="status" value="-4" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >DELETED</label>
+					         <label><input type="radio" name="status" value="-4" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >REMOVED</label>
 					      </div>
 					   </div>
 					</div>
@@ -601,18 +601,18 @@
 			<div class="tab-pane" id="panel_profile_data_authorization" >
 				<h4 class="highlight_text" > <i class="fa fa-lock" aria-hidden="true"></i> Data Authorization </h4>
 				<div class="form-group row"  >
-					<label class="control-label col-sm-3" for="authorizedProfileViewers">Authorized login users can view profile</label>
+					<label class="control-label col-sm-3" for="authorizedProfileViewers">Authorized users can view data</label>
 					<div class="col-sm-9" >
-						<select id="authorizedProfileViewers" multiple data-placeholder="Choose an authorized viewer" class="select" style="display: none;" >
+						<select id="authorizedProfileViewers" multiple data-placeholder="Choose an authorized data viewer" class="select" style="display: none;" >
 						  	<!-- list of login accounts -->
 						</select>
 					</div>
 				</div>
 				
 				<div class="form-group row"  >
-					<label class="control-label col-sm-3" for="authorizedProfileEditors">Authorized login users can update profile</label>
+					<label class="control-label col-sm-3" for="authorizedProfileEditors">Authorized users can update data</label>
 					<div class="col-sm-9" >
-						<select id="authorizedProfileEditors" multiple data-placeholder="Choose an authorized editor" class="select" style="display: none;" >
+						<select id="authorizedProfileEditors" multiple data-placeholder="Choose an authorized data editor" class="select" style="display: none;" >
 						  	<!-- list of login accounts -->
 						</select>
 					</div>

@@ -92,6 +92,7 @@
 
 ### Changed
 
+- rename profile status from DELETED to REMOVED when status code == -4
 - apply cache and improve performance of product recommendation
 - [TrackingEvent] add touchpoint data fields
 - [UI] caching handlebar templates to improve performance

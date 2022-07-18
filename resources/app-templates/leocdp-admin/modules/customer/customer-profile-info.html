@@ -11,8 +11,8 @@
        	<button type="button" class="btn btn-do-now" onclick="location.reload()" title="Refresh data"  > 
        		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
        	</button>
-     	<button type="button" class="btn btn-danger data-control-delete" onclick="deleteCurrentProfile()" title="Delete this profile" > 
-     		<i class="fa fa-trash" aria-hidden="true"></i> Delete 
+     	<button type="button" class="btn btn-danger data-control-delete" onclick="removeCurrentProfile()" title="Remove this profile" > 
+     		<i class="fa fa-trash" aria-hidden="true"></i> Remove 
      	</button>
        	<button type="button" class="btn btn-goto-router data-control-edit" onclick="editCurrentProfile()" title="Edit this profile"  > 
      		<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit 
@@ -71,10 +71,6 @@
 					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Journey Map: </b> 
 					  		[<span class="data_field" id="profileInJourneyMaps" > </span> ]
 					  	</li>
-					  	<li class="list-group-item" style="display: none">
-					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Accounts: </b> 
-					  		[<span class="data_field" id="profileInAccounts" > </span> ]
-					  	</li>
 					  	<li class="list-group-item">
 					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Segments: </b> 
 					  		[<span class="data_field" id="profileInSegments" > </span> ]
@@ -82,6 +78,10 @@
 					  	<li class="list-group-item">
 					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Data Labels: </b> 
 					  		[<span class="data_field" id="profileDataLabels" > </span> ]
+					  	</li>
+					  	<li class="list-group-item" style="display: none">
+					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Accounts: </b> 
+					  		[<span class="data_field" id="profileInAccounts" > </span> ]
 					  	</li>
 				   	</ul>  
 				</div>
@@ -1121,15 +1121,12 @@
         	 var inAccountSize = profileData.inAccounts.length;
        		 profileData.inAccounts.forEach(function(e){
            		 inAccountSize--;
-           		 // FIXME  just make sure do not show deleted account info
-           		 if(e.name.indexOf("[DELETED]")<0){
-           			 var ahtml = $('<a/>').attr('href',"#calljs-leoCdpRouter('Account_Details','"+e.id+"')").html(e.name)[0].outerHTML;
-               		 var html = '<b>' + ahtml + '</b>';
-               		 if(inAccountSize > 0){
-               			 html += ", ";
-               		 }
-               		 inAccountsNode.append(html);
-           		 }
+           		 var ahtml = $('<a/>').attr('href',"#calljs-leoCdpRouter('Account_Details','"+e.id+"')").html(e.name)[0].outerHTML;
+             	 var html = '<b>' + ahtml + '</b>';
+                 if(inAccountSize > 0){
+             			 html += ", ";
+             	 }
+             	 inAccountsNode.append(html);
            	 });
         	 
         	 // data labels
