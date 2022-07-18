@@ -568,6 +568,11 @@ function initFeedbackSurvey(){
 		if(n > 0) $(this).addClass('form-background');
 	})
 	$('#survey_placeholder').show();
+	
+	// convert MD link into a[href]
+	$("div.radio label").each(function(){ 
+		var text = $(this).html(); $(this).html( marked.parseInline(text) ) 
+	})
 }
 
 (function() {
