@@ -48,7 +48,9 @@
 
 <div id="profile_list_loader" class="loader"></div>
 
-<div id="profile_list" style="display: none;" >		
+<div id="profile_list" style="display: none;" >	
+
+	<!-- profile filter -->	
 	<div class="panel panel-info" >
 	   	<div class="panel-heading">
 	   		<b> <i class="fa fa-search" aria-hidden="true"></i> Data Query Filter </b>
@@ -101,12 +103,16 @@
 						    <span class="caret"></span></button>
 						    <ul class="dropdown-menu">
 						    	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByProfileId')" >Profile ID</a></li>
-						    	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterProfileListByStatus')" >Profile Status</a></li>
 						    	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterEmail')" >Primary Email</a></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterPhone')" >Primary Phone</a></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByVisitorId')" >Web Visitor ID</a></li>
-						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByLastTouchpoint')" >Last Touchpoint Name</a></li>
+						      	<li><hr></li>
+						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterProfileListByStatus')" >Profile Status</a></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByDataLabel')" >Data Label</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByLastTouchpoint')" >Last Touchpoint Name</a></li>
+						      	<li><hr></li>
+						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByAuthorizedViewer')" >Authorized Viewer</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByAuthorizedEditor')" >Authorized Editor</a></li>
 						    </ul>
 						</div>
 						<div id="profile_filter_inputs" >
@@ -124,8 +130,10 @@
 							<input style="display: none;" type="text" class="form-control" id="filterEmail" placeholder="Enter email" >
 							<input style="display: none;" type="text" class="form-control" id="filterPhone" placeholder="Enter phone number" >
 					  		<input style="display: none;" type="text" class="form-control" id="filterByVisitorId" placeholder="Enter web visitor ID" >
-					  		<input style="display: none;" type="text" class="form-control" id="filterByLastTouchpoint" placeholder="Enter touchpoint name" >
 					  		<input style="display: none;" type="text" class="form-control" id="filterByDataLabel" placeholder="Enter data label" >
+					  		<input style="display: none;" type="text" class="form-control" id="filterByAuthorizedViewer" placeholder="Enter login username of viewer" >
+					  		<input style="display: none;" type="text" class="form-control" id="filterByAuthorizedEditor" placeholder="Enter login username of editor" >
+					  		<input style="display: none;" type="text" class="form-control" id="filterByLastTouchpoint" placeholder="Enter touchpoint name" >
 					  		
 						</div>
 					</div>
@@ -157,7 +165,7 @@
 	            <table id="profile_list_table" class="display" style="width:100%;">
 	                <thead>
 	                    <tr>
-	                        <th class="text-center" title="A profile that has mobile phone or email">Contact Info</th>
+	                        <th class="text-center" title="A profile that has mobile phone or email">Contact Data</th>
 	                        <th> Full Name </th>
 	                        <th class="text-center">Email</th>
 	                        <th class="text-center">Phone</th>
@@ -252,7 +260,7 @@
 			$('#filterOnlyContactable').prop('checked', false);
 			
 			// reset filter data
-			$('#filterEmail, #filterPhone, #filterByVisitorId, #filterByProfileId, #filterByLastTouchpoint, #filterByDataLabel').val('');
+			$('#filterEmail, #filterPhone, #filterByVisitorId, #filterByProfileId, #filterByLastTouchpoint, #filterByDataLabel, #filterByAuthorizedViewer, #filterByAuthorizedEditor').val('');
 			
 			$('#filterProfileListByStatus').val('');
 			$('#filterName').val('');
@@ -390,6 +398,7 @@
                 			d.endFilterDate = datetimeFilter.endFilterDate;
                         }
             			
+                        d.journeyMapId = currentJourneyMapId;
             			d.filterContactable = $('#filterOnlyContactable:checked').length > 0;
             			d.email = $('#filterEmail').val().trim();
             			d.phone = $('#filterPhone').val().trim();
@@ -397,7 +406,8 @@
             			d.profileId = $('#filterByProfileId').val().trim();
             			d.lastTouchpointName = $('#filterByLastTouchpoint').val().trim();
             			d.dataLabel = $('#filterByDataLabel').val().trim();
-            			d.journeyMapId = currentJourneyMapId;
+            			d.authorizedViewer = $('#filterByAuthorizedViewer').val().trim();
+            			d.authorizedEditor = $('#filterByAuthorizedEditor').val().trim();
             			
             			var statusStr = $('#filterProfileListByStatus').val().trim();
             			d.status = parseInt(statusStr === "" ? 1 : statusStr);
@@ -446,7 +456,7 @@
                         	var cssClass = "datatable_text no_contact";
                         	if(row.firstName.length > 0 || row.lastName.length > 0){
                         		name = textTruncate(row.firstName + ' ' + row.lastName, 30);
-                        		cssClass = " has_contact";
+                        		cssClass = "has_contact";
                         	}
                             var callJsViewStr = "#calljs-leoCdpRouter('Customer_Profile_Info','" + row.id + "')";
                             return '<a class="' + cssClass + '" title="Profile Report" href="' + callJsViewStr + '" >' + name + '</a>';

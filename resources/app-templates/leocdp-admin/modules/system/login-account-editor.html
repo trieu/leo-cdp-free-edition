@@ -31,10 +31,15 @@
 				<li class="active" >
 					<a href="javascript:" data-target-tab="panel_login_account_tab_general" title="General Information" > <i class="fa fa-info-circle" aria-hidden="true"></i> General Information</a>
 		       	</li>
-		       	<li>
+		       	<li data-for-superadmin="true" style="display: none;">
 					<a href="javascript:" data-target-tab="panel_login_account_tab_permissions" title="Account Permission" > <i class="fa fa-lock" aria-hidden="true"></i> Account Permission </a>
 		       	</li>
-		       	
+		       	<li data-for-superadmin="true" style="display: none;">
+					<a href="javascript:" data-target-tab="panel_login_account_viewable_profiles" title="Viewable Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Viewable Profiles </a>
+		       	</li>
+		       	<li data-for-superadmin="true" style="display: none;">
+					<a href="javascript:" data-target-tab="panel_login_account_editable_profiles" title="Editable Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Editable Profiles </a>
+		       	</li>
 		  	</ul>
 		  	
 		  	<!-- Tab Contents  -->
@@ -60,7 +65,7 @@
 	                </div>
 	                <div class="form-group">
 	                    <label> Password </label>
-	                    <input type="text" class="form-control" placeholder="Enter New Password" name="userPass" autocorrect="off"
+	                    <input type="text" class="form-control" placeholder="Enter New Password To Update" name="userPass" autocorrect="off"
 	                        autocapitalize="off" autocomplete="nope"  >
 	                </div>
 	                <hr>
@@ -146,6 +151,17 @@
 	                    </div>
 	                </div>
 				</div>
+				
+				<!-- tab 3 Viewable Profiles  -->
+				<div class="tab-pane" id="panel_login_account_viewable_profiles" >
+					TODO Viewable Profiles 
+				</div>
+				
+				<!-- tab 4 Editable Profiles -->
+				<div class="tab-pane" id="panel_login_account_editable_profiles" >
+					TODO Editable Profiles
+				</div>
+				
 	    	</div>
 
         </div>

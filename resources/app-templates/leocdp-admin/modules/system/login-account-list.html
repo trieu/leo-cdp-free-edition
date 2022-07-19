@@ -1,3 +1,11 @@
+<style>
+	.login_user_link {
+		background-color: #FFF8DC!important;
+		color: #3300ff!important;
+		font-size:13.8px!important;
+		font-weight: bold;
+	}
+</style>
 <div class="row">
     <div class="col-lg-10">
         <h5 class="page-header" id="page_breadcrumb" > </h5>
@@ -12,7 +20,6 @@
 
 	<h4> All Login Accounts </h4>
     <div class="row gridholder">
-    	
         <div class="col-lg-12">
             <div class="table-responsive">
                 <table id="user-list" class="display" style="width:100%">
@@ -78,8 +85,8 @@
                 "columnDefs": [
                 	{
                          "render": function (data, type, row) {
-                        	 var img = "<img style='max-width:32px;' src='./public/images/no-image-icon-sm.png' />";
-                             if (data != "") {
+                        	 var img = "<img style='max-width:32px;' src='"+ baseLeoAdminUrl +"/public/images/no-image-icon-sm.png' />";
+                             if (data !== "") {
                             	 img = "<img style='max-width:32px;margin:auto' src='" + data + "' />";
                              }
                              return '<div style="text-align: center;" > ' + img + '';
@@ -92,7 +99,7 @@
                         	if( canEditLoginData ){
                         		callJsStr = "#calljs-leoCdpRouter('User_Login_Editor','" + row.key + "')";
                         	}
-                            return '<a class="datatable_text" title="' + data + '" href="' + callJsStr + '" >' + data + '</a>';
+                            return '<a class="login_user_link" title="' + data + '" href="' + callJsStr + '" >' + data + '</a>';
                         },
                         "targets": 1
                     },
@@ -102,7 +109,7 @@
                         	if( canEditLoginData ){
                         		callJsStr = "#calljs-leoCdpRouter('User_Login_Editor','" + row.key + "')";
                         	}
-                            return '<a class="datatable_text" title="' + data + '" href="' + callJsStr + '" >' + data + '</a>';
+                            return '<a class="login_user_link" title="' + data + '" href="' + callJsStr + '" >' + data + '</a>';
                         },
                         "targets": 2
                     },
@@ -112,7 +119,7 @@
                         	if( canEditLoginData ){
                         		callJsStr = "#calljs-leoCdpRouter('User_Login_Editor','" + row.key + "')";
                         	}
-                            return '<a class="datatable_text" title="' + data + '" href="' + callJsStr + '" >' + data + '</a>';
+                            return '<a class="login_user_link" title="' + data + '" href="' + callJsStr + '" >' + data + '</a>';
                         },
                         "targets": 3
                     },
@@ -133,11 +140,11 @@
                     {
                         "render": function (data, type, row) {
                         	var status = 'PENDING';
-                            if (data == "1") {
+                            if (data === 1) {
                             	status = 'ACTIVE';
-                            } else if (data == "2") {
+                            } else if (data === 2) {
                             	status = 'DISABLED';
-                            } else if (data == "3") {
+                            } else if (data === 3) {
                             	status = 'EXPIRED';
                             }
                             return '<div class="highlight_text" >'  + status + '</div>';
@@ -147,22 +154,22 @@
                     {
                         "render": function (data, type, row) {
                         	var label = 'REPORT VIEWER'
-                            if (data == "6") {
+                            if (data === 6) {
                             	label = 'SYSTEM_ADMIN';
                             }
-                            else if (data == "5") {
+                            else if (data === 5) {
                             	label =  'DATA_ADMIN';
                             }
-                            else if (data == "4") {
+                            else if (data === 4) {
                             	label =  'DATA_OPERATOR';
                             }
-                            else if (data == "3") {
+                            else if (data === "3") {
                             	label =  'CUSTOMER_DATA_EDITOR';
                             }
-                            else if (data == "2") {
+                            else if (data === 2) {
                             	label =  'STANDARD_USER';
                             }
-                            else if (data == "1") {
+                            else if (data === 1) {
                             	label =  'CUSTOMER_DATA_VIEWER';
                             }
                         	return '<div class="datatable_text" >' + label + '</div>';
