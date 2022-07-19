@@ -306,7 +306,8 @@
 		        '/view/templates/tpl-customer-journey-flow.html'
 		    ];
 			uriList.forEach(function (uri) {
-		        loadModalboxHtml(uri + "?admin=1");
+				var url = uri + "?admin=1&_={{cacheBustingKey}}";
+		        loadModalboxHtml(url);
 		    });
 		})();
 	</script>

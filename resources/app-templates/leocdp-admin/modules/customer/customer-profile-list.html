@@ -314,7 +314,7 @@
 	
     function initCustomerProfileList(encodedKeywords) {
     	// Date Range Filtering Controller
-    	initDateFilterComponent();
+    	initDateFilterComponent(false, null, null, 180);
     	$("#profile_filter_inputs > input.form-control").on('keyup', function (e) {
     	    if (e.key === 'Enter' || e.keyCode === 13) {
     	        // press enter key to update profile list 
@@ -428,8 +428,10 @@
             	    	canEditData = json.canEditData;
                 		canDeleteData = json.canDeleteData;
                 	
-                		if( canInsertData === false || canEditData === false ){
+                		if( canInsertData === false ){
             				$('button.data-control-insert').attr('disabled','disabled');
+            			}
+                		if( canEditData === false ){
             				$('button.data-control-update').attr('disabled','disabled');
             			}
                 		
