@@ -164,7 +164,6 @@
 </div>
     
 <script>
-	//var canEditData = false, canDeleteData = false, canInsertData = false, dataTable = false;
 	var currentJourneyMapId = "", profileListTable = false;
 	
 	function toggleProfileDisableDateFilter(disableBySearch) {
@@ -253,7 +252,7 @@
 	}
 	
 	var newProfileHandler = function (){
-		if(canInsertData){
+		if( $("#profile_list_table").data('canInsertData') ){
 			gotoLeoCdpRouter('Customer_Profile_Editor', 'new' );
 		} else {
 			errorNoAuthorization();
@@ -352,10 +351,10 @@
     	
     	var loadDataCallback = function(json) {
     		
-     		if( canInsertData === false ){
+     		if( $(tableDomSel).data('canInsertData') ){
  				$('button.data-control-insert').attr('disabled','disabled');
  			}
-     		if( canEditData === false ){
+     		if( $(tableDomSel).data('canEditData') ){
  				$('button.data-control-update').attr('disabled','disabled');
  			}
     	}
