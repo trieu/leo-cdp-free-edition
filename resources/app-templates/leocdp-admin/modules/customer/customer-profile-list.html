@@ -164,8 +164,8 @@
 </div>
     
 <script>
-	var canEditData = false, canDeleteData = false, canInsertData = false, dataTable = false;
-	var currentJourneyMapId = "";
+	//var canEditData = false, canDeleteData = false, canInsertData = false, dataTable = false;
+	var currentJourneyMapId = "", profileListTable = false;
 	
 	function toggleProfileDisableDateFilter(disableBySearch) {
 		var checked = $('#disable_date_filter:checked').length === 1;
@@ -349,7 +349,17 @@
     		}
     		return d;
     	}
-    	loadProfileListByFilter(containerDomSel, loaderDomSel, tableDomSel, profileFilterParams);
+    	
+    	var loadDataCallback = function(json) {
+    		
+     		if( canInsertData === false ){
+ 				$('button.data-control-insert').attr('disabled','disabled');
+ 			}
+     		if( canEditData === false ){
+ 				$('button.data-control-update').attr('disabled','disabled');
+ 			}
+    	}
+    	profileListTable = loadProfileListByFilter(containerDomSel, loaderDomSel, tableDomSel, profileFilterParams, loadDataCallback);
     }   
 
 </script>
