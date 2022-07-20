@@ -21,10 +21,11 @@
 - [In Progress] New Data Connector and connector protocol
 
 
-## [0.8.9] - 2022-07-19
+## [0.8.9] - 2022-07-20
 
 ### Added 
 
+- [Login Account Editor] load viewable and editable profiles
 - [Profile] admin can delete non-active profiles with 1 button, import data auto find and set saleAgentEmail 
 - [Report] add touchpoint flow network in profile info, default dashboard
 - [Report] add bar chart for Engaged Touchpoint, Touchpoint Observer, Event Metric and Referral Channel

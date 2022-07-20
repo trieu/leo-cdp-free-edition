@@ -35,18 +35,19 @@
 					<a href="javascript:" data-target-tab="panel_login_account_tab_permissions" title="Account Permission" > <i class="fa fa-lock" aria-hidden="true"></i> Account Permission </a>
 		       	</li>
 		       	<li data-for-superadmin="true" style="display: none;">
-					<a href="javascript:" data-target-tab="panel_login_account_viewable_profiles" title="Viewable Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Viewable Profiles </a>
+					<a href="javascript:loadViewableProfile()" data-target-tab="panel_login_account_viewable_profiles" title="Viewable Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Viewable Profiles </a>
 		       	</li>
 		       	<li data-for-superadmin="true" style="display: none;">
-					<a href="javascript:" data-target-tab="panel_login_account_editable_profiles" title="Editable Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Editable Profiles </a>
+					<a href="javascript:loadEditableProfile()" data-target-tab="panel_login_account_editable_profiles" title="Editable Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Editable Profiles </a>
 		       	</li>
 		  	</ul>
 		  	
 		  	<!-- Tab Contents  -->
-	    	<div id="login_account_tabs" class="tab-content" style="min-height: 750px;"  >
+	    	<div id="login_account_tabs" class="tab-content" style="min-height: 820px;"  >
 	    		<!-- tab 1 General Login Information  -->
 				<div class="tab-pane active" id="panel_login_account_tab_general" >
-
+					<h4 class="highlight_text"> <i class="fa fa-info-circle" aria-hidden="true"></i> General Information </h4>
+					
 					<div class="form-group">
 	                    <label> Display Name</label>
 	                    <input type="text" class="form-control" placeholder="Enter Display Name" name="displayName"
@@ -89,12 +90,18 @@
 	                    <select name="businessUnit" data-placeholder="Choose Business Unit" class="select">
 	                        <option value=""> No data</option>
 	                        <option value="bod"> Board of Directors (BOD) </option>
+	                        <option value="investor"> Investor </option>
 	                        <option value="data_engineering_team"> Data Engineering team </option>
 	                        <option value="data_science_team"> Data Science team </option>
 	                        <option value="ai_team"> A.I team </option>
 	                        <option value="marketing"> Marketing </option>
+	                        <option value="market_research"> Market Research </option>
 	                        <option value="finance"> Finance </option>
-	                        <option value="operation"> Business Operation </option>
+	                        <option value="biz_operation"> Business Operation </option>
+	                        <option value="pr_operation"> PR Operation </option>
+	                        <option value="product_operation"> Product Operation </option>
+	                        <option value="engineering"> Engineering </option>
+	                        <option value="product_rnd"> Product R&D  </option>
 	                        <option value="logistics"> Logistics </option>
 	                        <option value="customer_support"> Customer Support </option>
 	                        <option value="trading"> Trading </option>
@@ -111,13 +118,12 @@
 	                        autocorrect="off" autocapitalize="off" autocomplete="off">
 	                </div>
 	                
-	                
 				</div>
 				
 				<!-- tab 2 Account Permissions  -->
 				<div class="tab-pane" id="panel_login_account_tab_permissions" >
 					<div class="action-div">
-	                    <label>User Role</label>
+	                    <h4 class="highlight_text"> <i class="fa fa-lock" aria-hidden="true"></i> System User Login Role </h4>
 	                    <div class="radio" >
 	                        <label><input type="radio" name="role" value="0"  > 
 	                        	<b>REPORT VIEWER</b>: the login account can access Unified Analytics Hub to view summary reports </label>
@@ -154,12 +160,68 @@
 				
 				<!-- tab 3 Viewable Profiles  -->
 				<div class="tab-pane" id="panel_login_account_viewable_profiles" >
-					TODO Viewable Profiles 
+					<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Viewable Profiles for "<span id="authorizedViewerUserLogin"></span>" </h4>
+				
+					<div id="viewable_profile_list_loader" class="loader"></div>
+					<div id="viewable_profile_list" style="display: none;" >	
+					    <!-- viewable profile list -->
+						<div class=" gridholder">
+						    <div class="col-lg-12">
+						        <div class="table-responsive">
+						            <table id="viewable_profile_list_table" class="display" style="width:100%;">
+						                <thead>
+						                    <tr>
+						                        <th class="text-center" title="A profile that has mobile phone or email">Contact Data</th>
+						                        <th> Full Name </th>
+						                        <th class="text-center">Email</th>
+						                        <th class="text-center">Phone</th>
+						                        <th class="text-center">Last-seen Touchpoint</th>
+						                        <th class="text-center">Data Quality</th>
+						                        <th class="text-center">Lead Score</th>
+						                        <th class="text-center">CLV Score</th>	                        
+						                        <th class="text-center">Updated</th>
+						                        <th class="text-center">Status</th>
+						                        <th class="text-center">Actions</th>
+						                    </tr>
+						                </thead>
+						            </table>
+						        </div>
+						    </div>
+						</div>
+					</div> 
 				</div>
 				
 				<!-- tab 4 Editable Profiles -->
 				<div class="tab-pane" id="panel_login_account_editable_profiles" >
-					TODO Editable Profiles
+					<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Editable Profiles for "<span id="authorizedEditorUserLogin"></span>" </h4>
+					
+					<div id="editable_profile_list_loader" class="loader"></div>
+					<div id="editable_profile_list" style="display: none;" >	
+					    <!-- editable profile list -->
+						<div class="row gridholder">
+						    <div class="col-lg-12">
+						        <div class="table-responsive">
+						            <table id="editable_profile_list_table" class="display" style="width:100%;">
+						                <thead>
+						                    <tr>
+						                        <th class="text-center" title="A profile that has mobile phone or email">Contact Data</th>
+						                        <th> Full Name </th>
+						                        <th class="text-center">Email</th>
+						                        <th class="text-center">Phone</th>
+						                        <th class="text-center">Last-seen Touchpoint</th>
+						                        <th class="text-center">Data Quality</th>
+						                        <th class="text-center">Lead Score</th>
+						                        <th class="text-center">CLV Score</th>	                        
+						                        <th class="text-center">Updated</th>
+						                        <th class="text-center">Status</th>
+						                        <th class="text-center">Actions</th>
+						                    </tr>
+						                </thead>
+						            </table>
+						        </div>
+						    </div>
+						</div>
+					</div> 
 				</div>
 				
 	    	</div>
@@ -220,9 +282,11 @@
             	 notifyErrorMessage(json.errorMessage)
              }
          });
+         
+         
     }
 
-    var saveUserProfile = saveUserProfile || function() {
+    var saveUserProfile = function() {
         var node = $('#user_form');
         userModel.displayName = node.find('input[name="displayName"]').val();
         userModel.userLogin = node.find('input[name="userLogin"]').val();
@@ -264,7 +328,7 @@
         console.log(userModel);
     }
 
-    var deleteUserProfile = deleteUserProfile || function() {
+    var deleteUserProfile = function() {
         var result = confirm("Do you want to delete " + userModel.displayName + " ?");
         if (result) {
             var onSaveOk = function (data) {
@@ -291,5 +355,47 @@
                 }
             });
         }
+    }
+    
+    var viewableProfileListTable = false;
+    var loadViewableProfile = function() {
+    	var userLogin = $('#user_form').find('input[name="userLogin"]').val();
+    	$('#authorizedViewerUserLogin').text(userLogin);
+    	
+    	if(typeof viewableProfileListTable === "object"){
+    		viewableProfileListTable.ajax.reload();
+    	}
+    	else {
+    		var tableDomSel = "#viewable_profile_list_table";
+        	var loaderDomSel = "#viewable_profile_list_loader";
+        	var containerDomSel = "#viewable_profile_list";
+        	
+        	var profileFilterParams = function(d, tableSchema) {
+        		d.authorizedViewer = userLogin;
+        		return d;
+        	}
+        	viewableProfileListTable = loadProfileListByFilter(containerDomSel, loaderDomSel, tableDomSel, profileFilterParams);
+    	}
+    }
+    
+    var editableProfileListTable = false;
+    var loadEditableProfile = function() {
+    	var userLogin = $('#user_form').find('input[name="userLogin"]').val();
+    	$('#authorizedEditorUserLogin').text(userLogin);
+    	
+    	if(typeof editableProfileListTable === "object"){
+    		editableProfileListTable.ajax.reload();
+    	}
+    	else {
+    		var tableDomSel = "#editable_profile_list_table";
+        	var loaderDomSel = "#editable_profile_list_loader";
+        	var containerDomSel = "#editable_profile_list";
+        	
+        	var profileFilterParams = function(d, tableSchema) {
+        		d.authorizedEditor = userLogin;
+        		return d;
+        	}
+        	editableProfileListTable = loadProfileListByFilter(containerDomSel, loaderDomSel, tableDomSel, profileFilterParams);
+    	}
     }
 </script>
