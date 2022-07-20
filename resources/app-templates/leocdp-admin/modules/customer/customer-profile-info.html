@@ -428,7 +428,6 @@
 						     		</button>
 								</div>
 		                    </div>
-							
 		                    
 		                    <!-- vertical tab Event Statistics  -->
 		                    <div class="tab-pane" id="panel_profile_scoring_data" >
@@ -1113,6 +1112,8 @@
           			 html += ", ";
           		}
           		inJourneyMapsNode.append(html);
+          		// update default
+          		currentJourneyMapId = e.id;
            	 });
         	 
         	 //profileData.inAccounts.push({"id":123,"name":"USPA Technology Company"})
