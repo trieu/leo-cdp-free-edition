@@ -351,10 +351,10 @@
     	
     	var loadDataCallback = function(json) {
     		
-     		if( $(tableDomSel).data('canInsertData') ){
+     		if( ! $(tableDomSel).data('canInsertData') ){
  				$('button.data-control-insert').attr('disabled','disabled');
  			}
-     		if( $(tableDomSel).data('canEditData') ){
+     		if( ! $(tableDomSel).data('canEditData') ){
  				$('button.data-control-update').attr('disabled','disabled');
  			}
     	}
