@@ -52,8 +52,20 @@ th.sorting, th.sorting_desc, th.sorting_asc {
 </div>
 
 <script>
-	var initSegmentList = initSegmentList || function() {
-		loadSegmentList();
+	var initSegmentList = function() {
+		var tableDomSel = '#segment_list_table';
+		var containerDomSel = "#segment_list";
+		var loaderDomSel = "#segment_list_loader";
+		
+		var filterParams = function(d){
+			return d;
+		}
+		var loadDataCallback = function(){
+			if( ! $(tableDomSel).data('canInsertData') ){
+				$('button.data-control-insert').attr('disabled','disabled');
+			}
+		}
+		loadSegmentListByFilter(containerDomSel, loaderDomSel, tableDomSel, filterParams, loadDataCallback);
 	}
 	
 	var canEditData = false, canDeteteData = false, dataTable = false;
@@ -62,144 +74,6 @@ th.sorting, th.sorting_desc, th.sorting_asc {
 	    $('#segment_list_table').DataTable().clear();
 	    $('#segment_list_table').DataTable().ajax.reload();
 	}
-	
-	function loadSegmentList() {
-        var usersession = getUserSession();
-        
-        var collumnList = [
-        	
-       		{
-               "data": "name" // 0 
-           	},
-           	{
-               "data": "description" // 1
-           	},
-           	{
-                "data": "ownerUsername" // 2
-          	},
-           	{
-               "data": "createdAt" // 3
-           	},
-           	{
-               "data": "updatedAt" // 4
-           	},
-           	{
-               "data": "totalCount" // 5
-            }
-       	];
-        
-        if (usersession) {
-            $('#segment_list_table').DataTable({
-            	"lengthMenu": [[20, 30, 40], [20, 30, 40]],
-            	'processing': true,
-                'serverSide': true,
-                'searching': true,
-                'search': {
-                    return: true,
-                },
-                'ordering': true,
-                'serverMethod': 'POST',
-                'ajax': {
-                    url: baseLeoAdminUrl + "/cdp/segments/filter",
-                    contentType: 'application/json',
-                    beforeSend: function (request) {
-                    	$("#segment_list_loader").show();
-                    	$("#segment_list").hide();
-                        request.setRequestHeader("leouss", usersession);
-                    },
-                    data: function (d) {
-                    	var order = d.order[0];
-                    	d.sortField = collumnList[order.column].data;
-                    	d.sortAsc = order.dir === "asc" ;
-                    	d.searchValue = d.search.value;
-                    	delete d.order; delete d.search;
-                    	
-                        return JSON.stringify(d);
-                    },
-                    dataSrc: function ( json ) {
-                    	
-                    	canEditData = json.canEditData;
-                    	canDeteteData = json.canDeleteData;
-                		
-                		if( ! json.canInsertData ){
-            				$('button.data-control-insert').attr('disabled','disabled');
-            			}
-                		
-                		// done show UI
-                		$("#segment_list_loader").hide();
-                    	$("#segment_list").show();
-                    	
-                		return json.data;
-                     }
-                },
-                'columnDefs': [
-                	{
-                        "render": function (data, type, row) {
-                        	var callJsViewStr = "#calljs-leoCdpRouter('Segment_Details','" + row.id + "')";
-                        	var text = textTruncate(data,50);
-                            return '<div class="segment_name_in_list"><a title="Segment Report: '+data+'" href="' + callJsViewStr + '" >' + text + '</a></div>';
-                        },
-                        "targets": 0
-                    },
-                	{
-                        "render": function (data, type, row) {
-                            return '<div  style="font-size:0.8em;" title="' + data + '" >' + textTruncate(data, 150) + '</div>';
-                        },
-                        "targets": 1,
-                        "orderable": false
-                    },
-                    {
-                        "render": function (data, type, row) {
-                        	return  '<div style="width:90px; text-align:center" ><mark>' +  data.toLocaleString() + '</mark></div>';
-                        },
-                        "targets": 2,
-                        "orderable": false
-                    },
-                    {
-                        "render": function (data, type, row) {
-                            var date = moment.utc(data).local().format('YYYY-MM-DD HH:mm:ss');
-                            return '<div class="small text-center" style="color:#3300ff;width:80px" >'  + date + '</div>';
-                        },
-                        "targets": 3
-                    },
-                    {
-                        "render": function (data, type, row) {
-                        	if(data){
-                        		 var date = moment.utc(data).local().format('YYYY-MM-DD HH:mm:ss');
-                        		 return '<div class="small text-center" style="color:#3300ff;width:80px" >'  + date + '</div>';
-                        	}
-                           return '-';
-                        },
-                        "targets": 4
-                    },
-                    {
-                        "render": function (data, type, row) {
-                            return  '<div class="segment_size highlight_text" style="width:96px" ><mark>' +  data.toLocaleString() + '</mark></div>';
-                        },
-                        "targets": 5
-                    },
-                    {
-                        "render": function (data, type, row) {
-                            var html = '';
-                            var callJsViewStr = "#calljs-leoCdpRouter('Segment_Details','" + row.id + "')";
-                            html += '<a class="control" title="Segment Report" href="' + callJsViewStr + '" > <i class="fa fa-info-circle" aria-hidden="true"></i> View</a>';
-                            
-                        	if( canEditData ){	
-                        		var callJsEditStr = "#calljs-leoCdpRouter('Segment_Builder','" + row.id + "')";
-                        		html += '<br> <a class="control" title="Segment Builder" href="' + callJsEditStr + '" > <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a> ';
-                        		//var callJsCopyStr = "#calljs-leoCdpRouter('Segment_Builder_Copy','" + row.id + "')";
-                        		//html += '<br> <a class="control" title="Copy this segment" href="' + callJsCopyStr + '" > <i class="fa fa-clone" aria-hidden="true"></i> Copy</a>';
-                        	}
-                        	
-                            return html;
-                        },
-                        "targets": 6
-                    }
-                ],
-                'columns': collumnList
-            });
-        }
-    }
 	
 	var newSegmentBuilder = function() {
 	 	location.hash = "calljs-leoCdpRouter('Segment_Builder','new')";

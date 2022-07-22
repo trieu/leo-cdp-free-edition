@@ -35,16 +35,16 @@
 					<a href="javascript:" data-target-tab="panel_login_account_tab_permissions" title="Account Permission" > <i class="fa fa-lock" aria-hidden="true"></i> Account Permission </a>
 		       	</li>
 		       	<li data-for-superadmin="true" style="display: none;">
-					<a href="javascript:loadViewableProfile()" data-target-tab="panel_login_account_viewable_profiles" title="Viewable Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Viewable Profiles </a>
+					<a href="javascript:loadViewableProfiles()" data-target-tab="panel_login_account_viewable_profiles" title="Viewable Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Viewable Profiles </a>
 		       	</li>
 		       	<li data-for-superadmin="true" style="display: none;">
-					<a href="javascript:loadEditableProfile()" data-target-tab="panel_login_account_editable_profiles" title="Editable Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Editable Profiles </a>
+					<a href="javascript:loadEditableProfiles()" data-target-tab="panel_login_account_editable_profiles" title="Editable Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Editable Profiles </a>
 		       	</li>
 		       	<li data-for-superadmin="true" style="display: none;">
-					<a href="javascript:loadViewableSegment()" data-target-tab="panel_login_account_viewable_segments" title="Viewable Segments" > <i class="fa fa-users" aria-hidden="true"></i> Viewable Segments </a>
+					<a href="javascript:loadViewableSegments()" data-target-tab="panel_login_account_viewable_segments" title="Viewable Segments" > <i class="fa fa-object-group" aria-hidden="true"></i> Viewable Segments </a>
 		       	</li>
 		       	<li data-for-superadmin="true" style="display: none;">
-					<a href="javascript:loadEditableSegment()" data-target-tab="panel_login_account_editable_segments" title="Editable Segments" > <i class="fa fa-users" aria-hidden="true"></i> Editable Segments </a>
+					<a href="javascript:loadEditableSegments()" data-target-tab="panel_login_account_editable_segments" title="Editable Segments" > <i class="fa fa-object-group" aria-hidden="true"></i> Editable Segments </a>
 		       	</li>
 		  	</ul>
 		  	
@@ -166,7 +166,7 @@
 				
 				<!-- tab 3 Viewable Profiles  -->
 				<div class="tab-pane" id="panel_login_account_viewable_profiles" >
-					<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Viewable Profiles for "<span id="authorizedViewerUserLogin"></span>" </h4>
+					<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Viewable Profiles for "<span class="authorized_user_login"></span>" </h4>
 				
 					<div id="viewable_profile_list_loader" class="loader"></div>
 					<div id="viewable_profile_list" style="display: none;" >	
@@ -199,7 +199,7 @@
 				
 				<!-- tab 4 Editable Profiles -->
 				<div class="tab-pane" id="panel_login_account_editable_profiles" >
-					<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Editable Profiles for "<span id="authorizedEditorUserLogin"></span>" </h4>
+					<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Editable Profiles for "<span class="authorized_user_login"></span>" </h4>
 					
 					<div id="editable_profile_list_loader" class="loader"></div>
 					<div id="editable_profile_list" style="display: none;" >	
@@ -221,6 +221,64 @@
 						                        <th class="text-center">Updated</th>
 						                        <th class="text-center">Status</th>
 						                        <th class="text-center">Actions</th>
+						                    </tr>
+						                </thead>
+						            </table>
+						        </div>
+						    </div>
+						</div>
+					</div> 
+				</div>
+				
+				<!-- tab 5 Viewable Segment -->
+				<div class="tab-pane" id="panel_login_account_viewable_segments" >
+					<h4 class="highlight_text"> <i class="fa fa-object-group" aria-hidden="true"></i> Viewable Segments for "<span class="authorized_user_login"></span>" </h4>
+					
+					<div id="viewable_segment_list_loader" class="loader"></div>
+					<div id="viewable_segment_list" style="display: none;" >	
+					    <!-- viewable segment list -->
+						<div class="row gridholder">
+						    <div class="col-lg-12">
+						        <div class="table-responsive">
+						            <table id="viewable_segment_list_table" class="display" style="width:100%;">
+						                <thead>
+						                    <tr>
+						                        <th>Segment Name</th>
+							                    <th>Description</th>
+							                    <th>Data Owner</th>
+							                    <th>Created at</th>
+							                    <th>Updated at</th>
+							                    <th>Total Profile</th>
+							                    <th>Actions</th>
+						                    </tr>
+						                </thead>
+						            </table>
+						        </div>
+						    </div>
+						</div>
+					</div> 
+				</div>
+				
+				<!-- tab 6 Editable Segments -->
+				<div class="tab-pane" id="panel_login_account_editable_segments" >
+					<h4 class="highlight_text"> <i class="fa fa-object-group" aria-hidden="true"></i> Editable Segments for "<span class="authorized_user_login"></span>" </h4>
+					
+					<div id="editable_segment_list_loader" class="loader"></div>
+					<div id="editable_segment_list" style="display: none;" >	
+					    <!-- editable profile list -->
+						<div class="row gridholder">
+						    <div class="col-lg-12">
+						        <div class="table-responsive">
+						            <table id="editable_segment_list_table" class="display" style="width:100%;">
+						                <thead>
+						                    <tr>
+						                        <th>Segment Name</th>
+							                    <th>Description</th>
+							                    <th>Data Owner</th>
+							                    <th>Created at</th>
+							                    <th>Updated at</th>
+							                    <th>Total Profile</th>
+							                    <th>Actions</th>
 						                    </tr>
 						                </thead>
 						            </table>
@@ -283,6 +341,9 @@
                      if(userModel.userLogin === 'superadmin'){
                          $('#btn_delete').hide();                        
                      }
+                     
+                     // set authorized_user_login
+                 	 $('span.authorized_user_login').text(userModel.userLogin);
                  } 
              } else {
             	 notifyErrorMessage(json.errorMessage)
@@ -364,9 +425,8 @@
     }
     
     var viewableProfileListTable = false;
-    var loadViewableProfile = function() {
+    var loadViewableProfiles = function() {
     	var userLogin = $('#user_form').find('input[name="userLogin"]').val();
-    	$('#authorizedViewerUserLogin').text(userLogin);
     	
     	if(typeof viewableProfileListTable === "object"){
     		viewableProfileListTable.ajax.reload();
@@ -385,9 +445,8 @@
     }
     
     var editableProfileListTable = false;
-    var loadEditableProfile = function() {
+    var loadEditableProfiles = function() {
     	var userLogin = $('#user_form').find('input[name="userLogin"]').val();
-    	$('#authorizedEditorUserLogin').text(userLogin);
     	
     	if(typeof editableProfileListTable === "object"){
     		editableProfileListTable.ajax.reload();
@@ -403,6 +462,48 @@
         	}
         	
         	editableProfileListTable = loadProfileListByFilter(containerDomSel, loaderDomSel, tableDomSel, profileFilterParams);
+    	}
+    }
+    
+    var viewableSegmentListTable = false;
+    var loadViewableSegments = function() {
+    	var userLogin = $('#user_form').find('input[name="userLogin"]').val();
+    	
+    	if(typeof editableSegmentListTable === "object"){
+    		viewableSegmentListTable.ajax.reload();
+    	}
+    	else {
+    		var tableDomSel = "#viewable_segment_list_table";
+        	var loaderDomSel = "#viewable_segment_list_loader";
+        	var containerDomSel = "#viewable_segment_list";
+        	
+        	var filterParams = function(d, tableSchema) {
+        		d.authorizedViewer = userLogin;
+        		return d;
+        	}
+        	
+        	viewableSegmentListTable = loadSegmentListByFilter(containerDomSel, loaderDomSel, tableDomSel, filterParams);
+    	}
+    }
+    
+    var editableSegmentListTable = false;
+    var loadEditableSegments = function() {
+    	var userLogin = $('#user_form').find('input[name="userLogin"]').val();
+    	
+    	if(typeof editableSegmentListTable === "object"){
+    		editableSegmentListTable.ajax.reload();
+    	}
+    	else {
+    		var tableDomSel = "#editable_segment_list_table";
+        	var loaderDomSel = "#editable_segment_list_loader";
+        	var containerDomSel = "#editable_segment_list";
+        	
+        	var filterParams = function(d, tableSchema) {
+        		d.authorizedEditor = userLogin;
+        		return d;
+        	}
+        	
+        	editableSegmentListTable = loadSegmentListByFilter(containerDomSel, loaderDomSel, tableDomSel, filterParams);
     	}
     }
 </script>

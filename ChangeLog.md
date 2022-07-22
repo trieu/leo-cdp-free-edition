@@ -25,7 +25,7 @@
 
 ### Added 
 
-- [Login Account Editor] load viewable and editable profiles
+- [Login Account Editor] load viewable and editable profiles, viewable and editable segments
 - [Profile] admin can delete non-active profiles with 1 button, import data auto find and set saleAgentEmail 
 - [Report] add touchpoint flow network in profile info, default dashboard
 - [Report] add bar chart for Engaged Touchpoint, Touchpoint Observer, Event Metric and Referral Channel
