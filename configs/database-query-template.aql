@@ -888,9 +888,11 @@ AQL_GET_ALL_PROFILE_IDS_IN_SEGMENT =>
 AQL_INSERT_SEGMENT_REF_KEY_FOR_PROFILE =>
 	FOR p in cdp_profile
 	    FILTER  p._key == @profileId
+	   	LET newAuthorizedViewers = APPEND(p.authorizedViewers, @authorizedViewers)
+	    LET newAuthorizedEditors = APPEND(p.authorizedEditors, @authorizedEditors)
 	    UPDATE p WITH { 
 	    	inSegments: [ {id: @segmentId, name: @segmentName, indexScore: @segmentIndexScore, queryHashedId: @queryHashedId} ],
-	    	authorizedViewers : @authorizedViewers, authorizedEditors : @authorizedEditors
+	    	authorizedViewers : newAuthorizedViewers, authorizedEditors : newAuthorizedEditors
 	    } IN cdp_profile
 ;
 
@@ -902,14 +904,18 @@ AQL_UPDATE_SEGMENT_REF_KEY_FOR_PROFILE =>
 	        LET newItem = ( s.id == @segmentId ? MERGE(s, {name : @segmentName, indexScore: @segmentIndexScore, queryHashedId: @queryHashedId }) : s )
 	        RETURN newItem
 	    )
-	    UPDATE p WITH { inSegments: alteredList, authorizedViewers : @authorizedViewers, authorizedEditors : @authorizedEditors } IN cdp_profile
+	   	LET newAuthorizedViewers = APPEND(p.authorizedViewers, @authorizedViewers)
+	    LET newAuthorizedEditors = APPEND(p.authorizedEditors, @authorizedEditors)
+	    UPDATE p WITH { inSegments: alteredList, authorizedViewers : newAuthorizedViewers, authorizedEditors : newAuthorizedEditors } IN cdp_profile
 ;
    
 AQL_APPEND_SEGMENT_REF_KEY_FOR_PROFILE =>
 	FOR p in cdp_profile
 	    FILTER p._key == @profileId
-	    LET newList = APPEND(p.inSegments, [ {id: @segmentId, name : @segmentName, indexScore: @segmentIndexScore, queryHashedId: @queryHashedId} ])
-	    UPDATE p WITH { inSegments:  newList, authorizedViewers : @authorizedViewers, authorizedEditors : @authorizedEditors } IN cdp_profile    
+	    LET newInSegments = APPEND(p.inSegments, [ {id: @segmentId, name : @segmentName, indexScore: @segmentIndexScore, queryHashedId: @queryHashedId} ] )
+	    LET newAuthorizedViewers = APPEND(p.authorizedViewers, @authorizedViewers)
+	    LET newAuthorizedEditors = APPEND(p.authorizedEditors, @authorizedEditors)
+	    UPDATE p WITH { inSegments: newInSegments, authorizedViewers : newAuthorizedViewers, authorizedEditors : newAuthorizedEditors } IN cdp_profile    
 ;
 
 AQL_DELETE_SEGMENT_REF_KEY_FOR_PROFILE =>
@@ -1245,8 +1251,9 @@ AQL_GET_TARGET_MEDIA_UNIT_BY_PROFILE_ID =>
 
 AQL_GET_SEGMENTS_BY_PAGINATION =>
 	FOR d in cdp_segment  
-		FILTER d.status >= 0 AND (@searchValue != "" ? d.name LIKE @searchValue : true)
-				AND (@hasAdminRole == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
+		FILTER d.status >= 0 AND (@searchValue != "" ? LOWER(d.name) LIKE @searchValue : true)
+				AND (@hasAdminRole == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers OR @loginUsername IN d.authorizedEditors)
+				AND (@authorizedViewer IN d.authorizedViewers OR @authorizedViewer == "") AND (@authorizedEditor IN d.authorizedEditors OR @authorizedEditor == "")
 		SORT d.@sortField @sortDirection
 		LIMIT @startIndex,@numberResult 
 		RETURN d
@@ -1254,8 +1261,9 @@ AQL_GET_SEGMENTS_BY_PAGINATION =>
 
 AQL_COUNT_SEGMENT_FOR_PAGINATION =>
 	FOR d in cdp_segment  
-		FILTER d.status >= 0 AND (@searchValue != "" ? d.name LIKE @searchValue : true)
+		FILTER d.status >= 0 AND (@searchValue != "" ? LOWER(d.name) LIKE @searchValue : true)
 				AND (@hasAdminRole == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
+				AND (@authorizedViewer IN d.authorizedViewers OR @authorizedViewer == "") AND (@authorizedEditor IN d.authorizedEditors OR @authorizedEditor == "")
 		COLLECT WITH COUNT INTO length
 		RETURN length
 ;
@@ -1266,6 +1274,13 @@ AQL_GET_ALL_SEGMENTS_BY_FILTERING =>
 			OR d.forPersonalization == @forPersonalization OR d.forEmailMarketing == @forEmailMarketing OR d.forRealtimeMarketing == @forRealtimeMarketing
 			OR d.forReTargeting == @forReTargeting OR d.forLookalikeTargeting == @forLookalikeTargeting)
 		SORT d.indexScore
+		RETURN d
+;
+
+AQL_GET_ALL_SEGMENTS_BY_AUTHORIZATION =>
+	FOR d in cdp_segment  
+		FILTER d.status >= 0 AND (@authorizedViewer IN d.authorizedViewers OR @authorizedViewer == "") AND (@authorizedEditor IN d.authorizedEditors OR @authorizedEditor == "")
+		SORT d.updatedAt DESC
 		RETURN d
 ;
 
@@ -1306,6 +1321,12 @@ AQL_GET_ALL_SEGMENTS =>
 	FOR d in cdp_segment  
 		FILTER d.status >= 0 
 		RETURN d
+;
+
+AQL_UPDATE_SEGMENT_TOTAL_COUNT =>
+	FOR d IN cdp_segment
+	    FILTER d._key == @segmentId AND d.status >= 0
+	    UPDATE d WITH { totalCount: @totalCount } IN cdp_segment
 ;
 
 ###########  BUSINESS ACCOUNT  ########################################################################################################;

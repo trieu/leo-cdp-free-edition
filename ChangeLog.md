@@ -21,7 +21,7 @@
 - [In Progress] New Data Connector and connector protocol
 
 
-## [0.8.9] - 2022-07-20
+## [0.8.9] - 2022-07-22
 
 ### Added 
 
@@ -76,6 +76,7 @@
 
 ### Fixed 
 
+- [Segment] update Ref Segment in profile and keep authorizedEditors, authorizedEditors
 - [Segment] UI and query data is not correctly when set journey map in visual query builder
 - [Profile] edit profile with better data authorization UI/UX
 - [Report] touchpoint hub in dashboard and profile

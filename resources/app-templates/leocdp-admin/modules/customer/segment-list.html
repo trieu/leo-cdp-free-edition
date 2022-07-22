@@ -34,7 +34,6 @@ th.sorting, th.sorting_desc, th.sorting_asc {
 			<h4> <i class="fa fa-object-group" aria-hidden="true"></i> Segment Data Management </h4>
 		</div>
 	    <div class="table-responsive">
-	    	
 	        <table id="segment_list_table" class="display" style="width:100%;">
 	            <thead>
 	                <tr>
@@ -95,6 +94,9 @@ th.sorting, th.sorting_desc, th.sorting_asc {
             	'processing': true,
                 'serverSide': true,
                 'searching': true,
+                'search': {
+                    return: true,
+                },
                 'ordering': true,
                 'serverMethod': 'POST',
                 'ajax': {

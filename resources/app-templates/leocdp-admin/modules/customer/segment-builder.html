@@ -14,7 +14,7 @@
 		<button type="button" class="btn btn-danger data-control-delete" title="Delete this segment"> 
 			<i class="fa fa-trash" aria-hidden="true"></i> Delete 
 		</button>
-		<button type="button" class="btn btn-success" onclick="saveSegment()" title="Save" > 
+		<button type="button" class="btn btn-success" onclick="saveSegment()" title="Save this segment" > 
 			<i class="fa fa-check-square-o" aria-hidden="true"></i> Save 
 		</button>
 	</div>
@@ -487,6 +487,12 @@
 	}
 	
 	var saveSegment = function() {
+		var name = $('#sm_name').val().trim();
+		if(name === ""){
+			notifyErrorMessage("Please enter the name of segment, it can not be empty !");
+			return;
+		}
+		
 		if(typeof segmentDataModel === "object"){
 			// jquery builder final data
 			var result = $('#segment-builder-holder').queryBuilder('getRules');
