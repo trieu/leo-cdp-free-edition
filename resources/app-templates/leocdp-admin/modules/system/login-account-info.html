@@ -29,7 +29,7 @@
 					<a href="javascript:" data-target-tab="panel_login_account_tab_general" title="General Information" > <i class="fa fa-info-circle" aria-hidden="true"></i> General Information</a>
 		       	</li>
 		       	<li>
-					<a href="javascript:" data-target-tab="panel_login_account_tab_permissions" title="Account Permission" > <i class="fa fa-lock" aria-hidden="true"></i> Account Permission </a>
+					<a href="javascript:" data-target-tab="panel_login_account_tab_permissions" title="Account Permission" > <i class="fa fa-lock" aria-hidden="true"></i> User's Role </a>
 		       	</li>
 		       	
 		  	</ul>
@@ -45,7 +45,7 @@
 	                        autocorrect="off" autocapitalize="off" autocomplete="off"  >
 	                </div>
 	                <div class="form-group">
-	                    <label> User Name</label>
+	                    <label> User Login</label>
 	                    <input data-validation="length alphanumeric" data-validation-length="min4" type="text" class="form-control"
 	                        placeholder="Enter User Name" name="userLogin" autocomplete="nope" autocorrect="off"
 	                        autocapitalize="none" spellcheck="false">
@@ -92,7 +92,7 @@
 				<!-- tab 2 Account Permissions  -->
 				<div class="tab-pane" id="panel_login_account_tab_permissions" >
 					<div class="action-div">
-	                    <label>User Role</label>
+	                    <label>User's Role</label>
 	                    <div class="radio" >
 	                        <label><input type="radio" name="role" value="0" disabled="disabled" > 
 	                        	REPORT VIEWER: the login account can access Unified Analytics Hub to view summary reports </label>
@@ -122,7 +122,7 @@
 	                    </div>
 	                    <div class="radio">
 	                        <label><input type="radio" name="role" value="6" disabled="disabled"> 
-	                        	SUPER ADMIN: the login account has full of permissions to manage system and manage all login accounts </label>
+	                        	SUPER ADMIN: the login account has full of permissions to manage system and manage all user login accounts </label>
 	                    </div>
 	                </div>
 				</div>

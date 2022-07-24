@@ -26,6 +26,9 @@
 	#customerJourneyDiv .label {
 		font-size: 18px !important;
 	}
+	#customerJourneyDiv {
+		height: 350px;
+	}
 </style>
 
 <div class="container-fluid">
@@ -39,20 +42,19 @@
     <div class="row" >
   		<div class="row col-lg-12 text-center">
   		<div id="customerJourneyDiv" class="experience_journey_flow row" ></div>
+  		
   			 <pre class="mermaid" >
 			<textarea id="customer_flow_code" >
 journey
-    title from Visitor to Identified Person
-    section Visitor
-    	E-commerce Website:1: Customer
-      	E-commerce Mobile App:4: Customer
-      	Cửa hàng bán lẻ:5: Customer
+    title Cửa hàng sách
+    section Lead
+    	Cửa hàng bán lẻ:3: Lead
+    	Website:4: Lead
       	Đường sách : 5: Customer
-    section Identified Person
-      	Website - Customer Support:3: Customer
-      	Mobile App - Customer Support:4: Customer
-      	Social Media Fan Page:4: Customer
-      	Social Group:5: Customer
+    section Customer
+      	Forum:3: Customer
+      	Mobile Web:4: Customer
+      	Fan Page:4: Customer
 			</textarea>
 	   	</pre>
         </div>
@@ -68,6 +70,11 @@ journey
 </div>
 
 <script>
+//activity diagram
+mermaid.mermaidAPI.initialize({
+    startOnLoad:false
+});
+
 var initJourneyMapList = initJourneyMapList || function(){
 	
 	 function renderCustomerJourney(){

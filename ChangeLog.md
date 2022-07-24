@@ -21,10 +21,11 @@
 - [In Progress] New Data Connector and connector protocol
 
 
-## [0.8.9] - 2022-07-22
+## [0.8.9] - 2022-07-24
 
 ### Added 
 
+- [Data Journey Map] update authorization of journey, load authorized journey in Account Login Editor
 - [Login Account Editor] load viewable and editable profiles, viewable and editable segments
 - [Profile] admin can delete non-active profiles with 1 button, import data auto find and set saleAgentEmail 
 - [Report] add touchpoint flow network in profile info, default dashboard

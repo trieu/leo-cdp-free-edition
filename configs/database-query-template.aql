@@ -4,6 +4,23 @@
 
 ########### JourneyMap  ########################################################################################################;
 
+AQL_GET_JOURNEYS_BY_PAGINATION =>
+	FOR d in cdp_journeymap  
+		FILTER d.status >= 0 AND (@searchValue != "" ? LOWER(d.name) LIKE @searchValue : true)
+				AND (@hasAdminRole == TRUE OR @loginUsername == "" OR @loginUsername IN d.authorizedViewers OR @loginUsername IN d.authorizedEditors)
+		SORT d.@sortField @sortDirection
+		LIMIT @startIndex,@numberResult 
+		RETURN d
+;
+
+AQL_COUNT_JOURNEY_FOR_PAGINATION =>
+	FOR d in cdp_journeymap  
+		FILTER d.status >= 0 AND (@searchValue != "" ? LOWER(d.name) LIKE @searchValue : true)
+				AND (@hasAdminRole == TRUE OR @loginUsername == "" OR @loginUsername IN d.authorizedViewers OR @loginUsername IN d.authorizedEditors)
+		COLLECT WITH COUNT INTO length
+		RETURN length
+;
+
 AQL_GET_JOURNEY_MAP_BY_ID => 
 	FOR e in cdp_journeymap 
 	FILTER e._key == @id AND e.status > 0
@@ -19,6 +36,13 @@ AQL_GET_JOURNEY_MAP_BY_NAME =>
 AQL_GET_ALL_JOURNEY_MAPS =>
 	FOR e in cdp_journeymap  
 	FILTER e.status > 0
+	SORT e.updatedAt DESC 
+	RETURN e
+;
+
+AQL_GET_ALL_JOURNEY_MAPS_FOR_USER =>
+	FOR e in cdp_journeymap  
+	FILTER e.status > 0 AND (@loginUsername IN e.authorizedViewers[*] OR @loginUsername IN e.authorizedEditors[*])
 	SORT e.updatedAt DESC 
 	RETURN e
 ;
@@ -1253,7 +1277,8 @@ AQL_GET_SEGMENTS_BY_PAGINATION =>
 	FOR d in cdp_segment  
 		FILTER d.status >= 0 AND (@searchValue != "" ? LOWER(d.name) LIKE @searchValue : true)
 				AND (@hasAdminRole == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers OR @loginUsername IN d.authorizedEditors)
-				AND (@authorizedViewer IN d.authorizedViewers OR @authorizedViewer == "") AND (@authorizedEditor IN d.authorizedEditors OR @authorizedEditor == "")
+				AND (@authorizedViewer IN d.authorizedViewers OR @authorizedViewer == "") 
+				AND (@authorizedEditor IN d.authorizedEditors OR @authorizedEditor == "")
 		SORT d.@sortField @sortDirection
 		LIMIT @startIndex,@numberResult 
 		RETURN d
@@ -1263,7 +1288,8 @@ AQL_COUNT_SEGMENT_FOR_PAGINATION =>
 	FOR d in cdp_segment  
 		FILTER d.status >= 0 AND (@searchValue != "" ? LOWER(d.name) LIKE @searchValue : true)
 				AND (@hasAdminRole == TRUE OR d.ownerUsername == @loginUsername OR @loginUsername IN d.authorizedViewers)
-				AND (@authorizedViewer IN d.authorizedViewers OR @authorizedViewer == "") AND (@authorizedEditor IN d.authorizedEditors OR @authorizedEditor == "")
+				AND (@authorizedViewer IN d.authorizedViewers OR @authorizedViewer == "") 
+				AND (@authorizedEditor IN d.authorizedEditors OR @authorizedEditor == "")
 		COLLECT WITH COUNT INTO length
 		RETURN length
 ;

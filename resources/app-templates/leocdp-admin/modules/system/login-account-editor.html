@@ -9,7 +9,7 @@
 	     	<button type="button" class="btn btn-info" onclick="history.back()" title="Go back"  > 
 	       		<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
 	       	</button>
-	       	<button type="button" class="btn btn-danger data-control-delete" onclick="deleteUserProfile()" title="Delete Login Account" > 
+	       	<button type="button" class="btn btn-danger data-control-delete" onclick="deleteUserLoginAccount()" title="Delete Login Account" > 
 	     		<i class="fa fa-trash" aria-hidden="true"></i> Delete 
 	     	</button>
 	       	<button type="button" class="btn btn-success data-control-edit" onclick="saveUserProfile()" title="Save Login Account"  > 
@@ -31,20 +31,23 @@
 				<li class="active" >
 					<a href="javascript:" data-target-tab="panel_login_account_tab_general" title="General Information" > <i class="fa fa-info-circle" aria-hidden="true"></i> General Information</a>
 		       	</li>
-		       	<li data-for-superadmin="true" style="display: none;">
-					<a href="javascript:" data-target-tab="panel_login_account_tab_permissions" title="Account Permission" > <i class="fa fa-lock" aria-hidden="true"></i> Account Permission </a>
+		       	<li >
+					<a href="javascript:" data-target-tab="panel_login_account_role" title="Account Permission" > <i class="fa fa-lock" aria-hidden="true"></i> User's Role</a>
 		       	</li>
 		       	<li data-for-superadmin="true" style="display: none;">
-					<a href="javascript:loadViewableProfiles()" data-target-tab="panel_login_account_viewable_profiles" title="Viewable Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Viewable Profiles </a>
+					<a href="javascript:loadAuthorizedJourneys()" data-target-tab="panel_login_account_authorized_journeys" title="Authorized Data Journeys" > <i class="fa fa-map-o" aria-hidden="true"></i> Authorized Journeys</a>
 		       	</li>
 		       	<li data-for-superadmin="true" style="display: none;">
-					<a href="javascript:loadEditableProfiles()" data-target-tab="panel_login_account_editable_profiles" title="Editable Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Editable Profiles </a>
+					<a href="javascript:loadViewableProfiles()" data-target-tab="panel_login_account_viewable_profiles" title="Viewable Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Viewable Profiles</a>
 		       	</li>
 		       	<li data-for-superadmin="true" style="display: none;">
-					<a href="javascript:loadViewableSegments()" data-target-tab="panel_login_account_viewable_segments" title="Viewable Segments" > <i class="fa fa-object-group" aria-hidden="true"></i> Viewable Segments </a>
+					<a href="javascript:loadEditableProfiles()" data-target-tab="panel_login_account_editable_profiles" title="Editable Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Editable Profiles</a>
 		       	</li>
 		       	<li data-for-superadmin="true" style="display: none;">
-					<a href="javascript:loadEditableSegments()" data-target-tab="panel_login_account_editable_segments" title="Editable Segments" > <i class="fa fa-object-group" aria-hidden="true"></i> Editable Segments </a>
+					<a href="javascript:loadViewableSegments()" data-target-tab="panel_login_account_viewable_segments" title="Viewable Segments" > <i class="fa fa-object-group" aria-hidden="true"></i> Viewable Segments</a>
+		       	</li>
+		       	<li data-for-superadmin="true" style="display: none;">
+					<a href="javascript:loadEditableSegments()" data-target-tab="panel_login_account_editable_segments" title="Editable Segments" > <i class="fa fa-object-group" aria-hidden="true"></i> Editable Segments</a>
 		       	</li>
 		  	</ul>
 		  	
@@ -60,9 +63,9 @@
 	                        autocorrect="off" autocapitalize="off" autocomplete="off required ">
 	                </div>
 	                <div class="form-group">
-	                    <label> User Name</label>
+	                    <label> User Login </label>
 	                    <input data-validation="length alphanumeric" data-validation-length="min4" type="text" class="form-control"
-	                        placeholder="Enter User Name" name="userLogin" autocomplete="nope" autocorrect="off"
+	                        placeholder="Enter User Login" name="userLogin" autocomplete="nope" autocorrect="off"
 	                        autocapitalize="none" spellcheck="false" required >
 	                </div>
 	                <div class="form-group">
@@ -97,8 +100,8 @@
 	                        <option value=""> No data</option>
 	                        <option value="bod"> Board of Directors (BOD) </option>
 	                        <option value="investor"> Investor </option>
-	                        <option value="data_engineering_team"> Data Engineering team </option>
-	                        <option value="data_science_team"> Data Science team </option>
+	                        <option value="data_engineering_team"> Data Engineering </option>
+	                        <option value="data_science_team"> Data Science </option>
 	                        <option value="ai_team"> A.I team </option>
 	                        <option value="marketing"> Marketing </option>
 	                        <option value="market_research"> Market Research </option>
@@ -106,7 +109,7 @@
 	                        <option value="biz_operation"> Business Operation </option>
 	                        <option value="pr_operation"> PR Operation </option>
 	                        <option value="product_operation"> Product Operation </option>
-	                        <option value="engineering"> Engineering </option>
+	                        <option value="engineering"> Product Engineering </option>
 	                        <option value="product_rnd"> Product R&D  </option>
 	                        <option value="logistics"> Logistics </option>
 	                        <option value="customer_support"> Customer Support </option>
@@ -127,9 +130,9 @@
 				</div>
 				
 				<!-- tab 2 Account Permissions  -->
-				<div class="tab-pane" id="panel_login_account_tab_permissions" >
+				<div class="tab-pane" id="panel_login_account_role" >
 					<div class="action-div">
-	                    <h4 class="highlight_text"> <i class="fa fa-lock" aria-hidden="true"></i> System User Login Role </h4>
+	                    <h4 class="highlight_text"> <i class="fa fa-lock" aria-hidden="true"></i> User's Role for Permission </h4>
 	                    <div class="radio" >
 	                        <label><input type="radio" name="role" value="0"  > 
 	                        	<b>REPORT VIEWER</b>: the login account can access Unified Analytics Hub to view summary reports </label>
@@ -159,15 +162,43 @@
 	                    </div>
 	                    <div class="radio">
 	                        <label><input type="radio" name="role" value="6" > 
-	                        	<b>SUPER ADMIN</b>: the login account has full of permissions to manage system and manage all login accounts </label>
+	                        	<b>SUPER ADMIN</b>: the login account has full of permissions to manage system and manage all user login accounts </label>
 	                    </div>
 	                </div>
 				</div>
 				
-				<!-- tab 3 Viewable Profiles  -->
-				<div class="tab-pane" id="panel_login_account_viewable_profiles" >
-					<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Viewable Profiles for "<span class="authorized_user_login"></span>" </h4>
+				<!-- tab 3 authorized journeys  -->
+				<div class="tab-pane" id="panel_login_account_authorized_journeys" >
+					<h4 class="highlight_text"> <i class="fa fa-map-o" aria-hidden="true"></i> Authorized Journeys for User Login: "<span class="authorized_user_login"></span>" </h4>
+					<div id="authorized_journey_list_loader" class="loader"></div>
+					<div id="authorized_journey_list" style="display: none;" >	
+					    <!-- authorized journey list -->
+						<div class="row gridholder">
+						    <div class="col-lg-12">
+						        <div class="table-responsive">
+						            <table id="authorized_journey_list_table" class="display" style="width:100%;">
+						                <thead>
+						                    <tr>
+						                        <th class="text-center">Journey Name</th>
+						                        <th class="text-center">Can View Data</th>
+						                        <th class="text-center">Can Edit Data</th>
+						                        <th class="text-center">Created Time</th>
+						                        <th class="text-center">Updated Time</th>
+						                        <th class="text-center">Default Event Metric</th>
+						                        <th class="text-center">Actions</th>
+						                    </tr>
+						                </thead>
+						            </table>
+						        </div>
+						    </div>
+						</div>
+					</div> 
+				</div>
 				
+				
+				<!-- tab 4 Viewable Profiles  -->
+				<div class="tab-pane" id="panel_login_account_viewable_profiles" >
+					<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Viewable Profiles for User Login: "<span class="authorized_user_login"></span>" </h4>
 					<div id="viewable_profile_list_loader" class="loader"></div>
 					<div id="viewable_profile_list" style="display: none;" >	
 					    <!-- viewable profile list -->
@@ -197,10 +228,9 @@
 					</div> 
 				</div>
 				
-				<!-- tab 4 Editable Profiles -->
+				<!-- tab 5 Editable Profiles -->
 				<div class="tab-pane" id="panel_login_account_editable_profiles" >
-					<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Editable Profiles for "<span class="authorized_user_login"></span>" </h4>
-					
+					<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Editable Profiles for User Login: "<span class="authorized_user_login"></span>" </h4>
 					<div id="editable_profile_list_loader" class="loader"></div>
 					<div id="editable_profile_list" style="display: none;" >	
 					    <!-- editable profile list -->
@@ -230,10 +260,9 @@
 					</div> 
 				</div>
 				
-				<!-- tab 5 Viewable Segment -->
+				<!-- tab 6 Viewable Segment -->
 				<div class="tab-pane" id="panel_login_account_viewable_segments" >
-					<h4 class="highlight_text"> <i class="fa fa-object-group" aria-hidden="true"></i> Viewable Segments for "<span class="authorized_user_login"></span>" </h4>
-					
+					<h4 class="highlight_text"> <i class="fa fa-object-group" aria-hidden="true"></i> Viewable Segments for User Login: "<span class="authorized_user_login"></span>" </h4>
 					<div id="viewable_segment_list_loader" class="loader"></div>
 					<div id="viewable_segment_list" style="display: none;" >	
 					    <!-- viewable segment list -->
@@ -259,10 +288,9 @@
 					</div> 
 				</div>
 				
-				<!-- tab 6 Editable Segments -->
+				<!-- tab 7 Editable Segments -->
 				<div class="tab-pane" id="panel_login_account_editable_segments" >
-					<h4 class="highlight_text"> <i class="fa fa-object-group" aria-hidden="true"></i> Editable Segments for "<span class="authorized_user_login"></span>" </h4>
-					
+					<h4 class="highlight_text"> <i class="fa fa-object-group" aria-hidden="true"></i> Editable Segments for User Login: "<span class="authorized_user_login"></span>" </h4>
 					<div id="editable_segment_list_loader" class="loader"></div>
 					<div id="editable_segment_list" style="display: none;" >	
 					    <!-- editable profile list -->
@@ -297,10 +325,10 @@
 <hr>
 
 <script>
-    var userModel = false;
+    var userLoginModel = false;
 
     var initUserLoginEditor = function(key) {
-    	 setupTabPanels();
+    	 setupTabPanels(key !== 'newuser');
     	 
          var urlStr = baseLeoAdminUrl + '/user/get';
          var params = { 'key': key || 'newuser' };
@@ -308,42 +336,42 @@
          LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
              if (json.httpCode === 0 && json.errorMessage === '') {
                  if (json.data) {
-                     userModel = json.data;
-                     var date = LeoAdminApiUtil.formater.toDateString(userModel.creationTime);
+                     userLoginModel = json.data;
+                     var date = LeoAdminApiUtil.formater.toDateString(userLoginModel.creationTime);
 
                      var node = $('#user_form');
-                     if (typeof userModel.key === 'string') {
-                         node.find('input[name="userLogin"]').val(userModel.userLogin).attr('disabled', '');
-                         node.find('input[name="status"][value=' + userModel.status + ']').attr('checked', '');
-                         node.find('input[name="role"][value=' + userModel.role + ']').attr('checked', '');
+                     if (typeof userLoginModel.key === 'string') {
+                         node.find('input[name="userLogin"]').val(userLoginModel.userLogin).attr('disabled', '');
+                         node.find('input[name="status"][value=' + userLoginModel.status + ']').attr('checked', '');
+                         node.find('input[name="role"][value=' + userLoginModel.role + ']').attr('checked', '');
                      } else {
-                         node.find('input[name="userLogin"]').val(userModel.userLogin);
+                         node.find('input[name="userLogin"]').val(userLoginModel.userLogin);
                          node.find('input[name="status"][value=1]').attr('checked', '');
                          node.find('input[name="role"][value=1]').attr('checked', '');
                      }
-                     node.find('input[name="displayName"]').val(userModel.displayName);
-                     node.find('input[name="userEmail"]').val(userModel.userEmail);
+                     node.find('input[name="displayName"]').val(userLoginModel.displayName);
+                     node.find('input[name="userEmail"]').val(userLoginModel.userEmail);
 
                      //customData
-                     var position = userModel.customData.position ? userModel.customData.position : '';
+                     var position = userLoginModel.customData.position ? userLoginModel.customData.position : '';
                      node.find('input[name="customData_position"]').val(position);
 
-                     var businessUnit = userModel.businessUnit ? userModel.businessUnit : '';
+                     var businessUnit = userLoginModel.businessUnit ? userLoginModel.businessUnit : '';
                      node.find('select[name="businessUnit"] option[value="' + businessUnit + '"]').attr('selected', 'selected');
                      node.find('select[name="businessUnit"]').chosen({
                          width: "100%",
                          no_results_text: "Oops, nothing found!"
                      }).trigger("chosen:updated").change(function () {
-                    	 //userModel.group = $(this).val();
+                    	 //userLoginModel.group = $(this).val();
                      });
 
                      //can not delete superadmin
-                     if(userModel.userLogin === 'superadmin'){
+                     if(userLoginModel.userLogin === 'superadmin'){
                          $('#btn_delete').hide();                        
                      }
                      
                      // set authorized_user_login
-                 	 $('span.authorized_user_login').text(userModel.userLogin);
+                 	 $('span.authorized_user_login').text(userLoginModel.userLogin);
                  } 
              } else {
             	 notifyErrorMessage(json.errorMessage)
@@ -355,17 +383,17 @@
 
     var saveUserProfile = function() {
         var node = $('#user_form');
-        userModel.displayName = node.find('input[name="displayName"]').val();
-        userModel.userLogin = node.find('input[name="userLogin"]').val();
-        userModel.userEmail = node.find('input[name="userEmail"]').val();
-        userModel.userPass = node.find('input[name="userPass"]').val();
-        userModel.status = parseInt(node.find('input[name="status"]:checked').val());
-        userModel.role = parseInt(node.find('input[name="role"]:checked').val());
-        userModel.businessUnit = node.find('select[name="businessUnit"]').val();
-        userModel.customData.position = node.find('input[name="customData_position"]').val();
+        userLoginModel.displayName = node.find('input[name="displayName"]').val();
+        userLoginModel.userLogin = node.find('input[name="userLogin"]').val();
+        userLoginModel.userEmail = node.find('input[name="userEmail"]').val();
+        userLoginModel.userPass = node.find('input[name="userPass"]').val();
+        userLoginModel.status = parseInt(node.find('input[name="status"]:checked').val());
+        userLoginModel.role = parseInt(node.find('input[name="role"]:checked').val());
+        userLoginModel.businessUnit = node.find('select[name="businessUnit"]').val();
+        userLoginModel.customData.position = node.find('input[name="customData_position"]').val();
         
         var urlStr = baseLeoAdminUrl + '/user/create';
-        if (typeof userModel.key === 'string') {
+        if (typeof userLoginModel.key === 'string') {
             urlStr = baseLeoAdminUrl + '/user/update';
         }
 
@@ -380,7 +408,7 @@
  	    	});
         }
 
-        LeoAdminApiUtil.callPostAdminApi(urlStr, userModel, function (json) {
+        LeoAdminApiUtil.callPostAdminApi(urlStr, userLoginModel, function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
                 if (json.data === '') {
                     $('#error-on-save').html('Data is not valid !').show().delay(6000).fadeOut('slow');
@@ -392,118 +420,166 @@
                 LeoAdminApiUtil.logErrorPayload(json);
             }
         });
-        console.log(userModel);
     }
 
-    var deleteUserProfile = function() {
-        var result = confirm("Do you want to delete " + userModel.displayName + " ?");
-        if (result) {
-            var onSaveOk = function (data) {
-                iziToast.info({
-    	    	    title: 'Delete Login Account',
-    	    	    onClosed: function(){
-    	    	    	location.hash = "calljs-leoCdpRouter('User_Login_Management')";
-    	    	    },
-    	    	    message: "The account login is deleted successfully!",
-    	    	    timeout: 3000
-    	    	});
-            }
-            var urlStr = baseLeoAdminUrl + '/user/delete';
-            LeoAdminApiUtil.callPostAdminApi(urlStr, userModel, function (json) {
-                if (json.httpCode === 0 && json.errorMessage === '') {
-                    if (json.data === '') {
-                        $('#error-on-save').html('Data is not valid !').show().delay(6000).fadeOut('slow');
-                    } else {
-                        onSaveOk(json.data);
-                    }
-                } else {
-                    $('#error-on-save').html(json.errorMessage).show().delay(6000).fadeOut('slow');
-                    LeoAdminApiUtil.logErrorPayload(json);
+    var deleteUserLoginAccount = function() {
+    	if(userLoginModel){
+    		var result = confirm("Do you want to delete " + userLoginModel.displayName + " ?");
+            if (result) {
+                var onSaveOk = function (data) {
+                    iziToast.info({
+        	    	    title: 'Delete Login Account',
+        	    	    onClosed: function(){
+        	    	    	location.hash = "calljs-leoCdpRouter('User_Login_Management')";
+        	    	    },
+        	    	    message: "The account login is deleted successfully!",
+        	    	    timeout: 3000
+        	    	});
                 }
-            });
-        }
+                var urlStr = baseLeoAdminUrl + '/user/delete';
+                LeoAdminApiUtil.callPostAdminApi(urlStr, userLoginModel, function (json) {
+                    if (json.httpCode === 0 && json.errorMessage === '') {
+                        if (json.data === '') {
+                            $('#error-on-save').html('Data is not valid !').show().delay(6000).fadeOut('slow');
+                        } else {
+                            onSaveOk(json.data);
+                        }
+                    } else {
+                        $('#error-on-save').html(json.errorMessage).show().delay(6000).fadeOut('slow');
+                        LeoAdminApiUtil.logErrorPayload(json);
+                    }
+                });
+            }
+    	}
     }
     
-    var viewableProfileListTable = false;
+    var viewableProfilesTable = false;
     var loadViewableProfiles = function() {
     	var userLogin = $('#user_form').find('input[name="userLogin"]').val();
     	
-    	if(typeof viewableProfileListTable === "object"){
-    		viewableProfileListTable.ajax.reload();
+    	var tableDomSel = "#viewable_profile_list_table";
+    	var loaderDomSel = "#viewable_profile_list_loader";
+    	var containerDomSel = "#viewable_profile_list";
+    	
+    	if(userLoginModel.role >= 5){
+    		$(loaderDomSel).hide();
+    		$(containerDomSel).html("<h3>Admin account can view all profiles</h3>").show()
     	}
     	else {
-    		var tableDomSel = "#viewable_profile_list_table";
-        	var loaderDomSel = "#viewable_profile_list_loader";
-        	var containerDomSel = "#viewable_profile_list";
-        	
-        	var profileFilterParams = function(d, tableSchema) {
-        		d.authorizedViewer = userLogin;
-        		return d;
+    		if(typeof viewableProfilesTable === "object"){
+        		viewableProfilesTable.ajax.reload();
         	}
-        	viewableProfileListTable = loadProfileListByFilter(containerDomSel, loaderDomSel, tableDomSel, profileFilterParams);
+        	else {
+            	var profileFilterParams = function(d) {
+            		d.authorizedViewer = userLogin;
+            		return d;
+            	}
+            	viewableProfilesTable = loadProfileListByFilter(containerDomSel, loaderDomSel, tableDomSel, profileFilterParams);
+        	}
     	}
+    	
+    	
     }
     
-    var editableProfileListTable = false;
+    var editableProfilesTable = false;
     var loadEditableProfiles = function() {
     	var userLogin = $('#user_form').find('input[name="userLogin"]').val();
+    	var tableDomSel = "#editable_profile_list_table";
+    	var loaderDomSel = "#editable_profile_list_loader";
+    	var containerDomSel = "#editable_profile_list";
     	
-    	if(typeof editableProfileListTable === "object"){
-    		editableProfileListTable.ajax.reload();
+    	if(userLoginModel.role >= 5){
+    		$(loaderDomSel).hide();
+    		$(containerDomSel).html("<h3>Admin account can edit all profiles</h3>").show()
     	}
     	else {
-    		var tableDomSel = "#editable_profile_list_table";
-        	var loaderDomSel = "#editable_profile_list_loader";
-        	var containerDomSel = "#editable_profile_list";
-        	
-        	var profileFilterParams = function(d, tableSchema) {
-        		d.authorizedEditor = userLogin;
-        		return d;
+    		if(typeof editableProfilesTable === "object"){
+        		editableProfilesTable.ajax.reload();
         	}
-        	
-        	editableProfileListTable = loadProfileListByFilter(containerDomSel, loaderDomSel, tableDomSel, profileFilterParams);
+        	else {
+            	var profileFilterParams = function(d) {
+            		d.authorizedEditor = userLogin;
+            		return d;
+            	}
+            	editableProfilesTable = loadProfileListByFilter(containerDomSel, loaderDomSel, tableDomSel, profileFilterParams);
+        	}
     	}
     }
     
-    var viewableSegmentListTable = false;
+    var viewableSegmentsTable = false;
     var loadViewableSegments = function() {
     	var userLogin = $('#user_form').find('input[name="userLogin"]').val();
+    	var tableDomSel = "#viewable_segment_list_table";
+    	var loaderDomSel = "#viewable_segment_list_loader";
+    	var containerDomSel = "#viewable_segment_list";
     	
-    	if(typeof editableSegmentListTable === "object"){
-    		viewableSegmentListTable.ajax.reload();
+    	if(userLoginModel.role >= 5){
+    		$(loaderDomSel).hide();
+    		$(containerDomSel).html("<h3>Admin account can view all segments</h3>").show()
     	}
     	else {
-    		var tableDomSel = "#viewable_segment_list_table";
-        	var loaderDomSel = "#viewable_segment_list_loader";
-        	var containerDomSel = "#viewable_segment_list";
-        	
-        	var filterParams = function(d, tableSchema) {
-        		d.authorizedViewer = userLogin;
-        		return d;
+    		if(typeof viewableSegmentsTable === "object"){
+        		viewableSegmentsTable.ajax.reload();
         	}
-        	
-        	viewableSegmentListTable = loadSegmentListByFilter(containerDomSel, loaderDomSel, tableDomSel, filterParams);
+        	else {
+            	var filterParams = function(d) {
+            		d.authorizedViewer = userLogin;
+            		return d;
+            	}
+            	viewableSegmentsTable = loadSegmentListByFilter(containerDomSel, loaderDomSel, tableDomSel, filterParams);
+        	}
     	}
     }
     
-    var editableSegmentListTable = false;
+    var editableSegmentsTable = false;
     var loadEditableSegments = function() {
     	var userLogin = $('#user_form').find('input[name="userLogin"]').val();
+    	var tableDomSel = "#editable_segment_list_table";
+    	var loaderDomSel = "#editable_segment_list_loader";
+    	var containerDomSel = "#editable_segment_list";
     	
-    	if(typeof editableSegmentListTable === "object"){
-    		editableSegmentListTable.ajax.reload();
+    	if(userLoginModel.role >= 5){
+    		$(loaderDomSel).hide();
+    		$(containerDomSel).html("<h3>Admin account can edit all segments</h3>").show()
     	}
     	else {
-    		var tableDomSel = "#editable_segment_list_table";
-        	var loaderDomSel = "#editable_segment_list_loader";
-        	var containerDomSel = "#editable_segment_list";
-        	
-        	var filterParams = function(d, tableSchema) {
-        		d.authorizedEditor = userLogin;
-        		return d;
+    		if(typeof editableSegmentsTable === "object"){
+        		editableSegmentsTable.ajax.reload();
         	}
-        	
-        	editableSegmentListTable = loadSegmentListByFilter(containerDomSel, loaderDomSel, tableDomSel, filterParams);
+        	else {
+            	var filterParams = function(d) {
+            		d.authorizedEditor = userLogin;
+            		return d;
+            	}
+            	editableSegmentsTable = loadSegmentListByFilter(containerDomSel, loaderDomSel, tableDomSel, filterParams);
+        	}
     	}
     }
+    
+    var authorizedJourneyTable = false;
+    var loadAuthorizedJourneys = function(){
+    	var userLogin = $('#user_form').find('input[name="userLogin"]').val();
+    	var tableDomSel = "#authorized_journey_list_table";
+    	var loaderDomSel = "#authorized_journey_list_loader";
+    	var containerDomSel = "#authorized_journey_list";
+    	
+    	if(userLoginModel.role >= 5){
+    		$(loaderDomSel).hide();
+    		$(containerDomSel).html("<h3>Admin account can view and edit all data journey maps</h3>").show()
+    	}
+    	else {
+    		if(typeof authorizedJourneyTable === "object"){
+    			authorizedJourneyTable.ajax.reload();
+        	}
+        	else {
+            	var filterParams = function(d) {
+            		d.authorizedViewer = userLogin;
+            		d.authorizedEditor = userLogin;
+            		return d;
+            	}
+            	authorizedJourneyTable = loadDataJourneyMapsByFilter(containerDomSel, loaderDomSel, tableDomSel, filterParams);
+        	}
+    	}
+    }
+    
 </script>

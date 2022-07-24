@@ -285,13 +285,8 @@
 		window.mediaPlayerOneReady = function () {
 			// ready to play content
 		}
-		// activity diagram
-		mermaid.mermaidAPI.initialize({
-	        startOnLoad:false
-	    });
-		
 		// inject dynamic configs and load all widgets and templates
-		(function() {
+		$( document ).ready(function() {
 			window.systemConfig = JSON.parse($('<textarea />').html("{{systemConfigJson}}").text())
 			window.profileContactTypes = JSON.parse($('<textarea />').html("{{contactTypeJson}}").text())
 			
@@ -310,7 +305,7 @@
 				var url = uri + "?admin=1&_={{cacheBustingKey}}";
 		        loadModalboxHtml(url);
 		    });
-		})();
+		});
 	</script>
 	
 </body>
