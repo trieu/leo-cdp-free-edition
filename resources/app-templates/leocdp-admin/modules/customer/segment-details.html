@@ -91,16 +91,16 @@
 	       	<li>
 				<a href="javascript:" data-target-tab="panel_segment_query_details" title="Data Query Rule Details" > <i class="fa fa-filter" aria-hidden="true"></i> Data Query Rules </a>
 	       	</li>
-	       	<li>
+	       	<li data-for-superadmin="true" style="display: none" >
 				<a href="javascript:" data-target-tab="panel_segment_data_exporting" title="Data Exporting" > <i class="fa fa-download" aria-hidden="true"></i> Data Exporting </a>
 	       	</li>
-	       	<li>
+	       	<li data-for-superadmin="true" style="display: none" >
 				<a href="javascript:" data-target-tab="panel_segment_data_connection" title="Data Connection" > <i class="fa fa-exchange" aria-hidden="true"></i> Data Connection </a>
 	       	</li>
-	       	<li id="segment_data_personalization" style="display: none;">
+	       	<li id="segment_data_personalization" style="display: none">
 				<a href="javascript:" data-target-tab="panel_segment_data_personalization" title="Data Personalization" > <i class="fa fa-smile-o" aria-hidden="true"></i> Data Personalization </a>
 	       	</li>
-	       	<li style="display: ;">
+	       	<li data-for-superadmin="true" style="display: none" >
 				<a href="javascript:" data-target-tab="panel_segment_data_activation" title="Data Activation" > <i class="fa fa-random" aria-hidden="true"></i> Data Activation </a>
 	       	</li>
 	  	</ul>
@@ -437,7 +437,7 @@
 	
 	var initSegmentDetails = function(id) {
 		// init UI tab
-		setupTabPanels();
+		setupTabPanels(currentUserProfile.role >= 5);
 		setupCollapsePanels();
 		
 		// init date filter
@@ -804,7 +804,7 @@
 	    	 $('#sm_forPredictiveAnalytics').hide()
 	     }
 	     
-	     if(segmentData.forPersonalization){
+	     if(segmentData.forPersonalization && currentUserProfile.role >= 4 ){
 	    	 segmentDataPersonalization(segmentId, name, size)
 	    	 $('#segment_data_personalization').show();
 	    	 $('#sm_forPersonalization').show();
