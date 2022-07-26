@@ -1,32 +1,35 @@
 # Changelog for LEO CDP
 
-## Feature Plan for the final release [1.0.0] - 2022-07-30
+## Feature Plan for the final release [1.0.0] - 2022-08-15
 
-### TODO for version [1.0.0]
+#### Tasks
 
-#### High priority
+- [In Plan] Business Account Management 
+- [In Plan] Segment Activation: sending web push notification directly from LEO CDP
+- [In Plan] Segment Activation: sending SMS directly from LEO CDP
+- [In Plan] Segment Activation: sending email directly with SMTP from LEO CDP
+- [In Plan] Data Reporting with Jupyter notebook
+- [In Plan] New Data Connector and connector protocol
+- [In Plan] Update Profile CLV Scoring with Jupyter notebook
+- [In Plan] Data Synch with time scheduler
+
+## Feature Plan for the beta release [0.9.0] - 2022-07-30
+
+### TODO for version [0.9.0]
+
+#### Tasks
 
 - [In Progress] Profile Finance Data Report
-- [In Progress] Profile Journey Flow Report
-- [In Progress] Segment Data Synch with time scheduler
-- [In Progress] Profile Data Scoring with Jupyter notebook
-- [In Progress] Can create new observed event in LEO CDP Admin
+- [In Progress] API to import event and import profile
+- [In Progress] UI to create new observed event in LEO CDP Admin
+- [In Progress] document and example for LEO CDP API
 
-#### Low priority
-
-- [In Progress] Segment Activation: sending web push notification directly from LEO CDP
-- [In Progress] Segment Activation: sending SMS directly from LEO CDP
-- [In Progress] Segment Activation: sending email directly with SMTP from LEO CDP
-- [In Progress] Data Reporting with Jupyter notebook
-- [In Progress] New Data Connector and connector protocol
-
-
-## [0.8.9] - 2022-07-24
+## [0.8.9] - 2022-07-26
 
 ### Added 
 
+- [Login Account Editor] load and remove viewable and editable profiles, viewable and editable segments
 - [Data Journey Map] update authorization of journey, load authorized journey in Account Login Editor
-- [Login Account Editor] load viewable and editable profiles, viewable and editable segments
 - [Profile] admin can delete non-active profiles with 1 button, import data auto find and set saleAgentEmail 
 - [Report] add touchpoint flow network in profile info, default dashboard
 - [Report] add bar chart for Engaged Touchpoint, Touchpoint Observer, Event Metric and Referral Channel

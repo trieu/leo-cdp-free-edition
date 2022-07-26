@@ -47,6 +47,16 @@ AQL_GET_ALL_JOURNEY_MAPS_FOR_USER =>
 	RETURN e
 ;
 
+AQL_REMOVE_AUTHORIZED_JOURNEY_MAPS_FOR_USER =>
+	FOR d in cdp_journeymap
+		FILTER @userLogin IN d.authorizedViewers OR @userLogin IN d.authorizedEditors
+		LET newViewers = ( FOR u IN d.authorizedViewers LET newViewer = ( u != @userLogin ? u : 0 ) RETURN newViewer )
+		LET updatedViewers = ( FOR u in newViewers FILTER u != 0 RETURN u)
+		LET newEditors = ( FOR u IN d.authorizedEditors LET newEditor = ( u != @userLogin ? u : 0 ) RETURN newEditor )
+		LET updatedEditors = ( FOR u in newEditors FILTER u != 0 RETURN u) 
+		UPDATE d WITH { authorizedViewers: updatedViewers, authorizedEditors: updatedEditors } IN cdp_journeymap
+;
+
 AQL_GET_JOURNEY_MAP_REFKEYS_BY_IDS =>
 	FOR e in cdp_journeymap  
 	FILTER e.status > 0 AND e._key IN @idList
@@ -954,6 +964,22 @@ AQL_DELETE_SEGMENT_REF_KEY_FOR_PROFILE =>
 		UPDATE p WITH { inSegments:  finalSegmentRefs, authorizedViewers: finalViewers, authorizedEditors: finalEditors } IN cdp_profile
 ;
 
+AQL_REMOVE_VIEWABLE_PROFILES_FOR_USER =>
+	FOR p in cdp_profile
+		FILTER @userLogin IN p.authorizedViewers
+		LET newList = ( FOR u IN p.authorizedViewers LET newItem = ( u != @userLogin ? u : 0 ) RETURN newItem )
+		LET updatedList = ( FOR u in newList FILTER u != 0 RETURN u) 
+		UPDATE p WITH { authorizedViewers: updatedList } IN cdp_profile
+;
+
+AQL_REMOVE_EDITABLE_PROFILES_FOR_USER =>
+	FOR p in cdp_profile
+		FILTER @userLogin IN p.authorizedEditors
+		LET newList = ( FOR u IN p.authorizedEditors LET newItem = ( u != @userLogin ? u : 0 ) RETURN newItem )
+		LET updatedList = ( FOR u in newList FILTER u != 0 RETURN u) 
+		UPDATE p WITH { authorizedEditors: updatedList } IN cdp_profile
+;
+
 AQL_DELETE_ALL_INVALID_PROFILES =>
 	FOR p in cdp_profile  
 	FILTER p.type == 0 AND p.dataQualityScore == 0 AND LENGTH(p.eventStatistics) == 0 AND p.funnelStage == "new-visitor" AND DATE_DIFF(p.updatedAt, DATE_NOW(), "minute") > 3
@@ -1308,6 +1334,22 @@ AQL_GET_ALL_SEGMENTS_BY_AUTHORIZATION =>
 		FILTER d.status >= 0 AND (@authorizedViewer IN d.authorizedViewers OR @authorizedViewer == "") AND (@authorizedEditor IN d.authorizedEditors OR @authorizedEditor == "")
 		SORT d.updatedAt DESC
 		RETURN d
+;
+
+AQL_REMOVE_VIEWABLE_SEGMENTS_FOR_USER =>
+	FOR d in cdp_segment
+		FILTER @userLogin IN d.authorizedViewers
+		LET newList = ( FOR u IN d.authorizedViewers LET newItem = ( u != @userLogin ? u : 0 ) RETURN newItem )
+		LET updatedList = ( FOR u in newList FILTER u != 0 RETURN u) 
+		UPDATE d WITH { authorizedViewers: updatedList } IN cdp_segment
+;
+
+AQL_REMOVE_EDITABLE_SEGMENTS_FOR_USER =>
+	FOR d in cdp_segment
+		FILTER @userLogin IN d.authorizedEditors
+		LET newList = ( FOR u IN d.authorizedEditors LET newItem = ( u != @userLogin ? u : 0 ) RETURN newItem )
+		LET updatedList = ( FOR u in newList FILTER u != 0 RETURN u) 
+		UPDATE d WITH { authorizedEditors: updatedList } IN cdp_segment
 ;
 
 AQL_GET_SEGMENT_REFKEYS_BY_IDS =>
