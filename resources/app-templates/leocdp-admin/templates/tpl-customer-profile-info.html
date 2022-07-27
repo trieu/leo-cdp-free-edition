@@ -327,18 +327,17 @@
       </div>
       <div class="col-md-10">
          <small class="text-muted pull-right"> <%- createdAt %> </small>
-
-         <h5> Feedback Form: <%- header %>  </h5> 
-		 <h6> Group: <%- group %>  </h6> 
-		 <h6> Type: <%- feedbackType %> </h6>
-
-         <div class="text-nowrap " >  
-			Touchpoint: <strong title="<%- touchpointName %>"> <%- touchpointName.length > 90 ? touchpointName.substring(0,90) + "..." : touchpointName %> </strong> <br>
+         <h5> <i class="fa fa-info-circle" aria-hidden="true"></i>  Feedback Form: <mark style="font-weight:bold;font-size: 1.1em;"> <%- header %> </mark> </h5>
+		 <h6> <i class="fa fa-info-circle" aria-hidden="true"></i>  Type: <mark style="font-weight:bold;font-size: 1.1em;"> <%- feedbackType %> </mark></h6>
+		 <h6> <i class="fa fa-info-circle" aria-hidden="true"></i>  Group: <%- group %>  </h6>
+ 		 <hr>
+         <div class="text-nowrap" >  
+			<i class="fa fa-info-circle" aria-hidden="true"></i> Touchpoint Name: <strong title="<%- touchpointName %>"> <%- touchpointName.length > 90 ? touchpointName.substring(0,90) + "..." : touchpointName %> </strong> <br>
 			<i class="fa fa-link" aria-hidden="true"></i> <span class="small"> Touchpoint URL: <a target="_blank" href="<%- previewUrl %>" > <%- previewUrl %> </a> </span> 
 		 </div>
- 		 <div class="text-nowrap " >  
+		 <div class="text-nowrap" >  
 			<i class="fa fa-star" aria-hidden="true"></i>  
-			<span class="small" > Feedback Score: </span>  <mark style="font-weight:bold;font-size: 1.2em;"><%- feedbackScore %></mark>
+			<span class="small" > Feedback Event Score: </span>  <mark style="font-weight:bold;font-size: 1.2em;"><%- feedbackScore %></mark>
 		 </div>
 		 <div class="text-wrap" > 
 			<i class="fa fa-smile-o" aria-hidden="true"></i> <span class="small" > CX Sentiment Score </span> 
@@ -357,6 +356,16 @@
 			  	</div>
 	   		</div>
 		 </div>
+		 <hr>
+		 <div class="text-nowrap" >  
+			<i class="fa fa-info-circle" aria-hidden="true"></i>  
+			<span class="small" > Original Sources: </span>  <mark style="font-weight:bold;font-size: 1.1em;"><%- originalSources %></mark>
+		 </div>
+		 <div class="text-nowrap" >  
+			<i class="fa fa-commenting-o" aria-hidden="true"></i>  
+			<span class="small" > Comment: </span>  <mark style="font-weight:bold;font-size: 1.1em;"><%- comment %></mark>
+		 </div>
+
       </div>
    </div>
  </li>
