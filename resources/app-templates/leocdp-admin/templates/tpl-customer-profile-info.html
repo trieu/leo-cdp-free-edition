@@ -318,7 +318,7 @@
   </div>
 </script>
 
-<script id='feedback-event-tpl' type="text/html" >
+<script id='feedback-rating-event-tpl' type="text/html" >
  <li class="list-group-item view" id="ev_<%- id %>">
    <div class="row">
       <div class="col-md-2 text-center highlight_text" style="margin-top: 15px;"> 
@@ -329,18 +329,60 @@
          <small class="text-muted pull-right"> <%- createdAt %> </small>
          <h5> <i class="fa fa-info-circle" aria-hidden="true"></i>  Feedback Form: <mark style="font-weight:bold;font-size: 1.1em;"> <%- header %> </mark> </h5>
 		 <h6> <i class="fa fa-info-circle" aria-hidden="true"></i>  Type: <mark style="font-weight:bold;font-size: 1.1em;"> <%- feedbackType %> </mark></h6>
+ 		 <hr>
+         <div class="text-nowrap" >  
+			<i class="fa fa-info-circle" aria-hidden="true"></i> Touchpoint Name: <strong title="<%- touchpointName %>"> <%- touchpointName.length > 90 ? touchpointName.substring(0,90) + "..." : touchpointName %> </strong> <br>
+			<i class="fa fa-link" aria-hidden="true"></i> Touchpoint URL: <a target="_blank" href="<%- previewUrl %>" > <%- previewUrl %> </a> 
+		 </div>
+		 <div class="text-nowrap" >  
+			<i class="fa fa-star" aria-hidden="true"></i>  
+			Feedback Event Score:  <mark style="font-weight:bold;font-size: 1.2em;"><%- feedbackScore %></mark>
+		 </div>
+		 <div class="text-wrap" > 
+			<i class="fa fa-smile-o" aria-hidden="true"></i> CX Sentiment Score 
+			<div class="progress">
+			   	<div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="<%- scoreCX.negative %>"
+			  		aria-valuemin="0" aria-valuemax="100" style="width:<%- scoreCX.negative %>%">
+			    		<span><%- scoreCX.negative %></span>% Negative
+			  	</div>
+			  	<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="<%- scoreCX.neutral %>"
+			  		aria-valuemin="0" aria-valuemax="100" style="width:<%- scoreCX.neutral %>%">
+			    		<span><%- scoreCX.neutral %></span>% Neutral
+			  	</div>
+			  	<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="<%- scoreCX.positive %>"
+			  		aria-valuemin="0" aria-valuemax="100" style="width:<%- scoreCX.positive %>%">
+			    		<span><%- scoreCX.positive %></span>% Positive
+			  	</div>
+	   		</div>
+		 </div>
+      </div>
+   </div>
+ </li>
+</script>
+
+<script id='feedback-survey-event-tpl' type="text/html" >
+ <li class="list-group-item view" id="ev_<%- id %>">
+   <div class="row">
+      <div class="col-md-2 text-center highlight_text" style="margin-top: 15px;"> 
+		<i class="fa <%- eventIcon %>" aria-hidden="true" style="font-size:2em" ></i> <br> 
+		<div class="event_text"> <%- eventName %> </div> 
+      </div>
+      <div class="col-md-10">
+         <small class="text-muted pull-right"> <%- createdAt %> </small>
+         <h5 class="media-heading"> <i class="fa fa-info-circle" aria-hidden="true"></i>  Feedback Form: <mark style="font-weight:bold;font-size: 1.1em;"> <%- header %> </mark> </h5>
+		 <h6> <i class="fa fa-info-circle" aria-hidden="true"></i>  Type: <mark style="font-weight:bold;font-size: 1.1em;"> <%- feedbackType %> </mark></h6>
 		 <h6> <i class="fa fa-info-circle" aria-hidden="true"></i>  Group: <%- group %>  </h6>
  		 <hr>
          <div class="text-nowrap" >  
 			<i class="fa fa-info-circle" aria-hidden="true"></i> Touchpoint Name: <strong title="<%- touchpointName %>"> <%- touchpointName.length > 90 ? touchpointName.substring(0,90) + "..." : touchpointName %> </strong> <br>
-			<i class="fa fa-link" aria-hidden="true"></i> <span class="small"> Touchpoint URL: <a target="_blank" href="<%- previewUrl %>" > <%- previewUrl %> </a> </span> 
+			<i class="fa fa-link" aria-hidden="true"></i> Touchpoint URL: <a target="_blank" href="<%- previewUrl %>" > <%- previewUrl %> </a> 
 		 </div>
 		 <div class="text-nowrap" >  
 			<i class="fa fa-star" aria-hidden="true"></i>  
-			<span class="small" > Feedback Event Score: </span>  <mark style="font-weight:bold;font-size: 1.2em;"><%- feedbackScore %></mark>
+			Feedback Event Score: <mark style="font-weight:bold;font-size: 1.2em;"><%- feedbackScore %></mark>
 		 </div>
 		 <div class="text-wrap" > 
-			<i class="fa fa-smile-o" aria-hidden="true"></i> <span class="small" > CX Sentiment Score </span> 
+			<i class="fa fa-smile-o" aria-hidden="true"></i> CX Sentiment Score 
 			<div class="progress">
 			   	<div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="<%- scoreCX.negative %>"
 			  		aria-valuemin="0" aria-valuemax="100" style="width:<%- scoreCX.negative %>%">
@@ -357,15 +399,40 @@
 	   		</div>
 		 </div>
 		 <hr>
+		 <div class="text-wrap"  >  
+			<i class="fa fa-info-circle" aria-hidden="true"></i> Profile Raw Data
+			<ul>
+			<% _.forOwn(profileExtAttributes, function(value, key) { %>
+				<li> <%- key %> : <mark style="font-weight:bold;font-size: 1.1em;"> <%- value %> </mark> </li>
+			<% }) %>
+			<ul>
+		 </div>
+		 <hr>
 		 <div class="text-nowrap" >  
-			<i class="fa fa-info-circle" aria-hidden="true"></i>  
-			<span class="small" > Original Sources: </span>  <mark style="font-weight:bold;font-size: 1.1em;"><%- originalSources %></mark>
+			<i class="fa fa-info-circle" aria-hidden="true"></i>  Original Sources: <mark style="font-weight:bold;font-size: 1.1em;"><%- originalSources.join(", ") %></mark>
 		 </div>
 		 <div class="text-nowrap" >  
-			<i class="fa fa-commenting-o" aria-hidden="true"></i>  
-			<span class="small" > Comment: </span>  <mark style="font-weight:bold;font-size: 1.1em;"><%- comment %></mark>
+			<i class="fa fa-commenting-o" aria-hidden="true"></i> Comment: <mark style="font-weight:bold;font-size: 1.1em;"> <%- comment %> </mark>
 		 </div>
+		 <hr>
+		 <div class="text-wrap"  >  
+			<i class="fa fa-info-circle" aria-hidden="true"></i> Question and Answers 
+			<ul>
 
+			<% _.forOwn(extraTextQuestionsAnswer, function(item, key) { %>
+				<li> <%- item.question %> : <mark style="font-weight:bold;font-size: 1.1em;"> <%- item.answers.join(", ") %> </mark> </li>
+			<% }) %>
+
+			<% _.forOwn(multipleChoiceQuestionAnswer, function(item, key) { %>
+				<li> <%- item.question %> : <mark style="font-weight:bold;font-size: 1.1em;"> <%- item.answers.join(", ") %> </mark> </li>
+			<% }) %>
+
+			<% _.forOwn(singleChoiceQuestionAnswer, function(item, key) { %>
+				<li> <%- item.question %> : <mark style="font-weight:bold;font-size: 1.1em;"> <%- item.answers.join(", ") %> </mark> </li>
+			<% }) %>
+
+			<ul>
+		 </div>
       </div>
    </div>
  </li>
