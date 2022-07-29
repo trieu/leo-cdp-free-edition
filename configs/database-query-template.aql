@@ -992,6 +992,12 @@ AQL_DELETE_PROFILE_BY_ID =>
     REMOVE { _key: p._key } IN cdp_profile
 ;
 
+AQL_PROFILE_BATCH_UPDATE_STATUS =>
+	FOR p IN cdp_profile
+		FILTER p._key IN @selectedProfileIds
+		UPDATE p WITH { status: @newStatus } IN cdp_profile
+;
+
 ###########  CONTEXT_SESSION  ########################################################################################################;
 
 AQL_GET_CONTEXT_SESSION_BY_KEY =>

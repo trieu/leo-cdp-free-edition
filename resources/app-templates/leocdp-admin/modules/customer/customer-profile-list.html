@@ -129,6 +129,11 @@
 						 		<i class="fa fa-fw fa-trash"></i> DELETE ALL <span id="btn_deleteNotActiveProfile"></span>
 						 	</button>
 						</div>
+						<div id="holder_removeSelectedProfile" class="col-md-12 text-center" style="padding-top:15px; display: none;" >
+						 	<button type="button" class="btn btn-danger" onclick="removeSelectedProfiles()" >
+						 		<i class="fa fa-fw fa-trash"></i> REMOVE SELECTED PROFILES
+						 	</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -142,7 +147,7 @@
 	            <table id="profile_list_table" class="display" style="width:100%;">
 	                <thead>
 	                    <tr>
-	                        <th class="text-center" title="A profile that has mobile phone or email">Is_Contact</th>
+	                        <th class="text-center" ></th>
 	                        <th> Full Name </th>
 	                        <th class="text-center">Email</th>
 	                        <th class="text-center">Phone</th>
@@ -157,7 +162,7 @@
 	                </thead>
 	                <tfoot>
 	                    <tr>
-	                        <th class="text-center" title="A profile that has mobile phone or email">Is_Contact</th>
+	                        <th class="text-center" ></th>
 	                        <th> Full Name </th>
 	                        <th class="text-center">Email</th>
 	                        <th class="text-center">Phone</th>
@@ -204,6 +209,7 @@
 			var text = $('#filterProfileListByStatus option:selected').text().trim();
 			$('#btn_deleteNotActiveProfile').text(text)
 			$('#holder_deleteNotActiveProfile').show()
+			$('#holder_removeSelectedProfile').hide();
 		}
 	}
 	
@@ -261,6 +267,8 @@
 			$('#beginFilterDate > .form-control').show();
 			$('#endFilterDate > .form-control').show();
 			$('#disable_date_filter').prop('checked', false);
+			$('#holder_removeSelectedProfile').hide();
+			
 			doProfileListing();
 		}
 	}
@@ -372,7 +380,43 @@
  				$('button.data-control-update').attr('disabled','disabled');
  			}
     	}
-    	profileListTable = loadProfileListByFilter(containerDomSel, loaderDomSel, tableDomSel, profileFilterParams, loadDataCallback);
+    	profileListTable = loadProfileListByFilter('profileListRowHandler',containerDomSel, loaderDomSel, tableDomSel, profileFilterParams, loadDataCallback);
     }   
+    
+    var selectedProfileIdMap = {};
+    function profileListRowHandler(isSelected, selectedItemId){
+    	console.log(isSelected + " profileListRowHandler " + selectedItemId)
+    	if(isSelected){
+    		selectedProfileIdMap[selectedItemId] = "removed";
+    	}
+    	else {
+    		delete selectedProfileIdMap[selectedItemId];
+    	}
+    	
+    	var size = Object.keys(selectedProfileIdMap).length;
+    	if(size > 0 && $("#filterProfileListByStatus").val() === '' ){
+    		$('#holder_removeSelectedProfile').show();
+    	}
+    	else {
+    		$('#holder_removeSelectedProfile').hide();
+    	}
+    }
+    
+    function removeSelectedProfiles() {
+    	LeoAdminApiUtil.callPostAdminApi('/cdp/profiles/batch-update', selectedProfileIdMap, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+            	iziToast.info({
+		    	    title: 'Customer Profile Management',
+		    	    message: 'Total removed profile is '+json.data+' !'
+		    	});
+            	_.forOwn(selectedProfileIdMap, function(v,k){ 
+            		delete selectedProfileIdMap[k];
+            	})
+            	resetProfileSearch();
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+       });
+    }
 
 </script>

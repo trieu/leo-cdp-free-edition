@@ -218,12 +218,15 @@ div.panel_header {
 				<div class="tab-pane" id="panel_login_account_viewable_profiles" >
 					
 					<div class="col-lg-12 panel_header" >
-						<div class="col-lg-9" >
+						<div class="col-lg-8" >
 						 	<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Authorized Profiles </h4>
 						</div>
-						<div class="col-lg-3" style="text-align: right;">
+						<div class="col-lg-4" style="text-align: right;">
 						 	<button type="button" class="btn btn-danger" onclick="removeUserDataAuthorization('removeAllViewableProfiles','viewable_profile_list')" >
 						 		<i class="fa fa-fw fa-trash"></i> Remove All
+							</button>
+							<button type="button" class="btn btn-danger" onclick="removeUserDataAuthorization('removeSelectedViewableProfiles','viewable_profile_list')" >
+						 		<i class="fa fa-fw fa-trash"></i> Remove Selected
 							</button>
 						</div>
 					</div>
@@ -237,7 +240,7 @@ div.panel_header {
 						            <table id="viewable_profile_list_table" class="display" style="width:100%;">
 						                <thead>
 						                    <tr>
-						                        <th class="text-center" title="A profile that has mobile phone or email">Is_Contact</th>
+						                        <th></th>
 						                        <th> Full Name </th>
 						                        <th class="text-center">Email</th>
 						                        <th class="text-center">Phone</th>
@@ -261,12 +264,15 @@ div.panel_header {
 				<div class="tab-pane" id="panel_login_account_editable_profiles" >
 					
 					<div class="col-lg-12 panel_header" >
-						<div class="col-lg-9" >
+						<div class="col-lg-8" >
 						 	<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Editable Profiles </h4>
 						</div>
-						<div class="col-lg-3" style="text-align: right;">
+						<div class="col-lg-4" style="text-align: right;">
 						 	<button type="button" class="btn btn-danger" onclick="removeUserDataAuthorization('removeAllEditableProfiles','editable_profile_list')"  >
 						 		<i class="fa fa-fw fa-trash"></i> Remove All
+							</button>
+							<button type="button" class="btn btn-danger" onclick="removeUserDataAuthorization('removeSelectedEditableProfiles','editable_profile_list')"  >
+						 		<i class="fa fa-fw fa-trash"></i> Remove Selected
 							</button>
 						</div>
 					</div>
@@ -280,7 +286,7 @@ div.panel_header {
 						            <table id="editable_profile_list_table" class="display" style="width:100%;">
 						                <thead>
 						                    <tr>
-						                        <th class="text-center" title="A profile that has mobile phone or email">Is_Contact</th>
+						                        <th></th>
 						                        <th> Full Name </th>
 						                        <th class="text-center">Email</th>
 						                        <th class="text-center">Phone</th>
@@ -553,7 +559,7 @@ div.panel_header {
             		d.authorizedViewer = userLogin;
             		return d;
             	}
-            	viewableProfilesTable = loadProfileListByFilter(containerDomSel, loaderDomSel, tableDomSel, profileFilterParams);
+            	viewableProfilesTable = loadProfileListByFilter("",containerDomSel, loaderDomSel, tableDomSel, profileFilterParams);
         	}
     	}
     	
@@ -580,7 +586,7 @@ div.panel_header {
             		d.authorizedEditor = userLogin;
             		return d;
             	}
-            	editableProfilesTable = loadProfileListByFilter(containerDomSel, loaderDomSel, tableDomSel, profileFilterParams);
+            	editableProfilesTable = loadProfileListByFilter("",containerDomSel, loaderDomSel, tableDomSel, profileFilterParams);
         	}
     	}
     }

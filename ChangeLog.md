@@ -24,10 +24,11 @@
 - [In Progress] UI to create new observed event in LEO CDP Admin
 - [In Progress] document and example for LEO CDP API
 
-## [0.8.9] - 2022-07-27
+## [0.8.9] - 2022-07-29
 
 ### Added 
 
+- [Profile UI] add checkbox to select and delete profile in list
 - [Profile Model] add field: permanentLocation
 - [Login Account Editor] load and remove viewable and editable profiles, viewable and editable segments
 - [Data Journey Map] update authorization of journey, load authorized journey in Account Login Editor
