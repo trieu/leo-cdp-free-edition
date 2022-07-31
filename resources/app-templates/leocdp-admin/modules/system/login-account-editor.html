@@ -182,19 +182,19 @@ div.panel_header {
 						 	<h4 class="highlight_text"> <i class="fa fa-map-o" aria-hidden="true"></i> Authorized Data Journey Maps </h4>
 						</div>
 						<div class="col-lg-3" style="text-align: right;">
-						 	<button type="button" class="btn btn-danger" onclick="removeUserDataAuthorization('removeAllAuthorizedJourneys','authorized_journey_list')" >
+						 	<button type="button" class="btn btn-danger" onclick="removeUserDataAuthorization('removeAllAuthorizedJourneys','authorized_journeys')" >
 						 		<i class="fa fa-fw fa-trash"></i> Remove All
 							</button>
 						</div>
 					</div>
 					
-					<div id="authorized_journey_list_loader" class="loader"></div>
-					<div id="authorized_journey_list" style="display: none;" >	
+					<div id="authorized_journeys_loader" class="loader"></div>
+					<div id="authorized_journeys" style="display: none;" >	
 					    <!-- authorized journey list -->
 						<div class="row gridholder">
 						    <div class="col-lg-12">
 						        <div class="table-responsive">
-						            <table id="authorized_journey_list_table" class="display" style="width:100%;">
+						            <table id="authorized_journeys_table" class="display" style="width:100%;">
 						                <thead>
 						                    <tr>
 						                        <th class="text-center">Journey Name</th>
@@ -477,6 +477,10 @@ div.panel_header {
         userLoginModel.removeAllViewableSegments = node.data("removeAllViewableSegments") === true;
         userLoginModel.removeAllEditableSegments = node.data("removeAllEditableSegments") === true;
         
+        if( userLoginModel.removeAllAuthorizedJourneys !== true) {
+        	 userLoginModel.updatedJourneyMaps = getUserLoginUpdatedJourneyMaps();
+        }
+        
         var urlStr = baseLeoAdminUrl + '/user/create';
         if (typeof userLoginModel.key === 'string') {
             urlStr = baseLeoAdminUrl + '/user/update';
@@ -641,12 +645,14 @@ div.panel_header {
     	}
     }
     
+    
     var authorizedJourneyTable = false;
+    var userLoginViewableJourneyMaps = {}, userLoginEditableJourneyMaps = {};
     var loadAuthorizedJourneys = function(){
     	var userLogin = $('#user_login_editor_form').find('input[name="userLogin"]').val();
-    	var tableDomSel = "#authorized_journey_list_table";
-    	var loaderDomSel = "#authorized_journey_list_loader";
-    	var containerDomSel = "#authorized_journey_list";
+    	var tableDomSel = "#authorized_journeys_table";
+    	var loaderDomSel = "#authorized_journeys_loader";
+    	var containerDomSel = "#authorized_journeys";
     	
     	if(userLoginModel.role >= 5){
     		$(loaderDomSel).hide();
@@ -662,7 +668,7 @@ div.panel_header {
             		d.authorizedEditor = userLogin;
             		return d;
             	}
-            	authorizedJourneyTable = loadDataJourneyMapsByFilter(containerDomSel, loaderDomSel, tableDomSel, filterParams);
+            	authorizedJourneyTable = loadDataJourneyMapsByFilter('journeyListRowHandler', containerDomSel, loaderDomSel, tableDomSel, filterParams, userLoginViewableJourneyMaps, userLoginEditableJourneyMaps);
         	}
     	}
     }
@@ -670,6 +676,56 @@ div.panel_header {
     var removeUserDataAuthorization = function(dataKey, containerId) {
     	$('#user_login_editor_form').data(dataKey, true);
     	$('#' + containerId).empty().html("<h3 class='highlight_text'>All data will be removed after click on the Save button</h3>");
+    }
+    
+    
+    function journeyListRowHandler(isSelected, selectedItemId){
+    	console.log(isSelected + " journeyListRowHandler " + selectedItemId);
+    	
+    	var toks = selectedItemId.split("-");
+    	var journeyMapId = toks[0];
+    	var type = toks[1];
+    	
+    	if(type === "viewer") {
+    		if(isSelected){
+    			userLoginViewableJourneyMaps[journeyMapId] = true;
+    		}
+    		else {
+        		userLoginViewableJourneyMaps[journeyMapId] = false;
+        	}
+    	}
+    	
+    	if(type === "editor") {
+    		if(isSelected){
+    			userLoginEditableJourneyMaps[journeyMapId] = true;
+    			userLoginViewableJourneyMaps[journeyMapId] = true;
+    		}
+    		else {
+        		userLoginEditableJourneyMaps[journeyMapId] = false;
+        	}
+    	}
+    }
+    
+    function getUserLoginUpdatedJourneyMaps(){
+    	var map = {}; 
+    	for(var k in userLoginViewableJourneyMaps) { 
+    		if(userLoginViewableJourneyMaps[k]) {
+    			map[k] = "viewer";
+    		}
+    		else {
+    			map[k] = "";
+    		}
+    	} 
+    	for(var k in userLoginEditableJourneyMaps) { 
+    		var value = typeof map[k] === "string" ?  map[k] : '';
+    		if(userLoginEditableJourneyMaps[k]) {
+    			map[k] = value + " editor"; 
+    		}
+    		else {
+    			map[k] = value;
+    		}
+    	}
+    	return map;
     }
     
 </script>

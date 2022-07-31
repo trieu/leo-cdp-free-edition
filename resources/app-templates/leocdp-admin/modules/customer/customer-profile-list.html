@@ -81,12 +81,12 @@
 						    <span class="caret"></span></button>
 						    <ul class="dropdown-menu">
 						    	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByProfileId')" >Profile ID</a></li>
-						    	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterEmail')" >Primary Email</a></li>
-						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterPhone')" >Primary Phone</a></li>
+						    	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterEmail')" > Email Address</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterPhone')" > Phone Number</a></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByVisitorId')" >Web Visitor ID</a></li>
 						      	<li><hr></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterProfileListByStatus')" >Profile Status</a></li>
-						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByDataLabel')" >Data Label</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByDataLabel')" >Profile Data Label</a></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByLastTouchpoint')" >Last Touchpoint Name</a></li>
 						      	<li><hr></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByAuthorizedViewer')" >Authorized Viewer</a></li>
@@ -105,7 +105,7 @@
 						    	<option value="-4">REMOVED PROFILES</option>
 						    </select>
 							
-							<input style="display: none;" type="text" class="form-control" id="filterEmail" placeholder="Enter email" >
+							<input style="display: none;" type="text" class="form-control" id="filterEmail" placeholder="Enter email address" >
 							<input style="display: none;" type="text" class="form-control" id="filterPhone" placeholder="Enter phone number" >
 					  		<input style="display: none;" type="text" class="form-control" id="filterByVisitorId" placeholder="Enter web visitor ID" >
 					  		<input style="display: none;" type="text" class="form-control" id="filterByDataLabel" placeholder="Enter data label" >
@@ -125,12 +125,12 @@
 							</div>
 						</div>
 						<div id="holder_deleteNotActiveProfile" class="col-md-12 text-center" style="padding-top:15px; display: none;" >
-						 	<button type="button" class="btn btn-danger" onclick="deleteNotActiveProfile()" >
+						 	<button type="button" class="btn btn-danger data-control-delete" onclick="deleteNotActiveProfile()" >
 						 		<i class="fa fa-fw fa-trash"></i> DELETE ALL <span id="btn_deleteNotActiveProfile"></span>
 						 	</button>
 						</div>
 						<div id="holder_removeSelectedProfile" class="col-md-12 text-center" style="padding-top:15px; display: none;" >
-						 	<button type="button" class="btn btn-danger" onclick="removeSelectedProfiles()" >
+						 	<button type="button" class="btn btn-danger data-control-delete" onclick="removeSelectedProfiles()" >
 						 		<i class="fa fa-fw fa-trash"></i> REMOVE SELECTED PROFILES
 						 	</button>
 						</div>
@@ -211,25 +211,6 @@
 			$('#holder_deleteNotActiveProfile').show()
 			$('#holder_removeSelectedProfile').hide();
 		}
-	}
-	
-	function deleteNotActiveProfile() {
-		var status = $("#filterProfileListByStatus").val();
-		var statusValue = -4;
-		if(status != ""){
-			statusValue = parseInt(status);
-		}
-		LeoAdminApiUtil.callPostAdminApi('/cdp/profiles/delete-not-active', {'status' : statusValue}, function (json) {
-            if (json.httpCode === 0 && json.errorMessage === '') {
-            	iziToast.info({
-		    	    title: 'Profile Data Management',
-		    	    message: 'Deleted ' + json.data + ' profiles'
-		    	});
-            	resetProfileSearch();
-            } else {
-                LeoAdminApiUtil.logErrorPayload(json);
-            }
-       });
 	}
 	
 	function doProfileListing() {
@@ -372,12 +353,14 @@
     	}
     	
     	var loadDataCallback = function(json) {
-    		
      		if( ! $(tableDomSel).data('canInsertData') ){
- 				$('button.data-control-insert').attr('disabled','disabled');
+ 				$('button.data-control-insert').attr('disabled','disabled').attr("title","You do not have authorization to add new profile");
  			}
      		if( ! $(tableDomSel).data('canEditData') ){
- 				$('button.data-control-update').attr('disabled','disabled');
+ 				$('button.data-control-update').attr('disabled','disabled').attr("title","You do not have authorization to update profile");
+ 			}
+     		if( ! $(tableDomSel).data('canDeleteData') ){
+ 				$('button.data-control-delete').attr('disabled','disabled').attr("title","You do not have authorization to delete profile");
  			}
     	}
     	profileListTable = loadProfileListByFilter('profileListRowHandler',containerDomSel, loaderDomSel, tableDomSel, profileFilterParams, loadDataCallback);
@@ -400,23 +383,6 @@
     	else {
     		$('#holder_removeSelectedProfile').hide();
     	}
-    }
-    
-    function removeSelectedProfiles() {
-    	LeoAdminApiUtil.callPostAdminApi('/cdp/profiles/batch-update', selectedProfileIdMap, function (json) {
-            if (json.httpCode === 0 && json.errorMessage === '') {
-            	iziToast.info({
-		    	    title: 'Customer Profile Management',
-		    	    message: 'Total removed profile is '+json.data+' !'
-		    	});
-            	_.forOwn(selectedProfileIdMap, function(v,k){ 
-            		delete selectedProfileIdMap[k];
-            	})
-            	resetProfileSearch();
-            } else {
-                LeoAdminApiUtil.logErrorPayload(json);
-            }
-       });
     }
 
 </script>
