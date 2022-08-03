@@ -286,6 +286,14 @@
                    	<tr>
                        <td>
 							<ol class="profile_ext_data" data-field="personal_attributes">
+								 <li id="profileJourneyMapEditorRow" style="display: none" >
+								 	<b data-persona="key" > <i class="fa fa-fw fa-list"></i> In Journey Maps </b> 
+									<div class="form-group"  >
+										<select id="profileJourneyMapEditor" multiple data-placeholder="Add or remove a data journey map" class="select" >
+										  	<!-- list of data journey maps -->
+										</select>
+									</div>
+								 </li>
 							
 								 <li>
 					                 <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Data Labels </b> 
@@ -685,6 +693,7 @@
     	});
     }
     
+    
     var loadProfileData = function (profileId) {
          
          var dataProcessor = function(data){
@@ -731,7 +740,7 @@
          	 // profile maritalStatus
          	 formatSelectionList('input[name="maritalStatus"]')
          	 
-         	loadSystemUsersForDataAuthorization(editedProfileModel, $('#authorizedProfileViewers'), $('#authorizedProfileEditors'));
+         	 loadSystemUsersForDataAuthorization(editedProfileModel, $('#authorizedProfileViewers'), $('#authorizedProfileEditors'));
          	 
          	 // set search link
          	 if(typeof editedProfileModel.livingLocation === "string") {
@@ -752,6 +761,11 @@
     			var newVal = encodeURIComponent($(this).val()) ;
     			$('#locationCodeSearch').attr("href", 'https://www.google.com/maps/?q=' +  newVal);
     		 })
+    		 
+    		 if(currentUserProfile.role === 6){
+    			 $('#profileJourneyMapEditorRow').show();
+    			 loadDataJourneyMapEditor('#profileJourneyMapEditor', editedProfileModel.inJourneyMaps);
+    		 }
          });
     }
     
@@ -849,6 +863,11 @@
     	// data authorization
 		editedProfileModel.authorizedViewers = $('#authorizedProfileViewers').val() || [];
 		editedProfileModel.authorizedEditors = $('#authorizedProfileEditors').val() || [];
+		
+		// journey maps
+		if(currentUserProfile.role === 6){
+			editedProfileModel.inJourneyMaps = getJourneyMapsFromEditor('#profileJourneyMapEditor', editedProfileModel.inJourneyMaps);
+		}
     }
     
     var initProfileAvatarUploader = function (profileData) {
@@ -878,5 +897,94 @@
             }
         });
 	}
+    
+    var getSelectedJourneyData = function(inJourneyMaps, checkJourney){
+		for(var i=0; i< inJourneyMaps.length; i++) {
+			var selectedJourney = inJourneyMaps[i];
+			if(selectedJourney.id === checkJourney.id){
+				return selectedJourney;
+			}
+		}
+		return null;
+	}
+    
+    var loadDataJourneyMapEditor = function(containerSelect, inJourneyMapsData) {
+    	var listNode = $(containerSelect);
+    	// request server
+    	LeoAdminApiUtil.getSecuredData('/cdp/journeymap/list-all', {}, function(json){
+    		if (json.httpCode === 0 && typeof json.data === 'object') {
+    			var loadedJourneyMaps = json.data;
+            	
+               	loadedJourneyMaps.forEach(function(journey){
+               		var id = journey.id;
+               		var name = journey.name;
+               		var selectedStr = "", json = "";
+               		var selectedInJourneyData = getSelectedJourneyData(inJourneyMapsData, journey);
+               		
+               		if(selectedInJourneyData != null){
+               			if(selectedInJourneyData.queryHashedId === ""){
+               				selectedStr = "selected"; 
+               			}
+               		}
+               		else {
+               			selectedInJourneyData = {
+        		    		  "scoreCX": {
+           		    		    "positive": 0,
+           		    		    "neutral": 0,
+           		    		    "negative": 0,
+           		    		    "sentimentScore": 0,
+           		    		    "sentimentType": 0,
+           		    		    "positivePercentage": 0,
+           		    		    "neutralPercentage": 0,
+           		    		    "negativePercentage": 0,
+           		    		    "happy": false
+           		    		  },
+           		    		  "funnelIndex": 1,
+           		    		  "id": id,
+           		    		  "name": name,
+           		    		  "type": editedProfileModel.type > 0 ? "CONTACT" : "VISITOR",
+           		    		  "indexScore": 1,
+           		    		  "lastDataSynch": 0,
+           		    		  "queryHashedId": ""
+						};
+               		}
+               		json = encodeURIComponent(JSON.stringify(selectedInJourneyData));
+               		var option = '<option id="profile_editor_journey_'+id+'" '+selectedStr+' value="'+ id +'" data-json="'+ json +'" >' + name + '</option>';
+    				listNode.append(option);
+               	});
+               	
+               	listNode.chosen({
+                    width: "100%",
+                    no_results_text: "Oops, nothing found!"
+                });
+               	
+            } else {
+            	LeoAdminApiUtil.logErrorPayload(json);
+            }
+    	});
+    }
+    
+    var getJourneyMapsFromEditor = function(containerSelect, inJourneyMapsData) {
+    	var finalSelectedJourneys = [];
+    	$(containerSelect).find('option').each(function(){  
+    		var selected = $(this).is(':selected');
+    		console.log( $(this).val() +  " selected " + selected)
+    		
+    		var json = decodeURIComponent($(this).data('json')); 
+    		var journeyData = JSON.parse(json); 
+
+    		var oldSelectedInJourneyData = getSelectedJourneyData(inJourneyMapsData, journeyData);
+    		
+    		if(selected) {
+    			journeyData.queryHashedId = "";
+    			finalSelectedJourneys.push(journeyData) ;
+    		}
+    		else if(oldSelectedInJourneyData != null){
+    			oldSelectedInJourneyData.queryHashedId = "removed";
+    			finalSelectedJourneys.push(oldSelectedInJourneyData) ;
+    		}
+    	})
+    	return finalSelectedJourneys;
+    }
     
 </script>

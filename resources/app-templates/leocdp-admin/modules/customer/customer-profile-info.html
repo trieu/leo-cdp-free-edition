@@ -1106,7 +1106,7 @@
            		 var ahtml = $('<a/>').attr('title',title).attr('href',"#calljs-leoCdpRouter('Segment_Details','"+e.id+"')").text(e.name)[0].outerHTML;
            		 var html = '<b>' + ahtml + '</b>';
            		 if(inSegmentSize > 0){
-           			 html += ", ";
+           			 html += "; ";
            		 }
            		 inSegmentsNode.append(html);
            	 });
@@ -1115,17 +1115,21 @@
         	 var inJourneyMapsNode = $('#profileInJourneyMaps');
         	 var inJourneyMapsSize = profileData.inJourneyMaps.length;
        		 profileData.inJourneyMaps.forEach(function(e){
+       			
        			inJourneyMapsSize--;
        			var title = "Journey Map: " + e.name + " => At Stage: " + journeyStagesMap[e.indexScore];
        			var name = e.name;
        			var ahtml = $('<a/>').attr('title',title).attr('href',"#calljs-leoCdpRouter('Data_Journey_Map','"+e.id+"')").html(name)[0].outerHTML;
           		var html = '<b>' + ahtml + '</b>';
           		if(inJourneyMapsSize > 0){
-          			 html += ", ";
+          			 html += "; ";
           		}
-          		inJourneyMapsNode.append(html);
-          		// update default
-          		currentJourneyMapId = e.id;
+          		
+          		if(e.queryHashedId === ""){
+          			inJourneyMapsNode.append(html);
+              		// update default
+              		currentJourneyMapId = e.id;
+          		}
            	 });
         	 
         	 //profileData.inAccounts.push({"id":123,"name":"USPA Technology Company"})
@@ -1137,7 +1141,7 @@
            		 var ahtml = $('<a/>').attr('href',"#calljs-leoCdpRouter('Account_Details','"+e.id+"')").html(e.name)[0].outerHTML;
              	 var html = '<b>' + ahtml + '</b>';
                  if(inAccountSize > 0){
-             			 html += ", ";
+             			 html += "; ";
              	 }
              	 inAccountsNode.append(html);
            	 });
@@ -1149,7 +1153,7 @@
            		 dataLabelsSize--;
               		 var html = '<b>' + e + '</b>';
               		 if(dataLabelsSize > 0){
-              			 html += ", ";
+              			 html += "; ";
               		 }
               		dataLabelsNode.append(html);
            	 });

@@ -4,7 +4,7 @@ You can watch this video tutorial at the link: [How to setup a new software inst
 
 ## Network requirements
 
-The installed server must have Internet connection, please set the outbound firewall rules to these domains
+The deployed server must have Internet connection, please set the out-bound firewall rules to these domains
 
     https://nominatim.openstreetmap.org
     https://cloudservice.leocdp.com
