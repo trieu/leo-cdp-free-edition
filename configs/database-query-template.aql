@@ -784,7 +784,7 @@ AQL_GET_PROFILE_BY_ID_FOR_ADMIN =>
 
 AQL_GET_PROFILE_BY_CRM_ID =>
 	FOR p in cdp_profile 
-	FILTER p.crmRefId == @crmRefId AND (@loginUsername IN p.authorizedViewers[*] OR @hasAdminRole == TRUE)
+	FILTER p.crmRefId == @crmRefId 
 	RETURN p
 ;
 

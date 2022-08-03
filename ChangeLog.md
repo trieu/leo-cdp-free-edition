@@ -1,6 +1,6 @@
 # Changelog for LEO CDP
 
-## Feature Plan for the final release [1.0.0] - 2022-09-15
+## Feature Plan for the final release [1.0.0] - 2022-08-15
 
 #### Tasks
 
@@ -13,7 +13,7 @@
 - [In Plan] Update Profile CLV Scoring with Jupyter notebook
 - [In Plan] Data Synch with time scheduler
 
-## Feature Plan for the beta release [0.9.0] - 2022-08-15
+## Feature Plan for the beta release [0.9.0] - 2022-07-30
 
 ### TODO for version [0.9.0]
 
@@ -24,11 +24,10 @@
 - [In Progress] UI to create new observed event in LEO CDP Admin
 - [In Progress] document and example for LEO CDP API
 
-## [0.8.9] - 2022-08-03
+## [0.8.9] - 2022-07-31
 
 ### Added 
 
-- [Profile Editor] admin can add or remove a data journey map of a specific profile
 - [Login Account Editor] manage viewable and editable profiles, manage viewable and editable segments, manage authorization of journey map
 - [Profile UI] add checkbox to select and delete profile in list
 - [Profile Model] add field: permanentLocation
@@ -102,7 +101,6 @@
 
 ### Changed
 
-- improve UX and UI
 - rename profile status from DELETED to REMOVED when status code == -4
 - apply cache and improve performance of product recommendation
 - [TrackingEvent] add touchpoint data fields
