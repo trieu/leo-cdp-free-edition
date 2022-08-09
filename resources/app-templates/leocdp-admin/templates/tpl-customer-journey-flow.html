@@ -230,18 +230,35 @@ function leoObserverProxyReady(session) {
 				
 				<!--  Tab Navigation Items -->
 				<ul class="nav nav-tabs" data-tab-content="cx_code_tabs" > 
-			   		<li class="active" id="tab_panel_cx_web_form"  >
-		        		<a href="javascript:refreshCodeMirrorEditor()" data-target-tab="panel_cx_web_form" > <i class="fa fa-code" aria-hidden="true"></i> JavaScript Code </a>
-		       		</li>
-		       		<li id="tab_panel_cx_qr_code">
+		       		<li class="active" id="tab_panel_cx_qr_code">
 		       			<a href="javascript:" data-target-tab="panel_cx_qr_code"  > <i class="fa fa-qrcode" aria-hidden="true"></i> QR Code </a>
+		       		</li>
+		       		<li id="tab_panel_cx_web_form"  >
+		        		<a href="javascript:refreshCodeMirrorEditor()" data-target-tab="panel_cx_web_form" > <i class="fa fa-code" aria-hidden="true"></i> JavaScript Code </a>
 		       		</li>
 				</ul>
 
 				<div class="tab-content" id="cx_code_tabs" style="min-height: 380px;" >
-	
-					<!-- tab 1 content  -->
-					<div class="tab-pane active" id="panel_cx_web_form"  >
+					
+					<!-- tab 1  -->
+					<div class="tab-pane active" id="panel_cx_qr_code" >
+				        <div class="table-responsive">
+				            <div class="text-center" >
+						   	 <a target="_blank" href="#" id="cx_qrHrefUrl"> <img src="" alt="CX QR Code Image" id="cx_qrImgSrc" > </a>
+						   	</div>
+						   	<label class="control-label">QR Code Image URL </label>
+						   	<input type="text" class="form-control" readonly value="" id="cx_qrCodeImageURL" >
+						   	<label class="control-label"> CX Survey/Rating Form URL </label>
+						   	<input type="text" class="form-control" readonly value="" id="cx_qrFormURL" >
+				        </div>
+				        <hr>
+				  		<div class="text-right">
+				    		<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+				    	</div>
+					</div>
+					
+					<!-- tab 2  -->
+					<div class="tab-pane" id="panel_cx_web_form"  >
 						
 				    	<div id="feedback_form_code_holder" >
 								<textarea class="code" >
@@ -286,23 +303,6 @@ function leoObserverProxyReady(session) {
 				  		<hr>
 				  		<div class="text-right">
 				  			<button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
-				    		<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
-				    	</div>
-					</div>
-				
-					<!-- tab 2 content  -->
-					<div class="tab-pane" id="panel_cx_qr_code" >
-				        <div class="table-responsive">
-				            <div class="text-center" >
-						   	 <a target="_blank" href="#" id="cx_qrHrefUrl"> <img src="" alt="CX QR Code Image" id="cx_qrImgSrc" > </a>
-						   	</div>
-						   	<label class="control-label">QR Code Image URL </label>
-						   	<input type="text" class="form-control" readonly value="" id="cx_qrCodeImageURL" >
-						   	<label class="control-label"> CX Survey/Rating Form URL </label>
-						   	<input type="text" class="form-control" readonly value="" id="cx_qrFormURL" >
-				        </div>
-				        <hr>
-				  		<div class="text-right">
 				    		<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
 				    	</div>
 					</div>

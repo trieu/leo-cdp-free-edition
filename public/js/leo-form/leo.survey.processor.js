@@ -49,11 +49,11 @@ function initFeedbackSurvey(){
 	console.log(model);
 	
 	var isEnglish = model.Language == null || model.Language === "en";
-	var placeholderPrefix = "Enter the ";
-	var defaultTextPlaceholder = "Enter the answer";
+	var placeholderPrefix = "";
+	var defaultTextPlaceholder = "";
 	if(model.Language === "vn") {
-		placeholderPrefix = "Nhập thông tin cho ";
-		defaultTextPlaceholder = "Nhập câu trả lời";
+		placeholderPrefix = "";
+		defaultTextPlaceholder = "";
 		moment.locale('vi')
 	}
 	
@@ -216,7 +216,7 @@ function initFeedbackSurvey(){
 			      "required": true,
 			      "title": model.Profile_First_Name_Label
 			};
-			formModel.push({ "key": "profileFirstName", "type": "text", "fieldHtmlClass" : "leo_form_input" , "placeholder" : placeholderPrefix +  model.Profile_First_Name_Label});
+			formModel.push({ "key": "profileFirstName", "type": "text", "fieldHtmlClass" : "leo_form_input" , "placeholder" : placeholderPrefix + model.Profile_First_Name_Label});
 		}
 		
 		// Profile_Last_Name_Label
@@ -226,7 +226,7 @@ function initFeedbackSurvey(){
 			      "required": true,
 			      "title": model.Profile_Last_Name_Label
 			};
-			formModel.push({ "key": "profileLastName", "type": "text", "fieldHtmlClass" : "leo_form_input" , "placeholder" : placeholderPrefix +  model.Profile_Last_Name_Label});
+			formModel.push({ "key": "profileLastName", "type": "text", "fieldHtmlClass" : "leo_form_input" , "placeholder" : placeholderPrefix + model.Profile_Last_Name_Label});
 		}
 	}
 	else {
@@ -493,17 +493,6 @@ function initFeedbackSurvey(){
 		}
 	}
 	
-	// Survey_Extra_Text_Questions
-	if( model.Survey_Extra_Text_Questions ) {
-		model.Survey_Extra_Text_Questions.forEach(function(e){
-			if( isValidData(e.key) && isValidData(e.label) ) {
-				var field = "extraTextQuestion_" + e.key;
-				formSchema[field] = { "type": "string", "title": e.label };
-				formModel.push({ "key": field, "fieldHtmlClass" : "leo_form_input", "type": "textarea" , "placeholder" : defaultTextPlaceholder, "htmlClass" : field});
-			}
-		});
-	}
-	
 	// Multiple_Choice_Question_List
 	if( isObject(model.Multiple_Choice_Question_List) ) {
 		for(var key in model.Multiple_Choice_Question_List) {
@@ -545,6 +534,17 @@ function initFeedbackSurvey(){
 		      "title": model.Comment_Label
 		};
 		formModel.push({ "key": "comment", "fieldHtmlClass" : "leo_form_input", "type": "textarea" , "placeholder" : defaultTextPlaceholder});
+	}
+	
+	// Survey_Extra_Text_Questions
+	if( model.Survey_Extra_Text_Questions ) {
+		model.Survey_Extra_Text_Questions.forEach(function(e){
+			if( isValidData(e.key) && isValidData(e.label) ) {
+				var field = "extraTextQuestion_" + e.key;
+				formSchema[field] = { "type": "string", "title": e.label };
+				formModel.push({ "key": field, "fieldHtmlClass" : "leo_form_input", "type": "textarea" , "placeholder" : defaultTextPlaceholder, "htmlClass" : field});
+			}
+		});
 	}
 	
 	// OK button

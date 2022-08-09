@@ -42,13 +42,30 @@
 		"dataSynchService": true,
 		"messagePusherService": true,
 		"periodInSecondsToLoop": 30,
-		"status": -1,
+		"status": 0,
 		"configs": {
 			"service_provider": "https://onesignal.com/",
 			"service_api_url": "https://app.onesignal.com/",
 			"service_api_key": ""
 		},
 		"serviceUri": "javaclass:leotech.cdp.job.connector.OneSignalDataConnector"
+	},
+	{
+		"id": "local_files",
+		"name": "Local File",
+		"description": "Exporting data into local files",
+		"builtInConnector": true,
+		"forSegmentDataActivation": true,
+		"dataSynchService": true,
+		"messagePusherService": false,
+		"periodInSecondsToLoop": 21600,
+		"status": 0,
+		"configs": {
+			"local_file_storage_uri": "file://localhost",
+			"service_api_url": "file://localhost",
+			"service_api_key": "localhost"
+		},
+		"serviceUri": "javaclass:leotech.cdp.job.connector.LocalFileConnector"
 	},
 	{
 		"id": "database_report",
@@ -58,7 +75,7 @@
 		"forSegmentDataActivation": true,
 		"dataSynchService": true,
 		"periodInSecondsToLoop": 30,
-		"status": -1,
+		"status": 0,
 		"configs": {
 			"database_url": "",
 			"database_username": "",
@@ -74,7 +91,7 @@
 		"forSegmentDataActivation": true,
 		"dataSynchService": true,
 		"periodInSecondsToLoop": 30,
-		"status": -1,
+		"status": 0,
 		"configs": {
 			"database_url": "",
 			"database_username": "",
