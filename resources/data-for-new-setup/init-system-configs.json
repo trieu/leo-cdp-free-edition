@@ -23,7 +23,7 @@
 	{
 		"index" : -2,
 		"id": "local_smtp_mail_server",
-		"name": "SMTP Mail Server for Direct Marketing",
+		"name": "SMTP Mail Server for Email Marketing",
 		"description": "To target your customers through email, by providing useful content, product information, PR event and feedback survey",
 		"configs": {
 			"icon": "fa-envelope-o",
@@ -53,7 +53,7 @@
 			"service_api_key": "",
 			"service_max_item_for_profile": 50,
 			"service_max_item_for_request": 10,
-			"active": true,
+			"active": false,
 			"show": true
 		}
 	},
@@ -67,35 +67,35 @@
 			"read_only": false,
 			"service_api_url": "",
 			"service_api_key": "",
-			"active": true,
+			"active": false,
 			"show": true
 		}
 	},
 	{
 		"index" : 5,
-		"id": "leo_exporter",
-		"name": "Exporting Service for Data Backup",
+		"id": "leo_classification",
+		"name": "Profile Data Classification",
 		"description": "To set-up the ongoing process of synchronizing data from LEO CDP to digital marketing platforms",
 		"configs": {
 			"icon": "fa-download",
 			"read_only": false,
 			"service_api_url": "",
 			"service_api_key": "",
-			"active": true,
+			"active": false,
 			"show": true
 		}
 	},
 	{
 		"index" : 6,
 		"id": "leo_prediction",
-		"name": "Predictive Analytics Service",
+		"name": "Profile Score Prediction",
 		"description": "To predict Customer Acquisition Cost (CAC), Customer Lifetime Value (CLV) and Credit Score from behavioral data",
 		"configs": {
 			"icon": "fa-line-chart",
 			"read_only": false,
 			"service_api_url": "",
 			"service_api_key": "",
-			"active": true,
+			"active": false,
 			"show": true
 		}
 	},

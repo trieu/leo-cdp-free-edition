@@ -29,7 +29,7 @@
 				<li class="active" >
 					<a href="javascript:" data-target-tab="panel_data_quality_scoring" title="Profile Metadata to compute the total of Data Quality Score" > <i class="fa fa-list-ul" aria-hidden="true"></i> Data Quality Scoring </a>
 		       	</li>
-		       	<li style="display: none" >
+		       	<li >
 					<a href="javascript:" data-target-tab="panel_sys_services" title="System Services" > <i class="fa fa-cogs" aria-hidden="true"></i> System Services </a>
 		       	</li>
 		  	</ul>
@@ -40,7 +40,8 @@
 		    	<!-- tab 1 Event Report  -->
 				<div class="tab-pane active" id="panel_data_quality_scoring" >
 					<div class="col-lg-9">
-		         		<h4 class="text-center"> <mark> There are <span id="profileAttributeCount"></span> attributes in the Profile Model to compute the total of data quality score </mark> </h4>
+		         		<h4> <i class="fa fa-database" aria-hidden="true"></i> 
+		         			<mark> There are <span id="profileAttributeCount"></span> attributes in the Profile Model to compute the total of data quality score </mark> </h4>
 		         	</div>
 		         	<div class="col-lg-3" >
 			         	<button type="button" class="btn btn-goto-router" onclick="callDataQualityComputeJob()" title="Recompute and update data quality score for all profiles"  > 
@@ -57,8 +58,7 @@
 				<!-- tab 2 Event Report  -->
 				<div class="tab-pane " id="panel_sys_services" >
 					<div class="row" style="margin-bottom: 15px">
-						<h4> Configuration Management for Core System Services</h4>
-						<b class="highlight_text" > Please set configs to activate system services </b>
+						<h4> <i class="fa fa-cogs" aria-hidden="true"></i> <mark> Configuration Management for Core System Services </mark> </h4>
 					</div>
 					<div class="row" id="configs_holder" >
 						<!-- list -->
