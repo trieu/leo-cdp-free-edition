@@ -1468,6 +1468,12 @@ AQL_GET_PUBLIC_SYSTEM_CONFIGS =>
 	RETURN e
 ;
 
+AQL_REMOVE_ALL_SYSTEM_CONFIGS =>
+	FOR e in system_config  
+	FILTER e.index >= 0
+    REMOVE { _key: e._key } IN system_config
+;
+
 AQL_GET_ALL_SYSTEM_CONFIGS =>
 	FOR e in system_config 
 	SORT e.index

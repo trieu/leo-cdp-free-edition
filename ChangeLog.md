@@ -25,7 +25,7 @@
 - [In Plan] Data Synch with time scheduler
 - [In Plan] Using Jupyter notebook to update profile CLV and Credit Scoring 
 
-## [0.8.9] - 2022-08-13
+## [0.8.9] - 2022-08-15
 
 ### Added 
 

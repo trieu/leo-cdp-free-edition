@@ -391,7 +391,7 @@ setTimeout(function(){
 				<h4 class="modal-title text-center" > LEO CDP Observer API Information </h4>
 			</div>         
 			<div class="modal-body ">
-				<b> In the HTTP Header, you should set the "tokenkey" for API Token Key and the "tokenvalue" for API Token Value</b> <br>
+				<b class="highlight_text" > In the HTTP Header, you should set the "tokenkey" for API Token Key and the "tokenvalue" for API Token Value</b> <br>
 				<div class="form-group" >
 	                <label for="leoCdpApiTokenKey" class="highlight_text" > API Token Key ( tokenkey ) </label> 
 	                <input type="text" class="form-control" readonly value="" id="leoCdpApiTokenKey" >
@@ -403,18 +403,18 @@ setTimeout(function(){
 				    <input type="text" class="form-control" readonly value="" id="leoCdpApiJourneyMapIdValue" >
 	            </div>
 	            <hr>
-	            <div class="alert alert-info" role="alert"> 
+	            <h4 class="highlight_text" >API Endpoints</h4>
+				<label> To create a new profile or update an existed profile, call this API with <mark>HTTP POST</mark>: </label> <br>
+				<input type="text" class="form-control" readonly value="" id="leoCdpGetProfileApiUrl" >
+				<hr>
+				<label> To save a tracking event for a specific profile, call this API with <mark>HTTP POST</mark>: </label> <br>
+				<input type="text" class="form-control" readonly value="" id="leoCdpTrackEventApiUrl" >
+				<hr>
+				<label> To get all the events associated with a particular profile, call this API with <mark>HTTP GET</mark>: </label> <br>
+				<input type="text" class="form-control" readonly value="" id="leoCdpListEventsApiUrl" >
+				<div class="alert alert-info" role="alert"> 
 	            	<a href="https://github.com/USPA-Technology/leo-cdp-api-examples" target="_blank"> <i class="fa fa-info-circle" aria-hidden="true"></i> Get example code here</a> 
 	            </div>
-				<label> To create a new profile or update an existed profile, call this API with HTTP POST: </label> <br>
-				<b id="leoCdpGetProfileApiUrl" class="highlight_text" >  </b> 
-				<hr>
-				<label> To save a tracking event for a specific profile, call this API with HTTP POST: </label> <br>
-				<b id="leoCdpTrackEventApiUrl"  class="highlight_text" >  </b> <br>
-				<hr>
-				<label> To list all events in a specific profile, call this API with HTTP GET: </label> <br>
-				<b id="leoCdpListEventsApiUrl"  class="highlight_text" > </b> <br>
-				
 			</div>  
 			<div class="modal-footer">
 				<button type="button" class="btn btn-do-now" onclick="resetAccessTokenForLeoObserverApi()" >
