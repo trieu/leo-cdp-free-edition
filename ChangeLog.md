@@ -25,10 +25,11 @@
 - [In Plan] Data Synch with time scheduler
 - [In Plan] Using Jupyter notebook to update profile CLV and Credit Scoring 
 
-## [0.8.9] - 2022-08-15
+## [0.8.9] - 2022-08-16
 
 ### Added 
 
+- [Digital Asset] add contact lead form to collect profile data
 - [Profile Editor] admin can add or remove a data journey map of a specific profile
 - [Login Account Editor] manage viewable and editable profiles, manage viewable and editable segments, manage authorization of journey map
 - [Profile UI] add checkbox to select and delete profile in list

@@ -39,7 +39,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.18/marked.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body style="background-color:transparent;" >
-		
+	
+	<!-- template survey form -->
+	
 	<div id="main_container" class="container" style="margin-bottom: 50px">
 		<div class="panel panel-default">
 	    	<div class="panel-body" style="padding:10px!important">
@@ -69,6 +71,9 @@
 	<textarea id="surveyJsonMetaData" style="display:none!important;" >{{customData.surveyJsonMetaData}}</textarea>
 
 	<script>
+	    // event name when submit form
+    	window.submitEventName = "{{defaultTrackingMetric}}";
+    
 		var preview = {{customData.preview}};
 		var isDev = location.host === "demotrack.leocdp.net";
 		// load survey UI
@@ -78,8 +83,6 @@
 		(function() {
 		    //LEO Web Observer for touchpoint
 		    
-		    // event name all Survey Templates and observer
-		    window.submitEventName = "submit-feedback-form";
 		    window.leoObserverId = "{{customData.observerId}}";
 	   		
 		    // CDN of observer JS 
@@ -93,7 +96,6 @@
 			// feedback form template 
 			window.refTemplateId = "{{customData.templateId}}";	
 			window.feedbackTypeAsText = "{{customData.feedbackTypeAsText}}";
-			
 			
 			var referer = '{{customData.referer}}';
 			if(referer === "") {
@@ -118,7 +120,7 @@
 		function leoObserverProxyReady(session) {
 		    //LEO is ready, record event data if not in preview iframe
 		    if(location.href.indexOf("preview=1") === -1){
-		    	LeoObserverProxy.recordViewEvent("survey-view");
+		    	LeoObserverProxy.recordViewEvent("accept-tracking");
 		    } 
 		    else {
 		    	// set width for preview mode in admin

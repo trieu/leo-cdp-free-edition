@@ -254,65 +254,6 @@ function initFeedbackSurvey(){
 		}
 	}
 	
-	// Profile_Gender
-	if( isObject(model.Profile_Gender) ) {
-		var obj = model.Profile_Gender;
-		formSchema["profileGender"] = {
-			      "type": "string",
-			      "title": obj.label,
-			      "required": false,
-			      "enum": obj.choices
-		}
-		formModel.push({ "key": "profileGender", "type": "radios", "fieldHtmlClass" : "leo_form_input" });
-		
-		callbacks.push(function(){
-			$('input[name="profileGender"]').each(function(){ 
-				var v = $(this).val();
-				if(v === "Female"){
-					$(this).val(0);
-					if(model.Language === "vn") {
-						var html = $(this).parent().html().replace("Female","Nữ");
-						$(this).parent().html(html)
-					}
-				}
-				else if(v === "Male"){
-					$(this).val(1);
-					if(model.Language === "vn") {
-						var html = $(this).parent().html().replace("Male","Nam");
-						$(this).parent().html(html)
-					}
-				} 
-				else if(v === "Unknown"){
-					$(this).val(7);
-					if(model.Language === "vn") {
-						var html = $(this).parent().html().replace("Unknown","Không biết");
-						$(this).parent().html(html);
-					}
-				} 
-			})
-		})
-	} 
-	
-	// email
-	if(model.Profile_Email_Label) {
-		formSchema["profileEmail"] = {
-		      "type": "string",
-		      "required": true,
-		      "title": model.Profile_Email_Label
-		};
-		formModel.push({ "key": "profileEmail", "type": "email", "fieldHtmlClass" : "leo_form_input" , "placeholder" : placeholderPrefix + model.Profile_Email_Label });
-	}
-	
-	// phone
-	if(model.Profile_Phone_Label) {
-		formSchema["profilePhone"] = {
-		      "type": "string",
-		      "required": true,
-		      "title": model.Profile_Phone_Label
-		};
-		formModel.push({ "key": "profilePhone", "type": "tel", "fieldHtmlClass" : "leo_form_input" , "placeholder" : placeholderPrefix + model.Profile_Phone_Label });
-	}
-	
 	// BEGIN ------ profileDateOfBirth OR profileAge OR profileAgeGroup --------
 	// profileDateOfBirth
 	if(model.Profile_Birth_Date_Label) {
@@ -381,6 +322,65 @@ function initFeedbackSurvey(){
 		})
 	} 
 	// END ------ profileDateOfBirth OR profileAge OR profileAgeGroup --------
+	
+	// Profile_Gender
+	if( isObject(model.Profile_Gender) ) {
+		var obj = model.Profile_Gender;
+		formSchema["profileGender"] = {
+			      "type": "string",
+			      "title": obj.label,
+			      "required": false,
+			      "enum": obj.choices
+		}
+		formModel.push({ "key": "profileGender", "type": "radios", "fieldHtmlClass" : "leo_form_input" });
+		
+		callbacks.push(function(){
+			$('input[name="profileGender"]').each(function(){ 
+				var v = $(this).val();
+				if(v === "Female"){
+					$(this).val(0);
+					if(model.Language === "vn") {
+						var html = $(this).parent().html().replace("Female","Nữ");
+						$(this).parent().html(html)
+					}
+				}
+				else if(v === "Male"){
+					$(this).val(1);
+					if(model.Language === "vn") {
+						var html = $(this).parent().html().replace("Male","Nam");
+						$(this).parent().html(html)
+					}
+				} 
+				else if(v === "Unknown"){
+					$(this).val(7);
+					if(model.Language === "vn") {
+						var html = $(this).parent().html().replace("Unknown","Không biết");
+						$(this).parent().html(html);
+					}
+				} 
+			})
+		})
+	} 
+	
+	// email
+	if(model.Profile_Email_Label) {
+		formSchema["profileEmail"] = {
+		      "type": "string",
+		      "required": true,
+		      "title": model.Profile_Email_Label
+		};
+		formModel.push({ "key": "profileEmail", "type": "email", "fieldHtmlClass" : "leo_form_input" , "placeholder" : placeholderPrefix + model.Profile_Email_Label });
+	}
+	
+	// phone
+	if(model.Profile_Phone_Label) {
+		formSchema["profilePhone"] = {
+		      "type": "string",
+		      "required": true,
+		      "title": model.Profile_Phone_Label
+		};
+		formModel.push({ "key": "profilePhone", "type": "tel", "fieldHtmlClass" : "leo_form_input" , "placeholder" : placeholderPrefix + model.Profile_Phone_Label });
+	}
 	
 	// Profile_Living_Location_Label
 	if( model.Profile_Living_Location_Label ) {
@@ -452,7 +452,7 @@ function initFeedbackSurvey(){
 				      "type": "string",
 				      "title": e.label
 				};
-				formModel.push({ "key": field, "fieldHtmlClass" : "leo_form_input", "type": e.inputType , "placeholder" : defaultTextPlaceholder});
+				formModel.push({ "key": field, "fieldHtmlClass" : "leo_form_input", "type": e.inputType , "placeholder" : e.label});
 			}
 		});
 	}
@@ -751,7 +751,7 @@ var onSubmitForm = function(errors, formData) {
 				if(surveyTemplateModel.Language === "vn") {
 					okMsg = "Cảm ơn bạn về những thông tin phản hồi !";
 				} 
-				var successInfoHtml = '<div class="alert alert-success"><i class="fa fa-check-circle" aria-hidden="true"></i> ' + okMsg + ' </div>';
+				var successInfoHtml = '<div class="alert alert-success"> <h4><i class="fa fa-check-circle" aria-hidden="true"></i> ' + okMsg + ' </h4> </div>';
 				
 				jQuery('#survey_placeholder').hide().parent().append(successInfoHtml).show();
 				

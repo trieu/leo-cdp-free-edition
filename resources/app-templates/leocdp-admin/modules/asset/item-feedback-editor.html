@@ -70,13 +70,11 @@
 			 	<label> Feedback Form Type </label>
                 <div style="margin-left: 20px" >
                 	<label class="radio-inline"><input type="radio" name="templateType" value="0" > Survey Form </label>
-                	
-                	<label style="display: none" class="radio-inline"><input type="radio" name="templateType" value="1" > Comment Form </label>
-                	
-                	<label class="radio-inline"><input type="radio" name="templateType" value="2" > CFS Form </label>
-                	<label class="radio-inline"><input type="radio" name="templateType" value="3" > CES Form </label>
-                	<label class="radio-inline"><input type="radio" name="templateType" value="4" > CSAT Form </label>
-                	<label class="radio-inline"><input type="radio" name="templateType" value="5" > NPS Form </label>
+                	<label class="radio-inline"><input type="radio" name="templateType" value="1" > Contact Form </label>
+                	<label class="radio-inline"><input type="radio" name="templateType" value="2" > CFS Rating Form </label>
+                	<label class="radio-inline"><input type="radio" name="templateType" value="3" > CES Rating Form </label>
+                	<label class="radio-inline"><input type="radio" name="templateType" value="4" > CSAT Rating Form </label>
+                	<label class="radio-inline"><input type="radio" name="templateType" value="5" > NPS Rating Form </label>
                 </div>
 			</div>
 			<div class="form-group" >
@@ -109,7 +107,6 @@
 				 	</div>
 				 </div>	
 			</div>
-			
 		 
            <div class="form-group editor_wrapper" id="survey_form_editor_wrapper"  >
                 <label> Survey Form Template </label>
@@ -234,6 +231,7 @@
                     
                     document.title = feedbackModel.title ? 'Feedback Form Editor - ' + feedbackModel.title : 'New Feedback Form Template';
                     var templateType = feedbackModel.templateType;
+                    var isLongHtmlForm = templateType === 0 || templateType === 1;
                     var jsonMetadata = (feedbackModel.jsonMetadata != "" && feedbackModel.jsonMetadata != null) ? feedbackModel.jsonMetadata : "{}"
                     
                  	// breadcrumb link update
@@ -245,7 +243,7 @@
                         var fieldType = typeof value;
 
                         if (fieldType === 'number' || fieldType === 'string') {
-                            if (k === 'mediaInfo' && templateType === 0) {
+                            if (k === 'mediaInfo' && isLongHtmlForm) {
                             	surveyTemplateEditor.setValue(value);
                                 CodeMirrorAutoFormat(surveyTemplateEditor);
                                 var surveyEditorHeight = 720;
@@ -258,13 +256,13 @@
                                 	$('input[name="surveyLanguage"][value="'+model.Language+'"]').prop('checked', true);
                                 }
                             } 
-                            else if (k === 'headCode' && templateType > 0) {
+                            else if (k === 'headCode' && !isLongHtmlForm) {
                             	headHtmlEditor.setValue(value);
                                 CodeMirrorAutoFormat(headHtmlEditor);
                                 headHtmlEditor.setSize(null, 250);
                                 $('#survey_form_editor_wrapper').hide()
                             } 
-                            else if (k === 'bodyCode' && templateType > 0 ) {
+                            else if (k === 'bodyCode' && !isLongHtmlForm ) {
                             	bodyHtmlEditor.setValue(value);
                                 CodeMirrorAutoFormat(bodyHtmlEditor);
                                 bodyHtmlEditor.setSize(null, 500);
@@ -326,7 +324,7 @@
                  		// update UI when switching templateType in create mode only
                  		$('input[type=radio][name="templateType"]').change(function() {
            	        	   	var tplType = $(this).val();
-           	        	   	if(tplType == 0){
+           	        	   	if(tplType == 0 || tplType == 1){
            	        	   		$('#embedded_html_form_wrapper').hide()
            	        	   		$('#survey_form_editor_wrapper').show()
            	        	   		surveyTemplateEditor.setSize(null, 500);
@@ -358,6 +356,7 @@
             feedbackModel.itemId = itemId;
             feedbackModel.groupId = groupId;
             feedbackModel.categoryId = categoryId;
+            var templateType = feedbackModel.templateType;
    
             console.log('=====> saveFeedbackFormData itemId ' + itemId);
 
@@ -368,18 +367,20 @@
             feedbackModel.templateType = parseInt(form.find('input:radio[name=templateType]:checked').val());
             feedbackModel.assetType = 13; // template
             
-            if(feedbackModel.templateType > 0) {
+            if(templateType > 1) {
+            	// rating forms
             	feedbackModel.headCode = headHtmlEditor.getValue().trim();
                 feedbackModel.bodyCode = bodyHtmlEditor.getValue().trim();
                 feedbackModel.mediaInfo = "_";
             } else {
+            	// survey or contact
             	feedbackModel.mediaInfo = surveyTemplateEditor.getValue().trim();
             	feedbackModel.headCode = "";
             	feedbackModel.bodyCode = "";
             }
             
-            if(feedbackModel.templateType === 0){
-            	// parsing LEO_SURVEY_FORM
+            if(templateType === 0 || templateType === 1){
+            	// parsing LEO_SURVEY_FORM or LEO_CONTACT_FORM
             	var lang = $('input[name="surveyLanguage"]:checked').val();
             	var templateData = parseSurveyTemplate(feedbackModel.mediaInfo, lang);
             	templateData["Language"] = lang;
@@ -390,10 +391,7 @@
             }
 
             if(feedbackModel.title === "" || feedbackModel.mediaInfo === "") {
-            	iziToast.error({
-            	    title: 'Error',
-            	    message: 'The title and template can not be empty !'
-            	});
+            	iziToast.error({title: 'Error', message: 'The title and template can not be empty !'});
             } else {
             	if (typeof callback === 'function' && showLoader === true) {
             		// the final save
