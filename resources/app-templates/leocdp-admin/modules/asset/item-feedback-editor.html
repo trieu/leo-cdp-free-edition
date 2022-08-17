@@ -86,27 +86,6 @@
             </div>
 			
 			<hr>
-			<div>
-				 <div id="feedback_form_url_holder" class="alert alert-info" role="alert" >
-			 	 	<i class="fa fa-qrcode" aria-hidden="true" style="font-size: 1.1em" ></i>  
-				 	<b> Full URL </b> <a id="full_url_feedback_form" class="small-text" href="javascript:" target="_blank" ></a>
-				 </div>	
-			</div>
-			 	
-			<div id="feedback_form_code_holder" class="form-group" style="display: none;" >
-			 	 <div class="col-md-6 text-center" >
-			 	 	<div style="height: 200px" class="display-flex-center" >
-			 	 		 <img id="feedback_form_qrcode_url" style="height: 198px; margin: auto;" title="QR Code of full URL" />
-			 	 	</div>
-			 	 </div>	
-				 <div class="col-md-6 text-center" >
-				 	<div style="height: 200px" class="display-flex-center" >
-						<button class="btn btn-lg btn-do-now" onclick="showDialogEmbeddedFeedbackForm()" title="Get Embedded Code"> 
-				       		<i class="fa fa-code" aria-hidden="true"></i> Get Embedded Code
-				       	</button>
-				 	</div>
-				 </div>	
-			</div>
 		 
            <div class="form-group editor_wrapper" id="survey_form_editor_wrapper"  >
                 <label> Survey Form Template </label>
@@ -126,6 +105,12 @@
                 </div>
            </div>
             
+           <div>
+				 <div id="feedback_form_url_holder" class="alert alert-info" role="alert" >
+			 	 	<i class="fa fa-qrcode" aria-hidden="true" style="font-size: 1.1em" ></i>  
+				 	<b> Preview URL </b> <a id="preview_url_feedback_form" class="small-text" href="javascript:" target="_blank" ></a>
+				 </div>	
+			</div>
            <div class="form-group" id="feedback_form_preview_holder" style="display: none;">
             	<label> Preview </label>
 	            <div class="embed-responsive embed-responsive-16by9 display-flex-center " style="display: none;" >
@@ -191,29 +176,11 @@
     	if(typeof feedbackModel.id === "string"){
     		var url = "https://" + baseLeoObserverDomain + "/webform?preview=1&tplid=" + feedbackModel.id + "&cb=" + new Date().getTime();
      		$('#feedback_form_preview').attr('src',url).parent().show();
+     		$('#preview_url_feedback_form').attr('href',url).text(url);
      		
      		$("#feedback_form_preview_holder").show();
     	}
     }
-    
-    var showPreviewFeedbackFormUrl = function(){
-    	if(feedbackModel) {
-    		var tplFeedbackType = getFeedbackFormTypeAsString(feedbackModel.templateType);
-    		
-    		// preview url
-    		var url = "https://" + baseLeoObserverDomain + "/webform?tplid=" + feedbackModel.id;
-    		url = url + "&tplfbt=" + tplFeedbackType;
-    		url = url + "&cb=" + new Date().getTime();
-     		$('#full_url_feedback_form').attr('href',url).text(url);
-     		
-     		updateFeedbackFormIframePreview();
-     		
-     		var qrCodeFullUrl = baseLeoAdminUrl + feedbackModel.qrCodeUrl.substr(1);
-     		$('#feedback_form_qrcode_url').attr('src',qrCodeFullUrl);
-     		
-     		$("#feedback_form_code_holder").show();
-    	}
- 	}
 
     function loadFeedbackFormEditor(params) {
         if (params) {
@@ -282,7 +249,7 @@
                     }
                     
                     if(feedbackModel.qrCodeUrl !== "") {
-                    	showPreviewFeedbackFormUrl();
+                    	updateFeedbackFormIframePreview();
                     	
                     	var autoSaveAction = function(){
                     		if(window.autoSaveFeedbackForm){
@@ -429,60 +396,5 @@
         }
         saveFeedbackFormData(onSaveOk, true);
     }
-
-    function showDialogEmbeddedFeedbackForm(){
-		var idDialog = "dialogEmbeddedFeedbackForm";
-		var iFrameHeight = feedbackModel.templateType === 0 ? 1000 : 350;
-		// init modal box
-		initEmbeddedFeedbackForm("",idDialog, feedbackModel, iFrameHeight);
-		// show it
-		$('#'+idDialog).modal({ backdrop: 'static', keyboard: false });
-    }
+    
 </script>
-
-<div class="modal fade" id="dialogEmbeddedFeedbackForm" role="dialog">
-	<div class="modal-dialog modal-lg">
-		<!-- Modal content-->
-		<div class="modal-content">   
-			<div class="modal-header">
-				<h4 class="modal-title text-center" > Please copy the JavaScript (JS) Tag into your HTML code to collect feedback data </h4>
-			</div>         
-			<div class="modal-body">
-				<h5 class="eventName" >  </h5>
-				<div id="feedback_form_code_holder" ><textarea class="code">
-	(function() {
-	    //  Feedback/Survey Form Collector for __feedbackFormTitle__
-	    var svf = document.title;
-		var tprefurl = location.href;
-		var tplFeedbackType = "__tplFeedbackType__";
-		
-		var url  = '__feedbackFormFullUrl__';
-		url = url + "&tplfbt=" + tplFeedbackType;
-		url = url + "&tpname=" + encodeURIComponent(document.title);
-		url = url + "&tpurl=" + encodeURIComponent(location.href);
-		url = url + "&cb=" + new Date().getTime();
-		
-		// container
-		var divWrapper = document.createElement("div"); 
-		var cssDiv = "position: relative; width:100%; overflow: hidden;  height: __iFrameHeight__px ";
-		divWrapper.setAttribute("style",cssDiv);
-		
-		// iframe 
-		var iframe = document.createElement("iframe"); 
-		var cssIframe = "position: absolute; top:0; left:0; bottom:0; right:0; width:100%; border: none; overflow: hidden; height: __iFrameHeight__px ";
-		iframe.setAttribute("style",cssIframe);
-		iframe.setAttribute("src",url);
-		divWrapper.appendChild(iframe);
-		
-		var referenceNode = document.getElementById("__scriptNodeId__");
-		referenceNode.parentNode.insertBefore(divWrapper, referenceNode.nextSibling);
-	})();
-				</textarea></div>
-			</div>  
-			<div class="modal-footer">
-				<button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>
-		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
-		    </div>  
-		</div>
-	</div>
-</div>

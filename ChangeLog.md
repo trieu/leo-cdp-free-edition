@@ -25,7 +25,7 @@
 - [In Plan] Data Synch with time scheduler
 - [In Plan] Using Jupyter notebook to update profile CLV and Credit Scoring 
 
-## [0.8.9] - 2022-08-16
+## [0.8.9] - 2022-08-17
 
 ### Added 
 
@@ -105,6 +105,7 @@
 
 ### Changed
 
+- [LEO Survey] only get QR code and Web Form URL in journey map
 - [LEO CDP API] refactoring to use header for tokens 
 - improve UX and UI
 - rename profile status from DELETED to REMOVED when status code == -4

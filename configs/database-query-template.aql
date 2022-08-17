@@ -212,7 +212,7 @@ AQL_GET_TOUCHPOINT_HUB_REPORT =>
     AGGREGATE eventCount = COUNT_DISTINCT(e._key), profileCount = COUNT_DISTINCT(e.refProfileId)
     SORT profileCount DESC
     LIMIT @startIndex,@numberResult
-    RETURN {"name":name, "eventCount": eventCount, "profileCount":profileCount}
+    RETURN {"name":name, "eventCount": eventCount, "profileCount": profileCount}
 ;
 
 AQL_GET_TOUCHPOINT_HUB_REPORT_FOR_PROFILE =>
