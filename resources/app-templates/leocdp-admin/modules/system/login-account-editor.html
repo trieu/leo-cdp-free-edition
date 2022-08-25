@@ -193,6 +193,11 @@ div.panel_header {
 					    <!-- authorized journey list -->
 						<div class="row gridholder">
 						    <div class="col-lg-12">
+						    	<div class="checkbox">
+								  <label style="font-weight: bold;">
+								  	<input type="checkbox" id="updateAllProfilesInJourney" checked="checked"> Update data authorization of all profiles for updated data journey map
+								  </label>
+								</div>
 						        <div class="table-responsive">
 						            <table id="authorized_journeys_table" class="display" style="width:100%;">
 						                <thead>
@@ -476,6 +481,9 @@ div.panel_header {
         userLoginModel.removeAllEditableProfiles = node.data("removeAllEditableProfiles") === true;
         userLoginModel.removeAllViewableSegments = node.data("removeAllViewableSegments") === true;
         userLoginModel.removeAllEditableSegments = node.data("removeAllEditableSegments") === true;
+        
+        userLoginModel.updateAllProfilesInJourney = $('#updateAllProfilesInJourney').prop("checked") === true;
+        
         
         if( userLoginModel.removeAllAuthorizedJourneys !== true) {
         	 userLoginModel.updatedJourneyMaps = getUserLoginUpdatedJourneyMaps();

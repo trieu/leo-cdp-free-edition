@@ -1001,8 +1001,10 @@ AQL_PROFILE_BATCH_UPDATE_STATUS =>
 AQL_UPDATE_AUTHORIZATION_FOR_PROFILES_BY_JOURNEY =>
 	FOR p in cdp_profile
 	    FILTER @journeyMapId IN p.inJourneyMaps[*].id
-		LET finalAuthorizedViewers = UNION_DISTINCT(p.authorizedViewers, @newAuthorizedViewers)
-		LET finalAuthorizedEditors = UNION_DISTINCT(p.authorizedEditors, @newAuthorizedEditors)
+	    LET tempAuthorizedViewers = UNION_DISTINCT(p.authorizedViewers, @newAuthorizedViewers)
+		LET finalAuthorizedViewers = MINUS(tempAuthorizedViewers, @removedViewers)
+		LET tempAuthorizedEditors = UNION_DISTINCT(p.authorizedEditors, @newAuthorizedEditors)
+		LET finalAuthorizedEditors = MINUS(tempAuthorizedEditors, @removedEditors)
 		UPDATE p WITH { authorizedViewers : finalAuthorizedViewers, authorizedEditors : finalAuthorizedEditors } IN cdp_profile
 ;
 
