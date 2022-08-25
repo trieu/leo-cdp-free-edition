@@ -291,9 +291,17 @@
 	               					<div id="journeyFlowChart" class="experience_journey_flow" style="height:420px;display: none;"></div>
 	               				</div>
 	               				
+	               				<!-- Event Matrix Report  -->
+								<div class="col-md-12" style="display: none;" >
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Matrix Report </h4> 
+									<div id="event_matrix_report" style=" width: 100%; background-color: #e8e8e8; border-radius: 10px;">
+										<div class="loader"></div>
+									</div>
+								</div>
+	               				
 	               				<!-- Event Statistics Bar Chart -->
 	               				<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Metric Report </h4> 
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Data Report </h4> 
 									<div id="profileEventStatsChart" class="col-lg-12"> </div>
 								</div>
 	               				
@@ -302,6 +310,7 @@
 									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Touchpoint Report </h4> 
 									<div id="profileObserverChart" class="col-lg-12"> </div>
 								</div>
+
 								
 								<!-- Touchpoint Network Flow  -->
 								<div class="col-md-12" >
@@ -1185,11 +1194,38 @@
             	 loadProfileEventDailyReportUnit(profileId)
 			 },5000)
         	 
+			 loadEventMatrixReport();
         	 
         	 //renderJourneyFlowChart();
         	 //loadProfileAttribution();
              //loadMediaTouchpoints();
              //personalityDiagram();
          });
-    }    
+    }   
+    
+    function loadEventMatrixReport(){
+    	var eventLabels = ['page-view', 'search', 'click-details', 'email-click', 'purchase', 'submit-nps-form'];
+    	var touchpoints = ['Google', 'Facebook', 'LeoCDP.com'];
+    	var dataList = [
+    	      {x: 'page-view', y: 'Google', v: 1000},
+    	      {x: 'page-view', y: 'Facebook', v: 300},
+    	      {x: 'page-view', y: 'LeoCDP.com', v: 500},
+    	      {x: 'search', y: 'Google', v: 400},
+    	      {x: 'search', y: 'Facebook', v: 150},
+    	      {x: 'search', y: 'LeoCDP.com', v: 300},
+    	      {x: 'click-details', y: 'Google', v: 200},
+    	      {x: 'click-details', y: 'Facebook', v: 50},
+    	      {x: 'click-details', y: 'LeoCDP.com', v: 100},
+    	      {x: 'email-click', y: 'Google', v: 100},
+    	      {x: 'email-click', y: 'Facebook', v: 10},
+    	      {x: 'email-click', y: 'LeoCDP.com', v: 67},
+    	      {x: 'purchase', y: 'Google', v: 50},
+    	      {x: 'purchase', y: 'Facebook', v: 10},
+    	      {x: 'purchase', y: 'LeoCDP.com', v: 9},
+    	      {x: 'submit-nps-form', y: 'Google', v: 1},
+    	      {x: 'submit-nps-form', y: 'Facebook', v: 30},
+    	      {x: 'submit-nps-form', y: 'LeoCDP.com', v: 4}
+    	];
+    	renderMatrixChart('Event Matrix Report', 'event_matrix_report', eventLabels, touchpoints, dataList)
+    }
 </script>

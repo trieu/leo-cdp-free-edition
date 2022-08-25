@@ -73,30 +73,34 @@
 	<script>
 	    // event name when submit form
     	window.submitEventName = "{{defaultTrackingMetric}}";
+    	
+    	//LEO Web Observer for touchpoint
+    	window.leoObserverId = "{{customData.observerId}}";
+    	
+	    // CDN of observer JS 
+	    window.leoObserverLogDomain = "{{baseLeoObserverUrl}}";
+   		window.leoObserverCdnDomain = "{{baseStaticUrl}}";
+   		
+   		// feedback from what ?
+		window.srcTouchpointName = "{{pageTitle}}";
+		window.srcTouchpointUrl = '{{customData.srcTouchpointUrl}}';
+		
+		// feedback form template 
+		window.refTemplateId = "{{customData.templateId}}";	
+		window.feedbackTypeAsText = "{{customData.feedbackTypeAsText}}";
+		
+		window.containerIframeId = leoObserverId + "_" + refTemplateId;
     
 		var preview = {{customData.preview}};
 		var isDev = location.host === "demotrack.leocdp.net";
+		
 		// load survey UI
-		initFeedbackSurvey();
+		initFeedbackSurvey(function(){
+			updateIframeHeight();
+		});
 		
 		// load core js
 		(function() {
-		    //LEO Web Observer for touchpoint
-		    
-		    window.leoObserverId = "{{customData.observerId}}";
-	   		
-		    // CDN of observer JS 
-		    window.leoObserverLogDomain = "{{baseLeoObserverUrl}}";
-	   		window.leoObserverCdnDomain = "{{baseStaticUrl}}";
-	   		
-	   		// feedback from what ?
-			window.srcTouchpointName = "{{pageTitle}}";
-			window.srcTouchpointUrl = '{{customData.srcTouchpointUrl}}';
-			
-			// feedback form template 
-			window.refTemplateId = "{{customData.templateId}}";	
-			window.feedbackTypeAsText = "{{customData.feedbackTypeAsText}}";
-			
 			var referer = '{{customData.referer}}';
 			if(referer === "") {
 				window.srcTouchpointUrl = encodeURIComponent(referer); 
@@ -126,6 +130,12 @@
 		    	// set width for preview mode in admin
 		    	$('#main_container').css("width","1024px")
 		    }
+		}
+		
+		function updateIframeHeight(){
+			var h = document.body.scrollHeight;
+			var message = containerIframeId + '#' + h;
+			window.parent.postMessage(message, '*');
 		}
 	</script>
 </body>

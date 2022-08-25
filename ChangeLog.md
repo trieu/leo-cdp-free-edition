@@ -9,23 +9,26 @@
 - [In Plan] Segment Activation: sending SMS directly from LEO CDP
 - [In Plan] Segment Activation: sending email directly with SMTP from LEO CDP
 - [In Plan] Data Reporting with Jupyter notebook
+- [In Plan] Profile Finance Data Report
+- [In Plan] System User Notification when profile data is updated or created
+- [In Plan] New Data Connector and connector protocol
+- [In Plan] Data Synch with time scheduler
 
-
-## Feature Plan for the beta release [0.9.0] - 2022-08-30
+## Feature Plan for the next release 2022-08-20
 
 ### TODO for version [0.9.0]
 
-#### Tasks
+#### High Priority Tasks
 
-- [In Progress] Profile Finance Data Report
-- [In Progress] API to import event and import profile
+- [In Progress] using chartjs-chart-matrix for data journey reporting (https://chartjs-chart-matrix.pages.dev/samples/category.html)
 - [In Progress] UI to create new observed event in LEO CDP Admin
-- [In Progress] document and example for LEO CDP API
-- [In Plan] New Data Connector and connector protocol
-- [In Plan] Data Synch with time scheduler
+- [In Progress] printable document, video and example for LEO CDP API
+
+#### Low  Priority Tasks
+
 - [In Plan] Using Jupyter notebook to update profile CLV and Credit Scoring 
 
-## [0.8.9] - 2022-08-17
+## [0.8.9] - 2022-08-25
 
 ### Added 
 
@@ -85,6 +88,7 @@
 
 ### Fixed 
 
+- [Journey] update authorization should update profile authorization
 - [UX] improve UI/UX of feedback survey 
 - [Segment] update Ref Segment in profile and keep authorizedEditors, authorizedEditors
 - [Segment] UI and query data is not correctly when set journey map in visual query builder
@@ -105,6 +109,7 @@
 
 ### Changed
 
+- [Survey] auto set height when survey iframe is fully loaded
 - [LEO Survey] only get QR code and Web Form URL in journey map
 - [LEO CDP API] refactoring to use header for tokens 
 - improve UX and UI

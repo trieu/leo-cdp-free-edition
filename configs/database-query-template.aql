@@ -998,6 +998,14 @@ AQL_PROFILE_BATCH_UPDATE_STATUS =>
 		UPDATE p WITH { status: @newStatus } IN cdp_profile
 ;
 
+AQL_UPDATE_AUTHORIZATION_FOR_PROFILES_BY_JOURNEY =>
+	FOR p in cdp_profile
+	    FILTER @journeyMapId IN p.inJourneyMaps[*].id
+		LET finalAuthorizedViewers = UNION_DISTINCT(p.authorizedViewers, @newAuthorizedViewers)
+		LET finalAuthorizedEditors = UNION_DISTINCT(p.authorizedEditors, @newAuthorizedEditors)
+		UPDATE p WITH { authorizedViewers : finalAuthorizedViewers, authorizedEditors : finalAuthorizedEditors } IN cdp_profile
+;
+
 ###########  CONTEXT_SESSION  ########################################################################################################;
 
 AQL_GET_CONTEXT_SESSION_BY_KEY =>

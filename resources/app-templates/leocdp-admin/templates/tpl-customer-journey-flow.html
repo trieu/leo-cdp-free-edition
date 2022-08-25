@@ -266,11 +266,13 @@ function leoObserverProxyReady(session) {
     //  Feedback/Survey Form Collector for __feedbackFormTitle__
     
     // default the height of iframe but you can set it to optimize best view 
-    var iframeHeight = __iframeHeight__;
+    var iframeH = __iframeHeight__;
+    var autoScaleHeight = true;
     
     // LEO Observer ID
     var observerId = "__observerId__";
     var templateId = "__templateId__";
+    var iframeId = observerId + "_" + templateId;
     var svf = document.title;
 	var tprefurl = location.href;
 	var tplFeedbackType = "__tplFeedbackType__";
@@ -285,15 +287,28 @@ function leoObserverProxyReady(session) {
 	
 	// container
 	var divWrapper = document.createElement("div");
-	var cssDiv = "position:relative; width:100%; overflow:hidden; height:" + iframeHeight + "px ";
+	var cssDiv = "position:relative; width:100%; overflow:hidden; height:" + iframeH + "px ";
 	divWrapper.setAttribute("style",cssDiv);
 	
 	// iframe 
 	var iframe = document.createElement("iframe"); 
-	var cssIframe = "position:absolute;top:0;left:0;bottom:0;right:0;width:100%;border:none;overflow:hidden;height:"+iframeHeight+"px";
+	var cssIframe = "position:absolute;top:0;left:0;bottom:0;right:0;width:100%;border:none;overflow:hidden;height:" + iframeH +"px";
 	iframe.setAttribute("style",cssIframe);
 	iframe.setAttribute("src",url);
+	iframe.setAttribute("id",iframeId);
 	divWrapper.appendChild(iframe);
+	
+	if(autoScaleHeight) {
+		// the message come from iframe
+		window.addEventListener('message', function (e) {
+			var data = e.data;
+	    	if(data.indexOf(iframeId) === 0){
+	          var h = parseInt(data.substr(iframeId.length + 1)) + 86;
+	          iframe.style.height = h + 'px';
+	          divWrapper.style.height = h + 'px';
+	        }
+	    });
+	}
 	
 	var referenceNode = document.getElementById("__scriptNodeId__");
 	referenceNode.parentNode.insertBefore(divWrapper, referenceNode.nextSibling);
@@ -388,10 +403,11 @@ setTimeout(function(){
 		<!-- Modal content-->
 		<div class="modal-content">   
 			<div class="modal-header">
-				<h4 class="modal-title text-center" > LEO CDP Observer API Information </h4>
+				<h4 class="modal-title text-center" > LEO CDP API Information </h4>
 			</div>         
 			<div class="modal-body ">
-				<b class="highlight_text" > In the HTTP Header, you should set the "tokenkey" for API Token Key and the "tokenvalue" for API Token Value</b> <br>
+				<h4> <i class="fa fa-info-circle" aria-hidden="true"></i> LEO CDP API Tokens </h4>
+				<p> In the HTTP Header, you must set the "tokenkey" for API Token Key and the "tokenvalue" for API Token Value</p>
 				<div class="form-group" >
 	                <label for="leoCdpApiTokenKey" class="highlight_text" > API Token Key ( tokenkey ) </label> 
 	                <input type="text" class="form-control" readonly value="" id="leoCdpApiTokenKey" >
@@ -403,18 +419,13 @@ setTimeout(function(){
 				    <input type="text" class="form-control" readonly value="" id="leoCdpApiJourneyMapIdValue" >
 	            </div>
 	            <hr>
-	            <h4 class="highlight_text" >API Endpoints</h4>
-				<label> To create a new profile or update an existed profile, call this API with <mark>HTTP POST</mark>: </label> <br>
+	            <h4> <i class="fa fa-info-circle" aria-hidden="true"></i> API Endpoints (<a href="https://github.com/USPA-Technology/leo-cdp-api-examples" target="_blank">Get example code here</a>) </h4>
+				<label class="highlight_text" > To create a new profile or update an existed profile, call this API with HTTP POST: </label> <br>
 				<input type="text" class="form-control" readonly value="" id="leoCdpGetProfileApiUrl" >
-				<hr>
-				<label> To save a tracking event for a specific profile, call this API with <mark>HTTP POST</mark>: </label> <br>
+				<label class="highlight_text"> To save a tracking event for a specific profile, call this API with HTTP POST: </label> <br>
 				<input type="text" class="form-control" readonly value="" id="leoCdpTrackEventApiUrl" >
-				<hr>
-				<label> To get all the events associated with a particular profile, call this API with <mark>HTTP GET</mark>: </label> <br>
+				<label class="highlight_text"> To get all the events associated with a particular profile, call this API with HTTP GET: </label> <br>
 				<input type="text" class="form-control" readonly value="" id="leoCdpListEventsApiUrl" >
-				<div class="alert alert-info" role="alert"> 
-	            	<a href="https://github.com/USPA-Technology/leo-cdp-api-examples" target="_blank"> <i class="fa fa-info-circle" aria-hidden="true"></i> Get example code here</a> 
-	            </div>
 			</div>  
 			<div class="modal-footer">
 				<button type="button" class="btn btn-do-now" onclick="resetAccessTokenForLeoObserverApi()" >

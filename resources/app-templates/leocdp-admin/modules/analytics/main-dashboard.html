@@ -11,7 +11,7 @@
 	.collector-item {
 		padding: 4px!important; 
 	}
-	#data_journey_funnel_wrapper {
+	#profile_journey_funnel_wrapper {
 		width: 96%; margin: auto; padding-bottom:40px; padding-top:15px;
 	}
 	#profile_funnel_wrapper {
@@ -81,13 +81,18 @@
 	       
             <div class="chart_box"  >
             	<ul class="nav nav-tabs" data-tab-content="main_dashboard_report_tabs" >
+            		<li  style="display: none;" >
+		          		<a href="javascript:" data-target-tab="panel_profile_matrix_report" title="Profile Matrix Report"> 
+		          			<i class="fa fa-map-o" aria-hidden="true"></i> Profile Matrix  
+		          		</a>
+		         	</li>
 		         	<li class="active" onclick="showDashboardReport(false)" >
-		          		<a href="javascript:" data-target-tab="panel_journey_map_report" title="Journey Map Report"> 
+		          		<a href="javascript:" data-target-tab="panel_profile_journey_funnel" title="Profile Journey Report"> 
 		          			<i class="fa fa-map-o" aria-hidden="true"></i> Profile Journey  
 		          		</a>
 		         	</li>
 		         	<li>
-		         		<a href="javascript:" data-target-tab="panel_data_funnel_report" title="Data Funnel Report" > 
+		         		<a href="javascript:" data-target-tab="panel_profile_funnel" title="Data Funnel Report" > 
 		         			<i class="fa fa-filter" aria-hidden="true"></i> Profile Funnel 
 		         		</a>
 		         	</li>
@@ -98,7 +103,7 @@
 		         	</li>
 		         	<li>
 		         		<a href="javascript:" data-target-tab="panel_touchpoint_report" title="Touchpoint Details Report" > 
-		         			<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Touchpoint Item
+		         			<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Touchpoints
 		         		</a>
 		         	</li>
 		         	<li>
@@ -109,36 +114,45 @@
 	   			</ul>
 	   			
 	   			<div class="tab-content" id="main_dashboard_report_tabs" style="min-height: 450px"  >
+	   			
+	   				<!-- tab 1 Profile Matrix Report  -->
+					<div class="highlight_box tab-pane " id="panel_profile_matrix_report" style="display: none;" >
+						<div id="profile_matrix_wrapper" class="vcenter" >
+	                  		<div id="profile_matrix_report_wrapper" class="vcenter" >
+		                  		<div id="profile_matrix_report" class="funnel" ></div>
+		               		</div>
+	               		</div>
+					</div>
 
-					<!-- tab 1 Journey Map Report  -->
-					<div class="highlight_box tab-pane active" id="panel_journey_map_report"  >
-						<div id="data_journey_funnel_wrapper" class="vcenter" >
-	                  		<div id="data_journey_funnel" class="funnel" ></div>
+					<!-- tab 2 Profile Journey Report  -->
+					<div class="highlight_box tab-pane active" id="panel_profile_journey_funnel"  >
+						<div id="profile_journey_funnel_wrapper" class="vcenter" >
+	                  		<div id="profile_journey_funnel" class="funnel" ></div>
 	               		</div>
 					</div>
 					
-					<!-- tab 2 Data Funnel Report  -->
-					<div class="highlight_box tab-pane" id="panel_data_funnel_report" >
+					<!-- tab 3 Profile Funnel Report  -->
+					<div class="highlight_box tab-pane" id="panel_profile_funnel" >
 						<div id="profile_funnel_wrapper" class="vcenter" >
 	                  		<div id="profile_funnel"></div>
 	               		</div>
 					</div>
 					
-					<!-- tab 3 Touchpoint Hub Report  -->
+					<!-- tab 4 Touchpoint Hub Report  -->
 					<div class="highlight_box tab-pane" id="panel_observer_report" >
 						<div id="observer_report_wrapper" class="vcenter" ></div>
 						<hr>
 						<div id="observer_report_table"></div>
 					</div>
 					
-					<!-- tab 4 Touchpoint Details Report  -->
+					<!-- tab 5 Touchpoint Details Report  -->
 					<div class="highlight_box tab-pane" id="panel_touchpoint_report" >
 						<div id="touchpoint_report_wrapper" class="vcenter" ></div>
 						<hr>
 						<div id="touchpoint_report_table"></div>
 					</div>
 					
-					<!-- tab 5 Flow Network Report  -->
+					<!-- tab 6 Journey Flow Report  -->
 					<div class="tab-pane" id="panel_flow_network_report" >
 						<div id="flow_network_report_wrapper" ></div>
 					</div>
@@ -219,6 +233,8 @@
         
         //loadChannelPerformance();
       	//loadCustomerVenn();
+      	
+    	//loadProfileMatrixReport();
     }
 	
 	var mainDashboardFunnelHeight = 420;
@@ -368,8 +384,8 @@
    	        
    	        var journeyStatsData = dashboardDataModel.journeyStatsData;
    	        
-   	        $('#data_journey_funnel').empty();
-   	        reportJourneyOfAllProfiles('#data_journey_funnel', journeyStatsData);
+   	        $('#profile_journey_funnel').empty();
+   	        reportJourneyOfAllProfiles('#profile_journey_funnel', journeyStatsData);
     	}
         
     	if(dashboardDataModel === false || refresh === true){
@@ -488,6 +504,7 @@
             });
     	},1600);
     }
+    
     function setJourneyFlowGraphView(){
     	if(typeof flowNetworkGraph === 'object') {
     		// hack to show graph
@@ -495,6 +512,32 @@
     			flowNetworkGraph.fit(true)
     		},300)
     	}
+    }
+    
+    function loadProfileMatrixReport(){
+    	var profileStates = ['Visitor', 'Potential Customer', 'New Customer', 'Engaged Customer', 'Happy Customer', 'Unhappy Customer'];
+    	var touchpoints = ['Google', 'Facebook', 'LeoCDP.com'];
+    	var dataList = [
+    	      {x: 'Visitor', y: 'Google', v: 1000},
+    	      {x: 'Visitor', y: 'Facebook', v: 300},
+    	      {x: 'Visitor', y: 'LeoCDP.com', v: 500},
+    	      {x: 'Potential Customer', y: 'Google', v: 400},
+    	      {x: 'Potential Customer', y: 'Facebook', v: 150},
+    	      {x: 'Potential Customer', y: 'LeoCDP.com', v: 300},
+    	      {x: 'New Customer', y: 'Google', v: 200},
+    	      {x: 'New Customer', y: 'Facebook', v: 50},
+    	      {x: 'New Customer', y: 'LeoCDP.com', v: 100},
+    	      {x: 'Engaged Customer', y: 'Google', v: 100},
+    	      {x: 'Engaged Customer', y: 'Facebook', v: 10},
+    	      {x: 'Engaged Customer', y: 'LeoCDP.com', v: 67},
+    	      {x: 'Happy Customer', y: 'Google', v: 50},
+    	      {x: 'Happy Customer', y: 'Facebook', v: 10},
+    	      {x: 'Happy Customer', y: 'LeoCDP.com', v: 9},
+    	      {x: 'Unhappy Customer', y: 'Google', v: 1},
+    	      {x: 'Unhappy Customer', y: 'Facebook', v: 30},
+    	      {x: 'Unhappy Customer', y: 'LeoCDP.com', v: 4}
+    	];
+    	renderMatrixChart('Profile Matrix Report', 'profile_matrix_report', profileStates, touchpoints, dataList)
     }
 
 </script>

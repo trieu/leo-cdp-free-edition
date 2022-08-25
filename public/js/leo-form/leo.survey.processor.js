@@ -41,7 +41,7 @@ window.totalRatingQuestions = 0;
 // init global data
 var formSchema = {}, formModel = [], callbacks = [];
 
-function initFeedbackSurvey(){
+function initFeedbackSurvey(initFeedbackSurveyCallback) {
 	var model = JSON.parse($('#surveyJsonMetaData').val());
 	model.Rating_Question_List = typeof model.Rating_Question_List === "object" ? model.Rating_Question_List : [];
 	// set as global var
@@ -333,31 +333,37 @@ function initFeedbackSurvey(){
 			      "enum": obj.choices
 		}
 		formModel.push({ "key": "profileGender", "type": "radios", "fieldHtmlClass" : "leo_form_input" });
-		
 		callbacks.push(function(){
 			$('input[name="profileGender"]').each(function(){ 
 				var v = $(this).val();
-				if(v === "Female"){
+				if(v === "Female") {
 					$(this).val(0);
 					if(model.Language === "vn") {
 						var html = $(this).parent().html().replace("Female","Nữ");
 						$(this).parent().html(html)
 					}
 				}
-				else if(v === "Male"){
+				else if(v === "Male") {
 					$(this).val(1);
 					if(model.Language === "vn") {
 						var html = $(this).parent().html().replace("Male","Nam");
 						$(this).parent().html(html)
 					}
 				} 
-				else if(v === "Unknown"){
+				else if(v === "Unknown") {
 					$(this).val(7);
 					if(model.Language === "vn") {
 						var html = $(this).parent().html().replace("Unknown","Không biết");
 						$(this).parent().html(html);
 					}
 				} 
+				else if(v === "Others") {
+					$(this).val(7);
+					if(model.Language === "vn") {
+						var html = $(this).parent().html().replace("Others","Khác");
+						$(this).parent().html(html);
+					}
+				}
 			})
 		})
 	} 
@@ -573,6 +579,11 @@ function initFeedbackSurvey(){
 	$("div.radio label").each(function(){ 
 		var text = $(this).html(); $(this).html( marked.parseInline(text) ) 
 	})
+	
+	// end initFeedbackSurvey, call initFeedbackSurveyCallback
+	if(typeof initFeedbackSurveyCallback === "function") {
+		initFeedbackSurveyCallback();
+	}
 }
 
 (function() {
