@@ -271,7 +271,7 @@ AQL_GET_ALL_EVENT_OBSERVERS =>
 	FOR e in cdp_eventobserver  
 	FILTER e.status >= 0
 	RETURN e
-;
+;	    
 
 ########### TOUCHPOINT  ########################################################################################################;
 
@@ -1140,6 +1140,49 @@ AQL_UPDATE_TRACKING_EVENT_SRC_TOUCHPOINT_HUB_ID =>
 	    FILTER LIKE(e.srcTouchpointUrl, @srcUrlPrefix, true) 
 	    UPDATE e WITH { srcTouchpointHubId: @srcTouchpointHubId } IN cdp_trackingevent
 ;
+
+AQL_GET_TRACKING_EVENT_TIMESERIES_REPORT =>
+	FOR e in cdp_trackingevent 
+		FILTER (e.refJourneyId == @refJourneyId OR @refJourneyId == "") AND (e.refProfileId == @refProfileId OR @refProfileId == "")
+			   AND ((e.createdAt >= @beginFilterDate OR @beginFilterDate == "") AND (e.createdAt <= @endFilterDate OR @endFilterDate == ""))
+		COLLECT dateKey = DATE_FORMAT(e.createdAt,"%yyyy-%mm-%dd"), metricName = e.metricName
+		AGGREGATE eventCount = COUNT_DISTINCT(e._key)
+	    RETURN {"datekey": dateKey, "metricName": metricName, "eventCount": eventCount}
+;
+
+AQL_PROFILE_MATRIX_REPORT =>
+	LET stats = 
+		(
+			FOR e in cdp_trackingevent 
+				FILTER (e.refJourneyId == @refJourneyId OR @refJourneyId == "") AND (e.refProfileId == @refProfileId OR @refProfileId == "")
+					   AND ((e.createdAt >= @beginFilterDate OR @beginFilterDate == "") AND (e.createdAt <= @endFilterDate OR @endFilterDate == ""))
+				COLLECT observerId = e.observerId
+				AGGREGATE profileCount = COUNT_DISTINCT(e.refProfileId)
+				SORT profileCount DESC
+			RETURN {"observerId": observerId, "profileCount": profileCount}
+		)
+	FOR s in stats
+		FOR o in cdp_eventobserver
+		   FILTER o._key == s.observerId 
+		    RETURN { "labelX":o.name, "value": s.profileCount}
+;
+
+AQL_EVENT_MATRIX_REPORT =>
+	LET stats = 
+		(
+			FOR e in cdp_trackingevent 
+				FILTER (e.refJourneyId == @refJourneyId OR @refJourneyId == "") AND (e.refProfileId == @refProfileId OR @refProfileId == "")
+					   AND ((e.createdAt >= @beginFilterDate OR @beginFilterDate == "") AND (e.createdAt <= @endFilterDate OR @endFilterDate == ""))
+				COLLECT groupKey = e.observerId, metricName = e.metricName
+				AGGREGATE eventCount = COUNT_DISTINCT(e._key)
+				SORT eventCount DESC
+			RETURN {"groupKey": groupKey, "metricName": metricName, "eventCount": eventCount}
+		)
+	FOR s in stats
+		FOR o in cdp_eventobserver
+			FILTER o._key == s.groupKey 
+		RETURN { "labelY":o.name, "labelX": s.metricName, "value": s.eventCount} 
+;	    
 
 ###########  FEEDBACK DATA: EVENT AND REPORT ########################################################################################################;
 

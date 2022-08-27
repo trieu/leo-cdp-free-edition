@@ -28,10 +28,11 @@
 
 - [In Plan] Using Jupyter notebook to update profile CLV and Credit Scoring 
 
-## [0.8.9] - 2022-08-25
+## [0.8.9] - 2022-08-27
 
 ### Added 
 
+- [Profile Report] add event matrix report
 - [Digital Asset] add contact lead form to collect profile data
 - [Profile Editor] admin can add or remove a data journey map of a specific profile
 - [Login Account Editor] manage viewable and editable profiles, manage viewable and editable segments, manage authorization of journey map
@@ -109,6 +110,7 @@
 
 ### Changed
 
+- [Customer Data Report] show profile sources as default tab
 - [Survey] auto set height when survey iframe is fully loaded
 - [LEO Survey] only get QR code and Web Form URL in journey map
 - [LEO CDP API] refactoring to use header for tokens 
