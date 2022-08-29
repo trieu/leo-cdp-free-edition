@@ -475,7 +475,7 @@ div.panel_header {
         userLoginModel.businessUnit = node.find('select[name="businessUnit"]').val();
         userLoginModel.customData.position = node.find('input[name="customData_position"]').val();
         
-        // Data Authorization
+        // User Authorization
         userLoginModel.removeAllAuthorizedJourneys = node.data("removeAllAuthorizedJourneys") === true;
         userLoginModel.removeAllViewableProfiles = node.data("removeAllViewableProfiles") === true;
         userLoginModel.removeAllEditableProfiles = node.data("removeAllEditableProfiles") === true;

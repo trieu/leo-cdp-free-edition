@@ -63,7 +63,7 @@
 - [UI] add sortable list by Data Quality Score, Journey Score and Updated At in Profile Data Management
 - [SystemTrackedEvent] to tracking user account activities, login for security monitoring
 - [Data Model] AbstractProfile
-- [Data Authorization] improve security check for Segment model and Profile model
+- [User Authorization] improve security check for Segment model and Profile model
 - [Authorization] add 2 new roles: customer data viewer and editor, add SystemUserRole
 - [Profile] add secondary emails and phones when merge duplicated profile data
 - [Profile] add industryDataModels in leocdp-metadata.properties to show profile data for specific industry
@@ -127,7 +127,7 @@
 - [UI] improve UI of load events in profile
 - [shell script] refactoring code
 - [UI] improve UI and UX of System Login
-- Improve Data Authorization 
+- Improve User Authorization 
 - [Scoring Rule] profile data quality scoring rule
 - [UI] UI to show profile with data quality score > 200
 - [UI] User Login Management
