@@ -208,7 +208,7 @@ AQL_GET_TOUCHPOINT_HUB_REPORT =>
 		FOR e in cdp_trackingevent 
 		    FILTER (e.refJourneyId == @journeyId OR @journeyId == "") AND (e.createdAt >= @beginFilterDate OR @beginFilterDate == "") AND (e.createdAt <= @endFilterDate OR @endFilterDate == "")
 		    LET hostname = e.refTouchpointHost == e.srcTouchpointHost ? (e.srcTouchpointHost) : (e.refTouchpointHost)
-		    LET groupName = hostname == null ? "Unknown Source" : hostname
+		    LET groupName = (hostname == null OR hostname == "") ? "Unknown Source" : hostname
 		    COLLECT name = groupName
 		    AGGREGATE eventCount = COUNT_DISTINCT(e._key), profileCount = COUNT_DISTINCT(e.refProfileId)
 		    SORT profileCount DESC
@@ -224,7 +224,7 @@ AQL_GET_TOUCHPOINT_HUB_REPORT_FOR_PROFILE =>
 	FOR e in cdp_trackingevent 
     FILTER (e.refJourneyId == @journeyId OR @journeyId == "") AND e.refProfileId == @refProfileId
    	LET hostname = e.refTouchpointHost == e.srcTouchpointHost ? (e.srcTouchpointHost) : (e.refTouchpointHost)
-    LET groupName = hostname == null ? "Unknown Source" : hostname
+    LET groupName = (hostname == null OR hostname == "") ? "Unknown Source" : hostname
     COLLECT name = groupName
     AGGREGATE eventCount = COUNT_DISTINCT(e._key), profileCount = COUNT_DISTINCT(e.refProfileId)
     SORT eventCount DESC
