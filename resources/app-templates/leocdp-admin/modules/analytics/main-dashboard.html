@@ -402,10 +402,10 @@
     }
     
     function loadTouchpointHubReport(queryFilter) {
-    	var textTitle = "Profile Sources";
+    	var textTitle = "Customer Data Sources";
     	var container = $('#observer_report_wrapper').html('<div class="loader"></div>');
         setTimeout(function(){
-        	 	// touchpoint detail report
+        	// touchpoint detail report
             queryFilter['touchpointType'] = -1;
             queryFilter['startIndex'] = 0;
             queryFilter['numberResult'] = 22;
@@ -434,7 +434,7 @@
     }
     
     function loadTouchpointItemReport(queryFilter){
-    	var textTitle = "Profile Source Details";
+    	var textTitle = "Data Source Details";
         var container = $('#touchpoint_report_wrapper').html('<div class="loader"></div>');
         setTimeout(function(){
         	 // touchpoint detail report
@@ -468,7 +468,6 @@
  	// touchpoint flow network
     var flowNetworkGraph = false;
     function loadJourneyFlowReport(queryFilter) {
-    	
     	var containerId = 'flow_network_report_wrapper';
     	var containerNode = $('#'+containerId).empty().html('<div class="loader"></div>');
     	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-flow-report';
@@ -498,5 +497,4 @@
     	}
     }
     
-
 </script>

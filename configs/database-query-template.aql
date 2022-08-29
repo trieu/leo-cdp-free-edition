@@ -162,7 +162,7 @@ AQL_COUNT_JOURNEY_EVENT_PROFILE =>
 	LET journeyData = (
 	    FOR p in cdp_profile
 	        FOR s in p.inJourneyMaps
-	        FILTER s.id == @journeyMapId AND p._key == @profileId 
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND p._key == @profileId 
 	    RETURN {funnelIndex:  s.funnelIndex, scoreCX: s.scoreCX }
 	)
 	RETURN {"countAwareness":eAwareness, "countAttraction":eAttraction, "countAsk":eAsk, "countAction":eAction, "countAdvocacy":eAdvocacy, 

@@ -14,7 +14,7 @@
 - [In Plan] New Data Connector and connector protocol
 - [In Plan] Data Synch with time scheduler
 
-## Feature Plan for the next release 2022-08-20
+## Feature Plan for the next release 2022-09-15
 
 ### TODO for version [0.9.0]
 
@@ -28,7 +28,7 @@
 
 - [In Plan] Using Jupyter notebook to update profile CLV and Credit Scoring 
 
-## [0.8.9] - 2022-08-27
+## [0.8.9] - 2022-08-29
 
 ### Added 
 
@@ -89,6 +89,7 @@
 
 ### Fixed 
 
+- [Profile 360 Analytics Report] show all data from all journey
 - [Journey] update authorization should update profile authorization
 - [UX] improve UI/UX of feedback survey 
 - [Segment] update Ref Segment in profile and keep authorizedEditors, authorizedEditors
