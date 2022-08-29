@@ -204,15 +204,20 @@ AQL_GET_ALL_TOUCHPOINT_HUBS =>
 ;
 
 AQL_GET_TOUCHPOINT_HUB_REPORT =>
-	FOR e in cdp_trackingevent 
-	    FILTER (e.refJourneyId == @journeyId OR @journeyId == "") AND (e.createdAt >= @beginFilterDate OR @beginFilterDate == "") AND (e.createdAt <= @endFilterDate OR @endFilterDate == "")
-	    LET hostname = e.refTouchpointHost == e.srcTouchpointHost ? (e.srcTouchpointHost) : (e.refTouchpointHost)
-	    LET groupName = hostname == null ? "Unknown Source" : hostname
-	    COLLECT name = groupName
-	    AGGREGATE eventCount = COUNT_DISTINCT(e._key), profileCount = COUNT_DISTINCT(e.refProfileId)
-	    SORT profileCount DESC
-	    LIMIT @startIndex,@numberResult
-	    RETURN {"name":name, "eventCount": eventCount, "profileCount": profileCount}
+	LET stats = (
+		FOR e in cdp_trackingevent 
+		    FILTER (e.refJourneyId == @journeyId OR @journeyId == "") AND (e.createdAt >= @beginFilterDate OR @beginFilterDate == "") AND (e.createdAt <= @endFilterDate OR @endFilterDate == "")
+		    LET hostname = e.refTouchpointHost == e.srcTouchpointHost ? (e.srcTouchpointHost) : (e.refTouchpointHost)
+		    LET groupName = hostname == null ? "Unknown Source" : hostname
+		    COLLECT name = groupName
+		    AGGREGATE eventCount = COUNT_DISTINCT(e._key), profileCount = COUNT_DISTINCT(e.refProfileId)
+		    SORT profileCount DESC
+		    LIMIT @startIndex,@numberResult
+		    RETURN {"name":name, "eventCount": eventCount, "profileCount": profileCount}
+	)
+	FOR s in stats
+	FILTER s.profileCount > 1 AND s.eventCount > 1
+	RETURN s
 ;
 
 AQL_GET_TOUCHPOINT_HUB_REPORT_FOR_PROFILE =>
