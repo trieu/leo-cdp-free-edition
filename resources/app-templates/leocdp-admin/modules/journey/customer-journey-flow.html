@@ -55,11 +55,13 @@
 		  		 <div id="journeyFlowChart" class="experience_journey_flow" style="height:420px;"></div>
 		  	</div>
 		</div>
-	    
 		<!--  Tab Navigation Items -->
 		<ul class="nav nav-tabs" data-tab-content="journey_touchpoint_tabs" > 
 	   		<li class="active" >
         		<a href="javascript:" data-target-tab="panel_touchpoint_hubs" > <i class="fa fa-list" aria-hidden="true"></i> Touchpoint Hub </a>
+       		</li>
+       		<li id="tab_journey_data_report" >
+       			<a href="javascript:" data-target-tab="panel_journey_data_report"  > <i class="fa fa-lock" aria-hidden="true"></i> Data Report </a>
        		</li>
        		<li id="tab_journey_data_observers" style="display: none">
        			<a href="javascript:" data-target-tab="panel_data_observers"  > <i class="fa fa-list" aria-hidden="true"></i> Data Observer </a>
@@ -81,7 +83,22 @@
 		    	</div>
 			</div>
 			
-			<!-- tab 2 Touchpoint Data Observer  -->
+			<!-- tab 2 Journey Data Report  -->
+			<div class="tab-pane" id="panel_journey_data_report" >
+				<!-- Event Matrix -->
+				<div class="col-md-12"  >
+					<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Matrix Report </h4> 
+					<div id="journey_map_event_matrix" class="col-lg-12"> </div>
+				</div>
+				
+				<!-- Event Observer Bar Chart -->
+            	<div class="col-lg-12">
+					<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Observer Data Report </h4> 
+					<div id="journeyObserverChart" class="col-lg-12"> </div>
+				</div>	
+			</div>
+			
+			<!-- tab 3 Touchpoint Data Observer  -->
 			<div class="tab-pane" id="panel_data_observers" >
 				<div class="top_page_header" >
 					<h4> All Touchpoint Data Observers  </h4>
@@ -91,7 +108,7 @@
 		        </div>
 			</div>
 			
-			<!-- tab 3 Data Authorization  -->
+			<!-- tab 4 Data Authorization  -->
 			<div class="tab-pane" id="panel_journey_data_authorization" >
 				<div class="top_page_header" >
 					<h4> Data Authorization for the Data Journey: <span id="authorizedJourneyName"></span> </h4>
@@ -125,6 +142,8 @@
 					</div>
 		        </div>
 			</div>
+			
+
 		</div>	
 			
    </div>
@@ -171,5 +190,8 @@
 		
 		// name editor
 		initJourneyMapNameEditor();
+		
+		loadJourneyMapEventMatrix(currentJourneyMapId)
+		loadJourneyTouchpointHubReport(currentJourneyMapId)
 	}
 </script>

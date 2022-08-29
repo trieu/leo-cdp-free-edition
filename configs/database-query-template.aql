@@ -205,8 +205,8 @@ AQL_GET_ALL_TOUCHPOINT_HUBS =>
 
 AQL_GET_TOUCHPOINT_HUB_REPORT =>
 	FOR e in cdp_trackingevent 
-	    FILTER (e.refJourneyId == @journeyId OR @journeyId == "") AND e.createdAt >= @beginFilterDate AND e.createdAt <= @endFilterDate
-	    LET hostname = e.srcTouchpointHost 
+	    FILTER (e.refJourneyId == @journeyId OR @journeyId == "") AND (e.createdAt >= @beginFilterDate OR @beginFilterDate == "") AND (e.createdAt <= @endFilterDate OR @endFilterDate == "")
+	    LET hostname = e.refTouchpointHost == e.srcTouchpointHost ? (e.srcTouchpointHost) : (e.refTouchpointHost)
 	    LET groupName = hostname == null ? "Unknown Source" : hostname
 	    COLLECT name = groupName
 	    AGGREGATE eventCount = COUNT_DISTINCT(e._key), profileCount = COUNT_DISTINCT(e.refProfileId)
@@ -1177,11 +1177,12 @@ AQL_EVENT_MATRIX_REPORT =>
 				AGGREGATE eventCount = COUNT_DISTINCT(e._key)
 				SORT eventCount DESC
 			RETURN {"groupKey": groupKey, "metricName": metricName, "eventCount": eventCount}
-		)
-	FOR s in stats
-		FOR o in cdp_eventobserver
-			FILTER o._key == s.groupKey 
-		RETURN { "labelY":o.name, "labelX": s.metricName, "value": s.eventCount} 
+		)	
+	FOR o in cdp_eventobserver
+	    FILTER o.journeyMapId == @refJourneyId OR @refJourneyId == "" OR o.touchpointHubId == "leo_data_observer"
+		FOR s in stats
+		FILTER o._key == s.groupKey
+		RETURN { "labelY":o.name, "labelX": s.metricName, "value": s.eventCount, "journeyMapId": o.journeyMapId, "touchpointHubId": o.touchpointHubId} 
 ;	    
 
 ###########  FEEDBACK DATA: EVENT AND REPORT ########################################################################################################;
