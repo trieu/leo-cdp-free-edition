@@ -103,8 +103,8 @@
 				<div class="top_page_header" >
 					<h4> All Touchpoint Data Observers  </h4>
 				</div>
-		        <div class="table-responsive">
-		            <div id="data_observers_table"></div>
+		        <div class="table-responsive" >
+		            <div id="data_observers_table" style="height: 700px"></div>
 		        </div>
 			</div>
 			
@@ -183,15 +183,17 @@
     	loadJourneyMapList();
     	
     	// the flow
-		loadJourneyMapAndTouchpointHubs(currentJourneyMapId, '#journeyFlowChart', '#journeyMapName, #authorizedJourneyName', "#touchpoint_hub_table");
+    	var callback = function(touchpointCount){
+    		var maxSize = touchpointCount * 2;
+    		loadJourneyTouchpointHubReport(currentJourneyMapId, maxSize)
+    		loadJourneyMapEventMatrix(currentJourneyMapId)
+    	}
+		loadJourneyMapAndTouchpointHubs(currentJourneyMapId, '#journeyFlowChart', '#journeyMapName, #authorizedJourneyName', "#touchpoint_hub_table", callback);
 		
 		// load data observer tags
    		loadDataObserverList("#data_observers_table");
 		
 		// name editor
 		initJourneyMapNameEditor();
-		
-		loadJourneyMapEventMatrix(currentJourneyMapId)
-		loadJourneyTouchpointHubReport(currentJourneyMapId)
 	}
 </script>
