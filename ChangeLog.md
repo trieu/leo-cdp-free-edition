@@ -28,10 +28,11 @@
 
 - [In Plan] Using Jupyter notebook to update profile CLV and Credit Scoring 
 
-## [0.8.9] - 2022-08-29
+## [0.8.9] - 2022-08-31
 
 ### Added 
 
+- [Event Data Report] filter event time series by journey map and event matrix report
 - [Profile Report] add event matrix report
 - [Digital Asset] add contact lead form to collect profile data
 - [Profile Editor] admin can add or remove a data journey map of a specific profile

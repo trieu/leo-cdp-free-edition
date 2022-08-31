@@ -473,14 +473,16 @@ AQL_DELETE_EVENT_METRICS_BY_FLOW_NAME =>
 
 AQL_GET_DAILY_REPORT_UNITS =>
 	FOR d IN cdp_dailyreportunit
-	FILTER d.createdAt >= @fromDate AND d.createdAt <= @toDate AND d.objectName == @objectName
+	FILTER d.createdAt >= @fromDate AND d.createdAt <= @toDate AND d.objectName == @objectName AND (d.journeyMapId == @journeyMapId OR @journeyMapId == "")
 	SORT d.createdAt
 	RETURN d
 ;
 
 AQL_GET_DAILY_REPORT_UNITS_FOR_ONE_OBJECT => 
 	FOR d in cdp_dailyreportunit 
-	FILTER d.createdAt >= @fromDate AND d.createdAt <= @toDate AND d.objectName == @objectName AND d.objectId == @objectId
+	FILTER d.createdAt >= @fromDate AND d.createdAt <= @toDate 
+			AND (d.journeyMapId == @journeyMapId OR @journeyMapId == "")
+			AND d.objectName == @objectName AND d.objectId == @objectId
 	SORT d.createdAt
 	RETURN d
 ;

@@ -14,7 +14,13 @@
 			
      		<!-- Date filter control -->
 	     	<div class="col-lg-12 float-right">
-		        <div class='col-lg-5 col-xs-12'>
+				<div class='col-md-4 col-xs-12' style="border-right:1px solid #000;height: 60px;" >
+        			<label for="journeyMapList">Data Journey Map</label>
+        			<div>
+        				<select id="journeyMapList" data-placeholder="Choose an Journey Map" class="select" > </select>
+        			</div>
+        		</div>
+		        <div class='col-md-3 col-xs-12'  >
 		            <div class="form-group">
 		                <div class='input-group date' id='beginFilterDate'>
 		                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
@@ -23,7 +29,7 @@
 		                </div>
 		            </div>
 		        </div>
-		        <div class='col-lg-5 col-xs-12'>
+		        <div class='col-md-3 col-xs-12'>
 		            <div class="form-group">
 		                <div class='input-group date' id='endFilterDate'>
 		                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
@@ -38,10 +44,39 @@
 		        </div>
 		    </div>
 		    
-	   		<!-- chartjs -->
-	    	<div class="col-lg-12 highlight_box" > 
-   				<canvas id="timeseriesEventChart"></canvas>
-   			</div>
+   			
+   			<div class="chart_box"  >
+            	<ul class="nav nav-tabs" data-tab-content="main_dashboard_report_tabs" >   
+            		<li class="active">
+		         		<a href="javascript:" data-target-tab="panel_event_timeseries_report" title="Time Series Report" > 
+		         			<i class="fa fa-line-chart" aria-hidden="true"></i> Time Series
+		         		</a>
+		         	</li>	         		
+		         	<li>
+		         		<a href="javascript:" data-target-tab="panel_event_data_metrix_report" title="Event Data Matrix" > 
+		         			<i class="fa fa-table" aria-hidden="true"></i> Event Matrix
+		         		</a>
+		         	</li>
+	   			</ul>
+	   			
+	   			<div class="tab-content" id="main_dashboard_report_tabs" style="min-height: 450px"  >
+	   			
+	   				<!-- tab 1 Time Series  -->
+					<div class="highlight_box tab-pane active" id="panel_event_timeseries_report" >
+				    	<div id="timeseries_event_wrapper" > 
+			   				<canvas id="timeseriesEventChart"></canvas>
+			   			</div>
+					</div>
+	   			
+					<!-- tab 2 Data Matrix  -->
+					<div class=" tab-pane " id="panel_event_data_metrix_report"  >
+						<div id="event_data_metrix_report" class="col-lg-12"> </div>
+					</div>
+					
+				</div>
+	            
+            </div>
+   			
    		</div>
    		
 		<div class="col-lg-3"> 
@@ -69,15 +104,31 @@
 
 <script>
 	
+	var currentJourneyMapId = ""; 
     var intEventDataDashboard =  function() {
+    	
+    	// init tabs
+    	setupTabPanels();
+    	
+    	// data filter
     	initDateFilterComponent(false, null, null, 45);
-    	loadEventDailyReportUnit(false, false);
+    	
+		loadJourneyMapList(false, function(id){
+			currentJourneyMapId = id;
+			// load event reports
+			loadEventDailyReportUnit(true);
+	    	loadJourneyMapEventMatrix(currentJourneyMapId, 'event_data_metrix_report')
+        },true);
+		
+		loadEventDailyReportUnit(false);
+		loadJourneyMapEventMatrix(currentJourneyMapId, 'event_data_metrix_report')
     }    
     
     window.eventTimeseriesChart = false;
     var loadEventDailyReportUnit = function(refresh){
     		
     	var params = getDateFilterValues();
+    	params['journeyMapId'] = currentJourneyMapId;
     	
     	var beginReportDate = params.beginFilterDate;
     	$('#eventDataFromDate').text(new moment(beginReportDate).format(defaultDateFormat))

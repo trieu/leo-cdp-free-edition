@@ -79,7 +79,7 @@
 		        </div>
 		    </div>
 	       
-            <div class="chart_box"  >
+            <div class="chart_box" >
             	<ul class="nav nav-tabs" data-tab-content="main_dashboard_report_tabs" >   
             		<li class="active">
 		         		<a href="javascript:" data-target-tab="panel_observer_report" title="Profile Sources by Observer" > 
@@ -203,7 +203,9 @@
 	//select date
 	var currentJourneyMapId = ""; 
     var initPrimaryDashboard = function () {
+    	// init tabs
     	setupTabPanels();
+    	
     	updateProfileChartWrapper();		
     	//initDateFilterComponent(false);
     	initDateFilterComponent(false, null, null, 45);

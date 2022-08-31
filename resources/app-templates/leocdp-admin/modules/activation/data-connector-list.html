@@ -53,6 +53,14 @@
 					e.service_api_key = "";
 				}
 				
+				// TODO 
+				if(e.id === "sendinblue" || e.id === "mailchimp") {
+					e.statusText = "";
+				}
+				else {
+					e.statusText = "disabled";
+				}
+				
 				var boxTpl = _.template( $('#tpl_data_connector_view').html() );
 				holder.append( boxTpl(e) );
 				
@@ -265,12 +273,12 @@
 		</div>
 	 	<div id="<%- id %>_buttons_div" class="row" style="margin-top:12px">
 			<div class="col-md-6 text-center">
-		    	<button type="button" class="btn btn-goto-router btn-sm" title="Set Configs" onclick="setDataConnectorInfo('<%- id %>')"  > 
+		    	<button type="button" class="btn btn-goto-router btn-sm" title="Set Configs" onclick="setDataConnectorInfo('<%- id %>')" <%- statusText %> > 
 		  			<i class="fa fa-cog" aria-hidden="true"></i> Set Configs 
 		  		</button>
 		    </div>
 			<div class="col-md-6 text-center">
-		    	<button type="button" class="btn btn-danger btn-sm" title="Delete all configs of this service" onclick="deleteDataConnectorInfo('<%- id %>')"  > 
+		    	<button type="button" class="btn btn-danger btn-sm" title="Delete all configs of this service" onclick="deleteDataConnectorInfo('<%- id %>')" <%- statusText %> > 
 		  			<i class="fa fa-trash" aria-hidden="true"></i> Delete Configs 
 		  		</button>
 		    </div>
