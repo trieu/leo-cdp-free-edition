@@ -117,16 +117,17 @@
 			currentJourneyMapId = id;
 			// load event reports
 			loadEventDailyReportUnit(true);
-			loadEventMatrixSummaryReport();
         },true);
 		
 		loadEventDailyReportUnit(false);
-		loadEventMatrixSummaryReport()
     }  
     
     function loadEventMatrixSummaryReport(){
     	setTimeout(function(){
-    		loadJourneyMapEventMatrix(currentJourneyMapId, 'event_data_metrix_report')
+    		var params = getDateFilterValues();
+    		var beginFilterDate = new moment( params.beginFilterDate).format(defaultDateFormat);
+    		var endFilterDate = new moment( params.endFilterDate).format(defaultDateFormat);
+    		loadJourneyMapEventMatrix(currentJourneyMapId, 'event_data_metrix_report', beginFilterDate, endFilterDate)
     	}, 1200)
     }
     
@@ -181,7 +182,9 @@
 	    		}
 	    		else {
 	    			window.eventTimeseriesChart = renderTimeseriesChart(chartId, json.data , false);
-	    		}		   		
+	    		}
+	    		
+	    		loadEventMatrixSummaryReport();
             } else {
                 console.error(json);
             }
