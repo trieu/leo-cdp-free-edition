@@ -117,12 +117,18 @@
 			currentJourneyMapId = id;
 			// load event reports
 			loadEventDailyReportUnit(true);
-	    	loadJourneyMapEventMatrix(currentJourneyMapId, 'event_data_metrix_report')
+			loadEventMatrixSummaryReport();
         },true);
 		
 		loadEventDailyReportUnit(false);
-		loadJourneyMapEventMatrix(currentJourneyMapId, 'event_data_metrix_report')
-    }    
+		loadEventMatrixSummaryReport()
+    }  
+    
+    function loadEventMatrixSummaryReport(){
+    	setTimeout(function(){
+    		loadJourneyMapEventMatrix(currentJourneyMapId, 'event_data_metrix_report')
+    	}, 2000)
+    }
     
     window.eventTimeseriesChart = false;
     var loadEventDailyReportUnit = function(refresh){
