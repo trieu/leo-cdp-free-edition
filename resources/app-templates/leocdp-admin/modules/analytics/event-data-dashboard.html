@@ -111,7 +111,7 @@
     	setupTabPanels();
     	
     	// data filter
-    	initDateFilterComponent(false, null, null, 45);
+    	initDateFilterComponent(false, null, null, 30);
     	
 		loadJourneyMapList(false, function(id){
 			currentJourneyMapId = id;
@@ -177,7 +177,7 @@
 	    			window.eventTimeseriesChart = renderTimeseriesChart(chartId, json.data , false);
 	    		}		   		
             } else {
-                LeoAdminApiUtil.logErrorPayload(json);
+                console.error(json);
             }
         });
     }
