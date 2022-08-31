@@ -93,8 +93,8 @@
                 if (json.httpCode === 0 && json.errorMessage === '') {
                 	//OK, set session data
                     encryptionkey = json.data;
-                    lscache.set('usersession', session, 10080);
-                    lscache.set('encryptionkey', encryptionkey, 10080);
+                    lscache.set('usersession', session, 20160);
+                    lscache.set('encryptionkey', encryptionkey, 20160);
 
                     // update UI
                     $("#system_user_login_form, #btn_system_login").hide();                    
@@ -103,7 +103,7 @@
                     //wait and reload
                     setTimeout(function () { 
                     	window.location.reload(true);
-                    }, 2000);
+                    }, 2500);
                 } else {
                 	$('#info-login').hide();
                     $('#error-login').html('<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ' + json.errorMessage).show().delay(3000).fadeOut();
