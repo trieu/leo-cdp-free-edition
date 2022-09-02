@@ -28,7 +28,7 @@
 
 - [In Plan] Using Jupyter notebook to update profile CLV and Credit Scoring 
 
-## [0.8.9] - 2022-08-31
+## [0.8.9] - 2022-09-03
 
 ### Added 
 
@@ -90,6 +90,7 @@
 
 ### Fixed 
 
+- [DailyReportUnit] add indexing for journeyMapId
 - [Profile 360 Analytics Report] show all data from all journey
 - [Journey] update authorization should update profile authorization
 - [UX] improve UI/UX of feedback survey 

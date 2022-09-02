@@ -1150,10 +1150,10 @@ AQL_UPDATE_TRACKING_EVENT_SRC_TOUCHPOINT_HUB_ID =>
 
 AQL_GET_TRACKING_EVENT_TIMESERIES_REPORT =>
 	FOR e in cdp_trackingevent 
-		FILTER (e.refJourneyId == @refJourneyId OR @refJourneyId == "") AND (e.refProfileId == @refProfileId OR @refProfileId == "")
+		FILTER (e.refJourneyId == @refJourneyId OR @refJourneyId == "") AND (e.refProfileId == @refProfileId OR @refProfileId == "") AND e.observerId != null
 			   AND ((e.createdAt >= @beginFilterDate OR @beginFilterDate == "") AND (e.createdAt <= @endFilterDate OR @endFilterDate == ""))
 		COLLECT dateKey = DATE_FORMAT(e.createdAt,"%yyyy-%mm-%dd"), metricName = e.metricName
-		AGGREGATE eventCount = COUNT_DISTINCT(e._key)
+		AGGREGATE eventCount = SUM(e.metricValue)
 	    RETURN {"datekey": dateKey, "metricName": metricName, "eventCount": eventCount}
 ;
 
@@ -1181,7 +1181,7 @@ AQL_EVENT_MATRIX_REPORT =>
 				FILTER (e.refJourneyId == @refJourneyId OR @refJourneyId == "") AND (e.refProfileId == @refProfileId OR @refProfileId == "")
 					   AND ((e.createdAt >= @beginFilterDate OR @beginFilterDate == "") AND (e.createdAt <= @endFilterDate OR @endFilterDate == ""))
 				COLLECT groupKey = e.observerId, metricName = e.metricName
-				AGGREGATE eventCount = COUNT_DISTINCT(e._key)
+				AGGREGATE eventCount = SUM(e.metricValue)
 				SORT eventCount DESC
 			RETURN {"groupKey": groupKey, "metricName": metricName, "eventCount": eventCount}
 		)	
