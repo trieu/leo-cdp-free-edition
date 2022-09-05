@@ -92,8 +92,7 @@
 	            <h5 class="highlight_text text-center" > Summary Count </h5>
 	            <div class="summary_metric">
 	                <div class="vcenter" id="event_report_stats" style="overflow-y:scroll;">
-	                    <!--  Events -->
-	                    <div class="text-center" style="padding: 10px"> No data available </div>
+	                    <!--  Event Summary Report -->
 	                </div>
 	            </div>
 	       	</div>
@@ -106,7 +105,6 @@
 	
 	var currentJourneyMapId = ""; 
     var intEventDataDashboard =  function() {
-    	
     	// init tabs
     	setupTabPanels();
     	
@@ -123,12 +121,36 @@
     }  
     
     function loadEventMatrixSummaryReport(){
+    	var sel = '#event_report_stats';
+    	var loader = '<div class="loader"></div> ';
+    	
+    	var wh = $(window).height();
+   		var h = wh - (Math.floor(wh/3)+50);
+   		$(sel).html(loader).css('height',h+'px');
+   		$('#event_data_metrix_report').html(loader)
+    	
     	setTimeout(function(){
     		var params = getDateFilterValues();
     		var beginFilterDate = params.beginFilterDate;
     		var endFilterDate = params.endFilterDate;
-    		loadJourneyMapEventMatrix(currentJourneyMapId, 'event_data_metrix_report', beginFilterDate, endFilterDate)
-    	}, 1200)
+    		loadJourneyMapEventMatrix(currentJourneyMapId, 'event_data_metrix_report', beginFilterDate, endFilterDate, function(data){
+    			// event summary stats
+				var reportSummary = data.reportSummary;
+		   		var reportKeys = Object.keys(data.reportSummary);
+		   		var len = reportKeys.length;
+	    		if(len > 0) {
+	    			$(sel).empty();
+	    			reportKeys.sort();
+	    			reportKeys.forEach(function(eventName) {
+	    				var eventCount = reportSummary[eventName];
+	    				appendItemCount(sel, eventName, eventCount);
+	       			});	        		
+	    		}
+	    		else {
+	    			$(sel).empty().html('<div class="text-center" style="padding: 10px"> No data available </div>');
+	    		}
+    		})
+    	}, 1000)
     }
     
     window.eventTimeseriesChart = false;
@@ -158,26 +180,7 @@
         		var profileCount =  new Number(json.data.profileCount).toLocaleString(); 
         		$('#profile_count_for_events').text(profileCount);
         		
-        		// 2) event summary stats
-				var sel = '#event_report_stats';
-		   		var wh = $(window).height();
-		   		var h = wh - (Math.floor(wh/3)+50);
-		   		$(sel).css('height',h+'px');
-		   		var reportKeys = Object.keys(json.data.reportSummary);
-		   		var len = reportKeys.length;
-	    		if(len > 0) {
-	    			$(sel).empty();
-	    			reportKeys.sort();
-	    			reportKeys.forEach(function(eventName) {
-	    				var eventCount = json.data.reportSummary[eventName];
-	    				appendItemCount(sel, eventName, eventCount);
-	       			});	        		
-	    		}
-	    		else {
-	    			$(sel).empty().html('<div class="text-center" style="padding: 10px"> No data available </div>');
-	    		}
-        		
-	    		// 3) render chart data
+	    		// render chart data
 	    		var chartId = 'timeseriesEventChart';
 	    		if(refresh === true && eventTimeseriesChart !== false){
 	    			renderTimeseriesChart(chartId, json.data , true, eventTimeseriesChart);
