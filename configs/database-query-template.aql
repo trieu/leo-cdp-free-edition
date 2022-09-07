@@ -907,8 +907,7 @@ AQL_DATA_STATS_COLLECTOR =>
 
 AQL_PROFILE_COLLECTOR_IN_DATE_RANGE =>
 	FOR d IN cdp_profile
-		FOR s in d.inJourneyMaps
-	    FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND d.status > 0 AND (d.updatedAt >= @beginFilterDate AND d.updatedAt <= @endFilterDate)
+	    FILTER (@journeyMapId == "" OR @journeyMapId IN d.inJourneyMaps[*].id) AND d.status > 0 AND (d.updatedAt >= @beginFilterDate AND d.updatedAt <= @endFilterDate)
 	    COLLECT funnelStage = d.funnelStage WITH COUNT INTO length
 	    RETURN { "collectorKey" : funnelStage, "collectorCount" : length }
 ;
