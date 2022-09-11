@@ -254,14 +254,14 @@
 </script>
 
 <script id='recommended-product-tpl' type="text/html" >
- <div class="list-group-item col-md-12" id="product_item_<%- key %>" data-key="<%- key %>" style="cursor:pointer" title="Drag and drop to update item ranking" >
+ <div class="list-group-item col-md-12" id="product_item_<%- key %>" data-key="<%- key %>" style="cursor:pointer" title="Click, drag and drop to update item ranking" >
 	<div class="col-md-2 text-center"> 
 		<img src="<%- product.headlineImageUrl %>" alt="Product Image" class="rounded mx-auto d-block item-headline-img"  > 
 	</div>
 	 <div class="col-md-10">
 		<small class="text-muted pull-right"> Updated at: <%- updatedAt %> </small>
 
-		<span class="rank_item_info" > Ranking Index: <span class="rank_info" id="rank_product_<%- key %>" data-key="<%- key %>" ><%- indexScore %></span> </span> <br> 
+		<span class="rank_item_info" > Item Index: <span class="rank_info" id="rank_product_<%- key %>" data-key="<%- key %>" ><%- indexScore %></span> </span> <br> 
 		<h5 class="media-heading">  <%- product.title %> </h5>
 
 		<div class="row">

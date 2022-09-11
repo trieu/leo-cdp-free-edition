@@ -4,7 +4,6 @@
 }
 </style>
 
-
 <!-- Group Details -->
 
 <div class="row">
@@ -50,10 +49,13 @@
         <div class="panel panel-default" id="posts_of_page_view">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-lg-9">
+                    <div class="col-lg-7">
                         <i class="fa fa-list-ul" aria-hidden="true"></i> <label>Asset Item List</label>                            
                     </div>
-                    <div class="col-lg-3" style="text-align: right;">
+                    <div class="col-lg-5" style="text-align: right;">
+                    	<button type="button" class="btn btn-danger data-control-delete" onclick="removeRecommendedItemsInAssetGroup()">
+                    		<i class="fa fa-trash" aria-hidden="true"></i> Remove Recommended Items 
+                    	</button>
 			        	<button id="btn_import_items" type="button" class="btn btn-goto-router data-control-update" style="display: none;" title="Import Items" > 
 			        		<i class="fa fa-cloud-upload" aria-hidden="true"></i> Import Data
 			        	</button>
@@ -200,13 +202,10 @@
 	    }
     	$('#btn_new_item').show();
     }
-    
-
 
     function loadAssetItems() {
         var usersession = lscache.get('usersession');
         if (usersession) {
-        	
         	var columnProcessor = [
         		{
                      "render": function (data, type, row) {
@@ -393,6 +392,19 @@
         return '<i class="fa fa-file-text-o" '+style+' > META DATA</i>';
     }
     
-    
+	function removeRecommendedItemsInAssetGroup(){				
+		iziToast.info({  title: 'Information Box', color : 'green', message: 'Starting the process to remove recommended items'});
+	    var urlStr = baseLeoAdminUrl + '/cdp/segment/remove-recommened-items';
+	    var params = { "assetGroupId": assetGroupId };
+	    LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
+	         if (json.httpCode === 0 && json.errorMessage === '') {
+	        	var ok = json.data;	        	 
+	        	if(ok){
+					iziToast.info({title:'Information Box', color : 'green', message: 'Successfully remove all recommended items in the asset group'});
+	        	}
+	         }
+	    });
+		
+	}
 </script>
 

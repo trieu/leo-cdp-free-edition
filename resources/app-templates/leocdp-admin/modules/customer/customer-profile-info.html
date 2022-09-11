@@ -189,7 +189,7 @@
           	<a href="javascript:" data-target-tab="panel_content_suggestions" > <i class="fa fa-list-ol" aria-hidden="true"></i> Suggested Contents </a>
          </li>
          
-         <li data-industry="COMMERCE" style="display: none;" onclick="loadRecommendedProducts()" >
+         <li data-industry="COMMERCE" style="display: none;" onclick="loadRecommendedProductsForProfile(viewProfileId, true)" >
          	<a href="javascript:" data-target-tab="panel_recommended_products"  title="Recommended Product Items" > <i class="fa fa-list-ol" aria-hidden="true"></i> Suggested Items </a>
          </li>
          
@@ -1040,7 +1040,7 @@
 			<div class="tab-pane" id="panel_content_suggestions"  >
 				<!-- tab 4 content  -->
 		     	<h4 class="highlight_text" > <i class="fa fa-list-ol" aria-hidden="true"></i> Top recommended contents for customer engagement </h4>
-		     	<h5> <i class="fa fa-info" aria-hidden="true"></i> Drag and drop the items below to customize content ranking </h5>
+		     	<h5> <i class="fa fa-info" aria-hidden="true"></i> You can drag and drop the items below to customize content ranking </h5>
 		     	<div id="recommended_content_list" class="list-group col">
 					<!-- recommended_content_list -->
 					<div class="list-group-item" > No data available </div>
@@ -1051,7 +1051,7 @@
 			<div class="tab-pane" id="panel_recommended_products"  >
 				<!-- tab 6 content  -->
 		     	<h4 class="highlight_text" > <i class="fa fa-list-ol" aria-hidden="true"></i> Top recommended products for customer personalization </h4>
-		     	<h5> <i class="fa fa-info" aria-hidden="true"></i> Drag and drop the items below to customize item ranking </h5>
+		     	<h5> <i class="fa fa-info" aria-hidden="true"></i> You can drag and drop the items below to customize product ranking </h5>
 		     	<div id="recommended_product_list" class="list-group col">
 					<!-- recommended_product_list -->
 					<div class="list-group-item" > No data available </div>
@@ -1173,8 +1173,8 @@
         	 loadFeedbackEventsInProfile();
         	 
         	 // Recommender for Data Personalization
-        	 loadRecommendedContents();
-        	 loadRecommendedProducts();
+        	 loadRecommendedContentsForProfile(viewProfileId, true);
+        	 loadRecommendedProductsForProfile(viewProfileId, true);
         	 
         	 // Financial Events
         	 loadFinancialEventList();

@@ -28,10 +28,11 @@
 
 - [In Plan] Using Jupyter notebook to update profile CLV and Credit Scoring 
 
-## [0.8.9] - 2022-09-04
+## [0.8.9] - 2022-09-12
 
 ### Added 
 
+- [Data Personalization] add recommended items and can remove recommended items in segment and asset group
 - [Event Data Report] filter event time series by journey map and event matrix report
 - [Profile Report] add event matrix report
 - [Digital Asset] add contact lead form to collect profile data

@@ -25,15 +25,16 @@
 	    font-weight: bold;
 	    overflow: hidden;
 	}
-	
 	#flow_network_report_wrapper {
 		display:block; height:680px; width:100%; background-color:#e8e8e8; border-radius:10px;
 	}
 	.chosen-container {
 		z-index: 100!important;
 	}
+	.cy-panzoom {
+		z-index: 1!important;
+	}
 </style>
-
 
 <div id="primary_dashboard_loader" class="loader"></div>
 <div id="primary_dashboard" class="container-fluid"  style="display: none;" >
@@ -200,6 +201,7 @@
 <br><br>
 
 <script>
+
 	//select date
 	var currentJourneyMapId = ""; 
     var initPrimaryDashboard = function () {
@@ -498,5 +500,4 @@
     		},300)
     	}
     }
-    
 </script>

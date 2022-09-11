@@ -1553,4 +1553,24 @@ AQL_LIST_ALL_DATA_CONNECTORS =>
 	RETURN e
 ;
 
+########### PERSONALIZATION ENGINE  ########################################################################################################;
+
+AQL_GET_METADATA_RECOMMENDED_PRODUCTS_OF_PROFILE =>
+	LET fromEdgeId = CONCAT("cdp_profile/",@profileId) 
+	FOR r IN cdp_profile2product
+	    FOR t IN cdp_targetmediaunit
+	FILTER r.eventMetricId == "recommend" AND r._from == fromEdgeId AND r.targetMediaUnitId == t._key
+	SORT r.eventScore DESC, r.indexScore 
+	LIMIT @numberResult
+	RETURN {"rankingMetaData": r, "targetMediaUnit": t}
+;	
+
+AQL_SET_RANKING_RECOMMENDED_PRODUCTS_OF_PROFILE =>
+	LET fromEdgeId = CONCAT("cdp_profile/",@profileId) 
+	FOR r IN cdp_profile2product
+	    FOR t IN cdp_targetmediaunit
+	FILTER r.eventMetricId == "recommend" AND r._from == fromEdgeId AND r.targetMediaUnitId == t._key AND t.refProductItemId == @productId
+	UPDATE r WITH { indexScore: @newIndexScore, updatedAt : DATE_ISO8601(DATE_NOW()) } IN cdp_profile2product
+;
+
 ############################################### END AQL  #####################################################################################

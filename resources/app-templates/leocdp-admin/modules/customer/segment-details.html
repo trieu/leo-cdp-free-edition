@@ -298,7 +298,7 @@
 				
 				<div class="form-group highlight_box" >
 		     		<div class="col-lg-5">
-		     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Digital asset category </label>
+		     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Asset category </label>
 		     		</div>
 		     		<div class="col-lg-7" id="assetCategoryHolder" >
 		     			<label class="radio-inline"><input type="radio" name="assetCategory" value="product" checked="checked" > Product Data Asset</label>
@@ -308,7 +308,7 @@
 				
 				<div class="form-group highlight_box" >
 					<div class="col-lg-5">
-	                	<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Priority group for matched profiles </label>
+	                	<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Asset group for personalization </label>
 	                </div>
 		     		<div class="col-lg-7"  >
 		                <select id="priorityGroupSelector" data-placeholder="Choose a group name" class="select" >
@@ -318,8 +318,15 @@
 	            </div>
 	            
 	            <div class="form-group text-right" >
-	            	<button type="button" class="btn btn-do-now" onclick="doSetItemsToRecommenderSystem()"><i class="fa fa-check" aria-hidden="true"></i> Run Personalization Engine </button>
+	            	<button type="button" class="btn btn-do-now" onclick="setDataForPersonalizationInSegment()"><i class="fa fa-check-circle" aria-hidden="true"></i> Add Recommended Items </button>
+	            	<button type="button" class="btn btn-danger" onclick="removeRecommendedItemsInSegment()"><i class="fa fa-trash" aria-hidden="true"></i> Remove Recommended Items </button>
 	            </div>
+	            <hr>
+	            <h4> Total of recommended items: <mark id="max_recommended_items_in_segment"></mark> </h4>
+	            <div id="recommended_product_list" class="list-group col">
+					<!-- recommended_product_list -->
+					<div class="list-group-item" > No data available </div>
+				</div>
 			</div>
 			
 			<!-- tab 6 Data Activation  -->
@@ -434,6 +441,7 @@
 <script>
 	var segmentDataModel = false;
 	var segmentDataStats = false;
+	var segmentFirstProfileId = false;
 	
 	var initSegmentDetails = function(id) {
 		// init UI tab
@@ -953,19 +961,29 @@
         });
 	}
 	
-	function doSetItemsToRecommenderSystem() {
+	function initPersonalizationInSegment(profileId){
+		if(segmentFirstProfileId === false){
+			segmentFirstProfileId = profileId;
+			
+			var assetCategory = $('#assetCategoryHolder input:checked').val();
+			if(assetCategory === "product"){
+				loadRecommendedProductsForProfile(segmentFirstProfileId, false, function(len){
+		    		$('#max_recommended_items_in_segment').html(len)
+		    	});
+			}
+		}
+	}
+	
+	function setDataForPersonalizationInSegment() {
+		var assetCategory = $('#assetCategoryHolder input:checked').val();
+		var assetGroupId = $('#priorityGroupSelector').val();
 		var segmentId = segmentDataModel.id;
-		var groupId = $('#priorityGroupSelector').val();
 		
-		if(groupId && groupId !== ""){
-			iziToast.info({
-			    title: 'Information Box',
-			    color : 'green',
-			    message: 'Starting the process to set data for recommmender system'
-			});
+		if(assetGroupId && assetGroupId !== ""){
+			iziToast.info({  title: 'Information Box', color : 'green', message: 'Starting the process to set recommended items for data personalization'});
 		    
-		    var urlStr = baseLeoAdminUrl + '/cdp/asset-group/set-items-to-recommender-system';
-		    var params = { "groupId": groupId, "segmentId" : segmentId };
+		    var urlStr = baseLeoAdminUrl + '/cdp/segment/set-recommened-items';
+		    var params = { "assetGroupId": assetGroupId, "segmentId" : segmentId };
 		    
 		    LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
 		         if (json.httpCode === 0 && json.errorMessage === '') {
@@ -973,12 +991,44 @@
 		        	 iziToast.info({
 		       		    title: 'Information Box',
 		       		    color : 'green',
-		       		    message: 'Finished the process to set data for recommmender system, total graph edges: ' + c 
+		       		    message: 'Finished the process to set recommended items, total graph connections: ' + c 
 		       		});
+		        	 
+		        	if(segmentFirstProfileId !== false ){
+		        		// select the first profile of this segment and load recommended items
+		        		if(assetCategory === "product"){
+		        			loadRecommendedProductsForProfile(segmentFirstProfileId, false, function(len){
+			 		    		$('#max_recommended_items_in_segment').html(len)
+			 		    	});
+		        		}
+		 		    }
 		         }
 		    });
 		}
 	}
+	
+	function removeRecommendedItemsInSegment(){
+		var assetCategory = $('#assetCategoryHolder input:checked').val();
+		var assetGroupId = $('#priorityGroupSelector').val();
+		var segmentId = segmentDataModel.id;
+		if(assetGroupId && assetGroupId !== ""){
+			iziToast.info({  title: 'Information Box', color : 'green', message: 'Starting the process to remove recommended items'});
+		    
+		    var urlStr = baseLeoAdminUrl + '/cdp/segment/remove-recommened-items';
+		    var params = { "assetGroupId": assetGroupId, "segmentId" : segmentId };
+		    LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
+		         if (json.httpCode === 0 && json.errorMessage === '') {
+		        	var ok = json.data;
+		        	if(ok){
+						iziToast.info({title:'Information Box', color : 'green', message: 'Successfully remove all recommended items in the segment'});
+		        	}
+		        	$('#recommended_product_list').empty();
+		        	$('#max_recommended_items_in_segment').html(0);
+		         }
+		    });
+		}
+	}
+
 </script>
 
 
