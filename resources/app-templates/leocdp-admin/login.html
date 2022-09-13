@@ -3,10 +3,7 @@
         <div class="row">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
-                <img id="login_logo" src="" alt="MainLogo" style="display: none; width: 42%" class="img-responsive center-block" />
-                <script>
-                	$('#login_logo').attr('src', window.pageHeaderLogo).show();
-                </script>
+                <img id="login_logo" src="" alt="MainLogo" style="display: none; max-width: 300px;max-height: 140px;" class="img-responsive center-block" />
                 <hr>
                 <div>
                     <fieldset>
@@ -53,6 +50,9 @@
 </div>
 
 <script>
+	// show logo
+	$('#login_logo').attr('src', window.pageHeaderLogo).show();
+	
     var usersession = lscache.get('usersession');
     var encryptionkey = lscache.get('encryptionkey');
 
