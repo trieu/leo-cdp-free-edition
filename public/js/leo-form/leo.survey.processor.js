@@ -207,10 +207,14 @@ function initFeedbackSurvey(initFeedbackSurveyCallback) {
 		formModel.push({ "key": "mediaSources",  "type": "checkboxes", "fieldHtmlClass" : "leo_form_input" });
 	} 
 	
+	if(model.Profile_Info_Guide) {
+		// e.g: Personal Information
+		formModel.push({ "type": "help", "helpvalue": "<b>" + model.Profile_Info_Guide +"</b>"});
+	}
+	
 	if(isEnglish) {
 		// Profile_First_Name_Label
 		if(model.Profile_First_Name_Label) {
-			formModel.push({ "type": "help", "helpvalue": "<b>Personal Information</b>"});
 			formSchema["profileFirstName"] = {
 			      "type": "string",
 			      "required": true,
@@ -232,9 +236,6 @@ function initFeedbackSurvey(initFeedbackSurveyCallback) {
 	else {
 		// Profile_Last_Name_Label
 		if(model.Profile_Last_Name_Label) {
-			if(model.Language === "vn") {
-				formModel.push({ "type": "help", "helpvalue": "<b>Thông tin cá nhân</b>"});
-			}
 			formSchema["profileLastName"] = {
 			      "type": "string",
 			      "required": true,
@@ -466,7 +467,8 @@ function initFeedbackSurvey(initFeedbackSurveyCallback) {
 	// Rating Quesions
 	if( model.Rating_Question_Guide ){
 		formModel.push({ "type": "help", "helpvalue": "<b>" + model.Rating_Question_Guide + "</b>"});
-	}		
+	}	
+	
 	// Questions
 	var ratingQuestionLength = Object.keys(model.Rating_Question_List).length;
 	for (var questionGroup in model.Rating_Question_List ) {
@@ -752,6 +754,7 @@ var onSubmitForm = function(errors, formData) {
 		console.log(submitModel);
 		
 		var justSubmitProfileData = surveyTemplateModel.Rating_Question_List.length === 0;
+		
 		if(totalRatingQuestions > 0 || justSubmitProfileData){
 			if(totalRatingQuestions > totalRatingAnswers) {
 				var errorMsg = '<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Please answer all ' + totalRatingQuestions +' questions !';

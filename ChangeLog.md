@@ -20,21 +20,21 @@
 
 #### High Priority Tasks
 
-- [In Progress] using chartjs-chart-matrix for data journey reporting (https://chartjs-chart-matrix.pages.dev/samples/category.html)
-- [In Progress] UI to create new observed event in LEO CDP Admin
 - [In Progress] printable document, video and example for LEO CDP API
+- [In Progress] UI to create new observed event in LEO CDP Admin
 
 #### Low  Priority Tasks
 
 - [In Plan] Using Jupyter notebook to update profile CLV and Credit Scoring 
 
-## [0.8.9] - 2022-09-12
+## [0.8.9] - 2022-09-13
 
-### Added 
+### Added
 
 - [Data Personalization] add recommended items and can remove recommended items in segment and asset group
 - [Event Data Report] filter event time series by journey map and event matrix report
 - [Profile Report] add event matrix report
+- [Journey Report] using chartjs-chart-matrix for data journey reporting (https://chartjs-chart-matrix.pages.dev/samples/category.html)
 - [Digital Asset] add contact lead form to collect profile data
 - [Profile Editor] admin can add or remove a data journey map of a specific profile
 - [Login Account Editor] manage viewable and editable profiles, manage viewable and editable segments, manage authorization of journey map
@@ -91,6 +91,7 @@
 
 ### Fixed 
 
+- [Survey] user can skip some rating questions
 - [Segment Builder] can not filter profiles with multiple journey maps
 - [DailyReportUnit] add indexing for journeyMapId
 - [Profile 360 Analytics Report] show all data from all journey

@@ -1300,12 +1300,12 @@ AQL_COUNT_PRODUCT_ITEMS_IN_GROUP =>
 
 AQL_GET_TEMPLATE_BY_ID =>
 	FOR e IN cdp_assettemplate FILTER e._key == @id  
-		RETURN e
+	RETURN e
 ;
 
 AQL_GET_TEMPLATE_BY_SLUG =>
 	FOR e IN cdp_assettemplate FILTER e.slug == @slug  
-		RETURN e
+	RETURN e
 ;
 
 AQL_GET_TEMPLATES => 
@@ -1317,10 +1317,10 @@ AQL_GET_TEMPLATES =>
 
 AQL_GET_TEMPLATES_IN_GROUP =>
 	FOR p IN cdp_assettemplate 
-		FILTER @groupId IN p.groupIds[*] AND p.status >= 0
-		SORT p.updatedAt DESC
-		LIMIT @startIndex,@numberResult 
-		RETURN p
+	FILTER @groupId IN p.groupIds[*] AND p.status >= 0
+	SORT p.updatedAt DESC
+	LIMIT @startIndex,@numberResult 
+	RETURN p
 ;
 
 AQL_COUNT_TEMPLATES_IN_GROUP =>
@@ -1333,12 +1333,14 @@ AQL_COUNT_TEMPLATES_IN_GROUP =>
 AQL_GET_TEMPLATES_BY_ASSET_TYPE_AND_CATEGORY =>
 	FOR e IN cdp_assettemplate
 	FILTER e.assetType == @assetType AND @categoryId IN e.categoryIds
+	SORT e.updatedAt DESC
 	return e
 ;
 
 AQL_GET_TEMPLATES_BY_ASSET_TYPE_AND_TEMPLATE_TYPE_AND_CATEGORY =>
 	FOR e IN cdp_assettemplate
 	FILTER e.assetType == @assetType AND e.templateType == @templateType AND @categoryId IN e.categoryIds
+	SORT e.updatedAt DESC
 	return e
 ;
 
@@ -1346,21 +1348,21 @@ AQL_GET_TEMPLATES_BY_ASSET_TYPE_AND_TEMPLATE_TYPE_AND_CATEGORY =>
 
 AQL_GET_DEVICE_BY_ID =>
 	FOR e in cdp_device FILTER e._key == @id
-		RETURN e
+	RETURN e
 ;
 
 ###########  TARGET_MEDIA_UNIT  ########################################################################################################;
 
 AQL_GET_TARGET_MEDIA_UNIT_BY_ID =>
 	FOR e in cdp_targetmediaunit 
-		FILTER e._key == @id
-		RETURN e
+	FILTER e._key == @id
+	RETURN e
 ;
 
 AQL_GET_TARGET_MEDIA_UNIT_BY_PROFILE_ID =>
 	FOR e in cdp_targetmediaunit 
-		FILTER e.refProfileId == @refProfileId
-		RETURN e
+	FILTER e.refProfileId == @refProfileId
+	RETURN e
 ;
 
 ###########  SEGMENT  ########################################################################################################;
