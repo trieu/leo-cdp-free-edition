@@ -189,7 +189,7 @@
 					<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Data Query Rules </b> </div>
 					<div class="panel-body row">
 						<div class="col-lg-12">
-							<div id="segment-builder-holder"></div>
+							<div id="segment-builder-holder" style="display: none;"></div>
 						</div>
 					</div>
 				</div>
@@ -464,7 +464,7 @@
         		segmentDataStats = json.data.segmentStats;
                 var segmentId = segmentDataModel.id;
                 var managedBySystem = segmentDataModel.managedBySystem;
-                var jsonQueryRules = JSON.parse( segmentDataModel.jsonQueryRules );
+                var jsonQueryRules = JSON.parse(segmentDataModel.jsonQueryRules);
                 
                 document.title = 'Segment Details - ' + segmentDataModel.name;
         		
@@ -503,7 +503,14 @@
                 loadActivationPlanTable(segmentDataModel.allActivationRules);
                 
                 // Segment Query Builder
-                loadSegmentBuilder(touchpointHubs, behavioralEventMap, assetGroups , jsonQueryRules, true, false);
+                loadSegmentBuilder(touchpointHubs, behavioralEventMap, assetGroups, jsonQueryRules, function(){
+                	setTimeout(function(){
+                		// disable and hide all controllers in segment builder 
+                		var node = $('#segment-builder-holder').show();
+                		node.find('input,select').attr('disabled','disabled');
+                		node.find('button').hide();
+                	},3000)
+                });
                 
                 // load profile list table
                 loadProfilesInSegment();

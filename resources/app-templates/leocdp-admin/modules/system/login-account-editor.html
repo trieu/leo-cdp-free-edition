@@ -100,11 +100,17 @@ div.panel_header {
 	                    </div>
 	                </div>
 	                <hr>
-	                
+	                <div class="form-group" style="display: none;">
+	                    <label> Primary Business Unit </label>
+	                    <select name="businessUnit" data-placeholder="Choose Business Unit" class="select" >
+	                        <option value="" selected="selected"> No data </option>
+	                        <option value="USPA.tech"> USPA.tech </option>
+	                        <option value="LEOCDP.com"> LEOCDP.com </option>
+	                    </select>
+	                </div>
 	                <div class="form-group">
-	                    <label> Department / Business Unit </label>
-	                    <select name="businessUnit" data-placeholder="Choose Business Unit" class="select">
-	                        <option value=""> No data</option>
+	                    <label> Departments / User Groups </label>
+	                    <select name="inGroups" data-placeholder="Select some departments or user-groups" class="select" multiple="multiple" >
 	                        <option value="bod"> Board of Directors (BOD) </option>
 	                        <option value="investor"> Investor </option>
 	                        <option value="data_engineering_team"> Data Engineering </option>
@@ -114,6 +120,8 @@ div.panel_header {
 	                        <option value="marketing"> Marketing </option>
 	                        <option value="market_research"> Market Research </option>
 	                        <option value="finance"> Finance </option>
+	                        <option value="accounting"> Accounting </option>
+	                        <option value="audit"> Auditing </option>
 	                        <option value="biz_operation"> Business Operation </option>
 	                        <option value="pr_operation"> PR Operation </option>
 	                        <option value="product_operation"> Product Operation </option>
@@ -431,14 +439,26 @@ div.panel_header {
                      var position = userLoginModel.customData.position ? userLoginModel.customData.position : '';
                      node.find('input[name="customData_position"]').val(position);
 
+                     // load businessUnit in java template
                      var businessUnit = userLoginModel.businessUnit ? userLoginModel.businessUnit : '';
                      node.find('select[name="businessUnit"] option[value="' + businessUnit + '"]').attr('selected', 'selected');
                      node.find('select[name="businessUnit"]').chosen({
                          width: "100%",
                          no_results_text: "Oops, nothing found!"
                      }).trigger("chosen:updated").change(function () {
-                    	 //userLoginModel.group = $(this).val();
+                    	 // SKIP
                      });
+                     
+                     // inGroups
+                     var inGroups = userLoginModel.inGroups ? userLoginModel.inGroups : [];
+                     inGroups.forEach(function(e){
+                    	 node.find('select[name="inGroups"] option[value="' + e + '"]').attr('selected', 'selected');
+                     })
+                     node.find('select[name="inGroups"]').chosen({
+                         width: "100%",
+                         no_results_text: "Oops, nothing found!"
+                     }).trigger("chosen:updated");
+                     
 
                      //can not delete superadmin
                      if(userLoginModel.userLogin === 'superadmin'){
@@ -474,6 +494,7 @@ div.panel_header {
         userLoginModel.status = parseInt(node.find('input[name="status"]:checked').val());
         userLoginModel.role = parseInt(node.find('input[name="role"]:checked').val());
         userLoginModel.businessUnit = node.find('select[name="businessUnit"]').val();
+        userLoginModel.inGroups = JSON.stringify(node.find('select[name="inGroups"]').val());
         userLoginModel.customData.position = node.find('input[name="customData_position"]').val();
         
         // User Authorization
@@ -502,7 +523,7 @@ div.panel_header {
  	    	    	location.hash = "calljs-leoCdpRouter('User_Login_Management')";
  	    	    },
  	    	    message: "Updated information successfully!",
- 	    	    timeout: 3000
+ 	    	    timeout: 2000
  	    	});
         }
 

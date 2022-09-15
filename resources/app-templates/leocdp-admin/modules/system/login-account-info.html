@@ -57,33 +57,50 @@
 	                </div>
 	                <div class="form-group">
 	                    <label> Password </label>
-	                    <input type="text" class="form-control" placeholder="Enter New Password" name="userPass" autocorrect="off"
+	                    <input type="text" class="form-control" placeholder="Enter new password to update" name="userPass" autocorrect="off"
 	                        autocapitalize="off" autocomplete="nope">
 	                </div>
+	                <hr>
+	                <div class="form-group" style="display: none;">
+	                    <label> Primary Business Unit </label>
+	                    <select name="businessUnit" data-placeholder="Choose Business Unit" class="select" >
+	                        <option value="" selected="selected"> No data </option>
+	                        <option value="USPA.tech"> USPA.tech </option>
+	                        <option value="LEOCDP.com"> LEOCDP.com </option>
+	                    </select>
+	                </div>
 	                <div class="form-group">
-	                    <label> Department / Business Unit </label>
-	                    <select name="businessUnit" data-placeholder="Choose Business Unit" class="select">
-	                        <option value=""> No data</option>
+	                    <label> Departments / User Groups </label>
+	                    <select name="inGroups" data-placeholder="Select some departments or user-groups" class="select" multiple="multiple" >
 	                        <option value="bod"> Board of Directors (BOD) </option>
-	                        <option value="data_engineering_team"> Data Engineering team </option>
-	                        <option value="data_science_team"> Data Science team </option>
+	                        <option value="investor"> Investor </option>
+	                        <option value="data_engineering_team"> Data Engineering </option>
+	                        <option value="data_science_team"> Data Science </option>
+	                        <option value="devops_team"> DevOps / DataOps </option>
 	                        <option value="ai_team"> A.I team </option>
 	                        <option value="marketing"> Marketing </option>
+	                        <option value="market_research"> Market Research </option>
 	                        <option value="finance"> Finance </option>
-	                        <option value="operation"> Business Operation </option>
-	                        <option value="logistics"> Logistics </option>
+	                        <option value="accounting"> Accounting </option>
+	                        <option value="audit"> Auditing </option>
+	                        <option value="biz_operation"> Business Operation </option>
+	                        <option value="pr_operation"> PR Operation </option>
+	                        <option value="product_operation"> Product Operation </option>
+	                        <option value="engineering"> Product Engineering </option>
+	                        <option value="product_rnd"> Product R&D Development </option>
+	                        <option value="logistics"> Logistics / Product Delivery </option>
 	                        <option value="customer_support"> Customer Support </option>
 	                        <option value="trading"> Trading </option>
 	                        <option value="purchasing"> Purchasing </option>
-	                        <option value="sales_team"> Sales team </option>
+	                        <option value="sales_team"> Sales </option>
 	                        <option value="tech"> IT / Technology Support </option>
-	                        <option value="media_agency"> Media Agency </option>
+	                        <option value="media_agency"> Media Marketing Agency </option>
 	                        <option value="sales_agent"> Sales Agent / Sales Representative </option>
 	                    </select>
 	                </div>
 	                <div class="form-group">
 	                     <label> Job Title / Job Position </label>
-	                    <input type="text" class="form-control" placeholder="Enter Position" name="customData_position"
+	                    <input type="text" class="form-control" placeholder="Job Title / Job Position" name="customData_position"
 	                        autocorrect="off" autocapitalize="off" autocomplete="off">
 	                </div>
 	                
@@ -168,15 +185,26 @@
                      //customData
                      var position = userModel.customData.position ? userModel.customData.position : '';
                      node.find('input[name="customData_position"]').val(position);
-
+                     
+                     // load businessUnit in java template
                      var businessUnit = userModel.businessUnit ? userModel.businessUnit : '';
                      node.find('select[name="businessUnit"] option[value="' + businessUnit + '"]').attr('selected', 'selected');
                      node.find('select[name="businessUnit"]').chosen({
                          width: "100%",
                          no_results_text: "Oops, nothing found!"
                      }).trigger("chosen:updated").change(function () {
-                    	 //userModel.businessUnit = $(this).val();
+                    	 // SKIP
                      });
+
+                  	 // inGroups
+                     var inGroups = userModel.inGroups ? userModel.inGroups : [];
+                     inGroups.forEach(function(e){
+                    	 node.find('select[name="inGroups"] option[value="' + e + '"]').attr('selected', 'selected');
+                     })
+                     node.find('select[name="inGroups"]').chosen({
+                         width: "100%",
+                         no_results_text: "Oops, nothing found!"
+                     }).trigger("chosen:updated");
 
                      //can not delete superadmin
                      if(userModel.userLogin === 'superadmin'){
@@ -197,6 +225,7 @@
         userModel.userPass = node.find('input[name="userPass"]').val();
         
         userModel.businessUnit = node.find('select[name="businessUnit"]').val();
+        userModel.inGroups = JSON.stringify(node.find('select[name="inGroups"]').val());
         userModel.customData.position = node.find('input[name="customData_position"]').val();
 
         var urlStr = baseLeoAdminUrl + '/user/update';
@@ -207,7 +236,7 @@
 	    	    	location.reload(true)
 	    	    },
 	    	    message: "Updated information successfully!",
-	    	    timeout: 3000
+	    	    timeout: 2000
 	    	});
         }
 

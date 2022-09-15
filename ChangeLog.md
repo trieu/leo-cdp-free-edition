@@ -14,7 +14,7 @@
 - [In Plan] New Data Connector and connector protocol
 - [In Plan] Data Synch with time scheduler
 
-## Feature Plan for the next release 2022-09-15
+## Feature Plan for the next release 2022-09-30
 
 ### TODO for version [0.9.0]
 
@@ -27,10 +27,11 @@
 
 - [In Plan] Using Jupyter notebook to update profile CLV and Credit Scoring 
 
-## [0.8.9] - 2022-09-13
+## [0.8.9] - 2022-09-16
 
 ### Added
 
+- [User Login] save and load, select multiple user groups
 - [Data Personalization] add recommended items and can remove recommended items in segment and asset group
 - [Event Data Report] filter event time series by journey map and event matrix report
 - [Profile Report] add event matrix report
