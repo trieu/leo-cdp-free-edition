@@ -503,7 +503,6 @@
                 loadActivationPlanTable(segmentDataModel.allActivationRules);
         		
              	// show UI
-                $('#profilelist_holder').show();
                 $("#segment_details_div").show();
                 $("#segment_details_loader").hide();
         		
@@ -512,15 +511,15 @@
                 
                 // Segment Query Builder
                 loadSegmentBuilder(touchpointHubs, behavioralEventMap, assetGroups, jsonQueryRules, function(){
+                	// load profile list table
+                    loadProfilesInSegment();
+                	
                 	// disable and hide all controllers in segment builder 
             		var node = $('#segment-builder-holder');
             		node.find('input,select').attr('disabled','disabled');
             		node.find('button').hide();
-            		
-            		// load profile list table
-                    loadProfilesInSegment();
                     
-                    $("#segment_report_loader").hide();
+            		$('#profilelist_holder').show();
                 });
                 
              	
@@ -731,10 +730,16 @@
         
     	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/event-report/segment';
     	
+    	var chartId = 'segmentEventChart';
+    	$("#segment_report_loader").show();
+    	$("#"+chartId).css("visibility","hidden");
+    	
     	LeoAdminApiUtil.getSecuredData(urlStr, params , function (json) {
+    		$("#segment_report_loader").hide();
+    		$("#"+chartId).css("visibility","visible");
             if (json.httpCode === 0 && json.errorMessage === '') {
 	    		// 3) render chart data
-	    		var chartId = 'segmentEventChart';
+	    		
 	    		if(refresh === true && segmentEventChart !== false){
 	    			renderTimeseriesChart(chartId, json.data , true, segmentEventChart);
 	    		}
