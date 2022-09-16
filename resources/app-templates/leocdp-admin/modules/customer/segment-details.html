@@ -142,7 +142,7 @@
 						        </div>
 						    </div>
 							<div class="highlight_box">
-				      			
+				      			<div id="segment_report_loader" class="loader"></div>
 				      			<canvas id="segmentEventChart"></canvas>
 				      		</div>
 						</div>
@@ -501,6 +501,14 @@
 
   				// Activation Plan
                 loadActivationPlanTable(segmentDataModel.allActivationRules);
+        		
+             	// show UI
+                $('#profilelist_holder').show();
+                $("#segment_details_div").show();
+                $("#segment_details_loader").hide();
+        		
+             	// Segment Statistics
+                loadSegmentStatistics(segmentDataStats);
                 
                 // Segment Query Builder
                 loadSegmentBuilder(touchpointHubs, behavioralEventMap, assetGroups, jsonQueryRules, function(){
@@ -511,16 +519,11 @@
             		
             		// load profile list table
                     loadProfilesInSegment();
+                    
+                    $("#segment_report_loader").hide();
                 });
                 
-
-                // show UI
-                $('#profilelist_holder').show();
-                $("#segment_details_div").show();
-                $("#segment_details_loader").hide();
-                
-             	// Segment Statistics
-                loadSegmentStatistics(segmentDataStats);
+             	
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);
             }
