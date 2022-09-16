@@ -304,6 +304,7 @@
 			})
 		}
 	}
+
 	
 	var segmentQueryBuilderCallback =  function(){
 		$('#btn-reset-querybuilder').on('click', function() {
@@ -360,6 +361,7 @@
             	var touchpointHubs = json.data.touchpointHubs;
             	
         		// only super-admin role can remove the segment 
+        		var readOnlyMode = ! json.canEditData;
         		var segmentData = json.data.segmentData;
                 var segmentId = segmentData.id;
                 var managedBySystem = segmentData.managedBySystem;
@@ -410,7 +412,6 @@
             	var segmentData = json.data.segmentData;
             	var assetGroups = json.data.assetGroups;
             	var touchpointHubs = json.data.touchpointHubs;
-            	var jsonQueryRules = false;
             	
             	// set web form
             	setSegmentDataForm(segmentData)
@@ -420,7 +421,7 @@
                
              	// init UI after setting data into DOM
              	//initDateFilterComponent(true);
-				loadSegmentBuilder(touchpointHubs, behavioralEventMap, assetGroups, jsonQueryRules, segmentQueryBuilderCallback);
+				loadSegmentBuilder(touchpointHubs, behavioralEventMap, assetGroups , false, segmentQueryBuilderCallback);
                 
                 // load profile list table
                 setTimeout(loadProfilesInSegment,700);

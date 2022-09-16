@@ -92,6 +92,7 @@
 
 ### Fixed 
 
+- [Segment Details] should load journey maps and then render UI
 - [Survey] user can skip some rating questions
 - [Segment Builder] can not filter profiles with multiple journey maps
 - [DailyReportUnit] add indexing for journeyMapId

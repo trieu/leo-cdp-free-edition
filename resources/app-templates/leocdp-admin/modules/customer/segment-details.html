@@ -189,7 +189,7 @@
 					<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Data Query Rules </b> </div>
 					<div class="panel-body row">
 						<div class="col-lg-12">
-							<div id="segment-builder-holder" style="display: none;"></div>
+							<div id="segment-builder-holder" ></div>
 						</div>
 					</div>
 				</div>
@@ -347,7 +347,7 @@
 							    <div id="activationPlan" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="activationPlanHeader">
 							      <div class="panel-body">
 								      <div class="form-group" id="segment_purposes" >
-											<div class="col-sm-12 sm_purpose" id="sm_for3rdSynchronization" style="display: none;" > 
+											<div class="col-sm-12 sm_purpose" id="sm_for3rdSynchronization"  > 
 												<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> 
 												To synchronize customer data into external systems using connectors </label>
 												<button type="button" class="btn btn-do-now" title="Data Activation for connection and synchronization" data-purpose="for3rdSynchronization" > 
@@ -497,24 +497,23 @@
                 setupSegmentDataAndReports(segmentDataModel)
                 
                 //
-                setupSegmentPurposesActivation(segmentDataModel)
+                initSegmentActivationButtons(segmentDataModel)
 
   				// Activation Plan
                 loadActivationPlanTable(segmentDataModel.allActivationRules);
                 
                 // Segment Query Builder
                 loadSegmentBuilder(touchpointHubs, behavioralEventMap, assetGroups, jsonQueryRules, function(){
-                	setTimeout(function(){
-                		// disable and hide all controllers in segment builder 
-                		var node = $('#segment-builder-holder').show();
-                		node.find('input,select').attr('disabled','disabled');
-                		node.find('button').hide();
-                	},3000)
+                	// disable and hide all controllers in segment builder 
+            		var node = $('#segment-builder-holder');
+            		node.find('input,select').attr('disabled','disabled');
+            		node.find('button').hide();
+            		
+            		// load profile list table
+                    loadProfilesInSegment();
                 });
                 
-                // load profile list table
-                loadProfilesInSegment();
-                
+
                 // show UI
                 $('#profilelist_holder').show();
                 $("#segment_details_div").show();
@@ -745,10 +744,11 @@
         });
     }
 	
-	var setupSegmentPurposesActivation = function(segmentData) {
+	var initSegmentActivationButtons = function(segmentData) {
 		var segmentId = segmentData.id;
 		var name = segmentData.name;
 		var size = segmentData.totalCount;
+		
 		
 		$('button[data-purpose]').click(function(){
 			var purpose = $(this).data("purpose");
@@ -797,13 +797,6 @@
 	     $('b.segment_size').text(size.toLocaleString())
 	     
 	     var hasActivation = false;
-  
-	     if(segmentData.for3rdSynchronization){
-	    	 $('#sm_for3rdSynchronization').show();
-	    	 hasActivation = true;
-	     } else {
-	    	 $('#sm_for3rdSynchronization').hide()
-	     }
 	     
 	     if(segmentData.forDeepAnalytics){
 	    	 //$('#sm_forDeepAnalytics').show();
