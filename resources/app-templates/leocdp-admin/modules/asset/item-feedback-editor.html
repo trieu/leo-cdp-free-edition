@@ -86,37 +86,39 @@
             </div>
 			
 			<hr>
+			<div class="form-group editor_wrapper"  >
+				<label> HTML Head Code </label>
+             	<div id="html_head_code_container" style="width: 100%;" >
+                	<textarea id="html_head_code"></textarea>
+            	</div>
+            </div>
 		 
-           <div class="form-group editor_wrapper" id="survey_form_editor_wrapper"  >
-                <label> Survey Form Template </label>
+           	<div class="form-group editor_wrapper" id="survey_form_editor_wrapper"  >
+                <label> LEO Web Form Template </label>
                 <div id="raw_media_container" style="width: 100%;" >
                      <textarea id="raw_media_html"></textarea>
                 </div>
-           </div>
+           	</div>
             
-           <div class="form-group editor_wrapper" id="embedded_html_form_wrapper"  >
-                <label> HTML Head Code </label>
-                <div id="html_head_code_container" style="width: 100%;" >
-                     <textarea id="html_head_code"></textarea>
-                </div>
+           	<div class="form-group editor_wrapper" id="embedded_html_form_wrapper"  >
                 <label> HTML Body Code </label>
                 <div id="html_body_code_container" style="width: 100%;" >
                      <textarea id="html_body_code"></textarea>
                 </div>
-           </div>
+           	</div>
             
-           <div>
+           	<div>
 				 <div id="feedback_form_url_holder" class="alert alert-info" role="alert" >
 			 	 	<i class="fa fa-qrcode" aria-hidden="true" style="font-size: 1.1em" ></i>  
 				 	<b> Preview URL </b> <a id="preview_url_feedback_form" class="small-text" href="javascript:" target="_blank" ></a>
 				 </div>	
 			</div>
-           <div class="form-group" id="feedback_form_preview_holder" style="display: none;">
+           	<div class="form-group" id="feedback_form_preview_holder" style="display: none;">
             	<label> Preview </label>
 	            <div class="embed-responsive embed-responsive-16by9 display-flex-center " style="display: none;" >
 	               <iframe class="embed-responsive-item" id="feedback_form_preview" src=""></iframe>
 	            </div>
-           </div> 
+           	</div> 
     </div>
 </div>
 
@@ -130,12 +132,23 @@
     var feedbackModel = false;
 
     //raw HTML code editor
-    var surveyTemplateEditor = false, headHtmlEditor, bodyHtmlEditor;
+    var surveyTemplateEditor, headHtmlEditor, bodyHtmlEditor;
 
     function initSurveyEditor(params) {
     	feedbackModel = false;
     	
-    	// html code editor
+    	// html_head_code editor
+    	headHtmlEditor = CodeMirror.fromTextArea(document.getElementById("html_head_code"), {        
+            mode: "htmlmixed",           
+            lineNumbers: true ,
+            smartIndent: true ,
+            lineWrapping : true,
+            matchBrackets : true,
+            matchTags: {bothTags: true}
+        });
+    	headHtmlEditor.setSize($('#html_head_code_container').width()-18, 250);
+    	
+    	// research / feedback template code editor
     	surveyTemplateEditor = CodeMirror.fromTextArea(document.getElementById("raw_media_html"), {        
             mode: "htmlmixed",           
             lineNumbers: true ,
@@ -145,17 +158,6 @@
             matchTags: {bothTags: true}
         });
         surveyTemplateEditor.setSize($('#raw_media_container').width()-18, 1);
-        
-     	// html_head_code editor
-    	headHtmlEditor = CodeMirror.fromTextArea(document.getElementById("html_head_code"), {        
-            mode: "htmlmixed",           
-            lineNumbers: true ,
-            smartIndent: true ,
-            lineWrapping : true,
-            matchBrackets : true,
-            matchTags: {bothTags: true}
-        });
-    	headHtmlEditor.setSize($('#html_head_code_container').width()-18, 1);
         
      	// html_body_code editor
     	bodyHtmlEditor = CodeMirror.fromTextArea(document.getElementById("html_body_code"), {        
@@ -210,7 +212,11 @@
                         var fieldType = typeof value;
 
                         if (fieldType === 'number' || fieldType === 'string') {
-                            if (k === 'mediaInfo' && isLongHtmlForm) {
+                        	if (k === 'headCode') {
+                            	headHtmlEditor.setValue(value);
+                                CodeMirrorAutoFormat(headHtmlEditor);
+                            } 
+                        	else if (k === 'mediaInfo' && isLongHtmlForm) {
                             	surveyTemplateEditor.setValue(value);
                                 CodeMirrorAutoFormat(surveyTemplateEditor);
                                 var surveyEditorHeight = 720;
@@ -222,13 +228,7 @@
                                 if(typeof model.Language === "string" ){
                                 	$('input[name="surveyLanguage"][value="'+model.Language+'"]').prop('checked', true);
                                 }
-                            } 
-                            else if (k === 'headCode' && !isLongHtmlForm) {
-                            	headHtmlEditor.setValue(value);
-                                CodeMirrorAutoFormat(headHtmlEditor);
-                                headHtmlEditor.setSize(null, 250);
-                                $('#survey_form_editor_wrapper').hide()
-                            } 
+                            }
                             else if (k === 'bodyCode' && !isLongHtmlForm ) {
                             	bodyHtmlEditor.setValue(value);
                                 CodeMirrorAutoFormat(bodyHtmlEditor);
@@ -299,7 +299,6 @@
            	        	   	else {
            	        	   		$('#survey_form_editor_wrapper').hide()
            	        	   		$('#embedded_html_form_wrapper').show()
-           	        	   		headHtmlEditor.setSize(null, 250);
            	        	   		bodyHtmlEditor.setSize(null, 500);
            	        	   	}
            	        	});
@@ -334,15 +333,14 @@
             feedbackModel.templateType = parseInt(form.find('input:radio[name=templateType]:checked').val());
             feedbackModel.assetType = 13; // template
             
+            feedbackModel.headCode = headHtmlEditor.getValue().trim();
             if(templateType > 1) {
             	// rating forms
-            	feedbackModel.headCode = headHtmlEditor.getValue().trim();
                 feedbackModel.bodyCode = bodyHtmlEditor.getValue().trim();
                 feedbackModel.mediaInfo = "_";
             } else {
-            	// survey or contact
+            	// survey or research
             	feedbackModel.mediaInfo = surveyTemplateEditor.getValue().trim();
-            	feedbackModel.headCode = "";
             	feedbackModel.bodyCode = "";
             }
             

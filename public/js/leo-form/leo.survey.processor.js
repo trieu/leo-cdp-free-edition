@@ -42,11 +42,13 @@ window.totalRatingQuestions = 0;
 var formSchema = {}, formModel = [], callbacks = [];
 
 function initFeedbackSurvey(initFeedbackSurveyCallback) {
+	// the model of research / feedback survey
 	var model = JSON.parse($('#surveyJsonMetaData').val());
+	console.log(model);
+	
 	model.Rating_Question_List = typeof model.Rating_Question_List === "object" ? model.Rating_Question_List : [];
 	// set as global var
 	window.surveyTemplateModel = model;
-	console.log(model);
 	
 	var isEnglish = model.Language == null || model.Language === "en";
 	var placeholderPrefix = "";

@@ -53,7 +53,7 @@
                         <i class="fa fa-list-ul" aria-hidden="true"></i> <label>Asset Item List</label>                            
                     </div>
                     <div class="col-lg-5" style="text-align: right;">
-                    	<button type="button" class="btn btn-danger data-control-delete" onclick="removeRecommendedItemsInAssetGroup()">
+                    	<button id="btn_remove_recommended_items" type="button" class="btn btn-danger data-control-delete" onclick="removeRecommendedItemsInAssetGroup()" style="display: none;">
                     		<i class="fa fa-trash" aria-hidden="true"></i> Remove Recommended Items 
                     	</button>
 			        	<button id="btn_import_items" type="button" class="btn btn-goto-router data-control-update" style="display: none;" title="Import Items" > 
@@ -165,7 +165,6 @@
 
                         }
                         view.find("*[data-field='" + k + "']").html(value);
-
                     }   
                 }
             } else {
@@ -192,13 +191,16 @@
         	if(assetGroupType === 1){
         		// Creative Content / web blog
         		// TODO import content from CSV ??
+        		$('#btn_remove_recommended_items').show();
         	}
         	else if(assetGroupType === 2){
         		// PRODUCT_ITEM_CATALOG
         		$('#btn_import_items').show().click(function(){
         			location.hash = "calljs-leoCdpRouter('Product_Importer','" + assetGroupId + "')";
         		});
+        		$('#btn_remove_recommended_items').show();
         	}
+ 
 	    }
     	$('#btn_new_item').show();
     }
@@ -404,7 +406,6 @@
 	        	}
 	         }
 	    });
-		
 	}
 </script>
 

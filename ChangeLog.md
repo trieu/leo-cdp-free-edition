@@ -27,10 +27,11 @@
 
 - [In Plan] Using Jupyter notebook to update profile CLV and Credit Scoring 
 
-## [0.8.9] - 2022-09-16
+## [0.8.9] - 2022-09-19
 
 ### Added
 
+- [Survey Form] can add custom CSS in the head tag of HTML
 - [User Login] save and load, select multiple user groups
 - [Data Personalization] add recommended items and can remove recommended items in segment and asset group
 - [Event Data Report] filter event time series by journey map and event matrix report
@@ -92,6 +93,7 @@
 
 ### Fixed 
 
+- [Asset Group] hide remove recommended items
 - [Segment Details] should load journey maps and then render UI
 - [Survey] user can skip some rating questions
 - [Segment Builder] can not filter profiles with multiple journey maps
