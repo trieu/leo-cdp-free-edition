@@ -26,6 +26,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # Documents
 
+* [Document bằng tiếng Việt](https://datahub4uspa.leocdp.net/ct/6iSPHWPFzywadKBpq3YJ6n)
 * [Data Model and Customer Journey Map Sample](https://docs.google.com/spreadsheets/d/1hzSvkmTE8WuvUFqnpWNfsPMzpjF8gYOSJfkc9eJIjWk/edit?usp=sharing)
 * [Core Functions for Analytics CDP](https://docs.google.com/document/d/1cavhFAs_uX-98qUvtXJI3v859I6h3knl0m_tSQ4235M/edit?usp=sharing)
 * [Data strategy with LEO CDP](https://docs.google.com/document/d/1la6mP21gfd2bHlpwj4hBTRQlxaPfhnpQRL6fV223Es0/edit?usp=sharing)
