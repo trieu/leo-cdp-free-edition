@@ -93,6 +93,7 @@
 
 ### Fixed 
 
+- [Profile API] fix can not save profile with only customer name and phone number
 - [Asset Group] hide remove recommended items
 - [Segment Details] should load journey maps and then render UI
 - [Survey] user can skip some rating questions
