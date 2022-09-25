@@ -28,9 +28,6 @@
 	input.url_holder {
 		background-color: #FFF8DC!important;
 	}
-	div.segment_download_link {
-		float: right; padding-top: 5px; font-weight: bold; font-size: 15px;
-	}
 	.rule-container .rule-value-container:last-child {
 	  	min-width: 320px;
 	}
@@ -215,11 +212,11 @@
 							<input type="text" class="form-control url_holder" id="txt_exported_excel_csv" readonly placeholder="URL to download CSV data for Excel / Google Sheets" >
 						</div>
 						<div class="col-sm-2" >
-							<button type="button" class="btn btn-do-now" id="btn_exported_excel_csv" style="margin-top:10px;" onclick="getSegmentDownloadUrl(this,'txt_exported_excel_csv')" > 
+							<button type="button" class="btn btn-primary" id="btn_exported_excel_csv" style="margin-top:10px;" onclick="getSegmentDownloadUrl(this,'txt_exported_excel_csv')" > 
 								<i class="fa fa-check" aria-hidden="true"></i> Generate & Copy URL 
 							</button>
-							<div class="segment_download_link" >
-								<a id="ahref_exported_excel_csv" style="display: none;" target="_blank" > <i class="fa fa-cloud-download" aria-hidden="true"></i> 
+							<div class="download_link_holder" >
+								<a id="ahref_exported_excel_csv" class="btn btn-do-now" style="display: none;" target="_blank" > <i class="fa fa-cloud-download" aria-hidden="true"></i> 
 									Click to download </a>
 							</div>
 						</div>
@@ -232,11 +229,11 @@
 							<input type="text" class="form-control url_holder" id="txt_exported_facebook_csv" readonly placeholder="URL to download CSV data for Facebook Custom Audience" >
 						</div>
 						<div class="col-sm-2" >
-							<button type="button" class="btn btn-do-now" id="btn_exported_facebook_csv" style="margin-top:10px;" onclick="getSegmentDownloadUrl(this,'txt_exported_facebook_csv')"> 
+							<button type="button" class="btn btn-primary" id="btn_exported_facebook_csv" style="margin-top:10px;" onclick="getSegmentDownloadUrl(this,'txt_exported_facebook_csv')"> 
 								<i class="fa fa-check" aria-hidden="true"></i> Generate & Copy URL 
 							</button>
-							<div class="segment_download_link">
-								<a id="ahref_exported_facebook_csv" style="display: none;" target="_blank" > <i class="fa fa-cloud-download" aria-hidden="true"></i> 
+							<div class="download_link_holder">
+								<a id="ahref_exported_facebook_csv" class="btn btn-do-now" style="display: none;" target="_blank" > <i class="fa fa-cloud-download" aria-hidden="true"></i> 
 									Click to download </a>
 							</div>
 						</div>

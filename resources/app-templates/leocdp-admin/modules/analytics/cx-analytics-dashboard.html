@@ -111,15 +111,16 @@
 			<!-- tab 2 CX Survey Report -->
 			<div class="tab-pane" id="panel_cx_survey_report" >
 				
-				<h4 style="background-color: #FAFADE;color: #3300ff!important;"> <i class="fa fa-info-circle" aria-hidden="true"></i>  List of survey templates </h4>
+				<h5 style="font-weight: bold;"> <i class="fa fa-list" aria-hidden="true"></i>  List of survey templates </h5>
 				<div class="col-lg-10"  >
 	                <select id="feedbackSurveyList" data-placeholder="Choose a survey" class="select" >
 	                  	<!-- feedbackSurveyList -->  
 	                </select>
                 </div>
-                <div class="col-lg-2" style="display: none" >
+                <div class="col-lg-2 text-right"  >
                 	<button type="button" class="btn btn-primary" style="width: 120px" onclick="exportDataCxSurvey()" > 
-        				<i class="fa fa-cloud-download" aria-hidden="true"></i> Data Export </button>
+        				<i class="fa fa-cloud-download" aria-hidden="true"></i> Data Export 
+        			</button>
                 </div>
                 <div class="col-lg-12 container" style="min-height: 1500px; overflow-y: scroll; overflow-x: hidden; margin-top: 12px; " >
 					<ul id="feedback_survey_flow" class="list-group list-group-dividered list-group-full"  >
@@ -160,7 +161,6 @@
     		loadCxRatingReport(true);
     		$('#cxReportHeader').text($(this).parent().text())
     	});
-    	
     	initFeedbackSurveySelection()
     }
 	
@@ -430,6 +430,8 @@
                 }
         	});
     	}
+    	
+    	$('a.exportDataCxSurvey').hide().attr("href","");
     }
     
     function loadCxTouchpointReport(refresh) {
@@ -470,7 +472,7 @@
     
     function exportDataCxSurvey(){
 		// noti
-		iziToast.info({ timeout : 2000, message: 'LEO CDP is processing data for the survey' });
+		iziToast.info({ timeout : 2000, message: 'LEO CDP is processing to export data of the survey' });
 		
 		var dateFilter = getDateFilterValues();
 		var requestParams = {};
@@ -478,13 +480,16 @@
     	requestParams['endFilterDate'] = moment(dateFilter.endFilterDate).format(defaultDateFormat); 
     	requestParams['refTemplateId'] = defaultSurveyTemplateId;
     	
-        var url = window.baseLeoAdminUrl + '/cdp/analytics360/cx-survey-csv-data-export';
+        var url = window.baseLeoAdminUrl + '/cdp/analytics360/cx-survey-data-export';
+        $('a.exportDataCxSurvey').hide().attr("href","");
         LeoAdminApiUtil.getSecuredData(url, requestParams, function (json) {
             if (json.httpCode === 0 && json.errorMessage === '' && json.data) {
-               var url = window.baseLeoAdminUrl + json.data;
-              
-               alert(url)
-
+               var map = json.data;
+               for(var k in map){
+            	   var url = window.baseLeoAdminUrl + map[k];
+            	   $('#exportDataCxSurvey_'+k).attr("href", url).show();
+               }
+               iziToast.success({ timeout : 2000, message: 'The exported data of survey is ready !' });
             }
         });
 	}

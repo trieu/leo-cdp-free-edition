@@ -26,6 +26,9 @@
 .item_response {
 	color: #3300ff!important;
 }
+div.download_link_holder {
+	float: right; padding-top: 4px; font-weight: bold; font-size: 14px;
+}
 </style>
 
 <script id='survey-report-item-tpl' type="text/html" >
@@ -47,9 +50,12 @@
             </div>
         </div>
         <div class="col-md-10">
-            <small class="text-muted pull-right"> Updated at <b>
-                    <%- createdAt %>
-                </b> </small>
+            <small class="text-muted pull-right"> Updated at <b>  <%- createdAt %> </b> 
+				<br>
+				<a class="exportDataCxSurvey btn btn-do-now" id="exportDataCxSurvey_<%- id %>" style="display: none;" target="_blank" > 
+					<i class="fa fa-cloud-download" aria-hidden="true"></i> Click to download 
+				</a>
+			</small>
             <h5 class="media-heading"> 
 				<a href="<%- previewUrl %>" target="_blank"> Feedback survey: <%- header %> </a> 
 			</h5>
@@ -84,7 +90,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     

@@ -27,10 +27,11 @@
 
 - [In Plan] Using Jupyter notebook to update profile CLV and Credit Scoring 
 
-## [0.8.9] - 2022-09-19
+## [0.8.9] - 2022-09-25
 
 ### Added
 
+- [Survey] export CX rating data as CSV file
 - [Survey Form] can add custom CSS in the head tag of HTML
 - [User Login] save and load, select multiple user groups
 - [Data Personalization] add recommended items and can remove recommended items in segment and asset group
