@@ -27,7 +27,7 @@
 
 - [In Plan] Using Jupyter notebook to update profile CLV and Credit Scoring 
 
-## [0.8.9] - 2022-09-25
+## [0.8.9] - 2022-09-2
 
 ### Added
 
@@ -94,6 +94,7 @@
 
 ### Fixed 
 
+- [Profile API] fix bugs when profile email is empty, must not merge visitor into update data
 - [Profile API] fix can not save profile with only customer name and phone number
 - [Asset Group] hide remove recommended items
 - [Segment Details] should load journey maps and then render UI

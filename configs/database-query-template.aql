@@ -791,43 +791,50 @@ AQL_GET_PROFILE_BY_ID_FOR_ADMIN =>
 
 AQL_GET_PROFILE_BY_CRM_ID =>
 	FOR p in cdp_profile 
-	FILTER p.crmRefId == @crmRefId 
+	FILTER @crmRefId != "" AND p.crmRefId == @crmRefId AND p.status == 1
+	LIMIT 1
 	RETURN p
 ;
 
 AQL_GET_PROFILE_BY_PRIMARY_EMAIL =>
 	FOR p in cdp_profile 
-	FILTER (p.primaryEmail == @email OR @email IN p.identities[*]) AND p.status == 1
+	FILTER @email != "" AND (p.primaryEmail == @email OR @email IN p.identities[*]) AND p.status == 1
+	LIMIT 1
 	RETURN p
 ;
 
 AQL_GET_PROFILE_BY_PRIMARY_PHONE =>
 	FOR p in cdp_profile 
-	FILTER (p.primaryPhone == @phone OR @phone IN p.identities[*]) AND p.status == 1
+	FILTER @phone != "" AND (p.primaryPhone == @phone OR @phone IN p.identities[*]) AND p.status == 1
+	LIMIT 1
 	RETURN p
 ;
 
 AQL_GET_PROFILE_BY_VISITOR_ID =>
 	FOR p in cdp_profile 
-	FILTER (@visitorId == p.visitorId OR @visitorId IN p.identities[*]) AND p.status == 1
+	FILTER @visitorId != "" AND (@visitorId == p.visitorId OR @visitorId IN p.identities[*]) AND p.status == 1
+	LIMIT 1
 	RETURN p
 ;
 
 AQL_GET_PROFILE_ID_BY_VISITOR_ID =>
 	FOR p in cdp_profile 
-	FILTER @visitorId == p.visitorId 
+	FILTER @visitorId == p.visitorId AND p.status == 1
+	LIMIT 1
 	RETURN p._key
 ;
 
 AQL_GET_PROFILE_BY_LOGIN_INFO =>
 	FOR p in cdp_profile 
-	FILTER @loginInfo IN p.identities[*] AND p.status == 1
+	FILTER @loginInfo != "" AND @loginInfo IN p.identities[*] AND p.status == 1
+	LIMIT 1
 	RETURN p
 ;
 
 AQL_GET_PROFILE_BY_LOGIN_INFO_WITH_PASSWORD =>
 	FOR p in cdp_profile 
-	FILTER @loginInfo IN p.identities[*] AND p.password == @password AND p.status == 1
+	FILTER @loginInfo != "" AND p.password == @password AND @loginInfo IN p.identities[*] AND p.status == 1
+	LIMIT 1
 	RETURN p
 ;
 
