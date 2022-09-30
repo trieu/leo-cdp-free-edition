@@ -124,7 +124,7 @@
                             	icon = '<i class="fa fa-trophy" aria-hidden="true"></i>';
                             }
                             
-                            if(row.navigationOrder <= 4){
+                            if(row.navigationOrder <= 5){
                             	var params = leoCdpRouterParams([row.id, row.assetType, row.name]) ;
                                	var callJsStr = "#calljs-leoCdpRouter('Asset_Groups','" + params + "')";
                                	return '<div> <a title="' + data + '" href="' + callJsStr + '" >' + icon + ' ' + data + '</a> </div>';

@@ -1,6 +1,6 @@
 <style>
 #short_link_url_holder {
-	font-size: 11.5px;
+	font-size: 11px;
     font-weight: bold;
     color: #3300ff;
 }
@@ -27,6 +27,17 @@
         <div class="col-lg-9">
 
             <fieldset>
+            	<div id="qr_code_holder" style="display:none;">
+	                <div id="short_link_url_holder" class="alert alert-info" role="alert" >
+						 <i class="fa fa-qrcode" aria-hidden="true" style="font-size: 1.1em" ></i>  <b>Short Link URL</b> 
+						 <a id="short_link_url" class="small-text" href="javascript:" target="_blank" ></a> <br>
+					</div>	
+					<div class="thumbnail">
+					 	 <img id="short_link_qrcode_url" style="max-height: 200px;max-width: 300px" /> <br>
+					 	 <input id="short_link_url_text" type="text" class="form-control" readonly="readonly">
+					</div>
+				</div>
+            
 				<div class="form-group">
                     <label>Title</label>
                     <input id="asset_item_title" type="text" class="form-control" placeholder="Enter title" name="title" autocomplete="off" required>
@@ -34,7 +45,7 @@
                 
                 <div class="form-group">
                     <label>Landing Page URL</label>
-                    <input type="text" class="form-control" placeholder="Enter Product Landing page URL" name="fullUrl" autocomplete="off" required >
+                    <input type="text" class="form-control" placeholder="Enter the landing page URL" name="fullUrl" autocomplete="off" required >
                 </div>
                 
                 <div class="form-group">
@@ -44,16 +55,29 @@
                     </div>
                 </div>
                 
-                <div id="qr_code_holder" style="display:none;">
-	                <div id="short_link_url_holder" class="alert alert-info" role="alert" >
-						 <i class="fa fa-qrcode" aria-hidden="true" style="font-size: 1.1em" ></i>  <b>Short Link URL</b> 
-						 <a id="short_link_url" class="small-text" href="javascript:" target="_blank" ></a> <br>
-					</div>	
-					<div class="thumbnail">
-					 	 <img id="short_link_qrcode_url" style="max-height: 200px;max-width: 300px" />
-					</div>
-				</div>
-                <hr>
+                <div class="form-group">
+                    <label><input id="newsletterSubscription" type="checkbox" >
+                    	User can enter personal information into newsletter subscription form before going to the URL
+                    </label>
+                </div>
+                
+                
+                <div id="subscription_box" style="display: none" >
+                	<hr>
+                	<div class="form-group">
+	                    <label>Newsletter Header</label>
+	                    <input type="text" class="form-control" placeholder="Enter the Newsletter Header" id="newsletterHeader" autocomplete="off"  >
+	                </div>
+	                <div class="form-group">
+	                    <label>Newsletter Description</label>
+	                    <input type="text" class="form-control" placeholder="Enter the Newsletter Description" id="newsletterDescription" autocomplete="off"  >
+	                </div>
+	                <div class="form-group">
+	                    <label>Newsletter Button Text</label>
+	                    <input type="text" class="form-control" placeholder="Enter the Newsletter Button Text" id="newsletterButtonText" autocomplete="off" value="OK"  >
+	                </div>
+                </div>
+                
               
             </fieldset>
 
@@ -67,7 +91,7 @@
                 <button type="button" class="btn btn-info" onclick="history.back()">
                 	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
                 </button>
-                <button type="button" class="btn btn-danger" onclick="LeoCdpAdmin.navFunctions.deleteItemAsset(productData)">
+                <button type="button" class="btn btn-danger" onclick="LeoCdpAdmin.navFunctions.deleteItemAsset(shortLinkData)">
                 	<i class="fa fa-trash" aria-hidden="true"></i> Delete
                 </button>
                 <button type="button" class="btn btn-success data-control-edit" onclick="shortUrlLinkEditorSave()"  > 
@@ -108,13 +132,27 @@
             },true);
             loadShortUrlLinkEditor(params)
         }, true);
+    	
+    	// init UI
+    	$('#newsletterSubscription').change(function(){
+    		var node = $('#subscription_box');
+    		if(this.checked) {
+    			node.data('checked',true).show();
+    	    }
+    		else {
+    			node.data('checked',false).hide();
+    		}
+    	})
     }
     
     var showContentShortLinkUrl = function() {
     	if(shortLinkData) {
-     		$('#short_link_url').attr('href',shortLinkData.shortLinkUrl).text(shortLinkData.shortLinkUrl);
+    		var url = shortLinkData.shortLinkUrl + "?cb=" + new Date().getTime();
+     		$('#short_link_url').attr('href',url).text(shortLinkData.shortLinkUrl);
+     		$('#short_link_url_text').val(shortLinkData.shortLinkUrl)
+     		
      		var qrCodeFullUrl = baseLeoAdminUrl + shortLinkData.qrCodeUrl.substr(1);
-     		$('#short_link_qrcode_url').attr('src',qrCodeFullUrl);
+     		$('#short_link_qrcode_url').attr('src', qrCodeFullUrl );
     	}
  	}
 
@@ -166,6 +204,12 @@
                     
                     //focus the title
                     $('#asset_item_title').focus();
+                    
+                    var customData = shortLinkData.customData;
+                    $('#newsletterSubscription').prop('checked', customData.newsletterSubscription === "true").change();
+                    $('#newsletterHeader').val( customData.newsletterHeader || "Subscribe to our Newsletter" );
+                    $('#newsletterDescription').val( customData.newsletterDescription || "Please enter your name and email for newsletter subscription" );
+                    $('#newsletterButtonText').val( customData.newsletterButtonText || "OK" );
                 } else {
                     LeoAdminApiUtil.logErrorPayload(json);
                 }
@@ -187,14 +231,20 @@
             
             shortLinkData.title = form.find('input[name="title"]').val();
             shortLinkData.fullUrl = form.find('input[name="fullUrl"]').val();
-            
-            shortLinkData.slug = form.find('input[name="slug"]').val();
             shortLinkData.keywords = form.find('input[name="keywords"]').val().split(',');            
             shortLinkData.description = form.find('textarea[name="description"]').val();
-        
-            shortLinkData.customData = {};
             shortLinkData.mediaInfoUnits = [];
             shortLinkData.mediaInfo = "";
+            
+            var customData = {};
+            var newsletterSubscription = $('#newsletterSubscription').prop('checked');
+            if(newsletterSubscription) {
+				customData.newsletterSubscription = "true";
+                customData.newsletterHeader = $('#newsletterHeader').val().trim();
+                customData.newsletterDescription = $('#newsletterDescription').val().trim();
+                customData.newsletterButtonText = $('#newsletterButtonText').val().trim();
+            }
+            shortLinkData.customData = customData;
 
             if(shortLinkData.title === "" || shortLinkData.fullUrl === "" ) {
             	iziToast.error({

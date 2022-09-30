@@ -1,10 +1,9 @@
 # Changelog for LEO CDP
 
-## Feature Plan for the final release [1.0.0] - 2022-09-30
+## Feature Plan for the final release [1.0.0] - 2022-10-30
 
 #### Tasks
 
-- [In Plan] Business Account Management 
 - [In Plan] Segment Activation: sending web push notification directly from LEO CDP
 - [In Plan] Segment Activation: sending SMS directly from LEO CDP
 - [In Plan] Segment Activation: sending email directly with SMTP from LEO CDP
@@ -14,23 +13,26 @@
 - [In Plan] New Data Connector and connector protocol
 - [In Plan] Data Synch with time scheduler
 
-## Feature Plan for the next release 2022-09-30
+## Feature Plan for the next release 2022-10-03
 
 ### TODO for version [0.9.0]
 
 #### High Priority Tasks
 
-- [In Progress] printable document, video and example for LEO CDP API
-- [In Progress] UI to create new observed event in LEO CDP Admin
+- [In Progress] Using Jupyter notebook to update profile CLV and Credit Scoring 
+- [In Plan] use cases for fintech, proptech and ecommerce
+- [In Plan] tool to create or upload event data in LEO CDP Admin
 
 #### Low  Priority Tasks
 
-- [In Plan] Using Jupyter notebook to update profile CLV and Credit Scoring 
+- [In Plan] docker images
+- [In Plan] register form for new clients, to try free LEO CDP version
 
-## [0.8.9] - 2022-09-2
+## [0.8.9] - 2022-09-30
 
 ### Added
 
+- [Short URL Link] user can subscribe newsletter form before going to the landing page 
 - [Survey] export CX rating data as CSV file
 - [Survey Form] can add custom CSS in the head tag of HTML
 - [User Login] save and load, select multiple user groups
