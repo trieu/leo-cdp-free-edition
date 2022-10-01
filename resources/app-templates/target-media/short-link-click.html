@@ -15,14 +15,12 @@
 	<style type="text/css">
 		body {font-family: Arial, Helvetica, sans-serif;}
 		
-		
-		
 		.container {
 		  padding: 20px;
 		  background-color: #f1f1f1;
 		}
 		
-		input[type=text], input[type=button] {
+		input[type=text],input[type=email], input[type=submit] {
 		  width: 100%;
 		  padding: 12px;
 		  margin: 8px 0;
@@ -35,14 +33,14 @@
 		  margin-top: 16px;
 		}
 		
-		input[type=button] {
+		input[type=submit] {
 		  background-color: #04AA6D;
 		  color: white;
 		  border: none;
 		  font-size: 1.1em;
 		}
 		
-		input[type=button]:hover {
+		input[type=submit]:hover {
 		  opacity: 0.8;
 		}
 		#subscription_box {
@@ -66,26 +64,33 @@
 	<div id="subscription_box" style="display: none;" >
 		<h3> {{customData.newsletterHeader}} </h3>
 
-		<div class="form" >
+		<form id="form_subscription_box" class="form"  >
 		  <div class="container" >
 		    <p>{{customData.newsletterDescription}}</p>
 		  </div>
 		
 		  <div class="container" style="background-color:white">
 		    <input type="text" placeholder="Name" id="firstName" required>
-		    <input type="text" placeholder="Email" id="email" required>
+		    <input type="email" placeholder="Email" id="email" required>
 		  </div>
 		
 		  <div class="container">
-		    <input type="button" value="{{customData.newsletterButtonText}}" onclick="submitSubscriptionData()">
+		    <input type="submit" value="{{customData.newsletterButtonText}}">
 		  </div>
-		</div>
+		</form>
 	</div>
 	
 	<script type="text/javascript">
+		function submitedSubscription(){
+			if( window["localStorage"] != null ) {
+				return localStorage.getItem("submited_subscription") === null;
+			}
+			return false;
+		}
+	
 		var referer = "{{{customData.referer}}}";
 		var srcTouchpointName = "{{{customData.srcTouchpointName}}}";
-		var newsletterSubscription = {{{customData.newsletterSubscription}}} === true;
+		var newsletterSubscription = {{{customData.newsletterSubscription}}} === true && submitedSubscription();
 		
 	    //LEO Web Observer for channel: 
    		var leoObserverLogDomain = "{{{baseLeoObserverUrl}}}";
@@ -144,7 +149,7 @@
 				
 				// redirect
 				location.href = targetMediaUrl;
-			},800)
+			},1000)
 		}
 		
 		// handle click action of user
@@ -158,11 +163,24 @@
 			injectedVisitorId = webVisitorId;
 		}
 		
-		var submitSubscriptionData = function(){
-			var userData = {firstName: $('#firstName').val(), email: $('#email').val(), loginId : "" ,loginProvider: 'Newsletter_Subscription'};
-        	LeoObserverProxy.updateProfileBySession(userData);
-			gotoTargetUrl(injectedVisitorId);
-		}
+		$('#form_subscription_box').submit(function(e){
+			e.preventDefault(); 
+			
+			var name = $('#firstName').val().trim();
+			var email = $('#email').val().trim();
+			
+			if(name !== "" && email !== ""){
+				subscriptionBox.hide();
+				pageLoader.show();
+				localStorage.setItem("submited_subscription", email)
+				
+				var userData = {firstName: name, email: email, loginId : "" ,loginProvider: 'Newsletter_Subscription'};
+	        	LeoObserverProxy.updateProfileBySession(userData);
+				gotoTargetUrl(injectedVisitorId);
+			}
+			
+			return false;
+		});
 		
 		var leoIdSynCallback;
 		if(newsletterSubscription){
