@@ -3,6 +3,12 @@
 <head>
 	<title>LEO Click Tracking: {{{customData.srcTouchpointName}}}</title>
 	
+	<meta charset="UTF-8">
+	<meta name="author" content="Trieu Nguyen(Thomas) - trieu@leocdp.com">
+	
+	<meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=4, user-scalable=1" name="viewport"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=100"/>
+	
 	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
@@ -18,8 +24,7 @@
 		.container {
 		  padding: 20px;
 		  background-color: #f1f1f1;
-		}
-		
+		}		
 		input[type=text],input[type=email], input[type=submit] {
 		  width: 100%;
 		  padding: 12px;
@@ -27,29 +32,35 @@
 		  display: inline-block;
 		  border: 1px solid #ccc;
 		  box-sizing: border-box;
-		}
-		
+		}		
 		input[type=checkbox] {
 		  margin-top: 16px;
-		}
-		
+		}		
 		input[type=submit] {
 		  background-color: #04AA6D;
 		  color: white;
 		  border: none;
 		  font-size: 1.1em;
-		}
-		
+		  max-width: 420px;
+		}		
 		input[type=submit]:hover {
 		  opacity: 0.8;
-		}
-		#subscription_box {
-			margin: auto;
-			width: 70%;
-		}
+		}		
 		.form {
 		  border: 3px solid #f1f1f1;
 		  font-family: Arial;
+		}
+		#subscription_box {
+			margin: auto;
+			width: 98%;
+		}
+				
+		@media only screen and (min-width: 600px) {
+  			/* For tablets or Desktop: */
+  			#subscription_box {
+				margin: auto;
+				width: 70%;
+			}
 		}
 	</style>
 	
@@ -62,20 +73,20 @@
 	</div>
 	
 	<div id="subscription_box" style="display: none;" >
-		<h3> {{customData.newsletterHeader}} </h3>
+		<h3> <i class="fa fa-envelope" aria-hidden="true"></i>  {{customData.newsletterHeader}} </h3>
 
 		<form id="form_subscription_box" class="form"  >
 		  <div class="container" >
-		    <p>{{customData.newsletterDescription}}</p>
+		    <p> <i class="fa fa-info-circle" aria-hidden="true"></i> {{customData.newsletterDescription}}</p>
 		  </div>
 		
 		  <div class="container" style="background-color:white">
-		    <input type="text" placeholder="Name" id="firstName" required>
-		    <input type="email" placeholder="Email" id="email" required>
+		    <input type="text" placeholder="Your name" id="firstName" required>
+		    <input type="email" placeholder="Your email" id="email" required>
 		  </div>
 		
 		  <div class="container">
-		    <input type="submit" value="{{customData.newsletterButtonText}}">
+		    <input type="submit" value="{{customData.newsletterButtonText}}" >
 		  </div>
 		</form>
 	</div>
