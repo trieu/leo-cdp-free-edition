@@ -61,14 +61,14 @@
 <div id="segment_details_div" style="display: none;" >
 	<!-- metadata  -->
 	<ul class="list-group">
-		<li class="list-group-item ">
-	  		<b>Index score in activation:</b> <span id="sm_indexScore" class="highlight_text" ></span>
-	  	</li>
 	  	<li class="list-group-item ">
 	 		<b>Segment Name:</b> <span id="sm_name" class="highlight_text"></span>
 	  	</li>
 	  	<li class="list-group-item ">
-	  		<b>Description:</b> <span id="sm_description" class="highlight_text" ></span>
+	  		<b>Description:</b> <span id="sm_description" ></span>
+	  	</li>
+	  	<li class="list-group-item ">
+	  		<b>Segment Size:</b> <span id="sm_size" class="highlight_text" ></span>
 	  	</li>
 	  	<li class="list-group-item ">
 	  		<b>Authorized users can view data:</b> <span id="sm_authorizedViewers" class="highlight_text"></span>
@@ -185,6 +185,7 @@
 				<div class="panel panel-leoadmin">
 					<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Data Query Rules </b> </div>
 					<div class="panel-body row">
+						<h4>You are looking for a group of people</h4>
 						<div class="col-lg-12">
 							<div id="segment-builder-holder" ></div>
 						</div>
@@ -333,8 +334,14 @@
 			 	<div class="panel panel-leoadmin" >
 					
 					<div class="panel-body row">
-						<div class="col-lg-12 ">
+						<div class="form-group highlight_box" >
+				     		<div class="col-lg-12">
+				     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Priority score for activation </label>  <span id="sm_indexScore" class="highlight_text" ></span>
+				     		</div>
+				     		
+						</div>
 						
+						<div class="col-lg-12 ">
 							<div class="panel panel-default">
 							    <div class="panel-heading collapse-panel-heading active" role="tab" id="activationPlanHeader">
 							      <h4 class="panel-title">
@@ -797,6 +804,8 @@
 		 var formatDateTime =  'YYYY-MM-DD HH:mm:ss';
 		 $('#sm_indexScore').text(segmentData.indexScore);
 		 $('#sm_name').text(name);
+		 $('#sm_size').text(size.toLocaleString());
+		 
 	     $('#sm_description').text(segmentData.description);
 	     $('#sm_authorizedViewers').html(getHtmlForAuthorizedUserLogin(segmentData.authorizedViewers));
 	     $('#sm_authorizedEditors').html(getHtmlForAuthorizedUserLogin(segmentData.authorizedEditors));

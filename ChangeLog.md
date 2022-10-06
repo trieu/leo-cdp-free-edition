@@ -28,10 +28,11 @@
 - [In Plan] docker images
 - [In Plan] register form for new clients, to try free LEO CDP version
 
-## [0.8.9] - 2022-09-30
+## [0.8.9] - 2022-10-06
 
 ### Added
 
+- [Profile Editor] add notes as new data field, improve UX/UI
 - [Short URL Link] user can subscribe newsletter form before going to the landing page 
 - [Survey] export CX rating data as CSV file
 - [Survey Form] can add custom CSS in the head tag of HTML
@@ -96,6 +97,7 @@
 
 ### Fixed 
 
+- [Profile API] refactoring and can set journey maps from API
 - [Profile API] fix bugs when profile email is empty, must not merge visitor into update data
 - [Profile API] fix can not save profile with only customer name and phone number
 - [Asset Group] hide remove recommended items
@@ -125,6 +127,7 @@
 
 ### Changed
 
+- improve Segment UI and Data Journey Map UI
 - [Customer Data Report] show profile sources as default tab
 - [Survey] auto set height when survey iframe is fully loaded
 - [LEO Survey] only get QR code and Web Form URL in journey map

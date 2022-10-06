@@ -5,7 +5,7 @@
 	}
 	div.delete-item-btn {
 		font-size: 1.2em;
-	}
+	}	
 </style>
 
 <div class="row">
@@ -44,16 +44,6 @@
       		
 	        	<!-- Primary fields -->
 	        	<div>
-	        		<div class="primary_field" > 
-	        			<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Profile ID </b> 
-	                	<span class="data_field" data-field="id" data-fieldholder="html" data-fieldtype="string" > - </span>
-	                </div>
-	                  
-	                <div class="primary_field" >      	   
-	                	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Web Visitor ID </b> 
-	                	<span class="data_field" data-field="visitorId" data-fieldholder="html"  data-fieldtype="string" > - </span>
-	                </div>
-
 	                <div class="primary_field" > 
                     	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Created at </b> 
                     	<span class="data_field" data-field="createdAt" data-fieldholder="html"  data-fieldtype="date_time"  > - </span> 
@@ -62,11 +52,11 @@
                     	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Updated at </b> 
                    		<span class="data_field" data-field="updatedAt" data-fieldholder="html"  data-fieldtype="date_time"  > -  </span> 
                     </div>
-                    <hr>
-                    <div class="primary_field" >      	      
-	                	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> CRM Profile ID / Imported Customer ID </b> 
-	                	<input class="form-control" type="text" placeholder="CRM User ID" data-field="crmRefId" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                <div class="primary_field" >      	      
+	                	<b> <i class="fa fa-sticky-note-o" aria-hidden="true"></i> Notes </b>
+	                	<textarea style="resize: vertical;" class="form-control" rows="5" placeholder="Notes" data-field="notes" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off"  ></textarea>
 	                </div>
+	                <hr>
                     <div class="primary_field" style="padding-top: 10px;">
 					   <b> <i class="fa fa-user-o" aria-hidden="true"></i> Profile Status </b> 
 					   <div style="font-size:11px; padding-left: 20px;">
@@ -95,14 +85,14 @@
        		<li class="active" >
        			<a href="javascript:" data-target-tab="panel_personal_info" > <i class="fa fa-user-circle-o" aria-hidden="true"></i> Personal </a>
        		</li>	
-          	<li ><a href="javascript:" data-target-tab="panel_profile_contact" > <i class="fa fa-address-card-o" aria-hidden="true"></i> Contact</a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_taxonomy" > <i class="fa fa-tags" aria-hidden="true"></i> ID & Taxonomy</a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_contact" > <i class="fa fa-address-card-o" aria-hidden="true"></i> ID & Contact</a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_taxonomy" > <i class="fa fa-tags" aria-hidden="true"></i> Taxonomy</a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_location" > <i class="fa fa-map-marker" aria-hidden="true"></i> Location</a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_education" > <i class="fa fa-graduation-cap" aria-hidden="true"></i> Education </a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_work" > <i class="fa fa-briefcase" aria-hidden="true"></i> Work & Income </a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_marketing" > <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing </a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_salesources" > <i class="fa fa-info-circle" aria-hidden="true"></i> Sales Sources</a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_custom" > <i class="fa fa-table" aria-hidden="true"></i> Custom</a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_custom" > <i class="fa fa-table" aria-hidden="true"></i> Custom Fields</a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_data_authorization" > <i class="fa fa-lock" aria-hidden="true"></i> Authorization</a></li>
 	   </ul>
 
@@ -111,8 +101,8 @@
        
        		<!-- tab 1 recommended items -->
 			<div class="tab-pane active" id="panel_personal_info"  >
-		     	
-		     	<!--  Begin Profile Key Information -->
+			 	
+		     	<!--  Begin Personal Info -->
            	   	<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Personal Information </h4>
 	           	<div class="col-md-12">
 	               <table border=0 class="underlined" style="width: 100%;">
@@ -200,6 +190,43 @@
 
 			<!-- tab 2 Personal Extension Data  -->
 			<div class="tab-pane" id="panel_profile_contact" >
+				<!--  Begin Profile ID-->
+		     	<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Identity Information </h4>		     	
+			    <table border=0 class="underlined" style="width: 100%;">
+                   <tr>
+                       <td>
+							<ol class="profile_ext_data" data-field="personal_attributes">
+								<li>
+									<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Profile ID </b> 
+                					<span class="data_field" data-field="id" data-fieldholder="html" data-fieldtype="string" > - </span>
+								</li>
+								<li>
+									<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Web Visitor ID </b> 
+                					<span class="data_field" data-field="visitorId" data-fieldholder="html"  data-fieldtype="string" > - </span>
+								</li>
+								<li>
+									<b> <i class="fa fa-id-badge" aria-hidden="true"></i> CRM Profile ID / Imported Customer ID </b> 
+                					<input class="form-control" type="text" placeholder="CRM User ID" data-field="crmRefId" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+								</li>
+			              	 	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> List of Citizen/Passport ID (Government Issued IDs) <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('governmentIssuedIDs')"title="Add New Citizen/Passport ID"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Citizen/Passport ID 
+				    			   </button>
+				                   <p data-field="governmentIssuedIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
+				              	</li>				               
+                              	<li>
+				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> List of Application ID <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('applicationIDs')"title="Add New Application ID"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Application ID 
+				    			   </button>
+				                   <p data-field="applicationIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
+				              	</li>
+			               	</ol>
+               	  		</td>
+                   </tr>
+                </table>
+			
 				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Contact Information </h4>
 				<table border=0 class="underlined" style="width: 100%;">
                    <tr>
@@ -256,31 +283,7 @@
 			
 			<!-- tab 3 Taxonomy  -->
 			<div class="tab-pane" id="panel_profile_taxonomy" >
-			    <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Identity Information </h4>
-			    <table border=0 class="underlined" style="width: 100%;">
-                   <tr>
-                       <td>
-							<ol class="profile_ext_data" data-field="personal_attributes">
-			              	 	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> List of Citizen/Passport ID (Government Issued IDs) <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('governmentIssuedIDs')"title="Add New Citizen/Passport ID"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Citizen/Passport ID 
-				    			   </button>
-				                   <p data-field="governmentIssuedIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
-				              	</li>
-				               
-                              	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> List of Application ID <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('applicationIDs')"title="Add New Application ID"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Application ID 
-				    			   </button>
-				                   <p data-field="applicationIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
-				              	</li>
-			               	</ol>
-               	  		</td>
-                   </tr>
-                </table>
-                
+			    
 				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Taxonomy Information </h4>
 				<table border=0 class="underlined" style="width: 100%;">
                    	<tr>
@@ -576,13 +579,12 @@
                        <td>
 							<ol class="profile_ext_data" data-field="personal_attributes">
 				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-users"></i> List of Sales Agency </b> 
+				                   <b data-persona="key" > <i class="fa fa-fw fa-users"></i> List of Sales Source / Media Agency / Sales Partner </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('saleAgencies')" title="Add new"  > 
-				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Sales Agency 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Sales Source 
 				    			   </button>
 				                   <p data-field="saleAgencies" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
-				               	</li>
-				               	
+				               	</li>				               	
 				               	<li>
 				                   <b data-persona="key" > <i class="fa fa-fw fa-user"></i> List of Salesperson </b> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('saleAgents')" title="Add new"  > 
@@ -784,7 +786,7 @@
     		
     		editedProfileModel[field] = val;
     	});
-    	dataDomHolder.find('input[data-field][type="text"],input[data-field][type="email"]').each(function(){ 
+    	dataDomHolder.find('input[data-field][type="text"],input[data-field][type="email"],textarea').each(function(){ 
     		var field = $(this).data('field'); 
     		var val = $(this).val();
     		editedProfileModel[field] = val;

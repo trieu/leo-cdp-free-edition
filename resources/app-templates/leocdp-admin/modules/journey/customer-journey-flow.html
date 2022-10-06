@@ -60,14 +60,14 @@
 	   		<li class="active" >
         		<a href="javascript:" data-target-tab="panel_touchpoint_hubs" > <i class="fa fa-list" aria-hidden="true"></i> Touchpoint Hub </a>
        		</li>
-       		<li id="tab_journey_data_report" >
-       			<a href="javascript:" data-target-tab="panel_journey_data_report"  > <i class="fa fa-bar-chart aria-hidden="true"></i> Analytics Report  </a>
-       		</li>
        		<li id="tab_journey_data_observers" style="display: none">
        			<a href="javascript:" data-target-tab="panel_data_observers"  > <i class="fa fa-list" aria-hidden="true"></i> Event Observer </a>
        		</li>
        		<li id="tab_journey_data_authorization" style="display: none">
        			<a href="javascript:" data-target-tab="panel_journey_data_authorization"  > <i class="fa fa-lock" aria-hidden="true"></i> User Authorization </a>
+       		</li>
+       		<li id="tab_journey_data_report" >
+       			<a href="javascript:" data-target-tab="panel_journey_data_report"  > <i class="fa fa-bar-chart aria-hidden="true"></i> Analytics Report  </a>
        		</li>
 		</ul>
 
@@ -83,22 +83,7 @@
 		    	</div>
 			</div>
 			
-			<!-- tab 2 Journey Data Report  -->
-			<div class="tab-pane" id="panel_journey_data_report" >
-				<!-- Event Matrix -->
-				<div class="col-md-12"  >
-					<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Matrix Report </h4> 
-					<div id="journey_map_event_matrix" class="col-lg-12"> </div>
-				</div>
-				
-				<!-- Event Observer Bar Chart -->
-            	<div class="col-lg-12">
-					<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Top Observable Data Sources </h4> 
-					<div id="journeyObserverChart" class="col-lg-12"> </div>
-				</div>	
-			</div>
-			
-			<!-- tab 3 Touchpoint Data Observer  -->
+			<!-- tab 2 Touchpoint Data Observer  -->
 			<div class="tab-pane" id="panel_data_observers" >
 				<div class="top_page_header" >
 					<h4> All Touchpoint Data Observers  </h4>
@@ -108,7 +93,7 @@
 		        </div>
 			</div>
 			
-			<!-- tab 4 User Authorization  -->
+			<!-- tab 3 User Authorization  -->
 			<div class="tab-pane" id="panel_journey_data_authorization" >
 				<div class="top_page_header" >
 					<h4> User Authorization of <span id="authorizedJourneyName"></span> </h4>
@@ -141,6 +126,21 @@
 						</button>
 					</div>
 		        </div>
+			</div>
+			
+			<!-- tab 4 Journey Data Report  -->
+			<div class="tab-pane" id="panel_journey_data_report" >
+				<!-- Event Matrix -->
+				<div class="col-md-12"  >
+					<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Matrix Report </h4> 
+					<div id="journey_map_event_matrix" class="col-lg-12"> </div>
+				</div>
+				
+				<!-- Event Observer Bar Chart -->
+            	<div class="col-lg-12">
+					<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Top Observable Data Sources </h4> 
+					<div id="journeyObserverChart" class="col-lg-12"> </div>
+				</div>	
 			</div>
 			
 
