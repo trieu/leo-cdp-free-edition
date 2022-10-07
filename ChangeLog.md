@@ -1,6 +1,6 @@
 # Changelog for LEO CDP
 
-## Feature Plan for the final release [1.0.0] - 2022-10-30
+## Feature Plan for the final release [0.9.0] - 2022-10-30
 
 #### Tasks
 
@@ -12,23 +12,18 @@
 - [In Plan] System User Notification when profile data is updated or created
 - [In Plan] New Data Connector and connector protocol
 - [In Plan] Data Synch with time scheduler
-
-## Feature Plan for the next release 2022-10-03
-
-### TODO for version [0.9.0]
-
-#### High Priority Tasks
-
-- [In Progress] Using Jupyter notebook to update profile CLV and Credit Scoring 
-- [In Plan] use cases for fintech, proptech and ecommerce
-- [In Plan] tool to create or upload event data in LEO CDP Admin
-
-#### Low  Priority Tasks
-
 - [In Plan] docker images
 - [In Plan] register form for new clients, to try free LEO CDP version
 
-## [0.8.9] - 2022-10-06
+## Feature Plan for the next release 2022-10-10 
+
+### ------------ TODO ------------
+
+- [In Progress => 2022-10-07] tool to create or upload event data in LEO CDP Admin
+- [In Progress => 2022-10-08] Using Jupyter notebook to update profile CLV and Credit Scoring 
+- [In Plan => 2022-10-09] use cases for banking, proptech and O2O retail
+
+## [0.8.9] - 2022-10-07
 
 ### Added
 
@@ -97,6 +92,7 @@
 
 ### Fixed 
 
+- [Profile API] fix bugs and use journeyMapIds to set multiple journey map
 - [Profile API] refactoring and can set journey maps from API
 - [Profile API] fix bugs when profile email is empty, must not merge visitor into update data
 - [Profile API] fix can not save profile with only customer name and phone number

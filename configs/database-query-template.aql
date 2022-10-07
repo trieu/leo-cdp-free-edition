@@ -790,29 +790,33 @@ AQL_GET_PROFILE_BY_ID_FOR_ADMIN =>
 ;
 
 AQL_GET_PROFILE_BY_CRM_ID =>
+	LET crmId = TO_STRING(@crmRefId)
 	FOR p in cdp_profile 
-	FILTER @crmRefId != "" AND p.crmRefId == @crmRefId AND p.status == 1
+	FILTER crmId != "" AND p.crmRefId == crmId AND p.status == 1
 	LIMIT 1
 	RETURN p
 ;
 
 AQL_GET_PROFILE_BY_PRIMARY_EMAIL =>
+	LET email = TO_STRING(@email)
 	FOR p in cdp_profile 
-	FILTER @email != "" AND (p.primaryEmail == @email OR @email IN p.identities[*]) AND p.status == 1
+	FILTER email != "" AND (p.primaryEmail == email OR email IN p.identities[*]) AND p.status == 1
 	LIMIT 1
 	RETURN p
 ;
 
 AQL_GET_PROFILE_BY_PRIMARY_PHONE =>
+	LET phone = TO_STRING(@phone)
 	FOR p in cdp_profile 
-	FILTER @phone != "" AND (p.primaryPhone == @phone OR @phone IN p.identities[*]) AND p.status == 1
+	FILTER phone != "" AND (p.primaryPhone == phone OR phone IN p.identities[*]) AND p.status == 1
 	LIMIT 1
 	RETURN p
 ;
 
 AQL_GET_PROFILE_BY_VISITOR_ID =>
+	LET visitorId = TO_STRING(@visitorId)
 	FOR p in cdp_profile 
-	FILTER @visitorId != "" AND (@visitorId == p.visitorId OR @visitorId IN p.identities[*]) AND p.status == 1
+	FILTER visitorId != "" AND (p.visitorId == visitorId OR visitorId IN p.identities[*]) AND p.status == 1
 	LIMIT 1
 	RETURN p
 ;
