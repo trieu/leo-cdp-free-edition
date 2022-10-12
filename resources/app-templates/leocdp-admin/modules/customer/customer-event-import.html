@@ -82,7 +82,7 @@
             	var len = list.length;
             	for(var i=0; i< len; i++ ){
     	   			var obj = list[i];
-    	   			obj.eventTime = moment.utc(obj.eventTime).local().format('YYYY-MM-DD h:mm:ss a') ;
+    	   			obj.eventTime = moment.utc(obj.eventTime).local().format('YYYY-MM-DD HH:mm:ss') ;
             	}
             	// init preview
             	loadPreviewEvent(list);
