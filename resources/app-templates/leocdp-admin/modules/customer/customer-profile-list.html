@@ -1,20 +1,23 @@
 <!-- customer data profile list  -->
 
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-5">
         <h5 class="page-header" id="page_breadcrumb" > </h5>
     </div>
-    <div class="col-lg-6 text-right" style="padding: 10px">
+    <div class="col-lg-7 text-right" style="padding: 10px">
     	<button type="button" class="btn btn-do-now" onclick="location.reload()" title="Refresh Profile List" > 
     		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
     	</button>
     	<button type="button" class="btn btn-info data-control-update" onclick="mergeDuplicatesHandler()" title="Merge duplicated profiles into a single profile" > 
     		<i class="fa fa-compress" aria-hidden="true"></i> Deduplicate
     	</button>
-    	<button type="button" class="btn btn-primary data-control-update" onclick="importProfileHandler()" title="Import Profiles" > 
-    		<i class="fa fa-cloud-upload" aria-hidden="true"></i> Import Data
+    	<button type="button" class="btn btn-primary data-control-update" onclick="importProfileHandler()" title="Import Profile from uploaded CSV file" > 
+    		<i class="fa fa-cloud-upload" aria-hidden="true"></i> Import Profile
     	</button>
-    	<button type="button" class="btn btn-goto-router data-control-insert" onclick="newProfileHandler()" title="New Profile Editor"> 
+    	<button type="button" class="btn btn-primary data-control-update" onclick="importEventHandler()" title="Import Event from uploaded CSV file" > 
+    		<i class="fa fa-cloud-upload" aria-hidden="true"></i> Import Event
+    	</button>
+    	<button type="button" class="btn btn-goto-router data-control-insert" onclick="newProfileHandler()" title="Open editor to input new profile"> 
     		<i class="fa fa-plus-circle" aria-hidden="true"></i> New Profile 
     	</button>
     </div>
@@ -266,6 +269,10 @@
 		location.hash = "calljs-leoCdpRouter('Customer_Profile_Import')";
 	}
 	
+	var importEventHandler = function(){
+		location.hash = "calljs-leoCdpRouter('Customer_Event_Import')";
+	}
+	
 	var mergeDuplicatesCallback = function(){
 		iziToast.success({
     	    title: 'Merge Duplicate Profile',
@@ -367,7 +374,7 @@
     }   
     
     var selectedProfileIdMap = {};
-    function profileListRowHandler(isSelected, selectedItemId){
+    function profileListRowHandler(isSelected, selectedItemId) {
     	console.log(isSelected + " profileListRowHandler " + selectedItemId)
     	if(isSelected){
     		selectedProfileIdMap[selectedItemId] = "removed";

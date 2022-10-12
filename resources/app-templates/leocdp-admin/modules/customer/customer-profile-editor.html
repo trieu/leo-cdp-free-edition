@@ -41,7 +41,6 @@
 	        	</div>
       		</div>
       		<div class="col-md-5">
-      		
 	        	<!-- Primary fields -->
 	        	<div>
 	                <div class="primary_field" > 
@@ -52,11 +51,11 @@
                     	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Updated at </b> 
                    		<span class="data_field" data-field="updatedAt" data-fieldholder="html"  data-fieldtype="date_time"  > -  </span> 
                     </div>
+                     <hr>
 	                <div class="primary_field" >      	      
-	                	<b> <i class="fa fa-sticky-note-o" aria-hidden="true"></i> Notes </b>
-	                	<textarea style="resize: vertical;" class="form-control" rows="5" placeholder="Notes" data-field="notes" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off"  ></textarea>
+	                	<label for="profile_notes"> <i class="fa fa-sticky-note-o" aria-hidden="true"></i> Notes & Data Description </label>
+	                	<textarea id="profile_notes" style="resize: vertical;" class="form-control" rows="5" placeholder="Notes" data-field="notes" data-fieldholder="inputvalue" data-fieldtype="string" ></textarea>
 	                </div>
-	                <hr>
                     <div class="primary_field" style="padding-top: 10px;">
 					   <b> <i class="fa fa-user-o" aria-hidden="true"></i> Profile Status </b> 
 					   <div style="font-size:11px; padding-left: 20px;">
@@ -73,15 +72,14 @@
 					         <label><input type="radio" name="status" value="-4" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >REMOVED</label>
 					      </div>
 					   </div>
-					</div>
-	                             
+					</div>        
 	        	</div>
       		</div>
        </div>
        <hr>
 
        <!--  Tab Navigation Items -->
-       <ul class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" style="font-size:13.5px;" >
+       <ul class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" style="font-size: 12.8px;" >
        		<li class="active" >
        			<a href="javascript:" data-target-tab="panel_personal_info" > <i class="fa fa-user-circle-o" aria-hidden="true"></i> Personal </a>
        		</li>	
@@ -91,8 +89,8 @@
           	<li ><a href="javascript:" data-target-tab="panel_profile_education" > <i class="fa fa-graduation-cap" aria-hidden="true"></i> Education </a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_work" > <i class="fa fa-briefcase" aria-hidden="true"></i> Work & Income </a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_marketing" > <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing </a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_salesources" > <i class="fa fa-info-circle" aria-hidden="true"></i> Sales Sources</a></li>
-          	<li ><a href="javascript:" data-target-tab="panel_profile_custom" > <i class="fa fa-table" aria-hidden="true"></i> Custom Fields</a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_salesources" > <i class="fa fa-info-circle" aria-hidden="true"></i> Sales Source</a></li>
+          	<li ><a href="javascript:" data-target-tab="panel_profile_custom" > <i class="fa fa-table" aria-hidden="true"></i> Custom Field</a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_data_authorization" > <i class="fa fa-lock" aria-hidden="true"></i> Authorization</a></li>
 	   </ul>
 
@@ -111,18 +109,18 @@
 	                           <ol id="personal_attributes" data-field="personal_attributes">
 	                           	  
 	                           	   <li>
-	                                   <b data-persona="key" > <i class="fa fa-fw fa-id-badge"></i> First Name </b> 
-	                                   <input class="form-control" type="text" placeholder="First Name" data-field="firstName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                                   <label for="profile_firstName" > <i class="fa fa-fw fa-id-badge"></i> First Name </label> 
+	                                   <input id="profile_firstName" class="form-control" type="text" placeholder="First Name" data-field="firstName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                               </li>
 	                               
 	                               <li>
-	                                   <b data-persona="key" > <i class="fa fa-fw fa-id-badge"></i> Middle Name </b> 
-	                                   <input class="form-control" type="text" placeholder="Middle Name" data-field="middleName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                                   <label for="profile_middleName" > <i class="fa fa-fw fa-id-badge"></i> Middle Name </label> 
+	                                   <input id="profile_middleName" class="form-control" type="text" placeholder="Middle Name" data-field="middleName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                               </li>
 	                               
 	                               <li>
-	                                   <b data-persona="key" > <i class="fa fa-fw fa-id-badge"></i> Last Name </b> 
-	                                   <input class="form-control" type="text" placeholder="Last Name" data-field="lastName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                                   <label for="profile_lastName" > <i class="fa fa-fw fa-id-badge"></i> Last Name </label> 
+	                                   <input id="profile_lastName" class="form-control" type="text" placeholder="Last Name" data-field="lastName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                               </li>
 					               
 	                               <li class="personal_info" >
@@ -139,20 +137,20 @@
 	                               </li>
 	                               
 	                               <li class="personal_info" >
-	                                  <b data-persona="key"  > <i class="fa fa-fw fa-user-o"></i> Date of Birth </b>      
+	                                  <label for="profile_dateOfBirth" > <i class="fa fa-fw fa-user-o"></i> Date of Birth, the value must be yyyy-MM-dd (YEAR-MONTH-DAY) </label>      
 									  <div class='input-group date' id='profileDateOfBirth' >
-											<input type='text' class="form-control" autocomplete="off" /> 
+											<input id="profile_dateOfBirth" type='text' class="form-control" autocomplete="off" /> 
 											<span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
 									  </div>
 	       						   </li>
 	                               
 	                               <li class="personal_info" >
-	                                   <b data-persona="key"  > <i class="fa fa-fw fa-user-o"></i> Age </b> 
+	                                   <label for="profileAge"  > <i class="fa fa-fw fa-user-o"></i> Age </label> 
 	                                   <input id='profileAge' readonly="readonly" class="form-control" type="number" placeholder="Age" data-field="age" data-fieldholder="inputvalue" data-fieldtype="int" autocomplete="false" >
 	                               </li>
 	       						   
 	       						   <li class="personal_info" >
-	                                   <b data-persona="key"  > <i class="fa fa-fw fa-venus-mars"></i> Marital Status </b> 
+	                                   <label  > <i class="fa fa-fw fa-venus-mars"></i> Marital Status </label> 
 	                                   <div class="radio ">
 										  <label>
 										  	<input type="radio" name="maritalStatus" value="6" data-field="maritalStatus" data-fieldholder="inputvalue" data-fieldtype="int" >Unknown
@@ -197,26 +195,26 @@
                        <td>
 							<ol class="profile_ext_data" data-field="personal_attributes">
 								<li>
-									<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Profile ID </b> 
+									<label> <i class="fa fa-id-badge" aria-hidden="true"></i> Profile ID </label> 
                 					<span class="data_field" data-field="id" data-fieldholder="html" data-fieldtype="string" > - </span>
 								</li>
 								<li>
-									<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Web Visitor ID </b> 
+									<label> <i class="fa fa-id-badge" aria-hidden="true"></i> Web Visitor ID </label> 
                 					<span class="data_field" data-field="visitorId" data-fieldholder="html"  data-fieldtype="string" > - </span>
 								</li>
 								<li>
-									<b> <i class="fa fa-id-badge" aria-hidden="true"></i> CRM Profile ID / Imported Customer ID </b> 
-                					<input class="form-control" type="text" placeholder="CRM User ID" data-field="crmRefId" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+									<label for="profile_crmRefId"> <i class="fa fa-id-badge" aria-hidden="true"></i> CRM Profile ID / Imported Customer ID </label> 
+                					<input id="profile_crmRefId" class="form-control" type="text" placeholder="CRM User ID" data-field="crmRefId" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 								</li>
 			              	 	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> List of Citizen/Passport ID (Government Issued IDs) <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+				                   <label > <i class="fa fa-fw fa-list"></i> List of Citizen/Passport ID (Government Issued IDs) <span class="small_highlight_text">(Data for Identity Resolution)</span> </label> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('governmentIssuedIDs')"title="Add New Citizen/Passport ID"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Citizen/Passport ID 
 				    			   </button>
 				                   <p data-field="governmentIssuedIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
 				              	</li>				               
                               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> List of Application ID <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+				                   <label > <i class="fa fa-fw fa-list"></i> List of Application ID <span class="small_highlight_text">(Data for Identity Resolution)</span> </label> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('applicationIDs')"title="Add New Application ID"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Application ID 
 				    			   </button>
@@ -233,13 +231,13 @@
                        <td>
 							<ol class="profile_ext_data" data-field="personal_attributes">
 								<li>
-                                   	<b data-persona="key" > <i class="fa fa-fw fa-envelope"></i> Primary Personal Email <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-                                   	<input class="form-control" type="email" placeholder="Email" data-field="primaryEmail" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+                                   	<label for="profile_primaryEmail" > <i class="fa fa-fw fa-envelope"></i> Primary Personal Email <span class="small_highlight_text">(Data for Identity Resolution)</span> </label> 
+                                   	<input id="profile_primaryEmail" class="form-control" type="email" placeholder="Email" data-field="primaryEmail" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                            </li>
 	                               
                                 <li>
-                                   	<b data-persona="key" > <i class="fa fa-fw fa-phone-square"></i> Primary Personal Mobile <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
-                                   	<input class="form-control" type="tel" placeholder="Mobile Phone" data-field="primaryPhone" data-fieldholder="inputvalue" data-fieldtype="tel" autocomplete="off" >
+                                   	<label for="profile_primaryPhone" > <i class="fa fa-fw fa-phone-square"></i> Primary Personal Mobile <span class="small_highlight_text">(Data for Identity Resolution)</span> </label> 
+                                   	<input id="profile_primaryPhone" class="form-control" type="tel" placeholder="Mobile Phone" data-field="primaryPhone" data-fieldholder="inputvalue" data-fieldtype="tel" autocomplete="off" >
                                	</li>
 	                               
 								<li>
@@ -363,47 +361,47 @@
                        <td>
 							<ol class="profile_ext_data" data-field="personal_attributes">
 								<li class="personal_info" >
-                                   	<b data-persona="key" > <i class="fa fa-fw fa-map-marker"></i> Permanent Location Address </b>
-                                   	<input class="form-control" type="text" placeholder="Permanent Location Address" data-field="permanentLocation" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
+                                   	<label for="profile_permanentLocation" > <i class="fa fa-fw fa-map-marker"></i> Permanent Location Address </label>
+                                   	<input id="profile_permanentLocation" class="form-control" type="text" placeholder="Permanent Location Address" data-field="permanentLocation" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
                                 </li>
 								<li class="personal_info" >
-                                   	<b data-persona="key" > <i class="fa fa-fw fa-map-marker"></i> Living Location Address </b>
-                                   	<input class="form-control" type="text" placeholder="Living Location Address" data-field="livingLocation" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
+                                   	<label for="profile_livingLocation" > <i class="fa fa-fw fa-map-marker"></i> Living Location Address </label>
+                                   	<input id="profile_livingLocation" class="form-control" type="text" placeholder="Living Location Address" data-field="livingLocation" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
                                 </li>
 	                            <li class="personal_info" > 
-                                   	<b data-persona="key" > <i class="fa fa-fw fa-map-marker"></i> Living Location Code 
+                                   	<label for="profile_locationCode" > <i class="fa fa-fw fa-map-marker"></i> Living Location Code 
                                    		(<a id="locationCodeSearch" class="small_highlight_text" href="https://www.google.com/maps/?q=" target="_blank">Search the location code</a>)
-                                   	</b>
-                                   	<input class="form-control" type="text" placeholder="Living Location Code" data-field="locationCode" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
+                                   	</label>
+                                   	<input id="profile_locationCode" class="form-control" type="text" placeholder="Living Location Code" data-field="locationCode" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
 	                            </li>
+	                            <li>
+	                                <label for="profile_currentZipCode" > <i class="fa fa-fw fa-map-marker"></i> Current Location Zip Code </label> 
+	                                <input id="profile_currentZipCode" class="form-control" type="text" placeholder="Current Location Zip Code" data-field="currentZipCode" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                            </li>	
 								<li>
-	                                <b data-persona="key"> <i class="fa fa-fw fa-map-marker"></i> Primary Nationality  </b> 
-	                                <input class="form-control" type="text" placeholder="Primary Nationality" data-field="primaryNationality" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                                <label for="profile_primaryNationality"> <i class="fa fa-fw fa-map-marker"></i> Primary Nationality </label> 
+	                                <input id="profile_primaryNationality" class="form-control" type="text" placeholder="Primary Nationality" data-field="primaryNationality" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                            </li>
 	                            <li>
-	                                <b data-persona="key" > <i class="fa fa-fw fa-map-marker"></i> Current Living City </b> 
-	                                <input class="form-control" type="text" placeholder="Current Living City" data-field="livingCity" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                                <label for="profile_livingCity" > <i class="fa fa-fw fa-map-marker"></i> Current Living City </label> 
+	                                <input id="profile_livingCity" class="form-control" type="text" placeholder="Current Living City" data-field="livingCity" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                            </li>
 	                            <li>
-	                                <b data-persona="key" > <i class="fa fa-fw fa-map-marker"></i> Current Living Province </b> 
-	                                <input class="form-control" type="text" placeholder="Current Living Province" data-field="livingProvince" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                                <label for="profile_livingProvince" > <i class="fa fa-fw fa-map-marker"></i> Current Living Province </label> 
+	                                <input id="profile_livingProvince" class="form-control" type="text" placeholder="Current Living Province" data-field="livingProvince" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                            </li>
 	                            <li>
-	                                <b data-persona="key" > <i class="fa fa-fw fa-map-marker"></i> Current Living County </b> 
-	                                <input class="form-control" type="text" placeholder="Current Living County" data-field="livingCounty" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                                <label for="profile_livingCounty" > <i class="fa fa-fw fa-map-marker"></i> Current Living County </label> 
+	                                <input id="profile_livingCounty" class="form-control" type="text" placeholder="Current Living County" data-field="livingCounty" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                            </li>
 	                            <li>
-	                                <b data-persona="key" > <i class="fa fa-fw fa-map-marker"></i> Current Living State </b> 
-	                                <input class="form-control" type="text" placeholder="Current Living State" data-field="livingState" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                                <label for="profile_livingState" > <i class="fa fa-fw fa-map-marker"></i> Current Living State </label> 
+	                                <input id="profile_livingState" class="form-control" type="text" placeholder="Current Living State" data-field="livingState" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                            </li>
 	                            <li>
-	                                <b data-persona="key" > <i class="fa fa-fw fa-map-marker"></i> Current Living Country </b> 
-	                                <input class="form-control" type="text" placeholder="Current Living Country" data-field="livingCountry" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
-	                            </li>
-	                            <li>
-	                                <b data-persona="key" > <i class="fa fa-fw fa-map-marker"></i> Current ZipCode </b> 
-	                                <input class="form-control" type="text" placeholder="Current ZipCode" data-field="currentZipCode" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
-	                            </li>							
+	                                <label for="profile_livingCountry" > <i class="fa fa-fw fa-map-marker"></i> Current Living Country </label> 
+	                                <input id="profile_livingCountry" class="form-control" type="text" placeholder="Current Living Country" data-field="livingCountry" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                            </li>				
 							</ol>
 						</td>
 					</tr>
@@ -419,7 +417,7 @@
                        <td>
 							<ol class="profile_ext_data" data-field="personal_attributes">
 				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Soft Skills </b> 
+				                   <label > <i class="fa fa-fw fa-list"></i> Soft Skills </label> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('softSkills')" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Skill 
 				    			   </button>
@@ -427,7 +425,7 @@
 				               	</li>
 				               	
 				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Learning History </b> 
+				                   <label > <i class="fa fa-fw fa-list"></i> Learning History </label> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('learningHistory')" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Value 
 				    			   </button>
@@ -435,7 +433,7 @@
 				               	</li>
 				               	
 				               	<li>
-				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Study Certificates </b> 
+				                   <label >  <i class="fa fa-fw fa-list"></i> Study Certificates </label> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('studyCertificates')" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Certificate 
 				    			   </button>
@@ -456,7 +454,7 @@
                        <td>
 							<ol class="profile_ext_data" data-field="personal_attributes">
 				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Job Titles </b> 
+				                   <label > <i class="fa fa-fw fa-list"></i> Job Titles </label> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('jobTitles')" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Job Title 
 				    			   </button>
@@ -464,7 +462,7 @@
 				               	</li>
 				               	
 				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Working History </b> 
+				                   <label > <i class="fa fa-fw fa-list"></i> Working History </label> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('workingHistory')" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Value 
 				    			   </button>
@@ -472,7 +470,7 @@
 				               	</li>
 				               	
 				               	<li>
-				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Experience in Business Industries </b> 
+				                   <label >  <i class="fa fa-fw fa-list"></i> Experience in Business Industries </label> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('businessIndustries')" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Value 
 				    			   </button>
@@ -510,7 +508,7 @@
 							<ol class="profile_ext_data" data-field="personal_attributes">
 
                                 <li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Content Marketing Keywords </b> 
+				                   <label > <i class="fa fa-fw fa-list"></i> Content Marketing Keywords </label> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('contentKeywords')" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Keyword 
 				    			   </button>
@@ -518,7 +516,7 @@
 				               	</li>
 				               	
 				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Product Marketing Keywords </b> 
+				                   <label > <i class="fa fa-fw fa-list"></i> Product Marketing Keywords </label> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('productKeywords')" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Keyword 
 				    			   </button>
@@ -526,7 +524,7 @@
 				               	</li>
 				               
 				                <li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Personal Interests </b> 
+				                   <label > <i class="fa fa-fw fa-list"></i> Personal Interests </label> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('personalInterests')" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Value 
 				    			   </button>
@@ -534,7 +532,7 @@
 				               	</li>
 				               	
 				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Reachable Media Channels </b> 
+				                   <label > <i class="fa fa-fw fa-list"></i> Reachable Media Channels </label> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('mediaChannels')" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Media Channel
 				    			   </button>
@@ -542,7 +540,7 @@
 				               	</li>
 				               	
 				               	<li>
-				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Personal Problems or Pain-points </b> 
+				                   <label >  <i class="fa fa-fw fa-list"></i> Personal Problems or Pain-points </label> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('personalProblems')" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Value 
 				    			   </button>
@@ -550,7 +548,7 @@
 				               	</li>
 				               	
 				               	<li>
-				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Solutions for Customer </b> 
+				                   <label >  <i class="fa fa-fw fa-list"></i> Solutions for Customer </label> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('solutionsForCustomer')" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Solution 
 				    			   </button>
@@ -558,7 +556,7 @@
 				               	</li>
 				               	
 				               	<li>
-				                   <b data-persona="key" >  <i class="fa fa-fw fa-list"></i> Next Best Actions </b> 
+				                   <label >  <i class="fa fa-fw fa-list"></i> Next Best Actions </label> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('nextBestActions')" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Value 
 				    			   </button>
@@ -579,14 +577,14 @@
                        <td>
 							<ol class="profile_ext_data" data-field="personal_attributes">
 				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-users"></i> List of Sales Source / Media Agency / Sales Partner </b> 
+				                   <label > <i class="fa fa-fw fa-users"></i> List of Sales Source / Media Agency / Sales Partner </label> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('saleAgencies')" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Sales Source 
 				    			   </button>
 				                   <p data-field="saleAgencies" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 				               	</li>				               	
 				               	<li>
-				                   <b data-persona="key" > <i class="fa fa-fw fa-user"></i> List of Salesperson </b> 
+				                   <label > <i class="fa fa-fw fa-user"></i> List of Salesperson </label> 
 				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('saleAgents')" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Salesperson 
 				    			   </button>

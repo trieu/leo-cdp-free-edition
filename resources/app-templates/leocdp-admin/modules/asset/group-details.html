@@ -97,9 +97,15 @@
         
         LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
+            	assetGroupModel = json.data;
+            	if(assetGroupModel == null){
+            		notifyErrorMessage(" <b> Asset Group is not existed ! </b> Invalid group ID: " + assetGroupId)
+            		return;
+            	}
+            	
             	var canInsertData = json.canInsertData;
     	    	var canEditData = json.canEditData;
-        		var canDeleteData = json.canDeleteData;
+        		var canDeleteData = json.canDeleteData && assetGroupModel.defaultGroup !== true;
         		
         		if( ! canEditData ){
     				$('button.data-control-edit').attr('disabled','disabled');
@@ -110,8 +116,6 @@
         		if( ! canInsertData ){
     				$('button.data-control-insert').attr('disabled','disabled');
     			}
-            	
-                assetGroupModel = json.data;
                 
                 var groupTitle = assetGroupModel.title;
                 var assetType = assetGroupModel.assetType;

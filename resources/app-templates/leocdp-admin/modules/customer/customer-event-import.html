@@ -1,0 +1,146 @@
+
+<!-- Customer Event Importer  -->
+
+<div class="row">
+	<div class="col-lg-6">
+		<h5 class="page-header" id="page_breadcrumb" > </h5>
+	</div>
+	<div class="col-lg-6 text-right" style="padding: 10px">
+		<button type="button" class="btn btn-info" onclick="history.back()">
+        	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
+        </button>
+		<button id="run_import_event_job" type="button" class="btn btn-success" disabled="disabled"  > 
+	     	<i class="fa fa-fw fa-check"></i> Run Import Job 
+	    </button>
+	</div>
+</div>
+
+<div class="row ">
+	 <div class="action-div col-lg-12">
+        
+        <div class="panel panel-info">
+         	<div class="panel-heading"> <label for="event_csv_file_uploader"> <i class="fa fa-info" aria-hidden="true"></i> Event Data Importer </label> </div>
+		 	 <div class="panel-body table-responsive">
+		 	 	<p style="font-weight: bold;"> 
+		 	 		The uploaded file should be in CSV data format with commas separating different entries.  <br>
+	         	</p>
+	         	<p style="font-weight: bold;font-size: 120%;"> 
+	         		CSV header: 
+	         	</p>
+	         	<div class="datatable_text">
+	         		LEO Profile ID,External CRM ID,Profile Primary Email,Profile Primary Phone,Observer ID,Journey ID,Journey Stage,Event Time,Event Name,Event Value,Time spent in seconds,Transaction ID,Transaction Value,Transaction Currency,Location Name,Location Code,Source Touchpoint URL,Referral Touchpoint URL,Device ID,Device Type,Device Name,Device OS,Browser Name,Referral Campaign ID,Referral Content ID,Referral Message ID,Referral Item ID,Referral Item Name,Image Urls,Video Urls,Custom Event Data <br>
+	         	</div>
+	         	<p style="font-weight:bold;margin-top: 10px;font-size: 120%;"> 
+	         		For the CSV sample data, you can download at this <a target="blank" href="https://docs.google.com/spreadsheets/d/16i4_FCI5OXf0AepMyC1d7wLlWFdzjsgsKt_YLGKJZIc/view"> sample data here </a> 
+	         	</p>
+		 	 </div>
+		</div>
+		
+		<div class="panel panel-business">
+          	<div class="panel-heading"> <i class="fa fa-info" aria-hidden="true"></i> CSV File Uploader </div>
+		  	<div class="panel-body"  >
+			    <div> 
+	         		<input id="event_csv_file_uploader" type="file" class="filepond" name="raw_profile_data" multiple data-max-file-size="20MB" data-max-files="1" />
+	         	</div>
+		  	</div>
+		</div>
+         
+     </div>
+</div>
+
+<div class="row ">
+	<div class="col-lg-12">
+      	<div class="panel panel-cx">
+		      <div class="panel-heading">
+		      		Preview Data: Top 20 records
+		      </div>
+		      <div class="panel-body">
+		      	 <div class="table-responsive">
+		         	<div id="uploaded_events_preview_table" style="font-size: 10px;" >
+		         		...
+		         	</div>
+		         </div>
+		     </div>
+    	</div>
+	</div>
+</div>
+
+
+<script>
+	
+	var initEventImporter = function () {
+		//headline image uploader
+		var refObjectClass = 'profile';
+		var refObjectKey = 'importer-'+ new Date().getTime();
+        setupUploaderWidget(refObjectClass, refObjectKey, '#event_csv_file_uploader', function (rs) {
+            var importFileUrl = rs.data.fileUrls[0];
+            console.log(importFileUrl);
+            
+            var params = {'importFileUrl' : importFileUrl};
+            LeoAdminApiUtil.getSecuredData('/cdp/events/import-preview', params , function(json){ 
+            	var list = json.data;
+            	var len = list.length;
+            	for(var i=0; i< len; i++ ){
+    	   			var obj = list[i];
+    	   			obj.eventTime = moment.utc(obj.eventTime).local().format('YYYY-MM-DD h:mm:ss a') ;
+            	}
+            	// init preview
+            	loadPreviewEvent(list);
+            	if(len > 0){
+            		$('#run_import_event_job').removeAttr('disabled').click(function(){
+            			doEventImportingJob(importFileUrl)
+            		});
+            	}
+            });
+        }, ['text/csv']);
+	}
+	
+	function loadPreviewEvent(list) {
+		$("#uploaded_events_preview_table").jsGrid({
+			data: list,
+			
+   		    width: "100%",
+   		    height: "auto",
+   		    inserting: false,
+   		    editing: false,
+   		    sorting: false,
+   		    paging: false,
+   		    
+   		    fields: [
+   		    	{ name: "profileId", title : "Profile ID", type: "text", width: 150, align: "center" },
+   		        { name: "crmRefId", title : "CRM ID", type: "text", align: "center" },
+   		     	{ name: "primaryEmail", title : "Primary Email", type: "text",  align: "center" },
+   		     	{ name: "primaryPhone", title : "Primary Phone", type: "text", align: "center" },
+   		     	{ name: "observerId", title : "Observer Id", type: "text",  align: "center" },
+   		     	{ name: "journeyMapId", title : "Journey Map Id", type: "text",  align: "center" },
+   		     	{ name: "journeyStage", title : "Journey Stage", type: "number",  align: "center"},
+   		     	{ name: "eventTime", title : "Event Time", type: "text", align: "center"},
+   		     	{ name: "eventName", title : "Event Name", type: "text", align: "center"},
+   		     	{ name: "eventValue", title : "Event Value", type: "text", align: "center"},
+   		        { name: "message", title : "Message", type: "text", align: "center"}
+   		    ]
+   		});  
+	}
+	
+	function doEventImportingJob(importFileUrl){
+		var gotoProfileList = function(){
+			location.hash = "calljs-leoCdpRouter('Profile_Management')";
+		}
+		var params = {'importFileUrl' : importFileUrl}
+		LeoAdminApiUtil.callPostAdminApi('/cdp/events/import', params , function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+    			var importedOk = json.data.importedOk;
+    			var importedFail = json.data.importedFail;
+    			iziToast.success({
+    	    	    title: 'Customer Event Importer',
+    	    	    onClosed: gotoProfileList ,
+    	    	    message: 'Total imported event successfully: ' + importedOk + ', total duplicated event: ' + importedFail,
+    	    	    timeout: 3000
+    	    	});
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+       });
+	}
+	
+</script>

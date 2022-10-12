@@ -11,7 +11,7 @@
               	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
               	Back
              </button>
-             <button type="button" class="btn btn-danger" onclick="LeoCdpAdmin.navFunctions.deleteGroup(assetGroupModel)">
+             <button type="button" class="btn btn-danger" id="assetGroupEditor_delete">
               	<i class="fa fa-trash" aria-hidden="true"></i> Delete
              </button>
 	         <button type="button" class="btn btn-success data-control-edit" onclick="assetGroupEditorSave()"  > 
@@ -179,6 +179,19 @@
             LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
                     assetGroupModel = json.data;
+                    if(assetGroupModel == null){
+                		notifyErrorMessage(" <b> Asset Group is not existed ! </b> Invalid group ID: " + assetGroupId)
+                		return;
+                	}
+                    
+                    if(assetGroupModel.defaultGroup === true){
+                    	$('#assetGroupEditor_delete').attr('disabled','disabled');
+                    }
+                    else {
+                    	$('#assetGroupEditor_delete').click(function(){
+                    		LeoCdpAdmin.navFunctions.deleteGroup(assetGroupModel);
+                    	})
+                    }
                     
                 	// breadcrumb link update
     		        updateBreadcrumbInAssetGroup(assetGroupModel.assetCategories, assetGroupModel.title);

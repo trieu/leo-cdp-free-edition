@@ -622,6 +622,21 @@ AQL_GET_ASSET_GROUP_BY_SLUG =>
 	RETURN p
 ;
 
+AQL_GET_DEFAULT_ASSET_GROUP_ID_FOR_CONTENT =>
+	FOR p in cdp_assetgroup 
+	FILTER p.defaultGroup == true AND p.assetType == 1
+	LIMIT 1  
+	RETURN p._key
+;
+
+AQL_GET_DEFAULT_ASSET_GROUP_ID_FOR_PRODUCT =>
+	FOR p in cdp_assetgroup 
+	FILTER p.defaultGroup == true AND p.assetType == 2
+	LIMIT 1  
+	RETURN p._key
+;
+
+
 AQL_GET_ASSET_GROUPS =>
 	FOR p in cdp_assetgroup 
 	LIMIT @startIndex,@numberResult 
@@ -819,6 +834,14 @@ AQL_GET_PROFILE_BY_VISITOR_ID =>
 	FILTER visitorId != "" AND (p.visitorId == visitorId OR visitorId IN p.identities[*]) AND p.status == 1
 	LIMIT 1
 	RETURN p
+;
+
+AQL_GET_PROFILE_ID_BY_PRIMARY_KEYS =>
+	FOR p in cdp_profile 
+		FILTER ((@profileId == p._key AND @profileId != "") OR (@crmRefId == p.crmRefId AND @crmRefId != "")
+		OR (@primaryEmail == p.primaryEmail AND @primaryEmail != "") OR (@primaryPhone == p.primaryPhone AND @primaryPhone != "")) AND p.status == 1
+		LIMIT 1
+		RETURN DISTINCT p._key
 ;
 
 AQL_GET_PROFILE_ID_BY_VISITOR_ID =>
@@ -1163,7 +1186,7 @@ AQL_GET_TRACKING_EVENT_TIMESERIES_REPORT =>
 		FILTER (e.refJourneyId == @refJourneyId OR @refJourneyId == "") AND (e.refProfileId == @refProfileId OR @refProfileId == "") AND e.observerId != null
 			   AND ((e.createdAt >= @beginFilterDate OR @beginFilterDate == "") AND (e.createdAt <= @endFilterDate OR @endFilterDate == ""))
 		COLLECT dateKey = DATE_FORMAT(e.createdAt,"%yyyy-%mm-%dd"), metricName = e.metricName
-		AGGREGATE eventCount = SUM(e.metricValue)
+		AGGREGATE eventCount = COUNT_DISTINCT(e._key)
 	    RETURN {"datekey": dateKey, "metricName": metricName, "eventCount": eventCount}
 ;
 
@@ -1191,7 +1214,7 @@ AQL_EVENT_MATRIX_REPORT =>
 				FILTER (e.refJourneyId == @refJourneyId OR @refJourneyId == "") AND (e.refProfileId == @refProfileId OR @refProfileId == "")
 					   AND ((e.createdAt >= @beginFilterDate OR @beginFilterDate == "") AND (e.createdAt <= @endFilterDate OR @endFilterDate == ""))
 				COLLECT groupKey = e.observerId, metricName = e.metricName
-				AGGREGATE eventCount = SUM(e.metricValue)
+				AGGREGATE eventCount = COUNT_DISTINCT(e._key)
 				SORT eventCount DESC
 			RETURN {"groupKey": groupKey, "metricName": metricName, "eventCount": eventCount}
 		)	

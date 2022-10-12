@@ -15,7 +15,7 @@
 - [In Plan] docker images
 - [In Plan] register form for new clients, to try free LEO CDP version
 
-## Feature Plan for the next release 2022-10-10 
+## Feature Plan for the next release 2022-10-20
 
 ### ------------ TODO ------------
 
@@ -23,10 +23,11 @@
 - [In Progress => 2022-10-08] Using Jupyter notebook to update profile CLV and Credit Scoring 
 - [In Plan => 2022-10-09] use cases for banking, proptech and O2O retail
 
-## [0.8.9] - 2022-10-07
+## [0.8.9] - 2022-10-12
 
 ### Added
 
+- [Profile] import tracking events with CSV file and improve UI/UX of profile editor
 - [Profile Editor] add notes as new data field, improve UX/UI
 - [Short URL Link] user can subscribe newsletter form before going to the landing page 
 - [Survey] export CX rating data as CSV file
