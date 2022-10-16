@@ -174,7 +174,9 @@ AQL_COUNT_JOURNEY_EVENT_PROFILE =>
 
 AQL_GET_TOUCHPOINT_HUB_BY_HOSTNAME => 
 	FOR e in cdp_touchpointhub 
-	FILTER e.url LIKE @hostname
+	FILTER CONTAINS(e.url, @hostname)
+	SORT e.updatedAt DESC
+	LIMIT 1
 	RETURN e
 ;
 
@@ -247,6 +249,14 @@ AQL_GET_JOURNEY_MAP_PROFILE_REPORT =>
 ;
 
 ###########  Event Observer  ########################################################################################################;
+
+AQL_GET_EVENT_OBSERVER_BY_HOSTNAME =>
+	FOR e in cdp_eventobserver 
+	FILTER CONTAINS(e.dataSourceUrl, @hostname) 
+	SORT e.updatedAt DESC
+	LIMIT 1
+	RETURN e
+;
 
 AQL_GET_EVENT_OBSERVER_BY_ID =>
 	FOR e in cdp_eventobserver 
