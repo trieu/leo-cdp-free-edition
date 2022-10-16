@@ -211,18 +211,17 @@
 				<div class="row" >
 		            <!-- tabs left -->
 		            <div class="tabbable">
+		            
+		            	<!-- vertical tab panel -->
 		                <ul id="event_flow_tabs" class="nav nav-pills nav-stacked col-md-2">
 		                	<li class="active" ><a href="#panel_event_journey_report" data-toggle="tab"> <i class="fa fa-map-o"></i> Data Journey </a></li>
 		                	<li><a href="#panel_referral_channels" data-toggle="tab"  > <i class="fa fa-globe" aria-hidden="true"></i> Referral Channels </a></li>
 		                	<li><a href="#panel_data_touchpoints" data-toggle="tab"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Top Touchpoints </a></li>
 		                	<li><a href="#panel_event_report" data-toggle="tab"> <i class="fa fa-line-chart" aria-hidden="true"></i> Event Stream</a></li>
-		                	
 		                	<li><a href="#panel_profile_scoring_data" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Advanced Scores</a></li>
 		                    <li><a href="#panel_user_consent" data-toggle="tab"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Data Privacy </a></li>
 		                    <li><a href="#panel_last_session_details" data-toggle="tab"> <i class="fa fa-hourglass-end" aria-hidden="true"></i> Last Session Data </a></li>
-		                    <li>
-		                    	<a href="#panel_purchased_items" data-toggle="tab" onclick="loadPurchasedItems()" ><i class="fa fa-shopping-cart" aria-hidden="true"></i> Purchased Items </a>
-		                    </li>
+		                    <li><a href="#panel_purchased_items" data-toggle="tab" onclick="loadPurchasedItems()" ><i class="fa fa-shopping-cart" aria-hidden="true"></i> Purchased Items </a></li>
 		                </ul>
 		                
 		                <div id="event_flow_vertital_tabs" class="tab-content col-md-10" >
@@ -232,7 +231,7 @@
 		                    	
 		                    	<div style="padding-bottom: 10px" class="col-lg-12">
 				        			<h4 class="highlight_text" > <i class="fa fa-map-o" aria-hidden="true"></i> Report for Journey Map: <span id="profileJourneyName"></span> </h4> 
-				        			<div class='col-lg-6 col-xs-12'>
+				        			<div class='col-lg-6 col-xs-12' style="font-weight: bold;">
 				        				<select id="journeyMapList" data-placeholder="Choose an Journey Map" class="select" > </select>
 				        			</div>
 				        			<div class='col-lg-6 col-xs-12'>
@@ -361,6 +360,8 @@
 		                    
 		                    <!-- vertical tab: Event Data Stream  -->
 		                    <div class="tab-pane" id="panel_event_report" >
+		                    	<div class="loader" id="profile_event_report_loader"></div>
+		                    	
 		                    	<!-- Time Series Report -->
 		                    	<div class="col-lg-12">
 									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Time Series Report </h4> 
@@ -1175,7 +1176,6 @@
         	 
         	 // event flow
         	 loadEventsInProfileIndex=0;
-        	 loadEventsInProfile();
         	 
         	 // feedback data from customer
         	 loadFeedbacksInProfileIndex = 0;
@@ -1198,7 +1198,7 @@
         	 setTimeout(function(){
         		 initDateFilterComponent(true, null, null, daysToQueryEventData);
             	 loadProfileEventDailyReportUnit(profileId)
-			 },5000)
+			 },3000)
         	 
         	 //renderJourneyFlowChart();
         	 //loadProfileAttribution();

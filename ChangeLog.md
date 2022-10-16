@@ -23,7 +23,7 @@
 - [In Progress => 2022-10-08] Using Jupyter notebook to update profile CLV and Credit Scoring 
 - [In Plan => 2022-10-09] use cases for banking, proptech and O2O retail
 
-## [0.8.9] - 2022-10-12
+## [0.8.9] - 2022-10-16
 
 ### Added
 
@@ -93,6 +93,7 @@
 
 ### Fixed 
 
+- [Tracking Event] fix when import and improve UI
 - [Profile API] fix bugs and use journeyMapIds to set multiple journey map
 - [Profile API] refactoring and can set journey maps from API
 - [Profile API] fix bugs when profile email is empty, must not merge visitor into update data

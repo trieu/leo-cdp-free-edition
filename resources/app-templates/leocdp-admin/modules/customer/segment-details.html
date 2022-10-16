@@ -44,7 +44,7 @@
 		<button type="button" class="btn btn-info" title="Go back" onclick="history.back()" > 
 			<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back 
 		</button>
-		<button type="button" class="btn btn-do-now" onclick="location.reload()" title="Refresh data"  > 
+		<button type="button" class="btn btn-primary" onclick="location.reload()" title="Refresh data"  > 
        		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
        	</button>
 		<button type="button" class="btn btn-danger data-control-delete" title="Delete this segment" > 
@@ -217,7 +217,7 @@
 								<i class="fa fa-check" aria-hidden="true"></i> Generate & Copy URL 
 							</button>
 							<div class="download_link_holder" >
-								<a id="ahref_exported_excel_csv" class="btn btn-do-now" style="display: none;" target="_blank" > <i class="fa fa-cloud-download" aria-hidden="true"></i> 
+								<a id="ahref_exported_excel_csv" class="btn btn-primary" style="display: none;" target="_blank" > <i class="fa fa-cloud-download" aria-hidden="true"></i> 
 									Click to download </a>
 							</div>
 						</div>
@@ -234,7 +234,7 @@
 								<i class="fa fa-check" aria-hidden="true"></i> Generate & Copy URL 
 							</button>
 							<div class="download_link_holder">
-								<a id="ahref_exported_facebook_csv" class="btn btn-do-now" style="display: none;" target="_blank" > <i class="fa fa-cloud-download" aria-hidden="true"></i> 
+								<a id="ahref_exported_facebook_csv" class="btn btn-primary" style="display: none;" target="_blank" > <i class="fa fa-cloud-download" aria-hidden="true"></i> 
 									Click to download </a>
 							</div>
 						</div>
@@ -261,7 +261,7 @@
 							<input type="text" class="form-control url_holder" id="segment_json_url" readonly placeholder="URL for JSON data connection" >
 						</div>
 						<div class="col-sm-2" >
-							<button type="button" class="btn btn-do-now" title="" onclick="getSecuredDataJson()" id="btn_segment_json_url" style="margin-top:10px;"> 
+							<button type="button" class="btn btn-primary" title="" onclick="getSecuredDataJson()" id="btn_segment_json_url" style="margin-top:10px;"> 
 								<i class="fa fa-check" aria-hidden="true"></i> Generate & Copy URL 
 							</button>
 						</div>
@@ -276,7 +276,7 @@
 							<input type="text" class="form-control url_holder" id="segment_csv_url" readonly placeholder="URL for CSV data connection" >
 						</div>
 						<div class="col-sm-2" >
-							<button type="button" class="btn btn-do-now" title="" onclick="getSecuredDataCsv()" id="btn_segment_csv_url" style="margin-top:10px;"> 
+							<button type="button" class="btn btn-primary" title="" onclick="getSecuredDataCsv()" id="btn_segment_csv_url" style="margin-top:10px;"> 
 								<i class="fa fa-check" aria-hidden="true"></i> Generate & Copy URL 
 							</button>
 						</div>
@@ -318,7 +318,7 @@
 	            </div>
 	            
 	            <div class="form-group text-right" >
-	            	<button type="button" class="btn btn-do-now" onclick="setDataForPersonalizationInSegment()"><i class="fa fa-check-circle" aria-hidden="true"></i> Add Recommended Items </button>
+	            	<button type="button" class="btn btn-primary" onclick="setDataForPersonalizationInSegment()"><i class="fa fa-check-circle" aria-hidden="true"></i> Add Recommended Items </button>
 	            	<button type="button" class="btn btn-danger" onclick="removeRecommendedItemsInSegment()"><i class="fa fa-trash" aria-hidden="true"></i> Remove Recommended Items </button>
 	            </div>
 	            <hr>
@@ -356,7 +356,7 @@
 											<div class="col-sm-12 sm_purpose" id="sm_for3rdSynchronization"  > 
 												<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> 
 												To synchronize customer data into external systems using connectors </label>
-												<button type="button" class="btn btn-do-now" title="Data Activation for connection and synchronization" data-purpose="for3rdSynchronization" > 
+												<button type="button" class="btn btn-primary" title="Data Activation for connection and synchronization" data-purpose="for3rdSynchronization" > 
 													<i class="fa fa-check" aria-hidden="true"></i> Activate 
 												</button>
 											</div>
@@ -364,7 +364,7 @@
 											<div class="col-sm-12 sm_purpose" id="sm_forDeepAnalytics" style="display: none;"> 
 												<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i>
 												To do deep data analytics with Jupyter Notebook or Google Colab </label>
-												<button type="button" class="btn btn-do-now" title="Data Activation for Deep Analytics " data-purpose="forDeepAnalytics" > 
+												<button type="button" class="btn btn-primary" title="Data Activation for Deep Analytics " data-purpose="forDeepAnalytics" > 
 													<i class="fa fa-check" aria-hidden="true"></i> Activate 
 												</button>
 											</div>
@@ -372,7 +372,7 @@
 											<div class="col-sm-12 sm_purpose" id="sm_forPredictiveAnalytics" style="display: none;" > 
 												<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i>
 												To do predictive analytics with Jupyter Notebook or Google Colab </label>
-												<button type="button" class="btn btn-do-now" title="Data Activation" data-purpose="forPredictiveAnalytics" > 
+												<button type="button" class="btn btn-primary" title="Data Activation" data-purpose="forPredictiveAnalytics" > 
 													<i class="fa fa-check" aria-hidden="true"></i> Activate 
 												</button>
 											</div>
@@ -380,28 +380,28 @@
 											<div class="col-sm-12 sm_purpose" id="sm_forEmailMarketing" style="display: none;" > 
 												<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i>
 												To run email marketing campaign with personalized information </label>
-												<button type="button" class="btn btn-do-now" title="Data Activation for Email Marketing" data-purpose="forEmailMarketing" > 
+												<button type="button" class="btn btn-primary" title="Data Activation for Email Marketing" data-purpose="forEmailMarketing" > 
 													<i class="fa fa-check" aria-hidden="true"></i> Activate 
 												</button>
 											</div>
 											
 											<div class="col-sm-12 sm_purpose" id="sm_forRealtimeMarketing" style="display: none;" > 
 												<b> <i class="fa fa-info-circle" aria-hidden="true"></i> To push SMS or message notification for real-time marketing campaign </b>
-												<button type="button" class="btn btn-do-now" title="Data Activation for Realtime Marketing" data-purpose="forRealtimeMarketing" > 
+												<button type="button" class="btn btn-primary" title="Data Activation for Realtime Marketing" data-purpose="forRealtimeMarketing" > 
 													<i class="fa fa-check" aria-hidden="true"></i> Activate 
 												</button>
 											</div>
 											
 											<div class="col-sm-12 sm_purpose" id="sm_forReTargeting" style="display: none;"> 
 												<b> <i class="fa fa-info-circle" aria-hidden="true"></i> To run re-targeting advertising or remarketing campaign </b>
-												<button type="button" class="btn btn-do-now" title="Data Activation for Re-Targeting" data-purpose="forReTargeting" > 
+												<button type="button" class="btn btn-primary" title="Data Activation for Re-Targeting" data-purpose="forReTargeting" > 
 													<i class="fa fa-check" aria-hidden="true"></i> Activate 
 												</button>
 											</div>
 											
 											<div class="col-sm-12 sm_purpose" id="sm_forLookalikeTargeting" style="display: none;"> 
 												<b> <i class="fa fa-info-circle" aria-hidden="true"></i> To run look-alike advertising campaign </b>
-												<button type="button" class="btn btn-do-now" title="Data Activation for Lookalike-Targeting" data-purpose="forLookalikeTargeting" > 
+												<button type="button" class="btn btn-primary" title="Data Activation for Lookalike-Targeting" data-purpose="forLookalikeTargeting" > 
 													<i class="fa fa-check" aria-hidden="true"></i> Activate 
 												</button>
 											</div>
@@ -1121,7 +1121,7 @@
 			
 			<div class="modal-footer" >
 				<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
-				<button type="button" class="btn btn-do-now" onclick="sendEmailToAllProfileInSegment()"><i class="fa fa-check" aria-hidden="true"></i> OK </button>
+				<button type="button" class="btn btn-primary" onclick="sendEmailToAllProfileInSegment()"><i class="fa fa-check" aria-hidden="true"></i> OK </button>
 		    </div>  
 		</div>
 	</div>
@@ -1183,10 +1183,10 @@
 			</div>  
 			
 			<div class="modal-footer" >
-				<button type="button" class="btn btn-do-now" id="synchronizationOkButton" onclick="doDataSynchronization(this)">
+				<button type="button" class="btn btn-primary" id="synchronizationOkButton" onclick="doDataSynchronization(this)">
 					<i class="fa fa-check" aria-hidden="true"></i> OK 
 				</button>
-		        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		        <button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
 		    </div>  
 		</div>
 	</div>
