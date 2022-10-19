@@ -23,7 +23,7 @@
 - [In Progress => 2022-10-08] Using Jupyter notebook to update profile CLV and Credit Scoring 
 - [In Plan => 2022-10-09] use cases for banking, proptech and O2O retail
 
-## [0.8.9] - 2022-10-16
+## [0.8.9] - 2022-10-19
 
 ### Added
 
@@ -93,6 +93,7 @@
 
 ### Fixed 
 
+- [Data Connector] fix overriding old data when upgrade system, improve SendInBlue connector
 - [Tracking Event] fix when import and improve UI
 - [Profile API] fix bugs and use journeyMapIds to set multiple journey map
 - [Profile API] refactoring and can set journey maps from API
@@ -125,6 +126,7 @@
 
 ### Changed
 
+- uprade core java libraries 
 - improve Segment UI and Data Journey Map UI
 - [Customer Data Report] show profile sources as default tab
 - [Survey] auto set height when survey iframe is fully loaded

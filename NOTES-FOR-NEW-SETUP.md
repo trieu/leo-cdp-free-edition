@@ -24,7 +24,7 @@ The deployed server must have Internet connection, please set the out-bound fire
 	echo 'deb https://download.arangodb.com/arangodb39/DEBIAN/ /' | sudo tee /etc/apt/sources.list.d/arangodb.list
 	sudo apt-get install apt-transport-https
 	sudo apt-get update
-	sudo apt-get install arangodb3=3.9.2-1
+	sudo apt-get install arangodb3=3.9.3-1
 
 ### Nginx Proxy
 
@@ -75,8 +75,7 @@ The deployed server must have Internet connection, please set the out-bound fire
 	sudo mkdir /build/
 	sudo git clone https://github.com/trieu/leo-cdp-free-edition.git /build/leo-cdp
 	sudo chown -R leocdp:leocdp /build/ ; sudo chmod +x /build/leo-cdp/*.sh
-	sudo mkdir -p /home/leocdp/ ; sudo chown -R leocdp:leocdp /home/leocdp/ 
-	
+	sudo mkdir -p /home/leocdp/ ; sudo chown -R leocdp:leocdp /home/leocdp/
 
 ### DNS hosts for LEO CDP servers 
 
@@ -89,7 +88,8 @@ Command to edit hosts:
 - [the network IP of ArangoDB Server] leocdp.database
 - [the network IP of Redis Server] leocdp.redis
 - [the network IP of LeoCDP Admin] leocdp.admin
-- [the network IP of LeoCDP Data Observer] leocdp.observer0
+- [the network IP of Data Observer 1] leocdp.observer1
+- [the network IP of Data Observer 2] leocdp.observer2
 
 #### Example DNS for 1 ArangoDB database server, 1 Redis cache server, 1 Admin server and 2 data observers
 
