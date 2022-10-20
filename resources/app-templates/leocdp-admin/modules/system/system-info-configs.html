@@ -8,12 +8,14 @@
 	color: #FF0000!important;
     font-size: 1.1em!important;
 }
+.profile_field_type {
+	font-size:0.8em; font-family:Tahoma, sans-serif;
+}
 </style>
-
 
 <div class="row">
     <div class="col-lg-12">
-        <h5 class="page-header" id="page_breadcrumb" > </h5>
+        <h5 class="page-header" id="page_breadcrumb"> </h5>
     </div>
 </div>
     
@@ -289,8 +291,9 @@
 		});
 	}
 	
-	function loadProfileMetadataView(profileMetadata){
-		 var gridControls =  { title : "Controls", type: "control", width: 80, editButton: true, deleteButton: false, itemTemplate:  function(value, item) {
+	function loadProfileMetadataView(profileMetadata) {
+		 var gridControls = { title : "Controls", type: "control", width: 80, editButton: true, deleteButton: false, 
+			itemTemplate:  function(value, item) {
 	             var $result = jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
 	             
 	             var isCoreAttribute = item.coreAttribute;
@@ -308,27 +311,22 @@
 	             });       
 	             
 	             var cssClass = "customGridEditbutton jsgrid-button jsgrid-edit-button";
-	             var $customEditButton = $("<button>").data("attributeName",attributeName).attr({class: cssClass,title:"Edit Attribute"})
+	             var $customEditButton = $("<button>").data("attributeName",attributeName).attr({class: cssClass, title: "Edit Attribute"})
 	             .click(function(e) {
 	             	//underDevelopment(this);
 	                 //e.stopPropagation();
-	                 
 	                 console.log("Edit button ", $(this).data('attributeName'))
 	             });
 	
 	             var cssClass = "customGridDeletebutton jsgrid-button jsgrid-delete-button";
-	            	var $customDeleteButton = $("<button>").data("attributeName",attributeName).attr({class: cssClass,title:"Delete Attribute"})
+	            	var $customDeleteButton = $("<button>").data("attributeName",attributeName).attr({class: cssClass, title:"Delete Attribute"})
 	            	.click(function(e) {
 	            		var attributeName = $(this).data('attributeName');
 	            		if( isCoreAttribute ){
-	            			iziToast.info({
-			    	    	    title: 'Information Box',
-			    	    	    message: "The attribute <b>[" + attributeName + "]</b> is the <b>attribute of system</b>. You can not delete this attribute."
-			    	    	});
+	            			notifyErrorMessage("The attribute <b>[" + attributeName + "]</b> is the <b>attribute of system</b>. You can not delete this attribute.")
 	            		} else {
 	                		deleteEventMetricMetaData(attributeName)
 	            		}
-	            		
 	               	e.stopPropagation();
 	             });
 	
@@ -386,10 +384,7 @@
 		    		var params = {'objectJson' : JSON.stringify(profileConfigs) };
 		    		LeoAdminApiUtil.callPostAdminApi('/cdp/system-config/save', params, function (json) {
 		                if (json.httpCode === 0 && json.errorMessage === '') {
-		                	iziToast.success({
-			    	    	    title: 'Information Box',
-			    	    	    message: 'The attribute <b>[' + item.attributeName +  ']</b> is saved successfully !'
-			    	    	});
+		                	notifySuccessMessage('The attribute <b>[' + item.attributeName +  ']</b> is saved successfully !')
 		                } else {
 		                    LeoAdminApiUtil.logErrorPayload(json);
 		                }
@@ -408,8 +403,12 @@
 		    fields: [
 		        { name: "attributeName", title : "Attribute Name", align: 'center' , type: "text", validate: "required", validate: "required", editing: false },
 		        { name: "label", title : "Label", align: 'center' , type: "text", validate: "required", width: 120, editing: false },
-		        { name: "type", title : "Data Type", align: 'center' , type: "text", validate: "required", editing: false },
-		        { name: "dataQualityScore", title : "Data Quality Score", type: "number", align: 'center', width: 64, validate: "required",
+		        { name: "type", title : "Data Type", align: 'center' , type: "text", validate: "required", editing: false, 
+		        	itemTemplate: function(value, item) { 
+		        		return '<div class="profile_field_type"> ' + value + ' </div>'; 
+		        	} 
+		        },
+		        { name: "dataQualityScore", title : "Data Quality Score", type: "number", align: 'center', width: 76, validate: "required",
 		        	itemTemplate: function(value, item) { 
 		        		if(value > 0){
 		        			return '<div class="highlight_text positive_dqs"> ' + value + ' </div>'; 
@@ -418,8 +417,9 @@
 		        			return '<div class="highlight_text negative_dqs"> ' + value + ' </div>'; 
 		        		}
 		        		return value;
-		        	},
+		        	}
 		        }
+		        ,{ name: "synchronizable", title : "Synchronizable", align: 'center' , type: "CustomCheckBox",  width: 64, validate: "required" }
 		        , gridControls
 		    ]
 		});  

@@ -205,6 +205,11 @@
 	//select date
 	var currentJourneyMapId = ""; 
     var initPrimaryDashboard = function () {
+    	loadJourneyMapList(false, function(id){
+    		currentJourneyMapId = id;
+    		showDashboardReport(true)
+        },true);
+    	
     	// init tabs
     	setupTabPanels();
     	
@@ -213,11 +218,6 @@
     	initDateFilterComponent(false, null, null, 45);
     	
     	showDashboardReport(true);
-    	
-    	loadJourneyMapList(false, function(id){
-    		currentJourneyMapId = id;
-    		showDashboardReport(true)
-        },true);
     	
     	//loadEventStatistics()
         
