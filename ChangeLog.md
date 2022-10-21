@@ -23,7 +23,7 @@
 - [In Progress => 2022-10-08] Using Jupyter notebook to update profile CLV and Credit Scoring 
 - [In Plan => 2022-10-09] use cases for banking, proptech and O2O retail
 
-## [0.8.9] - 2022-10-20
+## [0.8.9] - 2022-10-21 
 
 ### Added
 
@@ -126,7 +126,7 @@
 
 ### Changed
 
-- improve performance of customer data report and loading journey map
+- caching query and improve performance of customer data report and loading journey map
 - uprade core java libraries 
 - improve Segment UI and Data Journey Map UI
 - [Customer Data Report] show profile sources as default tab
