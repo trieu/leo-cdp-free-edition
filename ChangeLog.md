@@ -23,7 +23,7 @@
 - [In Progress => 2022-10-08] Using Jupyter notebook to update profile CLV and Credit Scoring 
 - [In Plan => 2022-10-09] use cases for banking, proptech and O2O retail
 
-## [0.8.9] - 2022-10-21 
+## [0.8.9] - 2022-10-24
 
 ### Added
 
