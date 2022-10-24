@@ -229,8 +229,11 @@
 
 	/////////////////////////////// READY //////////////////////////////////
 	
+
 	function pageWrapperResize(){
-		$('#page-wrapper').attr('style', 'width:'+($(window).width() - 220 ) + 'px!important');
+		var w = $(window).width() - 220;
+		$('#page-wrapper').attr('style', 'width:'+ w + 'px!important');
+		window.pageWrapperWidth = w;
 	}
 	
 	function navigationSetup(){

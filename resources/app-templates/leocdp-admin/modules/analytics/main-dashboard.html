@@ -202,6 +202,10 @@
 
 <script>
 
+	var mainDashboardFunnelHeight = 420;
+	var mainDashboardWidth = 850;
+	var dashboardFontSize = 14;
+
 	//select date
 	var currentJourneyMapId = ""; 
     var initPrimaryDashboard = function () {
@@ -217,6 +221,7 @@
     	//initDateFilterComponent(false);
     	initDateFilterComponent(false, null, null, 45);
     	
+    	mainDashboardWidth = window.pageWrapperWidth > 0 ? (window.pageWrapperWidth * 0.7) : mainDashboardWidth;
     	showDashboardReport(true);
     	
     	//loadEventStatistics()
@@ -225,8 +230,7 @@
       	//loadCustomerVenn();
     }
 	
-	var mainDashboardFunnelHeight = 420;
-	var dashboardFontSize = 14;
+	
 	
 	var updateProfileChartWrapper = function() {
 		var container = $('#profile_funnel_wrapper');
@@ -257,7 +261,6 @@
 	var dashboardDataModel = false;
 	
     var showDashboardReport = function(refresh) {
-    	
     	var queryFilter = getDateFilterValues();
     	
     	var beginReportDate = queryFilter.beginFilterDate;
@@ -396,101 +399,110 @@
                 }
             });
             
-            loadTouchpointHubReport(queryFilter);
+            showTouchpointHubReport(queryFilter);
             
             setTimeout(function(){
-            	 loadTouchpointItemReport(queryFilter);
-                 loadJourneyFlowReport(queryFilter)
+            	 showTouchpointItemReport(queryFilter);
             },2000)
+            
+            setTimeout(function(){
+            	 showJourneyFlowReport(queryFilter)
+            },3000)
     	}
     	else {
     		updateChartDashboard();
     	}
     }
     
-    function loadTouchpointHubReport(queryFilter) {
+    function showTouchpointHubReport(queryFilter) {
     	var textTitle = "Customer Data Sources";
-    	var container = $('#observer_report_wrapper').html('<div class="loader"></div>');
+    	$('#observer_report_wrapper').html('<div class="loader"></div>');
         
         // touchpoint detail report
         queryFilter['touchpointType'] = -1;
         queryFilter['startIndex'] = 0;
         queryFilter['numberResult'] = 22;
+        
         var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-hub-report';
         LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {
-              if (json.httpCode === 0 && json.errorMessage === '') {
-	           	   var w = $('#main_dashboard_report_tabs').width() - 6;
-	           	   var h = 580;
-	           	   var canvas = $('<canvas/>').width(w).height(h);
-	           	   container.empty().append(canvas);
-	           	   
-	           	   showProfileEventBubbleChart(textTitle, container, canvas, json.data);
-	           	   
-	           	   var fieldsSchema = [
-			        { name: "name", title : "Touchpoint Hub Domain", align: 'center' , type: "text" },			        
-			        { name: "profileCount", title : "Total Profile", type: "number", align: 'center', width: 60 },
-			        { name: "eventCount", title : "Total Event", type: "number", align: 'center', width: 60 }
-			    ];
-           	    $("#observer_report_table").jsGrid({ editing: false, paging: false, width: "100%", height:"auto", data: json.data, fields: fieldsSchema})
-              } else {
-                  LeoAdminApiUtil.logErrorPayload(json);
-              }
+			if ( typeof json.data === "object" && json.errorMessage === "") {
+				
+           	   	var w = mainDashboardWidth;
+           	   	var h = 600;
+           	   	var canvas = $('<canvas/>').width(w).height(h);
+           	   	
+           	 	var container = $('#observer_report_wrapper');
+           	 	container.empty().append(canvas);
+           	 	
+           	    // report
+           	   	showProfileEventBubbleChart(textTitle, container, canvas, json.data);
+           	   	
+           	   	setTimeout(function(){
+	           	 	var fieldsSchema = [
+			        	{ name: "name", title : "Touchpoint Hub Domain", align: 'center' , type: "text" },			        
+			        	{ name: "profileCount", title : "Total Profile", type: "number", align: 'center', width: 60 },
+			        	{ name: "eventCount", title : "Total Event", type: "number", align: 'center', width: 60 }
+			    	];
+	           	 	$("#observer_report_table").jsGrid({ editing: false, paging: false, width: "100%", height:"auto", data: json.data, fields: fieldsSchema})
+           	   	},1000)
+             } else {
+                 LeoAdminApiUtil.logErrorPayload(json);
+             }
         });
     }
     
-    function loadTouchpointItemReport(queryFilter){
+    function showTouchpointItemReport(queryFilter){
     	var textTitle = "Data Source Details";
-        var container = $('#touchpoint_report_wrapper').html('<div class="loader"></div>');
-        setTimeout(function(){
-        	 // touchpoint detail report
-            queryFilter['touchpointType'] = -1;
-            queryFilter['startIndex'] = 0;
-            queryFilter['numberResult'] = 22;
-            var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-report';
-            LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {
-                if (json.httpCode === 0 && json.errorMessage === '') {
-                	
-                	var w = $('#main_dashboard_report_tabs').width() - 6;
-                	var h = 800;
-              	   	var canvas = $('<canvas/>').width(w).height(h);
-              	   	container.empty().append(canvas);
-                	
-                	showProfileEventBubbleChart(textTitle, container, canvas, json.data, "touchpoint");
-                	
-                	var fieldsSchema = [
- 				        { name: "touchpoint.name", title : "Touchpoint Item Name", align: 'center' , type: "text" },			        
- 				        { name: "profileCount", title : "Total Profile", type: "number", align: 'center', width: 60 },
- 				        { name: "eventCount", title : "Total Event", type: "number", align: 'center', width: 60 }
- 				    ];
-              	    $("#touchpoint_report_table").jsGrid({ editing: false, paging: false, width: "100%", height:"auto", data: json.data, fields: fieldsSchema})
-                } else {
-                    LeoAdminApiUtil.logErrorPayload(json);
-                }
-            });
-        },800);
+       	$('#touchpoint_report_wrapper').html('<div class="loader"></div>');
+        
+        // touchpoint detail report
+        queryFilter['touchpointType'] = -1;
+        queryFilter['startIndex'] = 0;
+        queryFilter['numberResult'] = 22;
+        var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-report';
+        LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {
+        	if ( typeof json.data === "object" && json.errorMessage === "") {
+        		
+            	var w = mainDashboardWidth;
+            	var h = 800;
+          	   	var canvas = $('<canvas/>').width(w).height(h);
+          	   	
+          	  	var container = $('#touchpoint_report_wrapper');
+          	   	container.empty().append(canvas);
+            	
+            	showProfileEventBubbleChart(textTitle, container, canvas, json.data, "touchpoint");
+            	
+            	var fieldsSchema = [
+				        { name: "touchpoint.name", title : "Touchpoint Item Name", align: 'center' , type: "text" },			        
+				        { name: "profileCount", title : "Total Profile", type: "number", align: 'center', width: 60 },
+				        { name: "eventCount", title : "Total Event", type: "number", align: 'center', width: 60 }
+				    ];
+          	    $("#touchpoint_report_table").jsGrid({ editing: false, paging: false, width: "100%", height:"auto", data: json.data, fields: fieldsSchema})
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
     }
     
  	// touchpoint flow network
     var flowNetworkGraph = false;
-    function loadJourneyFlowReport(queryFilter) {
+    function showJourneyFlowReport(queryFilter) {
     	var containerId = 'flow_network_report_wrapper';
     	var containerNode = $('#'+containerId).empty().html('<div class="loader"></div>');
     	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-flow-report';
     	
-    	setTimeout(function(){
-    		queryFilter['startIndex'] = 0;
-        	queryFilter["numberFlow"] = 150; // number of flow edges
-    		LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {    	
-                if (json.httpCode === 0 && json.errorMessage === '') {
-                	containerNode.empty()
-                	var graphElements = { nodes: json.data.nodes, edges: json.data.edges }
-                	var rootNodeId = json.data.rootNodeId;
-                	flowNetworkGraph = renderDirectedGraph(containerId, graphElements, rootNodeId);
-                } else {
-                    LeoAdminApiUtil.logErrorPayload(json);
-                }
-            });
-    	},1600);
+    	queryFilter['startIndex'] = 0;
+    	queryFilter["numberFlow"] = 150; // number of flow edges
+		LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {    	
+            if (json.httpCode === 0 && json.errorMessage === '') {
+            	containerNode.empty()
+            	var graphElements = { nodes: json.data.nodes, edges: json.data.edges }
+            	var rootNodeId = json.data.rootNodeId;
+            	flowNetworkGraph = renderDirectedGraph(containerId, graphElements, rootNodeId);
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
     }
     
     function setJourneyFlowGraphView(){
