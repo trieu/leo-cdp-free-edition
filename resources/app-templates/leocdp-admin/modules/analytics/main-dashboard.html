@@ -397,8 +397,11 @@
             });
             
             loadTouchpointHubReport(queryFilter);
-            loadTouchpointItemReport(queryFilter);
-            loadJourneyFlowReport(queryFilter)
+            
+            setTimeout(function(){
+            	 loadTouchpointItemReport(queryFilter);
+                 loadJourneyFlowReport(queryFilter)
+            },2000)
     	}
     	else {
     		updateChartDashboard();
@@ -408,33 +411,31 @@
     function loadTouchpointHubReport(queryFilter) {
     	var textTitle = "Customer Data Sources";
     	var container = $('#observer_report_wrapper').html('<div class="loader"></div>');
-        setTimeout(function(){
-        	// touchpoint detail report
-            queryFilter['touchpointType'] = -1;
-            queryFilter['startIndex'] = 0;
-            queryFilter['numberResult'] = 22;
-            var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-hub-report';
-            LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {
-                if (json.httpCode === 0 && json.errorMessage === '') {
-             	   
-             	   var w = $('#main_dashboard_report_tabs').width() - 6;
-             	   var h = 580;
-             	   var canvas = $('<canvas/>').width(w).height(h);
-             	   container.empty().append(canvas);
-             	   
-             	   showProfileEventBubbleChart(textTitle, container, canvas, json.data);
-             	   
-             	   var fieldsSchema = [
-				        { name: "name", title : "Touchpoint Hub Domain", align: 'center' , type: "text" },			        
-				        { name: "profileCount", title : "Total Profile", type: "number", align: 'center', width: 60 },
-				        { name: "eventCount", title : "Total Event", type: "number", align: 'center', width: 60 }
-				    ];
-             	    $("#observer_report_table").jsGrid({ editing: false, paging: false, width: "100%", height:"auto", data: json.data, fields: fieldsSchema})
-                } else {
-                    LeoAdminApiUtil.logErrorPayload(json);
-                }
-            });
-        },800);
+        
+        // touchpoint detail report
+        queryFilter['touchpointType'] = -1;
+        queryFilter['startIndex'] = 0;
+        queryFilter['numberResult'] = 22;
+        var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-hub-report';
+        LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {
+              if (json.httpCode === 0 && json.errorMessage === '') {
+	           	   var w = $('#main_dashboard_report_tabs').width() - 6;
+	           	   var h = 580;
+	           	   var canvas = $('<canvas/>').width(w).height(h);
+	           	   container.empty().append(canvas);
+	           	   
+	           	   showProfileEventBubbleChart(textTitle, container, canvas, json.data);
+	           	   
+	           	   var fieldsSchema = [
+			        { name: "name", title : "Touchpoint Hub Domain", align: 'center' , type: "text" },			        
+			        { name: "profileCount", title : "Total Profile", type: "number", align: 'center', width: 60 },
+			        { name: "eventCount", title : "Total Event", type: "number", align: 'center', width: 60 }
+			    ];
+           	    $("#observer_report_table").jsGrid({ editing: false, paging: false, width: "100%", height:"auto", data: json.data, fields: fieldsSchema})
+              } else {
+                  LeoAdminApiUtil.logErrorPayload(json);
+              }
+        });
     }
     
     function loadTouchpointItemReport(queryFilter){
