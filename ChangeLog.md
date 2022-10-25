@@ -23,10 +23,11 @@
 - [In Progress => 2022-10-08] Using Jupyter notebook to update profile CLV and Credit Scoring 
 - [In Plan => 2022-10-09] use cases for banking, proptech and O2O retail
 
-## [0.8.9] - 2022-10-24
+## [0.8.9] - 2022-10-25
 
 ### Added
 
+- [Profile Import] add option overwriteOldData to clear old data and update new personal information
 - [Profile] import tracking events with CSV file and improve UI/UX of profile editor
 - [Profile Editor] add notes as new data field, improve UX/UI
 - [Short URL Link] user can subscribe newsletter form before going to the landing page 

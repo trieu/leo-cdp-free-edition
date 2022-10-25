@@ -60,7 +60,10 @@
 	                
           	<div class="panel-heading"> <i class="fa fa-info" aria-hidden="true"></i> Contact Type and Data Labels </div>
 		  	<div class="panel-body"  >
-		  		<div class="col-lg-12" style="margin-bottom: 16px">
+		  		<div class="col-md-12" style="margin-bottom: 10px">			    	
+					<label for="importProfileOverwriteOldData"> <input id="importProfileOverwriteOldData" type="checkbox" > Overwrite existing profiles </label> 
+				</div>
+		  		<div class="col-lg-12" style="margin-bottom: 15px">
 			  		<p style="font-weight: bold;">  Contact Type  </p>
 			  		<select id="contactTypeList" data-placeholder="Choose a Contact Type" class="select" >
 		            	<option value="1"> LOGIN_USER_CONTACT </option>
@@ -77,7 +80,7 @@
 		  		<div class="col-lg-12">
 		  			<p style="font-weight: bold;">  The list of data labels is separated by a semicolon, to classify data by labels.</p>
 			    	<input type="text" class="form-control" id="profileImpoterDataLabel" aria-describedby="dataLabelHelp" placeholder="Enter data labels. E.g: student; business; contact lead for sales">
-			    </div>
+			    </div>			     
 		  	</div>
 		</div>
 		
@@ -122,10 +125,11 @@
 		var refObjectClass = 'profile';
 		var refObjectKey = 'importer-'+ new Date().getTime();
         setupUploaderWidget(refObjectClass, refObjectKey, '#profile_csv_file_uploader', function (rs) {
-            var importFileUrl = rs.data.fileUrls[0];
-            console.log(importFileUrl);
-            
-            var params = {'importFileUrl' : importFileUrl};
+        	
+            var importFileUrl = rs.data.fileUrls[0];            
+            var overwriteOldData = $('#importProfileOverwriteOldData').prop("checked");            
+            var params = {'importFileUrl' : importFileUrl, 'overwriteOldData': overwriteOldData};
+                        
             LeoAdminApiUtil.getSecuredData('/cdp/profiles/import-preview', params , function(json){ 
             	var list = json.data;
             	var len = list.length;
@@ -206,8 +210,11 @@
 		var gotoProfileList = function(){
 			location.hash = "calljs-leoCdpRouter('Profile_Management')";
 		}
+		
+		var overwriteOldData = $('#importProfileOverwriteOldData').prop("checked");        
 		var dataLabels = $('#profileImpoterDataLabel').val().trim();
-		var params = {'importFileUrl' : importFileUrl, "dataLabels" : dataLabels, "journeyMapId": currentJourneyMapId, "journeyStage": journeyStageToImport, "contactType": contactTypeToImport}
+		var params = {'importFileUrl':importFileUrl, "dataLabels" : dataLabels, "journeyMapId": currentJourneyMapId, "journeyStage": journeyStageToImport, "contactType": contactTypeToImport, 'overwriteOldData': overwriteOldData};
+		
 		LeoAdminApiUtil.callPostAdminApi('/cdp/profiles/import', params , function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
     			var importedOk = json.data.importedOk;
