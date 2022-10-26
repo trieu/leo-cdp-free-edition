@@ -1,27 +1,30 @@
 # Changelog for LEO CDP
 
-## Feature Plan for the final release [0.9.0] - 2022-10-30
+## Feature Plan for the final beta release 1.0 - 2022-11-30
 
 #### Tasks
 
-- [In Plan] Segment Activation: sending web push notification directly from LEO CDP
-- [In Plan] Segment Activation: sending SMS directly from LEO CDP
-- [In Plan] Segment Activation: sending email directly with SMTP from LEO CDP
-- [In Plan] Data Reporting with Jupyter notebook
-- [In Plan] Profile Finance Data Report
-- [In Plan] System User Notification when profile data is updated or created
-- [In Plan] New Data Connector and connector protocol
-- [In Plan] Data Synch with time scheduler
-- [In Plan] docker images
-- [In Plan] register form for new clients, to try free LEO CDP version
+- [In Plan => 2022-11-06] LEO Tag JS to link FB user and Google user
+- [In Plan => 2022-11-08] Segment Activation: sending web push notification directly from LEO CDP
+- [In Plan => 2022-11-10] Segment Activation: sending email directly with SMTP from LEO CDP
+- [In Plan => 2022-11-12] Data Reporting with Jupyter notebook
+- [In Plan => 2022-11-14] Profile Finance Data Report
+- [In Plan => 2022-11-16] System User Notification when profile data is updated or created
+- [In Plan => 2022-11-18] New Data Connector and connector protocol
+- [In Plan => 2022-11-20] Data Synch with time scheduler
+- [In Plan => 2022-10-22] export data into Google BigQuery and visual with Data Studio 
+- [In Plan => 2022-11-24] docker images
+- [In Plan => 2022-11-26] web form in leocdp.com for new clients, to try free LEO CDP version with docker
+- [In Plan => 2022-11-28] use cases for banking, proptech and O2O retail
+- [In Plan => 2022-11-30] video, slide and update document for version 1.0 
 
-## Feature Plan for the next release 2022-10-20
+## Feature Plan for the next release 2022-11-30
 
 ### ------------ TODO ------------
 
-- [In Progress => 2022-10-07] tool to create or upload event data in LEO CDP Admin
-- [In Progress => 2022-10-08] Using Jupyter notebook to update profile CLV and Credit Scoring 
-- [In Plan => 2022-10-09] use cases for banking, proptech and O2O retail
+- [Done] import tool to upload event data as CSV file in LEO CDP Admin
+- [In Progress => 2022-10-28] Using Jupyter notebook to update profile CLV, CAC and Credit Scoring 
+- [In Plan => 2022-10-30] new UI for journey map report
 
 ## [0.8.9] - 2022-10-25
 
