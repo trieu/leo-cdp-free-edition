@@ -481,7 +481,6 @@ AQL_DELETE_EVENT_METRICS_BY_FLOW_NAME =>
 
 ###########  DAILY_REPORT_UNITS   ########################################################################################################;
 
-
 AQL_GET_DAILY_REPORT_UNITS =>
 	LET stats = 
 	(
@@ -489,7 +488,7 @@ AQL_GET_DAILY_REPORT_UNITS =>
 		FILTER d.createdAt >= @fromDate AND d.createdAt <= @toDate AND d.objectName == @objectName AND (d.journeyMapId == @journeyMapId OR @journeyMapId == "")
 		COLLECT eventName = d.eventName, dateKey = d.dateKey, journeyMapId = d.journeyMapId, createdAt = DATE_TRUNC(d.createdAt, 'day') 
 		AGGREGATE totalDailyCount = SUM(d.dailyCount)
-		RETURN {"journeyMapId":journeyMapId, "dateKey":dateKey, "objectName": @objectName, "eventName": eventName, "dailyCount": totalDailyCount, "createdAt": createdAt}
+		RETURN {"journeyMapId":journeyMapId, "dateKey":dateKey, "objectName": @objectName, "eventName": eventName, "createdAt": createdAt, "dailyCount": totalDailyCount }
 	)
 	FOR s IN stats
 	SORT s.createdAt
@@ -825,7 +824,7 @@ AQL_GET_PROFILE_BY_ID_FOR_ADMIN =>
 AQL_GET_PROFILE_BY_CRM_ID =>
 	LET crmId = TO_STRING(@crmRefId)
 	FOR p in cdp_profile 
-	FILTER crmId != "" AND p.crmRefId == crmId AND p.status == 1
+	FILTER crmId != "" AND p.crmRefId == crmId AND p.status == 1 AND (@loginUsername IN p.authorizedViewers[*] OR @hasAdminRole == TRUE)
 	LIMIT 1
 	RETURN p
 ;

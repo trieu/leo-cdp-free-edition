@@ -18,7 +18,7 @@
 - [In Plan => 2022-11-28] use cases for banking, proptech and O2O retail
 - [In Plan => 2022-11-30] video, slide and update document for version 1.0 
 
-## Feature Plan for the next release 2022-11-30
+## Feature Plan for the next release 2022-10-30
 
 ### ------------ TODO ------------
 
@@ -26,7 +26,7 @@
 - [In Progress => 2022-10-28] Using Jupyter notebook to update profile CLV, CAC and Credit Scoring 
 - [In Plan => 2022-10-30] new UI for journey map report
 
-## [0.8.9] - 2022-10-25
+## [0.8.9] - 2022-10-27
 
 ### Added
 
@@ -97,6 +97,7 @@
 
 ### Fixed 
 
+- [Event Reporting] improve AQL for performance
 - [Data Connector] fix overriding old data when upgrade system, improve SendInBlue connector
 - [Tracking Event] fix when import and improve UI
 - [Profile API] fix bugs and use journeyMapIds to set multiple journey map
