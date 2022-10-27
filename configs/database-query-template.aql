@@ -481,11 +481,19 @@ AQL_DELETE_EVENT_METRICS_BY_FLOW_NAME =>
 
 ###########  DAILY_REPORT_UNITS   ########################################################################################################;
 
+
 AQL_GET_DAILY_REPORT_UNITS =>
-	FOR d IN cdp_dailyreportunit
-	FILTER d.createdAt >= @fromDate AND d.createdAt <= @toDate AND d.objectName == @objectName AND (d.journeyMapId == @journeyMapId OR @journeyMapId == "")
-	SORT d.createdAt
-	RETURN d
+	LET stats = 
+	(
+		FOR d IN cdp_dailyreportunit
+		FILTER d.createdAt >= @fromDate AND d.createdAt <= @toDate AND d.objectName == @objectName AND (d.journeyMapId == @journeyMapId OR @journeyMapId == "")
+		COLLECT eventName = d.eventName, dateKey = d.dateKey, journeyMapId = d.journeyMapId, createdAt = DATE_TRUNC(d.createdAt, 'day') 
+		AGGREGATE totalDailyCount = SUM(d.dailyCount)
+		RETURN {"journeyMapId":journeyMapId, "dateKey":dateKey, "objectName": @objectName, "eventName": eventName, "dailyCount": totalDailyCount, "createdAt": createdAt}
+	)
+	FOR s IN stats
+	SORT s.createdAt
+	RETURN s
 ;
 
 AQL_GET_DAILY_REPORT_UNITS_FOR_ONE_OBJECT => 
@@ -940,9 +948,7 @@ AQL_PROFILE_COLLECTOR_TOTAL =>
 AQL_DATA_STATS_COLLECTOR =>
 	FOR d IN cdp_profile
 	    FILTER d.status > 0 AND d.type > 0
-		COLLECT AGGREGATE 
-		avgTransactionValue = AVERAGE(d.totalTransactionValue),
-		totalTransactionValue = SUM(d.totalTransactionValue) 
+		COLLECT AGGREGATE avgTransactionValue = AVERAGE(d.totalTransactionValue), totalTransactionValue = SUM(d.totalTransactionValue) 
 		RETURN { 
 		    "avgTransactionValue" : avgTransactionValue ? avgTransactionValue : 0, 
 		    "totalTransactionValue" : totalTransactionValue ? totalTransactionValue : 0
