@@ -26,7 +26,7 @@
 - [In Progress => 2022-10-28] Using Jupyter notebook to update profile CLV, CAC and Credit Scoring 
 - [In Plan => 2022-10-30] new UI for journey map report
 
-## [0.8.9] - 2022-10-27
+## [0.8.9] - 2022-10-28
 
 ### Added
 
@@ -131,6 +131,7 @@
 
 ### Changed
 
+- [Profile API] improve performance with data queue, class: JobUpdateProfileByJson
 - caching query and improve performance of customer data report and loading journey map
 - uprade core java libraries 
 - improve Segment UI and Data Journey Map UI
