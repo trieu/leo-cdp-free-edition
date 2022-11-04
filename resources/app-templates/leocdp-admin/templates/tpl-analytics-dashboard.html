@@ -1,0 +1,177 @@
+
+<style>
+.survey_item_summary {
+	margin-top: 15px;
+}
+.survey_item_summary > div.highlight_text {
+	margin: 10px 0;
+}
+.survey_item_summary div.small {
+	margin: 5px 0;
+}
+.survey_title {
+	margin: 5px 0;
+	font-weight: bold;
+}
+.survey_item_summary .progress {
+	margin: 5px 0;
+}
+
+.list-group-item {
+	color: #273746!important;
+}
+.item_question, .item_response {
+	background-color:#FAFADE; font-size:1.1em; font-weight: bold; border-radius: 8px;
+}
+.item_response {
+	color: #3300ff!important;
+}
+div.download_link_holder {
+	float: right; padding-top: 4px; font-weight: bold; font-size: 14px;
+}
+
+.stats_item {
+	background-color: #FFF8DC;
+    color: #0000CD;
+    border-radius: 6px;
+    padding: 3px;
+    font-weight: bold;
+    overflow: hidden;
+}
+.collector-item {
+	padding: 4px!important; 
+}
+.chosen-container {
+	z-index: 100!important;
+}
+.cy-panzoom {
+	z-index: 1!important;
+}
+.cy_node_profile {
+	margin-bottom:10px;font-size:1.5em;font-weight:bold;color:blue;background-color:#FCF38A;padding: 3px;
+}
+.cy_node_touchpoint {
+	margin-bottom:10px;font-size:1.2em;
+}
+</style>
+
+<script id='survey-report-item-tpl' type="text/html" >
+<li class="list-group-item view" id="fsri_<%- id %>">
+	<!-- Summary Information -->
+    <div class="row">
+        <div class="col-md-2 text-nowrap survey_item_summary" id="fsrs_<%- id %>">
+            <div class="highlight_text">
+                <div id="fs_star_<%- id %>" class="text-center"></div>
+                <div class="small"> Average CX Score: <mark style="font-weight:bold;font-size: 1.1em;">  <%- avgFeedbackScore %> </mark> </div>
+                <div class="small"> Total Profile: <%- (profileCount).toLocaleString() %>
+                </div>
+                <div class="small"> Total Response: <%- (surveyCount).toLocaleString() %>
+                </div>
+                <div class="small" style="display:none;"> CX Score:  <mark style="font-weight:bold;font-size: 1.1em;">  <%- rankingScore %> </mark>  </div>
+            </div>
+            <div class="small">
+                <%- timePeriod %>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <small class="text-muted pull-right"> Updated at <b>  <%- createdAt %> </b> 
+				<br>
+				<a class="exportDataCxSurvey btn btn-do-now" id="exportDataCxSurvey_<%- id %>" style="display: none;" target="_blank" > 
+					<i class="fa fa-cloud-download" aria-hidden="true"></i> Click to download 
+				</a>
+			</small>
+            <h5 class="media-heading"> 
+				<a href="<%- previewUrl %>" target="_blank"> Feedback survey: <%- header %> </a> 
+			</h5>
+
+            <div class="survey_title">
+                <i class="fa fa-hashtag" aria-hidden="true"></i> <mark> <%- title %>  </mark>
+            </div>
+
+            <div class="text-wrap">
+                <i class="fa fa-smile-o" aria-hidden="true"></i> CX Sentiment Score
+                <div class="progress">
+                    <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                        aria-valuenow="<%- scoreCX.negative %>" aria-valuemin="0" aria-valuemax="100"
+                        style="width:<%- scoreCX.negative %>%">
+                        <span>
+                            <%- scoreCX.negative %>
+                        </span>% Negative
+                    </div>
+                    <div class="progress-bar progress-bar-striped active" role="progressbar"
+                        aria-valuenow="<%- scoreCX.neutral %>" aria-valuemin="0" aria-valuemax="100"
+                        style="width:<%- scoreCX.neutral %>%">
+                        <span>
+                            <%- scoreCX.neutral %>
+                        </span>% Neutral
+                    </div>
+                    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+                        aria-valuenow="<%- scoreCX.positive %>" aria-valuemin="0" aria-valuemax="100"
+                        style="width:<%- scoreCX.positive %>%">
+                        <span>
+                            <%- scoreCX.positive %>
+                        </span>% Positive
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+	<!-- Raw Survey Data -->
+	<div class="container">
+		<div clas="text-nowrap">
+			<b>  <i class="fa fa-list-ol" aria-hidden="true"></i> Feedback data about all questions and answers </b> 
+			<button type="button" class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#survey_data_<%- id %>" 
+					onclick="showRawSurveyData(this)" aria-expanded="false">
+				<i class="fa fa-plus-circle" aria-hidden="true"></i> Show Data
+			</button>
+		</div>
+
+		<div id="survey_data_<%- id %>" class="collapse">
+			<ul class="list-group">
+				<% _.forEach(surveyResults, function(surveyResult) { %>
+						<li class="small list-group-item col-lg-11 ">
+                            <%- surveyResult.index %> <i class="fa fa-check-square" aria-hidden="true"></i>
+                            <%- surveyResult.questionGroup %>
+                            <span class="item_question">  <%- surveyResult.question %> </span> <br>
+                            <div class="col-lg-12">
+                                <% _.forEach(surveyResult.answerResults, function(answerItem) { %>
+                                    <div class="col-lg-2 text-center">
+                                        <div> <%- answerItem.answer %> </div>
+                                        <% if(answerItem.responseCount > 0) { %>
+                                            <div class="item_response"> Response: <%- (answerItem.responseCount).toLocaleString() %> </div>
+                                        <% } else { %>
+                                            <div style="font-size: 1em;"> Response: 0 </div>
+                                        <% } %>
+                                    </div>
+                                 <% }); %>
+                            </div>
+                         </li>
+				<% }); %>
+			</ul>
+		</div>
+	</div>
+
+	<!-- Profile List -->		
+	<div class="container" style="margin-top: 15px;">
+		<div clas="text-nowrap">
+			<b> <i class="fa fa-list-ul" aria-hidden="true"></i> The profile list who made feedback survey </b> 
+			<button type="button" class="btn btn-sm btn-primary" data-toggle="collapse"
+                        data-target="#survey_profile_<%- id %>" onclick="showSurveyProfileData(this)" aria-expanded="false">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Show List
+			</button>
+		</div>
+		<div id="survey_profile_<%- id %>" class="collapse"  >
+			<ul class="list-group" style="max-height:450px!important; overflow-y:scroll!important; margin-top:10px;">
+				<% _.forEach(profileIds, function(profileId) { %>
+                    <li class="list-group-item col-md-8 ">
+						<i class="fa fa-user-circle-o" aria-hidden="true"></i>
+						<a target="_blank" href="#calljs-leoCdpRouter('Customer_Profile_Info','<%- profileId %>')"> <b>Profile ID:</b> <%- profileId %> </a>
+					</li> 
+				<% }); %>
+			</ul>
+		</div>
+	</div>
+
+</li>
+</script>

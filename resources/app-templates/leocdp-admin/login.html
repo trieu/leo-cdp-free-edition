@@ -66,7 +66,6 @@
                 $('#captcha_img').show().attr('src', captchaImgBase64 );
                 
                 loginFormHandler(usersession);
-                console.log(usersession);
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);
             }
@@ -90,7 +89,7 @@
             
             $('#info-login').html("<b>Sending data ...</b>").show();
             LeoAdminApiUtil.callPostApi(urlStr, params, function (json) {
-                if (json.httpCode === 0 && json.errorMessage === '') {
+                if (json.errorMessage === '') {
                 	//OK, set session data
                     encryptionkey = json.data;
                     lscache.set('usersession', session, 20160);
@@ -102,8 +101,8 @@
                     
                     //wait and reload
                     setTimeout(function () { 
-                    	window.location.reload(true);
-                    }, 2500);
+                    	window.location.reload();
+                    }, 2800);
                 } else {
                 	$('#info-login').hide();
                     $('#error-login').html('<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ' + json.errorMessage).show().delay(3000).fadeOut();
@@ -116,17 +115,17 @@
         $('#btn_system_login').click(apiLoginHandler);
 
         $("#username").on('keyup', function (e) {
-            if (e.keyCode == 13) {
+            if (e.keyCode === 13) {
                 $("#password").focus();
             }
         });
         $("#password").on('keyup', function (e) {
-            if (e.keyCode == 13) {
-                apiLoginHandler();
+            if (e.keyCode === 13) {
+                $("#captcha").focus();
             }
         });
         $("#captcha").on('keyup', function (e) {
-            if (e.keyCode == 13) {
+            if (e.keyCode === 13) {
                 apiLoginHandler();
             }
         });

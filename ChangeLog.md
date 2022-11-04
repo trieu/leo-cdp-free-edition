@@ -26,10 +26,11 @@
 - [In Progress => 2022-10-28] Using Jupyter notebook to update profile CLV, CAC and Credit Scoring 
 - [In Plan => 2022-10-30] new UI for journey map report
 
-## [0.8.9] - 2022-10-30
+## [0.8.9] - 2022-11-05
 
 ### Added
 
+-  Show report in Data Journey Map
 - [static file] improve performance, need to set enableCachingViewTemplates=true in leocdp-metadata.properties
 - [Profile Import] add option overwriteOldData to clear old data and update new personal information
 - [Profile] import tracking events with CSV file and improve UI/UX of profile editor
@@ -98,7 +99,7 @@
 
 ### Fixed 
 
-- [Event Reporting] improve AQL for performance
+- [Event Reporting] improve AQL for performance, duplicated rating event
 - [Data Connector] fix overriding old data when upgrade system, improve SendInBlue connector
 - [Tracking Event] fix when import and improve UI
 - [Profile API] fix bugs and use journeyMapIds to set multiple journey map

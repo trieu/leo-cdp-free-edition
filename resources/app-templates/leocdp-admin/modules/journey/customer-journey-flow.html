@@ -1,3 +1,5 @@
+<!-- Data Journey Flow -->
+
 <div class="row">
     <div class="col-lg-7" >
 		<h5 class="page-header" id="page_breadcrumb" > </h5>
@@ -13,7 +15,7 @@
     		<i class="fa fa-trash" aria-hidden="true"></i> Delete 
     	</button>
       	<button type="button" class="btn btn-goto-router data-control-edit" onclick="createNewJourneyMap()" title="Create New Journey Map"  > 
-    		<i class="fa fa-plus-circle" aria-hidden="true"></i> New Data Journey
+    		<i class="fa fa-plus-circle" aria-hidden="true"></i> New Journey Map
     	</button>
     </div>
 </div>
@@ -24,10 +26,10 @@
 		<div class="row">
 			<div class="col-lg-8" >
 				<div class="panel panel-info">
-            		<div class="panel-heading"> <h3 class="panel-title text-center"> <i class="fa fa-info-circle" aria-hidden="true"></i> Data Journey Name </h3> </div>
+            		<div class="panel-heading"> <h3 class="panel-title text-center"> <i class="fa fa-info-circle" aria-hidden="true"></i> Journey Name </h3> </div>
 				  	<div class="panel-body" style="height: 80px" >
 				  		 <h4 class="highlight_text text-center" >
-				  		 	<a id="journeyMapName" href="javascript: editJourneyMapName()" title="Click to edit name" >Default Data Journey</a>
+				  		 	<a id="journeyMapName" href="javascript: editJourneyMapName()" title="Click to edit name" >Default Journey</a>
 				  		 	<input id="journeyMapNameEditor" type="text" class="form-control"  placeholder="Enter journey map name" style="display: none" >
 				  		 </h4>
 				  	</div>
@@ -35,13 +37,13 @@
 			</div>
 			<div class="col-lg-4" >
 	            <div class="panel panel-info">
-            		<div class="panel-heading"> <h3 class="panel-title text-center"> <i class="fa fa-list" aria-hidden="true"></i> All Data Journey Maps</h3> </div>
+            		<div class="panel-heading"> <h3 class="panel-title text-center"> <i class="fa fa-list" aria-hidden="true"></i> All Journey Maps</h3> </div>
 				  	<div class="panel-body" style="height: 80px; padding-top: 20px; font-weight: bold;" >
 				  		<select id="journeyMapList" data-placeholder="Choose an Journey Map" class="select" >
 		                  <!-- journeyMapList -->  
 		                </select>
 		                <div id="default_journey_map_check" style="display: none; margin-top: 8px; font-weight: bold;" > 
-				  			<i style="font-size:1.2em;color:#3300ff" class="fa fa-check-square-o" aria-hidden="true"></i> Default Data Journey Map
+				  			<i style="font-size:1.2em;color:#3300ff" class="fa fa-check-square-o" aria-hidden="true"></i> Default Journey Map
 				  		</div>
 				  	</div>
 				</div>
@@ -52,7 +54,24 @@
        	<div class="panel panel-business">
           	<div class="panel-heading"> <h3 class="panel-title text-center"> <i class="fa fa-map-o" aria-hidden="true"></i> Data Journey Flow </h3> </div>
 		  	<div class="panel-body" >
-		  		 <div id="journeyFlowChart" class="experience_journey_flow" style="height:420px;"></div>
+		  		<ul class="nav nav-tabs" data-tab-content="journey_flow_tabs" > 
+			   		<li class="active" >
+		        		<a href="javascript:" data-target-tab="panel_journey_flow_design" > <i class="fa fa-pencil-square" aria-hidden="true"></i> Design View </a>
+		       		</li>
+		       		<li >
+		       			<a href="javascript:loadJourneyFlowReport()" data-target-tab="panel_journey_flow_report"  > <i class="fa fa-snowflake-o" aria-hidden="true"></i> Report View </a>
+		       		</li>
+				</ul>
+				<div class="tab-content" id="journey_flow_tabs" style="min-height: 550px;" >
+					<!-- tab 1 Design Mode   -->
+					<div class="tab-pane active" id="panel_journey_flow_design" >
+						<div id="journeyFlowChart" class="experience_journey_flow" style="height: 550px;"></div>
+					</div>
+					<!-- tab 2 Report Mode  -->
+					<div class="tab-pane" id="panel_journey_flow_report" >
+						 <div id="journeyFlowReport" class="experience_journey_flow" style="height: 550px;"></div>
+					</div>
+				</div>
 		  	</div>
 		</div>
 		<!--  Tab Navigation Items -->
@@ -142,7 +161,6 @@
 					<div id="journeyObserverChart" class="col-lg-12"> </div>
 				</div>	
 			</div>
-			
 
 		</div>	
 			
@@ -154,6 +172,9 @@
 	var currentJourneyMapId = "id_default_journey";
 	var eventMetrics = false;
 	var cxFeedbackTemplates = false, landingPageTemplates = false;
+	
+	// touchpoint flow network
+	var flowNetworkGraph = false;
 	
 	var initJourneyMap = function(id) {
 		if(typeof id === 'string') {
@@ -195,5 +216,168 @@
 		
 		// name editor
 		initJourneyMapNameEditor();
+	}
+	
+	function loadJourneyFlowReport(){
+		var containerId = 'journeyFlowReport';
+		showJourneyFlowReport( {"journeyMapId": currentJourneyMapId}, containerId )
+	}
+	
+	function loadJourneyFlowReportDemo(){
+
+		const MAX_ZOOM = 5;
+		const MIN_ZOOM = 0.5;
+		var avgPageview = 20;
+		var avgPurchase = 7;
+		var bfLayout = { name: 'breadthfirst', fit: true, directed: true,  padding: 30 , spacingFactor: 1.8};
+		var dgLayout =  { name: 'dagre', rankDir: "LR", fit: true, directed: true,  padding: 50, spacingFactor: 1.9, nodeSep: 60 , rankSep: 30 }
+		
+		var cy = cytoscape({
+		  container: document.getElementById('journeyFlowReport'),
+
+		  boxSelectionEnabled: false,
+		  autounselectify: true,
+		  minZoom: MIN_ZOOM,
+		  maxZoom: MAX_ZOOM,
+
+		  style: cytoscape.stylesheet()
+		    .selector('node')
+		      .css({
+		        'height': 80,
+		        'width': 80,
+		        'background-fit': 'cover',
+		        'border-color': '#000',
+		        'border-width': 3,
+		        'border-opacity': 0.5
+		      })
+		    .selector('edge')
+		      .css({
+		    	'curve-style': 'unbundled-bezier',
+				'width': 4,
+				'target-arrow-shape': 'triangle',
+				'line-color': '#ffaaaa',
+				'target-arrow-color': '#ffaaaa'
+		      })
+		    .selector('#youtube')
+		      .css({
+		        'background-image': 'https://cdn-icons-png.flaticon.com/128/3670/3670147.png'
+		      })
+		    .selector('#tiktok')
+		      .css({
+		        'background-image': 'https://cdn-icons-png.flaticon.com/128/3669/3669950.png'
+		      }) 
+		    .selector('#google')
+		      .css({
+		        'background-image': 'https://cdn-icons-png.flaticon.com/128/281/281764.png'
+		      })
+		    .selector('#website')
+		      .css({
+		        'background-image': 'https://cdn-icons-png.flaticon.com/128/1927/1927746.png'
+		      })
+		  .selector('#sen_spa')
+		      .css({
+		        'background-image': 'https://cdn-icons-png.flaticon.com/128/3649/3649531.png'
+		      })
+		  .selector('#customer_service')
+		      .css({
+		        'background-image': 'https://cdn-icons-png.flaticon.com/128/1028/1028011.png'
+		      })
+		  .selector('#facebook')
+		      .css({
+		        'background-image': 'https://cdn-icons-png.flaticon.com/128/5968/5968764.png'
+		      })
+		  .selector('#customer_lead')
+		      .css({
+		        'background-image': 'https://cdn-icons-png.flaticon.com/128/950/950237.png'
+		      })
+		  .selector('#engaged_customer')
+		      .css({
+		        'background-image': 'https://cdn-icons-png.flaticon.com/128/4149/4149882.png'
+		  })
+		  .selector('edge[weight>0]').style({
+			 	'label': 'data(weight)',
+		  	 	'background-color': '#61bffc',  
+				'font-size': 20,
+				'width': 5,
+				'line-color': '#9BB6FB',
+				'target-arrow-color': '#0048FF'
+		    })
+		  .selector('edge[weight >= '+avgPageview+']').style({
+				'line-color': '#618CF9',
+		    	'target-arrow-color': '#0048FF',
+		    	'width': 7
+		   	})
+		  .selector('edge[weight >= '+avgPurchase+']').style({
+		    	'line-color': '#F3A06D',
+		    	'target-arrow-color': '#F91805',
+		    	'width': 9
+		   	})
+		  .selector('edge[weight=0]').style({
+				'background-color': '#61bffc',  
+    			'font-size': 20,
+    			'line-color': '#9BB6FB',
+    			'target-arrow-color': '#0048FF'
+		   	})
+		  .selector('node[type="cdp_profile"]').style({
+			 	'shape': 'round-rectangle', 'padding': '6px', 'line-color': '#F3A06D'
+		   	}),
+
+		  elements: {
+		    nodes: [
+		      { data: { id: 'google', type: "" } },
+		      { data: { id: 'youtube' } },
+		      { data: { id: 'tiktok' } },
+		      { data: { id: 'website' } },
+		      { data: { id: 'sen_spa' } },
+		      { data: { id: 'customer_service' } },
+		      { data: { id: 'facebook' } },
+		      { data: { id: 'customer_lead' , type: "cdp_profile" } },
+		      { data: { id: 'engaged_customer' , type: "cdp_profile" } }
+		    ],
+		    edges: [
+		      { data: { source: 'google', target: 'youtube', weight : 0  } },
+		      { data: { source: 'google', target: 'tiktok', weight : 0  } },
+		      { data: { source: 'google', target: 'website', weight : 31  } },
+		      { data: { source: 'tiktok', target: 'website', weight : 27 } },
+		      { data: { source: 'youtube', target: 'website', weight : 31 } },
+		      { data: { source: 'youtube', target: 'facebook', weight : 43 } },
+		      { data: { source: 'website', target: 'sen_spa', weight : 12 } },
+		      { data: { source: 'engaged_customer', target: 'customer_service', weight : 3 } },
+		      { data: { source: 'facebook', target: 'customer_lead', weight : 12 } },
+		      { data: { source: 'customer_lead', target: 'website', weight : 6 } },
+		      { data: { source: 'customer_lead', target: 'sen_spa', weight : 9 } },
+		      { data: { source: 'website', target: 'engaged_customer', weight : 21 } },
+		      { data: { source: 'sen_spa', target: 'engaged_customer', weight : 11 } }
+		    ]
+		  },
+
+		  // set layout of graph 
+		  layout: dgLayout 
+		}); // cy init
+		
+		initPanZoomController(MIN_ZOOM, MAX_ZOOM, cy)
+		
+		cy.nodeHtmlLabel([
+		  {
+		    query: 'node', // cytoscape query selector
+		    halign: 'center', // title vertical position. Can be 'left',''center, 'right'
+		    valign: 'top', // title vertical position. Can be 'top',''center, 'bottom'
+		    halignBox: 'center', // title vertical position. Can be 'left',''center, 'right'
+		    valignBox: 'top', // title relative box vertical position. Can be 'top',''center, 'bottom'
+		    cssClass: '', // any classes will be as attribute of <div> container for every title
+		    tpl(data) {
+		    	var name = data.id.toUpperCase();
+		    	if(data.type === "cdp_profile") {
+		    		return '<h4 class="cy_node_profile" > ' + name + '</h4>'; 
+		    	}
+		    	else {
+		    		return '<h4 class="cy_node_touchpoint" > ' + name + '</h4>'; 
+		    	}
+		    }
+		  }
+		]);
+		
+		cy.fit(50);
+		
 	}
 </script>

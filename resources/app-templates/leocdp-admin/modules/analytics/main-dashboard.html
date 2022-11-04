@@ -8,31 +8,14 @@
     #primary_dashboard svg {
     	margin:auto; display:block;
     }
-	.collector-item {
-		padding: 4px!important; 
-	}
 	#profile_journey_funnel_wrapper {
 		width: 96%; margin: auto; padding-bottom:40px; padding-top:15px;
 	}
 	#profile_funnel_wrapper {
 		padding-bottom:20px; padding-top:10px;
 	}
-	.stats_item {
-		background-color: #FFF8DC;
-	    color: #0000CD;
-	    border-radius: 6px;
-	    padding: 3px;
-	    font-weight: bold;
-	    overflow: hidden;
-	}
 	#flow_network_report_wrapper {
 		display:block; height:680px; width:100%; background-color:#e8e8e8; border-radius:10px;
-	}
-	.chosen-container {
-		z-index: 100!important;
-	}
-	.cy-panzoom {
-		z-index: 1!important;
 	}
 </style>
 
@@ -205,6 +188,9 @@
 	var mainDashboardFunnelHeight = 420;
 	var mainDashboardWidth = 850;
 	var dashboardFontSize = 14;
+	
+	// touchpoint flow network
+	var flowNetworkGraph = false;
 
 	//select date
 	var currentJourneyMapId = ""; 
@@ -406,7 +392,8 @@
             },2000)
             
             setTimeout(function(){
-            	 showJourneyFlowReport(queryFilter)
+            	var containerId = 'flow_network_report_wrapper';
+            	showJourneyFlowReport(queryFilter, containerId)
             },3000)
     	}
     	else {
@@ -484,33 +471,5 @@
         });
     }
     
- 	// touchpoint flow network
-    var flowNetworkGraph = false;
-    function showJourneyFlowReport(queryFilter) {
-    	var containerId = 'flow_network_report_wrapper';
-    	var containerNode = $('#'+containerId).empty().html('<div class="loader"></div>');
-    	var urlStr = baseLeoAdminUrl + '/cdp/analytics360/touchpoint-flow-report';
-    	
-    	queryFilter['startIndex'] = 0;
-    	queryFilter["numberFlow"] = 150; // number of flow edges
-		LeoAdminApiUtil.getSecuredData(urlStr, queryFilter , function (json) {    	
-            if (json.httpCode === 0 && json.errorMessage === '') {
-            	containerNode.empty()
-            	var graphElements = { nodes: json.data.nodes, edges: json.data.edges }
-            	var rootNodeId = json.data.rootNodeId;
-            	flowNetworkGraph = renderDirectedGraph(containerId, graphElements, rootNodeId);
-            } else {
-                LeoAdminApiUtil.logErrorPayload(json);
-            }
-        });
-    }
-    
-    function setJourneyFlowGraphView(){
-    	if(typeof flowNetworkGraph === 'object') {
-    		// hack to show graph
-    		setTimeout(function(){
-    			flowNetworkGraph.fit(true)
-    		},300)
-    	}
-    }
+
 </script>
