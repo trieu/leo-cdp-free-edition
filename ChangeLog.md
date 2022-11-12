@@ -1,11 +1,16 @@
 # Changelog for LEO CDP
 
+## TODO Feature Plan for the next release 2022-11-06
+
+- [Done] import tool to upload event data as CSV file in LEO CDP Admin
+- [In Plan => 2022-11-07] new UI for journey map report
+
 ## Feature Plan for the final beta release 1.0 - 2022-11-30
 
 #### Tasks
 
-- [In Plan => 2022-11-06] LEO Tag JS to link FB user and Google user
-- [In Plan => 2022-11-08] Segment Activation: sending web push notification directly from LEO CDP
+- [In Plan => 2022-11-08] Using Jupyter notebook to update profile CLV, CAC and Credit Scoring 
+- [In Plan => 2022-11-09] LEO Tag JS to link FB user and Google user
 - [In Plan => 2022-11-10] Segment Activation: sending email directly with SMTP from LEO CDP
 - [In Plan => 2022-11-12] Data Reporting with Jupyter notebook
 - [In Plan => 2022-11-14] Profile Finance Data Report
@@ -15,21 +20,25 @@
 - [In Plan => 2022-10-22] export data into Google BigQuery and visual with Data Studio 
 - [In Plan => 2022-11-24] docker images
 - [In Plan => 2022-11-26] web form in leocdp.com for new clients, to try free LEO CDP version with docker
-- [In Plan => 2022-11-28] use cases for banking, proptech and O2O retail
+- [In Plan => 2022-11-28] use cases for banking, prop-tech and content subscription 
 - [In Plan => 2022-11-30] video, slide and update document for version 1.0 
 
-## Feature Plan for the next release 2022-10-30
+#### Make 8 videos to learning LEO CDP quickly 
 
-### ------------ TODO ------------
+* LEO CDP 101 for data-driven business https://www.youtube.com/watch?v=vkETmFDUor4
+* How to Unify Customer Data : https://www.youtube.com/watch?v=ejpOKE1bQCs
+* How to deliver personalized web experiences: https://www.youtube.com/watch?v=mzWkTZqxvHs
+* How to send personalized email with SendInBlue and LEO CDP
+* How to build personalized communication with WhatsApp and LEO CDP
+* How to do Data Science with Google Colab and LEO CDP
+* How to setup LEO CDP
+* How to monitor system
 
-- [Done] import tool to upload event data as CSV file in LEO CDP Admin
-- [In Progress => 2022-10-28] Using Jupyter notebook to update profile CLV, CAC and Credit Scoring 
-- [In Plan => 2022-10-30] new UI for journey map report
-
-## [0.8.9] - 2022-11-05
+## [0.8.9] - 2022-11-12
 
 ### Added
 
+- [Profile] link Google Analytics and LEO CDP: mapping visitor to user id
 -  Show report in Data Journey Map
 - [static file] improve performance, need to set enableCachingViewTemplates=true in leocdp-metadata.properties
 - [Profile Import] add option overwriteOldData to clear old data and update new personal information

@@ -61,12 +61,32 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 }
 </script>
 
+<!-- https://developers.google.com/analytics/devguides/collection/ga4 -->
+<script id='google-analytics-javascript-tpl' type="text/html" >
+// Google Analytics 4: load JavaScript Code and synch LEO Visitor ID
+(function() { 	
+	var src = 'https://www.googletagmanager.com/gtag/js?id=<%- measurementId %>';
+   	var jsNode = document.createElement('script');
+   	jsNode.async=true; jsNode.src = src;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jsNode, s);
+})();
+LeoObserverProxy.synchLeoVisitorId(function(vid){
+	window.dataLayer = window.dataLayer || []; 
+	dataLayer.push({ 'user_id': vid });
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('set', 'user_id', vid);
+	gtag('config', '<%- measurementId %>');
+});
+</script>
+
 <div class="modal fade" id="webDataObserverCodeDialog" role="dialog">
 	<div class="modal-dialog modal-lg">
 		<!-- Modal content-->
 		<div class="modal-content">   
 			<div class="modal-header">
-				<h4 class="modal-title text-center" > JavaScript Tag Code of LEO CDP to collect behavioral profile data </h4>
+				<h4 class="modal-title text-center" > JavaScript Tag Code to collect event data </h4>
 			</div>         
 			<div class="modal-body">
 				<div class="form-group" >
@@ -74,7 +94,14 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 					  	<label><input type="checkbox" id="leo_observer_auto_track" checked="checked" > Auto tracking "page-view" event when the web page is fully loaded </label>
 					</div>
 					<div class="checkbox">
-						<label><input type="checkbox" id="leo_observer_auto_collect_UTM" checked="checked" > Auto collect data of UTM (Google Analytics) </label>
+						<label><input type="checkbox" id="leo_observer_auto_collect_UTM" checked="checked" > Auto collect UTM data (Google Analytics) from URL </label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="leo_observer_auto_collect_GA4" > Auto tracking data with Google Analytics 4 
+							<input type="text" id="measurement_id_GA4" placeholder="Enter the measurement ID of Google Analytics 4" style="margin-left:10px; width: 360px;" >
+							<button id="btn_ok_auto_collect_GA4" >OK</button>
+						</label>
 					</div>
 	            </div>
 				<div id="code_holder" ><textarea id="data_observer_code" class="code">

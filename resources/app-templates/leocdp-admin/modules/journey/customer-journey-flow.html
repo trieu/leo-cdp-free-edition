@@ -56,10 +56,14 @@
 		  	<div class="panel-body" >
 		  		<ul class="nav nav-tabs" data-tab-content="journey_flow_tabs" > 
 			   		<li class="active" >
-		        		<a href="javascript:" data-target-tab="panel_journey_flow_design" > <i class="fa fa-pencil-square" aria-hidden="true"></i> Journey Design </a>
+		        		<a href="javascript:" data-target-tab="panel_journey_flow_design" > 
+		        			<i class="fa fa-pencil-square" aria-hidden="true"></i> Journey Design 
+		        		</a>
 		       		</li>
 		       		<li>
-		       			<a href="javascript:loadJourneyFlowReport()" data-target-tab="panel_journey_flow_report"  > <i class="fa fa-snowflake-o" aria-hidden="true"></i> Journey Report </a>
+		       			<a href="javascript:loadJourneyFlowReport()" data-target-tab="panel_journey_flow_report" > 
+		       				<i class="fa fa-snowflake-o" aria-hidden="true"></i> Journey Report 
+		       			</a>
 		       		</li>
 				</ul>
 				<div class="tab-content" id="journey_flow_tabs" style="min-height: 550px;" >
@@ -77,16 +81,16 @@
 		<!--  Tab Navigation Items -->
 		<ul class="nav nav-tabs" data-tab-content="journey_touchpoint_tabs" > 
 	   		<li class="active" >
-        		<a href="javascript:" data-target-tab="panel_touchpoint_hubs" > <i class="fa fa-list" aria-hidden="true"></i> Touchpoint Hub </a>
+        		<a href="javascript:" data-target-tab="panel_touchpoint_hubs" > <i class="fa fa-list" aria-hidden="true"></i> Touchpoint Data Hub </a>
        		</li>
        		<li id="tab_journey_data_observers" style="display: none">
-       			<a href="javascript:" data-target-tab="panel_data_observers"  > <i class="fa fa-list" aria-hidden="true"></i> Event Observer </a>
+       			<a href="javascript:" data-target-tab="panel_data_observers"  > <i class="fa fa-list" aria-hidden="true"></i> Event Source Observer </a>
        		</li>
        		<li id="tab_journey_data_authorization" style="display: none">
        			<a href="javascript:" data-target-tab="panel_journey_data_authorization"  > <i class="fa fa-lock" aria-hidden="true"></i> User Authorization </a>
        		</li>
-       		<li id="tab_journey_data_report" >
-       			<a href="javascript:" data-target-tab="panel_journey_data_report"  > <i class="fa fa-bar-chart aria-hidden="true"></i> Analytics Report  </a>
+       		<li>
+       			<a href="javascript:" data-target-tab="panel_summary_report"  > <i class="fa fa-bar-chart aria-hidden="true"></i> Summary Report  </a>
        		</li>
 		</ul>
 
@@ -105,7 +109,7 @@
 			<!-- tab 2 Touchpoint Data Observer  -->
 			<div class="tab-pane" id="panel_data_observers" >
 				<div class="top_page_header" >
-					<h4> All Touchpoint Data Observers  </h4>
+					<h4> All Event Source Observers  </h4>
 				</div>
 		        <div class="table-responsive" >
 		            <div id="data_observers_table" style="height: 700px"></div>
@@ -148,7 +152,7 @@
 			</div>
 			
 			<!-- tab 4 Journey Data Report  -->
-			<div class="tab-pane" id="panel_journey_data_report" >
+			<div class="tab-pane" id="panel_summary_report" >
 				<!-- Event Matrix -->
 				<div class="col-md-12"  >
 					<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Matrix Report </h4> 
@@ -157,7 +161,7 @@
 				
 				<!-- Event Observer Bar Chart -->
             	<div class="col-lg-12">
-					<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Top Observable Data Sources </h4> 
+					<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Top Event Sources </h4> 
 					<div id="journeyObserverChart" class="col-lg-12"> </div>
 				</div>	
 			</div>
