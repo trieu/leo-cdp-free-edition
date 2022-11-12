@@ -47,9 +47,7 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData, shoppingCart
 	transactionId = typeof transactionId === "string" ? transactionId : "";
 	transactionValue = typeof transactionValue === "number" ? transactionValue : 0;
 	currencyCode = typeof currencyCode === "string" ? currencyCode : "USD";
-	// submit data
 	LeoObserverProxy.recordConversionEvent("<%- eventMetricId %>", eventData , transactionId, shoppingCartItems, transactionValue, currencyCode);
-
 }
 </script>
 
@@ -63,23 +61,23 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 
 <!-- https://developers.google.com/analytics/devguides/collection/ga4 -->
 <script id='google-analytics-javascript-tpl' type="text/html" >
-// Google Analytics 4: load JavaScript Code and synch LEO Visitor ID
-(function() { 	
-	var src = 'https://www.googletagmanager.com/gtag/js?id=<%- measurementId %>';
-   	var jsNode = document.createElement('script');
-   	jsNode.async=true; jsNode.src = src;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(jsNode, s);
-})();
+	// Google Analytics 4: load JavaScript Code and synch LEO Visitor ID
+	(function() { 	
+		var src = 'https://www.googletagmanager.com/gtag/js?id=<%- measurementId %>';
+   		var jsNode = document.createElement('script');
+   		jsNode.async=true; jsNode.src = src;
+    	var s = document.getElementsByTagName('script')[0];
+    	s.parentNode.insertBefore(jsNode, s);
+	})();
 
-window.synchLeoCdpToGA4 = window.synchLeoCdpToGA4 || function (vid) {
-	window.dataLayer = window.dataLayer || []; 
-	dataLayer.push({ 'user_id': vid });
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('set', 'user_id', vid);
-	gtag('config', '<%- measurementId %>');
-};
+	window.synchLeoCdpToGA4 = window.synchLeoCdpToGA4 || function (vid) {
+		window.dataLayer = window.dataLayer || []; 
+		dataLayer.push({ 'user_id': vid });
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('set', 'user_id', vid);
+		gtag('config', '<%- measurementId %>');
+	};
 </script>
 
 <div class="modal fade" id="webDataObserverCodeDialog" role="dialog">
