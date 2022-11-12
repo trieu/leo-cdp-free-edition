@@ -72,7 +72,7 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
     s.parentNode.insertBefore(jsNode, s);
 })();
 
-var synchLeoCdpToGA4 = synchLeoCdpToGA4 || function (vid) {
+window.synchLeoCdpToGA4 = window.synchLeoCdpToGA4 || function (vid) {
 	window.dataLayer = window.dataLayer || []; 
 	dataLayer.push({ 'user_id': vid });
 	function gtag(){dataLayer.push(arguments);}
@@ -157,7 +157,7 @@ function leoObserverProxyReady(session) {
 		});
 		
 		if(typeof window.synchLeoCdpToGA4 === "function") {
-			synchLeoCdpToGA4(vid)
+			window.synchLeoCdpToGA4(vid)
 		}
 	});
 }
