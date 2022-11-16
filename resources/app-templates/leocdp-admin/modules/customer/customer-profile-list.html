@@ -3,6 +3,9 @@
 #profile_list_table_info {
 	font-weight: bold;
 }
+.profile_filter_box {
+	background-color:#f5f5f5; border-radius: 5px;padding-top: 5px; margin: 3px; 
+}
 </style>
 
 <div class="row">
@@ -43,22 +46,33 @@
 	    <div class="panel-body">
 	      	<div class="col-md-12 row">
 				
-				<div class="col-md-6" style="background-color:#f5f5f5; border-radius: 5px;padding-top: 5px"> 
-					<div id="filterByJourneyMap" class="col-md-12" style="padding-bottom: 10px; font-weight: bold;" >
+				<div class="col-md-6" > 
+					<div class="col-md-12 profile_filter_box"  id="filterByJourneyMap" style="padding-bottom: 10px; font-weight: bold;" >
       					<select id="journeyMapList" class="form-control" data-placeholder="Choose an Journey Map" class="select" > </select>
 			  		</div>
-					<div class="col-md-12">
-						<label title="Filter all profiles that have mobile phone or email" > 
-								<input id="filterOnlyContactable" type="checkbox" onchange="filterOnlyContactableProfiles(this)" > Just show contact  
-						</label>
+					<div class="col-md-12 profile_filter_box" >
+						<div class="col-md-4">
+							<label title="Filter all visitor profiles" > 
+								<input id="showVisitorProfile" type="checkbox" checked="checked"> Show visitor 
+							</label>
+						</div> 
+						<div class="col-md-4">
+							<label title="Filter all lead profiles" > 
+								<input id="showLeadProfile" type="checkbox" checked="checked"> Show lead profile 
+							</label>
+						</div> 
+						<div class="col-md-4">
+							<label title="Filter all customer profiles" > 
+								<input id="showCustomerProfile" type="checkbox" checked="checked"> Show customer 
+							</label>
+						</div> 
 					</div> 
-					<div class="col-md-12">
-						<label title="Filter all profiles within the specified date range"> 
-							<input id="disable_date_filter" type="checkbox" onclick="toggleProfileDisableDateFilter(false)" > Turn off date filter 
-						</label>
-						
-					</div> 
-					<div class="col-md-12">
+					<div class="col-md-12 profile_filter_box" >
+						<div class="col-md-12">
+							<label title="Filter all profiles within the specified date range"> 
+								<input id="disable_date_filter" type="checkbox" onclick="toggleProfileDisableDateFilter(false)" > Turn off date filter 
+							</label>
+						</div> 
 						<div id='beginFilterDateHolder' class="col-md-6"> 
 							<div class="form-group">
 				            	<b>Since the updated date </b>
@@ -83,7 +97,7 @@
 				</div>
 				
 				<div class="col-md-6" > 
-					<div class="col-md-6" >
+					<div class="col-md-12" >
 						<div class="dropdown">
 						    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 						    	<i class="fa fa-filter" aria-hidden="true"></i> Filter by using advanced criteria <span class="caret"></span>
@@ -124,13 +138,15 @@
 					  		
 						</div>
 					</div>
-					<div class="col-md-6" >
+					<div class="col-md-12" >
 						<div class="col-md-12" style="padding-top:25px;">
 							<div class="col-md-6" style="text-align: right;">
-							 	<button type="button" class="btn btn-do-now" onclick="resetProfileSearch()" ><i class="fa fa-fw fa-undo"></i> Reset </button>
+							 	<button type="button" style="width: 100%;" class="btn btn-do-now" onclick="resetProfileSearch()" >
+							 		<i class="fa fa-fw fa-undo"></i> Reset </button>
 							</div>
 							<div class="col-md-6" >
-							 	<button type="button" class="btn btn-goto-router" onclick="doProfileListing()" ><i class="fa fa-fw fa-filter"></i> Filter </button>
+							 	<button type="button" style="width: 100%;" class="btn btn-goto-router" onclick="doProfileListing()" >
+							 		<i class="fa fa-fw fa-filter"></i> Filter </button>
 							</div>
 						</div>
 						<div id="holder_deleteNotActiveProfile" class="col-md-12 text-center" style="padding-top:15px; display: none;" >
@@ -233,18 +249,21 @@
 	    showDeleteNotActiveProfile()
 	}
 	
-	function filterOnlyContactableProfiles(node){
+	function turnOffProfileDateFilter(node){
 		if($(node).prop('checked')) {
 			toggleProfileDisableDateFilter(true);
 		} 
 	}
 	
 	function resetProfileSearch() {
-		if(LeoCdpAdmin.routerKey === "Customer_Profile_Search" ){
+		if(LeoCdpAdmin.routerKey === "Customer_Profile_Search" || LeoCdpAdmin.routerKey === "Profile_List_By_Type"){
 			$('#main_search_profile').val('');
 			location.hash = "calljs-leoCdpRouter('Profile_Management')";
-		} else {
-			$('#filterOnlyContactable').prop('checked', false);
+		} 
+		else {
+			$('#showVisitorProfile').prop('checked', true);
+			$('#showLeadProfile').prop('checked', true);
+			$('#showCustomerProfile').prop('checked', true);
 			
 			// reset filter data
 			$('#filterEmail, #filterPhone, #filterByVisitorId, #filterByProfileId, #filterByLastTouchpoint, #filterByDataLabel, #filterByAuthorizedViewer, #filterByAuthorizedEditor').val('');
@@ -320,6 +339,28 @@
     		currentJourneyMapId = id;
         },true);
     	
+    	// profileType
+    	if(profileType === "visitor"){
+    		$('#showVisitorProfile').prop('checked', true);
+			$('#showLeadProfile').prop('checked', false);
+			$('#showCustomerProfile').prop('checked', false);
+    	}
+    	else if(profileType === "lead"){
+    		$('#showVisitorProfile').prop('checked', false);
+			$('#showLeadProfile').prop('checked', true);
+			$('#showCustomerProfile').prop('checked', false);
+    	}
+    	else if(profileType === "customer"){
+    		$('#showVisitorProfile').prop('checked', false);
+			$('#showLeadProfile').prop('checked', false);
+			$('#showCustomerProfile').prop('checked', true);
+    	}
+    	else {
+    		$('#showVisitorProfile').prop('checked', true);
+			$('#showLeadProfile').prop('checked', true);
+			$('#showCustomerProfile').prop('checked', true);
+    	}
+    	
     	if(typeof encodedKeywords === 'string' ) {
     		var nameToSearch = Base64.decode(encodedKeywords);
     		document.title = "Customer Data Hub - profile search by name: " + nameToSearch;
@@ -345,7 +386,10 @@
             }
     			
             d.journeyMapId = currentJourneyMapId;
-    		d.filterContactable = $('#filterOnlyContactable:checked').length > 0;
+    		d.showVisitor = $('#showVisitorProfile:checked').length > 0;
+    		d.showLead = $('#showLeadProfile:checked').length > 0;
+    		d.showCustomer = $('#showCustomerProfile:checked').length > 0;
+    		
     		d.email = $('#filterEmail').val().trim();
     		d.phone = $('#filterPhone').val().trim();
     		d.visitorId = $('#filterByVisitorId').val().trim();

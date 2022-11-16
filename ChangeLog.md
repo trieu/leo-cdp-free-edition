@@ -38,6 +38,7 @@
 
 ### Added
 
+- [Profile List] can filter by visitor or lead or customer
 - [Data Journey Map] improve UI and add 3 touchpoint hubs: Visitor Report, Lead Report, Customer Report
 - [Profile] link Google Analytics and LEO CDP: mapping visitor to user id
 -  Show report in Data Journey Map
