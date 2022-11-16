@@ -188,7 +188,7 @@ AQL_GET_TOUCHPOINT_HUB_BY_OBSERVER =>
 
 AQL_GET_TOUCHPOINT_HUBS_BY_JOURNEY_MAP => 
 	FOR e in cdp_touchpointhub 
-	FILTER (e.journeyMapId == @journeyMapId OR e._key == "leo_data_observer") AND e.status >= 0
+	FILTER (e.journeyMapId == @journeyMapId OR e._key == "leo_data_observer" OR e.type >= 1000) AND e.status >= 0
 	RETURN e
 ;
 
@@ -272,7 +272,7 @@ AQL_GET_EVENT_OBSERVERS_BY_TYPE =>
 
 AQL_GET_EVENT_OBSERVERS_BY_JOURNEY_MAP =>
 	FOR e in cdp_eventobserver 
-	FILTER (e.journeyMapId == @journeyMapId OR e._key == "leo_data_observer") AND e.status >= 0
+	FILTER (e.journeyMapId == @journeyMapId OR e._key == "leo_data_observer") AND e.type < 1000 AND e.status >= 0 
 	RETURN e
 ;
 
