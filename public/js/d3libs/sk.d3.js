@@ -333,7 +333,7 @@
         // Private - replace D3JS 3.X d3.functor() function
         function functor(v) {
             return typeof v === "function" ? v : function() {
-            return v
+            	return v
             }
         }
     
@@ -424,11 +424,11 @@
                 ]);
             _updateRangeFontData = function(nodeData) {
                 _dynamicFontSize.domain(d3.extent(nodeData, function(d) {
-                    return d.value
+                    return d.value > 0 ? d.value : 1
                 }));
             };
             _getFontSize = function(d) {
-                return Math.floor(_dynamicFontSize(d.value));
+                return Math.floor(_dynamicFontSize(d.value > 0 ? d.value : 1));
             };
         }
         
@@ -453,28 +453,29 @@
         var tipLinks = d3.tip().attr("class", "d3-tip").offset([-10, 0]);
         var tipNodes = d3.tip().attr("class", "d3-tip d3-tip-nodes").offset([-10, 0]);
     
-        function _formatValueTooltip(name, val) {
+        function _formatValueTooltip(targetName, val, candidateName) {
+        	console.log(targetName, candidateName, val)
             if (configSankey.links.formatValue)
-                return configSankey.links.formatValue(name, val);
+                return configSankey.links.formatValue(targetName, val , candidateName );
             else
                 return val + ' ' + configSankey.links.unit;
         }
     
         tipLinks.html(function(d) {
-            var title, candidate;
+            var targetName, candidateName;
             if (_dataSankey.links.indexOf(d.source.name) > -1) {
-                candidate = d.source.name;
-                title = d.target.name;
+            	candidateName = d.source.name;
+                targetName = d.target.name;
             } else {
-                candidate = d.target.name;
-                title = d.source.name;
+            	candidateName = d.target.name;
+                targetName = d.source.name;
             }
             var html = '<div class="table-wrapper">' +
-                '<center><h1>' + title + '</h1></center>' +
+                '<center><h1>' + targetName + '</h1></center>' +
                 '<table>' +
                 '<tr>' +
-                '<td class="col-left">' + candidate + '</td>' +
-                '<td align="right">' + _formatValueTooltip(title, d.value) + '</td>' +
+                '<td class="col-left">' + candidateName + '</td>' +
+                '<td align="right">' + _formatValueTooltip(targetName, d.value, candidateName ) + '</td>' +
                 '</tr>' +
                 '</table>' +
                 '</div>';
@@ -509,18 +510,20 @@
                 html += '<tr><td><h2>' + configSankey.tooltip.labelSource + '</h2></td><td></td></tr>'
             }
             for (i = 0; i < linksFrom.length; ++i) {
+				// console.log("linksFrom[i] ", linksFrom[i])
                 html += '<tr>' +
                     '<td class="col-left">' + linksFrom[i].source.name + '</td>' +
-                    '<td align="right">' + _formatValueTooltip(nodeName, linksFrom[i].value) + '</td>' +
+                  //  '<td align="right">' + _formatValueTooltip(nodeName, linksFrom[i].target.value) + '</td>' +
                     '</tr>';
             }
             if (linksFrom.length > 0 & linksTo.length > 0) {
                 html += '<tr><td></td><td></td><tr><td></td><td></td> </tr><tr><td><h2>' + configSankey.tooltip.labelTarget + '</h2></td><td></td></tr>'
             }
             for (i = 0; i < linksTo.length; ++i) {
+				// console.log("linksTo[i] ", linksTo[i])
                 html += '<tr>' +
                     '<td class="col-left">' + linksTo[i].target.name + '</td>' +
-                    '<td align="right">' + _formatValueTooltip(nodeName, linksTo[i].value) + '</td>' +
+                 //   '<td align="right">' + _formatValueTooltip(nodeName, linksTo[i].source.value) + '</td>' +
                     '</tr>';
             }
             html += '</table></div>';

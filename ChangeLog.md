@@ -34,10 +34,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.8.9] - 2022-11-16
+## [0.8.9] - 2022-11-22
 
 ### Added
 
+- [Data Journey Map] show report
 - [Profile List] can filter by visitor or lead or customer
 - [Data Journey Map] improve UI and add 3 touchpoint hubs: Visitor Report, Lead Report, Customer Report
 - [Profile] link Google Analytics and LEO CDP: mapping visitor to user id

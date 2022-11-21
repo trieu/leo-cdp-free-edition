@@ -57,12 +57,12 @@
 		  		<ul class="nav nav-tabs" data-tab-content="journey_flow_tabs" > 
 			   		<li class="active" >
 		        		<a href="javascript:" data-target-tab="panel_journey_flow_design" > 
-		        			<i class="fa fa-pencil-square" aria-hidden="true"></i> Journey Design 
+		        			<i class="fa fa-pencil-square" aria-hidden="true"></i> Journey Map Design 
 		        		</a>
 		       		</li>
 		       		<li>
 		       			<a href="javascript:loadJourneyFlowReport()" data-target-tab="panel_journey_flow_report" > 
-		       				<i class="fa fa-snowflake-o" aria-hidden="true"></i> Journey Report 
+		       				<i class="fa fa-snowflake-o" aria-hidden="true"></i> Event Flow Report 
 		       			</a>
 		       		</li>
 				</ul>
@@ -201,11 +201,17 @@
     	// tab 
     	setupTabPanels();
     	
-    	// event metrics for observer JS
-    	loadEventMetrics();   
-    	
     	// the journey map selection
     	loadJourneyMapList();
+    	
+    	// name editor
+		initJourneyMapNameEditor();
+    	
+    	// event metrics for observer JS
+    	loadEventMetrics();
+    	
+    	// load data observer tags
+   		loadDataObserverList("#data_observers_table");
     	
     	// the flow
     	var callback = function(touchpointCount){
@@ -214,12 +220,6 @@
     		loadJourneyMapEventMatrix(currentJourneyMapId, 'journey_map_event_matrix')
     	}
 		loadJourneyMapAndTouchpointHubs(currentJourneyMapId, '#journeyFlowChart', '#journeyMapName, #authorizedJourneyName', "#touchpoint_hub_table", callback);
-		
-		// load data observer tags
-   		loadDataObserverList("#data_observers_table");
-		
-		// name editor
-		initJourneyMapNameEditor();
 	}
 	
 	function loadJourneyFlowReport(){
