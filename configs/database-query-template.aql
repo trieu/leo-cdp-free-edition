@@ -227,7 +227,7 @@ AQL_PROFILE_REPORT_FOR_JOURNEY =>
 	LET finalStats = UNION(stats, summaryReport)
 	FOR e in cdp_touchpointhub 
 		FOR s in finalStats 
-		FILTER (e._key == s.touchpointHubId OR e.type == s.type) AND (e.journeyMapId == @journeyMapId OR @journeyMapId == "")
+		FILTER ( e._key == s.touchpointHubId AND (e.journeyMapId == @journeyMapId OR @journeyMapId == "") ) OR e.type == s.type
 		SORT e.journeyLevel 
 	RETURN {"touchpointHubId":e._key, "name":e.name, "profileCount": s.profileCount}
 ;
