@@ -572,7 +572,7 @@
                 return l.source.color;
             })
             .style("stroke-width", function(l) {
-                return Math.max(1, l.width) + "px";
+                return Math.max(10, l.width) + "px";
             })
             .sort(function(a, b) {
                 return b.width - a.width;
@@ -596,7 +596,8 @@
                 d.y0 = Math.max(0, Math.min(dimensions.height - (d.y1 - d.y0), d.y0 + d3.event.dy));
                 d.y1 = d.y0 + heightNode;
             }
-            d3.select(this).attr("transform", "translate(" + d.x0 + "," + d.y0 + ")");
+            var y = d.y0 - 10;
+            d3.select(this).attr("transform", "translate(" + d.x0 + "," + y + ")");
             sankey.update(_dataSankey);
             link.attr("d", path);
         }
@@ -608,7 +609,8 @@
             .enter().append("g")
             .attr("class", "sk-node")
             .attr("transform", function(d) {
-                return "translate(" + d.x0 + "," + d.y0 + ")";
+				var y =  d.y0;
+                return "translate(" + d.x0 + "," + y + ")";
             })
         if (configSankey.tooltip.infoDiv)
             node.on('mousemove', tipNodes.move).on('mouseover', tipNodes.show).on('mouseout', tipNodes.hide);
@@ -627,7 +629,7 @@
     
         node.append("rect")
             .attr("height", function(d) {
-                return (d.y1 - d.y0);
+                return Math.max(20, (d.y1 - d.y0) );
             })
             .attr("width", sankey.nodeWidth())
             .style("fill", function(d) {
@@ -680,7 +682,7 @@
                 .duration(1300)
                 .attr("d", path)
                 .style("stroke-width", function(l) {
-                    return Math.max(1, l.width) + "px";
+                    return Math.max(10, l.width) + "px";
                 });
     
             svg.selectAll(".sk-node")
@@ -696,7 +698,7 @@
             svg.selectAll(".sk-node rect")
                 .transition()
                 .duration(1300)
-                .attr("height", function(d) {
+                .attr("height", function(d) {					
                     return (d.y1 - d.y0);
                 });
     
