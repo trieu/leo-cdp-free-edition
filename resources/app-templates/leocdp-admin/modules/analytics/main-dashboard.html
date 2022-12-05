@@ -67,12 +67,12 @@
             	<ul class="nav nav-tabs" data-tab-content="main_dashboard_report_tabs" >   
             		<li class="active">
 		         		<a href="javascript:" data-target-tab="panel_observer_report" title="Profile Sources by Observer" > 
-		         			<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Customer Data Sources
+		         			<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Touchpoint Hub
 		         		</a>
 		         	</li>	         		
 		         	<li>
 		         		<a href="javascript:" data-target-tab="panel_touchpoint_report" title="Source Report Details at specific touchpoint" > 
-		         			<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Data Source Details
+		         			<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Touchpoint Item
 		         		</a>
 		         	</li>
 		         	<li onclick="showDashboardReport(false)" >
@@ -402,7 +402,7 @@
     }
     
     function showTouchpointHubReport(queryFilter) {
-    	var textTitle = "Customer Data Sources";
+    	var textTitle = "Touchpoint Hub Report";
     	$('#observer_report_wrapper').html('<div class="loader"></div>');
         
         // touchpoint detail report
@@ -439,7 +439,7 @@
     }
     
     function showTouchpointItemReport(queryFilter){
-    	var textTitle = "Data Source Details";
+    	var textTitle = "Touchpoint Item Report";
        	$('#touchpoint_report_wrapper').html('<div class="loader"></div>');
         
         // touchpoint detail report

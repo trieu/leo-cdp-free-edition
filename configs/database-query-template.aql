@@ -230,7 +230,7 @@ AQL_PROFILE_REPORT_FOR_JOURNEY =>
 		FILTER ( e._key == s.touchpointHubId AND (e.journeyMapId == @journeyMapId OR @journeyMapId == "") ) OR e.type == s.type
 		SORT e.journeyLevel 
 	RETURN {"touchpointHubId":e._key, "name":e.name, "profileCount": s.profileCount}
-;
+;    
 
 ###########  TOUCHPOINT HUB  ########################################################################################################;
 
@@ -267,6 +267,17 @@ AQL_GET_ALL_TOUCHPOINT_HUBS =>
 	RETURN e
 ;
 
+AQL_GET_TOUCHPOINT_HUB_REPORT_FOR_PROFILE =>
+	FOR e in cdp_trackingevent 
+    FILTER (e.refJourneyId == @journeyId OR @journeyId == "") AND e.refProfileId == @refProfileId
+   	LET hostname = e.refTouchpointHost == e.srcTouchpointHost ? (e.srcTouchpointHost) : (e.refTouchpointHost)
+    LET groupName = (hostname == null OR hostname == "") ? "Unknown Source" : hostname
+    COLLECT name = groupName
+    AGGREGATE eventCount = COUNT_DISTINCT(e._key), profileCount = COUNT_DISTINCT(e.refProfileId)
+    SORT eventCount DESC
+    RETURN {"name":name, "eventCount": eventCount}
+;
+
 AQL_GET_TOUCHPOINT_HUB_REPORT =>
 	LET stats = (
 		FOR e in cdp_trackingevent 
@@ -284,17 +295,86 @@ AQL_GET_TOUCHPOINT_HUB_REPORT =>
 	RETURN s
 ;
 
-AQL_GET_TOUCHPOINT_HUB_REPORT_FOR_PROFILE =>
-	FOR e in cdp_trackingevent 
-    FILTER (e.refJourneyId == @journeyId OR @journeyId == "") AND e.refProfileId == @refProfileId
-   	LET hostname = e.refTouchpointHost == e.srcTouchpointHost ? (e.srcTouchpointHost) : (e.refTouchpointHost)
-    LET groupName = (hostname == null OR hostname == "") ? "Unknown Source" : hostname
-    COLLECT name = groupName
-    AGGREGATE eventCount = COUNT_DISTINCT(e._key), profileCount = COUNT_DISTINCT(e.refProfileId)
-    SORT eventCount DESC
-    RETURN {"name":name, "eventCount": eventCount}
+AQL_TOUCHPOINT_HUB_DETAIL_REPORT =>
+	LET visitors = (
+	    FOR t in cdp_touchpointhub
+	    FILTER (t.journeyMapId == @journeyId OR @journeyId == "")
+	    FOR e in cdp_profile2touchpointhub
+	        FILTER e.funnelStage == 'new-visitor' OR e.funnelStage == 'returning-visitor'
+	            FILTER e._to == CONCAT('cdp_touchpointhub/',t._key) 
+	            COLLECT tpHubId = t._key, tpName = t.name
+	            AGGREGATE report = COUNT_DISTINCT(e._from)
+	    RETURN {"id":tpHubId, "visitor": report}
+	)
+	
+	LET leads = (
+	    FOR t in cdp_touchpointhub
+	    FILTER (t.journeyMapId == @journeyId OR @journeyId == "")
+	    FOR e in cdp_profile2touchpointhub
+	        FILTER e._to == CONCAT('cdp_touchpointhub/',t._key) AND e.funnelStage == 'lead'
+	            COLLECT tpHubId = t._key, tpName = t.name
+	            AGGREGATE report = COUNT_DISTINCT(e._from)
+	    RETURN {"id":tpHubId, "lead": report}
+	)
+	
+	LET prospects = (
+	    FOR t in cdp_touchpointhub
+	    FILTER (t.journeyMapId == @journeyId OR @journeyId == "")
+	    FOR e in cdp_profile2touchpointhub
+	        FILTER e._to == CONCAT('cdp_touchpointhub/',t._key) AND e.funnelStage == 'prospect'
+	            COLLECT tpHubId = t._key, tpName = t.name
+	            AGGREGATE report = COUNT_DISTINCT(e._from)
+	    RETURN {"id":tpHubId, "prospect": report}
+	)
+	
+	LET newCustomers = (
+	    FOR t in cdp_touchpointhub
+	    FILTER (t.journeyMapId == @journeyId OR @journeyId == "")
+	    FOR e in cdp_profile2touchpointhub
+	        FILTER e._to == CONCAT('cdp_touchpointhub/',t._key) AND e.funnelStage == 'new-customer'
+	        COLLECT tpHubId = t._key, tpName = t.name
+	        AGGREGATE report = COUNT_DISTINCT(e._from)
+	    RETURN {"id":tpHubId, "newCustomer": report}
+	)
+	
+	LET engagedCustomers = (
+	    FOR t in cdp_touchpointhub
+	    FILTER (t.journeyMapId == @journeyId OR @journeyId == "")
+	    FOR e in cdp_profile2touchpointhub
+	        FILTER e._to == CONCAT('cdp_touchpointhub/',t._key) AND ( e.funnelStage == 'engaged-customer'
+		            OR e.funnelStage == 'happy-customer' OR e.funnelStage == 'customer-advocate')
+	            COLLECT tpHubId = t._key, tpName = t.name
+	            AGGREGATE report = COUNT_DISTINCT(e._from)
+	    RETURN {"id":tpHubId, "engagedCustomer": report}
+	)
+	
+	LET churnedProfiles = (
+	    FOR t in cdp_touchpointhub
+	    FILTER (t.journeyMapId == @journeyId OR @journeyId == "")
+	    FOR e in cdp_profile2touchpointhub
+	        FILTER e._to == CONCAT('cdp_touchpointhub/',t._key) 
+	        	AND (e.funnelStage == 'unhappy-customer' OR e.funnelStage == 'terminated-customer')
+	            COLLECT tpHubId = t._key, tpName = t.name
+	            AGGREGATE report = COUNT_DISTINCT(e._from)
+	    RETURN {"id":tpHubId, "churnedProfile": report}
+	)
+	
+	LET stats = APPEND(UNION(visitors, leads, prospects, newCustomers, engagedCustomers, churnedProfiles),{"id":"leo_data_observer"})
+	
+	FOR t in cdp_touchpointhub
+	    FILTER (t.journeyMapId == @journeyId OR @journeyId == "")
+	    FOR s IN stats
+	        LET visitor = (s.id == t._key AND HAS(s, "visitor"))  ? s.visitor : 0
+	        LET lead = (s.id == t._key AND HAS(s, "lead"))  ? s.lead : 0
+	        LET prospect = (s.id == t._key AND HAS(s, "prospect"))  ? s.prospect : 0
+	        LET newCustomer = (s.id == t._key AND HAS(s, "newCustomer"))  ? s.newCustomer : 0
+	        LET engagedCustomer = (s.id == t._key AND HAS(s, "engagedCustomer"))  ? s.engagedCustomer : 0
+	        LET churnedProfile = (s.id == t._key AND HAS(s, "churnedProfile"))  ? s.churnedProfile : 0
+	        RETURN DISTINCT {"touchpointHubId":t._key, "name": t.name, 
+	            "visitor": visitor, "lead": lead, "prospect": prospect, 
+	            "newCustomer": newCustomer, "engagedCustomer": engagedCustomer, 
+	            "churnedProfile":churnedProfile }
 ;
-
 
 ###########  Event Observer  ########################################################################################################;
 

@@ -34,10 +34,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.8.9] - 2022-12-03
+## [0.8.9] - 2022-12-06
 
 ### Added
 
+- [Data Journey Map] load report data from the graph of Profile and Touchpoint Hub
 - [Touchpoint Data Hub] save event in graph, add graph Profile2TouchpointHub
 - [Data Journey Map] show report
 - [Profile List] can filter by visitor or lead or customer
