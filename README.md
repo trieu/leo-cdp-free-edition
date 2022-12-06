@@ -14,9 +14,9 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 4. You need an on-premises software solution to deploy in your private cloud servers
 5. You want to build your own Customer Data Platform (CDP) for your digital business and digital transformation
 
-# General Data Flow
+# LEO CDP Data Flow in 8 steps
 
-[![Leo CDP Flow](https://raw.githubusercontent.com/trieu/leo-cdp-free-edition/main/leo-cdp-version-1.0.png)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)	
+[![Leo CDP Data Flow](https://raw.githubusercontent.com/trieu/leo-cdp-free-edition/main/leo-cdp-how-it-works.png)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)	
 
 # System Demo
 
