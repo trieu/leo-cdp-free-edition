@@ -496,6 +496,8 @@
         };
     
         tipNodes.html(function(d) {
+        	console.log("tipNode ", d )
+        	
             var nodeName = d.name;
             var linksFrom = d.targetLinks; //invert for reference
             var linksTo = d.sourceLinks;
@@ -508,7 +510,7 @@
                 html += '<tr><td><h2>' + configSankey.tooltip.labelSource + '</h2></td><td></td></tr>'
             }
             for (i = 0; i < linksFrom.length; ++i) {
-				// console.log("linksFrom[i] ", linksFrom[i])
+				console.log("linksFrom[i].source ", linksFrom[i].source)
                 html += '<tr>' +
                     '<td class="col-left">' + linksFrom[i].source.name + '</td>' +
                   //  '<td align="right">' + _formatValueTooltip(nodeName, linksFrom[i].target.value) + '</td>' +
@@ -518,7 +520,7 @@
                 html += '<tr><td></td><td></td><tr><td></td><td></td> </tr><tr><td><h2>' + configSankey.tooltip.labelTarget + '</h2></td><td></td></tr>'
             }
             for (i = 0; i < linksTo.length; ++i) {
-				// console.log("linksTo[i] ", linksTo[i])
+				console.log("linksTo[i].target ", linksTo[i].target)
                 html += '<tr>' +
                     '<td class="col-left">' + linksTo[i].target.name + '</td>' +
                  //   '<td align="right">' + _formatValueTooltip(nodeName, linksTo[i].source.value) + '</td>' +

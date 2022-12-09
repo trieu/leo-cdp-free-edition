@@ -5,7 +5,7 @@
 - [Done] import tool to upload event data as CSV file in LEO CDP Admin
 - [In Plan => 2022-11-07] new UI for journey map report
 
-## Feature Plan for the final beta release 1.0 - 2022-11-30
+## Feature Plan for the final beta release 1.0 - 2022-12-30
 
 #### Tasks
 
@@ -34,11 +34,12 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.8.9] - 2022-12-06
+## [0.8.9] - 2022-12-09
 
 ### Added
 
-- [Data Journey Map] load report data from the graph of Profile and Touchpoint Hub
+- [Product Calalog] refactoring tracking purchased products, shopping products
+- [Data Journey Map] load report data from the graph of Profile and Touchpoint Hub, improve UI report of journey
 - [Touchpoint Data Hub] save event in graph, add graph Profile2TouchpointHub
 - [Data Journey Map] show report
 - [Profile List] can filter by visitor or lead or customer

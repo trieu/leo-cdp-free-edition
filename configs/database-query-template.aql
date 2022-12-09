@@ -1438,8 +1438,8 @@ AQL_GET_PRODUCT_ITEMS =>
 
 AQL_GET_PRODUCT_CATALOG_MAP => 
 	FOR e in cdp_productitem 
-		FILTER e.status >= 0  
-		RETURN {"_key":e._key, "title": e.title }
+		FILTER e.status >= 0 AND LENGTH(e.productId) > 0 
+		RETURN {"productId": e.productId, "title": e.title }
 ;
 
 AQL_GET_PRODUCT_ITEM_BY_FULL_URL =>
