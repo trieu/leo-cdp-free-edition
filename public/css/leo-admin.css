@@ -407,9 +407,11 @@ div.gridholder {
 .table-responsive .datatable_text {
 	font-size: 11.5px;
 	font-weight: bold;
-	color: #3300ff;
 }
 
+.jsgrid-grid-body .datatable_text {
+	color: #3300ff;
+}
 
 .panel-leoadmin > .panel-heading{
     color: #484848;

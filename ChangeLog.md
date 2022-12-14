@@ -34,7 +34,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.8.9] - 2022-12-09
+## [0.8.9] - 2022-12-14
 
 ### Added
 
@@ -114,6 +114,7 @@
 
 ### Fixed 
 
+- [Journey Map] can not save data with totalProfile is null
 - [Event Reporting] improve AQL for performance, duplicated rating event
 - [Data Connector] fix overriding old data when upgrade system, improve SendInBlue connector
 - [Tracking Event] fix when import and improve UI

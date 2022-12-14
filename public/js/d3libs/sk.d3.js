@@ -630,7 +630,7 @@
     
         node.append("rect")
             .attr("height", function(d) {
-                return Math.max(16, (d.y1 - d.y0) );
+                return Math.max(10, (d.y1 - d.y0) );
             })
             .attr("width", sankey.nodeWidth())
             .style("fill", function(d) {
