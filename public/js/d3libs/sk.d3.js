@@ -403,7 +403,7 @@
     
         var sankey = d3.sankey()
             .nodeWidth(16)
-            .nodePadding(25)
+            .nodePadding(20)
             .extent([ [0, 0], [dimensions.width, dimensions.height]
         ]);
     
@@ -597,7 +597,7 @@
                 d.y0 = Math.max(0, Math.min(dimensions.height - (d.y1 - d.y0), d.y0 + d3.event.dy));
                 d.y1 = d.y0 + heightNode;
             }
-            var y = d.y0 - 8;
+            var y = d.y0 ;
             d3.select(this).attr("transform", "translate(" + d.x0 + "," + y + ")");
             sankey.update(_dataSankey);
             link.attr("d", path);
