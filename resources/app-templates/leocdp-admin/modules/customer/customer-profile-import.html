@@ -35,29 +35,32 @@
 	         	</p>
 		 	 </div>
 		 </div>
-		 
-	 	<div class="panel panel-business">
+		
+		
+		<div class="panel panel-business">
           	<div class="panel-heading"> <i class="fa fa-list" aria-hidden="true"></i> Data Journey Map and Journey Stage </div>
 		  	<div class="panel-body" >
-		  		<div class="col-lg-8" >
-		  			<p style="font-weight: bold;">  Data Journey  </p>
+		  		<div class="col-lg-8" style="border-right:1px solid #000;" >
+		  			<p style="font-weight: bold;">  Data Journey Map  </p>
 			  		<select id="journeyMapList" data-placeholder="Choose an Journey Map" class="select" >
 	                  <!-- journeyMapList -->  
 	                </select>
+	                <p style="font-weight: bold; margin-top: 5px">  Touchpoint Data Hub  </p>
+			  		<select id="touchpointHubList" data-placeholder="Choose an Touchpoint Data Hub" class="select" >
+	                  <!-- touchpointHubList -->  
+	                </select>
 		  		</div>
-		  		<div class="col-lg-4" style="border-left:1px solid #000;" >
-		  			<p style="font-weight: bold;">  Journey Stage </p>
+		  		<div class="col-lg-4"  >
+		  			<p style="font-weight: bold;">  Customer Journey Stage </p>
 			  		<select id="journeyStagesList" data-placeholder="Choose an Journey Stage" class="select" >
-	                  <!-- journeyMapList -->  
+	                  <!-- journeyStagesList -->  
 	                </select>
 		  		</div>
 		  		
 		  	</div>
 		</div>
 		
-		<div class="panel panel-business">
-			
-	                
+		<div class="panel panel-business">    
           	<div class="panel-heading"> <i class="fa fa-info" aria-hidden="true"></i> Contact Type and Data Labels </div>
 		  	<div class="panel-body"  >
 		  		<div class="col-md-12" style="margin-bottom: 10px">			    	
@@ -116,6 +119,7 @@
 
 <script>
 	
+	var currentTouchpointHubId = 'leo_data_observer';
 	var currentJourneyMapId = "id_default_journey"; 
 	var journeyStageToImport = 1;// awareness
 	var contactTypeToImport = 4;
@@ -163,7 +167,9 @@
         
         loadJourneyMapList(false, function(id){
         	currentJourneyMapId = id;
+        	loadTouchpointHubList(currentTouchpointHubId, true)
         });
+        loadTouchpointHubList(currentTouchpointHubId)
         
         loadJourneyStagesList(function(id){
         	journeyStageToImport = parseInt(id);
@@ -176,6 +182,7 @@
         	// console.log("chosen:updated" + $(this).val())
         	contactTypeToImport= parseInt($(this).val());
         });
+        $('#contactTypeList_chosen').css('z-index',"98")
 	}
 	
 	function loadPreviewProfile(list) {
@@ -213,7 +220,11 @@
 		
 		var overwriteOldData = $('#importProfileOverwriteOldData').prop("checked");        
 		var dataLabels = $('#profileImpoterDataLabel').val().trim();
-		var params = {'importFileUrl':importFileUrl, "dataLabels" : dataLabels, "journeyMapId": currentJourneyMapId, "journeyStage": journeyStageToImport, "contactType": contactTypeToImport, 'overwriteOldData': overwriteOldData};
+		var params = {'importFileUrl':importFileUrl, "dataLabels" : dataLabels, 'overwriteOldData': overwriteOldData};
+		params['journeyMapId'] = currentJourneyMapId;
+		params['journeyStage'] = journeyStageToImport;
+		params['contactType'] = contactTypeToImport;
+		params['touchpointHubId'] = $('#touchpointHubList').val();
 		
 		LeoAdminApiUtil.callPostAdminApi('/cdp/profiles/import', params , function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {

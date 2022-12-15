@@ -34,10 +34,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.8.9] - 2022-12-14
+## [0.8.9] - 2022-12-15
 
 ### Added
 
+- [Profile Import] can set Touchpoint Hub for imported profile 
 - [Product Calalog] refactoring tracking purchased products, shopping products
 - [Data Journey Map] load report data from the graph of Profile and Touchpoint Hub, improve UI report of journey
 - [Touchpoint Data Hub] save event in graph, add graph Profile2TouchpointHub
