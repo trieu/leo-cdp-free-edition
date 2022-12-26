@@ -925,14 +925,14 @@ AQL_COUNT_TOTAL_UNHAPPY_PROFILES =>
 AQL_GET_ACTIVE_PROFILES_BY_PAGINATION =>
 	FOR p in cdp_profile  
 	FILTER p.status > 0 
-	SORT p.updatedAt DESC
+	SORT p[@sortBy] DESC
 	LIMIT @startIndex,@numberResult 
 	RETURN p
 ; 
 
 AQL_GET_PROFILES_BY_PAGINATION =>
 	FOR p in cdp_profile  
-	SORT p.updatedAt DESC
+	SORT p[@sortBy] DESC
 	LIMIT @startIndex,@numberResult 
 	RETURN p
 ;

@@ -13,7 +13,7 @@
 		</a>
 
 		<div style="width: 100%;">
-			<input id="main_search_profile" type="text" placeholder="Input keywords and press Enter to search profiles by name" autocomplete="off" >
+			<input id="main_search_profile" type="text" placeholder="Enter keywords to search" autocomplete="off" >
 		</div>
 
 		<!-- Top User Menu -->
@@ -283,10 +283,22 @@
 			var msg ='<div class="alert alert-info"> <strong> The LEO CDP Admin </strong> is currently not supported on mobile browsers! </div>';
 			$('#page-main-notification').show().html(msg);
 		} else {
+			$('#uspa_logo').click(function(){ window.open('https://uspa.tech','_blank') });
+			$(window).resize(pageWrapperResize);
+			
 			pageWrapperResize();
 			loadUserInfoWidget();
 			navigationSetup();
 			
+			$('#main_admin_navigation').show();
+			$('#logo-img').attr('src',window.pageHeaderLogo).show();
+			$('#promo_panel').css("visibility",promoVisibility);
+			
+			$('#leo_product_type').text(leoProductType);
+			$('#leocdp_version_type').text(leoCdpEdition.toUpperCase());
+			$('#leocdp_version_number').text(leoCdpBuildVersion);
+			
+			// search bar handler
 			$('#main_search_profile').on('keyup', function (e) {
 				// enter to search
 		        if (e.keyCode === 13) {
@@ -297,17 +309,6 @@
 		        	}
 		        }
 		    });
-			
-			$('#main_admin_navigation').show();
-			$('#logo-img').attr('src',window.pageHeaderLogo).show();
-			$('#promo_panel').css("visibility",promoVisibility);
-			
-			$('#leo_product_type').text(leoProductType);
-			$('#leocdp_version_type').text(leoCdpEdition.toUpperCase());
-			$('#leocdp_version_number').text(leoCdpBuildVersion);
-			
-			$('#uspa_logo').click(function(){ window.open('https://uspa.tech','_blank') });
-			$(window).resize(pageWrapperResize);
 		}
 	};
 </script>

@@ -16,8 +16,8 @@
     	<button type="button" class="btn btn-do-now" onclick="location.reload()" title="Refresh Profile List" > 
     		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
     	</button>
-    	<button type="button" class="btn btn-info data-control-update" onclick="mergeDuplicatesHandler()" title="Merge duplicated profiles into a single profile" > 
-    		<i class="fa fa-compress" aria-hidden="true"></i> Deduplicate
+    	<button type="button" class="btn btn-info data-control-update" onclick="duplicateAllProfiles()" title="Process all duplicated profiles into a single profile" > 
+    		<i class="fa fa-compress" aria-hidden="true"></i> Deduplicate All
     	</button>
     	<button type="button" class="btn btn-primary data-control-update" onclick="importProfileHandler()" title="Import Profile from uploaded CSV file" style="background-color: #5287F7!important;"> 
     		<i class="fa fa-cloud-upload" aria-hidden="true"></i> Import Profile
@@ -118,7 +118,7 @@
 						</div>
 						<div id="profile_filter_inputs" >
 							<label id="profile_filter_input_label" style="margin-top:10px;" >Profile Status</label>
-							<input type="hidden" id="filterName" value="" >
+							<input type="hidden" id="keywordsToSearchProfiles" value="" >
 							
 							<input style="display: none;" type="text" class="form-control" id="filterByProfileId" placeholder="Enter profile ID" >
 							<select class="form-control" id="filterProfileListByStatus" >
@@ -269,7 +269,7 @@
 			$('#filterEmail, #filterPhone, #filterByVisitorId, #filterByProfileId, #filterByLastTouchpoint, #filterByDataLabel, #filterByAuthorizedViewer, #filterByAuthorizedEditor').val('');
 			
 			$('#filterProfileListByStatus').val('');
-			$('#filterName').val('');
+			$('#keywordsToSearchProfiles').val('');
 			$('#journeyMapList').val("").change().trigger("chosen:updated");
 			
 			$('#main_search_profile').val('');
@@ -308,7 +308,7 @@
     	});
 	}
 	
-	var mergeDuplicatesHandler = function() {
+	var duplicateAllProfiles = function() {
 		LeoAdminApiUtil.callPostAdminApi('/cdp/profiles/merge-duplicates', {'mergeStrategy' : 'automation'}, function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
     			if(json.data){
@@ -362,10 +362,10 @@
     	}
     	
     	if(typeof encodedKeywords === 'string' ) {
-    		var nameToSearch = Base64.decode(encodedKeywords);
-    		document.title = "Customer Data Hub - profile search by name: " + nameToSearch;
-    		$('#filterName').val(nameToSearch);
-    		$('#main_search_profile').val(nameToSearch);
+    		var keywordsToSearch = Base64.decode(encodedKeywords);
+    		document.title = "Customer Data Hub - Searching profiles by keywords: " + keywordsToSearch;
+    		$('#keywordsToSearchProfiles').val(keywordsToSearch);
+    		$('#main_search_profile').val(keywordsToSearch);
     		$('#profile_filter_inputs > .form-control, #profile_filter_input_label').hide();
     		toggleProfileDisableDateFilter(true);
     	} 
@@ -402,9 +402,9 @@
     		var statusStr = $('#filterProfileListByStatus').val().trim();
     		d.status = parseInt(statusStr === "" ? 1 : statusStr);
     		
-    		var name =  $('#filterName').val();
-    		if(name.length >= 2 ){
-    			d.name = name;
+    		var searchKeywords =  $('#keywordsToSearchProfiles').val();
+    		if(searchKeywords.length >= 2 ){
+    			d.searchKeywords = searchKeywords;
     		}
     		return d;
     	}

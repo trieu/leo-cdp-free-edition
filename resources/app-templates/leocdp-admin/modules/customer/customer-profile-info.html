@@ -8,9 +8,12 @@
      	<button type="button" class="btn btn-info" title="Go back" onclick="history.back()" > 
 			<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back 
 		</button>
-       	<button type="button" class="btn btn-do-now" onclick="location.reload()" title="Refresh data"  > 
+		<button type="button" class="btn btn-do-now" onclick="location.reload(true)" title="Refresh data"  > 
        		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
        	</button>
+		<button id="btn_profile_deduplicate" type="button" class="btn btn-primary data-control-edit" title="Use this as primary profile for data deduplication"  > 
+			<i class="fa fa-compress" aria-hidden="true"></i> Deduplicate 
+		</button>
      	<button type="button" class="btn btn-danger data-control-delete" onclick="removeCurrentProfile()" title="Remove this profile" > 
      		<i class="fa fa-trash" aria-hidden="true"></i> Remove 
      	</button>
@@ -1204,8 +1207,17 @@
         	 //loadProfileAttribution();
              //loadMediaTouchpoints();
              //personalityDiagram();
+             
+             // Deduplicate must worok with active profile only
+             var btnDeduplicate = $('#btn_profile_deduplicate');
+             if(profileData.status === 1){
+            	 btnDeduplicate.click(deduplicateCurrentProfile);
+             }
+             else {
+            	 btnDeduplicate.attr('disabled','disabled');
+             }
          });
     }   
-    
+        
     
 </script>

@@ -5,23 +5,25 @@
 - [Done] import tool to upload event data as CSV file in LEO CDP Admin
 - [In Plan => 2022-11-07] new UI for journey map report
 
+
 ## Feature Plan for the final beta release 1.0 - 2022-12-30
 
 #### Tasks
 
-- [In Plan => 2022-11-08] Using Jupyter notebook to update profile CLV, CAC and Credit Scoring 
-- [In Plan => 2022-11-09] LEO Tag JS to link FB user and Google user
-- [In Plan => 2022-11-10] Segment Activation: sending email directly with SMTP from LEO CDP
-- [In Plan => 2022-11-12] Data Reporting with Jupyter notebook
-- [In Plan => 2022-11-14] Profile Finance Data Report
-- [In Plan => 2022-11-16] System User Notification when profile data is updated or created
-- [In Plan => 2022-11-18] New Data Connector and connector protocol
-- [In Plan => 2022-11-20] Data Synch with time scheduler
-- [In Plan => 2022-10-22] export data into Google BigQuery and visual with Data Studio 
-- [In Plan => 2022-11-24] docker images
-- [In Plan => 2022-11-26] web form in leocdp.com for new clients, to try free LEO CDP version with docker
-- [In Plan => 2022-11-28] use cases for banking, prop-tech and content subscription 
-- [In Plan => 2022-11-30] video, slide and update document for version 1.0 
+- [In Plan] Using Jupyter notebook to update profile CLV, CAC and Credit Scoring 
+- [In Plan] LEO Tag JS to link FB user and Google user
+- [In Plan] Segment Activation: sending email directly with SMTP from LEO CDP
+- [In Plan] Data Reporting with Jupyter notebook
+- [In Plan] Profile Finance Data Report
+- [In Plan] System User Notification when profile data is updated or created
+- [In Plan] New Data Connector and connector protocol
+- [In Plan] Data Synch with time scheduler
+- [In Plan] export data into Google BigQuery and visual with Data Studio 
+- [In Plan] docker images
+- [In Plan] web form in leocdp.com for new clients, to try free LEO CDP version with docker
+- [In Plan] use cases for banking, prop-tech and content subscription 
+- [In Plan] video, slide and update document for version 1.0 
+- [In Plan] Apply RFM model https://github.com/USPA-Technology/crm-rfm-modeling
 
 #### Make 8 videos to learning LEO CDP quickly 
 
@@ -34,10 +36,12 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.8.9] - 2022-12-15
+## [0.8.9] - 2022-12-26
 
 ### Added
 
+- [Profile Deduplication] can use a profile as primary data source to deduplicate and merge
+- [Profile Search] can enter keywords and search by email or phone
 - [Profile Import] can set Touchpoint Hub for imported profile 
 - [Product Calalog] refactoring tracking purchased products, shopping products
 - [Data Journey Map] load report data from the graph of Profile and Touchpoint Hub, improve UI report of journey
@@ -150,6 +154,8 @@
 
 ### Changed
 
+- [Profile] after inserting or updating profile, the system would run data deduplication job
+- [JVM] add jdbi3 and PostgresSQL library
 - [Profile API] improve performance with data queue, class: JobUpdateProfileByJson
 - caching query and improve performance of customer data report and loading journey map
 - uprade core java libraries 
