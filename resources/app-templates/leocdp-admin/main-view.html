@@ -13,7 +13,7 @@
 		</a>
 
 		<div style="width: 100%;">
-			<input id="main_search_profile" type="text" placeholder="Enter keywords to search" autocomplete="off" >
+			<input id="main_search_profile" type="text" placeholder="To search data: enter name, email or phone number of a customer" autocomplete="off" >
 		</div>
 
 		<!-- Top User Menu -->
@@ -306,6 +306,9 @@
 		        	if(keywords.length > 1){
 		        		var encodedString = Base64.encode(keywords);
 		        		location.hash = "calljs-leoCdpRouter('Customer_Profile_Search','" + encodedString + "')";
+		        	}
+		        	else {
+		        		location.hash = "calljs-leoCdpRouter('Profile_Management')";
 		        	}
 		        }
 		    });

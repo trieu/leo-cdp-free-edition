@@ -6,6 +6,12 @@
 .profile_filter_box {
 	background-color:#f5f5f5; border-radius: 5px;padding-top: 5px; margin: 3px; 
 }
+#profile_list_table mark[data-markjs="true"] {
+	background-color: #FFF8DC!important;
+    color: #BB2649!important;
+    font-size: 14px!important;
+    font-weight: bold;
+}
 </style>
 
 <div class="row">
@@ -376,6 +382,7 @@
     	var tableDomSel = "#profile_list_table";
     	var loaderDomSel = "#profile_list_loader";
     	var containerDomSel = "#profile_list";
+    	var searchKeywords =  $('#keywordsToSearchProfiles').val();
     	
     	var profileFilterParams = function(d) {
     		var checked = $('#disable_date_filter:checked').length === 1;
@@ -402,9 +409,11 @@
     		var statusStr = $('#filterProfileListByStatus').val().trim();
     		d.status = parseInt(statusStr === "" ? 1 : statusStr);
     		
-    		var searchKeywords =  $('#keywordsToSearchProfiles').val();
     		if(searchKeywords.length >= 2 ){
     			d.searchKeywords = searchKeywords;
+    		}
+    		else {
+    			d.searchkeywords = "";
     		}
     		return d;
     	}
@@ -420,7 +429,14 @@
  				$('button.data-control-delete').attr('disabled','disabled').attr("title","You do not have authorization to delete profile");
  			}
     	}
-    	profileListTable = loadProfileListByFilter('profileListRowHandler',containerDomSel, loaderDomSel, tableDomSel, profileFilterParams, loadDataCallback);
+    	profileListTable = loadProfileListByFilter('profileListRowHandler', containerDomSel, loaderDomSel, tableDomSel, profileFilterParams, loadDataCallback);
+    	
+    	 // mark seach keywords in table
+        if(searchKeywords.length >= 2 ){
+        	profileListTable.on( 'draw', function () {
+				$('#profile_list_table .datatable_text').mark(searchKeywords);
+			});
+		}        
     }   
     
     var selectedProfileIdMap = {};

@@ -36,7 +36,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.8.9] - 2022-12-26
+## [0.8.9] - 2022-12-27
 
 ### Added
 
@@ -154,6 +154,7 @@
 
 ### Changed
 
+- [Profile Search] improve UX and UI, highlight search keywords in profile table list
 - [Profile] after inserting or updating profile, the system would run data deduplication job
 - [JVM] add jdbi3 and PostgresSQL library
 - [Profile API] improve performance with data queue, class: JobUpdateProfileByJson
