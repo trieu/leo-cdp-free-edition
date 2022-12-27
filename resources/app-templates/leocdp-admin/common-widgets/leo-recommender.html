@@ -5,21 +5,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title text-center"> LEO Recommender </h4>
+                <h4 class="modal-title text-center"> LEO Chatbot </h4>
             </div>
             <div class="modal-body row">
                 <div class="botui-app-container" id="iris_chatbot">
                     <bot-ui></bot-ui>
                 </div>
-                <hr>
-
-
             </div>
             <div class="modal-footer">
-                <div class="alert alert-success">
-                    <strong id="irisConfirmMsg">Confirm to build content from selected videos</strong><br>
-                </div>
-                <button type="button" class="btn btn-success" onclick=""> OK </button>
                 <button type="button" class="btn btn-info" data-dismiss="modal"> Close </button>
             </div>
         </div>
@@ -77,8 +70,7 @@
 </script>
 
 <script>
-    var botui = new BotUI('iris_chatbot'),
-        keywords = 'Celine Dion';
+    var botui = new BotUI('iris_chatbot'), keywords = 'First-time Customers';
 
     function getActiveVideoInfo() {
         var node = $('#suggestedVideoCarousel .active');
@@ -90,50 +82,49 @@
         };
     }
 
-
-
     function callLeoBotForIdeasRecommender(context) {
         $('#leoBotDialog').modal({
             backdrop: 'static',
             keyboard: false
         });
         botui.message.removeAll();
-        showChat();
+        showLeoChatBot();
 
     }
 
-    var showChat = function () {
+    var showLeoChatBot = function () {
         botui.message.bot('Hi ' + currentUserProfile.displayName + ', how can LEO help you ?')
             .then(function () {
                 return botui.action.button({
                     delay: 1000,
                     addMessage: false, // so we could the keywords in message instead if 'Existing keywords'
                     action: [{
-                        text: 'Give me some viral ideas or trending stories',
-                        value: 'randomly'
+                        text: 'Give me some segments to analyze',
+                        value: 'valuable-segments'
                     }, {
-                        text: 'By content searching',
-                        value: 'new'
+                        text: 'By searching profiles',
+                        value: 'profiles'
                     }]
                 })
             }).then(function (res) {
-                if (res.value === 'randomly') {
+                if (res.value === 'valuable-segments') {
                     botui.message.bot({
                         delay: 500,
                         content: 'contents about ' + keywords
                     });
-                    end(keywords);
-                } else {
+                    recommendationByLeo('valuable-segments', keywords);
+                } 
+                else {
                     botui.message.human({
                         delay: 500,
                         content: res.text
                     });
-                    askKeyword();
+                    leoBotAskKeywords();
                 }
             });
     }
 
-    var askKeyword = function () {
+    var leoBotAskKeywords = function () {
         botui.message
             .bot({
                 delay: 500,
@@ -146,16 +137,29 @@
                         size: 30,
                         icon: 'search',
                         value: '', // show the saved keywords if any
-                        placeholder: 'Search box'
+                        placeholder: 'Please enter name, email or phone !'
                     }
                 })
             }).then(function (res) {
                 keywords = res.value; // save keywords
-                end(keywords);
+                recommendationByLeo('search-profiles', keywords);
             });
     }
+    
+    var recommendationByLeo = function(context, keywords) {
+    	if('valuable-segments' === context){
+    		location.hash = "calljs-leoCdpRouter('Segment_Management')";
+    	}
+    	else if('search-profiles' === context){
+    		var encodedString = Base64.encode(keywords);
+    		location.hash = "calljs-leoCdpRouter('Customer_Profile_Search','" + encodedString + "')";
+    	}
+    	
+    	botui.message.removeAll();
+    	$('#leoBotDialog').modal('hide')
+    }
 
-    var end = function (keywords) {
+    var recommendContentIdeas = function (keywords) {
         var source = document.getElementById("suggestedVideoTpl").innerHTML;
         var template = Handlebars.compile(source);
         var context = {
@@ -174,13 +178,13 @@
                 var videoInfo = getActiveVideoInfo();
                 console.log(videoInfo);
                 $('#playlist_holder').empty();
-                playVideo(videoInfo.video);
+                leoPlayVideoReport(videoInfo.video);
             });
         }, 500)
 
 
-        //playVideo('https://www.youtube.com/watch?v=3HGU9TBdWs8');
-        //playVideo('https://www.facebook.com/mauren.murillo.3/videos/10217089066046077/');
+        //leoPlayVideoReport('https://www.youtube.com/watch?v=3HGU9TBdWs8');
+        //leoPlayVideoReport('https://www.facebook.com/mauren.murillo.3/videos/10217089066046077/');
     }
 
     function getRandomInt(min, max) {
@@ -190,7 +194,7 @@
     }
 
 
-    function playVideo(videoSource) {
+    function leoPlayVideoReport(videoSource) {
         var placeHolderId = getRandomInt(1, 100000) + '_' + (new Date().getTime());
         var div = document.createElement('div');
         div.setAttribute('id', placeHolderId);
