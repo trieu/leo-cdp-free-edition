@@ -1,7 +1,8 @@
 <style>
 	.btn-get-code {
-		margin:3px;
-		width: 144px;
+		margin: 3px auto;
+    	display: block;
+		width: 150px;
 		text-align: left!important;
 	}
 	#touchpoint_hub_table tr.jsgrid-header-row, #data_observers_table tr.jsgrid-header-row {
@@ -20,6 +21,16 @@
 	}
 	.tphub_text_label {
 		font-size:13.3px!important; stroke:#566573; font-weight:lighter; word-spacing: 1px;
+	}
+	#data_observers_table .dropdown-menu {
+		left: -35px!important;
+	}
+	#data_observers_table tr td:last-child {
+	  	height: 100px;
+	}
+	
+	#data_observers_table tr td:last-child button.dropdown-toggle {
+		font-size: 1.13em;
 	}
 </style>
 
@@ -436,20 +447,16 @@ setTimeout(function(){
 		<!-- Modal content-->
 		<div class="modal-content">   
 			<div class="modal-header">
-				<h4 class="modal-title text-center" > LEO CDP API Information </h4>
+				<h4 class="modal-title text-center" > LEO API Information </h4>
 			</div>         
 			<div class="modal-body ">
-				<h4> <i class="fa fa-info-circle" aria-hidden="true"></i> LEO CDP API Tokens </h4>
+				<h4> <i class="fa fa-info-circle" aria-hidden="true"></i> API Token Information of <span id="leoCdpApiObserverName" class="highlight_text" ></span> </h4>
 				<p> In the HTTP Header, you must set the "tokenkey" for API Token Key and the "tokenvalue" for API Token Value</p>
 				<div class="form-group" >
 	                <label for="leoCdpApiTokenKey" class="highlight_text" > API Token Key ( tokenkey ) </label> 
 	                <input type="text" class="form-control" readonly value="" id="leoCdpApiTokenKey" >
-	                
 	                <label for="leoCdpApiTokenValue" class="highlight_text" > API Token Value ( tokenvalue ) </label>
 				    <input type="text" class="form-control" readonly value="" id="leoCdpApiTokenValue" >
-				    
-				    <label for="leoCdpApiJourneyMapIdValue" class="highlight_text" > Journey Map ID ( journeyMapId ) </label>
-				    <input type="text" class="form-control" readonly value="" id="leoCdpApiJourneyMapIdValue" >
 	            </div>
 	            <hr>
 	            <h4> <i class="fa fa-info-circle" aria-hidden="true"></i> API Endpoints (<a href="https://github.com/USPA-Technology/leo-cdp-api-examples" target="_blank">Get example code here</a>) </h4>

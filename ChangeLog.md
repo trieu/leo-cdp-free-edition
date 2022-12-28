@@ -36,10 +36,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.8.9] - 2022-12-27
+## [0.8.9] - 2022-12-28
 
 ### Added
 
+- [Data Journey Map] generate access token API for all event observers, improve UI observer
 - [Profile Deduplication] can use a profile as primary data source to deduplicate and merge
 - [Profile Search] can enter keywords and search by email or phone
 - [Profile Import] can set Touchpoint Hub for imported profile 

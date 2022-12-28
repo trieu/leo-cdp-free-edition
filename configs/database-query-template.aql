@@ -401,6 +401,7 @@ AQL_GET_EVENT_OBSERVERS_BY_TYPE =>
 AQL_GET_EVENT_OBSERVERS_BY_JOURNEY_MAP =>
 	FOR e in cdp_eventobserver 
 	FILTER (e.journeyMapId == @journeyMapId OR e._key == "leo_data_observer") AND e.type < 1000 AND e.status >= 0 
+	SORT e.journeyLevel 
 	RETURN e
 ;
 
