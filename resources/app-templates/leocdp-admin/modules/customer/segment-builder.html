@@ -369,7 +369,7 @@
                 var jsonQueryRules = JSON.parse(segmentData.jsonQueryRules);
                 
                 document.title = 'Segment Builder: ' + segmentData.name;
-                $('#segment_name').text('Edit Segment: ' + segmentData.name);
+                $('#segment_name').text('Segment: ' + segmentData.name);
                 
                 // type
                 $('#sm_type input:checked').prop('checked', false);
@@ -439,11 +439,11 @@
 		
 		// meta data  
 		$('#sm_name').val(segmentData.name).keyup(function() {
-			segmentDataModel.name = $(this).val();
+			segmentDataModel.name = $(this).val().trim();
 			$('#segment_name').text('Edit Segment: ' + segmentDataModel.name);
 		});
 		$('#sm_description').val(segmentData.description).keyup(function() {
-			segmentDataModel.description = $(this).val()
+			segmentDataModel.description = $(this).val().trim();
 		});
 		
 		$('#sm_indexscore').val(segmentData.indexScore).change(function() {
@@ -493,6 +493,9 @@
 		}
 		
 		if(typeof segmentDataModel === "object"){
+			// set segment name
+			segmentDataModel.name = name;
+			
 			// jquery builder final data
 			var result = $('#segment-builder-holder').queryBuilder('getRules');
 			if (!$.isEmptyObject(result)) {

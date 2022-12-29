@@ -36,7 +36,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.8.9] - 2022-12-28
+## [0.8.9] - 2022-12-29
 
 ### Added
 
@@ -90,7 +90,7 @@
 - [UI] can not delete profile that has event data stream
 - [UI] Filter by profile status
 - [Data Deduplication] merge context session keys for duplicated profiles
-- [Data Segmentation] implement 2 new operators: data_filter_equals, data_filter_contains
+- [Data Segmentation] implement 2 new operators: data_equals, data_contains
 - [UI] add sortable list by Data Quality Score, Journey Score and Updated At in Profile Data Management
 - [SystemTrackedEvent] to tracking user account activities, login for security monitoring
 - [Data Model] AbstractProfile
@@ -155,6 +155,7 @@
 
 ### Changed
 
+- [JVM] add MySQL java driver, upgrade google and aws library
 - [Profile Search] improve UX and UI, highlight search keywords in profile table list
 - [Profile] after inserting or updating profile, the system would run data deduplication job
 - [JVM] add jdbi3 and PostgresSQL library
