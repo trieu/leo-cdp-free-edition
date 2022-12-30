@@ -36,7 +36,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.8.9] - 2022-12-29
+## [0.8.9] - 2022-12-30
 
 ### Added
 
@@ -120,6 +120,7 @@
 
 ### Fixed 
 
+- [Asset Item] can not save and update keywords , sort by updatedAt field
 - [Journey Map] can not save data with totalProfile is null
 - [Event Reporting] improve AQL for performance, duplicated rating event
 - [Data Connector] fix overriding old data when upgrade system, improve SendInBlue connector
@@ -155,7 +156,6 @@
 
 ### Changed
 
-- [JVM] add MySQL java driver, upgrade google and aws library
 - [Profile Search] improve UX and UI, highlight search keywords in profile table list
 - [Profile] after inserting or updating profile, the system would run data deduplication job
 - [JVM] add jdbi3 and PostgresSQL library
