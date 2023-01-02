@@ -109,14 +109,15 @@
 						    	<i class="fa fa-filter" aria-hidden="true"></i> Filter by using advanced criteria <span class="caret"></span>
 						   </button>
 						    <ul class="dropdown-menu">
-						    	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByProfileId')" >Profile ID</a></li>
-						    	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterEmail')" > Email Address</a></li>
-						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterPhone')" > Phone Number</a></li>
-						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByVisitorId')" >Web Visitor ID</a></li>
-						      	<li><hr></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterProfileListByStatus')" >Profile Status</a></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByDataLabel')" >Profile Data Label</a></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByLastTouchpoint')" >Last Touchpoint Name</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterBySegmentName')" >Segment Name</a></li>
+						      	<li><hr></li>
+						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByProfileId')" >Profile ID</a></li>
+						    	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterEmail')" > Email Address</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterPhone')" > Phone Number</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByVisitorId')" >Web Visitor ID</a></li>
 						      	<li><hr></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByAuthorizedViewer')" >Authorized Viewer</a></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByAuthorizedEditor')" >Authorized Editor</a></li>
@@ -141,30 +142,31 @@
 					  		<input style="display: none;" type="text" class="form-control" id="filterByAuthorizedViewer" placeholder="Enter login username of viewer" >
 					  		<input style="display: none;" type="text" class="form-control" id="filterByAuthorizedEditor" placeholder="Enter login username of editor" >
 					  		<input style="display: none;" type="text" class="form-control" id="filterByLastTouchpoint" placeholder="Enter touchpoint name" >
+					  		<input style="display: none;" type="text" class="form-control" id="filterBySegmentName" placeholder="Enter segment name" >
 					  		
 						</div>
 					</div>
 					<div class="col-md-12" >
 						<div class="col-md-12" style="padding-top:25px;">
-							<div class="col-md-6" style="text-align: right;">
+							<div class="col-md-4 text-center" >
 							 	<button type="button" style="width: 100%;" class="btn btn-do-now" onclick="resetProfileSearch()" >
 							 		<i class="fa fa-fw fa-undo"></i> Reset </button>
 							</div>
-							<div class="col-md-6" >
+							<div class="col-md-4 text-center" >
 							 	<button type="button" style="width: 100%;" class="btn btn-goto-router" onclick="doProfileListing()" >
 							 		<i class="fa fa-fw fa-filter"></i> Filter </button>
 							</div>
-						</div>
-						<div id="holder_deleteNotActiveProfile" class="col-md-12 text-center" style="padding-top:15px; display: none;" >
-						 	<button type="button" class="btn btn-danger data-control-delete" onclick="deleteNotActiveProfile()" >
-						 		<i class="fa fa-fw fa-trash"></i> DELETE ALL <span id="btn_deleteNotActiveProfile"></span>
-						 	</button>
-						</div>
-						<div id="holder_removeSelectedProfile" class="col-md-12 text-center" style="padding-top:15px; display: none;" >
-						 	<button type="button" class="btn btn-danger data-control-delete" onclick="removeSelectedProfiles()" >
-						 		<i class="fa fa-fw fa-trash"></i> REMOVE SELECTED PROFILES
-						 	</button>
-						</div>
+							<div class="col-md-4 text-center" id="holder_removeSelectedProfile"  style="display: none;" >
+							 	<button type="button" style="width: 100%;" class="btn btn-danger data-control-delete" onclick="removeSelectedProfiles()" >
+							 		<i class="fa fa-fw fa-trash"></i> Remove
+							 	</button>
+							</div>
+							<div id="holder_deleteNotActiveProfile" class="col-md-4 text-center" style="display: none;" >
+							 	<button type="button" style="width: 100%;" class="btn btn-danger data-control-delete" onclick="deleteNotActiveProfile()" >
+							 		<i class="fa fa-fw fa-trash"></i> Delete All
+							 	</button>
+							</div>
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -214,6 +216,7 @@
 </div>
     
 <script>
+	var selectedProfileIdMap = {};
 	var currentJourneyMapId = "", profileListTable = false;
 	
 	function toggleProfileDisableDateFilter(disableBySearch) {
@@ -237,8 +240,6 @@
 			$('#holder_deleteNotActiveProfile').hide()
 		}
 		else {
-			var text = $('#filterProfileListByStatus option:selected').text().trim();
-			$('#btn_deleteNotActiveProfile').text(text)
 			$('#holder_deleteNotActiveProfile').show()
 			$('#holder_removeSelectedProfile').hide();
 		}
@@ -252,7 +253,8 @@
     	} 
     	$('#profile_list_table').DataTable().clear();
 	    $('#profile_list_table').DataTable().ajax.reload();
-	    showDeleteNotActiveProfile()
+	    clearAllSelectedProfiles();
+	    showDeleteNotActiveProfile();
 	}
 	
 	function turnOffProfileDateFilter(node){
@@ -272,7 +274,7 @@
 			$('#showCustomerProfile').prop('checked', true);
 			
 			// reset filter data
-			$('#filterEmail, #filterPhone, #filterByVisitorId, #filterByProfileId, #filterByLastTouchpoint, #filterByDataLabel, #filterByAuthorizedViewer, #filterByAuthorizedEditor').val('');
+			$('#filterEmail, #filterPhone, #filterByVisitorId, #filterByProfileId, #filterByLastTouchpoint, #filterBySegmentName, #filterByDataLabel, #filterByAuthorizedViewer, #filterByAuthorizedEditor').val('');
 			
 			$('#filterProfileListByStatus').val('');
 			$('#keywordsToSearchProfiles').val('');
@@ -331,6 +333,8 @@
 	}
 	
     function initCustomerProfileList(encodedKeywords, profileType) {
+    	selectedProfileIdMap = {};
+    	
     	// Date Range Filtering Controller
     	initDateFilterComponent(false, null, null, 180);
     	$("#profile_filter_inputs > input.form-control").on('keyup', function (e) {
@@ -402,6 +406,7 @@
     		d.visitorId = $('#filterByVisitorId').val().trim();
     		d.profileId = $('#filterByProfileId').val().trim();
     		d.lastTouchpointName = $('#filterByLastTouchpoint').val().trim();
+    		d.segmentName = $('#filterBySegmentName').val().trim();
     		d.dataLabel = $('#filterByDataLabel').val().trim();
     		d.authorizedViewer = $('#filterByAuthorizedViewer').val().trim();
     		d.authorizedEditor = $('#filterByAuthorizedEditor').val().trim();
@@ -439,7 +444,10 @@
 		}        
     }   
     
-    var selectedProfileIdMap = {};
+    function clearAllSelectedProfiles(){
+    	Object.keys(selectedProfileIdMap).forEach(key => delete selectedProfileIdMap[key]);
+    }
+    
     function profileListRowHandler(isSelected, selectedItemId) {
     	console.log(isSelected + " profileListRowHandler " + selectedItemId)
     	if(isSelected){

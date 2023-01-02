@@ -6,7 +6,7 @@
 - [In Plan => 2022-11-07] new UI for journey map report
 
 
-## Feature Plan for the final beta release 1.0 - 2022-12-30
+## Feature Plan for the final beta release 1.0 - 2023-01-30
 
 #### Tasks
 
@@ -36,10 +36,12 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.8.9] - 2022-12-30
+## [0.8.9] - 2023-01-02
 
 ### Added
 
+- [Data Journey Map] QR code touchpoint hub
+- [profile list] filter By Segment Name
 - [Data Journey Map] generate access token API for all event observers, improve UI observer
 - [Profile Deduplication] can use a profile as primary data source to deduplicate and merge
 - [Profile Search] can enter keywords and search by email or phone

@@ -30,7 +30,7 @@
 	}
 	
 	#data_observers_table tr td:last-child button.dropdown-toggle {
-		font-size: 1.13em;
+		font-size: 1.1em;
 	}
 </style>
 
@@ -238,15 +238,15 @@ function leoObserverProxyReady(session) {
 				   <div class="text-center" >
 				   	 <a target="_blank" href="#" id="qrHrefUrl"> <img src="" alt="QR Code Image" id="qrImgSrc" > </a>
 				   </div>
-				   <label class="control-label">QR Code Image URL </label>
+				   <label class="control-label"> Short URL </label>
+				   <input type="text" class="form-control" readonly value="" id="qrShortURL"> 
+				   
+				   <label class="control-label"> QR Code Image URL </label>
 				   <input type="text" class="form-control" readonly value="" id="qrCodeImageURL" >
 				   
+				   <hr>
 				   <label class="control-label"> Touchpoint Hub URL  </label>
 				   <input type="text" class="form-control" readonly value="" id="qrTouchpointHubURL" > 
-				   
-				   <label class="control-label"> Scan QR Tracking URL </label>
-				   <input type="text" class="form-control" readonly value="" id="qrTrackingURL"> 
-				   <br>
 				</div>
 			</div>  
 			<div class="modal-footer">
