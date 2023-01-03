@@ -147,7 +147,15 @@
 						</div>
 					</div>
 					<div class="col-md-12" >
-						<div class="col-md-12" style="padding-top:25px;">
+						<div class="col-md-12" style="padding-top:25px;">							
+							<div class="col-md-4 text-center"  >
+							 	<button type="button" style="width: 100%; display: none;" class="btn btn-danger data-control-delete" onclick="removeSelectedProfiles()" id="btn_removeSelectedProfile"  >
+							 		<i class="fa fa-fw fa-trash"></i> Remove
+							 	</button>
+							 	<button type="button" style="width: 100%; display: none;" class="btn btn-danger data-control-delete" onclick="deleteNotActiveProfile()" id="btn_deleteNotActiveProfile" >
+							 		<i class="fa fa-fw fa-trash"></i> Delete All
+							 	</button>
+							</div>							
 							<div class="col-md-4 text-center" >
 							 	<button type="button" style="width: 100%;" class="btn btn-do-now" onclick="resetProfileSearch()" >
 							 		<i class="fa fa-fw fa-undo"></i> Reset </button>
@@ -155,16 +163,6 @@
 							<div class="col-md-4 text-center" >
 							 	<button type="button" style="width: 100%;" class="btn btn-goto-router" onclick="doProfileListing()" >
 							 		<i class="fa fa-fw fa-filter"></i> Filter </button>
-							</div>
-							<div class="col-md-4 text-center" id="holder_removeSelectedProfile"  style="display: none;" >
-							 	<button type="button" style="width: 100%;" class="btn btn-danger data-control-delete" onclick="removeSelectedProfiles()" >
-							 		<i class="fa fa-fw fa-trash"></i> Remove
-							 	</button>
-							</div>
-							<div id="holder_deleteNotActiveProfile" class="col-md-4 text-center" style="display: none;" >
-							 	<button type="button" style="width: 100%;" class="btn btn-danger data-control-delete" onclick="deleteNotActiveProfile()" >
-							 		<i class="fa fa-fw fa-trash"></i> Delete All
-							 	</button>
 							</div>
 						</div>						
 					</div>
@@ -237,11 +235,11 @@
 	function showDeleteNotActiveProfile(){
 		var selected = $("#filterProfileListByStatus").val();
 		if(selected === ""){
-			$('#holder_deleteNotActiveProfile').hide()
+			$('#btn_deleteNotActiveProfile').hide()
 		}
 		else {
-			$('#holder_deleteNotActiveProfile').show()
-			$('#holder_removeSelectedProfile').hide();
+			$('#btn_deleteNotActiveProfile').show()
+			$('#btn_removeSelectedProfile').hide();
 		}
 	}
 	
@@ -284,7 +282,7 @@
 			$('#beginFilterDate > .form-control').show();
 			$('#endFilterDate > .form-control').show();
 			$('#disable_date_filter').prop('checked', false);
-			$('#holder_removeSelectedProfile').hide();
+			$('#btn_removeSelectedProfile').hide();
 			
 			doProfileListing();
 		}
@@ -459,10 +457,10 @@
     	
     	var size = Object.keys(selectedProfileIdMap).length;
     	if(size > 0 && $("#filterProfileListByStatus").val() === '' ){
-    		$('#holder_removeSelectedProfile').show();
+    		$('#btn_removeSelectedProfile').show();
     	}
     	else {
-    		$('#holder_removeSelectedProfile').hide();
+    		$('#btn_removeSelectedProfile').hide();
     	}
     }
 
