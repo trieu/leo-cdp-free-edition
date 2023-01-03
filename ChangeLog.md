@@ -36,7 +36,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.8.9] - 2023-01-02
+## [0.8.9] - 2023-01-03
 
 ### Added
 
@@ -122,6 +122,7 @@
 
 ### Fixed 
 
+- [Data Journey] fix bugs when tracking short-link-click, load observer from media unit
 - [Asset Item] can not save and update keywords , sort by updatedAt field
 - [Journey Map] can not save data with totalProfile is null
 - [Event Reporting] improve AQL for performance, duplicated rating event
