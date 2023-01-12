@@ -83,29 +83,35 @@
 		<!--  Tab Navigation Items -->
 	    <ul class="nav nav-tabs" data-tab-content="segment_info_tabs" >
 			<li class="active" >
-				<a href="javascript:" data-target-tab="panel_segment_report_and_profiles" title="Segment Event Report" > <i class="fa fa-line-chart" aria-hidden="true"></i> Report and Profiles</a>
+				<a href="javascript:" data-target-tab="panel_segment_report_and_profiles" title=" Report & Profiles" > <i class="fa fa-line-chart" aria-hidden="true"></i> Report & Profiles</a>
 	       	</li>
 	       	<li>
-				<a href="javascript:" data-target-tab="panel_segment_query_details" title="Data Query Rule Details" > <i class="fa fa-filter" aria-hidden="true"></i> Data Query Rules </a>
+				<a href="javascript:" data-target-tab="panel_segment_query_details" title="Data Query Rule Details" > <i class="fa fa-filter" aria-hidden="true"></i> Data Query </a>
 	       	</li>
 	       	<li data-for-superadmin="true" style="display: none" >
-				<a href="javascript:" data-target-tab="panel_segment_data_exporting" title="Data Exporting" > <i class="fa fa-download" aria-hidden="true"></i> Data Exporting </a>
+				<a href="javascript:" data-target-tab="panel_segment_data_exporting" title="Data Exporting" > <i class="fa fa-upload" aria-hidden="true"></i> Data Exporting </a>
 	       	</li>
 	       	<li data-for-superadmin="true" style="display: none" >
 				<a href="javascript:" data-target-tab="panel_segment_data_connection" title="Data Connection" > <i class="fa fa-exchange" aria-hidden="true"></i> Data Connection </a>
 	       	</li>
-	       	<li id="segment_data_personalization" style="display: none">
-				<a href="javascript:" data-target-tab="panel_segment_data_personalization" title="Data Personalization" > <i class="fa fa-smile-o" aria-hidden="true"></i> Data Personalization </a>
-	       	</li>
 	       	<li data-for-superadmin="true" style="display: none" >
-				<a href="javascript:" data-target-tab="panel_segment_data_activation" title="Data Activation" > <i class="fa fa-random" aria-hidden="true"></i> Data Activation </a>
+				<a href="javascript:" data-target-tab="panel_segment_synchronization" title="Data Synchronization" > <i class="fa fa-exchange" aria-hidden="true"></i> Synchronization </a>
+	       	</li>
+	       	<li data-for-superadmin="" style="display: none" >
+				<a href="javascript:" data-target-tab="panel_segment_notebooks" title="Notebooks" > <i class="fa fa-book" aria-hidden="true"></i> Notebooks </a>
+	       	</li>
+	       	<li data-for-superadmin="true" id="segment_data_personalization" style="display: none">
+				<a href="javascript:" data-target-tab="panel_segment_data_personalization" title="Data Personalization" > <i class="fa fa-smile-o" aria-hidden="true"></i> Personalization </a>
+	       	</li>
+	       	<li data-for-superadmin="" data-for-superadmin="true" style="display: none" >
+				<a href="javascript:" data-target-tab="panel_segment_campaigns" title="Campaigns" > <i class="fa fa-envelope-o" aria-hidden="true"></i> Campaigns </a>
 	       	</li>
 	  	</ul>
 	  	
 	  	<!-- Tab Contents  -->
 	    <div id="segment_info_tabs" class="tab-content" style="min-height: 750px;"  >
 	    	
-	    	<!-- tab 1 Event Report  -->
+	    	<!-- tab 1  Report & Profiles  -->
 			<div class="tab-pane active" id="panel_segment_report_and_profiles" >
 				<div class="panel panel-leoadmin">
 					<div class="panel-heading"> <b> <i class="fa fa-line-chart" aria-hidden="true"></i> 
@@ -180,7 +186,7 @@
 				</div>
 			</div>
 			
-			<!-- tab 2 Query Details  -->
+			<!-- tab 2 Data Query  -->
 			<div class="tab-pane" id="panel_segment_query_details" >
 				<div class="panel panel-leoadmin">
 					<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Data Query Rules </b> </div>
@@ -285,14 +291,85 @@
 					
 			</div>
 			
-			<!-- tab 5 Data Personalization  -->
+			<!-- tab 5 Synchronization  -->
+			<div class="tab-pane" id="panel_segment_synchronization" >
+			 	<div class="panel panel-leoadmin" >
+					
+					<div class="panel-body row">
+						<div class="form-group highlight_box" >
+				     		<div class="col-lg-12">
+				     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Priority score for activation </label>  <span id="sm_indexScore" class="highlight_text" ></span>
+				     		</div>
+				     		
+						</div>
+						
+						<div class="col-lg-12 ">
+							<div class="panel panel-default">
+							    <div class="panel-heading collapse-panel-heading active" role="tab" id="activationPlanHeader">
+							      <h4 class="panel-title">
+							        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#activationPlan" aria-expanded="false" aria-controls="activationPlan">
+							          <i class="fa fa-info-circle" aria-hidden="true"></i> Activation Purpose
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="activationPlan" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="activationPlanHeader">
+							      <div class="panel-body">
+								      <div class="form-group"  >
+											<div class="col-sm-12 sm_purpose" id="sm_for3rdSynchronization"  > 
+												<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> 
+												To synchronize customer data into external systems using connectors </label>
+												<button type="button" class="btn btn-primary" title="Data Activation for connection and synchronization" data-purpose="for3rdSynchronization" > 
+													<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
+												</button>
+											</div>
+	
+											<div class="col-sm-12 sm_purpose" id="sm_forDeepAnalytics" style="display: none;"> 
+												<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i>
+												To do deep data analytics with Jupyter Notebook or Google Colab </label>
+												<button type="button" class="btn btn-primary" title="Data Activation for Deep Analytics " data-purpose="forDeepAnalytics" > 
+													<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
+												</button>
+											</div>
+											
+											<div class="col-sm-12 sm_purpose" id="sm_forPredictiveAnalytics" style="display: none;" > 
+												<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i>
+												To do predictive analytics with Jupyter Notebook or Google Colab </label>
+												<button type="button" class="btn btn-primary" title="Data Activation" data-purpose="forPredictiveAnalytics" > 
+													<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
+												</button>
+											</div>
+									 </div>
+							      </div>
+							    </div>
+							</div>
+
+						</div>
+		
+					</div>
+				</div>
+			</div>
+			
+			<!-- tab 6 Notebooks  -->
+			<div class="tab-pane" id="panel_segment_notebooks" >
+				<div class="form-group highlight_box" >
+		     		<div class="col-lg-5">
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total Profile Count </label>
+		     		</div>
+		     		<div class="col-lg-7">
+		     			<b class="segment_size highlight_text" >0</b>
+		     		</div>
+				</div>
+				
+			</div>
+			
+			<!-- tab 7 Personalization  -->
 			<div class="tab-pane" id="panel_segment_data_personalization" >
 				<div class="form-group highlight_box" >
 		     		<div class="col-lg-5">
 		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total Profile Count </label>
 		     		</div>
 		     		<div class="col-lg-7">
-		     			<b  class="segment_size highlight_text" >0</b>
+		     			<b class="segment_size highlight_text" >0</b>
 		     		</div>
 				</div>
 				
@@ -329,16 +406,18 @@
 				</div>
 			</div>
 			
-			<!-- tab 6 Data Activation  -->
-			<div class="tab-pane" id="panel_segment_data_activation" >
+			<!-- tab 8 Campaigns  -->
+			<div class="tab-pane" id="panel_segment_campaigns" >
 			 	<div class="panel panel-leoadmin" >
 					
 					<div class="panel-body row">
 						<div class="form-group highlight_box" >
-				     		<div class="col-lg-12">
-				     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Priority score for activation </label>  <span id="sm_indexScore" class="highlight_text" ></span>
+				     		<div class="col-lg-5">
+				     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total Profile Count </label>
 				     		</div>
-				     		
+				     		<div class="col-lg-7">
+				     			<b class="segment_size highlight_text" >0</b>
+				     		</div>
 						</div>
 						
 						<div class="col-lg-12 ">
@@ -352,53 +431,26 @@
 							    </div>
 							    <div id="activationPlan" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="activationPlanHeader">
 							      <div class="panel-body">
-								      <div class="form-group" id="segment_purposes" >
-											<div class="col-sm-12 sm_purpose" id="sm_for3rdSynchronization"  > 
-												<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> 
-												To synchronize customer data into external systems using connectors </label>
-												<button type="button" class="btn btn-primary" title="Data Activation for connection and synchronization" data-purpose="for3rdSynchronization" > 
-													<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
-												</button>
-											</div>
-	
-											<div class="col-sm-12 sm_purpose" id="sm_forDeepAnalytics" style="display: none;"> 
-												<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i>
-												To do deep data analytics with Jupyter Notebook or Google Colab </label>
-												<button type="button" class="btn btn-primary" title="Data Activation for Deep Analytics " data-purpose="forDeepAnalytics" > 
-													<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
-												</button>
-											</div>
-											
-											<div class="col-sm-12 sm_purpose" id="sm_forPredictiveAnalytics" style="display: none;" > 
-												<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i>
-												To do predictive analytics with Jupyter Notebook or Google Colab </label>
-												<button type="button" class="btn btn-primary" title="Data Activation" data-purpose="forPredictiveAnalytics" > 
-													<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
-												</button>
-											</div>
-										
-											<div class="col-sm-12 sm_purpose" id="sm_forEmailMarketing" style="display: none;" > 
+								      <div class="form-group" >
+											<div class="col-sm-12 sm_purpose" id="sm_forEmailMarketing" > 
 												<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i>
 												To run email marketing campaign with personalized information </label>
 												<button type="button" class="btn btn-primary" title="Data Activation for Email Marketing" data-purpose="forEmailMarketing" > 
 													<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
 												</button>
 											</div>
-											
 											<div class="col-sm-12 sm_purpose" id="sm_forRealtimeMarketing" style="display: none;" > 
 												<b> <i class="fa fa-info-circle" aria-hidden="true"></i> To push SMS or message notification for real-time marketing campaign </b>
 												<button type="button" class="btn btn-primary" title="Data Activation for Realtime Marketing" data-purpose="forRealtimeMarketing" > 
 													<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
 												</button>
 											</div>
-											
 											<div class="col-sm-12 sm_purpose" id="sm_forReTargeting" style="display: none;"> 
 												<b> <i class="fa fa-info-circle" aria-hidden="true"></i> To run re-targeting advertising or remarketing campaign </b>
 												<button type="button" class="btn btn-primary" title="Data Activation for Re-Targeting" data-purpose="forReTargeting" > 
 													<i class="fa fa-check-circle" aria-hidden="true"></i> Activate 
 												</button>
 											</div>
-											
 											<div class="col-sm-12 sm_purpose" id="sm_forLookalikeTargeting" style="display: none;"> 
 												<b> <i class="fa fa-info-circle" aria-hidden="true"></i> To run look-alike advertising campaign </b>
 												<button type="button" class="btn btn-primary" title="Data Activation for Lookalike-Targeting" data-purpose="forLookalikeTargeting" > 
@@ -410,7 +462,7 @@
 							    </div>
 							</div>
 							
-							<div class="panel panel-default" style="display: none;">
+							<div class="panel panel-default" style="display: ;">
 							    <div class="panel-heading collapse-panel-heading active" role="tab" id="workingPlanHeader">
 							      <h4 class="panel-title">
 							        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#workingPlan" aria-expanded="false" aria-controls="workingPlan">
@@ -837,8 +889,8 @@
 	    	 $('#sm_forPersonalization').hide()
 	     }
 	     
-	     if(segmentData.forEmailMarketing && segmentData.forPersonalization ){
-	    	//$('#sm_forEmailMarketing').show();
+	     if(segmentData.forEmailMarketing ){
+	    	$('#sm_forEmailMarketing').show();
 	    	hasActivation = true;
 	     } else {
 	    	 $('#sm_forEmailMarketing').hide()

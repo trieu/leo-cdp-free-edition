@@ -36,7 +36,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.8.9] - 2023-01-03
+## [0.8.9] - 2023-01-12
 
 ### Added
 
@@ -122,6 +122,7 @@
 
 ### Fixed 
 
+- refactoring and optimize profile identity resolution
 - [Data Journey] fix bugs when tracking short-link-click, load observer from media unit
 - [Asset Item] can not save and update keywords , sort by updatedAt field
 - [Journey Map] can not save data with totalProfile is null
@@ -159,6 +160,7 @@
 
 ### Changed
 
+- [Segment UI] refactoring for new features: campaign and notebook
 - [Profile Search] improve UX and UI, highlight search keywords in profile table list
 - [Profile] after inserting or updating profile, the system would run data deduplication job
 - [JVM] add jdbi3 and PostgresSQL library
