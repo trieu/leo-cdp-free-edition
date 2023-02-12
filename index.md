@@ -14,9 +14,9 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 4. You need an on-premises software solution to deploy in your private cloud servers
 5. You want to build your own Customer Data Platform (CDP) for your digital business and digital transformation
 
-# General Data Flow
+# LEO CDP Data Flow in 8 steps
 
-[![Leo CDP Flow](https://raw.githubusercontent.com/trieu/leo-cdp-free-edition/main/leo-cdp-version-1.0.png)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)	
+[![Leo CDP Data Flow](https://raw.githubusercontent.com/trieu/leo-cdp-free-edition/main/leo-cdp-how-it-works.png)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)	
 
 # System Demo
 
@@ -26,13 +26,19 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # Documents
 
+* [Document bằng tiếng Việt](https://datahub4uspa.leocdp.net/ct/6iSPHWPFzywadKBpq3YJ6n)
 * [Data Model and Customer Journey Map Sample](https://docs.google.com/spreadsheets/d/1hzSvkmTE8WuvUFqnpWNfsPMzpjF8gYOSJfkc9eJIjWk/edit?usp=sharing)
 * [Core Functions for Analytics CDP](https://docs.google.com/document/d/1cavhFAs_uX-98qUvtXJI3v859I6h3knl0m_tSQ4235M/edit?usp=sharing)
 * [Data strategy with LEO CDP](https://docs.google.com/document/d/1la6mP21gfd2bHlpwj4hBTRQlxaPfhnpQRL6fV223Es0/edit?usp=sharing)
 
 # Technology Architecture
 
+## System Overview
 ![alt technology-architecture-leo-cdp](https://blogger.googleusercontent.com/img/a/AVvXsEiMumpMfN32dIcKry8UsCvrb2xG85hqxk6iRPI2-oyuTbvtJfGdbtrjoUyelB-01dDhFNH04VyVZsGi1MnIrNaPX1xE697WLooaSta-FwMBm-TvoWi3GmcirzSX56skENUVrp-am8pkqTnfq_sqQFX-cD7CJkRybXVjTRzi3QtWJezWIZzJ52vfEZTB=s2048)
+
+## LEO Data Pipeline 
+![alt data-pipeline-leo-cdp](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh2dLUXFRM-ASIx-LjRGNBFGq1RmCetBYxfzj5ZIpeCx2oNVQWa5HbpLrYvkP68w8RqPtRzYOW4FrdFjuJxCCl1kLaKqh_RofcklrYJIBlDTxaFu4NLb6bQ6VKnzIIenWRAiYmI0F3Fu5ebUx72dFw9YZ4QR3aZ-BezGaeTHqKJIHWBLy5ueemVzM8s/s1651/Architecture%20and%20Data%20Pipeline%20of%20LEO%20CDP-Data%20Pipeline.png)
+
 
 ## Software Requirements
 
