@@ -1,5 +1,17 @@
 # docker-compose-arangodb
+
 ArangoDB with Docker and Docker Compose
+
+# How to upgrade to latest ArangoDB
+
+* docker-compose stop
+* docker-compose rm -f arangodb_db_container
+* update docker-compose.yml file with new arangodb image
+* docker-compose run --rm arangodb_db_container arangod --database.auto-upgrade
+* docker-compose up -d arangodb_db_container
+* docker-compose start
+  
+https://stackoverflow.com/questions/46522017/how-to-run-auto-upgrade-of-arangodb-3-1-to-3-2-on-docker-image
 
 ## Usage (start server)
 
