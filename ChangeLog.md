@@ -257,7 +257,7 @@
 - remove totalEvent, rename totalScore into eventScore in ProfileGraphEdge
 - rename groupIds to assetGroupIds in ProfileGraphEdge
 - System Settings menu is put at the top for Admin Role
-- rename forMarketingActivation to forSegmentDataActivation
+- rename forMarketingActivation to forSegmentActivation
 - Profile Model, refactoring code and update: purchasedItemIds, shoppingItemIds, shoppingCartItems+-
 - upgrade jsonform 2.2.5 in Leo Feedback Survey, add form-background for UX in survey form
 
