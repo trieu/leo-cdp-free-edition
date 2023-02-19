@@ -8,12 +8,11 @@ LEO CDP (Customer Data Platform) is a software platform that allows businesses t
 
 # Core features
 
-1. Collect customer data: Businesses can use various tools such as web analytics, social media, and email marketing to collect customer data. This data can then be fed into the CDP.
-2. Data collection and unification: LEO CDP allows businesses to collect customer data from various sources, such as websites, mobile apps, and offline interactions. It then unifies this data into a single customer profile, which can include demographic information, behavioral data, and more.
-3. Segmentation and audience creation: LEO CDP provides tools for businesses to segment their customer data and create custom audiences based on criteria such as customer behavior, demographics, or preferences.
-4. Personalization and targeting: With LEO CDP, businesses can use customer data to personalize and target their marketing efforts, such as by sending targeted email campaigns or displaying personalized website content.
-5. Analytics and reporting: LEO CDP provides real-time analytics and reporting capabilities, allowing businesses to measure the effectiveness of their marketing efforts and gain insights into customer behavior.
-6. Integration with other systems: LEO CDP can integrate with other systems such as CRM, marketing automation, and advertising platforms to create a seamless and holistic view of customer data across the organization.
+1. <b> Data collection and unification </b>: LEO CDP allows businesses to collect customer data from various sources, such as websites, mobile apps, and offline interactions. It then unifies this data into a single customer profile, which can include demographic information, behavioral data, and more.
+2. <b> Segmentation and audience creation </b>: LEO CDP provides tools for businesses to segment their customer data and create custom audiences based on criteria such as customer behavior, demographics, or preferences.
+3. <b> Personalization and targeting </b>: With LEO CDP, businesses can use customer data to personalize and target their marketing efforts, such as by sending targeted email campaigns or displaying personalized website content.
+4. <b> Analytics and reporting </b>: LEO CDP provides real-time analytics and reporting capabilities, allowing businesses to measure the effectiveness of their marketing efforts and gain insights into customer behavior.
+5. <b> Integration with other systems </b>: LEO CDP can integrate with other systems such as CRM, marketing automation, email marketing service and advertising platforms to create a seamless and holistic view of customer data across the organization.
 
 # LEO CDP Data Flow
 
@@ -21,10 +20,10 @@ LEO CDP (Customer Data Platform) is a software platform that allows businesses t
 
 # Why is LEO CDP ?
 
-1. Unifies customer data: LEO CDP allows businesses to unify customer data from various sources such as websites, mobile apps, and offline interactions into a single customer profile. This can help businesses better understand their customers and provide a more consistent experience across channels.
-2. Offers ease of use: LEO CDP has a user-friendly interface and can be easily integrated with other marketing technologies. This makes it easy for businesses to use and implement without requiring extensive technical knowledge.
-3. You need an on-premises software solution to deploy in your private cloud servers
-4. You want to build your own Customer Data Platform (CDP) for your digital business and digital transformation
+1. It allows businesses to unify customer data from various sources such as websites, mobile apps, and offline interactions into a single customer profile. This can help businesses better understand their customers and provide a more consistent experience across channels.
+2. It offers ease of use: LEO CDP has a user-friendly interface and can be easily integrated with other marketing technologies. This makes it easy for businesses to use and implement without requiring extensive technical knowledge.
+3. LEO CDP is the on-premises software solution, so you can deploy in your private cloud servers or even your PC
+4. You can custom and build your own Customer Data Platform (CDP) for your digital business and digital transformation
 
 # LEO CDP FREE Edition
 
