@@ -56,14 +56,23 @@
                 </div>
                 
                 <div class="form-group">
+                    <label>Headline Image URL</label>
+                    <input id="imageUploader" type="file" class="filepond" name="image" multiple data-max-file-size="2MB"
+	                    data-max-files="1" />
+                    <input type="text" class="form-control" placeholder="Enter Headline Image URL" name="headlineImageUrl" autocomplete="off" id="headlineImageUrl">
+                    <div class="thumbnail">
+                    	<img id="headlineImage" src="" style="max-height: 200px;max-width: 300px" alt="" >
+                    </div>
+                </div>
+                <hr>
+                
+                <div class="form-group">
                     <label><input id="newsletterSubscription" type="checkbox" >
                     	User can enter personal information into newsletter subscription form before going to the URL
                     </label>
                 </div>
                 
-                
                 <div id="subscription_box" style="display: none" >
-                	<hr>
                 	<div class="form-group">
 	                    <label>Newsletter Header</label>
 	                    <input type="text" class="form-control" placeholder="Enter the Newsletter Header" id="newsletterHeader" autocomplete="off"  >
@@ -143,6 +152,7 @@
     			node.data('checked',false).hide();
     		}
     	})
+    	
     }
     
     var showContentShortLinkUrl = function() {
@@ -174,7 +184,7 @@
             LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
                     shortLinkData = json.data;
-                    document.title = shortLinkData.title ? 'Short URL Link Editor - ' + shortLinkData.title : 'New Short URL Link';
+                    document.title = shortLinkData.title ? 'Smart Link Editor - ' + shortLinkData.title : 'New Smart Link';
                     
                  	// breadcrumb link update
         	        updateBreadcrumbInAssetPost(shortLinkData.assetCategories, shortLinkData.assetGroups, shortLinkData.title);
@@ -210,6 +220,26 @@
                     $('#newsletterHeader').val( customData.newsletterHeader || "Subscribe to our Newsletter" );
                     $('#newsletterDescription').val( customData.newsletterDescription || "Please enter your name and email for newsletter subscription" );
                     $('#newsletterButtonText').val( customData.newsletterButtonText || "OK" );
+                    
+                    //headline image uploader
+                    var fullImgUrl = shortLinkData.headlineImageUrl;
+                    fullImgUrl = (fullImgUrl == null || fullImgUrl === "") ? 'https://cdn-icons-png.flaticon.com/128/9872/9872434.png' : fullImgUrl;
+                    $('#headlineImage').attr("src",fullImgUrl).error(function(){
+                    	notifyErrorMessage($(this).attr('src') + " is not a valid image URL");
+                    	$(this).attr("src",'https://cdn-icons-png.flaticon.com/256/9872/9872434.png');
+                    });
+                    $('#headlineImageUrl').change(function(){
+                    	var newSrc = $(this).val();
+                    	newSrc = newSrc === "" ? 'https://cdn-icons-png.flaticon.com/256/9872/9872434.png' : newSrc;
+                    	
+                    	$('#headlineImage').attr("src",newSrc);
+                    })
+                    setupUploaderWidget('shortlink', itemId, '#imageUploader', function (rs) {
+                        var imgSrc = rs.data.fileUrls[0];
+                        var fullImgUrl = baseLeoAdminUrl + imgSrc;
+                        $('#headlineImageUrl').val(fullImgUrl);
+                        $('#headlineImage').attr("src",fullImgUrl);
+                    });
                 } else {
                     LeoAdminApiUtil.logErrorPayload(json);
                 }
@@ -235,6 +265,10 @@
             shortLinkData.description = form.find('textarea[name="description"]').val();
             shortLinkData.mediaInfoUnits = [];
             shortLinkData.mediaInfo = "";
+            
+            var headlineImageUrl = $('#headlineImageUrl').val();
+            shortLinkData.headlineImageUrl = headlineImageUrl;
+            shortLinkData.headlineImages = {headlineImageUrl : ""};
             
             var customData = {};
             var newsletterSubscription = $('#newsletterSubscription').prop('checked');

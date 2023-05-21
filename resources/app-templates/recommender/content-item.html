@@ -26,11 +26,16 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	
-	<style type="text/css">
+<style type="text/css">
+	body {
+		background-color: transparent; padding-bottom: 32px; padding-top: 16px;
+	}
+
 	/*
 	 * Globals
 	 */
@@ -75,7 +80,9 @@
 	.cover-container {
 	  max-width: 42em;
 	}
-	
+	.cover-heading {
+		text-align: center; font-size: 1.9em;
+	}
 	
 	/*
 	 * Cover
@@ -89,27 +96,48 @@
 	  font-weight: 700;
 	}
 	
-	</style>
+	#image_holder {
+		display: block; margin-left: auto;margin-right: auto; width:94%; max-height: 380px;
+	}
+	#video_holder {
+		text-align: center;
+	}
+</style>
 	
 </head>
 
-<body style="background-color: transparent;">
+<body>
 
+	<!-- MAIN CONTENT -->
 	<div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
 	  	<main role="main" class="inner cover" class="text-center" >
+	  	
 	    	<h3 class="cover-heading">{{pageTitle}}</h3>
-	    	<div style="text-align: center;display: none;" id="video_holder" >
+	    	
+	    	<div style="display: none;" id="image_container" >
+	    		<img style="display: none; " src="{{{customData.content.headlineImageUrl}}}" id="image_holder" />
+	    	</div>
+	    	<hr>
+	    	<div style="display: none;" id="video_holder" >
 				<div id="video" style="margin: auto;" class="embed-responsive embed-responsive-16by9" ></div>
 			</div>
+	    	
 			<p class="lead" > {{{customData.content.mediaInfo}}} </p>
+			
 	  	</main>
 	</div>
 	
+	<!-- MAIN JS -->
 	<script>
+		var imgSrc = $('#image_holder').attr('src');
+		if(imgSrc.indexOf('http') === 0){
+			$('#image_holder').show();
+			$('#image_container').show();
+		}
+	
 		var leoObserverLogDomain = "{{baseLeoObserverUrl}}";
 		var leoObserverCdnDomain = "{{baseStaticUrl}}";
 	
-		
 		var srcTouchpointName = "Content Item: " + document.title;
 		var srcTouchpointUrl = encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
 		
@@ -132,7 +160,6 @@
 		}
 	</script>
 	
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
 	<script src="https://www.youtube.com/iframe_api"></script>
 	<script>
 		
@@ -141,11 +168,9 @@
 		    var match = url.match(regExp);
 		    return (match&&match[7].length==11)? match[7] : false;
 		}
-		
 	
 	    var player, playing = false;
 	    function onYouTubeIframeAPIReady() {
-	    	
 	    	if(videoUrl != "") {
 	    		var videoId = youtubeParser(videoUrl);
 		        player = new YT.Player('video', {

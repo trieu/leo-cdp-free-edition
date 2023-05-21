@@ -4,10 +4,7 @@
 		"name": "SendInBlue Data Connector",
 		"description": "Email Marketing Automation",
 		"builtInConnector": true,
-		"forSegmentDataActivation": true,
-		"dataSynchService": true,
-		"emailSenderService": true,
-		"periodInSecondsToLoop": 30,
+		"forSynchronization": true,
 		"status": 0,
 		"configs": {
 			"service_provider": "https://sendinblue.com",
@@ -21,10 +18,7 @@
 		"name": "MailChimp Data Connector",
 		"description": "Email Marketing Automation",
 		"builtInConnector": true,
-		"forSegmentDataActivation": true,
-		"dataSynchService": true,
-		"emailSenderService": true,
-		"periodInSecondsToLoop": 30,
+		"forSynchronization": true,
 		"status": 0,
 		"configs": {
 			"service_provider": "https://mailchimp.com",
@@ -34,69 +28,54 @@
 		"serviceUri": "javaclass:leotech.cdp.job.connector.MailchimpConnector"
 	},
 	{
-		"id": "onesignal",
-		"name": "OneSignal Data Connector",
-		"description": "Data Connector to push notification directly to web user",
+		"id": "kafka_producer",
+		"name": "Apache Kafka Producer",
+		"description": "The connector is used to export profiles in the segment into Apache Kafka, please set bootstrap_servers and topic",
 		"builtInConnector": true,
-		"forSegmentDataActivation": true,
-		"dataSynchService": true,
-		"messagePusherService": true,
-		"periodInSecondsToLoop": 30,
+		"forDataEnrichment": true,
+		"forSynchronization": true,
+		"forPersonalization": true,
 		"status": 0,
 		"configs": {
-			"service_provider": "https://onesignal.com/",
-			"service_api_url": "https://app.onesignal.com/",
-			"service_api_key": ""
+			"service_provider": "https://leocdp.com",
+			"service_api_url": "",
+			"service_api_key": "",
+			"kafka_bootstrap_servers":"",
+			"kafka_topic":""
 		},
-		"serviceUri": "javaclass:leotech.cdp.job.connector.OneSignalDataConnector"
+		"serviceUri": "javaclass:leotech.cdp.job.connector.KafkaProducerConnector"
 	},
 	{
-		"id": "local_files",
-		"name": "Local File",
-		"description": "Exporting data into local files",
+		"id": "leo_personalization_engine",
+		"name": "LEO Personalization Engine",
+		"description": "The default personalization engine of LEO CDP",
 		"builtInConnector": true,
-		"forSegmentDataActivation": true,
-		"dataSynchService": true,
-		"messagePusherService": false,
-		"periodInSecondsToLoop": 21600,
+		"forPersonalization": true,
 		"status": 0,
 		"configs": {
-			"local_file_storage_uri": "file://localhost",
-			"service_api_url": "file://localhost",
-			"service_api_key": "localhost"
+			"service_provider": "https://leocdp.com",
+			"service_api_url": "https://leocdp.com",
+			"service_api_key": "default"
 		},
-		"serviceUri": "javaclass:leotech.cdp.job.connector.LocalFileConnector"
+		"serviceUri": "javaclass:leotech.cdp.job.connector.PersonalizationConnector"
 	},
 	{
-		"id": "database_report",
-		"name": "MySQL Database Connector",
-		"description": "Data Connector for MySQL Database",
+		"id": "leo_email_marketing",
+		"name": "LEO Email Marketing",
+		"description": "The default email marketing engine of LEO CDP",
 		"builtInConnector": true,
-		"forSegmentDataActivation": true,
-		"dataSynchService": true,
-		"periodInSecondsToLoop": 30,
+		"forPersonalization": true,
 		"status": 0,
 		"configs": {
-			"database_url": "",
-			"database_username": "",
-			"database_password": ""
+			"service_provider": "https://leocdp.com",
+			"service_api_url": "",
+			"service_api_key": "",
+			"smtp_enabled": false,
+			"smtp_username": "",
+			"smtp_password": "",
+			"smtp_host": "",
+			"smtp_port": 587
 		},
-		"serviceUri": "javaclass:leotech.cdp.job.connector.MySqlDatabaseConnector"
-	},
-	{
-		"id": "google_bigquery",
-		"name": "Google BigQuery Data Connector",
-		"description": "Data Connector for MySQL Database",
-		"builtInConnector": true,
-		"forSegmentDataActivation": true,
-		"dataSynchService": true,
-		"periodInSecondsToLoop": 30,
-		"status": 0,
-		"configs": {
-			"database_url": "",
-			"database_username": "",
-			"database_password": ""
-		},
-		"serviceUri": "javaclass:leotech.cdp.job.connector.GoogleBigQueryConnector"
+		"serviceUri": "javaclass:leotech.cdp.job.connector.EmailMarketingConnector"
 	}
 ]

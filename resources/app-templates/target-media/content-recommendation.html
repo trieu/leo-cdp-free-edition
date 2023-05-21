@@ -18,7 +18,6 @@
 </head>
 <body style="text-align:center; background-color: transparent!important; max-width: 300px; margin: auto;">
 
-	<h6 style="color: blue">Recommended Items by LEO</h6>
 	<div class="container">
 		<div class="row">
 			<div class="col-12 col-sm-8 col-lg-12">
@@ -59,6 +58,10 @@
 				if(e.name && maxResult > 0 ){
 					var itemTpl = _.template( $('#tpl_row_item').html() );
 				  	holder.append( itemTpl(e) );
+				  	
+				  	if(e.imageUrl === ""){
+				  		$('#img_' + e.id).hide()
+				  	}
 				}
 		  	}  	
 		});
@@ -66,10 +69,10 @@
 	
 <!-- Template for item view -->
 <script id='tpl_row_item' type="text/html" >
-<li class="list-group-item  align-items-center item" > 
+<li id="<%- id %>" class="list-group-item  align-items-center item" > 
 	<a href="<%- trackingLinkUrl %>" target="_blank" >
 		<%- name %> <br>
-		<img src="<%- imageUrl %>" class="item_img" alt="Product Image">
+		<img id="img_<%- id %>" src="<%- imageUrl %>" class="item_img" alt="Content Image">
     </a>
 </li>
 </script>

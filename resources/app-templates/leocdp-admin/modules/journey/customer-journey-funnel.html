@@ -10,7 +10,7 @@
 	.modal-body .eventName {
 		font-size:1.5em; color:blue; font-weight: bold;
 	}
-	tr > td.jsgrid-cell:nth-of-type(1), tr > td.jsgrid-cell:nth-of-type(3) {
+	tr > td.jsgrid-cell:nth-of-type(1), tr > td.jsgrid-cell:nth-of-type(3), tr > td.jsgrid-cell:nth-of-type(5) {
 		font-size:13px; color:blue; font-weight: bold;
 	}
 	.editable_event_metric {
@@ -179,7 +179,8 @@
 			 
 			 // TODO
 			 var insertItemReady = false, insertedIndex = -1;
-			 var gridControls =  { type: "control", width: 70, editButton: true, deleteButton: true, itemTemplate: function(value, item) {
+			 var gridControls =  { 
+				type: "control", width: 70, editButton: true, deleteButton: true, itemTemplate: function(value, item) {
                     var $result = jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
                     
                     var isSystemMetric = item.systemMetric;
@@ -207,19 +208,19 @@
 
                     var cssClass = "customGridDeletebutton jsgrid-button jsgrid-delete-button";
                    	var $customDeleteButton = $("<button>").data("eventName",eventName).attr({class: cssClass,title:"Delete Event Metric"})
-                   	.click(function(e) {
-                   		var eventName = $(this).data('eventName');
-                   		if( isSystemMetric ){
-                   			iziToast.info({
-    		    	    	    title: 'Information Box',
-    		    	    	    message: 'The event <b>[' + eventName +  ']</b> is the <b>event metric of system</b>. You can not delete this metric !'
-    		    	    	});
-                   		} else {
-                       		deleteEventMetricMetaData(eventName)
-                   		}
-                   		
-                      	e.stopPropagation();
-                    });
+                   		.click(function(e) {
+	                   		var eventName = $(this).data('eventName');
+	                   		if( isSystemMetric ){
+	                   			iziToast.info({
+	    		    	    	    title: 'Information Box',
+	    		    	    	    message: 'The event <b>[' + eventName + ']</b> is the <b>event metric of system</b>. You can not delete this metric !'
+	    		    	    	});
+	                   		} else {
+	                       		deleteEventMetricMetaData(eventName)
+	                   		}
+	                   		
+	                      	e.stopPropagation();
+                    	});
 
                    	var rs = $("<div>");
                    	if(! isSystemMetric ) {
@@ -232,93 +233,96 @@
                    	
                    	return rs;
                  }
-             }
+             };
 			 
 			 $("#behavioral_metrics_table").jsGrid({
-			    width: "100%",
-			    height: "auto",
-	
-			    inserting: canInsertData,
-			    editing: true,
-			    sorting: false,
-			    paging: false,
-			    data: behavioralMetricsData,
-			    
-			    confirmDeleting : canDeleteData,
-			    deleteConfirm: function(item) {
-			    	if(item.systemMetric) {
-			    		return "The event metric <b>[" + item.eventName + "]</b> is the <b>event metric of system</b>. You can not delete this metric.";
-				    }
-		            return "The event metric [" + item.eventName + "] will be removed. Are you sure ? ";
-		        },
-	
-		        onItemInserting: function(args) {
-		        	$('tr > td.jsgrid-cell:nth-of-type(1)').each(function(){
-		        		var eventName = $(this).text().trim();
-		        		if(eventName === args.item.eventName) {
-		        			args.cancel = true;
-				            iziToast.info({
-			    	    	    title: 'Info',
-			    	    	    message: 'The event [' + eventName +  '] is already existed in the metric list!'
+				    width: "100%",
+				    height: "auto",
+
+				    inserting: canInsertData,
+				    confirmDeleting : canDeleteData,
+				    editing: true,
+				    sorting: false,
+				    paging: false,
+				    data: behavioralMetricsData,
+		                	
+				    deleteConfirm: function(item) {
+				    	if(item.systemMetric) {
+				    		return "The event metric <b>[" + item.eventName + "]</b> is the <b>event metric of system</b>. You can not delete this metric.";
+					    }
+			            return "The event metric [" + item.eventName + "] will be removed. Are you sure ? ";
+			        },
+
+			        onItemInserting: function(args) {
+			        	$('tr > td.jsgrid-cell:nth-of-type(1)').each(function(){
+			        		var eventName = $(this).text().trim();
+			        		if(eventName === args.item.eventName) {
+			        			args.cancel = true;
+					            iziToast.info({
+				    	    	    title: 'Info',
+				    	    	    message: 'The event [' + eventName +  '] is already existed in the metric list!'
+				    	    	});
+			        		}
+			        	})
+		   		    	// default for new inserting item
+		   		    	args.item.systemMetric = false;
+		   		    	args.item.dataType = 1;
+		   		    	args.item.flowName = currentFlowName;
+		   		    },
+				   
+				    onItemInserted: function(args) {
+				    	var item = args.item;
+				    	if(item.eventName.trim() === "" || item.eventLabel.trim() === "") {
+				    		 args.cancel = true;
+				    	}
+				    	else {
+				    		saveEventMetricMetaData(args.item)
+				    	}
+				    }, 
+				    
+				    onItemEditing: function(args) {
+				    	if(args.item.systemMetric) {
+					    	iziToast.info({
+			    	    	    title: 'Information Box',
+			    	    	    message: 'The event <b>[' + args.item.eventName +  ']</b> is the event metric of system. Be careful when you edit this metric !',
+			    	    	    timeout: 5000
 			    	    	});
-		        		}
-		        	})
-	   		    	// default for new inserting item
-	   		    	args.item.systemMetric = false;
-	   		    	args.item.dataType = 1;
-	   		    	args.item.flowName = currentFlowName;
-	   		    },
-			   
-			    onItemInserted: function(args) {
-			    	var item = args.item;
-			    	if(item.eventName.trim() === "" || item.eventLabel.trim() === "") {
-			    		 args.cancel = true;
-			    	}
-			    	else {
-			    		saveEventMetricMetaData(args.item)
-			    	}
-			    }, 
-			    
-			    onItemEditing: function(args) {
-			    	if(args.item.systemMetric) {
-				    	iziToast.info({
-		    	    	    title: 'Information Box',
-		    	    	    message: 'The event <b>[' + args.item.eventName +  ']</b> is the event metric of system. Be careful when you edit this metric !',
-		    	    	    timeout: 5000
-		    	    	});
-			    	}
-			    },
-			    
-			    onItemUpdated: function(args) {
-			    	saveEventMetricMetaData(args.item)
-			    }, 
-			    
-			    onItemDeleting: function(args) {
-			        if(args.item.systemMetric) {
-			            args.cancel = true;
-			        }
-			    },
-			    
-			    onRefreshed: function (args) {
-			    	$('input.jsgrid-insert-mode-button').click(function(){
-			        	console.log($('tr.jsgrid-insert-row').find('input[type="number"]'))
-			           	$('tr.jsgrid-insert-row').find('input[type="number"]').val(0);
-			        })
-			    },
-	
-			    fields: [
-			    	{ name: "journeyStage", type: "select", title : "Journey Stage", items: journeyStages, align: 'center', width: 70, valueField: "id", textField: "name" },
-			    	{ name: "funnelStageId", title : "Default Funnel Stage", type: "select", items: customerFunnelStages, valueField: "id", textField: "name" },
-			        { name: "eventName", title : "Event Name", align: 'center' , type: "text", validate: "required", validate: "required" },
-			        { name: "eventLabel", title : "Event Label", align: 'center' , type: "text", validate: "required" },			        
-			        { name: "scoreModel", title : "Scoring Model", type: "select", items: scoringModels, width: 80, valueField: "id", textField: "name" },
-			        { name: "score", title : "Event Score", type: "number", align: 'center', width: 40, validate: "required" },
-			        { name: "cumulativePoint", title : "Loyalty Point", type: "number", width: 44, align: 'center', validate: "required" },
-			        { name: "showInObserverJS", title : "Show in ObserverJS", type: "CustomCheckBox", width: 50, align: "center" },
-			        gridControls
-			    ]
-			});  
+				    	}
+				    },
+				    
+				    onItemUpdated: function(args) {
+				    	saveEventMetricMetaData(args.item)
+				    }, 
+				    
+				    onItemDeleting: function(args) {
+				        if(args.item.systemMetric) {
+				            args.cancel = true;
+				        }
+				    },
+				    
+				    onRefreshed: function (args) {
+				    	$('input.jsgrid-insert-mode-button').click(function(){
+				        	console.log($('tr.jsgrid-insert-row').find('input[type="number"]'))
+				           	$('tr.jsgrid-insert-row').find('input[type="number"]').val(0);
+				        })
+				    },
+
+				    fields: [
+				    	{ name: "score", title : "Event Score", type: "number", align: 'center', width: 40, validate: "required" },
+				        { name: "cumulativePoint", title : "Loyalty Point", type: "number", width: 44, align: 'center', validate: "required" },
+				        { name: "eventName", title : "Event Name", align: 'center' , type: "text", validate: "required", validate: "required" },
+				        { name: "eventLabel", title : "Event Label", align: 'center' , type: "text", validate: "required" },	
+				        { name: "scoreModel", title : "Scoring Model", type: "select", items: scoringModels, width: 80, valueField: "id", textField: "name" },
+				    	{ name: "funnelStageId", title : "Default Funnel Stage", type: "select", items: customerFunnelStages, valueField: "id", textField: "name" },
+				    	{ name: "journeyStage", type: "select", title : "Journey Stage", items: journeyStages, align: 'center', width: 74, valueField: "id", textField: "name" },
+				        { name: "showInObserverJS", title : "Show in Tracking Code", type: "CustomCheckBox", width: 48, align: "center" },
+				        gridControls
+				    ]
+				});
+			 
 		});
 	}
+	
+
 	
 </script>

@@ -6,22 +6,17 @@
 - [In Plan => 2022-11-07] new UI for journey map report
 
 
-## Feature Plan for the final beta release 1.0 - 2023-01-30
+## Feature Plan for the final beta release 1.0 - 2023-05-01
 
 #### Tasks
 
 - [In Plan] Using Jupyter notebook to update profile CLV, CAC and Credit Scoring 
 - [In Plan] LEO Tag JS to link FB user and Google user
 - [In Plan] Segment Activation: sending email directly with SMTP from LEO CDP
-- [In Plan] Data Reporting with Jupyter notebook
-- [In Plan] Profile Finance Data Report
+- [In Plan] Data Reporting with Jupyter notebook in profile and segment
 - [In Plan] System User Notification when profile data is updated or created
-- [In Plan] New Data Connector and connector protocol
-- [In Plan] Data Synch with time scheduler
-- [In Plan] export data into Google BigQuery and visual with Data Studio 
-- [In Plan] docker images
 - [In Plan] web form in leocdp.com for new clients, to try free LEO CDP version with docker
-- [In Plan] use cases for banking, prop-tech and content subscription 
+- [In Plan] use cases for ecommerce, retail and education
 - [In Plan] video, slide and update document for version 1.0 
 - [In Plan] Apply RFM model https://github.com/USPA-Technology/crm-rfm-modeling
 
@@ -31,10 +26,33 @@
 * How to Unify Customer Data : https://www.youtube.com/watch?v=ejpOKE1bQCs
 * How to deliver personalized web experiences: https://www.youtube.com/watch?v=mzWkTZqxvHs
 * How to send personalized email with SendInBlue and LEO CDP
-* How to build personalized communication with WhatsApp and LEO CDP
-* How to do Data Science with Google Colab and LEO CDP
+* How to build personalized communication with OneSignal and LEO CDP
+* How to do data science with Google Colab and LEO CDP
 * How to setup LEO CDP
 * How to monitor system
+
+## [0.9.0] - 2023-05-21
+
+### Added
+
+- [LeoCdpLicense] simplify process to easier upgrade
+- [Data Connector] New data connector protocol
+- [Data Connector] tool for administration; create, update and delete a connector
+- [Data Connector] Data Activation with time scheduler
+- [Data Connector] add EmailMarketingConnector
+
+### Fixed
+
+- improve UI and UX: User Login Editor, Info and listing
+- fix bugs show recommended contents for end-user
+- fix bugs: show data connector only for admin and superadmin
+
+### Changed
+
+- update init-connector-configs.json when setup new system
+- [Data Connector] update UI and UX for easier administration
+- [Segment] update UX and UI of data activation in segment
+- [Profile] load data from all journey, then filter
 
 ## [0.8.9] - 2023-01-12
 

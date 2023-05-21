@@ -121,7 +121,7 @@
 				<ul id="customer_hub_menu" class="collapse in" aria-expanded="true">
 					<li id="Profile_Management_Menu" >
 						<a id="Profile_Management" href="#calljs-leoCdpRouter('Profile_Management')" title="All Customer Profiles" > 
-							<i class="fa fa-fw fa-address-card-o"></i> Profile Management </a>
+							<i class="fa fa-fw fa-users"></i> Profile Management </a>
 					</li>
 					<li id="Segment_Management_Menu" >
 						<a id="Segment_Management" href="#calljs-leoCdpRouter('Segment_Management')" title="All Customer Segments"> 
@@ -140,12 +140,12 @@
 						<a id="Digital_Asset_Management" href="#calljs-leoCdpRouter('Digital_Asset_Management')" title="Digital Asset Management" > 
 							<i class="fa fa-fw fa-list" ></i> Asset Management </a>
 					</li>
-					<li id="Connector_Management_Menu" >
+					<li id="Connector_Management_Menu" style="display: none;" data-system-user-roles="5,6" >
 						<a id="Connector_Management" href="#calljs-leoCdpRouter('Connector_Management')">
 							<i class="fa fa-fw fa-exchange" aria-hidden="true" ></i> Connector Management</a>
 					</li>
 					<li id="Campaign_Management_Menu" style="display: none" >
-						<a id="Connector_Management" href="#calljs-leoCdpRouter('Campaign_Management')">
+						<a id="Campaign_Management" href="#calljs-leoCdpRouter('Campaign_Management')">
 							<i class="fa fa-fw fa-envelope-o" aria-hidden="true" ></i> Campaign Management</a>
 					</li>
 				</ul>
@@ -211,6 +211,7 @@
 	                var role = systemUser.role;
 	                
 	                if(role === 6) {
+	                	// hasSuperAdminRole === true
 	                	$("#nav_system_management").show();
 	                	$('#main-navbar').find("li[data-system-user-roles]").show();
 	                } 

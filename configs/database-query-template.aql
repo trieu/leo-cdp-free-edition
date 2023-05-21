@@ -1192,6 +1192,22 @@ AQL_UPDATE_AUTHORIZATION_FOR_PROFILES_BY_JOURNEY =>
 		UPDATE p WITH { authorizedViewers : finalAuthorizedViewers, authorizedEditors : finalAuthorizedEditors } IN cdp_profile
 ;
 
+AQL_DELETE_ALL_DEAD_VISITORS =>
+	LET c = LENGTH(
+		FOR p in cdp_profile
+		FILTER (CHAR_LENGTH(p.firstName) == 0 AND CHAR_LENGTH(p.lastName) == 0 AND CHAR_LENGTH(p.primaryEmail) == 0 AND CHAR_LENGTH(p.primaryPhone) == 0 AND CHAR_LENGTH(p.crmRefId) == 0 
+				AND p.type == 0 AND p.totalLeadScore == 0)  OR p.status == -44
+		RETURN p._key
+	)
+	LET c2 = LENGTH(
+		FOR p in cdp_profile
+		FILTER (CHAR_LENGTH(p.firstName) == 0 AND CHAR_LENGTH(p.lastName) == 0 AND CHAR_LENGTH(p.primaryEmail) == 0 AND CHAR_LENGTH(p.primaryPhone) == 0 AND CHAR_LENGTH(p.crmRefId) == 0 
+				AND p.type == 0 AND p.totalLeadScore == 0)  OR p.status == -44
+		REMOVE { _key: p._key } IN cdp_profile
+	)
+	RETURN c 
+;
+
 ###########  CONTEXT_SESSION  ########################################################################################################;
 
 AQL_GET_CONTEXT_SESSION_BY_KEY =>
@@ -1723,14 +1739,65 @@ AQL_GET_ALL_SYSTEM_CONFIGS =>
 ########### DATA_CONNECTOR  ########################################################################################################;
 
 AQL_GET_DATA_CONNECTOR_BY_ID =>
-	FOR e in cdp_dataconnector FILTER e._key == @id
+	FOR e in cdp_dataconnector 
+	FILTER e._key == @id
 	RETURN e
 ;
 
-AQL_LIST_ALL_DATA_CONNECTORS =>
-	FOR e in cdp_dataconnector  
-	SORT e.createdAt
+AQL_LIST_DATA_CONNECTORS =>
+	FOR e in cdp_dataconnector 
+	FILTER (LOWER(e.name) LIKE LOWER(@keywords) OR LOWER(e.description) LIKE LOWER(@keywords) OR @keywords == "")
+	SORT e.updatedAt DESC
+	LIMIT @startIndex, @numberResult
 	RETURN e
+;
+
+AQL_LIST_DATA_CONNECTORS_WITH_FILTER =>
+	FOR e in cdp_dataconnector   
+	FILTER (LOWER(e.name) LIKE LOWER(@keywords) OR LOWER(e.description) LIKE LOWER(@keywords) OR @keywords == "") 
+		AND e.status == 1   
+		AND ( (e.forSynchronization == @forSynchronization AND @forSynchronization == true)
+			OR (e.forDataEnrichment == @forDataEnrichment AND @forDataEnrichment == true)
+			OR (e.forPersonalization == @forPersonalization AND @forPersonalization == true)  )
+	SORT e.updatedAt DESC
+	LIMIT @startIndex, @numberResult 
+	RETURN e
+;
+
+AQL_LIST_ALL_ACTIVE_DATA_CONNECTORS =>
+	FOR e in cdp_dataconnector 
+	FILTER LENGTH(e.configs['service_api_key']) > 0 AND e.status == 1
+	RETURN e
+;
+
+########### ACTIVATION_RULES  ########################################################################################################;
+
+AQL_GET_ACTIVE_ACTIVATION_RULES_BY_CONNECTOR_ID =>
+	FOR e in cdp_activationrule 
+	FILTER e.dataConnectorId == @dataConnectorId AND e.active == true
+	SORT e.createdAt DESC
+	RETURN e
+;
+
+AQL_GET_ACTIVATION_RULES_BY_SEGMENT_ID =>
+	FOR e in cdp_activationrule 
+	FILTER e.segmentId == @segmentId
+	SORT e.createdAt DESC
+	RETURN e
+;
+
+AQL_GET_ACTIVATION_RULE_BY_ID =>
+	FOR e in cdp_activationrule 
+	FILTER e._key == @id
+	RETURN e
+;
+
+AQL_REMOVE_ACTIVATION_RULE_BY_ID =>
+	FOR e in cdp_activationrule  
+	FILTER e._key == @id
+    REMOVE { _key: e._key } IN cdp_activationrule
+    LET removed = OLD 
+  	RETURN removed._key
 ;
 
 ########### PERSONALIZATION ENGINE  ########################################################################################################;
@@ -1751,6 +1818,38 @@ AQL_SET_RANKING_RECOMMENDED_PRODUCTS_OF_PROFILE =>
 	    FOR t IN cdp_targetmediaunit
 	FILTER r.eventMetricId == "recommend" AND r._from == fromEdgeId AND r.targetMediaUnitId == t._key AND t.refProductItemId == @productId
 	UPDATE r WITH { indexScore: @newIndexScore, updatedAt : DATE_ISO8601(DATE_NOW()) } IN cdp_profile2product
+;
+
+########### system_event  ########################################################################################################;
+
+AQL_DELETE_SYSTEM_EVENTS_BY_USER_LOGIN =>
+	FOR e in system_event  
+	FILTER e.userLogin == @userLogin  
+    REMOVE { _key: e._key } IN system_event
+;
+
+AQL_GET_SYSTEM_EVENTS_BY_USER_LOGIN =>
+	FOR e in system_event  
+	FILTER e.userLogin == @userLogin  
+	SORT e.createdAt DESC
+	LIMIT @startIndex, @numberResult 
+	RETURN e
+;
+
+AQL_GET_SYSTEM_EVENTS_BY_OBJECT_NAME_AND_ID =>
+	FOR e in system_event  
+	FILTER e.objectName == @objectName AND e.objectId == @objectId 
+	SORT e.createdAt DESC
+	LIMIT @startIndex, @numberResult 
+	RETURN e
+;
+
+AQL_GET_SYSTEM_EVENTS_BY_OBJECT_NAME =>
+	FOR e in system_event  
+	FILTER e.objectName == @objectName
+	SORT e.createdAt DESC
+	LIMIT @startIndex, @numberResult 
+	RETURN e
 ;
 
 ############################################### END AQL  #####################################################################################

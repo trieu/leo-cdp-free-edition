@@ -38,7 +38,7 @@
 </div>
     
 <div class="top_page_header" >
-	<h4> <i class="fa fa-address-card-o" aria-hidden="true"></i> Profile Data Management </h4>
+	<h4> <i class="fa fa-users" aria-hidden="true"></i> Profile Data Management </h4>
 </div>
 
 <div id="profile_list_loader" class="loader"></div>
@@ -133,6 +133,7 @@
 						    	<option value="0">INACTIVE PROFILES</option>
 						    	<option value="-1">INVALID PROFILES</option>
 						    	<option value="-4">REMOVED PROFILES</option>
+						    	<option value="-44">DEAD VISITORS</option>
 						    </select>
 							
 							<input style="display: none;" type="text" class="form-control" id="filterEmail" placeholder="Enter email address" >
@@ -158,11 +159,13 @@
 							</div>							
 							<div class="col-md-4 text-center" >
 							 	<button type="button" style="width: 100%;" class="btn btn-do-now" onclick="resetProfileSearch()" >
-							 		<i class="fa fa-fw fa-undo"></i> Reset </button>
+							 		<i class="fa fa-fw fa-undo"></i> Reset 
+							 	</button>
 							</div>
 							<div class="col-md-4 text-center" >
 							 	<button type="button" style="width: 100%;" class="btn btn-goto-router" onclick="doProfileListing()" >
-							 		<i class="fa fa-fw fa-filter"></i> Filter </button>
+							 		<i class="fa fa-fw fa-filter"></i> OK 
+							 	</button>
 							</div>
 						</div>						
 					</div>

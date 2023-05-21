@@ -36,13 +36,13 @@ div.panel_header {
         	<!--  Tab Navigation Items -->
 		    <ul class="nav nav-tabs" data-tab-content="login_account_tabs" >
 				<li class="active" >
-					<a href="javascript:" data-target-tab="panel_login_account_tab_general" title="General Information" > <i class="fa fa-info-circle" aria-hidden="true"></i> General Information</a>
+					<a href="javascript:" data-target-tab="panel_login_account_tab_general" title="User Profile" > <i class="fa fa-info-circle" aria-hidden="true"></i> User Information</a>
 		       	</li>
 		       	<li >
 					<a href="javascript:" data-target-tab="panel_login_account_role" title="Account Permission" > <i class="fa fa-lock" aria-hidden="true"></i> User's Role</a>
 		       	</li>
 		       	<li data-for-superadmin="true" style="display: none;">
-					<a href="javascript:loadAuthorizedJourneys()" data-target-tab="panel_login_account_authorized_journeys" title="Authorized Data Journeys" > <i class="fa fa-map-o" aria-hidden="true"></i> Authorized Journeys</a>
+					<a href="javascript:loadAuthorizedJourneys()" data-target-tab="panel_login_account_authorized_journeys" title="Authorized Data Journey Maps" > <i class="fa fa-map-o" aria-hidden="true"></i> Journey Maps</a>
 		       	</li>
 		       	<li data-for-superadmin="true" style="display: none;">
 					<a href="javascript:loadViewableProfiles()" data-target-tab="panel_login_account_viewable_profiles" title="Viewable Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Viewable Profiles</a>
@@ -60,10 +60,26 @@ div.panel_header {
 		  	
 		  	<!-- Tab Contents  -->
 	    	<div id="login_account_tabs" class="tab-content" style="min-height: 820px;"  >
+	    		<!-- BEGIN Tab Contents  -->
+	    	
 	    		<!-- tab 1 General Login Information  -->
 				<div class="tab-pane active" id="panel_login_account_tab_general" >
-					<h4 class="highlight_text"> <i class="fa fa-info-circle" aria-hidden="true"></i> General Information </h4>
-										
+					<h4 class="highlight_text"> <i class="fa fa-info-circle" aria-hidden="true"></i> User Information </h4>
+					
+					<div class="action-div">
+	                    <label>Status</label>
+	                    <div class="radio">
+	                        <label><input type="radio" name="status" value="0"> Pending account </label>
+	                    </div>
+	                    <div class="radio">
+	                        <label ><input type="radio" name="status" value="1"> Active account </label>
+	                    </div>
+	                    <div class="radio">
+	                        <label><input type="radio" name="status" value="2"> Disabled account </label>
+	                    </div>
+	                </div>
+	                <hr>
+															
 	                <div class="form-group">
 	                    <label> User Login </label>
 	                    <input data-validation="length alphanumeric" data-validation-length="min4" type="text" class="form-control"
@@ -71,7 +87,7 @@ div.panel_header {
 	                        autocapitalize="none" spellcheck="false" required >
 	                </div>	                
 	                <div class="form-group">
-	                    <label> Password </label>
+	                    <label> Login Password </label>
 	                    <input type="text" class="form-control" placeholder="Enter New Password To Update" name="userPass" autocorrect="off"
 	                        autocapitalize="off" autocomplete="nope"  >
 	                </div>
@@ -83,32 +99,16 @@ div.panel_header {
 	                        autocorrect="off" autocapitalize="off" autocomplete="off required ">
 	                </div>
 	                <div class="form-group">
-	                    <label> Email </label>
+	                    <label> Contact Email </label>
 	                    <input data-validation="email" type="email" class="form-control" placeholder="Enter Email" name="userEmail"
 	                        autocorrect="off" autocapitalize="off" autocomplete="off" required  >
 	                </div>
-	                <hr>
+	                <hr>                
 	                
-	                <div class="action-div">
-	                    <label>Status</label>
-	                    <div class="radio">
-	                        <label><input type="radio" name="status" value="0"> Pending for email confirmation </label>
-	                    </div>
-	                    <div class="radio">
-	                        <label ><input type="radio" name="status" value="1"> Active account </label>
-	                    </div>
-	                    <div class="radio">
-	                        <label><input type="radio" name="status" value="2"> Disabled account </label>
-	                    </div>
-	                </div>
-	                <hr>
-	                <div class="form-group" style="display: none;">
-	                    <label> Primary Business Unit </label>
-	                    <select name="businessUnit" data-placeholder="Choose Business Unit" class="select" >
-	                        <option value="" selected="selected"> No data </option>
-	                        <option value="USPA.tech"> USPA.tech </option>
-	                        <option value="LEOCDP.com"> LEOCDP.com </option>
-	                    </select>
+	                <div class="form-group" >
+	                    <label> Business Unit </label>
+	                    <input type="text" class="form-control" placeholder="Enter the name of business unit" name="businessUnit"
+	                        autocorrect="off" autocapitalize="off" autocomplete="off required ">
 	                </div>
 	                <div class="form-group">
 	                    <label> Departments / User Groups </label>
@@ -189,10 +189,10 @@ div.panel_header {
 				<div class="tab-pane" id="panel_login_account_authorized_journeys" >
 				
 					<div class="col-lg-12 panel_header" >
-						<div class="col-lg-9" >
+						<div class="col-lg-10" >
 						 	<h4 class="highlight_text"> <i class="fa fa-map-o" aria-hidden="true"></i> Authorized Data Journey Maps </h4>
 						</div>
-						<div class="col-lg-3" style="text-align: right;">
+						<div class="col-lg-2" style="text-align: right;">
 						 	<button type="button" class="btn btn-danger" onclick="removeUserDataAuthorization('removeAllAuthorizedJourneys','authorized_journeys')" >
 						 		<i class="fa fa-fw fa-trash"></i> Remove All
 							</button>
@@ -234,15 +234,12 @@ div.panel_header {
 				<div class="tab-pane" id="panel_login_account_viewable_profiles" >
 					
 					<div class="col-lg-12 panel_header" >
-						<div class="col-lg-8" >
-						 	<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Authorized Profiles </h4>
+						<div class="col-lg-10" >
+						 	<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Viewable Customer Profiles </h4>
 						</div>
-						<div class="col-lg-4" style="text-align: right;">
+						<div class="col-lg-2" style="text-align: right;">
 						 	<button type="button" class="btn btn-danger" onclick="removeUserDataAuthorization('removeAllViewableProfiles','viewable_profile_list')" >
 						 		<i class="fa fa-fw fa-trash"></i> Remove All
-							</button>
-							<button type="button" class="btn btn-danger" onclick="" style="display: none;" >
-						 		<i class="fa fa-fw fa-trash"></i> Remove Selected
 							</button>
 						</div>
 					</div>
@@ -280,15 +277,12 @@ div.panel_header {
 				<div class="tab-pane" id="panel_login_account_editable_profiles" >
 					
 					<div class="col-lg-12 panel_header" >
-						<div class="col-lg-8" >
-						 	<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Editable Profiles </h4>
+						<div class="col-lg-10" >
+						 	<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Editable Customer Profiles </h4>
 						</div>
-						<div class="col-lg-4" style="text-align: right;">
+						<div class="col-lg-2" style="text-align: right;">
 						 	<button type="button" class="btn btn-danger" onclick="removeUserDataAuthorization('removeAllEditableProfiles','editable_profile_list')"  >
 						 		<i class="fa fa-fw fa-trash"></i> Remove All
-							</button>
-							<button type="button" class="btn btn-danger" onclick="" style="display: none;" >
-						 		<i class="fa fa-fw fa-trash"></i> Remove Selected
 							</button>
 						</div>
 					</div>
@@ -326,10 +320,10 @@ div.panel_header {
 				<div class="tab-pane" id="panel_login_account_viewable_segments" >
 					
 					<div class="col-lg-12 panel_header" >
-						<div class="col-lg-9" >
+						<div class="col-lg-10" >
 						 	<h4 class="highlight_text"> <i class="fa fa-object-group" aria-hidden="true"></i> Viewable Segments </h4>
 						</div>
-						<div class="col-lg-3" style="text-align: right;">
+						<div class="col-lg-2" style="text-align: right;">
 						 	<button type="button" class="btn btn-danger" onclick="removeUserDataAuthorization('removeAllViewableSegments','viewable_segment_list')" >
 						 		<i class="fa fa-fw fa-trash"></i> Remove All
 							</button>
@@ -366,10 +360,10 @@ div.panel_header {
 				<div class="tab-pane" id="panel_login_account_editable_segments" >
 					
 					<div class="col-lg-12 panel_header" >
-						<div class="col-lg-9" >
+						<div class="col-lg-10" >
 						 	<h4 class="highlight_text"> <i class="fa fa-object-group" aria-hidden="true"></i> Editable Segments </h4>
 						</div>
-						<div class="col-lg-3" style="text-align: right;">
+						<div class="col-lg-2" style="text-align: right;">
 						 	<button type="button" class="btn btn-danger" onclick="removeUserDataAuthorization('removeAllEditableSegments','editable_segment_list')" >
 						 		<i class="fa fa-fw fa-trash"></i> Remove All
 							</button>
@@ -401,7 +395,7 @@ div.panel_header {
 						</div>
 					</div> 
 				</div>
-				
+				<!-- END Tab Contents  -->
 	    	</div>
 
         </div>
@@ -411,15 +405,18 @@ div.panel_header {
 <hr>
 
 <script>
-    var userLoginModel = false;
-
+    
     var initUserLoginEditor = function(key) {
     	 var isUpdateData = key !== 'newuser';
     	 setupTabPanels(isUpdateData);
-    	 
-         var urlStr = baseLeoAdminUrl + '/user/get';
+    	 loadUserProfile(isUpdateData, key);
+    }
+    
+    var userLoginModel = false;
+
+    function loadUserProfile(isUpdateData, key) {
+    	 var urlStr = baseLeoAdminUrl + '/user/get';
          var params = { 'key': key || 'newuser' };
-         
          LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
              if (json.httpCode === 0 && json.errorMessage === '') {
                  if (json.data) {
@@ -445,14 +442,8 @@ div.panel_header {
 
                      // load businessUnit in java template
                      var businessUnit = userLoginModel.businessUnit ? userLoginModel.businessUnit : '';
-                     node.find('select[name="businessUnit"] option[value="' + businessUnit + '"]').attr('selected', 'selected');
-                     node.find('select[name="businessUnit"]').chosen({
-                         width: "100%",
-                         no_results_text: "Oops, nothing found!"
-                     }).trigger("chosen:updated").change(function () {
-                    	 // SKIP
-                     });
-                     
+                     node.find('input[name="businessUnit"]').val(userLoginModel.businessUnit);
+
                      // inGroups
                      var inGroups = userLoginModel.inGroups ? userLoginModel.inGroups : [];
                      inGroups.forEach(function(e){
@@ -460,7 +451,7 @@ div.panel_header {
                      })
                      node.find('select[name="inGroups"]').chosen({
                          width: "100%",
-                         no_results_text: "Oops, nothing found!"
+                         no_results_text: "No data available!"
                      }).trigger("chosen:updated");
                      
 
@@ -481,15 +472,18 @@ div.panel_header {
                  	 if(userLoginModel.role >= 5){
                  		 $('div.panel_header').hide();
                  	 }
+                     
+                 	if(userLoginModel.userLogin === 'superadmin'){
+            			$('button.data-control-delete').attr('disabled', 'disabled').attr('title','You can not delete Super Admin User!');
+            		}
                  } 
              } else {
             	 notifyErrorMessage(json.errorMessage)
              }
          });
-         
     }
 
-    var saveUserProfile = function() {
+    function saveUserProfile() {
         var node = $('#user_login_editor_form');
         userLoginModel.displayName = node.find('input[name="displayName"]').val();
         userLoginModel.userLogin = node.find('input[name="userLogin"]').val();
@@ -497,7 +491,7 @@ div.panel_header {
         userLoginModel.userPass = node.find('input[name="userPass"]').val();
         userLoginModel.status = parseInt(node.find('input[name="status"]:checked').val());
         userLoginModel.role = parseInt(node.find('input[name="role"]:checked').val());
-        userLoginModel.businessUnit = node.find('select[name="businessUnit"]').val();
+        userLoginModel.businessUnit = node.find('input[name="businessUnit"]').val();
         userLoginModel.inGroups = JSON.stringify(node.find('select[name="inGroups"]').val());
         userLoginModel.customData.position = node.find('input[name="customData_position"]').val();
         
@@ -509,7 +503,6 @@ div.panel_header {
         userLoginModel.removeAllEditableSegments = node.data("removeAllEditableSegments") === true;
         
         userLoginModel.updateAllProfilesInJourney = $('#updateAllProfilesInJourney').prop("checked") === true;
-        
         
         if( userLoginModel.removeAllAuthorizedJourneys !== true) {
         	 userLoginModel.updatedJourneyMaps = getUserLoginUpdatedJourneyMaps();
@@ -545,7 +538,7 @@ div.panel_header {
         });
     }
 
-    var deleteUserLoginAccount = function() {
+    function deleteUserLoginAccount() {
     	if(userLoginModel){
     		var result = confirm("Do you want to delete " + userLoginModel.displayName + " ?");
             if (result) {
@@ -577,7 +570,7 @@ div.panel_header {
     }
     
     var viewableProfilesTable = false;
-    var loadViewableProfiles = function() {
+    function loadViewableProfiles() {
     	var userLogin = $('#user_login_editor_form').find('input[name="userLogin"]').val();
     	
     	var tableDomSel = "#viewable_profile_list_table";
@@ -586,7 +579,7 @@ div.panel_header {
     	
     	if(userLoginModel.role >= 5){
     		$(loaderDomSel).hide();
-    		$(containerDomSel).html("<h3 class='highlight_text'>Admin account can view all profiles</h3>").show()
+    		$(containerDomSel).html("<h3 class='highlight_text'>The admin account can view all profiles</h3>").show()
     	}
     	else if( $(tableDomSel).length === 1 ){
     		if(typeof viewableProfilesTable === "object"){
@@ -600,12 +593,10 @@ div.panel_header {
             	viewableProfilesTable = loadProfileListByFilter("",containerDomSel, loaderDomSel, tableDomSel, profileFilterParams);
         	}
     	}
-    	
-    	
     }
     
     var editableProfilesTable = false;
-    var loadEditableProfiles = function() {
+    function loadEditableProfiles() {
     	var userLogin = $('#user_login_editor_form').find('input[name="userLogin"]').val();
     	var tableDomSel = "#editable_profile_list_table";
     	var loaderDomSel = "#editable_profile_list_loader";
@@ -613,7 +604,7 @@ div.panel_header {
     	
     	if(userLoginModel.role >= 5){
     		$(loaderDomSel).hide();
-    		$(containerDomSel).html("<h3 class='highlight_text'>Admin account can edit all profiles</h3>").show()
+    		$(containerDomSel).html("<h3 class='highlight_text'>The admin account can edit all profiles</h3>").show()
     	}
     	else if( $(tableDomSel).length === 1 ){
     		if(typeof editableProfilesTable === "object"){
@@ -630,7 +621,7 @@ div.panel_header {
     }
     
     var viewableSegmentsTable = false;
-    var loadViewableSegments = function() {
+    function loadViewableSegments() {
     	var userLogin = $('#user_login_editor_form').find('input[name="userLogin"]').val();
     	var tableDomSel = "#viewable_segment_list_table";
     	var loaderDomSel = "#viewable_segment_list_loader";
@@ -638,7 +629,7 @@ div.panel_header {
     	
     	if(userLoginModel.role >= 5){
     		$(loaderDomSel).hide();
-    		$(containerDomSel).html("<h3 class='highlight_text'>Admin account can view all segments</h3>").show()
+    		$(containerDomSel).html("<h3 class='highlight_text'>The admin account can view all segments</h3>").show()
     	}
     	else if( $(tableDomSel).length === 1 ){
     		if(typeof viewableSegmentsTable === "object"){
@@ -663,7 +654,7 @@ div.panel_header {
     	
     	if(userLoginModel.role >= 5){
     		$(loaderDomSel).hide();
-    		$(containerDomSel).html("<h3 class='highlight_text'>Admin account can edit all segments</h3>").show()
+    		$(containerDomSel).html("<h3 class='highlight_text'>The admin account can edit all segments</h3>").show()
     	}
     	else if( $(tableDomSel).length === 1 ){
     		if(typeof editableSegmentsTable === "object"){
@@ -682,7 +673,7 @@ div.panel_header {
     
     var authorizedJourneyTable = false;
     var userLoginViewableJourneyMaps = {}, userLoginEditableJourneyMaps = {};
-    var loadAuthorizedJourneys = function(){
+    function loadAuthorizedJourneys(){
     	var userLogin = $('#user_login_editor_form').find('input[name="userLogin"]').val();
     	var tableDomSel = "#authorized_journeys_table";
     	var loaderDomSel = "#authorized_journeys_loader";
@@ -690,7 +681,7 @@ div.panel_header {
     	
     	if(userLoginModel.role >= 5){
     		$(loaderDomSel).hide();
-    		$(containerDomSel).html("<h3 class='highlight_text'>Admin account can view and edit all data journey maps</h3>").show()
+    		$(containerDomSel).html("<h3 class='highlight_text'>The admin account can view and edit all data journey maps</h3>").show()
     	}
     	else if( $(tableDomSel).length === 1 ){
     		if(typeof authorizedJourneyTable === "object"){
@@ -712,14 +703,11 @@ div.panel_header {
     	$('#' + containerId).empty().html("<h3 class='highlight_text'>All data will be removed after click on the Save button</h3>");
     }
     
-    
     function journeyListRowHandler(isSelected, selectedItemId){
     	console.log(isSelected + " journeyListRowHandler " + selectedItemId);
-    	
     	var toks = selectedItemId.split("-");
     	var journeyMapId = toks[0];
     	var type = toks[1];
-    	
     	if(type === "viewer") {
     		if(isSelected){
     			userLoginViewableJourneyMaps[journeyMapId] = true;
@@ -728,7 +716,6 @@ div.panel_header {
         		userLoginViewableJourneyMaps[journeyMapId] = false;
         	}
     	}
-    	
     	if(type === "editor") {
     		if(isSelected){
     			userLoginEditableJourneyMaps[journeyMapId] = true;
@@ -761,5 +748,5 @@ div.panel_header {
     	}
     	return map;
     }
-    
+      
 </script>

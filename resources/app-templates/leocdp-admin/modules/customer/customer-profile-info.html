@@ -48,7 +48,7 @@
                     </div>
                  
                 	<div class="col-md-4" >
-                        <b> <i class="fa fa-usd" aria-hidden="true"></i> Lifetime Value ({{currency_code}}) <a href="https://cio-wiki.org/wiki/Customer_Lifetime_Value" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+                        <b> <i class="fa fa-usd" aria-hidden="true"></i> CLV (Lifetime Value) <a href="https://cio-wiki.org/wiki/Customer_Lifetime_Value" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
                         <p class="scoring_field_profit" data-field="totalCLV" data-fieldholder="html" data-fieldtype="int" > 0 </p>
                     </div>
                     
@@ -58,8 +58,8 @@
                     </div>
                     
                		<div class="col-md-4" >
-                     	<b> <i class="fa fa-heart" aria-hidden="true"></i> Credit Score <a href="https://www.cgap.org/sites/default/files/publications/2019_07_Technical_Guide_CreditScore.pdf" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-					    <p class="scoring_field_credit" data-field="totalCreditScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+                        <b> <i class="fa fa-heartbeat" aria-hidden="true"></i> Loyalty Score <a href="https://en.wikipedia.org/wiki/Loyalty_program" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+                        <p class="scoring_field_credit" data-field="totalLoyaltyScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
                  	</div>                   
                     
                     <div class="col-md-4" >
@@ -155,7 +155,7 @@
 	                <hr>
 	                    
                     <div class="primary_field" > 
-                    	<b class="primary_field" > <i class="fa fa-user-circle-o" aria-hidden="true"></i> Contact Type: </b> 
+                    	<b class="primary_field" > <i class="fa fa-user-circle-o" aria-hidden="true"></i> Profile Type: </b> 
                     	<span class="data_field" data-field="typeAsText" data-fieldholder="html"  data-fieldtype="string"  > - </span>
                     </div> 
                     <div class="primary_field" >
@@ -188,12 +188,12 @@
           	<a href="javascript:" data-target-tab="panel_profile_information" title="Data of profile" > <i class="fa fa-info-circle" aria-hidden="true"></i> Profile Data </a>
          </li>
          
-         <li data-industry="MEDIA" style="display: none;" >
-          	<a href="javascript:" data-target-tab="panel_content_suggestions" > <i class="fa fa-list-ol" aria-hidden="true"></i> Suggested Contents </a>
+         <li data-industry="MEDIA" style="display: none;" onclick="loadRecommendedContentsForProfile(viewProfileId, true)">
+          	<a href="javascript:" data-target-tab="panel_content_suggestions" title="Recommended contents for direct marketing" > <i class="fa fa-list-ol" aria-hidden="true"></i> Recommended Contents </a>
          </li>
          
          <li data-industry="COMMERCE" style="display: none;" onclick="loadRecommendedProductsForProfile(viewProfileId, true)" >
-         	<a href="javascript:" data-target-tab="panel_recommended_products"  title="Recommended Product Items" > <i class="fa fa-list-ol" aria-hidden="true"></i> Suggested Items </a>
+         	<a href="javascript:" data-target-tab="panel_recommended_products"  title="Recommended products for direct marketing" > <i class="fa fa-list-ol" aria-hidden="true"></i> Recommended Products </a>
          </li>
          
          <li data-industry="FINANCE" style="display: none"  onclick="loadFinancialEventList()" >
@@ -448,37 +448,30 @@
 					                   <tr>
 					                       <td>
 					                           <ol id="profile_scoring" data-field="profile_scoring" >
-					                           	   
 					                           	   <li>
 								                       <b> <i class="fa fa-usd" aria-hidden="true"></i> Prospect Score <a href="https://en.wikipedia.org/wiki/Lead_scoring" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
 								                       <p class="scoring_field" data-field="totalProspectScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
 								                   </li>
-					                               
 					                               <li>
-					                                   <b> <i class="fa fa-usd" aria-hidden="true"></i> Customer Acquisition Cost (CAC) in {{currency_code}} <a href="https://en.wikipedia.org/wiki/Customer_acquisition_cost" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+					                                   <b> <i class="fa fa-usd" aria-hidden="true"></i> CAC (Customer Acquisition Cost) in {{currency_code}} <a href="https://en.wikipedia.org/wiki/Customer_acquisition_cost" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
 					                                   <p class="scoring_field_profit" data-field="totalCAC" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
 					                               </li>
-					                              
 					                               <li>
 					                                   <b> <i class="fa fa-heartbeat fa-line-chart" aria-hidden="true"></i> RFE Score (Recency, Frequency, Engagement) <a href="https://en.wikipedia.org/wiki/RFM_(market_research)" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
 					                                   <p class="scoring_field" data-field="rfeScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
 					                               </li>
-					                               
 					                               <li>
 					                                   <b> <i class="fa fa-heartbeat fa-line-chart" aria-hidden="true"></i> RFM Score (Recency, Frequency, Monetary)<a href="https://en.wikipedia.org/wiki/RFM_(market_research)" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
 					                                   <p class="scoring_field" data-field="rfmScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
 					                               </li>
-					                               
 					                               <li>
-					                                   <b> <i class="fa fa-heartbeat" aria-hidden="true"></i> Loyalty Score <a href="https://en.wikipedia.org/wiki/Loyalty_program" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-					                                   <p class="scoring_field_credit" data-field="totalLoyaltyScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+					                                   <b> <i class="fa fa-heart" aria-hidden="true"></i> Financial Credit Score <a href="https://www.cgap.org/sites/default/files/publications/2019_07_Technical_Guide_CreditScore.pdf" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+													   <p class="scoring_field_credit" data-field="totalCreditScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
 					                               </li>
-					                               
 					                               <li>
 					                                   <b> <i class="fa fa-heart-o" aria-hidden="true"></i> Customer Churn Score <a href="https://cio-wiki.org/wiki/Customer_Churn" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
 					                                   <p class="scoring_field_credit" data-field="churnScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
 					                               </li>
-					                               
 					                           </ol>
 					                       </td>
 					                   </tr>
@@ -493,7 +486,7 @@
 								<div id="user_consent_choices" class="funkyradio">
                                   	  <div class="funkyradio-primary">
 								      	<input type="checkbox" name="checkbox" id="receiveAds" value="1" disabled data-field="receiveAds" data-fieldtype="int" data-fieldholder="inputvalue" />
-								        <label for="receiveAds"> Agreed to receive personalized advertising media </label>
+								        <label for="receiveAds"> Agreed to receive recommended advertising media </label>
 								      </div>
 	                                  <div class="funkyradio-primary">
 								      	<input type="checkbox" name="checkbox" id="receiveEmail" value="1" disabled data-field="receiveEmail" data-fieldtype="int" data-fieldholder="inputvalue" />
@@ -720,14 +713,14 @@
 			<div class="tab-pane" id="panel_profile_information" >
 				<div class="tabbable">
 		                <ul id="profile_ext_info_tabs" class="nav nav-pills nav-stacked col-md-2">
-		                	<li class="active" ><a href="#tab_profile_contact_info" data-toggle="tab"> <i class="fa fa-envelope-o" aria-hidden="true"></i> Contact Info </a></li>
+		                	<li class="active" ><a href="#tab_profile_contact_info" data-toggle="tab"> <i class="fa fa-address-card-o" aria-hidden="true"></i> Contact Info </a></li>
 		                	<li><a href="#tab_profile_location_info" data-toggle="tab"> <i class="fa fa-map-marker" aria-hidden="true"></i> Living Location </a></li>
 		                	<li><a href="#tab_profile_education" data-toggle="tab"> <i class="fa fa-graduation-cap" aria-hidden="true"></i> Education </a></li>
 		                	<li><a href="#tab_profile_work_experience" data-toggle="tab"> <i class="fa fa-briefcase" aria-hidden="true"></i> Work and Income</a></li>
 		                	<li><a href="#tab_profile_marketing_data" data-toggle="tab"> <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing Info </a></li>
 		                	<li><a href="#tab_profile_sale_sources" data-toggle="tab"> <i class="fa fa-info-circle" aria-hidden="true"></i> Sale Sources </a></li>
 		                	<li><a href="#tab_profile_custom_fields" data-toggle="tab"> <i class="fa fa-table" aria-hidden="true"></i> Custom Fields </a></li>
-		                	<li><a href="#tab_profile_notes" data-toggle="tab"> <i class="fa fa-sticky-note-o" aria-hidden="true"></i> Notes </a></li>
+		                	<li><a href="#tab_profile_notes" data-toggle="tab"> <i class="fa fa-sticky-note-o" aria-hidden="true"></i> Notes / Description </a></li>
 		                	<li><a href="#tab_profile_data_authorization" data-toggle="tab"> <i class="fa fa-lock" aria-hidden="true"></i> User Authorization </a></li>
 		                </ul>
 		                
@@ -735,7 +728,7 @@
 		                	
 		                    <div class="tab-pane active" id="tab_profile_contact_info" >
 		                    	<!-- profile info tab 1 -->
-								<h4 class="highlight_text" > <i class="fa fa-envelope-o" aria-hidden="true"></i> Contact Data </h4>
+								<h4 class="highlight_text" > <i class="fa fa-address-card-o" aria-hidden="true"></i> Contact Data </h4>
 							 	<table border=0 class="underlined" style="width: 100%;">
 				                   <tr>
 				                       <td>
@@ -1052,10 +1045,9 @@
 			<!-- tab 5 recommended contents -->
 			<div class="tab-pane" id="panel_content_suggestions"  >
 				<!-- tab 4 content  -->
-		     	<h4 class="highlight_text" > <i class="fa fa-list-ol" aria-hidden="true"></i> Top recommended contents for customer engagement </h4>
+		     	<h4 class="highlight_text" > <i class="fa fa-list-ol" aria-hidden="true"></i> Top recommended contents </h4>
 		     	<h5> <i class="fa fa-info" aria-hidden="true"></i> You can drag and drop the items below to customize content ranking </h5>
 		     	<div id="recommended_content_list" class="list-group col">
-					<!-- recommended_content_list -->
 					<div class="list-group-item" > No data available </div>
 				</div>
 			</div>
@@ -1063,10 +1055,9 @@
 			<!-- tab 6 recommended products -->
 			<div class="tab-pane" id="panel_recommended_products"  >
 				<!-- tab 6 content  -->
-		     	<h4 class="highlight_text" > <i class="fa fa-list-ol" aria-hidden="true"></i> Top recommended products for customer personalization </h4>
+		     	<h4 class="highlight_text" > <i class="fa fa-list-ol" aria-hidden="true"></i> Top recommended products </h4>
 		     	<h5> <i class="fa fa-info" aria-hidden="true"></i> You can drag and drop the items below to customize product ranking </h5>
 		     	<div id="recommended_product_list" class="list-group col">
-					<!-- recommended_product_list -->
 					<div class="list-group-item" > No data available </div>
 				</div>
 			</div>
@@ -1116,80 +1107,11 @@
         	 }
         	 $('#profile_full_name').text(profileData.fullName);
         	 
-        	 // in segments
-        	 var inSegmentsNode = $('#profileInSegments');
-        	 var inSegmentSize = profileData.inSegments.length;
-       		 profileData.inSegments.forEach(function(e){
-           		 inSegmentSize--;
-           		 var title = "Segment: " + e.name;
-           		 var ahtml = $('<a/>').attr('title',title).attr('href',"#calljs-leoCdpRouter('Segment_Details','"+e.id+"')").text(e.name)[0].outerHTML;
-           		 var html = '<b>' + ahtml + '</b>';
-           		 if(inSegmentSize > 0){
-           			 html += "; ";
-           		 }
-           		 inSegmentsNode.append(html);
-           	 });
-       		 
-       		 // in Journey Maps
-        	 var inJourneyMapsNode = $('#profileInJourneyMaps');
-        	 var inJourneyMapsSize = profileData.inJourneyMaps.length;
-       		 profileData.inJourneyMaps.forEach(function(e){
-       			
-       			inJourneyMapsSize--;
-       			var title = "Journey Map: " + e.name + " => At Stage: " + journeyStagesMap[e.indexScore];
-       			var name = e.name;
-       			var ahtml = $('<a/>').attr('title',title).attr('href',"#calljs-leoCdpRouter('Data_Journey_Map','"+e.id+"')").html(name)[0].outerHTML;
-          		var html = '<b>' + ahtml + '</b>';
-          		if(inJourneyMapsSize > 0){
-          			 html += "; ";
-          		}
-          		
-          		if(e.queryHashedId === ""){
-          			inJourneyMapsNode.append(html);
-              		// update default
-              		currentJourneyMapId = e.id;
-          		}
-           	 });
-        	 
-        	 //profileData.inAccounts.push({"id":123,"name":"USPA Technology Company"})
-        	 // in accounts
-        	 var inAccountsNode = $('#profileInAccounts');
-        	 var inAccountSize = profileData.inAccounts.length;
-       		 profileData.inAccounts.forEach(function(e){
-           		 inAccountSize--;
-           		 var ahtml = $('<a/>').attr('href',"#calljs-leoCdpRouter('Account_Details','"+e.id+"')").html(e.name)[0].outerHTML;
-             	 var html = '<b>' + ahtml + '</b>';
-                 if(inAccountSize > 0){
-             			 html += "; ";
-             	 }
-             	 inAccountsNode.append(html);
-           	 });
-        	 
-        	 // data labels
-        	 var dataLabelsNode = $('#profileDataLabels');
-        	 var dataLabelsSize = profileData.dataLabels.length;
-       		 profileData.dataLabels.forEach(function(e){
-           		 dataLabelsSize--;
-              		 var html = '<b>' + e + '</b>';
-              		 if(dataLabelsSize > 0){
-              			 html += "; ";
-              		 }
-              		dataLabelsNode.append(html);
-           	 });
+        	 // journeyMaps, Segments, dataLabels
+        	 renderTaxonomyTextData(profileData);
         	 
         	 // event flow
-        	 loadEventsInProfileIndex=0;
-        	 
-        	 // feedback data from customer
-        	 loadFeedbacksInProfileIndex = 0;
-        	 loadFeedbackEventsInProfile();
-        	 
-        	 // Recommender for Data Personalization
-        	 loadRecommendedContentsForProfile(viewProfileId, true);
-        	 loadRecommendedProductsForProfile(viewProfileId, true);
-        	 
-        	 // Financial Events
-        	 loadFinancialEventList();
+        	 loadEventsInProfileIndex = 0;
         	 
         	 // touchpoint
         	 renderProfileTouchpointChart(profileId, -1, 0, 30)
@@ -1197,11 +1119,21 @@
         	 // Profile Analytics Report
         	 loadJourneyReportForProfile(profileId, profileData);
         	 
-        	 // timeseries
+        	 
         	 setTimeout(function(){
         		 initDateFilterComponent(true, null, null, daysToQueryEventData);
-            	 loadProfileEventDailyReportUnit(profileId)
-			 },3000)
+            	 loadProfileEventDailyReportUnit(profileId);
+            	 
+        		 // feedback data from customer
+            	 loadFeedbacksInProfileIndex = 0;
+            	 loadFeedbackEventsInProfile();
+        	 },2500);
+        	 
+        	 // timeseries
+        	 setTimeout(function(){
+            	 // Financial Events
+            	 loadFinancialEventList();
+			 },5000)
         	 
         	 //renderJourneyFlowChart();
         	 //loadProfileAttribution();
@@ -1218,6 +1150,4 @@
              }
          });
     }   
-        
-    
 </script>

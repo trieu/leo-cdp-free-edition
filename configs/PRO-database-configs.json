@@ -1,0 +1,17 @@
+{
+  "configs": {
+    "dockerCdpDbConfigs": {
+      "username": "root",
+      "password": "FormulaLeo#2020",
+      "database": "leo_cdp_test",
+      "host": "arangodb-server.docker",
+      "port": 8601,
+      "dbdriver": "arangodb",
+      "dbdriverclasspath": "com.arangodb.ArangoDB",
+      "enabled": true,
+      "partitionMap": {
+        "Profile": 1
+      }
+    }
+  }
+}

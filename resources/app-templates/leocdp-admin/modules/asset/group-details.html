@@ -49,11 +49,11 @@
         <div class="panel panel-default" id="posts_of_page_view">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-lg-7">
+                    <div class="col-lg-4">
                         <i class="fa fa-list-ul" aria-hidden="true"></i> <label>Asset Item List</label>                            
                     </div>
-                    <div class="col-lg-5" style="text-align: right;">
-                    	<button id="btn_remove_recommended_items" type="button" class="btn btn-danger data-control-delete" onclick="removeRecommendedItemsInAssetGroup()" style="display: none;">
+                    <div class="col-lg-8" style="text-align: right;">
+                    	<button id="btn_remove_recommended_items" type="button" class="btn btn-danger" onclick="removeRecommendedItemsInAssetGroup()" style="display: none;">
                     		<i class="fa fa-trash" aria-hidden="true"></i> Remove Recommended Items 
                     	</button>
 			        	<button id="btn_import_items" type="button" class="btn btn-goto-router data-control-update" style="display: none;" title="Import Items" > 
@@ -190,7 +190,7 @@
         	$('#btn_edit_group').show();
         	$('#btn_delete_group').show();
         
-        	if(assetGroupType === 1){
+        	if(assetGroupType === 1 || assetGroupType === 15){
         		// Creative Content / web blog
         		// TODO import content from CSV ??
         		$('#btn_remove_recommended_items').show();
@@ -398,7 +398,7 @@
     
 	function removeRecommendedItemsInAssetGroup(){				
 		iziToast.info({  title: 'Information Box', color : 'green', message: 'Starting the process to remove recommended items'});
-	    var urlStr = baseLeoAdminUrl + '/cdp/segment/remove-recommened-items';
+	    var urlStr = baseLeoAdminUrl + '/cdp/asset-group/remove-recommended-items';
 	    var params = { "assetGroupId": assetGroupId };
 	    LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
 	         if (json.httpCode === 0 && json.errorMessage === '') {

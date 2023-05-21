@@ -6,7 +6,7 @@
 			<h5 class="page-header" id="page_breadcrumb" > </h5>
 		</div>
 		<div class="col-lg-2 text-right" style="padding: 10px">
-	     	<button type="button" class="btn btn-info" onclick="gotoLeoCdpRouter('defaultRouter')" title="Back"  > 
+	     	<button type="button" class="btn btn-info" onclick="history.back()" title="Back"  > 
 	       		<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
 	       	</button>
 	       	<button type="button" class="btn btn-success data-control-edit" onclick="saveMyLoginProfile()" title="Save Login Account"  > 
@@ -26,7 +26,7 @@
         	<!--  Tab Navigation Items -->
 		    <ul class="nav nav-tabs" data-tab-content="login_account_tabs" >
 				<li class="active" >
-					<a href="javascript:" data-target-tab="panel_login_account_tab_general" title="General Information" > <i class="fa fa-info-circle" aria-hidden="true"></i> General Information</a>
+					<a href="javascript:" data-target-tab="panel_login_account_tab_general" title="User Profile" > <i class="fa fa-info-circle" aria-hidden="true"></i> User Information </a>
 		       	</li>
 		       	<li>
 					<a href="javascript:" data-target-tab="panel_login_account_tab_permissions" title="Account Permission" > <i class="fa fa-lock" aria-hidden="true"></i> User's Role </a>
@@ -51,7 +51,7 @@
 	                        autocapitalize="none" spellcheck="false">
 	                </div>
 	                <div class="form-group">
-	                    <label> Email </label>
+	                    <label> Contact Email </label>
 	                    <input data-validation="email" type="email" class="form-control" placeholder="Enter Email" name="userEmail"
 	                        autocorrect="off" autocapitalize="off" autocomplete="off">
 	                </div>
@@ -61,13 +61,10 @@
 	                        autocapitalize="off" autocomplete="nope">
 	                </div>
 	                <hr>
-	                <div class="form-group" style="display: none;">
-	                    <label> Primary Business Unit </label>
-	                    <select name="businessUnit" data-placeholder="Choose Business Unit" class="select" >
-	                        <option value="" selected="selected"> No data </option>
-	                        <option value="USPA.tech"> USPA.tech </option>
-	                        <option value="LEOCDP.com"> LEOCDP.com </option>
-	                    </select>
+	                 <div class="form-group" >
+	                    <label> Business Unit </label>
+	                    <input type="text" class="form-control" placeholder="Enter the name of business unit" name="businessUnit"
+	                        autocorrect="off" autocapitalize="off" autocomplete="off required ">
 	                </div>
 	                <div class="form-group">
 	                    <label> Departments / User Groups </label>
@@ -109,12 +106,10 @@
 				<!-- tab 2 Account Permissions  -->
 				<div class="tab-pane" id="panel_login_account_tab_permissions" >
 					<div class="action-div">
-	                    <label>User's Role</label>
 	                    <div class="radio" >
 	                        <label><input type="radio" name="role" value="0" disabled="disabled" > 
 	                        	REPORT VIEWER: the login account can access Unified Analytics Hub to view summary reports </label>
 	                    </div>
-	                    <hr>
 	                    <div class="radio"  >
 	                        <label><input type="radio" name="role" value="1" disabled="disabled"> 
 	                        	CUSTOMER DATA VIEWER: the login account has permissions to view authorized customer data (profiles and segments)</label>
@@ -123,7 +118,6 @@
 	                        <label><input type="radio" name="role" value="2" disabled="disabled"> 
 	                        	STANDARD USER: the login account can access Unified Analytics Hub and view authorized customer data  </label>
 	                    </div>
-	                    <hr>
 	                    <div class="radio">
 	                        <label><input type="radio" name="role" value="3" disabled="disabled"> 
 	                        	CUSTOMER DATA EDITOR: the login account has permissions to manage authorized customer data (profiles and segments)</label>
@@ -132,7 +126,6 @@
 	                        <label><input type="radio" name="role" value="4" disabled="disabled"> 
 	                        	DATA OPERATOR: the login account has access Unified Analytics Hub, manage Journey Data Hub and update authorized customer profiles </label>
 	                    </div>
-	                    <hr>
 	                    <div class="radio">
 	                        <label><input type="radio" name="role" value="5" disabled="disabled"> 
 	                        	DATA ADMIN: the login account has full permissions to manage customer data, can manage Data Asset and Data Connector </label>
@@ -154,60 +147,56 @@
 <hr>
 
 <script>
-    var userModel = false;
+    var userLoginModel = false;
 
     function initMyLoginInfo() {
     	 setupTabPanels();
     	
     	 var key = currentUserProfile.key;
          var urlStr = baseLeoAdminUrl + '/user/get';
-         LeoAdminApiUtil.callPostAdminApi(urlStr, {
-             'key': key || 'my-login-info'
-         }, function (json) {
+         var params = {'key': key || 'my-login-info' };
+         
+         LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
              if (json.httpCode === 0 && json.errorMessage === '') {
                  if (json.data) {
-                     userModel = json.data;
-                     var date = LeoAdminApiUtil.formater.toDateString(userModel.creationTime);
+                     userLoginModel = json.data;
+                     var date = LeoAdminApiUtil.formater.toDateString(userLoginModel.creationTime);
 
                      var node = $('#user_form');
-                     if (typeof userModel.key === 'string') {
-                         node.find('input[name="userLogin"]').val(userModel.userLogin).attr('disabled', '');
-                         node.find('input[name="status"][value=' + userModel.status + ']').attr('checked', '');
-                         node.find('input[name="role"][value=' + userModel.role + ']').attr('checked', '').parent().css("font-weight","bolder");
+                     if (typeof userLoginModel.key === 'string') {
+                         node.find('input[name="userLogin"]').val(userLoginModel.userLogin).attr('disabled', '');
+                         node.find('input[name="status"][value=' + userLoginModel.status + ']').attr('checked', '');
+                         
+                         $('input[name="role"]').parent().parent().hide();
+                         $('input[name="role"][value=' + userLoginModel.role + ']').attr('checked', '').parent().css("font-weight","bolder").parent().show();
                      } else {
-                         node.find('input[name="userLogin"]').val(userModel.userLogin);
+                         node.find('input[name="userLogin"]').val(userLoginModel.userLogin);
                          node.find('input[name="status"][value=1]').attr('checked', '');
                          node.find('input[name="role"][value=1]').attr('checked', '');
                      }
-                     node.find('input[name="displayName"]').val(userModel.displayName);
-                     node.find('input[name="userEmail"]').val(userModel.userEmail);
+                     
+                     node.find('input[name="displayName"]').val(userLoginModel.displayName);
+                     node.find('input[name="userEmail"]').val(userLoginModel.userEmail);
 
                      //customData
-                     var position = userModel.customData.position ? userModel.customData.position : '';
+                     var position = userLoginModel.customData.position ? userLoginModel.customData.position : '';
                      node.find('input[name="customData_position"]').val(position);
                      
                      // load businessUnit in java template
-                     var businessUnit = userModel.businessUnit ? userModel.businessUnit : '';
-                     node.find('select[name="businessUnit"] option[value="' + businessUnit + '"]').attr('selected', 'selected');
-                     node.find('select[name="businessUnit"]').chosen({
-                         width: "100%",
-                         no_results_text: "Oops, nothing found!"
-                     }).trigger("chosen:updated").change(function () {
-                    	 // SKIP
-                     });
+                     var businessUnit = userLoginModel.businessUnit ? userLoginModel.businessUnit : '';
+                     node.find('input[name="businessUnit"]').val(userLoginModel.businessUnit);
 
                   	 // inGroups
-                     var inGroups = userModel.inGroups ? userModel.inGroups : [];
-                     inGroups.forEach(function(e){
-                    	 node.find('select[name="inGroups"] option[value="' + e + '"]').attr('selected', 'selected');
+                  	 var inGroupsNode = $('select[name="inGroups"]');
+                     var inGroups = typeof userLoginModel.inGroups === 'object' ? userLoginModel.inGroups : [];                     
+                     var inGroupsNode = $('select[name="inGroups"]');                                       	 
+                 	 inGroups.forEach(function(e){
+                 		inGroupsNode.find('option[value="' + e + '"]').attr('selected', 'selected');
                      })
-                     node.find('select[name="inGroups"]').chosen({
-                         width: "100%",
-                         no_results_text: "Oops, nothing found!"
-                     }).trigger("chosen:updated");
+                     inGroupsNode.chosen({ width: "100%", no_results_text: "Oops, nothing found!" }).trigger("chosen:updated");
 
                      //can not delete superadmin
-                     if(userModel.userLogin === 'superadmin'){
+                     if(userLoginModel.userLogin === 'superadmin'){
                          $('#btn_delete').hide();                        
                      }
                  }
@@ -220,13 +209,13 @@
     function saveMyLoginProfile() {
         var node = $('#user_form');
         
-        userModel.displayName = node.find('input[name="displayName"]').val();
-        userModel.userEmail = node.find('input[name="userEmail"]').val();
-        userModel.userPass = node.find('input[name="userPass"]').val();
-        
-        userModel.businessUnit = node.find('select[name="businessUnit"]').val();
-        userModel.inGroups = JSON.stringify(node.find('select[name="inGroups"]').val());
-        userModel.customData.position = node.find('input[name="customData_position"]').val();
+        userLoginModel.displayName = node.find('input[name="displayName"]').val();
+        userLoginModel.userEmail = node.find('input[name="userEmail"]').val();
+        userLoginModel.userPass = node.find('input[name="userPass"]').val();
+                
+        userLoginModel.businessUnit = node.find('input[name="businessUnit"]').val();
+        userLoginModel.inGroups = JSON.stringify(node.find('select[name="inGroups"]').val());
+        userLoginModel.customData.position = node.find('input[name="customData_position"]').val();
 
         var urlStr = baseLeoAdminUrl + '/user/update';
         var onSaveOk = function (data) {
@@ -240,7 +229,7 @@
 	    	});
         }
 
-        LeoAdminApiUtil.callPostAdminApi(urlStr, userModel, function (json) {
+        LeoAdminApiUtil.callPostAdminApi(urlStr, userLoginModel, function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
                 if (json.data === '') {
                     $('#error-on-save').html('Data is not valid !').show().delay(6000).fadeOut('slow');
@@ -252,7 +241,7 @@
                 LeoAdminApiUtil.logErrorPayload(json);
             }
         });
-        console.log(userModel);
+        console.log(userLoginModel);
     }
  
 </script>

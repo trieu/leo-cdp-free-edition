@@ -86,11 +86,11 @@
        		<li id="tab_journey_data_observers" style="display: none">
        			<a href="javascript:" data-target-tab="panel_data_observers"  > <i class="fa fa-list" aria-hidden="true"></i> Event Observer </a>
        		</li>
-       		<li id="tab_journey_data_authorization" style="display: none">
-       			<a href="javascript:" data-target-tab="panel_journey_data_authorization"  > <i class="fa fa-lock" aria-hidden="true"></i> User Authorization </a>
-       		</li>
        		<li>
        			<a href="javascript:" data-target-tab="panel_summary_report"  > <i class="fa fa-bar-chart aria-hidden="true"></i> Summary Report  </a>
+       		</li>
+       		<li id="tab_journey_data_authorization" style="display: none">
+       			<a href="javascript:" data-target-tab="panel_journey_data_authorization"  > <i class="fa fa-lock" aria-hidden="true"></i> User Authorization </a>
        		</li>
 		</ul>
 
@@ -140,7 +140,7 @@
 					</div>
 					<div class="checkbox">
 					  <label style="font-weight: bold;">
-					  	<input type="checkbox" id="updateAllProfilesInJourney" checked="checked"> Update data authorization for all profiles in this journey map
+					  	<input type="checkbox" id="updateAllProfilesInJourney" checked="checked"> Use cascading update data authorization for all customer profiles in this journey map
 					  </label>
 					</div>
 					<div class="form-group text-right"  >
@@ -154,7 +154,7 @@
 			<!-- tab 4 Journey Data Report  -->
 			<div class="tab-pane" id="panel_summary_report" >
 				<!-- Event Matrix -->
-				<div class="col-md-12"  >
+				<div class="col-lg-12"  >
 					<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Matrix Report </h4> 
 					<div id="journey_map_event_matrix" class="col-lg-12"> </div>
 				</div>
@@ -214,10 +214,15 @@
    		loadDataObserverList("#data_observers_table");
     	
     	// the flow
-    	var callback = function(touchpointCount){
+    	var callback = function(journeyMap, touchpointCount){
     		var maxSize = touchpointCount * 3;
     		loadJourneyTouchpointHubReport(currentJourneyMapId, maxSize)
-    		loadJourneyMapEventMatrix(currentJourneyMapId, 'journey_map_event_matrix')
+    		loadJourneyMapEventMatrix(currentJourneyMapId, 'journey_map_event_matrix');
+    		
+    		// data authorization
+    		if( role >=5 ) {
+    			loadSystemUsersForDataAuthorization(journeyMap, $('#authorizedJourneyViewers'), $('#authorizedJourneyEditors'));
+    		}
     	}
 		loadJourneyMapAndTouchpointHubs(currentJourneyMapId, '#journeyFlowChart', '#journeyMapName, #authorizedJourneyName', "#touchpoint_hub_table", callback);
 	}
@@ -228,7 +233,7 @@
 		showJourneyFlowReport( {"journeyMapId": currentJourneyMapId}, containerId )
 	}
 	
-	// DEMO to load report as a graph
+	// DEMO to load and test the report as a graph
 	function loadJourneyFlowReportDemo(){
 		const MAX_ZOOM = 5;
 		const MIN_ZOOM = 0.5;

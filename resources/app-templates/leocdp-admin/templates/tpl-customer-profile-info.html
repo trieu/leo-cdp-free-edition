@@ -249,21 +249,39 @@
 <script id='recommended-content-tpl' type="text/html" >
  <div class="list-group-item col-md-12" id="content_item_<%- key %>" data-key="<%- key %>" >
 	<div class="col-md-2 text-center" > 
-		<img src="<%- content.headlineImageUrl %>" alt="Content Image" class="rounded mx-auto d-block item-headline-img"  > 
+		<img alt="Content Image" class="rounded mx-auto d-block item-headline-img" src="<%- content.headlineImageUrl %>" onerror="this.src = NO_IMAGE_URL" > 
 	</div>
 	<div class="col-md-10">
 		<small class="text-muted pull-right"> Updated at: <%- updatedAt %> </small>
 		<span class="rank_item_info" > Ranking Index: <span class="rank_info" id="rank_content_<%- key %>" data-key="<%- key %>" ><%- indexScore %></span> </span> <br> 
 		<h5 class="media-heading">  <%- content.title %> </h5>
-		<span class="small item_link" > <a target="_blank" href="<%- content.headlineVideoUrl %>" > <%- content.headlineVideoUrl %> </a> </span> 
+		
+		<div class="row">
+			<div class="col-md-3">
+				<h5> <i class="fa fa-info" aria-hidden="true"></i> Smart Link URL </h5>
+			</div>
+			<div class="col-md-9">
+				<input class="form-control autoselectall" type="url" value="<%- targetMediaUnit.trackingLinkUrl %>" autocomplete="off" readonly > 
+			</div>		
+		</div>
+
+		<div class="row" style="margin-top:8px;">
+			<div class="col-md-3">
+				<h5> <i class="fa fa-info" aria-hidden="true"></i> Full URL of landing page </h5>
+			</div>
+			<div class="col-md-9">
+				<input class="form-control autoselectall" type="url" value="<%- content.fullUrl %>" autocomplete="off"  readonly >
+			</div>		
+		</div>
+
 	</div>
  </div>
 </script>
 
 <script id='recommended-product-tpl' type="text/html" >
- <div class="list-group-item col-md-12" id="product_item_<%- key %>" data-key="<%- key %>" style="cursor:pointer" title="Click, drag and drop to update item ranking" >
+ <div class="list-group-item col-md-12" id="product_item_<%- key %>" data-key="<%- key %>" style="cursor:pointer" title="Drag and drop to update item ranking" >
 	<div class="col-md-2 text-center"> 
-		<img src="<%- product.headlineImageUrl %>" alt="Product Image" class="rounded mx-auto d-block item-headline-img"  > 
+		<img alt="Product Image" class="rounded mx-auto d-block item-headline-img" src="<%- product.headlineImageUrl %>" onerror="this.src = NO_IMAGE_URL" > 
 	</div>
 	 <div class="col-md-10">
 		<small class="text-muted pull-right"> Updated at: <%- updatedAt %> </small>
@@ -273,7 +291,7 @@
 
 		<div class="row">
 			<div class="col-md-3">
-				<h5> <i class="fa fa-info" aria-hidden="true"></i> Short URL for click tracking </h5>
+				<h5> <i class="fa fa-info" aria-hidden="true"></i> Smart Link URL </h5>
 			</div>
 			<div class="col-md-9">
 				<input class="form-control autoselectall" type="url" value="<%- targetMediaUnit.trackingLinkUrl %>" autocomplete="off" readonly > 

@@ -48,6 +48,7 @@
 		var cacheBustingKey = '{{cacheBustingKey}}';
 		var leoCdpEdition = '{{leoCdpEdition}}';
 		var minifySuffix = '{{minifySuffix}}';
+		var maxTotalDataQualityScore = {{maxTotalDataQualityScore}};
 	</script>
 
 	<!-- Bootstrap Core CSS -->
@@ -151,9 +152,9 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css" rel="stylesheet" crossorigin="anonymous" referrerpolicy="no-referrer">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-	<!-- Pagination -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css" rel="stylesheet" crossorigin="anonymous" referrerpolicy="no-referrer"crossorigin="anonymous" referrerpolicy="no-referrer"/>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- paginationjs -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.5.0/pagination.css" rel="stylesheet" crossorigin="anonymous" referrerpolicy="no-referrer"crossorigin="anonymous" referrerpolicy="no-referrer"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.5.0/pagination.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	
 	<!-- ChartJS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -308,10 +309,17 @@
 	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.profile.js?admin=1&_={{cacheBustingKey}}"></script>
 	
 	<!-- segment -->
-	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.segmentation.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.segment.builder.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.segment.details.js?admin=1&_={{cacheBustingKey}}"></script>	
 	
 	<!-- feedback survey -->
 	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.feedback.survey.js?admin=1&_={{cacheBustingKey}}"></script>
+	
+	<!-- data connector -->
+	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.connector.js?admin=1&_={{cacheBustingKey}}"></script>
+	
+	<!-- system management and event monitoring  -->
+	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.system.js?admin=1&_={{cacheBustingKey}}"></script>
 	
 	<!-- after deps are loaded -->
 	<script>
@@ -319,6 +327,7 @@
 		window.mediaPlayerOneReady = function () {
 			// ready to play content
 		}
+		
 		// inject dynamic configs and load all widgets and templates
 		$( document ).ready(function() {
 			window.systemConfig = JSON.parse($('<textarea />').html("{{systemConfigJson}}").text())
@@ -329,7 +338,6 @@
 		        '/view/common-widgets/post-type-selection-modal.html',
 		        '/view/common-widgets/confirm-delete-data-modal.html',
 		        '/view/common-widgets/leo-recommender.html',
-		        		
 		        '/view/templates/tpl-analytics-dashboard.html',
 		        '/view/templates/tpl-customer-profile-info.html',
 		        '/view/templates/tpl-customer-journey-flow.html'

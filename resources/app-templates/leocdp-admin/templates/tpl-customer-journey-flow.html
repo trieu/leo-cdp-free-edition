@@ -192,7 +192,7 @@ function leoObserverProxyReady(session) {
 				<h4 class="modal-title text-center" > Embedded JavaScript Code to collect contact data of profile </h4>
 			</div>         
 			<div class="modal-body row">
-				<div id="code_holder" ><textarea id="data_observer_code" class="code">
+				<div id="code_holder" class="col-sm-12" ><textarea id="data_observer_code" class="code">
 (function() {
     // Lead Form Code for touchpoint: __tpHubName__
 	window.srcTouchpointName = encodeURIComponent(document.title);
@@ -238,7 +238,7 @@ function leoObserverProxyReady(session) {
 				   <div class="text-center" >
 				   	 <a target="_blank" href="#" id="qrHrefUrl"> <img src="" alt="QR Code Image" id="qrImgSrc" > </a>
 				   </div>
-				   <label class="control-label"> Short URL </label>
+				   <label class="control-label"> Smart Link URL </label>
 				   <input type="text" class="form-control" readonly value="" id="qrShortURL"> 
 				   
 				   <label class="control-label"> QR Code Image URL </label>
@@ -304,11 +304,10 @@ function leoObserverProxyReady(session) {
 					<!-- tab 2  -->
 					<div class="tab-pane" id="panel_cx_web_form"  >
 						
-				    	<div id="feedback_form_code_holder" >
+				    	<div id="feedback_form_code_holder" class="col-sm-12" >
 								<textarea class="code" >
 (function() {
-    //  Feedback/Survey Form Collector for __feedbackFormTitle__
-    
+    //  Feedback/Survey: __feedbackFormTitle__
     // default the height of iframe but you can set it to optimize best view 
     var iframeH = __iframeHeight__;
     var autoScaleHeight = true;
@@ -379,38 +378,48 @@ function leoObserverProxyReady(session) {
 		<!-- Modal content-->
 		<div class="modal-content">   
 			<div class="modal-header">
-				<h4 class="modal-title text-center" > Copy the embedded JavaScript code for show recommended information </h4>
+				<h4 class="modal-title text-center" > Copy the embedded JavaScript code for <span id="itemTypePersonalization"></span> personalization </h4>
 			</div>         
 			<div class="modal-body row">
-				<div id="recommender_code_holder" >
+                
+				<div id="recommender_code_holder" class="col-sm-12" >
 					<textarea class="code">
-// Recommender JavaScript code for [__tpHubName__]
+// Personalization JavaScript code for [__tpHubName__]
 setTimeout(function(){
 	LeoObserverProxy.synchLeoVisitorId(function(vid) {
 		var observerId = "__observerId__";
+		var jsDomId = 'leo_recommender_'+observerId;
 		var cb = Math.floor(Math.random() * 100000);
-		var src = "https://__LeoObserverDomain__/ris/html/products?visid=" + vid;
+		var src = "__personalizationUrl__";
+		
+		// set parameters for personalization engine
+		src += ("?visid=" + vid);
 		src += ("&obsid=" + observerId );
 		src += ("&tpurl=" + encodeURIComponent(location.href) );
 		src += ("&cb=" + cb );
 		
 		// Set width and height of iframe
+		var jsDomW = document.getElementById(jsDomId).parentElement.offsetWidth;
 		var h = '500px';
-		var w = '300px';
+		var w = jsDomW + 'px';
 		var style = "width:"+w+"; height:"+h;
-		style += "; overflow-y:scroll; margin:auto; display:block; border:none;";
+		style += "; overflow-y:scroll; overflow-x:hidden; margin:auto; display:block; border:none;";
 		
 		// append DOM
+		var iframeId = observerId + '_leo_iframe_' + cb;
 		var f = document.createElement('iframe');
+		f.setAttribute("id", iframeId);
 		f.setAttribute("src", src);
 		f.setAttribute("style", style);
 		f.setAttribute("frameBorder", "0");
-		var s = document.getElementById('leo_recommender_'+observerId);
+		var s = document.getElementById(jsDomId);
 	    s.parentNode.insertBefore(f, s);
 	})
-},800);
+},900);
 					</textarea>
 				</div>
+				
+				
 			</div>  
 			<div class="modal-footer">
 				<button type="button" class="btn btn-do-now btn-copy-code" ><i class="fa fa-clipboard" aria-hidden="true"></i> Copy Code</button>

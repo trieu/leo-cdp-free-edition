@@ -115,7 +115,7 @@
 		var onSaveOk = function(data) {
 			console.log('=====> saveCategoryInfo ', data);
 			setTimeout(function() {
-				location.hash =  'calljs-loadCategoryList()';
+				history.back();
 			}, 500);
 		}
 
