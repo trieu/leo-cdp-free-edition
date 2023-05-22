@@ -1,7 +1,8 @@
 #!/bin/sh
 
 LEO_CDP_FOLDER="/build/leo-cdp"
-BUILD_VERSION="v_0.20210815-23h"
+BUILD_VERSION="v_0.9.0"
+HTTP_ROUTER_KEY="leocdp-admin"
 
 JAR_MAIN="leo-main-starter-$BUILD_VERSION.jar"
 
@@ -13,9 +14,9 @@ else
       cd $LEO_CDP_FOLDER
 fi
 
-JVM_PARAMS="-Xms1G -Xmx2G -XX:+TieredCompilation -XX:+UseCompressedOops -XX:+DisableExplicitGC -XX:+UseNUMA -server"
+JVM_PARAMS="-Xms256m -Xmx1500m -XX:+TieredCompilation -XX:+UseCompressedOops -XX:+DisableExplicitGC -XX:+UseNUMA -server"
 
-kill -15 $(pgrep -f "leo-main-starter-")
-sleep 3
+kill -15 $(pgrep -f "$HTTP_ROUTER_KEY")
+sleep 4
 
-java -jar $JVM_PARAMS $JAR_MAIN leocdp-admin >> admin.log 2>&1 &
+java -jar $JVM_PARAMS $JAR_MAIN $HTTP_ROUTER_KEY >> admin-$HTTP_ROUTER_KEY.log 2>&1 &

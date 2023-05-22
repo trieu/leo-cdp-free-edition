@@ -1,7 +1,8 @@
 #!/bin/sh
 
 LEO_CDP_FOLDER="/build/leo-cdp"
-BUILD_VERSION="v_0.20210815-23h"
+BUILD_VERSION="v_0.9.0"
+HTTP_ROUTER_KEY="datahub"
 
 JAR_MAIN="leo-observer-starter-$BUILD_VERSION.jar"
 
@@ -13,9 +14,9 @@ else
       cd $LEO_CDP_FOLDER
 fi
 
-JVM_PARAMS="-Xms1G -Xmx2G -XX:+TieredCompilation -XX:+UseCompressedOops -XX:+DisableExplicitGC -XX:+UseNUMA -server"
+JVM_PARAMS="-Xms256m -Xmx1500m -XX:+TieredCompilation -XX:+UseCompressedOops -XX:+DisableExplicitGC -XX:+UseNUMA -server"
 
-kill -15 $(pgrep -f "leo-observer-starter-")
+kill -15 $(pgrep -f "$HTTP_ROUTER_KEY")
 sleep 4
 
-java -jar $JVM_PARAMS $JAR_MAIN >> observer.log 2>&1 &
+java -jar $JVM_PARAMS $JAR_MAIN $HTTP_ROUTER_KEY >> observer-$HTTP_ROUTER_KEY.log.log 2>&1 &

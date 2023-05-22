@@ -1,7 +1,8 @@
 #!/bin/sh
 
 LEO_CDP_FOLDER="/build/leo-cdp"
-BUILD_VERSION="v_0.20210815-23h"
+BUILD_VERSION="v_0.9.0"
+JOB_NAME="DataConnectorScheduler"
 
 JAR_MAIN="leo-scheduler-starter-$BUILD_VERSION.jar"
 
@@ -13,9 +14,9 @@ else
       cd $LEO_CDP_FOLDER
 fi
 
-JVM_PARAMS="-Xms1G -Xmx2G -XX:+TieredCompilation -XX:+UseCompressedOops -XX:+DisableExplicitGC -XX:+UseNUMA -server"
+JVM_PARAMS="-Xms256m -Xmx1500m -XX:+TieredCompilation -XX:+UseCompressedOops -XX:+DisableExplicitGC -XX:+UseNUMA -server"
 
-kill -15 $(pgrep -f "DataJobScheduler")
+kill -15 $(pgrep -f "$JOB_NAME")
 sleep 4
 
-java -jar $JVM_PARAMS $JAR_MAIN DataJobScheduler >> scheduler.log 2>&1 &
+java -jar $JVM_PARAMS $JAR_MAIN $JOB_NAME >> $JOB_NAME.log 2>&1 &
