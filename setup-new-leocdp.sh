@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BUILD_VERSION="v_0.20210815-23h"
+BUILD_VERSION="v_0.9.0"
 JAR_MAIN="leo-main-starter-$BUILD_VERSION.jar"
 
 echo "Enter the superadmin-password: "  
