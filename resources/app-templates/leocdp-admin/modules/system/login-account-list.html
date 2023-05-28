@@ -64,12 +64,11 @@
             $('#user-list').DataTable({
                 "pageLength": 25,
                 "ajax": {
-                    "url": baseLeoAdminUrl + '/user/list-all',
+                    "url": baseLeoAdminUrl + '/user/list-for-management',
                     "type": "POST",
                     "contentType": 'application/x-www-form-urlencoded',
                     "data": function (d) {
                         d.usersession = usersession;
-                        d.isLoginManagement = true;
                     },
                     "dataSrc": function ( json ) {
                     	canEditLoginData = json.canEditData;

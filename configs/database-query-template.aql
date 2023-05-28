@@ -860,7 +860,7 @@ AQL_GET_USER_BY_KEY =>
 
 AQL_GET_ALL_USERS_IN_NETWORK => 
 	FOR u in system_user 
-	FILTER u.networkId == @networkId  
+	FILTER u.networkId == @networkId AND (u.role != 6 OR @forManagement == TRUE)
 	SORT u.updatedAt DESC
 	RETURN u
 ;

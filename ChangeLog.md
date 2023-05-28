@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-05-21
+## [0.9.0] - 2023-05-28
 
 ### Added
 
@@ -43,6 +43,7 @@
 
 ### Fixed
 
+- fix bugs: list system user for admin management and data authorization
 - improve UI and UX: User Login Editor, Info and listing
 - fix bugs show recommended contents for end-user
 - fix bugs: show data connector only for admin and superadmin
