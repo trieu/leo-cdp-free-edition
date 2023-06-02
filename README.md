@@ -4,12 +4,12 @@
 
 # What is LEO CDP ?
 
-LEO CDP (Customer Data Platform) is a software platform that allows businesses to collect, unify, and activate customer data in order to create a more personalized and effective customer experience.
+LEO CDP (Customer Data Platform) is a software platform that allows businesses to collect, unify, segment, personalize and activate customer data in order to create a more personalized and effective customer experience.
 
 # Core features
 
 1. <b> Data collection and unification </b>: LEO CDP allows businesses to collect customer data from various sources, such as websites, mobile apps, and offline interactions. It then unifies this data into a single customer profile, which can include demographic information, behavioral data, and more.
-2. <b> Segmentation and audience creation </b>: LEO CDP provides tools for businesses to segment their customer data and create custom audiences based on criteria such as customer behavior, demographics, or preferences.
+2. <b> Segmentation and audience creation </b>: LEO CDP provides UI tools for businesses to segment their customer data and create custom audiences based on criteria such as lead scoring, CLV scoring, customer behavior, demographics, or preferences.
 3. <b> Personalization and targeting </b>: With LEO CDP, businesses can use customer data to personalize and target their marketing efforts, such as by sending targeted email campaigns or displaying personalized website content.
 4. <b> Analytics and reporting </b>: LEO CDP provides real-time analytics and reporting capabilities, allowing businesses to measure the effectiveness of their marketing efforts and gain insights into customer behavior.
 5. <b> Integration with other systems </b>: LEO CDP can integrate with other systems such as CRM, marketing automation, email marketing service and advertising platforms to create a seamless and holistic view of customer data across the organization.
@@ -38,6 +38,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 # Documents
 
 * [Document bằng tiếng Việt](https://datahub4uspa.leocdp.net/ct/6iSPHWPFzywadKBpq3YJ6n)
+* [Customer Data Platforms - The Ultimate Handbook 2023](https://datahub4uspa.leocdp.net/ct/2HtlqyYdyBjmEPJ4pkZwHZ)
 * [Data Model and Customer Journey Map Sample](https://docs.google.com/spreadsheets/d/1hzSvkmTE8WuvUFqnpWNfsPMzpjF8gYOSJfkc9eJIjWk/edit?usp=sharing)
 * [Core Functions for Analytics CDP](https://docs.google.com/document/d/1cavhFAs_uX-98qUvtXJI3v859I6h3knl0m_tSQ4235M/edit?usp=sharing)
 * [Data strategy with LEO CDP](https://docs.google.com/document/d/1la6mP21gfd2bHlpwj4hBTRQlxaPfhnpQRL6fV223Es0/edit?usp=sharing)
@@ -55,9 +56,9 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 1. Linux Ubuntu Server 20.04 LTS
 2. Redis 6
-3. Amazon Java 8 Corretto
-4. Python 3.8
-5. ArangoDB 3.8 (Community Edition or Enterprise Edition or Cloud Oasis)
+3. Amazon Java 11 Corretto
+4. Python 3.10
+5. ArangoDB 3.10 (Community Edition / Enterprise Edition / Cloud Oasis)
 6. Jupyter Notebook / Google Colab for advanced data analytics and machine learning services
 7. Apache Airflow for ETL job scheduling and data connector
 8. Prometheus 2 for System Monitoring
@@ -65,7 +66,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 ## Proposal solutions for digital marketing services / data activation services
 
-1. Mailchimp / SendInBlue for Email Marketing
+1. Mailchimp / Brevo for Email Marketing
 2. OneSignal / SendPulse / Firebase Cloud Messaging for push notification
 3. Facebook for Business Marketing 
 4. Google Ads for Search Engine Marketing
@@ -100,7 +101,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 # Software license and quota 
 
 * Free to use and respect my work
-* Free quota: 1000 profiles in database
+* Free quota: 5000 contact profiles in database
 * If you are working in education or non-profit organization, just send me an email to free license for 100,000 profiles
 
 # Community Support 
