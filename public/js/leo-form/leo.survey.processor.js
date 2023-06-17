@@ -581,7 +581,8 @@ function initFeedbackSurvey(initFeedbackSurveyCallback) {
 	
 	// convert MD link into a[href]
 	$("div.radio label").each(function(){ 
-		var text = $(this).html(); $(this).html( marked.parseInline(text) ) 
+		var text = $(this).html(); 
+		$(this).html( marked.parseInline(text) ) 
 	})
 	
 	// end initFeedbackSurvey, call initFeedbackSurveyCallback

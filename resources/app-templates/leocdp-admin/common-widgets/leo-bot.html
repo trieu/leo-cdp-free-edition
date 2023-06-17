@@ -1,0 +1,333 @@
+<div class="modal fade" id="leoBotDialog" role="dialog">
+    <div class="modal-dialog  modal-lg">
+        <!-- Modal content-->
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center"> LEO Chatbot </h4>
+            </div>
+            <div class="modal-body row">
+                <div class="botui-app-container" id="iris_chatbot">
+                    <bot-ui></bot-ui>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" onclick="exitAndCloseLeoBotDialog()"> Close </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="suggestedVideoTpl" type="text/x-handlebars-template">
+    <div>    
+        <div id="suggestedVideoCarousel" class="carousel slide" data-ride="carousel" data-interval="false"
+            style="height: 210px;width: 250px; margin: auto">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#suggestedVideoCarousel" data-slide-to="0"
+                    data-video="https://www.youtube.com/watch?v=UW5ktbit2s0"
+                    data-title="Software is eating the world. And it’s only the beginning." class="active"></li>
+                <li data-target="#suggestedVideoCarousel" data-slide-to="1"
+                    data-video="https://www.youtube.com/watch?v=SzJ46YA_RaA"
+                    data-title="Map of Computer Science"></li>
+                <li data-target="#suggestedVideoCarousel" data-slide-to="2"
+                    data-video="https://www.youtube.com/watch?v=RFPnZayG0VI"
+                    data-title="What is the best way to learn data analysis for a beginner?"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="https://img.youtube.com/vi/UW5ktbit2s0/hqdefault.jpg" alt=""
+                        style="height: 210px;width: 250px">
+                </div>
+
+                <div class="item">
+                    <img src="https://img.youtube.com/vi/SzJ46YA_RaA/hqdefault.jpg" alt=""
+                        style="height: 210px;width: 250px">
+                </div>
+
+                <div class="item">
+                    <img src="https://img.youtube.com/vi/mm2A5tKVIpg/hqdefault.jpg" alt=""
+                        style="height: 210px;width: 250px">
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#suggestedVideoCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#suggestedVideoCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <hr>
+        <div id="playlist_holder" style="width: 300px;height: 220px;"></div>
+    </div>
+</script>
+
+<script>
+    var botui = new BotUI('iris_chatbot'), keywords = 'First-time Customers';
+    const BASE_URL_LEOBOT = baseLeoBotUrl + '/ask';
+
+    function getActiveVideoInfo() {
+        var node = $('#suggestedVideoCarousel .active');
+        var title = node.data('title');
+        var video = node.data('video');
+        return {
+            'title': title,
+            'video': video
+        };
+    }
+
+    function callLeoBotForIdeasRecommender(context) {
+        $('#leoBotDialog').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+        botui.message.removeAll();
+        showLeoChatBot();
+
+    }
+
+    var showLeoChatBot = function () {
+        botui.message.bot('Hi ' + currentUserProfile.displayName + ', how can LEO help you ?')
+            .then(function () {
+                return botui.action.button({
+                    delay: 1000,
+                    addMessage: false, // so we could the keywords in message instead if 'Existing keywords'
+                    action: [{
+                        text: 'Show all segments',
+                        value: 'valuable-segments'
+                    }, {
+                        text: 'Search profiles by keyword',
+                        value: 'search-profiles'
+                    }, {
+                        text: 'Ask a question for LEO',
+                        value: 'ask-question'
+                    }, {
+                        text: 'Write a content brief by LEO',
+                        value: 'write-content'
+                    }]
+                })
+            }).then(function (res) {
+            	var v = res.value;
+                if ( v === 'valuable-segments') {
+                     botui.message.bot({
+                        delay: 500,
+                        content: 'contents about ' + keywords
+                     });
+                     recommendationByLeo('valuable-segments', keywords);
+                } 
+                else if ( v === 'search-profiles') {
+                	 botui.message.human({
+                         delay: 500,
+                         content: res.text
+                     });
+                	 leoBotSearchProfiles();
+                } 
+                else if ( v === 'write-content') {
+	               	 botui.message.human({
+	                        delay: 500,
+	                        content: res.text
+	                    });
+	               	 leoBotWriteContent();
+                } 
+                else {
+                	 botui.message.human({
+                         delay: 500,
+                         content: res.text
+                     });
+                     leoBotAskKeywords();
+                }
+            });
+    }
+    
+    var leoBotAskKeywords = function () {
+        botui.message.bot({
+               delay: 500,
+               content: 'Please enter your question: '
+           })
+           .then(function () {
+           	return botui.action.text({
+                   delay: 1000,
+                   action: {
+                       size: 80,
+                       icon: 'search',
+                       value: '', // show the saved keywords if any
+                       placeholder: 'Enter your question here or type "exit" to exit Leo Bot'
+                   }
+               })
+           }).then(function (res) {
+               keywords = res.value; // save keywords
+               recommendationByLeo('ask', keywords);
+           });
+    }
+    
+    var leoBotWriteContent = function () {
+        botui.message.bot({
+               delay: 500,
+               content: 'Please enter the title of content: '
+           })
+           .then(function () {
+           	return botui.action.text({
+                   delay: 1000,
+                   action: {
+                       size: 100,
+                       icon: 'text',
+                       value: '', // show the saved keywords if any
+                       placeholder: 'Enter the title of content or type "exit" to exit Leo Bot'
+                   }
+               })
+           }).then(function (res) {
+               keywords = res.value; // save keywords
+               recommendationByLeo('content', keywords);
+           });
+    }
+    
+
+    var leoBotSearchProfiles = function () {
+        botui.message.bot({
+            delay: 500,
+            content: 'Please enter a keyword to search profiles: '
+        })
+        .then(function () {
+            return botui.action.text({
+                delay: 1000,
+                action: {
+                    size: 50,
+                    icon: 'search',
+                    value: '', // show the saved keywords if any
+                    placeholder: 'Please enter name, email or phone !'
+                }
+            })
+        }).then(function (res) {
+            keywords = res.value; // save keywords
+            recommendationByLeo('search-profiles', keywords);
+        });
+    }
+    
+    var exitAndCloseLeoBotDialog = function(){
+		botui.message.removeAll();
+    	$('#leoBotDialog').modal('hide')
+	}
+    
+    var leoBotRecommendation = function(context, content) {
+		if(content.length > 1 && content !== "exit" ) {
+			var callback = function(data) {
+				if(data.error){
+					notifyErrorMessage(data.answer)
+					exitAndCloseLeoBotDialog();
+				}
+				else {
+					var answerInHtml = marked.parse(data.answer.trim());
+					
+					if('ask' === context){
+						botui.message.add({ human: false, content: answerInHtml , type: 'html'});
+			   	    	// next question
+			   	    	leoBotAskKeywords()
+			     	}
+					else {
+						botui.message.add({ human: false, content: answerInHtml , type: 'html' });
+						botui.message.bot('Would you like to create a content post?').then(function () {
+						    return botui.action.button({
+						      delay: 1000,
+						      action: [{
+						        text: 'Yes',
+						        value: 'yes'
+						      }, {
+						        text: 'No',
+						        value: 'no'
+						      }]
+						    })
+						}).then(function (res) {
+							botui.message.bot('Okay.');
+						    exitAndCloseLeoBotDialog();
+							if(res.value == 'yes') {
+								createAssetItemFromLeoBot(content, answerInHtml)
+							} 
+						});
+					}
+				}
+	   			};
+			var payload =  { 'content': content, 'usersession' : getUserSession(), 'userlogin' : currentUserProfile.userLogin };
+			LeoAdminApiUtil.callPostApi(BASE_URL_LEOBOT, payload, callback );
+		}
+		else {
+			exitAndCloseLeoBotDialog();
+		}
+    }
+    
+    var recommendationByLeo = function(context, keywords) {
+    	if('valuable-segments' === context){
+    		location.hash = "calljs-leoCdpRouter('Segment_Management')";
+    		exitAndCloseLeoBotDialog();
+    	}
+    	else if('search-profiles' === context){
+    		var encodedString = Base64.encode(keywords);
+    		location.hash = "calljs-leoCdpRouter('Customer_Profile_Search','" + encodedString + "')";
+    		exitAndCloseLeoBotDialog();
+    	}
+    	else {
+    		leoBotRecommendation(context, keywords)
+    	}
+    }
+
+    var recommendContentIdeas = function (keywords) {
+        var source = document.getElementById("suggestedVideoTpl").innerHTML;
+        var template = Handlebars.compile(source);
+        var context = {
+            title: "My New Post",
+            body: "This is my first post!"
+        };
+        var html = template(context);
+        botui.message
+            .bot({
+                delay: 500,
+                content: html
+            });
+
+        setTimeout(function () {
+            $("#suggestedVideoCarousel").on('slid.bs.carousel', function () {
+                var videoInfo = getActiveVideoInfo();
+                console.log(videoInfo);
+                $('#playlist_holder').empty();
+                leoPlayVideoReport(videoInfo.video);
+            });
+        }, 500)
+
+        //leoPlayVideoReport('https://www.youtube.com/watch?v=3HGU9TBdWs8');
+        //leoPlayVideoReport('https://www.facebook.com/mauren.murillo.3/videos/10217089066046077/');
+    }
+
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function leoPlayVideoReport(videoSource) {
+        var placeHolderId = getRandomInt(1, 100000) + '_' + (new Date().getTime());
+        var div = document.createElement('div');
+        div.setAttribute('id', placeHolderId);
+        div.setAttribute('class', 'videoholder');
+        document.getElementById('playlist_holder').appendChild(div);
+
+        var adUrls = [];
+        var defaultSkipAdTime = 3; // show skip button after 3 seconds
+        var autoplay = true;
+
+        var adConfigs = [];
+        adConfigs = [];
+        MediaPlayerOne.create(autoplay, placeHolderId, videoSource, '', adUrls, defaultSkipAdTime,
+            adConfigs,
+            function (player) {
+                setTimeout(function () {
+                    player.muted(false);
+                }, 1000)
+            });
+    }
+</script>

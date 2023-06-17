@@ -1,5 +1,5 @@
 <html>
-<!-- Author: Trieu Nguyen (Thomas), creator of LEOCDP.com, copyright: 2020  -->
+<!-- By Trieu Nguyen (Thomas), creator of LEOCDP.com, copyright: 2020  -->
 <head>
 <script src="https://cdn.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files/js/leo-observer/hash.min.js"></script>
 </head>
@@ -132,14 +132,12 @@
             			LeoEventObserver.doTracking(data.eventType, data.params);
             			len = len - 1;
             		}
-            		
             		len = queueUpdating.length;
             		while(len > 0) { 
             			var data = queueUpdating.pop(); 
             			LeoEventObserver.updateProfile(data.params);
             			len = len - 1;
             		}
-            		
             		if(synchVisitorCall !== false){
             			var data = synchVisitorCall;
             			// cross-browser synch
@@ -151,16 +149,10 @@
     		});
     	}
 
-    	var isDev = ROOT_DOMAIN === "demotrack.leocdp.net";
-  		var cbKey = "aug16.2021";
-  		
+  		var cbKey = "aug16.2022";
 	   	var leoObserverJsUrl = "https://cdn.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files/js/leo-observer/leo.observer.min.js?cb="+cbKey;
-  		
-  		if(isDev){
-  			// for DEV
-  	    	leoObserverJsUrl = "https://demotrack.leocdp.net/public/js/leo-observer/leo.observer.js?cb="+cbKey;
-  		}
-    	
+	   	var isDev = ROOT_DOMAIN === "obs.example.com";
+  		if(isDev) leoObserverJsUrl = "https://obs.example.com/public/js/leo-observer/leo.observer.js?cb="+cbKey;
   		loadScript(leoObserverJsUrl, codeIsReady);
     </script>
 </body>

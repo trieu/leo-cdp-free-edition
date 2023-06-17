@@ -137,8 +137,7 @@
 				
 				// new item button
 		        $('#btn_new_item').click(function(){
-		        	var params = leoCdpRouterParams(['', assetGroupId, assetCategoryId ]) ;
-		        	location.hash = getAssetEditorCallJs(assetType, params);
+		        	newAssetItemEditor(assetType, assetGroupId, assetCategoryId);
 		        });
 		        
 				// delete this group and all items in group

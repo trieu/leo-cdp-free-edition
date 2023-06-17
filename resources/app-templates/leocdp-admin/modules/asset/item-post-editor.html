@@ -31,7 +31,6 @@
                     </div>
                 </div>
                 
-
                 <div class="form-group">
                     <label>Title</label>
                     <input id="asset_item_title" type="text" class="form-control" placeholder="Enter title" name="title" autocomplete="off">
@@ -39,7 +38,6 @@
 
                 <div class="form-group">
                     <label>Description</label>
-
                     <div id="description_div" style="display: block;">
                         <textarea class="form-control" rows="2" placeholder="Enter description" name="description"></textarea>
                     </div>
@@ -58,6 +56,8 @@
                 	<label for="imageUploader"> Headline Image Uploader </label>
 	                <input id="imageUploader" type="file" class="filepond" name="image" multiple data-max-file-size="20MB"
 	                    data-max-files="20" />
+	                <input id="headlineImageUrl" type="url" class="form-control" placeholder="Enter Headline Image URL" name="headlineImageUrl" autocomplete="off">
+                    
             	</div>
                 <div id="post-headline-images">
                 	<!-- Headline Images -->
@@ -77,23 +77,19 @@
                 <div class="form-group" id="content_div_wrapper">
                     <div>
 		                <label for="documentUploader"> Editor File Uploader </label>
-		                <input id="documentUploader" type="file" class="filepond" name="document" multiple data-max-file-size="50MB"
-		                    data-max-files="20" />
+		                <input id="documentUploader" type="file" class="filepond" name="document" multiple data-max-file-size="50MB" data-max-files="20" />
 		            </div>
 		            <label>Content</label>
-                    (
-                        <a class="modal-trigger" href="javascript:" data-visibilty="hidden" onclick="toggleRawHtmlEditor(this)">Toggle Raw HTML Editor</a> 
-                    )
+		            <button type="button" class="btn btn-info" data-visibilty="hidden" onclick="toggleRawHtmlEditor(this)" style="margin: 9px 9px;"> 
+		        		<i class="fa fa-fw fa-code"></i> Show HTML Editor 
+		        	</button>
                     <div id="content_div">
                     </div>                   
                     <div id="raw_media_container" style="width: 100%;" >
-                        <hr>
                         <textarea id="raw_media_html"></textarea>
                     </div>                   
-                    <hr>
                     <div id="mediaInfoPreview" ></div>
                 </div>
-                <hr>
 
             </fieldset>
 
@@ -101,8 +97,6 @@
         <div class="col-lg-3">
             <div id="error-on-save" class="alert alert-danger" style="display: none;"></div>
             <div class="action-div row-centered ">
-            	<button style="display: none;" type="button" class="btn btn-success" onclick="callLeoBotForIdeasRecommender('context-page')">Hi LEO</button>
-            
                 <button type="button" class="btn btn-info" onclick="history.back()">
                 	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
                 	Back
@@ -115,7 +109,7 @@
 	        	</button>  
             </div>
             <hr>
-            <div class="action-div" style="display: none" >
+            <div class="action-div"  >
                 <label>Content Class Type</label>
                 <select id="contentClass" name="contentClass" data-placeholder="Choose a content class" class="select">
                     <option value="standard" selected>Creative Content</option>
@@ -155,16 +149,16 @@
                     <label><input type="radio" name="privacyStatus" value="-1">Private</label>
                 </div>
             </div>
+            <hr>
             <div class="action-div">
                 <label>Content Keywords</label>
                 <input id="postKeywords" name="keywords" type="text" class="tags" value="" />
             </div>
-            <hr>
+            
         </div>
     </div>
 </div>
 
-<hr>
 
 <script>
     var itemId = "";
@@ -186,7 +180,7 @@
         smartIndent: true ,
         lineWrapping : true                                    
     });
-    rawHtmlEditor.setSize( $('#raw_media_container').width() - 100, 1);
+    rawHtmlEditor.setSize( $('#raw_media_container').width() - 80, 1);
 
     function postTypeSelectionCallback(type) {
         postType = type;
@@ -196,10 +190,7 @@
     function initPostEditor(params){
     	itemData = false;
     	LeoCdpAdmin.loadView('/view/common-widgets/headline-images.html?admin=1', '#post-headline-images', function () {
-            $('#post-headline-images div.thumbnail p').editable({
-                type: 'text',
-                title: 'Enter Image Label Value'
-            },true);
+            $('#post-headline-images div.thumbnail p').editable({ type: 'text', title: 'Enter Image Label Value' },true);
             loadDataPostEditor(params)
         }, true);
     }
@@ -214,9 +205,9 @@
             if (itemId === '') {
                 // off select post type  $('#postTypeSelectionDialog').modal({ focus: true })
                 postTypeSelectionCallback(1);//default post type is text
+                setupImageInputForContent('#headlineImageUrl', "")
             }
             var urlStr = baseLeoAdminUrl + '/cdp/asset-item/get';
-
             LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
                 if (json.httpCode === 0 && json.errorMessage === '') {
                     itemData = json.data;
@@ -236,7 +227,8 @@
                             } else if (k === 'headlineImages') {
                                 loadHeadLineImageObjectToView(value, true);
                             } 
-                        } else if (fieldType === 'number' || fieldType === 'string') {
+                        } 
+                        else if (fieldType === 'number' || fieldType === 'string') {
                             if (k === 'mediaInfo') {
                                 postType = itemData.type;
                                 checkPostTypeAndSetupMediaEditor(postType, value);
@@ -263,7 +255,8 @@
                                 var dom = $('#postType');
                                 dom.find("option:selected").removeAttr("selected");
                                 dom.find('option[value="' + value + '"]').attr('selected', 'selected');
-                            } else if(k === 'headlineVideoUrl') {
+                            } 
+                            else if(k === 'headlineVideoUrl') {
                                 var value = value.trim()
                                 if(value.indexOf('http') === 0){   
                                     var placeHolderId = 'hvph_' + itemId;                                 
@@ -272,7 +265,11 @@
                                     $('#headline_video_view').html(html);
                                     MediaPlayerOne.create(false, placeHolderId, value, '', [], 1, []);
                                 }                               
-                            }                          
+                            }     
+                            else if(k === "headlineImageUrl") {
+                            	var imgUrl = (value.indexOf('/public/') === 0) ? baseStaticUrl + value.replace('/public/','/') : value;
+                            	setupImageInputForContent('#headlineImageUrl', imgUrl)
+                            }
                             else {
                                 form.find("input[name='" + k + "']").val(value);
                             }
@@ -296,7 +293,6 @@
             itemData.groupId = groupId;
             itemData.categoryId = categoryId;
             itemData.type = postType;
-            console.log('=====> saveDataPostEditor itemId ' + itemId);
 
             //get DOM view and set into itemData
             var form = $('#post_editor_form');
@@ -306,6 +302,7 @@
             itemData.keywords = form.find('input[name="keywords"]').val().split(',');            
             itemData.description = form.find('textarea[name="description"]').val();
             itemData.headlineImages = getHeadLinesImagsObject();
+            itemData.headlineImageUrl = $('#headlineImageUrl').val()
             itemData.headlineVideoUrl = form.find('#headline_video').val();
             itemData.contentClass = form.find('select[name="contentClass"]').val();
             itemData.type = parseInt(form.find('select[name="postType"]').val());
@@ -359,13 +356,9 @@
     }
 
     function postEditorSave() {
-        var onSaveOk = function (itemId) {
-            console.log('=====> postEditorSave ', itemId);   
+        var onSaveOk = function (itemId) {   
             $('#ajaxLoaderDialog').modal('hide');   
-            setTimeout(function(){
-            	//gotoAssetItemView(itemId, groupId, categoryId);
-            	history.back()
-            },1000);
+            location.hash =  "#calljs-leoCdpRouter('Asset_Group_Details','" + groupId + "')";
         }
         saveDataPostEditor(onSaveOk);
     }
@@ -445,15 +438,15 @@
             //init HeadLine Images
             var ytVideoId = getYouTubeVideoId(currentVal);
             if(ytVideoId && ytVideoId.length > 5) {
-                var headlineImage = 'https://img.youtube.com/vi/'+ytVideoId+'/hqdefault.jpg';
+                var imageUrl = 'https://img.youtube.com/vi/'+ytVideoId+'/hqdefault.jpg';
                 var obj = {};
-                obj[headlineImage] = '';
+                obj[imageUrl] = "";
                 loadHeadLineImageObjectToView(obj, false, true);
+                $('#headlineImageUrl').val(imageUrl);
             }
         });
     }
 
-   
 
     function getMediaInfoUnits(){        
         var list = [];
@@ -467,8 +460,6 @@
         });
         return list;
     }
-
-   
 
     function contentClassViewRender(contentClass) {
         console.log('contentClassViewRender ' + contentClass)
@@ -498,5 +489,3 @@
     }
    
 </script>
-
-

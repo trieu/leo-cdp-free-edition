@@ -71,6 +71,7 @@
 
 <script>
     var botui = new BotUI('iris_chatbot'), keywords = 'First-time Customers';
+    const BASE_URL_LEOBOT = baseLeoBotUrl + '/ask';
 
     function getActiveVideoInfo() {
         var node = $('#suggestedVideoCarousel .active');
@@ -103,32 +104,64 @@
                         value: 'valuable-segments'
                     }, {
                         text: 'By searching profiles',
-                        value: 'profiles'
+                        value: 'search-profiles'
+                    }, {
+                        text: 'By ask a question',
+                        value: 'question'
                     }]
                 })
             }).then(function (res) {
-                if (res.value === 'valuable-segments') {
+            	var v = res.value;
+                if ( v === 'valuable-segments') {
                     botui.message.bot({
                         delay: 500,
                         content: 'contents about ' + keywords
                     });
                     recommendationByLeo('valuable-segments', keywords);
                 } 
+                else if ( v === 'search-profiles') {
+                	 botui.message.human({
+                         delay: 500,
+                         content: res.text
+                     });
+                	 leoBotSearchProfiles();
+                } 
                 else {
-                    botui.message.human({
-                        delay: 500,
-                        content: res.text
-                    });
-                    leoBotAskKeywords();
+                	 botui.message.human({
+                         delay: 500,
+                         content: res.text
+                     });
+                     leoBotAskKeywords();
                 }
             });
     }
-
+    
     var leoBotAskKeywords = function () {
+        botui.message.bot({
+                delay: 500,
+                content: 'Please enter your question: '
+            })
+            .then(function () {
+            	return botui.action.text({
+                    delay: 1000,
+                    action: {
+                        size: 30,
+                        icon: 'search',
+                        value: '', // show the saved keywords if any
+                        placeholder: 'Enter your question here or type "exit" to exit Leo Bot'
+                    }
+                })
+            }).then(function (res) {
+                keywords = res.value; // save keywords
+                recommendationByLeo('ask', keywords);
+            });
+    }
+
+    var leoBotSearchProfiles = function () {
         botui.message
             .bot({
                 delay: 500,
-                content: 'Please enter a keyword: '
+                content: 'Please enter a keyword to search profiles: '
             })
             .then(function () {
                 return botui.action.text({
@@ -146,17 +179,47 @@
             });
     }
     
+    var exitAndCloseLeoBotDialog = function(){
+		botui.message.removeAll();
+    	$('#leoBotDialog').modal('hide')
+	}
+    
+    var leoBotAskQuestionHandler = function(question) {
+		if(keywords.length > 1 && keywords !== "exit" ) {
+			var callback = function(data) {
+				if(data.error){
+					notifyErrorMessage(data.answer)
+					exitAndCloseLeoBotDialog();
+				}
+				else {
+					var content = data.answer.replace(new RegExp('\r?\n','g'), '<br />');
+		   	    		botui.message.add({ human: false, content: content });
+		   	    		// next question
+		   	    		leoBotAskKeywords()
+				}
+	   			};
+			var payload =  { 'content': question, 'usersession' : getUserSession(), 'userlogin' : currentUserProfile.userLogin };
+			LeoAdminApiUtil.callPostApi(BASE_URL_LEOBOT, payload, callback );
+		}
+		else {
+			exitAndCloseLeoBotDialog();
+		}
+    }
+    
     var recommendationByLeo = function(context, keywords) {
+    	
     	if('valuable-segments' === context){
     		location.hash = "calljs-leoCdpRouter('Segment_Management')";
+    		exitAndCloseLeoBotDialog();
     	}
     	else if('search-profiles' === context){
     		var encodedString = Base64.encode(keywords);
     		location.hash = "calljs-leoCdpRouter('Customer_Profile_Search','" + encodedString + "')";
+    		exitAndCloseLeoBotDialog();
     	}
-    	
-    	botui.message.removeAll();
-    	$('#leoBotDialog').modal('hide')
+    	else {
+    		leoBotAskQuestionHandler(keywords)
+    	}
     }
 
     var recommendContentIdeas = function (keywords) {
@@ -181,7 +244,6 @@
                 leoPlayVideoReport(videoInfo.video);
             });
         }, 500)
-
 
         //leoPlayVideoReport('https://www.youtube.com/watch?v=3HGU9TBdWs8');
         //leoPlayVideoReport('https://www.facebook.com/mauren.murillo.3/videos/10217089066046077/');

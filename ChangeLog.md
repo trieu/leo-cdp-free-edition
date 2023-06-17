@@ -31,10 +31,12 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-05-28
+## [0.9.0] - 2023-06-17
 
 ### Added
 
+- [Leo Bot] can create new content from answer
+- [Leo Bot] add chatgpt as personal assistant
 - [LeoCdpLicense] simplify process to easier upgrade
 - [Data Connector] New data connector protocol
 - [Data Connector] tool for administration; create, update and delete a connector
@@ -43,6 +45,9 @@
 
 ### Fixed
 
+- fix bugs for content personalization
+- fix bugs set headline images in content post
+- fix bugs when upgrade SendInBlue (Brevo) sib-api-v3-sdk to version 7.0.0
 - fix bugs: list system user for admin management and data authorization
 - improve UI and UX: User Login Editor, Info and listing
 - fix bugs show recommended contents for end-user
@@ -50,6 +55,8 @@
 
 ### Changed
 
+- upgrade core Java libraries
+- upgrade arangodb java driver
 - update init-connector-configs.json when setup new system
 - [Data Connector] update UI and UX for easier administration
 - [Segment] update UX and UI of data activation in segment

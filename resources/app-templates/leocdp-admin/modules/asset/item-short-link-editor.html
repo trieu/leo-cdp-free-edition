@@ -59,7 +59,7 @@
                     <label>Headline Image URL</label>
                     <input id="imageUploader" type="file" class="filepond" name="image" multiple data-max-file-size="2MB"
 	                    data-max-files="1" />
-                    <input type="text" class="form-control" placeholder="Enter Headline Image URL" name="headlineImageUrl" autocomplete="off" id="headlineImageUrl">
+                    <input id="headlineImageUrl" type="url" class="form-control" placeholder="Enter Headline Image URL" name="headlineImageUrl" autocomplete="off">
                     <div class="thumbnail">
                     	<img id="headlineImage" src="" style="max-height: 200px;max-width: 300px" alt="" >
                     </div>
@@ -222,23 +222,12 @@
                     $('#newsletterButtonText').val( customData.newsletterButtonText || "OK" );
                     
                     //headline image uploader
-                    var fullImgUrl = shortLinkData.headlineImageUrl;
-                    fullImgUrl = (fullImgUrl == null || fullImgUrl === "") ? 'https://cdn-icons-png.flaticon.com/128/9872/9872434.png' : fullImgUrl;
-                    $('#headlineImage').attr("src",fullImgUrl).error(function(){
-                    	notifyErrorMessage($(this).attr('src') + " is not a valid image URL");
-                    	$(this).attr("src",'https://cdn-icons-png.flaticon.com/256/9872/9872434.png');
-                    });
-                    $('#headlineImageUrl').change(function(){
-                    	var newSrc = $(this).val();
-                    	newSrc = newSrc === "" ? 'https://cdn-icons-png.flaticon.com/256/9872/9872434.png' : newSrc;
-                    	
-                    	$('#headlineImage').attr("src",newSrc);
-                    })
+                    setupImageUrlInput('#headlineImageUrl', '#headlineImage', shortLinkData.headlineImageUrl)
+                    
                     setupUploaderWidget('shortlink', itemId, '#imageUploader', function (rs) {
-                        var imgSrc = rs.data.fileUrls[0];
-                        var fullImgUrl = baseLeoAdminUrl + imgSrc;
-                        $('#headlineImageUrl').val(fullImgUrl);
-                        $('#headlineImage').attr("src",fullImgUrl);
+                        var imgUrl = baseLeoAdminUrl + rs.data.fileUrls[0];
+                        $('#headlineImageUrl').val(imgUrl);
+                        $('#headlineImage').attr("src",imgUrl);
                     });
                 } else {
                     LeoAdminApiUtil.logErrorPayload(json);
@@ -246,6 +235,7 @@
             });
         }
     }
+
 
     function saveShortUrlLink(callback) {
         if (shortLinkData) {

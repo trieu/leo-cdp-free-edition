@@ -130,12 +130,12 @@
 				      	
 				      		<div class="form-group product_price">
 			                    <label> Original Price </label>
-			                    <input id="productId" type="number" class="form-control" placeholder="Enter Original PriceL" name="originalPrice" autocomplete="off" value="0" required>
+			                    <input type="number" step="0.01" class="form-control" placeholder="Enter Original Price" name="originalPrice" autocomplete="off" value="0" required>
 			                </div>
 			                
 			                <div class="form-group product_price">
 			                    <label> Sale Price </label>
-			                    <input type="number" class="form-control" placeholder="Enter Sale Price" name="salePrice" autocomplete="off" value="0" required>
+			                    <input type="number" step="0.01" class="form-control" placeholder="Enter Sale Price" name="salePrice" autocomplete="off" value="0" required>
 			                </div>
 				      	</div>
 				    </div>
@@ -156,7 +156,7 @@
 			                    <label>Headline Image URL</label>
 			                    <input id="imageUploader" type="file" class="filepond" name="image" multiple data-max-file-size="2MB"
 				                    data-max-files="1" />
-			                    <input type="text" class="form-control" placeholder="Enter Headline Image URL" name="headlineImageUrl" autocomplete="off" id="headlineImageUrl">
+			                    <input id="headlineImageUrl" type="url" class="form-control" placeholder="Enter Headline Image URL" name="headlineImageUrl" autocomplete="off">
 			                    <div class="thumbnail">
 			                    	<img id="headlineImage" src="" style="max-height: 200px;max-width: 300px" alt="" >
 			                    </div>
@@ -188,15 +188,14 @@
 				            </div>
 			                <div class="form-group" id="content_div_wrapper">
 			                    <label>Product Content</label>
-			                    ( 
-			                        <a class="modal-trigger" href="javascript:" data-visibilty="hidden" onclick="toggleRawHtmlEditor(this)">Toggle Raw HTML Editor</a> 
-			                    )
+			                    <button type="button" class="btn btn-info" data-visibilty="hidden" onclick="toggleRawHtmlEditor(this)" style="margin: 9px 9px;"> 
+					        		<i class="fa fa-fw fa-code"></i> Show HTML Editor 
+					        	</button>
 			                    <div id="content_div">
 			                    </div>                   
 			                    <div id="raw_media_container" style="width: 100%;" >
 			                        <textarea id="raw_media_html"></textarea>
-			                    </div>                   
-			                   
+			                    </div> 
 			                    <div id="mediaInfoPreview" ></div>
 			                </div>
 				      	</div>
@@ -325,10 +324,12 @@
                         if (fieldType === 'object') {
                             if (k === 'keywords') {
                                 form.find("input[name='keywords']").val(value.join(","));
-                            } else if (k === 'headlineImages') {
+                            } 
+                            else if (k === 'headlineImages') {
                                 loadHeadLineImageObjectToView(value, true);
                             } 
-                        } else if (fieldType === 'number' || fieldType === 'string') {
+                        } 
+                        else if (fieldType === 'number' || fieldType === 'string') {
                             if (k === 'mediaInfo') {
                                 checkPostTypeAndSetupMediaEditor(1, value);
                                 loadMediaInfoView(value, postType, true);
@@ -351,11 +352,7 @@
                                 }                               
                             }
                             else if(k === "headlineImageUrl") {
-                            	form.find("input[name='" + k + "']").val(value).change(function(){ 
-                                 	var v = $(this).val();
-                                 	$('#headlineImage').attr("src",v)
-                                });
-                            	$('#headlineImage').attr("src",value)
+                            	setupImageUrlInput('#headlineImageUrl', '#headlineImage', value)
                             }
                             else if (k === 'productType') {
                                 var dom = $('#productType');
@@ -503,7 +500,6 @@
     }
     
     function loadProductIdTypeSelector(initIdType){
-    	
     	$('#productIdType').change(function(){ 
          	var v = $(this).val();
          	
@@ -511,7 +507,6 @@
              width: "100%",
              no_results_text: "Oops, nothing found!"
         }).trigger("chosen:updated");
-    	
     }
 
 
@@ -531,8 +526,9 @@
 
         //headline image uploader
         setupUploaderWidget('product', itemId, '#imageUploader', function (rs) {
-            var imgSrc = rs.data.fileUrls[0];
-            $('#headlineImageUrl').val(baseLeoAdminUrl + imgSrc);
+            var imgUrl = baseLeoAdminUrl + rs.data.fileUrls[0];
+            $('#headlineImageUrl').val(imgUrl);
+            $('#headlineImage').attr('src',imgUrl);
             
             loadHeadLineImageObjectToView({imgSrc : ""}, false, true);
         });

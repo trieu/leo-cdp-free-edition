@@ -8,16 +8,16 @@
 	<meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=4, user-scalable=1" name="viewport"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=100"/>
 	
-	<base href="//{{baseAdminApiUrl}}/">
+	<base href="//{{dnsDomainLeoAdmin}}/">
 	
 	<title> {{pageTitle}} </title>
 	<meta name="description" content="LEO CDP Admin"/>
 
-	<link rel="apple-touch-icon" sizes="180x180" href="//{{baseAdminApiUrl}}/public/images/leocdp-icon/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="//{{baseAdminApiUrl}}/public/images/leocdp-icon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="//{{baseAdminApiUrl}}/public/images/leocdp-icon/favicon-16x16.png">
-	<link rel="manifest" href="//{{baseAdminApiUrl}}/public/images/leocdp-icon/site.webmanifest">
-	<link rel="mask-icon" href="//{{baseAdminApiUrl}}/public/images/leocdp-icon/safari-pinned-tab.svg" color="#5bbad5">
+	<link rel="apple-touch-icon" sizes="180x180" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/favicon-16x16.png">
+	<link rel="manifest" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/site.webmanifest">
+	<link rel="mask-icon" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/safari-pinned-tab.svg" color="#5bbad5">
 	
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
@@ -25,14 +25,16 @@
 	<!-- LeoCDP Admin Common Data, injected by WebData model -->
 	<script>
 		var baseStaticDomain = '{{baseStaticUrl}}';
-		var baseAdminDomain = '{{baseAdminApiUrl}}';
+		var dnsDomainLeoAdmin = '{{dnsDomainLeoAdmin}}';
 		var baseUploadDomain = '{{baseUploaderUrl}}';
 		var baseLeoObserverDomain = '{{baseLeoObserverUrl}}';
+		var dnsDomainLeoBot = '{{dnsDomainLeoBot}}';
 		
 		var baseStaticUrl = location.protocol + '//' +  baseStaticDomain;
-		var baseLeoAdminUrl = location.protocol + '//' + baseAdminDomain;
+		var baseLeoAdminUrl = location.protocol + '//' + dnsDomainLeoAdmin;
 		var baseUploadApi = location.protocol + '//' + baseUploadDomain;
 		var baseLeoObserverUrl = location.protocol + '//' + baseLeoObserverDomain;
+		var baseLeoBotUrl = location.protocol + '//' + dnsDomainLeoBot;
 		
 		var pageHeaderLogo =  '{{pageHeaderLogo}}';
 		var promoVisibility =  '{{promoVisibility}}';
@@ -163,15 +165,15 @@
 	<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@latest" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	
 	<!-- CodeMirror for HTML Editor -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/codemirror.css" rel="stylesheet" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/codemirror.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/mode/xml/xml.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/mode/css/css.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/mode/javascript/javascript.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/mode/htmlmixed/htmlmixed.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/addon/fold/xml-fold.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/addon/edit/matchbrackets.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.4/addon/edit/matchtags.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.css" rel="stylesheet" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/xml/xml.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/css/css.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/htmlmixed/htmlmixed.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/fold/xml-fold.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/matchbrackets.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/matchtags.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	
 	<script src="https://{{baseStaticUrl}}/js/codemirror/codemirror.yaml.js?_={{cacheBustingKey}}"></script>
 	<script src="https://{{baseStaticUrl}}/js/codemirror/codemirror.formatting.js?_={{cacheBustingKey}}"></script>
@@ -221,7 +223,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape-panzoom/2.5.3/cytoscape-panzoom.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	
 	<!-- i18n Data Model -->
-	<script src="//{{baseAdminApiUrl}}/view/i18n/us.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/i18n/us.js?admin=1&_={{cacheBustingKey}}"></script>
 	
 	<!-- common CSS -->
 	<style type="text/css">
@@ -252,7 +254,7 @@
 	<!-- Chroma.js for all kinds of color conversions and color scales  -->
 	<script src="https://cdn.jsdelivr.net/npm/chroma-js@2.4.2/chroma.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	
-	<!-- https://markjs.io/  -->
+	<!-- https://markjs.io : keyword highlighter  -->
 	<script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/jquery.mark.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	
 </head>
@@ -290,36 +292,36 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.7/mermaid.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	
 	<!-- MarkDown parser: create document and rich-text format -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.1.1/marked.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/5.1.0/marked.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	
 	<!-- LEO Admin Core -->
-	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leo.admin.common.js?admin=1&_={{cacheBustingKey}}"></script>
-	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.router.js?admin=1&_={{cacheBustingKey}}"></script>
-	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.router.functions.js?admin=1&_={{cacheBustingKey}}"></script>
-	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.core-admin.js?admin=1&_={{cacheBustingKey}}"></script>
-	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.visualization.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leo.admin.common.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.router.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.router.functions.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.core-admin.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.visualization.js?admin=1&_={{cacheBustingKey}}"></script>
 	
 	<!-- Journey Map  -->
-	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.journey.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.journey.js?admin=1&_={{cacheBustingKey}}"></script>
 	
 	<!-- asset: group-details  -->
-	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.digital.asset.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.digital.asset.js?admin=1&_={{cacheBustingKey}}"></script>
 	
 	<!-- profile -->
-	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.profile.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.profile.js?admin=1&_={{cacheBustingKey}}"></script>
 	
 	<!-- segment -->
-	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.segment.builder.js?admin=1&_={{cacheBustingKey}}"></script>
-	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.segment.details.js?admin=1&_={{cacheBustingKey}}"></script>	
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.segment.builder.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.segment.details.js?admin=1&_={{cacheBustingKey}}"></script>	
 	
 	<!-- feedback survey -->
-	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.feedback.survey.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.feedback.survey.js?admin=1&_={{cacheBustingKey}}"></script>
 	
 	<!-- data connector -->
-	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.connector.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.connector.js?admin=1&_={{cacheBustingKey}}"></script>
 	
 	<!-- system management and event monitoring  -->
-	<script src="//{{baseAdminApiUrl}}/view/common-resources{{minifySuffix}}/leocdp.system.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.system.js?admin=1&_={{cacheBustingKey}}"></script>
 	
 	<!-- after deps are loaded -->
 	<script>
@@ -327,7 +329,6 @@
 		window.mediaPlayerOneReady = function () {
 			// ready to play content
 		}
-		
 		// inject dynamic configs and load all widgets and templates
 		$( document ).ready(function() {
 			window.systemConfig = JSON.parse($('<textarea />').html("{{systemConfigJson}}").text())
@@ -337,7 +338,7 @@
 		        '/view/common-widgets/query-filter-modal.html',
 		        '/view/common-widgets/post-type-selection-modal.html',
 		        '/view/common-widgets/confirm-delete-data-modal.html',
-		        '/view/common-widgets/leo-recommender.html',
+		        '/view/common-widgets/leo-bot.html',
 		        '/view/templates/tpl-analytics-dashboard.html',
 		        '/view/templates/tpl-customer-profile-info.html',
 		        '/view/templates/tpl-customer-journey-flow.html'

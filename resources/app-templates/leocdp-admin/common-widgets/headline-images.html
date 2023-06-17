@@ -38,10 +38,11 @@
                 'id': id
             });
             console.log(html)
-            placeHolder.append(html);
+            var imgNode = $(html);
+            placeHolder.prepend(imgNode);
             c++;
 
-            placeHolder.find('img.headline_image').click(function(){
+            imgNode.find('img.headline_image').click(function(){
                 $(this).css('cursor','pointer');
                 var src = $(this).attr('src');
                 var title = $(this).attr('title');
@@ -54,34 +55,31 @@
             });
         }
 
-        if (c === 0) {
-            placeHolder.hide();
-        } else {
-            if (editableCaption) {
-                $('#headline_images > div').each(function () {
-                    var headlineNode = $(this);
-                    headlineNode.find('div.thumbnail p').editable({
-                        type: 'text',
-                        title: 'Enter Image Label Value'
-                    });
-                    headlineNode.find('span.close').show().click(function () {
-                        headlineNode.remove()
-                    });
-                    console.log('headlineNode', headlineNode)
-                });
-            }
-            if (insertNew) {
-                placeHolder.find('div.thumbnail p').last().editable({
-                    type: 'text',
-                    title: 'Enter Image Label Value'
-                });
-                var headlineNode = $('#headline_images > div').last();
-                headlineNode.find('span.close').show().click(function () {
-                    headlineNode.remove()
-                });
-                placeHolder.show();
-            }
-        }
+       
+           if (editableCaption) {
+               $('#headline_images > div').each(function () {
+                   var headlineNode = $(this);
+                   headlineNode.find('div.thumbnail p').editable({
+                       type: 'text',
+                       title: 'Enter Image Label Value'
+                   });
+                   headlineNode.find('span.close').show().click(function () {
+                       headlineNode.remove()
+                   });
+                   console.log('headlineNode', headlineNode)
+               });
+           }
+           if (insertNew) {
+               placeHolder.find('div.thumbnail p').first().editable({
+                   type: 'text',
+                   title: 'Enter Image Label Value'
+               });
+               var headlineNode = $('#headline_images > div').first();
+               headlineNode.find('span.close').show().click(function () {
+                   headlineNode.remove()
+               });
+           }
+        
     }
 </script>
 
