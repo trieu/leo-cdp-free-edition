@@ -136,7 +136,7 @@
 	<!-- MAIN JS -->
 	<script>
 		var imgSrc = $('#image_holder').attr('src').trim();
-		if(imgSrc.indexOf('http') === 0){
+		if(imgSrc.indexOf('http') < 0){
 			$('#image_holder').hide();
 			$('#image_container').hide();
 		}
