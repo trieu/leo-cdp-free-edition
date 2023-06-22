@@ -768,16 +768,9 @@ AQL_GET_ASSET_GROUP_BY_SLUG =>
 	RETURN p
 ;
 
-AQL_GET_DEFAULT_ASSET_GROUP_FOR_CONTENT =>
+AQL_GET_DEFAULT_ASSET_GROUP_FOR_ASSET_TYPE =>
 	FOR p in cdp_assetgroup 
-	FILTER p.defaultGroup == true AND p.assetType == 1
-	LIMIT 1  
-	RETURN p
-;
-
-AQL_GET_DEFAULT_ASSET_GROUP_FOR_PRODUCT =>
-	FOR p in cdp_assetgroup 
-	FILTER p.defaultGroup == true AND p.assetType == 2
+	FILTER p.defaultGroup == true AND p.assetType == @assetType
 	LIMIT 1  
 	RETURN p
 ;

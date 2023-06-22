@@ -100,18 +100,21 @@
                     delay: 1000,
                     addMessage: false, // so we could the keywords in message instead if 'Existing keywords'
                     action: [{
-                        text: 'Show all segments',
+                        text: 'Show segments',
                         value: 'valuable-segments'
                     }, {
-                        text: 'Search profiles by keyword',
+                        text: 'Search profiles',
                         value: 'search-profiles'
                     }, {
-                        text: 'Ask a question for LEO',
+                        text: 'Ask question',
                         value: 'ask-question'
                     }, {
-                        text: 'Write a content brief by LEO',
+                        text: 'Write content',
                         value: 'write-content'
-                    }]
+                    }, {
+                        text: 'Create presentation',
+                        value: 'create-presentation'
+                    } ]
                 })
             }).then(function (res) {
             	var v = res.value;
@@ -136,6 +139,13 @@
 	                    });
 	               	 leoBotWriteContent();
                 } 
+                else if ( v === 'create-presentation') {
+	               	 botui.message.human({
+                        delay: 500,
+                        content: res.text
+                     });
+	               	 leoBotCreatePresentation();
+               } 
                 else {
                 	 botui.message.human({
                          delay: 500,
@@ -188,6 +198,27 @@
            });
     }
     
+    var leoBotCreatePresentation = function () {
+        botui.message.bot({
+            delay: 500,
+            content: 'Please enter the title of presentation: '
+        })
+        .then(function () {
+        	return botui.action.text({
+                delay: 1000,
+                action: {
+                    size: 100,
+                    icon: 'text',
+                    value: '', // show the saved keywords if any
+                    placeholder: 'Enter the title of presentation or type "exit" to exit Leo Bot'
+                }
+            })
+        }).then(function (res) {
+            keywords = res.value; // save keywords
+            recommendationByLeo('presentation', keywords);
+        });
+ 	}
+    
 
     var leoBotSearchProfiles = function () {
         botui.message.bot({
@@ -223,7 +254,8 @@
 					exitAndCloseLeoBotDialog();
 				}
 				else {
-					var answerInHtml = marked.parse(data.answer.trim());
+					var answerInRaw = data.answer.trim();
+					var answerInHtml = marked.parse(answerInRaw);
 					
 					if('ask' === context){
 						botui.message.add({ human: false, content: answerInHtml , type: 'html'});
@@ -232,7 +264,12 @@
 			     	}
 					else {
 						botui.message.add({ human: false, content: answerInHtml , type: 'html' });
-						botui.message.bot('Would you like to create a content post?').then(function () {
+						var reply = 'Would you like to write a content post?';
+						if('presentation' === context) {
+							reply = 'Would you like to create a presentation ?';
+						}
+						
+						botui.message.bot(reply).then(function () {
 						    return botui.action.button({
 						      delay: 1000,
 						      action: [{
@@ -247,7 +284,12 @@
 							botui.message.bot('Okay.');
 						    exitAndCloseLeoBotDialog();
 							if(res.value == 'yes') {
-								createAssetItemFromLeoBot(content, answerInHtml)
+								if('presentation' === context) {
+									createAssetItemFromLeoBot(context, content, answerInRaw)
+								}
+								else {
+									createAssetItemFromLeoBot(context, content, answerInHtml)
+								}
 							} 
 						});
 					}

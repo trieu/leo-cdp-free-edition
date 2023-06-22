@@ -31,10 +31,12 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-06-17
+## [0.9.0] - 2023-06-22
 
 ### Added
 
+- [Leo Bot] can create new presentation from answer
+- [Digital Asset] add presentation group, add presentation editor and viewer
 - [Leo Bot] can create new content from answer
 - [Leo Bot] add chatgpt as personal assistant
 - [LeoCdpLicense] simplify process to easier upgrade

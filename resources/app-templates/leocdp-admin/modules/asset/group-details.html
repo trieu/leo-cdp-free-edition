@@ -81,7 +81,7 @@
     var assetGroupId;
     var assetCategoryId;
     var assetGroupModel;
-    var isGroupTemplate, isGroupFeedbackForm;
+    var isGroupTemplate, isGroupFeedbackForm, isGroupPresentation;
 
     var initGroupDetails = function(pId) {
         assetGroupId = pId;
@@ -123,6 +123,7 @@
                 assetCategoryId = assetGroupModel.categoryIds[0] || '';
                 isGroupTemplate = assetType === 4 ||  assetType === 6 ||  assetType === 7;
                 isGroupFeedbackForm =  assetType === 13; 
+                isGroupPresentation =  assetType === 16; 
                 
                 contentTypeButtonRender(assetType, isGroupTemplate);
                 
@@ -231,6 +232,11 @@
                         	var callJsStr = "#calljs-leoCdpRouter('Asset_Template_Editor','" + params + "')";
                             html = '<a class="text_wrapper" title="Edit: ' + title + '" href="' + callJsStr + '" > '+data+'</a>';
                     	}
+                        else if(isGroupPresentation){
+                        	var params = leoCdpRouterParams([itemId, assetGroupId, assetCategoryId ]) ;
+                        	var callJsStr = "#calljs-leoCdpRouter('Asset_Presentation_Editor','" + params + "')";
+                            html = '<a class="text_wrapper" title="Edit: ' + title + '" href="' + callJsStr + '" > '+data+'</a>';
+                        }
                     	else {
                     		var params = leoCdpRouterParams([itemId, assetGroupId, assetCategoryId ]) ;
                         	var callEditJsStr = "#" + getAssetEditorCallJs(assetType, params);
@@ -284,6 +290,9 @@
                          else if (data === 15 ) {
  	                        return '<i class="fa fa-link" '+style+' > SHORT URL LINK</i>';
  	                     }  
+                         else if (data === 16 ) {
+  	                        return '<i class="fa fa-file-powerpoint-o" '+style+' > PRESENTATION </i>';
+  	                     } 
                          return '<i class="fa fa-dot-circle-o" '+style+' > UNCLASSIFIED</i>';
                     },
                     "targets": 3
@@ -346,7 +355,7 @@
                 }
             ];
         	
-        	var columnFields = ['Image','Title of Item','Access Privacy','Asset Type','Last Updated','Actions'];
+        	var columnFields = ['Headline Image','Item Title','Access Privacy','Asset Type','Last Updated','Actions'];
         	_.each(columnFields, function(e){ $('#item_list_fields').append('<th>'+ e + '</th>') });
         	
             $('#item_list_holder').DataTable({

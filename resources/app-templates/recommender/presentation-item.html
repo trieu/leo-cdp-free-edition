@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+<head>
+	<title> {{pageTitle}} </title>
+	<meta name="description" content="{{{customData.content.description}}}"/>
+	
+	<!-- META FOR FACEBOOK -->
+	<meta property="og:site_name" content="{{host}}"/>
+	<meta property="og:rich_attachment" content="true"/>
+	<meta property="og:type" content="article"/>
+	<meta property="og:image" itemprop=thumbnailUrl content="{{{customData.content.headlineImageUrl}}}"/>
+	<meta property="og:image:width" content="800"/>
+	<meta property="og:image:height" content="420"/>
+	<meta content="{{customData.content.title}}" itemprop="headline" property="og:title"/>
+	<meta content="{{customData.content.description}}" itemprop="description" property="og:description"/>
+	
+	<meta name="robots" content="noarchive, max-image-preview:large, index"/>
+	<meta name="googlebot" content="noarchive"/>
+	
+	<link rel="apple-touch-icon" sizes="180x180" href="https://{{baseStaticUrl}}images/leocdp-icon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="https://{{baseStaticUrl}}images/leocdp-icon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="https://{{baseStaticUrl}}images/leocdp-icon/favicon-16x16.png">
+	
+	<link rel="mask-icon" href="https://{{baseStaticUrl}}images/leocdp-icon/safari-pinned-tab.svg" color="#5bbad5">
+	
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" >
+	
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+	
+	<!--  revealjs -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css"  crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css"  crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.js"  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/markdown/markdown.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.min.js"  rossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/math/math.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+	<style type="text/css">
+	
+		#image_holder {
+			display: block; margin-left: auto;margin-right: auto; max-width:100%; max-height: 420px;
+		}
+		#video_holder {
+			text-align: center;
+		}
+		#presentation_container {
+			width: 100%;
+	    	height: 610px;
+		}
+		h1.preview  {
+			font-size: 2.2em!important;
+		}
+		h2.preview  {
+			font-size: 1.8em!important;
+		}
+		h3.preview  {
+			font-size: 1.4em!important;
+		}
+		h4.preview  {
+			font-size: 1em!important;
+		}
+		input {
+			margin: 10px 4px;
+		}
+		button {
+			min-width: 120px; padding: 4px;
+		}
+		
+	</style>
+	
+</head>
+
+<body>
+
+	<!-- MAIN CONTENT -->
+	    	
+   	<div id="image_container" >
+   		<img id="image_holder"  src="{{{customData.content.headlineImageUrl}}}" />
+   	</div>
+	
+	<div id="presentation_container" >
+		<div class="reveal"  >
+			<div class="slides">
+				<section data-markdown>
+	                <script type="text/template">
+                        {{{customData.content.mediaInfo}}}
+                    </script>
+	            </section>
+	        </div>
+		</div>
+	</div>
+	
+
+	<!-- MAIN JS -->
+	<script>
+		var maxScale = 1.2, initHeight = $(window).innerHeight() * 0.9, initWidth = $(window).innerWidth() * 0.8;
+		var preview = false;
+		if(location.search.indexOf('preview=1')>0){
+			maxScale = 0.7;
+			initHeight = 450;
+			initWidth = 800;
+			preview = true;
+		}
+		var imgSrc = $('#image_holder').attr('src').trim();
+		if(imgSrc.indexOf('http') < 0){
+			$('#image_holder').hide();
+			$('#image_container').hide();
+		}
+	
+		var leoObserverLogDomain = "{{baseLeoObserverUrl}}";
+		var leoObserverCdnDomain = "{{baseStaticUrl}}";
+	
+		var srcTouchpointName = "Content Item: " + document.title;
+		var srcTouchpointUrl = encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
+		
+		var injectedVisitorId = "{{customData.injectedVisitorId}}";
+	    var referer = "{{customData.referer}}";
+	    var leoObserverId = "{{customData.observerId}}";
+	    var videoUrl = "{{{customData.content.headlineVideoUrl}}}";
+   		
+		function leoObserverProxyReady(session) {
+			var eventData = { "title": srcTouchpointName};
+			if(videoUrl != "") {
+				eventData["videoUrl"]= videoUrl;
+			}
+			LeoObserverProxy.recordViewEvent("content-view",eventData);
+		}
+		
+		function leoRecordEventPlayVideo(eventData) {
+			eventData = eventData ? eventData : {};
+			LeoObserverProxy.recordViewEvent("play-video",eventData);
+		}
+		
+		function submitContactToLeoCDP() {
+			if(!preview){
+				var eventData = { "title": srcTouchpointName};
+				eventData.firstName = $('#firstName').val();
+				eventData.email = $('#email').val();
+				eventData.loginProvider = "presentationSubmitContact";
+				LeoObserverProxy.recordActionEvent("submit-contact",eventData);
+				setTimeout(function(){
+					var holder = $('#contact-data-holder');
+					var okMessage = "<h2>"+ holder.data('submitok') +"</h2>";
+					holder.parent().empty().html(okMessage)
+				},900)
+			}
+		}
+		
+		// RevealJS
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+			width: initWidth,
+			height: initHeight,
+			minScale: 0.64,
+			maxScale: maxScale,
+			plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+		});
+		
+		Reveal.initialize().then( () => {
+			// init slides is done
+		 	if(preview){
+		 		$('h1, h2, h3, h4').addClass('preview');
+		 		var holder = $('#contact-data-holder');
+		 		holder.find('input, button').attr('disabled','disabled')
+		 	}
+		});
+	</script>
+	
+	<script>
+	    (function() {
+			var leoproxyJsPath = '/js/leo-observer/leo.proxy.min.js';
+		    var src = location.protocol + '//' + window.leoObserverCdnDomain + leoproxyJsPath;
+		    var jsNode = document.createElement('script');
+		    jsNode.async=true; jsNode.defer=true; jsNode.src = src;
+		    var s = document.getElementsByTagName('script')[0];
+		    s.parentNode.insertBefore(jsNode, s);
+		})();
+	</script>
+	
+</body>
+</html>

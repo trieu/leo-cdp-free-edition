@@ -25,19 +25,19 @@
             <fieldset>
 
                 <div class="form-group">
+                    <label> Title </label>
+                    <input id="asset_item_title" type="text" class="form-control" placeholder="Enter title" name="title" autocomplete="off">
+                </div>
+                
+                <div class="form-group">
                     <label>Slug (SEO-friendly URL)</label>
                     <div id="slug_div" >
                         <input type="text" name="slug" class="form-control">
                     </div>
                 </div>
-                
-                <div class="form-group">
-                    <label>Title</label>
-                    <input id="asset_item_title" type="text" class="form-control" placeholder="Enter title" name="title" autocomplete="off">
-                </div>
 
                 <div class="form-group">
-                    <label>Description</label>
+                    <label> Description </label>
                     <div id="description_div" style="display: block;">
                         <textarea class="form-control" rows="2" placeholder="Enter description" name="description"></textarea>
                     </div>
@@ -80,7 +80,7 @@
 		                <input id="documentUploader" type="file" class="filepond" name="document" multiple data-max-file-size="50MB" data-max-files="20" />
 		            </div>
 		            <label>Content</label>
-		            <button type="button" class="btn btn-info" data-visibilty="hidden" onclick="toggleRawHtmlEditor(this)" style="margin: 9px 9px;"> 
+		            <button type="button" class="btn btn-do-now" data-visibilty="hidden" onclick="toggleRawHtmlEditor(this)" style="margin: 9px 9px;"> 
 		        		<i class="fa fa-fw fa-code"></i> Show HTML Editor 
 		        	</button>
                     <div id="content_div">

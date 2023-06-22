@@ -1,0 +1,328 @@
+<style>
+	#presentation_form_url_holder {
+		font-size: 11.5px;
+	    font-weight: bold;
+	    color: #3300ff;
+	}
+	.display-flex-center {
+	    display:flex;
+	    align-items:center;
+	    border: 1px solid;
+	    border-radius: 6px;
+	}
+	.display-flex-center button {
+		margin: auto
+	}
+	.display-flex-center .fa-code {
+		font-size: 1.3em;
+		font-weight: bold;
+	}
+	#presentation_editor_wrapper, #embedded_html_form_wrapper {
+		clear: both;
+		display: block;
+		padding-top: 15px;
+	}
+	#presentation_editor_wrapper button, #presentation_iframe_preview_holder button {
+		margin: 9px 9px;
+	}
+	.modal-body .eventName {
+		font-size:1.5em; color:blue; font-weight: bold;
+	}
+</style>
+
+<div class="container-fluid" id="item_editor_form">
+
+    <!-- MAIN BODY here -->
+    <div class="row">
+        <div class="col-lg-9">
+	         <h5 class="page-header" id="page_breadcrumb" > </h5>
+        </div>
+       	<div class="col-lg-3 text-right">
+	         <button type="button" class="btn btn-info" onclick="history.back()">
+               	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
+             </button>
+             <button type="button" class="btn btn-danger" onclick="LeoCdpAdmin.navFunctions.deleteItemAsset(presentationModel)">
+               	<i class="fa fa-trash" aria-hidden="true"></i> Delete
+             </button>
+             <button type="button" class="btn btn-success data-control-edit" onclick="presentationFormEditorSave()"  > 
+        		<i class="fa fa-fw fa-check"></i> Save 
+        	 </button>  
+        </div>
+    </div>
+
+    <!-- MAIN BODY here -->
+    <div class="row" id="presentation_form_editor_div" style="visibility: hidden;"> 
+            <div class="form-group">
+                 <label> Title </label>
+                 <input id="asset_item_title" type="text" class="form-control" placeholder="Enter title" name="title" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label>Slug (SEO-friendly URL)</label>
+                <div id="slug_div" >
+                    <input type="text" name="slug" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                 <label> Description </label>
+                 <div id="description_div" style="display: block;">
+                     <textarea class="form-control" rows="2" placeholder="Enter description" name="description"></textarea>
+                 </div>
+            </div>
+           	<div class="form-group editor_wrapper" id="presentation_editor_wrapper"  >
+                <label> Presentation Markdown Code </label>
+                <button type="button" class="btn btn-do-now" onclick="formatMarkdownToPresentation()" > 
+	        		<i class="fa fa-fw fa-code"></i> Format Markdown Code to Slides
+	        	</button>
+	        	<button type="button" class="btn btn-do-now" onclick="insertTextAtCursorInCodeMirror(presentationEditor,'\n---\n')" > 
+	        		<i class="fa fa-fw fa-code"></i> Insert Code "Slide Break"
+	        	</button>
+	        	<button type="button" class="btn btn-do-now" onclick="addSlideContactUsForm()" > 
+	        		<i class="fa fa-fw fa-code"></i> Insert Slide "Contact Us"
+	        	</button>
+	        	<a class="btn btn-do-now" href="https://www.markdownguide.org" target="_blank"> 
+	        		<i class="fa fa-info-circle"></i> Learn Markdown Code
+	        	</a>
+                <div id="raw_media_container" style="width: 100%;" >
+                     <textarea id="raw_media_html"></textarea>
+                </div>
+           	</div>
+           	<div>
+				 <div id="presentation_form_url_holder" class="alert alert-info" role="alert" >
+			 	 	<i class="fa fa-qrcode" aria-hidden="true" style="font-size: 1.1em" ></i>  
+				 	<b> Preview URL </b> <a id="preview_presentation_url" class="small-text" href="javascript:" target="_blank" ></a>
+				 </div>	
+			</div>
+			<div class="thumbnail">
+			 	 <img id="content_link_qrcode_url" style="max-height: 200px" />
+			</div>
+           	<div class="form-group" id="presentation_iframe_preview_holder" style="display: none;">
+            	<label> Presentation Preview </label>
+            	<button type="button" class="btn btn-do-now" data-visibilty="hidden" onclick="autoSaveAction()" > 
+	        		<i class="fa fa-refresh"></i> Refresh
+	        	</button>
+	            <div class="embed-responsive embed-responsive-16by9 display-flex-center"  >
+	               <iframe class="embed-responsive-item" id="presentation_iframe_preview" src=""></iframe>
+	            </div>
+           	</div> 
+    </div>
+</div>
+
+<hr>
+
+<script id="contactUsSlideTpl" type="text/x-handlebars-template">
+## Contact us
+<div id="contact-data-holder" data-submitok="Thank you !" >
+  <input type="text" id="firstName" name="firstName" placeholder="Your name"/>
+  <br>
+  <input type="email" id="email" name="email" placeholder="Your email"/>
+  <br>
+  <br>
+  <button onclick="submitContactToLeoCDP()"> OK 
+  </button>
+</div>
+</script>
+
+<script>
+    var itemId = "";
+    var groupId = "";
+    var categoryId = "";
+    
+    // data model
+    var presentationModel = false;
+    
+    //raw HTML code editor
+    var presentationEditorHeight = 450;
+    var presentationEditor = false;
+
+    function initPresentationEditor(params) {
+    	presentationModel = false;
+    	
+    	// research / presentation template code editor
+    	presentationEditor = CodeMirror.fromTextArea(document.getElementById("raw_media_html"), {        
+            mode: "markdown",           
+            lineNumbers: true ,
+            theme: "default",
+            extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"}
+        });
+        presentationEditor.setSize($('#raw_media_container').width()-2020, 1);
+        
+        // load data from server
+    	loadPresentationItemEditor(params);
+    }
+    
+    var updatePresentationIframePreview = function(){
+    	if(typeof presentationModel.id === "string"){
+    		var url = "https://" + baseLeoObserverDomain + "/presentation/" + presentationModel.slug + "?cb=" + new Date().getTime();
+     		$('#presentation_iframe_preview').attr('src',url + '&preview=1' );
+     		$("#presentation_iframe_preview_holder").show();
+     		
+     		$('#preview_presentation_url').attr('href',url).text(url);
+    	}
+    }
+    
+    function formatMarkdownToPresentation(newValue){
+    	newValue = typeof newValue === 'string' ? newValue.trim() : presentationEditor.getValue().trim();
+    	var lines = newValue.split('\n')
+    	var toks=[]; 
+    	for(var i=0; i < lines.length; i++) { 
+    	    var v = lines[i].trim(); 
+    	    if(i > 0 && v.indexOf('#') >= 0) { 
+    	        var pv = lines[i-1].trim();
+    	        if( pv.indexOf('---') < 0 ) {
+    	            toks.push('---');
+    	        } 
+    	    }
+    	    toks.push(v);
+    	}
+    	var formatedMd = toks.join('\n');
+    	presentationEditor.setValue(formatedMd);
+    }
+    
+    var autoSaveAction = function(){
+		if(window.autoSavePresentationItem){
+			window.autoSavePresentationItem = false;
+			savePresentationItem(function(){
+         		updatePresentationIframePreview();
+         	}, false);
+		}
+	}
+
+    function loadPresentationItemEditor(params) {
+        if (params) {
+            itemId = params.itemId;
+            groupId = params.groupId;
+            categoryId = params.categoryId;
+            
+            console.log('=====> loadPresentationItemEditor for itemId ' + itemId);
+
+            var urlStr = baseLeoAdminUrl + '/cdp/asset-item/get';
+
+            LeoAdminApiUtil.callPostAdminApi(urlStr, params, function (json) {
+                if (json.httpCode === 0 && json.errorMessage === '') {
+                    presentationModel = json.data;
+                    
+                    document.title = presentationModel.title ? 'Presentation Editor - ' + presentationModel.title : 'New Presentation Editor';
+                   
+                 	// breadcrumb link update
+        	        updateBreadcrumbInAssetPost(presentationModel.assetCategories, presentationModel.assetGroups, presentationModel.title );
+                 	
+                    var form = $('#item_editor_form');
+                    for (var k in presentationModel) {
+                        var value = presentationModel[k];
+                        var fieldType = typeof value;
+
+                        if (fieldType === 'number' || fieldType === 'string') {
+                        	if (k === 'mediaInfo') {
+                            	presentationEditor.setValue(value);
+                                CodeMirrorAutoFormat(presentationEditor);
+                               
+                                presentationEditor.setSize(null,presentationEditorHeight);
+                                $('#embedded_html_form_wrapper').hide();
+                            }
+                        	else if (k === 'slug') {
+                        		form.find("input[name='" + k + "']").val(value);
+                            } 
+                        	else if(k === 'qrCodeUrl'){
+                        		$("#content_link_qrcode_url").attr("src",value);
+                        	}
+                            else if (k === 'description') {
+                                form.find("textarea[name='description']").val(value);
+                            }                       
+                            else {
+                                form.find("input[name='" + k + "']").val(value);
+                            }
+                        }
+                        console.log(k + " : " + value + " fieldType :" + fieldType)
+                    }
+                    
+                    if(presentationModel.qrCodeUrl !== "") {
+                    	updatePresentationIframePreview();
+                    	
+                    	presentationEditor.on("change",function(){
+                    		if(! window.autoSavePresentationItem ) {
+                    			window.autoSavePresentationItem = true;
+                    			setTimeout(autoSaveAction,10000);
+                    		}
+                        });
+                    	
+                    } else {
+                    	$('#presentation_form_url_holder').hide()
+                    }
+                    
+                    
+                 	$('#presentation_form_editor_div').css('visibility',"visible")
+                 	
+                } else {
+                    LeoAdminApiUtil.logErrorPayload(json);
+                }
+            });
+        }
+    }
+
+    function savePresentationItem(callback, showLoader) {
+        if (presentationModel) {
+        	presentationModel.itemId = itemId;
+        	presentationModel.groupId = groupId;
+        	presentationModel.categoryId = categoryId;
+   
+            console.log('=====> savePresentationItem itemId ' + itemId);
+
+            //get DOM view and set into presentationModel
+            var form = $('#item_editor_form');
+            presentationModel.title = form.find('input[name="title"]').val().trim();
+            presentationModel.slug = form.find('input[name="slug"]').val();
+            presentationModel.description = form.find('textarea[name="description"]').val();
+            presentationModel.mediaInfo = presentationEditor.getValue().trim();
+           
+            if(presentationModel.title === "" || presentationModel.mediaInfo === "") {
+            	iziToast.error({title: 'Error', message: 'The title and template can not be empty !'});
+            } else {
+            	if (typeof callback === 'function' && showLoader === true) {
+            		// the final save
+            		$('#ajaxLoaderDialog').modal({
+                		backdrop: 'static',
+                		keyboard: false
+            		});
+            	}
+            	
+                //done set data model, POST to API
+                var urlStr = baseLeoAdminUrl + '/cdp/asset-item/save';
+                LeoAdminApiUtil.callPostAdminApi(urlStr, presentationModel, function (json) {
+                    if (json.httpCode === 0 && json.errorMessage === '') {
+                        if (typeof callback === 'function') {
+                            if(json.data === ''){
+                                $('#error-on-save').html('Data is not valid !').show().delay(6000).fadeOut('slow');
+                            } else {
+                                callback(json.data);
+                            }                        
+                        }
+                    } else {
+                        $('#error-on-save').html(json.errorMessage).show().delay(6000).fadeOut('slow');
+                        LeoAdminApiUtil.logErrorPayload(json);
+                    }
+                });
+            }
+        }
+    }
+
+    function presentationFormEditorSave() {
+        var onSaveOk = function (itemId) {
+            console.log('=====> presentationFormEditorSave ', itemId);   
+            $('#ajaxLoaderDialog').modal('hide'); 
+            location.hash = "calljs-leoCdpRouter('Asset_Group_Details','"+presentationModel.groupId+"')";
+        }
+        savePresentationItem(onSaveOk, true);
+    }
+    
+    function addSlideContactUsForm(){
+    	var mdCode = presentationEditor.getValue().trim();
+    	if(mdCode.indexOf('submitContactToLeoCDP')<0){
+    		var html = "\n---\n" + $('#contactUsSlideTpl').html();
+        	presentationEditor.replaceRange(html, {line: Infinity});
+    	}
+    	else {
+    		notifyErrorMessage("Presentation Markdown Code already has <b>the slide 'Contact Us'</b> !")
+    	}
+    }
+    
+</script>
