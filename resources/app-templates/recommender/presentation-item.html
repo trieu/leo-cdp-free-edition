@@ -80,8 +80,8 @@
 		}
 		
 		@media only screen and (max-width: 600px) {
-		  .reveal .slides {
-			  	inset: 31% auto auto 50%!important;
+		  	.reveal .slides {
+			  	inset: 38% auto auto 50%!important;
 			}
 			h1  {
 				font-size: 1.9em!important;
@@ -94,6 +94,9 @@
 			}
 			h4  {
 				font-size: 1em!important;
+			}
+			input {
+				width: 98%!important;
 			}
 		}
 	</style>
@@ -123,29 +126,13 @@
 
 	<!-- MAIN JS -->
 	<script>
-		var maxScale = 1.1, minScale = 0.3;
-		var winW = $(window).innerWidth(), winH =  $(window).innerHeight();
-		var initWidth = Math.floor(winW * 0.98);
-		var preview = false, centerView = false;
-		var isMobileView = initWidth < 800 && winH > winW;
-		
-		if(isMobileView) {
-			maxScale = 0.64;
-			$('#presentation_container').css('height',winH+'px')
-		}
-		
-		if(location.search.indexOf('preview=1')>0){
-			maxScale = 0.7;
-			initWidth = 860;
-			preview = true;
-			centerView = true;
-		}
+	
 		var imgSrc = $('#image_holder').attr('src').trim();
 		if(imgSrc.indexOf('http') < 0){
 			$('#image_holder').hide();
 			$('#image_container').hide();
 		}
-	
+		
 		var leoObserverLogDomain = "{{baseLeoObserverUrl}}";
 		var leoObserverCdnDomain = "{{baseStaticUrl}}";
 	
@@ -156,7 +143,57 @@
 	    var referer = "{{customData.referer}}";
 	    var leoObserverId = "{{customData.observerId}}";
 	    var videoUrl = "{{{customData.content.headlineVideoUrl}}}";
-   		
+	    
+		var maxScale = 1.1, minScale = 0.3;
+		var winW = $(window).innerWidth(), winH =  $(window).innerHeight();
+		var preview = false, centerView = false;
+		var isMobileView = winW < 600 && winH > winW;
+		
+		function initPresentationView(){
+			if(isMobileView) {
+				maxScale = 0.64;
+				$('#presentation_container').css('height',winH+'px')
+			}
+			else if(location.search.indexOf('preview=1')>0){
+				maxScale = 0.7;
+				initWidth = 860;
+				preview = true;
+				centerView = true;
+			}
+			
+			// RevealJS
+			Reveal.initialize({
+				overview: true,
+				controls: true,
+				progress: true,
+				history: true,
+				center: centerView,
+				keyboard: true,
+				touch: true,
+				loop: false,
+				margin: 0.04,
+				minScale: minScale,
+				maxScale: maxScale,
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+			
+			Reveal.initialize().then( () => {
+				// init slides is done
+			 	if(preview){
+			 		$('h1, h2, h3, h4').addClass('preview');
+			 		var holder = $('#contact-data-holder');
+			 		holder.find('input, button').attr('disabled','disabled')
+			 	}
+			 	else if(isMobileView){
+			 		//$('h1, h2, h3, h4, p').addClass('r-fit-text');
+			 	}
+			});
+		}
+		
+		$(document).ready(initPresentationView);
+	</script>
+	
+	<script>
 		function leoObserverProxyReady(session) {
 			var eventData = { "title": srcTouchpointName};
 			if(videoUrl != "") {
@@ -184,39 +221,7 @@
 				},900)
 			}
 		}
-		
-		// RevealJS
-		Reveal.initialize({
-			overview: true,
-			controls: true,
-			progress: true,
-			history: true,
-			center: centerView,
-			keyboard: true,
-			touch: true,
-			loop: false,
-			margin: 0.04,
-			width: initWidth,
-			minScale: minScale,
-			maxScale: maxScale,
-			plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-		});
-		
-		Reveal.initialize().then( () => {
-			// init slides is done
-		 	if(preview){
-		 		$('h1, h2, h3, h4').addClass('preview');
-		 		var holder = $('#contact-data-holder');
-		 		holder.find('input, button').attr('disabled','disabled')
-		 	}
-		 	else if(isMobileView){
-		 		//$('h1, h2, h3, h4, p').addClass('r-fit-text');
-		 		
-		 	}
-		});
-	</script>
 	
-	<script>
 	    (function() {
 			var leoproxyJsPath = '/js/leo-observer/leo.proxy.min.js';
 		    var src = location.protocol + '//' + window.leoObserverCdnDomain + leoproxyJsPath;
