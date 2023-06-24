@@ -68,6 +68,21 @@
                      <textarea class="form-control" rows="2" placeholder="Enter description" name="description"></textarea>
                  </div>
             </div>
+            <div class="panel panel-default">
+                <div class="panel-heading"> <label>YouTube Video URL</label> </div>
+                <div class="panel-body">
+                    <input id="headline_video" type="text" name="headlineVideoUrl" placeholder="Enter YouTube Video URL" class="form-control">
+                    <div id="headline_video_view" class="row display-flex" style="padding: 0 50px;width: 520px;margin: auto" >                           
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Headline Image URL</label>
+                <input id="headlineImageUrl" type="url" class="form-control" placeholder="Enter Headline Image URL" name="headlineImageUrl" autocomplete="off">
+                <div class="thumbnail">
+                	<img id="headlineImage" src="" style="max-height: 200px;max-width: 300px" alt="" >
+                </div>
+            </div>
            	<div class="form-group editor_wrapper" id="presentation_editor_wrapper"  >
                 <label> Presentation Markdown Code </label>
                 <button type="button" class="btn btn-do-now" onclick="formatMarkdownToPresentation()" > 
@@ -97,13 +112,14 @@
 			</div>
            	<div class="form-group" id="presentation_iframe_preview_holder" style="display: none;">
             	<label> Presentation Preview </label>
-            	<button type="button" class="btn btn-do-now" data-visibilty="hidden" onclick="autoSaveAction()" > 
+            	<button type="button" class="btn btn-do-now" data-visibilty="hidden" onclick="autoSaveAction(true)" > 
 	        		<i class="fa fa-refresh"></i> Refresh
 	        	</button>
 	            <div class="embed-responsive embed-responsive-16by9 display-flex-center"  >
 	               <iframe class="embed-responsive-item" id="presentation_iframe_preview" src=""></iframe>
 	            </div>
            	</div> 
+           
     </div>
 </div>
 
@@ -146,6 +162,24 @@
         });
         presentationEditor.setSize($('#raw_media_container').width()-2020, 1);
         
+        $('#headline_video').on('change', function(){
+            var $this = $(this);
+            var currentVal = $this.val().trim();
+             
+            //init MediaPlayer
+            var placeHolderId = 'hvph_' + itemId;
+            var html = '<div id="'+placeHolderId+'" class="videoholder" data-video-source="'+currentVal+'"></div>';
+            $('#headline_video_view').html(html);
+            MediaPlayerOne.create(false, placeHolderId, currentVal, '', [], 1, []);
+            
+            var ytVideoId = getYouTubeVideoId(currentVal);
+            if(ytVideoId && ytVideoId.length > 5){
+                var headlineImage = 'https://img.youtube.com/vi/'+ytVideoId+'/hqdefault.jpg';
+                setupImageUrlInput('#headlineImageUrl', '#headlineImage', headlineImage)
+            }
+            autoSaveAction(true)
+        });
+        
         // load data from server
     	loadPresentationItemEditor(params);
     }
@@ -178,8 +212,8 @@
     	presentationEditor.setValue(formatedMd);
     }
     
-    var autoSaveAction = function(){
-		if(window.autoSavePresentationItem){
+    var autoSaveAction = function(refresh){
+		if(window.autoSavePresentationItem === true || refresh === true){
 			window.autoSavePresentationItem = false;
 			savePresentationItem(function(){
          		updatePresentationIframePreview();
@@ -227,7 +261,20 @@
                         	}
                             else if (k === 'description') {
                                 form.find("textarea[name='description']").val(value);
-                            }                       
+                            }     
+                            else if(k === 'headlineVideoUrl') {
+                                var value = value.trim()
+                                if(value.indexOf('http') === 0){   
+                                    var placeHolderId = 'hvph_' + itemId;                                 
+                                    var html = '<div id="'+placeHolderId+'" class="videoholder" data-video-source="'+value+'"></div>';
+                                    $('#headline_video').val(value);
+                                    $('#headline_video_view').html(html);
+                                    MediaPlayerOne.create(false, placeHolderId, value, '', [], 1, []);
+                                }                               
+                            }
+                            else if(k === "headlineImageUrl") {
+                            	setupImageUrlInput('#headlineImageUrl', '#headlineImage', value)
+                            }
                             else {
                                 form.find("input[name='" + k + "']").val(value);
                             }
@@ -273,6 +320,14 @@
             presentationModel.slug = form.find('input[name="slug"]').val();
             presentationModel.description = form.find('textarea[name="description"]').val();
             presentationModel.mediaInfo = presentationEditor.getValue().trim();
+            presentationModel.headlineVideoUrl = form.find('#headline_video').val();
+            
+            var headlineImageUrl = form.find('input[name="headlineImageUrl"]').val();
+            presentationModel.headlineImageUrl = headlineImageUrl;
+            
+            var imageMap = {};
+            imageMap[headlineImageUrl] = "image";
+            presentationModel.headlineImages = imageMap;
            
             if(presentationModel.title === "" || presentationModel.mediaInfo === "") {
             	iziToast.error({title: 'Error', message: 'The title and template can not be empty !'});
