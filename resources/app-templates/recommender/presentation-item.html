@@ -53,9 +53,8 @@
 		}
 		#video_holder {
 			text-align: center;
-			width: 86%;
+			width: 88%;
     		margin: auto;
-    		padding-bottom: 10px;
 		}
 		h1.preview  {
 			font-size: 2.2em!important;
@@ -141,22 +140,16 @@
 	    
 		var maxScale = 1.1, minScale = 0.3;
 		var winW = $(window).innerWidth(), winH =  $(window).innerHeight();
-		var preview = false, centerView = true;
+		var preview = false;
 		var isMobileView = winW < 600 && winH > winW;
 		
-		function youtubeParser(url){
-		    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-		    var match = url.match(regExp);
-		    return (match&&match[7].length==11)? match[7] : false;
-		}
-		
 		function initPresentationView(){
+			var pcNode = $('#presentation_container');
 			var h = winH;
+			
 			if(videoUrl != "") {
 				h = Math.floor(winH/2) - 20;
 			}
-			
-			var pcNode = $('#presentation_container');
 			pcNode.css('height',h+'px');
 			
 			if(isMobileView) {
@@ -168,6 +161,7 @@
 				preview = true;
 			}
 			else {
+				// in desktop PC
 				pcNode.css('margin',"auto").css('width',"90%!important")
 			}
 			
@@ -177,7 +171,7 @@
 				controls: true,
 				progress: true,
 				history: true,
-				center: centerView,
+				center: true,
 				keyboard: true,
 				touch: true,
 				loop: false,
@@ -244,7 +238,11 @@
 	
 	<script src="https://www.youtube.com/iframe_api"></script>
 	<script>
-		
+		function youtubeParser(url){
+		    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+		    var match = url.match(regExp);
+		    return (match&&match[7].length==11)? match[7] : false;
+		}
 	    var player, playing = false;
 	    function onYouTubeIframeAPIReady() {
 	    	if(videoUrl != "") {
