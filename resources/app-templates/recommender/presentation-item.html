@@ -55,9 +55,7 @@
 			text-align: center;
 			width: 86%;
     		margin: auto;
-		}
-		#presentation_container {
-			margin-top:18px;
+    		padding-bottom: 10px;
 		}
 		h1.preview  {
 			font-size: 2.2em!important;
@@ -106,10 +104,6 @@
 
 	<!-- MAIN CONTENT -->
 	 
-	<div style="display: none;" id="video_holder" >
-		<div id="video" style="margin: auto;" class="embed-responsive embed-responsive-16by9" ></div>
-	</div>
-	
 	<div id="presentation_container" >
 		<div class="reveal"  >
 			<div class="slides">
@@ -120,6 +114,10 @@
 	            </section>
 	        </div>
 		</div>
+	</div>
+	
+	<div style="display: none;" id="video_holder" >
+		<div id="video" style="margin: auto;" class="embed-responsive embed-responsive-16by9" ></div>
 	</div>
 	
 	<div id="image_container" style="display: none;" >
@@ -143,7 +141,7 @@
 	    
 		var maxScale = 1.1, minScale = 0.3;
 		var winW = $(window).innerWidth(), winH =  $(window).innerHeight();
-		var preview = false, centerView = false;
+		var preview = false, centerView = true;
 		var isMobileView = winW < 600 && winH > winW;
 		
 		function youtubeParser(url){
@@ -155,7 +153,7 @@
 		function initPresentationView(){
 			var h = winH;
 			if(videoUrl != "") {
-				h = winH/ 2;
+				h = Math.floor(winH/2) - 20;
 			}
 			
 			var pcNode = $('#presentation_container');
@@ -163,13 +161,11 @@
 			
 			if(isMobileView) {
 				maxScale = 0.8;
-				pcNode.css('width',"100%!important")
 			}
 			else if(location.search.indexOf('preview=1')>0){
 				maxScale = 0.7;
 				initWidth = 860;
 				preview = true;
-				centerView = true;
 			}
 			else {
 				pcNode.css('margin',"auto").css('width',"90%!important")
@@ -249,8 +245,6 @@
 	<script src="https://www.youtube.com/iframe_api"></script>
 	<script>
 		
-
-	
 	    var player, playing = false;
 	    function onYouTubeIframeAPIReady() {
 	    	if(videoUrl != "") {
