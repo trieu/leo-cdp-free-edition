@@ -31,10 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-06-22
+## [0.9.0] - 2023-06-28
 
 ### Added
 
+- add shell script to start a cluster of ArangoDB
 - [Leo Bot] can create new presentation from answer
 - [Digital Asset] add presentation group, add presentation editor and viewer
 - [Leo Bot] can create new content from answer
@@ -47,6 +48,7 @@
 
 ### Fixed
 
+- fix bugs for presentation item viewer
 - fix bugs for content personalization
 - fix bugs set headline images in content post
 - fix bugs when upgrade SendInBlue (Brevo) sib-api-v3-sdk to version 7.0.0

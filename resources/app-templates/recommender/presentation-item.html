@@ -74,6 +74,10 @@
 			min-width: 120px; padding: 4px;
 		}
 		
+		.reveal_pc_screen p {
+			font-size: 28px!important;
+		}
+		
 		@media only screen and (max-width: 600px) {
 		  	.reveal .slides {
 			  	inset: 38% auto auto 50%!important;
@@ -137,17 +141,17 @@
 	    var leoObserverId = "{{customData.observerId}}";
 	    var videoUrl = "{{{customData.content.headlineVideoUrl}}}".trim();
 	    
-		var maxScale = 1.1, minScale = 0.3;
+		var maxScale = 1, minScale = 0.3;
 		var winW = $(window).innerWidth(), winH =  $(window).innerHeight();
 		var preview = false;
 		var isMobileView = winW < 600 && winH > winW;
 		
 		function initPresentationView(){
 			var pcNode = $('#presentation_container');
-			var h = winH;
+			var h = winH - 30;
 			
 			if(videoUrl != "") {
-				h = Math.floor(winH/2) - 20;
+				h = Math.floor(winH/2);
 			}
 			pcNode.css('height',h+'px');
 			
@@ -161,7 +165,8 @@
 			}
 			else {
 				// in desktop PC
-				pcNode.css('margin',"auto").css('width',"90%!important")
+				pcNode.css('margin',"auto").css('width',"92%!important");
+				pcNode.addClass('reveal_pc_screen');
 			}
 			
 			// RevealJS
