@@ -430,10 +430,13 @@
 						            
 						            <div class="form-group text-right" >
 						            	<button type="button" class="btn btn-primary" onclick="setContentPersonalizationInSegment()">
-						            		<i class="fa fa-check-circle" aria-hidden="true"></i> Set content
+						            		<i class="fa fa-check-circle" aria-hidden="true"></i> Set contents in selected group
 						            	</button>
-						            	<button type="button" class="btn btn-danger" onclick="removeRecommendedContentsInSegment()">
-						            		<i class="fa fa-trash" aria-hidden="true"></i> Remove content
+						            	<button type="button" class="btn btn-danger" onclick="removeRecommendedContentsInSegment(false)">
+						            		<i class="fa fa-trash" aria-hidden="true"></i> Remove contents in selected group
+						            	</button>
+						            	<button type="button" class="btn btn-danger" onclick="removeRecommendedContentsInSegment(true)">
+						            		<i class="fa fa-trash" aria-hidden="true"></i> Remove all contents
 						            	</button>
 						            </div>
 						            <hr>
@@ -459,10 +462,13 @@
 						            
 						            <div class="form-group text-right" >
 						            	<button type="button" class="btn btn-primary" onclick="setProductPersonalizationInSegment()">
-						            		<i class="fa fa-check-circle" aria-hidden="true"></i> Set product
+						            		<i class="fa fa-check-circle" aria-hidden="true"></i> Set products in selected group
 						            	</button>
-						            	<button type="button" class="btn btn-danger" onclick="removeRecommendedProductsInSegment()">
-						            		<i class="fa fa-trash" aria-hidden="true"></i> Remove product
+						            	<button type="button" class="btn btn-danger" onclick="removeRecommendedProductsInSegment(false)">
+						            		<i class="fa fa-trash" aria-hidden="true"></i> Remove products in selected group
+						            	</button>
+						            	<button type="button" class="btn btn-danger" onclick="removeRecommendedProductsInSegment(true)">
+						            		<i class="fa fa-trash" aria-hidden="true"></i> Remove all products
 						            	</button>
 						            </div>
 						            <hr>

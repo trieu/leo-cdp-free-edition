@@ -31,10 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-06-28
+## [0.9.0] - 2023-06-29
 
 ### Added
 
+- [Segment UI] add button to remove all recommended contents / products
 - add shell script to start a cluster of ArangoDB
 - [Leo Bot] can create new presentation from answer
 - [Digital Asset] add presentation group, add presentation editor and viewer
