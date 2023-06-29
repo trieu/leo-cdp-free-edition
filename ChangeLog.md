@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-06-29
+## [0.9.0] - 2023-06-30
 
 ### Added
 
@@ -49,6 +49,7 @@
 
 ### Fixed
 
+- fix slow performance when loading profile details and reports
 - fix bugs for presentation item viewer
 - fix bugs for content personalization
 - fix bugs set headline images in content post
