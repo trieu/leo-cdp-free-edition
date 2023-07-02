@@ -80,9 +80,7 @@
 
                 <div class="form-group" id="content_div_wrapper">
                     <label>Content</label>
-                    ( 
-                        <a class="modal-trigger" href="javascript:" data-visibilty="hidden" onclick="toggleRawHtmlEditor(this)">Toggle Raw HTML Editor</a> 
-                    )
+                   
                     <div id="content_div">
                     </div>                   
                     <div id="raw_media_container" style="width: 100%;" >
@@ -602,23 +600,7 @@
         }
     }
 
-    function toggleRawHtmlEditor(node){
-        if($(node).data('visibilty') === 'hidden'){
-            $('#raw_media_container').show();
-            $('#content_div').hide();
-            var rawHtml = $('#mediaInfo').val()
-            rawHtmlEditor.setValue(rawHtml);
-            CodeMirrorAutoFormat(rawHtmlEditor);
-            $(node).data('visibilty','visible');
-            rawHtmlEditor.setSize(null, 800);
-        } else {
-            $('#raw_media_container').hide();
-            $('#content_div').show();
-            trixElement.editor.loadHTML(rawHtmlEditor.getValue());
-            $(node).data('visibilty','hidden');
-            rawHtmlEditor.setSize(null, 1);
-        }        
-    }
+
 
     function checkPostTypeAndSetupMediaEditor(postType, value) {
         // TEXT , RICH_MEDIA, SLIDE_SHOW, IMAGE_SLIDESHOW, VIDEO_AND_BLOG

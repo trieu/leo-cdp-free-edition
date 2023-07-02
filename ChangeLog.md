@@ -31,10 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-06-30
+## [0.9.0] - 2023-07-03
 
 ### Added
 
+- [Text Editor] can convert markdown code to HTML, when copy from ChatGPT or Bing Chat
 - [Segment UI] add button to remove all recommended contents / products
 - add shell script to start a cluster of ArangoDB
 - [Leo Bot] can create new presentation from answer
@@ -61,6 +62,7 @@
 
 ### Changed
 
+- improve UI and UX of content editor, product editor
 - upgrade core Java libraries
 - upgrade arangodb java driver
 - update init-connector-configs.json when setup new system

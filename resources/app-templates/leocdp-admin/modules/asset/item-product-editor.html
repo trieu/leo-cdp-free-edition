@@ -180,24 +180,42 @@
 			                        <!--customData fields -->
 			                    </div>
 			                </div>
-							<hr>
-							<div class="form-group">
-				                <label for="documentUploader"> Editor File Uploader </label>
-				                <input id="documentUploader" type="file" class="filepond" name="document" multiple data-max-file-size="50MB"
-				                    data-max-files="20" />
-				            </div>
-			                <div class="form-group" id="content_div_wrapper">
-			                    <label>Product Content</label>
-			                    <button type="button" class="btn btn-do-now" data-visibilty="hidden" onclick="toggleRawHtmlEditor(this)" style="margin: 9px 9px;"> 
-					        		<i class="fa fa-fw fa-code"></i> Show HTML Editor 
-					        	</button>
-			                    <div id="content_div">
-			                    </div>                   
-			                    <div id="raw_media_container" style="width: 100%;" >
-			                        <textarea id="raw_media_html"></textarea>
-			                    </div> 
-			                    <div id="mediaInfoPreview" ></div>
+							
+							
+							<div class="panel panel-default">
+			                    <div class="panel-heading"> <label>Content Editor</label> </div>
+			                    <div class="panel-body" id="content_div_wrapper" >
+			                    
+			                    	<!--  Tab Navigation Items -->
+								    <ul class="nav nav-tabs" data-tab-content="product_item_editor_tabs" >
+										<li class="active" >
+											<a href="javascript: showTextHtmlEditor()" data-target-tab="panel_content_text_editor" title="Text Editor"> <i class="fa fa-file-text" aria-hidden="true"></i> Text Editor</a>
+								       	</li>
+								       	<li>
+											<a href="javascript:showRawTextHtmlEditor()"  data-target-tab="panel_content_html_editor" title="HTML Editor" > <i class="fa fa-code" aria-hidden="true"></i> HTML Editor </a>
+								       	</li>	       
+								  	</ul>
+								  	
+								  	<div class="tab-content" id="product_item_editor_tabs" style="min-height: 630px"  >
+									  	<!-- tab 1 Text Editor  -->
+										<div class="tab-pane active" id="panel_content_text_editor" >
+											<div class="form-group">
+								                <label for="documentUploader"> Editor File Uploader </label>
+								                <input id="documentUploader" type="file" class="filepond" name="document" multiple data-max-file-size="50MB"
+								                    data-max-files="20" />
+								            </div>	        	
+						                    <div id="content_div" style="width: 100%;" class="col-lg-12"></div>
+						                    <div id="mediaInfoPreview" ></div>  	
+										</div>	                    
+				                    	<!-- tab 2 HTML Editor  -->
+				                    	<div class="tab-pane" id="panel_content_html_editor" >                 
+					                    	<div id="raw_media_container" style="width: 100%;" class="col-lg-12">  <textarea id="raw_media_html"></textarea> </div>
+					                    </div>
+				                    </div>
+				                </div>
 			                </div>
+			                
+							
 				      	</div>
 				    </div>
 				</div>
@@ -277,7 +295,8 @@
                 type: 'text',
                 title: 'Enter Image Label Value'
             },true);
-            loadProductItemEditor(params)
+            loadProductItemEditor(params);
+            setupTabPanels();            
         }, true);
     }
     
