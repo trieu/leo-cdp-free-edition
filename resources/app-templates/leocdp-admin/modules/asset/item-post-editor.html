@@ -187,10 +187,13 @@
 
     //raw HTML code editor
     var rawHtmlEditor = CodeMirror.fromTextArea(document.getElementById("raw_media_html"), {        
-        mode: "htmlmixed",           
-        lineNumbers: true ,
-        smartIndent: true ,
-        lineWrapping : true                                    
+    	 mode: "htmlmixed",           
+         lineNumbers: true ,
+         smartIndent: true ,
+         lineWrapping : true,
+         matchBrackets : true,
+         matchTags: {bothTags: true},
+         extraKeys: {"Ctrl-Space": "autocomplete"}
     });
     rawHtmlEditor.setSize( $('#raw_media_container').width() - 80, 1);
 

@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-07-03
+## [0.9.0] - 2023-07-17
 
 ### Added
 
@@ -50,6 +50,7 @@
 
 ### Fixed
 
+- fix bugs duplicated lead score when merge duplicated profiles
 - fix slow performance when loading profile details and reports
 - fix bugs for presentation item viewer
 - fix bugs for content personalization
@@ -62,6 +63,9 @@
 
 ### Changed
 
+- show profile funnel as default report in admin dashboard
+- improve raw HTML editor of product, content, presentation 
+- upgrade codemirror from 5.65.13 to 6.65.7
 - improve UI and UX of content editor, product editor
 - upgrade core Java libraries
 - upgrade arangodb java driver

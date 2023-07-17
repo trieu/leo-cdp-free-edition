@@ -218,9 +218,9 @@
 		            	<!-- vertical tab panel -->
 		                <ul id="event_flow_tabs" class="nav nav-pills nav-stacked col-md-2">
 		                	<li class="active" ><a href="#panel_event_journey_report" data-toggle="tab"> <i class="fa fa-map-o"></i> Data Journey </a></li>
+		                	<li><a href="#panel_event_report" data-toggle="tab"> <i class="fa fa-line-chart" aria-hidden="true"></i> Event Stream</a></li>
 		                	<li><a href="#panel_referral_channels" data-toggle="tab"  > <i class="fa fa-globe" aria-hidden="true"></i> Referral Channels </a></li>
 		                	<li><a href="#panel_data_touchpoints" data-toggle="tab"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Top Touchpoints </a></li>
-		                	<li><a href="#panel_event_report" data-toggle="tab"> <i class="fa fa-line-chart" aria-hidden="true"></i> Event Stream</a></li>
 		                	<li><a href="#panel_profile_scoring_data" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Advanced Scores</a></li>
 		                    <li><a href="#panel_user_consent" data-toggle="tab"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Data Privacy </a></li>
 		                    <li><a href="#panel_last_session_details" data-toggle="tab"> <i class="fa fa-hourglass-end" aria-hidden="true"></i> Last Session Data </a></li>
@@ -329,41 +329,7 @@
 					            </div>
 	               				
 		                    </div>  
-		                    
-		                    <!-- vertical tab: Referrer Channels  -->
-		                    <div class="tab-pane" id="panel_referral_channels" >
-								<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Referral Channels </h4> 
-								</div>
-								<div id="profileReferrerChannels" class="col-lg-12" >
-								</div>
-								<hr>
-								<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Subscribed Channels </h4> 
-								</div>
-								<div id="profileSubscribedChannels" class="col-lg-12" data-field="subscribedChannels" data-fieldholder="html_list_key_value" data-fieldtype="hashmap" >
-								</div>
-		                    </div>
-		                    
-							<!-- vertical tab Engaged Touchpoints  -->
-		                    <div class="tab-pane" id="panel_data_touchpoints" >
-		                    	<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Top Engaged Touchpoint Details </h4> 
-								</div>
-								<!-- touchpoint chart -->
-								<div id="profileTouchpointChart" class="col-lg-12"> </div>
-								<!-- table list  -->
-								<div class="row" style="height: 1000px; overflow-y: scroll;" >
-									<ul id="engaged_touchpoint_list" class="list-group list-group-dividered list-group-full"  >
-										<div id="journeyFlowChart" class="experience_journey_flow" style="height:420px;"></div>
-						     			<!-- data list -->
-						     			<li>
-						     				<div class="list-group-item" > No data available </div>
-						     			</li>
-									</ul>
-								</div>
-		                    </div>
-		                    
+		                  
 		                    <!-- vertical tab: Event Data Stream  -->
 		                    <div class="tab-pane" id="panel_event_report" >
 		                    	<div class="loader" id="profile_event_report_loader"></div>
@@ -439,6 +405,40 @@
 									<button type="button" class="btn btn-do-now" onclick="loadMoreEventsInProfile()" title="Load more event activities"  style="margin-top: 20px;"> 
 						     			<i class="fa fa-refresh" aria-hidden="true"></i> Load more
 						     		</button>
+								</div>
+		                    </div>
+		                    
+		                    <!-- vertical tab: Referrer Channels  -->
+		                    <div class="tab-pane" id="panel_referral_channels" >
+								<div class="col-lg-12">
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Referral Channels </h4> 
+								</div>
+								<div id="profileReferrerChannels" class="col-lg-12" >
+								</div>
+								<hr>
+								<div class="col-lg-12">
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Subscribed Channels </h4> 
+								</div>
+								<div id="profileSubscribedChannels" class="col-lg-12" data-field="subscribedChannels" data-fieldholder="html_list_key_value" data-fieldtype="hashmap" >
+								</div>
+		                    </div>
+		                    
+							<!-- vertical tab Engaged Touchpoints  -->
+		                    <div class="tab-pane" id="panel_data_touchpoints" >
+		                    	<div class="col-lg-12">
+									<h4 class="highlight_text" > <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Top Engaged Touchpoint Details </h4> 
+								</div>
+								<!-- touchpoint chart -->
+								<div id="profileTouchpointChart" class="col-lg-12"> </div>
+								<!-- table list  -->
+								<div class="row" style="height: 1000px; overflow-y: scroll;" >
+									<ul id="engaged_touchpoint_list" class="list-group list-group-dividered list-group-full"  >
+										<div id="journeyFlowChart" class="experience_journey_flow" style="height:420px;"></div>
+						     			<!-- data list -->
+						     			<li>
+						     				<div class="list-group-item" > No data available </div>
+						     			</li>
+									</ul>
 								</div>
 		                    </div>
 		                    

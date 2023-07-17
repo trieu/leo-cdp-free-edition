@@ -64,8 +64,18 @@
 		    </div>
 	       
             <div class="chart_box" >
-            	<ul class="nav nav-tabs" data-tab-content="main_dashboard_report_tabs" >   
-            		<li class="active">
+            	<ul class="nav nav-tabs" data-tab-content="main_dashboard_report_tabs" >
+		         	<li class="active">
+		         		<a href="javascript:" data-target-tab="panel_profile_funnel" title="Data Funnel Report" > 
+		         			<i class="fa fa-filter" aria-hidden="true"></i> Profile Funnel 
+		         		</a>
+		         	</li>
+		         	<li  onclick="showDashboardReport(false)" >
+		          		<a href="javascript:" data-target-tab="panel_profile_journey_funnel" title="Profile Journey Report"> 
+		          			<i class="fa fa-map-o" aria-hidden="true"></i> Profile Journey  
+		          		</a>
+		         	</li>
+            		<li>
 		         		<a href="javascript:" data-target-tab="panel_observer_report" title="Profile Sources by Observer" > 
 		         			<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Touchpoint Hub
 		         		</a>
@@ -74,17 +84,7 @@
 		         		<a href="javascript:" data-target-tab="panel_touchpoint_report" title="Source Report Details at specific touchpoint" > 
 		         			<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Touchpoint Item
 		         		</a>
-		         	</li>
-		         	<li onclick="showDashboardReport(false)" >
-		          		<a href="javascript:" data-target-tab="panel_profile_journey_funnel" title="Profile Journey Report"> 
-		          			<i class="fa fa-map-o" aria-hidden="true"></i> Profile Journey  
-		          		</a>
-		         	</li>
-		         	<li>
-		         		<a href="javascript:" data-target-tab="panel_profile_funnel" title="Data Funnel Report" > 
-		         			<i class="fa fa-filter" aria-hidden="true"></i> Profile Funnel 
-		         		</a>
-		         	</li>		         		         	
+		         	</li>		         			         		         	
 		         	<li>
 		         		<a href="javascript:setJourneyFlowGraphView()" data-target-tab="panel_flow_network_report" title="Network Flow Report" > 
 		         			<i class="fa fa-connectdevelop" aria-hidden="true"></i> Journey Report
@@ -93,28 +93,27 @@
 	   			</ul>
 	   			
 	   			<div class="tab-content" id="main_dashboard_report_tabs" style="min-height: 450px"  >
-	   			
-	   				<!-- tab 1 Touchpoint Hub Report  -->
-					<div class="highlight_box tab-pane active" id="panel_observer_report" >
-						<div id="observer_report_wrapper" class="vcenter" ></div>
-						<hr>
-						<div id="observer_report_table"></div>
+	   				<!-- tab 1 Profile Funnel Report  -->
+					<div class="highlight_box tab-pane active" id="panel_profile_funnel" >
+						<div id="profile_funnel_wrapper" class="vcenter" >
+	                  		<div id="profile_funnel"></div>
+	               		</div>
 					</div>
-	   			
+					
 					<!-- tab 2 Profile Journey Report  -->
 					<div class="highlight_box tab-pane " id="panel_profile_journey_funnel"  >
 						<div id="profile_journey_funnel_wrapper" class="vcenter" >
 	                  		<div id="profile_journey_funnel" class="funnel" ></div>
 	               		</div>
 					</div>
-					
-					<!-- tab 3 Profile Funnel Report  -->
-					<div class="highlight_box tab-pane" id="panel_profile_funnel" >
-						<div id="profile_funnel_wrapper" class="vcenter" >
-	                  		<div id="profile_funnel"></div>
-	               		</div>
+	   			
+	   				<!-- tab 3 Touchpoint Hub Report  -->
+					<div class="highlight_box tab-pane" id="panel_observer_report" >
+						<div id="observer_report_wrapper" class="vcenter" ></div>
+						<hr>
+						<div id="observer_report_table"></div>
 					</div>
-					
+	   				
 					<!-- tab 4 Touchpoint Details Report  -->
 					<div class="highlight_box tab-pane" id="panel_touchpoint_report" >
 						<div id="touchpoint_report_wrapper" class="vcenter" ></div>

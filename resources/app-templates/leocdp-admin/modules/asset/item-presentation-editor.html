@@ -113,8 +113,11 @@
            	<div class="form-group" id="presentation_iframe_preview_holder" style="display: none;">
             	<label> Presentation Preview </label>
             	<button type="button" class="btn btn-do-now" data-visibilty="hidden" onclick="autoSaveAction(true)" > 
-	        		<i class="fa fa-refresh"></i> Refresh
+	        		<i class="fa fa-refresh"></i> Refresh Slides
 	        	</button>
+	        	<a id="btn_preview_presentation" class="btn btn-do-now" href="javascript:" target="_blank"> 
+	        		<i class="fa fa-arrows-alt"></i> Preview in Fullscreen
+	        	</a>
 	            <div class="embed-responsive embed-responsive-16by9 display-flex-center"  >
 	               <iframe class="embed-responsive-item" id="presentation_iframe_preview" src=""></iframe>
 	            </div>
@@ -127,14 +130,12 @@
 
 <script id="contactUsSlideTpl" type="text/x-handlebars-template">
 ## Contact us
-<div id="contact-data-holder" data-submitok="Thank you !" >
-  <input type="text" id="firstName" name="firstName" placeholder="Your name"/>
+<div  id="contact-data-holder" data-submitok="Thank you !"  >
+  <input type="text" id="firstName" name="firstName" placeholder="Your name" />
   <br>
-  <input type="email" id="email" name="email" placeholder="Your email"/>
-  <br>
-  <br>
-  <button onclick="submitContactToLeoCDP()"> OK 
-  </button>
+  <input type="email" id="email" name="email" placeholder="Your email" />
+  <br> <br>
+  <button onclick="submitContactToLeoCDP()"> OK </button>
 </div>
 </script>
 
@@ -158,7 +159,11 @@
             mode: "markdown",           
             lineNumbers: true ,
             theme: "default",
-            extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"}
+            smartIndent: true ,
+            lineWrapping : true,
+            matchBrackets : true,
+            matchTags: {bothTags: true},
+            extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList", "Ctrl-Space": "autocomplete"}
         });
         presentationEditor.setSize($('#raw_media_container').width()-2020, 1);
         
@@ -191,6 +196,7 @@
      		$("#presentation_iframe_preview_holder").show();
      		
      		$('#preview_presentation_url').attr('href',url).text(url);
+     		$('#btn_preview_presentation').attr('href',url);
     	}
     }
     
