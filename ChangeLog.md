@@ -31,10 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-07-17
+## [0.9.0] - 2023-07-18
 
 ### Added
 
+- auto tracking links and buttons for leo data observer
 - [Text Editor] can convert markdown code to HTML, when copy from ChatGPT or Bing Chat
 - [Segment UI] add button to remove all recommended contents / products
 - add shell script to start a cluster of ArangoDB

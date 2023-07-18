@@ -104,10 +104,16 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 			<div class="modal-body">
 				<div class="form-group" >
 	                <div class="checkbox">
-					  	<label><input type="checkbox" id="leo_observer_auto_track" checked="checked" > Auto tracking "page-view" event when the web page is fully loaded </label>
+					  	<label><input type="checkbox" id="leo_observer_auto_track" checked="checked" > Automatically track "page-view" event when the web page is fully loaded </label>
 					</div>
 					<div class="checkbox">
-						<label><input type="checkbox" id="leo_observer_auto_collect_UTM" checked="checked" > Auto collect UTM data (Google Analytics) from URL </label>
+						<label><input type="checkbox" id="leo_observer_auto_collect_UTM" checked="checked" > Automatically collect UTM data (Google Analytics) from URL </label>
+					</div>
+					<div class="checkbox">
+						<label><input type="checkbox" id="leo_observer_auto_track_all_links"  > Automatically track users when they click any link in the web-page</label>
+					</div>
+					<div class="checkbox">
+						<label><input type="checkbox" id="leo_observer_auto_track_all_buttons" > Automatically track users when they click any button in the web-page</label>
 					</div>
 					<div class="checkbox">
 						<label>
@@ -151,6 +157,7 @@ var parseDataUTM = window.parseDataUTM || function () {
 // (2) LEO OBSERVER: set-up all event tracking functions
 var LeoObserver = {};
 __eventTrackingFunctions__
+
 // (3) LEO OBSERVER is ready
 function leoObserverProxyReady(session) {
    	// auto tracking when LEO CDP JS is ready
@@ -173,6 +180,32 @@ function leoObserverProxyReady(session) {
 		}
 	});
 }
+
+// track users when they click any link in the web-page
+LeoObserver.addTrackingAllLinks = function(){
+    setTimeout(function(){
+        document.querySelectorAll('a').forEach(function (e) {
+            e.addEventListener('click',function(){
+                var url = e.getAttribute('href') || "";
+                var data = {'url': url, 'link-text' : e.innerText };
+                LeoObserver.recordEventClickDetails(data)
+            })
+        })
+    },1500);
+}
+
+// track users when they click any button in the web-page
+LeoObserver.addTrackingAllButtons = function(){
+    setTimeout(function(){
+        document.querySelectorAll('button').forEach(function (e) {
+            e.addEventListener('click',function(){
+                var data = {'button-text' : e.innerText };
+                LeoObserver.recordEventClickDetails(data)
+            })
+        })
+    },1600);
+}
+
 				</textarea></div>
 			</div>  
 			<div class="modal-footer">

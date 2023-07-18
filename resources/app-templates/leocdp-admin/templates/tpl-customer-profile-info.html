@@ -143,7 +143,7 @@
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br>
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
-				<li> <%- key %> : <%- value %> </li>
+				<li> <b> <%- key %> </b> : <mark> <%- value %> </mark>  </li>
 			<% }) %>
 			<ul>
 			</span> 
@@ -174,17 +174,17 @@
 			 <i class="fa fa-commenting-o" aria-hidden="true"></i> Message: <mark> <%- message %> </mark> <br>
 			 <i class="fa fa-info-circle" aria-hidden="true"></i> Value: <mark> <%- metricValue %> </mark> 
 		 </div>
-		 <hr>
 		 <div class="text-nowrap " >  
 			<i class="fa fa-link" aria-hidden="true"></i> <span class="small" ><%- srcTouchpoint.truncatedUrl %></span> <br>
 			<i class="fa fa-map-marker" aria-hidden="true"></i>
 			<span class="small" > Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a>  </span> 
 		 </div>
+		 <hr>
  		 <div class="text-wrap" style="display: <%- cssStyleDisplay %>" >   
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br> 
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
-				<li> <%- key %> : <%- value %> </li>
+				<li> <b> <%- key %> </b> : <mark> <%- value %> </mark>  </li>
 			<% }) %>
 			<ul>
 			</span> 
@@ -215,17 +215,17 @@
 			<i class="fa fa-usd" aria-hidden="true"></i> ID Code: <mark> <%- transactionId %> </mark> <br>
 			<i class="fa fa-usd" aria-hidden="true"></i> Transaction Value: <mark> <%- transactionValue %> <%- transactionCurrency %> </mark>	
 		 </div>
-		 <hr>
 		 <div class="text-nowrap " >  
 			<i class="fa fa-link" aria-hidden="true"></i> <span class="small" ><%- srcTouchpoint.truncatedUrl %></span> <br> 
 			<i class="fa fa-map-marker" aria-hidden="true"></i>  
 			<span class="small" > Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a>  </span> 
 		 </div>
+		 <hr>
 		 <div class="text-wrap" style="display: <%- cssStyleDisplay %>" >  
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br> 
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
-				<li> <%- key %> : <%- value %> </li>
+				<li> <b> <%- key %> </b> : <mark> <%- value %> </mark>  </li>
 			<% }) %>
 			<ul>
 			</span> 
