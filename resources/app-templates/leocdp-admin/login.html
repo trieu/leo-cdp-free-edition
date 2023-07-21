@@ -88,7 +88,7 @@
             };
             
             $('#info-login').html("<b>Sending data ...</b>").show();
-            LeoAdminApiUtil.callPostApi(urlStr, params, function (json) {
+            var loginHandler = function (json) {
                 if (json.errorMessage === '') {
                 	//OK, set session data
                     encryptionkey = json.data;
@@ -101,15 +101,16 @@
                     
                     //wait and reload
                     setTimeout(function () { 
-                    	window.location.reload();
-                    }, 2800);
+                    	window.location.reload(true);
+                    }, 3600);
                 } else {
                 	$('#info-login').hide();
                     $('#error-login').html('<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ' + json.errorMessage).show().delay(3000).fadeOut();
                     // failed
                     setTimeout(function () { LeoAdminApiUtil.logErrorPayload(json); }, 2300);
                 }
-            });
+            };
+            LeoAdminApiUtil.callPostApi(urlStr, params, loginHandler);
         };
 
         $('#btn_system_login').click(apiLoginHandler);

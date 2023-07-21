@@ -72,6 +72,7 @@
 <script>
     var botui = new BotUI('iris_chatbot'), keywords = 'First-time Customers';
     const BASE_URL_LEOBOT = baseLeoBotUrl + '/ask';
+    const IS_LEO_BOT_READY = dnsDomainLeoBot !== "";
 
     function getActiveVideoInfo() {
         var node = $('#suggestedVideoCarousel .active');
@@ -94,27 +95,26 @@
     }
 
     var showLeoChatBot = function () {
+    	var actionModel = [{
+            text: 'Show segments',
+            value: 'valuable-segments'
+        }, {
+            text: 'Search profiles',
+            value: 'search-profiles'
+        }];
+    	
+    	if(IS_LEO_BOT_READY) {
+    		actionModel.push({ text: 'Ask question', value: 'ask-question'});
+    		actionModel.push({ text: 'Write content', value: 'write-content'});
+    		actionModel.push({ text: 'Create presentation', value: 'create-presentation'});
+    	}
+    	
         botui.message.bot('Hi ' + currentUserProfile.displayName + ', how can LEO help you ?')
             .then(function () {
                 return botui.action.button({
                     delay: 1000,
                     addMessage: false, // so we could the keywords in message instead if 'Existing keywords'
-                    action: [{
-                        text: 'Show segments',
-                        value: 'valuable-segments'
-                    }, {
-                        text: 'Search profiles',
-                        value: 'search-profiles'
-                    }, {
-                        text: 'Ask question',
-                        value: 'ask-question'
-                    }, {
-                        text: 'Write content',
-                        value: 'write-content'
-                    }, {
-                        text: 'Create presentation',
-                        value: 'create-presentation'
-                    } ]
+                    action: actionModel
                 })
             }).then(function (res) {
             	var v = res.value;
@@ -207,9 +207,7 @@
         	return botui.action.text({
                 delay: 1000,
                 action: {
-                    size: 100,
-                    icon: 'text',
-                    value: '', // show the saved keywords if any
+                    size: 100, icon: 'text', value: '', // show the saved keywords if any
                     placeholder: 'Enter the title of presentation or type "exit" to exit Leo Bot'
                 }
             })
@@ -296,7 +294,7 @@
 				}
 	   			};
 			var payload =  { 'content': content, 'usersession' : getUserSession(), 'userlogin' : currentUserProfile.userLogin };
-			LeoAdminApiUtil.callPostApi(BASE_URL_LEOBOT, payload, callback );
+			LeoAdminApiUtil.callPostApi(BASE_URL_LEOBOT, payload, callback , exitAndCloseLeoBotDialog);
 		}
 		else {
 			exitAndCloseLeoBotDialog();

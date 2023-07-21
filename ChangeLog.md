@@ -31,10 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-07-18
+## [0.9.0] - 2023-07-21
 
 ### Added
 
+- [Segment] a segment can be applied jupyter notebook for CLV scoring, RFM scoring and advanced analytics
 - auto tracking links and buttons for leo data observer
 - [Text Editor] can convert markdown code to HTML, when copy from ChatGPT or Bing Chat
 - [Segment UI] add button to remove all recommended contents / products
@@ -64,6 +65,7 @@
 
 ### Changed
 
+- skip how leo-bot when no config httpLeoBotDomain
 - show profile funnel as default report in admin dashboard
 - improve raw HTML editor of product, content, presentation 
 - upgrade codemirror from 5.65.13 to 6.65.7
