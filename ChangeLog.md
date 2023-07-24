@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-07-21
+## [0.9.0] - 2023-07-24
 
 ### Added
 
@@ -50,8 +50,15 @@
 - [Data Connector] Data Activation with time scheduler
 - [Data Connector] add EmailMarketingConnector
 
+arangodump \
+  --server.endpoint tcp://14.225.11.17:8600 \
+  --server.username root \
+  --all-databases true \
+  --output-directory "ttgdb"
+
 ### Fixed
 
+- fix and improve performance of dashboard reports, profile reports
 - fix bugs duplicated lead score when merge duplicated profiles
 - fix slow performance when loading profile details and reports
 - fix bugs for presentation item viewer

@@ -65,72 +65,75 @@ AQL_GET_JOURNEY_MAP_REFKEYS_BY_IDS =>
 ;
 
 AQL_COUNT_PROFILE_WITH_JOURNEY => 
+	LET filtered_profiles = (
+		FOR p in cdp_profile FILTER p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate 
+		RETURN {"_key":p._key, "inJourneyMaps": p.inJourneyMaps}
+	)
 	LET vcAwareness = LENGTH(
-	    FOR p in cdp_profile
+	    FOR p in filtered_profiles
 	        FOR s in p.inJourneyMaps 
-	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 1 AND s.type == "VISITOR" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	            FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 1 AND s.type == "VISITOR" 
 	    RETURN DISTINCT p._key
 	)
 	LET vcAttraction = LENGTH(
-	    FOR p in cdp_profile
+	    FOR p in filtered_profiles
 	        FOR s in p.inJourneyMaps
-	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 2 AND s.type == "VISITOR" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 2 AND s.type == "VISITOR" 
 	    RETURN DISTINCT p._key
 	)
 	LET vcAsk = LENGTH(
-	    FOR p in cdp_profile
+	    FOR p in filtered_profiles
 	        FOR s in p.inJourneyMaps
-	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 3 AND s.type == "VISITOR" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 3 AND s.type == "VISITOR" 
 	    RETURN DISTINCT p._key
 	)
 	LET vcAction = LENGTH(
-	    FOR p in cdp_profile
+	    FOR p in filtered_profiles
 	        FOR s in p.inJourneyMaps
-	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 4 AND s.type == "VISITOR" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 4 AND s.type == "VISITOR" 
 	    RETURN DISTINCT p._key
 	)
 	LET vcAdvocacy = LENGTH(
-	    FOR p in cdp_profile
+	    FOR p in filtered_profiles
 	        FOR s in p.inJourneyMaps
-	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 5 AND s.type == "VISITOR" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 5 AND s.type == "VISITOR" 
 	    RETURN DISTINCT p._key
 	)
 		
 	LET ccAwareness = LENGTH(
-	    FOR p in cdp_profile
+	    FOR p in filtered_profiles
 	        FOR s in p.inJourneyMaps 
-	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 1 AND s.type == "CONTACT" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 1 AND s.type == "CONTACT" 
 	    RETURN DISTINCT p._key
 	)
 	LET ccAttraction = LENGTH(
-	    FOR p in cdp_profile
+	    FOR p in filtered_profiles
 	        FOR s in p.inJourneyMaps
-	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 2 AND s.type == "CONTACT" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 2 AND s.type == "CONTACT" 
 	    RETURN DISTINCT p._key
 	)
 	LET ccAsk = LENGTH(
-	    FOR p in cdp_profile
+	    FOR p in filtered_profiles
 	        FOR s in p.inJourneyMaps
-	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 3 AND s.type == "CONTACT" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 3 AND s.type == "CONTACT"
 	    RETURN DISTINCT p._key
 	)
 	LET ccAction = LENGTH(
-	    FOR p in cdp_profile
+	    FOR p in filtered_profiles
 	        FOR s in p.inJourneyMaps
-	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 4 AND s.type == "CONTACT" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 4 AND s.type == "CONTACT" 
 	    RETURN DISTINCT p._key
 	)
 	LET ccAdvocacy = LENGTH(
-	    FOR p in cdp_profile
+	    FOR p in filtered_profiles
 	        FOR s in p.inJourneyMaps
-	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 5 AND s.type == "CONTACT" AND p.status > 0 AND p.updatedAt >= @beginFilterDate AND p.updatedAt <= @endFilterDate
+	        FILTER (s.id == @journeyMapId OR @journeyMapId == "") AND s.indexScore >= 5 AND s.type == "CONTACT" 
 	    RETURN DISTINCT p._key
 	)
-	
 	RETURN {
 		"visitorCountAwareness":vcAwareness, "visitorCountAttraction":vcAttraction, "visitorCountAsk":vcAsk, "visitorCountAction":vcAction, "visitorCountAdvocacy":vcAdvocacy,
 		"contactCountAwareness":ccAwareness, "contactCountAttraction":ccAttraction, "contactCountAsk":ccAsk, "contactCountAction":ccAction, "contactCountAdvocacy":ccAdvocacy
-		}
+	}
 ;
 
 AQL_COUNT_JOURNEY_EVENT_PROFILE => 
@@ -473,7 +476,7 @@ AQL_GET_TOUCHPOINT_REPORT =>
 		    COLLECT srcTouchpointId = e.srcTouchpointId  
 		    AGGREGATE eventCount = COUNT_DISTINCT(e._key),profileCount = COUNT_DISTINCT(e.refProfileId)
 		    RETURN {"touchpointId": srcTouchpointId, "eventCount": eventCount, "profileCount":profileCount}
-	    	)
+	    )
 		FOR s in tpStats  
 	    	LET profileCount =  s.profileCount
 	    	LET eventCount =  s.eventCount

@@ -242,12 +242,6 @@
 				        			</div>
 				        		</div>
 				        		
-				        		<!-- Event Statistics Bar Chart -->
-	               				<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> All Event Activity Report </h4> 
-									<div id="profileEventStatsChart" class="col-lg-12"> </div>
-								</div>	
-				        		
 				        		<div class="col-ld-12" > 
 				        			<div class="funnel-flow" id="profile_funnel_report" >
 				               			<div class="funnel-stage" id="profile_funnel_stage_1" >
@@ -289,29 +283,33 @@
 								   	</div>
 							   	</div>
 							   	
-		                    	<div class="vcenter highlight_box col-md-12" style="padding: 20px 20px 40px 20px;">
+							   	<div class="vcenter highlight_box col-md-12" style="padding: 20px 20px 40px 20px;">
 		                    		<h4 id="event_journey_funnel_info" ></h4>		                    		
 	                  				<div id="event_journey_funnel" class="funnel" ></div>
 	               				</div>
+							   	
+							    <!-- Event Summary Report -->
+	               				<div class="col-lg-12">
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Summary Report </h4> 
+									<div id="profileEventStatsChart" class="col-lg-12"> </div>
+								</div>	
+								
+								<!-- Event Matrix Report  -->
+								<div class="col-md-12"  >
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Matrix Report </h4> 
+									<div id="profile_event_matrix" class="col-lg-12"> </div>
+								</div>
 	               				
 	               				<!--  Data Journey Map -->
 	               				<div class="vcenter highlight_box col-md-12" style="padding: 20px; margin-top: 20px; display: none;">
 	               					<h3 style="text-align: center; color: #0000CD;"> Data Journey Map </h3>
 	               					<div id="journeyFlowChart" class="experience_journey_flow" style="height:420px;display: none;"></div>
 	               				</div>
-								
+	               				
 								<!-- Top Observable Data Sources -->
-	               				<div class="col-lg-12">
+	               				<div class="col-lg-12" >
 									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Top Observable Data Sources </h4> 
 									<div id="profileObserverChart" class="col-lg-12"> </div>
-								</div>	
-								
-								
-								
-								<!-- Event Matrix Report  -->
-								<div class="col-md-12"  >
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Matrix Report </h4> 
-									<div id="profile_event_matrix" class="col-lg-12"> </div>
 								</div>
 								
 								<!-- Data Journey Graph  -->
@@ -320,7 +318,7 @@
 									<div id="profileTouchpointFlow" style="height: 680px; width: 100%; background-color: #e8e8e8; border-radius: 10px;">
 										<div class="loader"></div>
 									</div>
-								</div>						
+								</div>				
 	               				
 	               				<div class="col-md-12" style="display: none;">
 					                <div id="venn_two" style=float:left>
@@ -1116,9 +1114,6 @@
         	 // event flow
         	 loadEventsInProfileIndex = 0;
         	 
-        	 // touchpoint
-        	 renderProfileTouchpointChart(profileId, -1, 0, 30)
-        	 
         	 // Profile Analytics Report
         	 loadJourneyReportForProfile(profileId, profileData);
         	 
@@ -1130,13 +1125,13 @@
         		 // feedback data from customer
             	 loadFeedbacksInProfileIndex = 0;
             	 loadFeedbackEventsInProfile();
-        	 },2500);
+        	 },5000);
         	 
         	 // timeseries
         	 setTimeout(function(){
             	 // Financial Events
             	 loadFinancialEventList();
-			 },5000)
+			 },7000)
         	 
         	 //renderJourneyFlowChart();
         	 //loadProfileAttribution();
