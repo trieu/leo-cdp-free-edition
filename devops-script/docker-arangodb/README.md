@@ -61,4 +61,9 @@ Make sure you have `arangosh` client tool command installed.
 arangosh --server.endpoint http+tcp://127.0.0.1:8529 --server.password rootpassword
 ```
 
+### How to dump database
+```
+arangodump --server.endpoint tcp://127.0.0.1:8529 --server.username root --server.database leocdp --output-directory backup
+```
+
 Enjoy your local ArangoDB database server for any purpose you want, for me this setup is fine for testing purpose.

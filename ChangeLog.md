@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-07-24
+## [0.9.0] - 2023-07-25
 
 ### Added
 
@@ -49,12 +49,6 @@
 - [Data Connector] tool for administration; create, update and delete a connector
 - [Data Connector] Data Activation with time scheduler
 - [Data Connector] add EmailMarketingConnector
-
-arangodump \
-  --server.endpoint tcp://14.225.11.17:8600 \
-  --server.username root \
-  --all-databases true \
-  --output-directory "ttgdb"
 
 ### Fixed
 
