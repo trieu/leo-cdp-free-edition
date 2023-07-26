@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-07-25
+## [0.9.0] - 2023-07-26
 
 ### Added
 
@@ -52,6 +52,7 @@
 
 ### Fixed
 
+- fix bugs and improve performance of touchpoint report in journey flow and profile
 - fix and improve performance of dashboard reports, profile reports
 - fix bugs duplicated lead score when merge duplicated profiles
 - fix slow performance when loading profile details and reports
