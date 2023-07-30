@@ -1,6 +1,6 @@
 # Infrastructure Setup for a new LeoCDP instance
 
-You can watch this video tutorial at the link: [How to setup a new software instance of LEO CDP](https://knowledge.leocdp.net/p/how-to-setup-new-software-instance-of.html)
+The tutorial video: [How to setup a new software instance of LEO CDP](https://knowledge.leocdp.net/p/how-to-setup-new-software-instance-of.html)
 
 ## Network requirements
 
@@ -19,12 +19,11 @@ The deployed server must have Internet connection, please set the out-bound fire
 
 [ArangoDB download](https://www.arangodb.com/download-major/ubuntu)
 
-	curl -OL https://download.arangodb.com/arangodb39/DEBIAN/Release.key
+	curl -OL https://download.arangodb.com/arangodb311/DEBIAN/Release.key
 	sudo apt-key add - < Release.key
-	echo 'deb https://download.arangodb.com/arangodb39/DEBIAN/ /' | sudo tee /etc/apt/sources.list.d/arangodb.list
+	echo 'deb https://download.arangodb.com/arangodb311/DEBIAN/ /' | sudo tee /etc/apt/sources.list.d/arangodb.list
 	sudo apt-get install apt-transport-https
-	sudo apt-get update
-	sudo apt-get install arangodb3=3.9.3-1
+	sudo apt-get update && sudo apt-get install arangodb3=3.11.2-1
 
 ### Nginx Proxy
 
@@ -88,13 +87,11 @@ Command to edit hosts:
 - [the network IP of ArangoDB Server] leocdp.database
 - [the network IP of Redis Server] leocdp.redis
 - [the network IP of LeoCDP Admin] leocdp.admin
-- [the network IP of Data Observer 1] leocdp.observer1
-- [the network IP of Data Observer 2] leocdp.observer2
+- [the network IP of Data Observer] leocdp.observer
 
 #### Example DNS for 1 ArangoDB database server, 1 Redis cache server, 1 Admin server and 2 data observers
 
-	10.2.0.5 leocdp.database
-	10.4.0.3 leocdp.redis
-	10.4.0.3 leocdp.admin
-	10.1.0.8 leocdp.observer1
-	10.1.0.11 leocdp.observer2
+	127.0.0.1 leocdp.database
+	127.0.0.1 leocdp.redis
+	127.0.0.1 leocdp.admin
+	127.0.0.1 leocdp.observer
