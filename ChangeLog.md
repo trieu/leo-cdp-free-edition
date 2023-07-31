@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-07-30
+## [0.9.0] - 2023-07-31
 
 ### Added
 
@@ -52,8 +52,8 @@
 
 ### Fixed
 
-- fix bugs and improve performance of touchpoint report in journey flow and profile
-- fix and improve performance of dashboard reports, profile reports
+- fix bugs and improve performance of reports in journey flow and profile
+- fix and improve performance of reports in dashboard and profile reports
 - fix bugs duplicated lead score when merge duplicated profiles
 - fix slow performance when loading profile details and reports
 - fix bugs for presentation item viewer
@@ -67,6 +67,7 @@
 
 ### Changed
 
+- refactoring javascript in customer-journey-flow.html
 - skip how leo-bot when no config httpLeoBotDomain
 - show profile funnel as default report in admin dashboard
 - improve raw HTML editor of product, content, presentation 
