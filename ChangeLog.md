@@ -35,6 +35,7 @@
 
 ### Added
 
+- [Profile] a profile can be verified in Leo Admin to improve data quality score
 - [Segment] a segment can be applied jupyter notebook for CLV scoring, RFM scoring and advanced analytics
 - auto tracking links and buttons for leo data observer
 - [Text Editor] can convert markdown code to HTML, when copy from ChatGPT or Bing Chat

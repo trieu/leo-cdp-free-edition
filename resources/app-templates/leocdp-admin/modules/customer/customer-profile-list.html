@@ -372,6 +372,7 @@
 			$('#showCustomerProfile').prop('checked', true);
     	}
     	
+    	// search profiles by keywords
     	if(typeof encodedKeywords === 'string' ) {
     		var keywordsToSearch = Base64.decode(encodedKeywords);
     		document.title = "Customer Data Hub - Searching profiles by keywords: " + keywordsToSearch;

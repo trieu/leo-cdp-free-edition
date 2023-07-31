@@ -32,8 +32,9 @@
            <div class="col-md-7">
   			  
                <div class="text-center" >
+               	   
                    <img id="profile_avatar" src="/public/images/avatars/profile-default-avatar.png" alt="Profile Avatar" class="rounded mx-auto d-block avatar"> <br>
-                   <h4 id="profile_full_name"> - </h4>
+                   <h4 id="profile_full_name" style="color:blue; font-weight: bold;" > - </h4>
                </div>
 			   <hr>
                <div class="col-md-12" >
@@ -1106,7 +1107,14 @@
         	 if(profileData.primaryAvatar != ''){
         		 $('#profile_avatar').attr('src', profileData.primaryAvatar);
         	 }
-        	 $('#profile_full_name').text(profileData.fullName);
+        	 var fullNameHtml = '';
+        	 if(profileData.dataVerification) {
+        		 fullNameHtml = '<i class="fa fa-check-circle-o" aria-hidden="true" title="Verified Data" ></i> ' + profileData.fullName;
+        	 }
+        	 else {
+        		 fullNameHtml = profileData.fullName;
+        	 }
+        	 $('#profile_full_name').html(fullNameHtml);
         	 
         	 // journeyMaps, Segments, dataLabels
         	 renderTaxonomyTextData(profileData);

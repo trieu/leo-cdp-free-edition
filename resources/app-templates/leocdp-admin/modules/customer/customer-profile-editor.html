@@ -72,7 +72,7 @@
 					         <label><input type="radio" name="status" value="-4" data-field="status" data-fieldholder="inputvalue" data-fieldtype="int" >REMOVED</label>
 					      </div>
 					   </div>
-					</div>        
+					</div>
 	        	</div>
       		</div>
        </div>
@@ -176,6 +176,15 @@
 										  	<input type="radio" name="maritalStatus" value="11" data-field="maritalStatus" data-fieldholder="inputvalue" data-fieldtype="int" >Widowed
 										  </label>
 									   </div>
+	                               </li>
+	                               
+	                               <li>
+	                               		<label> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Data Verification </label> 
+	                               		<div class="checkbox">
+								         <label><input type="checkbox" name="dataVerification" data-field="dataVerification" data-fieldholder="inputvalue" data-fieldtype="boolean" > 
+								         	DATA IS VERIFIED </label>
+								      	</div>
+									    
 	                               </li>
 					               
 	                           </ol>
@@ -775,14 +784,17 @@
     		var field = $(this).data('field'); 
     		var fieldtype = $(this).data('fieldtype'); 
     		var val = $(this).val();
-    		
     		if(fieldtype === 'int'){
     			val = parseInt(val);
     		} else if(fieldtype === 'float'){
     			val = parseFloat(val);
     		}
-    		
     		editedProfileModel[field] = val;
+    	});
+    	dataDomHolder.find('input[data-field][type="checkbox"]').each(function(){ 
+    		var field = $(this).data('field'); 
+    		var checked = $(this).prop('checked');
+    		editedProfileModel[field] = checked;
     	});
     	dataDomHolder.find('input[data-field][type="text"],input[data-field][type="email"],textarea').each(function(){ 
     		var field = $(this).data('field'); 
