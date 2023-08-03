@@ -31,10 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-07-31
+## [0.9.0] - 2023-08-03
 
 ### Added
 
+- [DailyReportUnit] add year, month, day and hour as attributes to build reports
 - [Profile] a profile can be verified in Leo Admin to improve data quality score
 - [Segment] a segment can be applied jupyter notebook for CLV scoring, RFM scoring and advanced analytics
 - auto tracking links and buttons for leo data observer
@@ -53,6 +54,8 @@
 
 ### Fixed
 
+- [Profile] the length of profile.notes only have maximum 3000 characters
+- [Tracking Event] must set state = 1 before insert event into database
 - fix bugs and improve performance of reports in journey flow and profile
 - fix and improve performance of reports in dashboard and profile reports
 - fix bugs duplicated lead score when merge duplicated profiles
@@ -68,6 +71,7 @@
 
 ### Changed
 
+- no auto merge duplicated profiles, user should do this action in admin manually
 - refactoring javascript in customer-journey-flow.html
 - skip how leo-bot when no config httpLeoBotDomain
 - show profile funnel as default report in admin dashboard
