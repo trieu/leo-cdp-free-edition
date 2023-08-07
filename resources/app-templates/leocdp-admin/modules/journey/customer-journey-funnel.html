@@ -10,8 +10,17 @@
 	.modal-body .eventName {
 		font-size:1.5em; color:blue; font-weight: bold;
 	}
-	tr > td.jsgrid-cell:nth-of-type(1), tr > td.jsgrid-cell:nth-of-type(3), tr > td.jsgrid-cell:nth-of-type(5) {
-		font-size:13px; color:blue; font-weight: bold;
+	#event_metrics_table tr > td.jsgrid-cell {
+		font-size:12.9px; color:blue; 
+	}
+	#event_metrics_table tr > td.jsgrid-cell:nth-of-type(1), #event_metrics_table tr > td.jsgrid-cell:nth-of-type(3), #event_metrics_table tr > td.jsgrid-cell:nth-of-type(4) {
+		font-weight: bold; font-size:13.1px;
+	}
+	#event_metrics_table th.jsgrid-header-cell {
+		background-color: #D5D8DC;
+	}
+	#event_metrics_table tr.jsgrid-alt-row td.jsgrid-cell {
+		background-color: #EAECEE;
 	}
 	.editable_event_metric {
 		background-color: #FFF8DC;
@@ -37,7 +46,7 @@
   		<div class="row col-lg-12 text-center">
 
   			<div class="col-md-12" >
-                 <h4 class="chart_header text-center" > Data Funnel for Customer Analytics </h4>
+                 <h4 class="chart_header text-center" style="font-weight:bolder;" > Data Funnel for Customer Analytics </h4>
                  <div class="summary_metric data_funnel" >
 	               <div class="vcenter">
 	                  <div id="profile_funnel" ></div>
@@ -48,9 +57,12 @@
         </div>
         
         <div class="col-lg-12" style="margin-top: 8px;">
-         	<h4 class="text-center"> <mark> All Event Metrics for Customer Analytics </mark> (The table is sorted by the Event Score) </h4>
+         	<h4 class="text-center">
+				<mark  style="font-weight:bolder;"> All Event Metrics for Customer Analytics </mark> 
+         		(The table is sorted by the Event Score) 
+         	</h4>
             <div class="table-responsive">
-                <div id="behavioral_metrics_table"></div>
+                <div id="event_metrics_table"></div>
             </div>
         </div>
     </div>
@@ -62,267 +74,6 @@
 	var behavioralMetricsData = [], customerFunnelStages;
 
 	var initBehavioralEventList = function() {
-		var profileFunnelOptions = {
-				block: {
-	   	   			highlight: true,
-		   	   		fill: {
-		                type: 'gradient'
-		            }
-	   	   	    },
-		        chart: {
-		        	curve: { enabled: true, height: 36 },
-		            height: 360,
-		            bottomWidth : 0.57,
-		            bottomPinch: 2
-		        },
-		        tooltip: {
-		            enabled: true
-		        },
-		        label: {
-		            fontSize: '14px'
-		        },
-		        events: {
-		            click: {
-		                block: function (data) {
-		                    console.log(data.label.raw);
-		                }
-		            }
-		        }
-		};
-		
-		var journeyFunnelOptions = {
-			block: {
-   	   			highlight: true,
-	   	   		fill: {
-	                type: 'gradient'
-	            }
-   	   	    },
-	        chart: {
-	        	curve: { enabled: true, height: 36 },
-	            height: 360,
-	            bottomWidth : 0.57,
-	            bottomPinch: 1
-	        },
-	        tooltip: {
-	            enabled: true
-	        },
-	        label: {
-	            fontSize: '14px'
-	        },
-	        events: {
-	            click: {
-	                block: function (data) {
-	                    console.log(data.label.raw);
-	                }
-	            }
-	        }
-		}
-	
-	    var saveEventMetricMetaData = function(item){
-			var callback = function(json){
-	    		if(json.data != ""){
-	    			location.reload(true);
-	    		}
-	    		else {
-	    			console.error('saveEventMetricMetaData ', rs)
-	    		}
-	    	};
-			var params = {'eventMetricJson' : JSON.stringify(item) };
-	    	LeoAdminApiUtil.callPostAdminApi('/cdp/funnel/event-metric/save', params, function (json) {
-	            if (json.httpCode === 0 && json.errorMessage === '') {
-	    			callback(json);
-	            } else {
-	                LeoAdminApiUtil.logErrorPayload(json);
-	            }
-	       });
-		}
-	    
-	    var deleteEventMetricMetaData = function(eventName) {
-    	 	$('#delete_callback').val('');
-	    	$('#confirmDeleteDialog').modal({ focus: true });
-	    	if (typeof eventName === "string" ) {
-	    	     var callback = "deleteEventMetricMetaData" + eventName;
-	    	     window[callback] = function () {
-	    	    	var params = {'eventName' : eventName};
-	   		    	LeoAdminApiUtil.callPostAdminApi('/cdp/funnel/event-metric/delete', params, function (json) {
-	   		            if (json.httpCode === 0 && json.errorMessage === '') {
-	   		            	setTimeout(function(){
-	   		            		location.reload(true);
-	   		            	}, 700)
-	   		            } else {
-	   		                LeoAdminApiUtil.logErrorPayload(json);
-	   		            }
-	   		       });
-	    	     }
-	    	     $('#delete_callback').val(callback);
-	    	     $('#deletedInfoTitle').text("Event Metric: " + eventName).show();
-	    	     $('#deletedInfoMsg').text('Delete Data Confirmation');
-	    	}
-		}
-	    
-	    LeoAdminApiUtil.getSecuredData('/cdp/funnel/metadata', {} , function(json){ 
-			 //console.log(json.data);	
-			 var canInsertData = json.canInsertData; 
-	    	 var canEditData = json.canEditData;
-    		 var canDeleteData = json.canDeleteData;
-			
-			 if( ! canEditData ){
-				$('button.data-control').attr('disabled','disabled');
-			 }
-			
-			 behavioralMetricsData = json.data['behavioral_metrics'];
-			 var currentFlowName = behavioralMetricsData[0] ? behavioralMetricsData[0].flowName : "general_business_event";
-			 
-			 customerFunnelStages = json.data['general_data_funnel']; 
-			 
-			 renderFunnelChart("#profile_funnel",customerFunnelStages, profileFunnelOptions, getColorCodeProfileFunnel)
-			 
-			 // TODO
-			 var insertItemReady = false, insertedIndex = -1;
-			 var gridControls =  { 
-				type: "control", width: 70, editButton: true, deleteButton: true, itemTemplate: function(value, item) {
-                    var $result = jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
-                    
-                    var isSystemMetric = item.systemMetric;
-                    var eventName = item.eventName;
-                    var setRuleIcon, setRulesLabel;
-                    setRuleIcon = '<i class="fa fa-cogs event-set-rules" style="" aria-hidden="true"></i>';
-                    setRulesLabel = 'Edit Event Name: ' + eventName;
-                    
-                    var $setRulesButton = $("<button>").data("eventName",eventName).attr({class: "jsgrid-custom-button", title : setRulesLabel}).html(setRuleIcon)
-                    .click(function(e) {
-                    	console.log("setRules button ", $(this).data('eventName'));
-                    	
-                    	underDevelopment(this);
-                        e.stopPropagation();
-                    });       
-                    
-                    var cssClass = "customGridEditbutton jsgrid-button jsgrid-edit-button";
-                    var $customEditButton = $("<button>").data("eventName",eventName).attr({class: cssClass,title:"Edit Event Metric"})
-                    .click(function(e) {
-                    	//underDevelopment(this);
-                        //e.stopPropagation();
-                        
-                        console.log("Edit button ", $(this).data('eventName'))
-                    });
-
-                    var cssClass = "customGridDeletebutton jsgrid-button jsgrid-delete-button";
-                   	var $customDeleteButton = $("<button>").data("eventName",eventName).attr({class: cssClass,title:"Delete Event Metric"})
-                   		.click(function(e) {
-	                   		var eventName = $(this).data('eventName');
-	                   		if( isSystemMetric ){
-	                   			iziToast.info({
-	    		    	    	    title: 'Information Box',
-	    		    	    	    message: 'The event <b>[' + eventName + ']</b> is the <b>event metric of system</b>. You can not delete this metric !'
-	    		    	    	});
-	                   		} else {
-	                       		deleteEventMetricMetaData(eventName)
-	                   		}
-	                   		
-	                      	e.stopPropagation();
-                    	});
-
-                   	var rs = $("<div>");
-                   	if(! isSystemMetric ) {
-                   		rs.addClass("editable_event_metric");
-                   		rs.attr("title","Click to edit or delete")
-                   	} else {
-                   		rs.attr("title","Event metric of system")
-                   	}
-                   	rs.append($customEditButton).append($customDeleteButton);
-                   	
-                   	return rs;
-                 }
-             };
-			 
-			 $("#behavioral_metrics_table").jsGrid({
-				    width: "100%",
-				    height: "auto",
-
-				    inserting: canInsertData,
-				    confirmDeleting : canDeleteData,
-				    editing: true,
-				    sorting: false,
-				    paging: false,
-				    data: behavioralMetricsData,
-		                	
-				    deleteConfirm: function(item) {
-				    	if(item.systemMetric) {
-				    		return "The event metric <b>[" + item.eventName + "]</b> is the <b>event metric of system</b>. You can not delete this metric.";
-					    }
-			            return "The event metric [" + item.eventName + "] will be removed. Are you sure ? ";
-			        },
-
-			        onItemInserting: function(args) {
-			        	$('tr > td.jsgrid-cell:nth-of-type(1)').each(function(){
-			        		var eventName = $(this).text().trim();
-			        		if(eventName === args.item.eventName) {
-			        			args.cancel = true;
-					            iziToast.info({
-				    	    	    title: 'Info',
-				    	    	    message: 'The event [' + eventName +  '] is already existed in the metric list!'
-				    	    	});
-			        		}
-			        	})
-		   		    	// default for new inserting item
-		   		    	args.item.systemMetric = false;
-		   		    	args.item.dataType = 1;
-		   		    	args.item.flowName = currentFlowName;
-		   		    },
-				   
-				    onItemInserted: function(args) {
-				    	var item = args.item;
-				    	if(item.eventName.trim() === "" || item.eventLabel.trim() === "") {
-				    		 args.cancel = true;
-				    	}
-				    	else {
-				    		saveEventMetricMetaData(args.item)
-				    	}
-				    }, 
-				    
-				    onItemEditing: function(args) {
-				    	if(args.item.systemMetric) {
-					    	iziToast.info({
-			    	    	    title: 'Information Box',
-			    	    	    message: 'The event <b>[' + args.item.eventName +  ']</b> is the event metric of system. Be careful when you edit this metric !',
-			    	    	    timeout: 5000
-			    	    	});
-				    	}
-				    },
-				    
-				    onItemUpdated: function(args) {
-				    	saveEventMetricMetaData(args.item)
-				    }, 
-				    
-				    onItemDeleting: function(args) {
-				        if(args.item.systemMetric) {
-				            args.cancel = true;
-				        }
-				    },
-				    
-				    onRefreshed: function (args) {
-				    	$('input.jsgrid-insert-mode-button').click(function(){
-				        	console.log($('tr.jsgrid-insert-row').find('input[type="number"]'))
-				           	$('tr.jsgrid-insert-row').find('input[type="number"]').val(0);
-				        })
-				    },
-
-				    fields: [
-				    	{ name: "score", title : "Event Score", type: "number", align: 'center', width: 40, validate: "required" },
-				        { name: "cumulativePoint", title : "Loyalty Point", type: "number", width: 44, align: 'center', validate: "required" },
-				        { name: "eventName", title : "Event Name", align: 'center' , type: "text", validate: "required", validate: "required" },
-				        { name: "eventLabel", title : "Event Label", align: 'center' , type: "text", validate: "required" },	
-				        { name: "scoreModel", title : "Scoring Model", type: "select", items: scoringModels, width: 80, valueField: "id", textField: "name" },
-				    	{ name: "funnelStageId", title : "Default Funnel Stage", type: "select", items: customerFunnelStages, valueField: "id", textField: "name" },
-				    	{ name: "journeyStage", type: "select", title : "Journey Stage", items: journeyStages, align: 'center', width: 74, valueField: "id", textField: "name" },
-				        { name: "showInObserverJS", title : "Show in Tracking Code", type: "CustomCheckBox", width: 48, align: "center" },
-				        gridControls
-				    ]
-				});
-			 
-		});
+		loadBehavioralEventList()
 	}
-	
-
-	
 </script>

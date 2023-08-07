@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-08-03
+## [0.9.0] - 2023-08-07
 
 ### Added
 
@@ -54,6 +54,7 @@
 
 ### Fixed
 
+- [Profile] fix and improve auto merge duplicated profile automatically
 - [Profile] the length of profile.notes only have maximum 3000 characters
 - [Tracking Event] must set state = 1 before insert event into database
 - fix bugs and improve performance of reports in journey flow and profile
@@ -71,6 +72,7 @@
 
 ### Changed
 
+- improve UI UX of event metric management
 - no auto merge duplicated profiles, user should do this action in admin manually
 - refactoring javascript in customer-journey-flow.html
 - skip how leo-bot when no config httpLeoBotDomain
