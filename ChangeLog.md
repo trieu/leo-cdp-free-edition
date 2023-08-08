@@ -74,7 +74,7 @@
 
 ### Changed
 
-- improve UI UX of event metric management
+- improve UI UX of event metric management and event daily report
 - no auto merge duplicated profiles, user should do this action in admin manually
 - refactoring javascript in customer-journey-flow.html
 - skip how leo-bot when no config httpLeoBotDomain

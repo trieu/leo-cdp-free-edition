@@ -39,7 +39,7 @@
 		            </div>
 		        </div>
 		        <div class='col-lg-2 col-xs-12 text-center'>
-		        	<button type="button" class="btn btn-do-now" style="width: 80%" onclick="loadEventDailyReportUnit(true)" > 
+		        	<button id="btn_refresh_event_report" type="button" class="btn btn-do-now" style="width: 80%"  > 
 		        		<i class="fa fa-check" aria-hidden="true"></i> OK </button>
 		        </div>
 		    </div>
@@ -64,7 +64,7 @@
 	   				<!-- tab 1 Time Series  -->
 					<div class="highlight_box tab-pane active" id="panel_event_timeseries_report" >
 				    	<div id="timeseries_event_wrapper" > 
-			   				<canvas id="timeseriesEventChart"></canvas>
+			   				<canvas id="timeseriesEventChart" </canvas>
 			   			</div>
 					</div>
 	   			
@@ -118,6 +118,10 @@
         },true);
 		
 		loadEventDailyReportUnit(false);
+		
+		$('#btn_refresh_event_report').click(function(){
+			loadEventDailyReportUnit(true)
+		})
     }  
     
     function loadEventMatrixSummaryReport(){
