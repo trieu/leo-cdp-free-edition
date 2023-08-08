@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-08-07
+## [0.9.0] - 2023-08-08
 
 ### Added
 
@@ -54,6 +54,8 @@
 
 ### Fixed
 
+- fix & code refactoring: ProfileApiHandler and EventApiHandler
+- [Profile] set secondaryPhones and secondaryEmails from API should parse as a token list
 - [Profile] fix and improve auto merge duplicated profile automatically
 - [Profile] the length of profile.notes only have maximum 3000 characters
 - [Tracking Event] must set state = 1 before insert event into database
