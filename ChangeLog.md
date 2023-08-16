@@ -5,7 +5,6 @@
 - [Done] import tool to upload event data as CSV file in LEO CDP Admin
 - [In Plan => 2022-11-07] new UI for journey map report
 
-
 ## Feature Plan for the final beta release 1.0 - 2023-05-01
 
 #### Tasks
@@ -31,10 +30,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-08-08
+## [0.9.0] - 2023-08-16
 
 ### Added
 
+- [Feedback Survey] Collect feedback data in shared devices, automatically create new profile when submit feedback form
 - [DailyReportUnit] add year, month, day and hour as attributes to build reports
 - [Profile] a profile can be verified in Leo Admin to improve data quality score
 - [Segment] a segment can be applied jupyter notebook for CLV scoring, RFM scoring and advanced analytics
@@ -74,6 +74,7 @@
 
 ### Changed
 
+- update UI of Data Journey Map, improve UX
 - improve UI UX of event metric management and event daily report
 - no auto merge duplicated profiles, user should do this action in admin manually
 - refactoring javascript in customer-journey-flow.html

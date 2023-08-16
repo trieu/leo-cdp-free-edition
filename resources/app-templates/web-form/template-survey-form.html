@@ -2,10 +2,13 @@
 <html>
 <head>
 	<title>{{pageTitle}}</title>
+	<meta name="keywords" content="LEO CDP Survey, LEO CX Feedback Form"/>
+	<meta name="description" content="LEO CDP Survey and CX Feedback Form"/>
+	<meta name="copyright" content="LeoCDP.com"/>
+	<meta name="author" content="Trieu Nguyen - trieu@leocdp.com"/>
+	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="copyright" content="LeoCDP by Thomas Trieu Nguyen"/>
-	<meta name="author" content="trieu@leocdp.com"/>
 	
 	<!-- Twitter-bootstrap CSS   -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
@@ -38,9 +41,11 @@
 	<!-- MarkDown parser -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/5.1.0/marked.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-	<!-- BEGIN headCode -->
-	{{{customData.headCode}}}
-	<!-- END headCode -->
+
+	<!-- BEGIN Template headCode -->
+{{{customData.headCode}}}
+	<!-- END Template headCode -->
+	
 </head>
 <body style="background-color:transparent;" >
 	
@@ -125,12 +130,14 @@
 		
 		function leoObserverProxyReady(session) {
 		    //LEO is ready, record event data if not in preview iframe
-		    if(location.href.indexOf("preview=1") === -1){
-		    	LeoObserverProxy.recordViewEvent("survey-view");
-		    } 
-		    else {
+		    if(location.href.indexOf("preview=1") > 0){
 		    	// set width for preview mode in admin
-		    	$('#main_container').css("width","1024px")
+		    	$('#main_container').css("width", "1024px");
+		    	// skip tracking event
+		    } 
+		    else if(location.href.indexOf("shared-devices=1") < 0){
+		    	// just tracking event in user' device, not in shared device
+		    	LeoObserverProxy.recordViewEvent("survey-view");
 		    }
 		}
 		

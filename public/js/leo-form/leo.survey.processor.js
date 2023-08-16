@@ -639,6 +639,9 @@ var onSubmitForm = function(errors, formData) {
 		
 		var submitModel = {};
 		
+		// onSharedDevices
+		submitModel["onSharedDevices"] = location.href.indexOf('shared-devices=1') > 0 ? true : false; 
+		
 		// header
 		submitModel["header"] = isValidData(surveyTemplateModel.Header) ? surveyTemplateModel.Header : "";
 		
