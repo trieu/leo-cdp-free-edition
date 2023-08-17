@@ -30,10 +30,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-08-16
+## [0.9.0] - 2023-08-17
 
 ### Added
 
+- [Profile List] add filter by CRM ID and Fingerprint ID (FingerprintJS)
 - [Feedback Survey] Collect feedback data in shared devices, automatically create new profile when submit feedback form
 - [DailyReportUnit] add year, month, day and hour as attributes to build reports
 - [Profile] a profile can be verified in Leo Admin to improve data quality score
@@ -54,6 +55,7 @@
 
 ### Fixed
 
+- fix filter profiles with date, type and ID
 - fix & code refactoring: ProfileApiHandler and EventApiHandler
 - [Profile] set secondaryPhones and secondaryEmails from API should parse as a token list
 - [Profile] fix and improve auto merge duplicated profile automatically
@@ -74,6 +76,7 @@
 
 ### Changed
 
+- improve UI of filtering profiles by dates
 - update UI of Data Journey Map, improve UX
 - improve UI UX of event metric management and event daily report
 - no auto merge duplicated profiles, user should do this action in admin manually

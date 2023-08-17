@@ -76,12 +76,12 @@
 					<div class="col-md-12 profile_filter_box" >
 						<div class="col-md-12">
 							<label title="Filter all profiles within the specified date range"> 
-								<input id="disable_date_filter" type="checkbox" onclick="toggleProfileDisableDateFilter(false)" > Turn off date filter 
+								<input id="filter_profile_by_dates" type="checkbox" > Filter data by modification date 
 							</label>
 						</div> 
 						<div id='beginFilterDateHolder' class="col-md-6"> 
 							<div class="form-group">
-				            	<b>Since the updated date </b>
+				            	<b>From date </b>
 				                <div class='input-group date' id='beginFilterDate'>
 				                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
 				                        <span class="glyphicon glyphicon-calendar"></span>
@@ -91,7 +91,7 @@
 						</div>
 						<div id='endFilterDateHolder' class="col-md-6"> 
 							<div class="form-group">
-				           	 	<b> To the last updated date </b>
+				           	 	<b> To date </b>
 				                <div class='input-group date' id='endFilterDate'>
 				                    <input type='text' class="form-control" autocomplete="off" /> <span class="input-group-addon">
 				                        <span class="glyphicon glyphicon-calendar"></span>
@@ -117,7 +117,9 @@
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByProfileId')" >Profile ID</a></li>
 						    	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterEmail')" > Email Address</a></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterPhone')" > Phone Number</a></li>
-						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByVisitorId')" >Web Visitor ID</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByCrmRefId')" > CRM ID</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByVisitorId')" >Web Visitor ID</a></li>						      	
+						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByFingerprintId')" > Fingerprint ID</a></li>
 						      	<li><hr></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByAuthorizedViewer')" >Authorized Viewer</a></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByAuthorizedEditor')" >Authorized Editor</a></li>
@@ -127,7 +129,6 @@
 							<label id="profile_filter_input_label" style="margin-top:10px;" >Profile Status</label>
 							<input type="hidden" id="keywordsToSearchProfiles" value="" >
 							
-							<input style="display: none;" type="text" class="form-control" id="filterByProfileId" placeholder="Enter profile ID" >
 							<select class="form-control" id="filterProfileListByStatus" >
 						    	<option value="">ACTIVE PROFILES</option>
 						    	<option value="0">INACTIVE PROFILES</option>
@@ -136,9 +137,13 @@
 						    	<option value="-44">DEAD VISITORS</option>
 						    </select>
 							
+							<input style="display: none;" type="text" class="form-control" id="filterByProfileId" placeholder="Enter profile ID" >
 							<input style="display: none;" type="text" class="form-control" id="filterEmail" placeholder="Enter email address" >
-							<input style="display: none;" type="text" class="form-control" id="filterPhone" placeholder="Enter phone number" >
+							<input style="display: none;" type="text" class="form-control" id="filterPhone" placeholder="Enter phone number" >					  		
+					  		<input style="display: none;" type="text" class="form-control" id="filterByCrmRefId" placeholder="Enter CRM ID" >
 					  		<input style="display: none;" type="text" class="form-control" id="filterByVisitorId" placeholder="Enter web visitor ID" >
+					  		<input style="display: none;" type="text" class="form-control" id="filterByFingerprintId" placeholder="Enter fingerprint ID" >
+					  		
 					  		<input style="display: none;" type="text" class="form-control" id="filterByDataLabel" placeholder="Enter data label" >
 					  		<input style="display: none;" type="text" class="form-control" id="filterByAuthorizedViewer" placeholder="Enter login username of viewer" >
 					  		<input style="display: none;" type="text" class="form-control" id="filterByAuthorizedEditor" placeholder="Enter login username of editor" >
@@ -220,19 +225,16 @@
 	var selectedProfileIdMap = {};
 	var currentJourneyMapId = "", profileListTable = false;
 	
-	function toggleProfileDisableDateFilter(disableBySearch) {
-		var checked = $('#disable_date_filter:checked').length === 1;
-		if(checked || disableBySearch === true) {
-			$('#beginFilterDateHolder').hide();
-			$('#endFilterDateHolder').hide();
-			if(disableBySearch) {
-				$('#disable_date_filter').prop('checked', true);
-			}
-		} else {
-			$('#beginFilterDateHolder').show();
-			$('#endFilterDateHolder').show();
-			$('#disable_date_filter').prop('checked', false);
-		}
+	function doProfileListing() {
+		var keywords = $('#main_search_profile').val().trim();
+    	if(keywords.length > 1){
+    		var encodedString = Base64.encode(keywords);
+    		location.hash = "calljs-leoCdpRouter('Customer_Profile_Search','" + encodedString + "')";
+    	} 
+    	$('#profile_list_table').DataTable().clear();
+	    $('#profile_list_table').DataTable().ajax.reload();
+	    clearAllSelectedProfiles();
+	    showDeleteNotActiveProfile();
 	}
 	
 	function showDeleteNotActiveProfile(){
@@ -246,24 +248,6 @@
 		}
 	}
 	
-	function doProfileListing() {
-		var keywords = $('#main_search_profile').val().trim();
-    	if(keywords.length > 1){
-    		var encodedString = Base64.encode(keywords);
-    		location.hash = "calljs-leoCdpRouter('Customer_Profile_Search','" + encodedString + "')";
-    	} 
-    	$('#profile_list_table').DataTable().clear();
-	    $('#profile_list_table').DataTable().ajax.reload();
-	    clearAllSelectedProfiles();
-	    showDeleteNotActiveProfile();
-	}
-	
-	function turnOffProfileDateFilter(node){
-		if($(node).prop('checked')) {
-			toggleProfileDisableDateFilter(true);
-		} 
-	}
-	
 	function resetProfileSearch() {
 		if(LeoCdpAdmin.routerKey === "Customer_Profile_Search" || LeoCdpAdmin.routerKey === "Profile_List_By_Type"){
 			$('#main_search_profile').val('');
@@ -275,16 +259,15 @@
 			$('#showCustomerProfile').prop('checked', true);
 			
 			// reset filter data
-			$('#filterEmail, #filterPhone, #filterByVisitorId, #filterByProfileId, #filterByLastTouchpoint, #filterBySegmentName, #filterByDataLabel, #filterByAuthorizedViewer, #filterByAuthorizedEditor').val('');
+			var sel = '#filterEmail, #filterPhone, #filterByVisitorId, #filterByCrmRefId, #filterByFingerprintId, #filterByProfileId, #filterByLastTouchpoint, #filterBySegmentName, #filterByDataLabel, #filterByAuthorizedViewer, #filterByAuthorizedEditor';
+			$(sel).val('');
 			
 			$('#filterProfileListByStatus').val('');
 			$('#keywordsToSearchProfiles').val('');
 			$('#journeyMapList').val("").change().trigger("chosen:updated");
 			
-			$('#main_search_profile').val('');
-			$('#beginFilterDate > .form-control').show();
-			$('#endFilterDate > .form-control').show();
-			$('#disable_date_filter').prop('checked', false);
+			$('#main_search_profile').val('');			
+			$('#filter_profile_by_dates').prop('checked', false);
 			$('#btn_removeSelectedProfile').hide();
 			
 			doProfileListing();
@@ -379,7 +362,6 @@
     		$('#keywordsToSearchProfiles').val(keywordsToSearch);
     		$('#main_search_profile').val(keywordsToSearch);
     		$('#profile_filter_inputs > .form-control, #profile_filter_input_label').hide();
-    		toggleProfileDisableDateFilter(true);
     	} 
     	else {
     		$('#profile_filter_inputs > input:first').show();
@@ -391,8 +373,8 @@
     	var searchKeywords =  $('#keywordsToSearchProfiles').val();
     	
     	var profileFilterParams = function(d) {
-    		var checked = $('#disable_date_filter:checked').length === 1;
-            if( ! checked ) {
+    		var filterByDates = $('#filter_profile_by_dates').prop('checked');
+            if( filterByDates ) {
              	var datetimeFilter = getDateFilterValues();
                 d.beginFilterDate = datetimeFilter.beginFilterDate;
      			d.endFilterDate = datetimeFilter.endFilterDate;
@@ -407,6 +389,9 @@
     		d.phone = $('#filterPhone').val().trim();
     		d.visitorId = $('#filterByVisitorId').val().trim();
     		d.profileId = $('#filterByProfileId').val().trim();
+    		d.crmRefId = $('#filterByCrmRefId').val().trim();
+    		d.fingerprintId = $('#filterByFingerprintId').val().trim();
+    		
     		d.lastTouchpointName = $('#filterByLastTouchpoint').val().trim();
     		d.segmentName = $('#filterBySegmentName').val().trim();
     		d.dataLabel = $('#filterByDataLabel').val().trim();
