@@ -30,7 +30,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-08-17
+## [0.9.0] - 2023-08-18
 
 ### Added
 
@@ -76,6 +76,7 @@
 
 ### Changed
 
+- update TouchpointType, change from LEO_DATABASE to DATA_OBSERVER
 - improve UI of filtering profiles by dates
 - update UI of Data Journey Map, improve UX
 - improve UI UX of event metric management and event daily report
