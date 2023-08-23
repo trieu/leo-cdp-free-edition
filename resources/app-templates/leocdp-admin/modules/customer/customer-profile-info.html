@@ -288,12 +288,6 @@
 		                    		<h4 id="event_journey_funnel_info" ></h4>		                    		
 	                  				<div id="event_journey_funnel" class="funnel" ></div>
 	               				</div>
-							   	
-							    <!-- Event Summary Report -->
-	               				<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Summary Report </h4> 
-									<div id="profileEventStatsChart" class="col-lg-12"> </div>
-								</div>	
 								
 								<!-- Event Matrix Report  -->
 								<div class="col-md-12"  >
@@ -306,17 +300,11 @@
 	               					<h3 style="text-align: center; color: #0000CD;"> Data Journey Map </h3>
 	               					<div id="journeyFlowChart" class="experience_journey_flow" style="height:420px;display: none;"></div>
 	               				</div>
-	               				
-								<!-- Top Observable Data Sources -->
-	               				<div class="col-lg-12" >
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Top Observable Data Sources </h4> 
-									<div id="profileObserverChart" class="col-lg-12"> </div>
-								</div>
 								
 								<!-- Data Journey Graph  -->
 								<div class="col-md-12" >
 									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Data Journey Graph </h4> 
-									<div id="profileTouchpointFlow" style="height: 680px; width: 100%; background-color: #e8e8e8; border-radius: 10px;">
+									<div id="profileTouchpointFlow" style="height: 650px; width: 100%; background-color: #e8e8e8; border-radius: 10px;">
 										<div class="loader"></div>
 									</div>
 								</div>				
@@ -331,7 +319,12 @@
 		                  
 		                    <!-- vertical tab: Event Data Stream  -->
 		                    <div class="tab-pane" id="panel_event_report" >
-		                    	<div class="loader" id="profile_event_report_loader"></div>
+		                    	<!-- Event Summary Report -->
+	               				<div class="col-lg-12">
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Summary Report </h4> 
+									<div id="profileEventStatsChart" class="col-lg-12"> </div>
+								</div>	
+		                    	
 		                    	
 		                    	<!-- Time Series Report -->
 		                    	<div class="col-lg-12">
@@ -367,6 +360,7 @@
 											to <span id="eventDataToDate" class="highlight_text" >  </span> </h5> 
 									</div>
 									<div>
+										<div class="loader" id="profile_event_report_loader"></div>
 										<canvas id="timeseriesProfileEventChart" ></canvas>
 									</div>
 					      		</div>
@@ -392,6 +386,7 @@
 									</div>
 								</div>
 								<div id="profile_activitiy_flow_container" class="row" style="margin-right: 16px; height: 1600px; overflow-y: scroll;overflow-x: hidden;" >
+									
 									<ul id="profile_activitiy_flow" class="list-group list-group-dividered list-group-full"  >
 						     			<!-- data  -->
 									</ul>
@@ -409,8 +404,14 @@
 		                    
 		                    <!-- vertical tab: Referrer Channels  -->
 		                    <div class="tab-pane" id="panel_referral_channels" >
+		                    <!-- Top Observable Data Sources -->
+	               				<div class="col-lg-12" >
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Top Observable Data Sources </h4> 
+									<div id="profileObserverChart" class="col-lg-12"> </div>
+								</div>
+								<hr>
 								<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Referral Channels </h4> 
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Top Referral Channels </h4> 
 								</div>
 								<div id="profileReferrerChannels" class="col-lg-12" >
 								</div>

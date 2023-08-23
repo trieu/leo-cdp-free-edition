@@ -400,6 +400,15 @@ function initFeedbackSurvey(initFeedbackSurveyCallback) {
 		formModel.push({ "key": "profileLivingLocation", "fieldHtmlClass" : "leo_form_input", "type": "textarea" , "placeholder" :  placeholderPrefix + model.Profile_Living_Location_Label });
 	}
 	
+	// Profile_Nationality_Label
+	if( model.Profile_Nationality_Label ) {
+		formSchema["profileNationality"] = {
+		      "type": "string",
+		      "title": model.Profile_Nationality_Label
+		};
+		formModel.push({ "key": "profileNationality", "fieldHtmlClass" : "leo_form_input", "type": "text" , "placeholder" :  placeholderPrefix + model.Profile_Nationality_Label });
+	}
+	
 	// Profile_Location_Code_Label
 	if( model.Profile_Location_Code_Label ) {
 		formSchema["profileLocationCode"] = {
@@ -702,6 +711,7 @@ var onSubmitForm = function(errors, formData) {
 			submitModel["geoLatitude"] = -1;
 			submitModel["geoLongitude"] = -1;
 		}
+		submitModel["profileNationality"] = isValidData(formData.profileNationality) ? formData.profileNationality : "";
 		
 		// ratingQuestionAnswer for CX scoring 
 		var totalRatingAnswers = 0;

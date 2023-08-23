@@ -45,6 +45,14 @@
                 <div id="page-headline-images" style="display: none;" ></div>
                 
                 <div class="form-group row">
+                    <label>Description</label>
+                    <div id="content_div">
+                        <input id="mediaInfo" value="" type="hidden" name="mediaInfo">
+                        <trix-editor input="mediaInfo" class="trix-content" autofocus></trix-editor>
+                    </div>
+                </div>
+                
+                <div class="form-group row">
 	                <label for="eventNamesForSegmentation"> Event Names For Segmentation and Reporting </label>
 					<div>
 						<select id="eventNamesForSegmentation" multiple data-placeholder="Choose Event Names For Segmentation" class="select" >
@@ -52,14 +60,6 @@
 						</select>
 					</div>
 	            </div> 
-
-                <div class="form-group row">
-                    <label>Description</label>
-                    <div id="content_div">
-                        <input id="mediaInfo" value="" type="hidden" name="mediaInfo">
-                        <trix-editor input="mediaInfo" class="trix-content" autofocus></trix-editor>
-                    </div>
-                </div>
                 
                 <div id="groupsSelectorHolder" class="form-group" style="display: none;" >
 	                <label> Selected groups to merge data from products and contents into templates </label>

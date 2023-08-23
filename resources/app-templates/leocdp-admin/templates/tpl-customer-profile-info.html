@@ -287,7 +287,7 @@
 		<small class="text-muted pull-right"> Updated at: <%- updatedAt %> </small>
 
 		<span class="rank_item_info" > Item Index: <span class="rank_info" id="rank_product_<%- key %>" data-key="<%- key %>" ><%- indexScore %></span> </span> <br> 
-		<h5 class="media-heading">  <%- product.title %> </h5>
+		<b class="media-heading">  <%- product.title %> </b>
 
 		<div class="row">
 			<div class="col-md-3">
@@ -310,17 +310,19 @@
  		<div class="text-nowrap" style="margin-top:5px;">
 
 			<div class="col-lg-6">
-				<i class="fa fa-info" aria-hidden="true"></i> <span class="small" > Original Price: <%- product.originalPrice %> <%- product.priceCurrency %> </span> 				
+				<i class="fa fa-info" aria-hidden="true"></i> <b class="small" > Original Price: <%- product.originalPrice %> <%- product.priceCurrency %> </b> 				
 			</div>
 			<div class="col-lg-6">
-				<i class="fa fa-info" aria-hidden="true"></i> <span class="small" > <%- product.productIdType %> : <%- product.productId %> </span> <br>
+				<i class="fa fa-info" aria-hidden="true"></i> <b class="small" > <%- product.productIdType %> : <%- product.productId %> </b> <br>
 			</div>
 			<br>
 			<div class="col-lg-6">
-				<i class="fa fa-info" aria-hidden="true"></i> <span class="small" > Sale Price: <%- product.salePrice %> <%- product.priceCurrency %> </span> 
+				<i class="fa fa-info" aria-hidden="true"></i> <b class="small" > Sale Price: <%- product.salePrice %> <%- product.priceCurrency %> </b>
+				<br> 
+				<i class="fa fa-info" aria-hidden="true"></i> <b class="small" > Offer Price: <%- product.offerPrice %> <%- product.priceCurrency %> (Discount: <%- product.discount %> %) </b> 
 			</div>
 			<div class="col-lg-6">
-				<i class="fa fa-info" aria-hidden="true"></i> <span class="small" > Keywords: <%- product.keywords %> </span>
+				<i class="fa fa-info" aria-hidden="true"></i> <b class="small" > Keywords: <%- product.keywordsText %> </b>
 			</div>
 		</div>
 

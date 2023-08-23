@@ -30,10 +30,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-08-18
+## [0.9.0] - 2023-08-23
 
 ### Added
 
+- [Profile2Product] add discount and discountCode for dynamic pricing model 
 - [Profile List] add filter by CRM ID and Fingerprint ID (FingerprintJS)
 - [Feedback Survey] Collect feedback data in shared devices, automatically create new profile when submit feedback form
 - [DailyReportUnit] add year, month, day and hour as attributes to build reports
@@ -76,6 +77,8 @@
 
 ### Changed
 
+- improve UI/UX of asset group and profile reports 
+- upgrade javascripts of admin, remove sortablejs
 - update TouchpointType, change from LEO_DATABASE to DATA_OBSERVER
 - improve UI of filtering profiles by dates
 - update UI of Data Journey Map, improve UX
