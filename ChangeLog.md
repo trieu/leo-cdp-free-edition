@@ -30,10 +30,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-08-23
+## [0.9.0] - 2023-08-24
 
 ### Added
 
+- [Profile] can filter tracking events by touchpoint's name, using ArangoDB query
 - [Profile2Product] add discount and discountCode for dynamic pricing model 
 - [Profile List] add filter by CRM ID and Fingerprint ID (FingerprintJS)
 - [Feedback Survey] Collect feedback data in shared devices, automatically create new profile when submit feedback form

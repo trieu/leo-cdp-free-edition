@@ -1247,6 +1247,14 @@ AQL_GET_TRACKING_EVENTS_BY_PROFILE_ID =>
 	RETURN e
 ;
 
+AQL_SEARCH_TRACKING_EVENTS_BY_PROFILE_ID_AND_KEYWORDS =>
+	FOR e in cdp_trackingevent 
+	FILTER e.refProfileId == @refProfileId AND LOWER(e.srcTouchpointName) LIKE @searchValue
+	SORT e.timestamp DESC
+	LIMIT @startIndex,@numberResult 
+	RETURN e
+;
+
 AQL_GET_UNPROCESSED_EVENTS_BY_PROFILE_ID =>
 	FOR e in cdp_trackingevent 
 	FILTER e.refProfileId == @refProfileId AND e.state == 0
