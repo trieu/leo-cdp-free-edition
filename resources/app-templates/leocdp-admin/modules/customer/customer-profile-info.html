@@ -376,27 +376,25 @@
 											<input id="keywords_filter_events" class="form-control" type="text" placeholder="Enter keywords to filter events by touchpoint's name"  autocomplete="off"  >
 										</div>
 										<div class="col-lg-6">
-											<button type="button" class="btn btn-primary" onclick="loadEventsInProfile(false)" title="Filter event activities"  > 
+											<button id="btn_filterEvents" type="button" class="btn btn-primary" onclick="loadEventsInProfile(false)" title="Filter event activities"  > 
 									     		<i class="fa fa-filter" aria-hidden="true"></i> Filter
 									     	</button>
-									     	<button type="button" class="btn btn-do-now" onclick="loadEventsInProfile(true)" title="Refresh event activities"  > 
-									     		<i class="fa fa-refresh" aria-hidden="true"></i> Reload
+									     	<button type="button" class="btn btn-do-now" onclick="loadEventsInProfile(true,true)" title="Refresh event activities"  > 
+									     		<i class="fa fa-refresh" aria-hidden="true"></i> Reload data
 									     	</button>
 										</div>
 									</div>
 								</div>
-								<div id="profile_activitiy_flow_container" class="row" style="margin-right: 16px; height: 1600px; overflow-y: scroll;overflow-x: hidden;" >
-									
+								<div id="profile_activitiy_flow_loader" class="loader" style="margin-top:16px; display: block;"></div>
+								<div id="profile_activitiy_flow_container" class="row" style="margin-right: 16px; height: 1200px; overflow-y:scroll;overflow-x: hidden;" >
 									<ul id="profile_activitiy_flow" class="list-group list-group-dividered list-group-full"  >
 						     			<!-- data  -->
 									</ul>
 								</div>
-								
 								<!-- bottom -->
-								<div id="profile_activitiy_flow_loader" class="loader"></div>
 								<div style="text-align: center; margin: auto;">
 									<div id="profile_activitiy_flow_done" style="display: none;"> <h3 style="text-align: center;"> All data is loaded !</h3> </div>
-									<button id="btn_loadMoreEventsInProfile" type="button" class="btn btn-do-now" onclick="loadMoreEventsInProfile()" title="Load more event activities"  style="margin-top: 20px;"> 
+									<button id="btn_loadMoreEvents" type="button" class="btn btn-do-now" onclick="loadMoreEventsInProfile()" style="margin-top: 20px" > 
 						     			<i class="fa fa-refresh" aria-hidden="true"></i> Load more
 						     		</button>
 								</div>
