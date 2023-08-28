@@ -30,7 +30,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-08-26
+## [0.9.0] - 2023-08-28
 
 ### Added
 
@@ -57,7 +57,7 @@
 
 ### Fixed
 
-- fix search and filter tracking events in profile report
+- improve UI/UX, fix search and filter tracking events in profile report, 
 - fix filter profiles with date, type and ID
 - fix & code refactoring: ProfileApiHandler and EventApiHandler
 - [Profile] set secondaryPhones and secondaryEmails from API should parse as a token list

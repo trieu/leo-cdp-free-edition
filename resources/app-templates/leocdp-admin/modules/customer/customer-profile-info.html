@@ -219,7 +219,8 @@
 		            	<!-- vertical tab panel -->
 		                <ul id="event_flow_tabs" class="nav nav-pills nav-stacked col-md-2">
 		                	<li class="active" ><a href="#panel_event_journey_report" data-toggle="tab"> <i class="fa fa-map-o"></i> Data Journey </a></li>
-		                	<li><a href="#panel_event_report" data-toggle="tab"> <i class="fa fa-line-chart" aria-hidden="true"></i> Event Stream</a></li>
+		                	<li><a href="#panel_events_in_time" data-toggle="tab" > <i class="fa fa-line-chart" aria-hidden="true"></i> Event Time Series</a></li>
+		                	<li><a href="#panel_events_in_stream" data-toggle="tab" onclick="initProfileEventInStream()" > <i class="fa fa-list-ol" aria-hidden="true"></i> Event Data Stream</a></li>
 		                	<li><a href="#panel_referral_channels" data-toggle="tab"  > <i class="fa fa-globe" aria-hidden="true"></i> Referral Channels </a></li>
 		                	<li><a href="#panel_data_touchpoints" data-toggle="tab" onclick="loadProfileTopTouchpoints()"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Top Touchpoints </a></li>
 		                	<li><a href="#panel_profile_scoring_data" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Advanced Scores</a></li>
@@ -316,19 +317,16 @@
 					            </div>
 	               				
 		                    </div>  
-		                  
-		                    <!-- vertical tab: Event Data Stream  -->
-		                    <div class="tab-pane" id="panel_event_report" >
+		                    
+		                     <!-- vertical tab: Time Series Report -->
+		                    <div class="tab-pane" id="panel_events_in_time" >
 		                    	<!-- Event Summary Report -->
 	               				<div class="col-lg-12">
 									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Summary Report </h4> 
 									<div id="profileEventStatsChart" class="col-lg-12"> </div>
-								</div>	
-		                    	
-		                    	
-		                    	<!-- Time Series Report -->
-		                    	<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Time Series Report </h4> 
+								</div>
+		                   		<div class="col-lg-12">
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Time Series </h4> 
 								</div>
 								<div class="col-lg-12 highlight_box row" >
 									<div class="col-lg-12 float-right">
@@ -364,9 +362,12 @@
 										<canvas id="timeseriesProfileEventChart" ></canvas>
 									</div>
 					      		</div>
-					      		
+		                    </div>  
+		                  
+		                    <!-- vertical tab: Event Data Stream  -->
+		                    <div class="tab-pane" id="panel_events_in_stream" >
 					      		<!-- Event Data Stream -->
-		                    	<div class="col-lg-12" style="margin-top: 10px" >
+		                    	<div class="col-lg-12" >
 									<h4 class="highlight_text" > <i class="fa fa-line-chart" aria-hidden="true"></i> Event Data Stream </h4> 
 								</div>
 		                    	<div class="row">
@@ -376,7 +377,7 @@
 											<input id="keywords_filter_events" class="form-control" type="text" placeholder="Enter keywords to filter events by touchpoint's name"  autocomplete="off"  >
 										</div>
 										<div class="col-lg-6">
-											<button id="btn_filterEvents" type="button" class="btn btn-primary" onclick="loadEventsInProfile(false)" title="Filter event activities"  > 
+											<button id="btn_filterEvents" type="button" class="btn btn-primary" onclick="loadEventsInProfile(true,false)" title="Filter event activities"  > 
 									     		<i class="fa fa-filter" aria-hidden="true"></i> Filter
 									     	</button>
 									     	<button type="button" class="btn btn-do-now" onclick="loadEventsInProfile(true,true)" title="Refresh event activities"  > 
