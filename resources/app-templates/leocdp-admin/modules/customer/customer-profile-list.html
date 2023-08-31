@@ -424,7 +424,7 @@
     	profileListTable = loadProfileListByFilter('profileListRowHandler', containerDomSel, loaderDomSel, tableDomSel, profileFilterParams, loadDataCallback);
     	
     	 // mark seach keywords in table
-        if(searchKeywords.length >= 2 ){
+        if(searchKeywords.length >= 2 ) {
         	profileListTable.on( 'draw', function () {
 				$('#profile_list_table .datatable_text').mark(searchKeywords);
 			});

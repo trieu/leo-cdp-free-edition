@@ -9,14 +9,14 @@
 
 #### Tasks
 
-- [In Plan] Using Jupyter notebook to update profile CLV, CAC and Credit Scoring 
+- [In Plan] Using Jupyter notebook to update profile CLV, RFM score and Credit Scoring 
 - [In Plan] LEO Tag JS to link FB user and Google user
 - [In Plan] Segment Activation: sending email directly with SMTP from LEO CDP
 - [In Plan] Data Reporting with Jupyter notebook in profile and segment
 - [In Plan] System User Notification when profile data is updated or created
 - [In Plan] web form in leocdp.com for new clients, to try free LEO CDP version with docker
-- [In Plan] use cases for ecommerce, retail and education
-- [In Plan] video, slide and update document for version 1.0 
+- [In Plan] use cases for retail, education and media
+- [In Plan] video, slide and update document for version 1.0
 - [In Plan] Apply RFM model https://github.com/USPA-Technology/crm-rfm-modeling
 
 #### Make 8 videos to learning LEO CDP quickly 
@@ -30,7 +30,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-08-28
+## [0.9.0] - 2023-08-31
 
 ### Added
 
@@ -57,6 +57,7 @@
 
 ### Fixed
 
+- fix bug Last-seen Touchpoint + sorting profile meta data
 - improve UI/UX, fix search and filter tracking events in profile report, 
 - fix filter profiles with date, type and ID
 - fix & code refactoring: ProfileApiHandler and EventApiHandler
