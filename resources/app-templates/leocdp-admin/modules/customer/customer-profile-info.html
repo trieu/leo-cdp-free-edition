@@ -26,8 +26,8 @@
 <div class="container-fluid row" id="data_model_holder" >
 
        <!-- MAIN BODY here -->
-
-       <div id="profile_key_info" class="row">
+	   <div id="profile_key_info_loader" class="loader"></div>
+       <div id="profile_key_info" class="row" style="display: none;" >
        	   <!--  Begin Profile Key Information -->
            <div class="col-md-7">
   			  
@@ -72,20 +72,20 @@
                <div class="col-md-12" >  
                     <ul class="list-group" style="margin-top: 12px">
                     	<li class="list-group-item" >
-					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Journey Map: </b> 
+					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Data Journeys: </b> 
 					  		[<span class="data_field" id="profileInJourneyMaps" > </span> ]
 					  	</li>
 					  	<li class="list-group-item">
 					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Segments: </b> 
 					  		[<span class="data_field" id="profileInSegments" > </span> ]
 					  	</li>
-					  	<li class="list-group-item">
-					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Data Labels: </b> 
-					  		[<span class="data_field" id="profileDataLabels" > </span> ]
-					  	</li>
 					  	<li class="list-group-item" style="display: none">
 					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Accounts: </b> 
 					  		[<span class="data_field" id="profileInAccounts" > </span> ]
+					  	</li>
+					  	<li class="list-group-item">
+					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Data Labels: </b> 
+					  		[<span class="data_field" id="profileDataLabels" > </span> ]
 					  	</li>
 				   	</ul>  
 				</div>
@@ -95,21 +95,7 @@
 	        	
 	        	<!-- Primary fields -->
 	        	<div>
-  
-	        		<div class="primary_field" > 
-	        			<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Profile ID: </b> 
-	                	<span class="data_field" data-field="id" data-fieldholder="html" data-fieldtype="string" > - </span>
-	                </div>
-	                  
-	                <div class="primary_field" >      	   
-	                	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Web Visitor ID: </b> 
-	                	<span class="data_field" data-field="visitorId" data-fieldholder="html"  data-fieldtype="string" > - </span>
-	                </div>
-	                    
-	                <div class="primary_field" >      	      
-	                	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> CRM User ID: </b> 
-	                	<span class="data_field" data-field="crmRefId" data-fieldholder="html" data-fieldtype="string" > - </span>
-	                </div>
+                  
 	                <div class="primary_field" > 
                     	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Created at: </b> 
                     	<span class="data_field" data-field="createdAt" data-fieldholder="html"  data-fieldtype="date_time"  > - </span> 
@@ -118,6 +104,22 @@
                     	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Updated at: </b> 
                    		<span class="data_field" data-field="updatedAt" data-fieldholder="html"  data-fieldtype="date_time"  > -  </span> 
                     </div>
+                    
+                    <hr>
+                    
+                    <div class="primary_field" > 
+	        			<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Profile ID: </b> 
+	                	<span class="data_field" data-field="id" data-fieldholder="html" data-fieldtype="string" > - </span>
+	                </div>
+	                  
+	                <div class="primary_field" >      	   
+	                	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Web Visitor ID: </b> 
+	                	<span class="data_field" data-field="visitorId" data-fieldholder="html"  data-fieldtype="string" > - </span>
+	                </div>
+	                <div class="primary_field" >      	      
+	                	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> CRM User ID: </b> 
+	                	<span class="data_field" data-field="crmRefId" data-fieldholder="html" data-fieldtype="string" > - </span>
+	                </div>
 	                  
 	                <hr>  
 	                
@@ -218,14 +220,14 @@
 		            
 		            	<!-- vertical tab panel -->
 		                <ul id="event_flow_tabs" class="nav nav-pills nav-stacked col-md-2">
-		                	<li class="active" ><a href="#panel_event_journey_report" data-toggle="tab"> <i class="fa fa-map-o"></i> Data Journey </a></li>
+		                	<li class="active" ><a href="#panel_event_journey_report" data-toggle="tab"> <i class="fa fa-map-o"></i> Data Journey Map </a></li>
 		                	<li><a href="#panel_events_in_time" data-toggle="tab" > <i class="fa fa-line-chart" aria-hidden="true"></i> Event Time Series</a></li>
 		                	<li><a href="#panel_events_in_stream" data-toggle="tab" onclick="initProfileEventInStream()" > <i class="fa fa-list-ol" aria-hidden="true"></i> Event Data Stream</a></li>
 		                	<li><a href="#panel_referral_channels" data-toggle="tab"  > <i class="fa fa-globe" aria-hidden="true"></i> Referral Channels </a></li>
+		                	<li><a href="#panel_last_session_details" data-toggle="tab"> <i class="fa fa-hourglass-end" aria-hidden="true"></i> Last Session Data </a></li>
 		                	<li><a href="#panel_data_touchpoints" data-toggle="tab" onclick="loadProfileTopTouchpoints()"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Top Touchpoints </a></li>
-		                	<li><a href="#panel_profile_scoring_data" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Advanced Scoring</a></li>
+		                	<li><a href="#panel_profile_scoring_data" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Advanced Scores</a></li>
 		                    <li><a href="#panel_user_consent" data-toggle="tab"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Privacy Consent </a></li>
-		                    <li><a href="#panel_last_session_details" data-toggle="tab"> <i class="fa fa-hourglass-end" aria-hidden="true"></i> Last Session Data </a></li>
 		                    <li><a href="#panel_purchased_items" data-toggle="tab" onclick="loadPurchasedItems()" ><i class="fa fa-shopping-cart" aria-hidden="true"></i> Purchased Items </a></li>
 		                </ul>
 		                
@@ -422,6 +424,85 @@
 								</div>
 		                    </div>
 		                    
+		                    <!-- tab : Last Session Data  -->
+		       				<div class="tab-pane" id="panel_last_session_details" >
+		       					<div class="col-lg-12">
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Last Session Data </h4> 
+								</div>
+					     		 <table border=0 class="underlined" style="width: 100%;">
+				                   <tr>
+				                       <td>
+				                           <ol id="visitor_attributes" data-field="visitor_attributes">
+				                           	   <li>
+				                                   <b> Metric Name </b> 
+				                                   <p class="data_field" data-field="lastTrackingEvent.metricName" data-fieldholder="html"  data-fieldtype="string" > - </p>
+				                               </li>
+				                           	   <li>
+				                                   <b> Observer </b> 
+				                                   <p class="data_field" data-field="lastTrackingEvent.observer.name" data-fieldholder="html"  data-fieldtype="string" > - </p>
+				                               </li>
+				                               <li>
+				                                   <b> Last seen </b> 
+				                                   <p class="data_field" data-field="lastTrackingEvent.createdAt" data-fieldholder="html"  data-fieldtype="date_time"  >   </p>
+				                               </li>
+				                               <li>
+				                                   <b> Last seen IP address <a href="https://en.wikipedia.org/wiki/IP_address" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i> </a> </b> 
+				                                   <p class="data_field" class="small" data-field="lastTrackingEvent.sourceIP" data-fieldholder="html" data-fieldtype="string" > - </p>
+				                               </li>
+				                                <li>
+				                                   <b> Last seen at location </b> 
+				                                   <p class="data_field" class="small text_ellipsis" data-field="lastTrackingEvent.locationName" data-fieldholder="eventlocation" data-fieldtype="string" > - </p>
+				                               </li>
+				                               <li>
+				                                   <b> Referrer <a href="https://en.wikipedia.org/wiki/HTTP_referer" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i> </a> </b> 
+				                                   <p class="data_field small text_ellipsis" data-field="lastTrackingEvent.refTouchpoint.name" data-fieldholder="html" data-fieldtype="string" > - </p>
+				                               </li>
+				                               <li>
+				                                   <b> Referrer URL </b> 
+				                                   <p class="data_field small text_ellipsis" data-field="lastTrackingEvent.refTouchpoint.url" data-fieldholder="url" data-fieldtype="string" > - </p>
+				                               </li>
+				                               <li>
+				                                   <b> Last touchpoint <a href="https://en.wikipedia.org/wiki/Touchpoint" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i> </a> </b> 
+				                                   <p class="data_field small text_ellipsis" data-field="lastTouchpoint.name" data-fieldholder="html" data-fieldtype="string" > - </p>
+				                               </li>
+				                               <li>
+				                                   <b> Last touchpoint URL </b> 
+				                                   <p class="data_field small text_ellipsis" data-field="lastTouchpoint.url" data-fieldholder="url" data-fieldtype="string"  > - </p>
+				                               </li>
+				                               <li>
+				                                   <b> Browser </b> 
+				                                   <p class="data_field small text_ellipsis" data-field="lastTrackingEvent.browserName" data-fieldholder="html" data-fieldtype="string" > - </p>
+				                               </li>
+				                               <li>
+				                                   <b> Device type </b>
+				                                   <p class="data_field" data-field="lastTrackingEvent.deviceType" data-fieldholder="html" data-fieldtype="string"> - </p>
+				                               </li>
+				                               <li>
+				                                   <b> Device name </b>
+				                                   <p class="data_field" data-field="lastTrackingEvent.deviceName" data-fieldholder="html" data-fieldtype="string"> - </p>
+				                               </li>
+				                               <li>
+				                                   <b> Device OS </b> 
+				                                   <p class="data_field" data-field="lastTrackingEvent.deviceOS" data-fieldholder="html" data-fieldtype="string" > - </p>
+				                               </li>
+				                               <li>
+				                                   <b> Device ID </b> 
+				                                   <p class="data_field" data-field="lastTrackingEvent.deviceId" data-fieldholder="html" data-fieldtype="string" > - </p>
+				                               </li>
+				                               <li>
+				                                   <b> Fingerprint ID </b> 
+				                                   <p class="data_field" data-field="lastTrackingEvent.fingerprintId" data-fieldholder="html" data-fieldtype="string" > - </p>
+				                               </li>
+				                               <li>
+				                                   <b> Data Environment </b> 
+				                                   <p class="data_field" data-field="lastTrackingEvent.environment" data-fieldholder="html" data-fieldtype="string" > - </p>
+				                               </li>
+				                           </ol>
+				                       </td>
+				                   </tr>
+				               </table>
+							</div>
+		                    
 							<!-- vertical tab Engaged Touchpoints  -->
 		                    <div class="tab-pane" id="panel_data_touchpoints" >
 		                    	<div class="col-lg-12">
@@ -509,85 +590,6 @@
                                   </div>
 		                    </div>
 		                    
-		                    <!-- tab : Last Session Data  -->
-		       				<div class="tab-pane" id="panel_last_session_details" >
-		       					<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Last Session Data </h4> 
-								</div>
-					     		 <table border=0 class="underlined" style="width: 100%;">
-				                   <tr>
-				                       <td>
-				                           <ol id="visitor_attributes" data-field="visitor_attributes">
-				                           	   <li>
-				                                   <b> Metric Name </b> 
-				                                   <p class="data_field" data-field="lastTrackingEvent.metricName" data-fieldholder="html"  data-fieldtype="string" > - </p>
-				                               </li>
-				                           	   <li>
-				                                   <b> Observer </b> 
-				                                   <p class="data_field" data-field="lastTrackingEvent.observer.name" data-fieldholder="html"  data-fieldtype="string" > - </p>
-				                               </li>
-				                               <li>
-				                                   <b> Last seen </b> 
-				                                   <p class="data_field" data-field="lastTrackingEvent.createdAt" data-fieldholder="html"  data-fieldtype="date_time"  >   </p>
-				                               </li>
-				                               <li>
-				                                   <b> Last seen IP address <a href="https://en.wikipedia.org/wiki/IP_address" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i> </a> </b> 
-				                                   <p class="data_field" class="small" data-field="lastTrackingEvent.sourceIP" data-fieldholder="html" data-fieldtype="string" > - </p>
-				                               </li>
-				                                <li>
-				                                   <b> Last seen at location </b> 
-				                                   <p class="data_field" class="small text_ellipsis" data-field="lastTrackingEvent.locationName" data-fieldholder="eventlocation" data-fieldtype="string" > - </p>
-				                               </li>
-				                               <li>
-				                                   <b> Referrer <a href="https://en.wikipedia.org/wiki/HTTP_referer" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i> </a> </b> 
-				                                   <p class="data_field small text_ellipsis" data-field="lastTrackingEvent.refTouchpoint.name" data-fieldholder="html" data-fieldtype="string" > - </p>
-				                               </li>
-				                               <li>
-				                                   <b> Referrer URL </b> 
-				                                   <p class="data_field small text_ellipsis" data-field="lastTrackingEvent.refTouchpoint.url" data-fieldholder="url" data-fieldtype="string" > - </p>
-				                               </li>
-				                               <li>
-				                                   <b> Last touchpoint <a href="https://en.wikipedia.org/wiki/Touchpoint" target="_blank" > <i class="fa fa-info-circle" aria-hidden="true"></i> </a> </b> 
-				                                   <p class="data_field small text_ellipsis" data-field="lastTouchpoint.name" data-fieldholder="html" data-fieldtype="string" > - </p>
-				                               </li>
-				                               <li>
-				                                   <b> Last touchpoint URL </b> 
-				                                   <p class="data_field small text_ellipsis" data-field="lastTouchpoint.url" data-fieldholder="url" data-fieldtype="string"  > - </p>
-				                               </li>
-				                               <li>
-				                                   <b> Browser </b> 
-				                                   <p class="data_field small text_ellipsis" data-field="lastTrackingEvent.browserName" data-fieldholder="html" data-fieldtype="string" > - </p>
-				                               </li>
-				                               <li>
-				                                   <b> Device type </b>
-				                                   <p class="data_field" data-field="lastTrackingEvent.deviceType" data-fieldholder="html" data-fieldtype="string"> - </p>
-				                               </li>
-				                               <li>
-				                                   <b> Device name </b>
-				                                   <p class="data_field" data-field="lastTrackingEvent.deviceName" data-fieldholder="html" data-fieldtype="string"> - </p>
-				                               </li>
-				                               <li>
-				                                   <b> Device OS </b> 
-				                                   <p class="data_field" data-field="lastTrackingEvent.deviceOS" data-fieldholder="html" data-fieldtype="string" > - </p>
-				                               </li>
-				                               <li>
-				                                   <b> Device ID </b> 
-				                                   <p class="data_field" data-field="lastTrackingEvent.deviceId" data-fieldholder="html" data-fieldtype="string" > - </p>
-				                               </li>
-				                               <li>
-				                                   <b> Fingerprint ID </b> 
-				                                   <p class="data_field" data-field="lastTrackingEvent.fingerprintId" data-fieldholder="html" data-fieldtype="string" > - </p>
-				                               </li>
-				                               <li>
-				                                   <b> Data Environment </b> 
-				                                   <p class="data_field" data-field="lastTrackingEvent.environment" data-fieldholder="html" data-fieldtype="string" > - </p>
-				                               </li>
-				                           </ol>
-				                       </td>
-				                   </tr>
-				               </table>
-							</div>
-							
 							<!-- tab : purchased items  -->
 							<div class="tab-pane" id="panel_purchased_items"  >
 								<!-- tab 7 content  -->
@@ -1100,6 +1102,9 @@
          console.log('loadProfile360Analytics profileId:' + profileId + " crmRefId:" + crmRefId);
          
          loadProfileDataIntoDOM(false, profileId, crmRefId, profileInfoLoadProcessor, function(){
+        	 $('#profile_key_info').show();
+        	 $('#profile_key_info_loader').hide();
+        	 
         	 //console.log(LeoCdpAdmin.routerContext.dataObject);
 			 var daysToQueryEventData = 30; // 30 days
 			 

@@ -10,8 +10,7 @@
                         <div id="legend">
                             <h3>Login Information</h3>
                         </div>
-						<hr>
-						
+						<hr>						
 						<div id="system_user_login_form" >
 	                        <div class="form-group">
 	                            <label> Username </label>
@@ -50,92 +49,5 @@
 </div>
 
 <script>
-	// show logo
-	$('#login_logo').attr('src', window.pageHeaderLogo).show();
-	
-    var usersession = lscache.get('usersession');
-    var encryptionkey = lscache.get('encryptionkey');
-
-    function getLoginSession() {
-        var urlStr = baseLeoAdminUrl + '/user/login-session';
-        LeoAdminApiUtil.callPostApi(urlStr, {}, function (json) {
-            if (json.httpCode === 0 && json.errorMessage === '') {
-                usersession = json.data.userSession;
-                
-                var captchaImgBase64 = 'data:image/png;base64,'+ json.data.captchaImage;
-                $('#captcha_img').show().attr('src', captchaImgBase64 );
-                
-                loginFormHandler(usersession);
-            } else {
-                LeoAdminApiUtil.logErrorPayload(json);
-            }
-        });
-    }
-
-    function loginFormHandler(session) {
-        var apiLoginHandler = function () {
-            var urlStr = baseLeoAdminUrl + '/user/check-login';
-
-            var user = $('#username').val();
-            var pass = $('#password').val();
-            var captchaStr = $('#captcha').val();
-            
-            var params = {
-                'userlogin': user,
-                'userpass': pass,
-                'usersession': session,
-                'captcha' : captchaStr
-            };
-            
-            $('#info-login').html("<b>Sending data ...</b>").show();
-            var loginHandler = function (json) {
-                if (json.errorMessage === '') {
-                	//OK, set session data
-                    encryptionkey = json.data;
-                    lscache.set('usersession', session, 20160);
-                    lscache.set('encryptionkey', encryptionkey, 20160);
-
-                    // update UI
-                    $("#system_user_login_form, #btn_system_login").hide();                    
-                    $('#info-login').html('<i class="fa fa-check-circle fa-2" aria-hidden="true"></i> <b> Login successfully ! </b> ');
-                    
-                    //wait and reload
-                    setTimeout(function () { 
-                    	window.location.reload(true);
-                    }, 3600);
-                } else {
-                	$('#info-login').hide();
-                    $('#error-login').html('<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ' + json.errorMessage).show().delay(3000).fadeOut();
-                    // failed
-                    setTimeout(function () { LeoAdminApiUtil.logErrorPayload(json); }, 2300);
-                }
-            };
-            LeoAdminApiUtil.callPostApi(urlStr, params, loginHandler);
-        };
-
-        $('#btn_system_login').click(apiLoginHandler);
-
-        $("#username").on('keyup', function (e) {
-            if (e.keyCode === 13) {
-                $("#password").focus();
-            }
-        });
-        $("#password").on('keyup', function (e) {
-            if (e.keyCode === 13) {
-                $("#captcha").focus();
-            }
-        });
-        $("#captcha").on('keyup', function (e) {
-            if (e.keyCode === 13) {
-                apiLoginHandler();
-            }
-        });
-    }
-
-    if (usersession && encryptionkey) {
-        console.log("You login OK with session " + usersession);
-    } else {
-        getLoginSession();
-        console.log('getLoginSession is called ')
-    }
+	initSystemUserLogin();
 </script>

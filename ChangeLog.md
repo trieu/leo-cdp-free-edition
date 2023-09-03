@@ -30,7 +30,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-08-31
+## [0.9.0] - 2023-09-03
 
 ### Added
 
@@ -80,6 +80,7 @@
 
 ### Changed
 
+- improve UI/UX of profile info
 - improve UI/UX of asset group and profile reports 
 - upgrade javascripts of admin, remove sortablejs
 - update TouchpointType, change from LEO_DATABASE to DATA_OBSERVER
