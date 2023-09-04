@@ -170,14 +170,14 @@ function leoObserverProxyReady(session) {
 	LeoObserverProxy.synchLeoVisitorId(function(vid){
 		var aNodes = document.querySelectorAll('a');
 		[].forEach.call(aNodes, function(aNode) {
-			var hrefUrl = aNode.href;
-			if(hrefUrl) {
-				if(hrefUrl.indexOf('?') > 0) {hrefUrl += ("&leosyn=" + vid);}
-				else {hrefUrl += ("?leosyn=" + vid);}
+			var hrefUrl = aNode.href || "";
+            var check = hrefUrl.indexOf('http') >= 0 && hrefUrl.indexOf(location.host) < 0 ;
+			if(check) {
+				if(hrefUrl.indexOf('?') > 0) hrefUrl += ("&leosyn=" + vid);
+				else hrefUrl += ("?leosyn=" + vid);
 				aNode.href = hrefUrl;
 			}
 		});
-		
 		if(typeof window.synchLeoCdpToGA4 === "function") {
 			window.synchLeoCdpToGA4(vid)
 		}
