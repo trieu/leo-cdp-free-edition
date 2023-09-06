@@ -30,7 +30,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-09-03
+## [0.9.0] - 2023-09-06
 
 ### Added
 
@@ -57,6 +57,7 @@
 
 ### Fixed
 
+- fix when update profile in Admin
 - fix bug Last-seen Touchpoint + sorting profile meta data
 - improve UI/UX, fix search and filter tracking events in profile report, 
 - fix filter profiles with date, type and ID
