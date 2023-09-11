@@ -5,12 +5,13 @@
             <div class="col-lg-6">
                 <img id="login_logo" src="" alt="MainLogo" style="display: none; max-width: 300px;max-height: 140px;" class="img-responsive center-block" />
                 <hr>
-                <div>
+                <div id="system_user_login_loader" class="loader"></div>
+                <div id="system_user_login_div" style="display:none;" >
                     <fieldset>
                         <div id="legend">
                             <h3>Login Information</h3>
                         </div>
-						<hr>						
+						<hr>					
 						<div id="system_user_login_form" >
 	                        <div class="form-group">
 	                            <label> Username </label>
@@ -24,17 +25,11 @@
 	                        </div>
 	                         <div class="form-group">
 	                            <label> Captcha Image for Human Verification </label>
-	                            
 	                            <img id="captcha_img" alt="Captcha Image" src="" style="margin: 10px; display: none;" >
-	                            
 	                            <input type="text" class="form-control" placeholder="Enter text and number that you see in the above image" name="captcha" id="captcha"
 	                                autocapitalize="off" autocomplete="off">
 	                        </div>
                         </div>
-
-						<div id="info-login" class="alert alert-success" style="display: none; font-size: 24px;"></div>
-                        <div id="error-login" class="alert alert-danger" style="display: none; font-size: 18px;"></div>
-
                         <div class="form-group text-left">
                             <button type="button" class="btn btn-success" id="btn_system_login" style="width: 160px"> 
 								<i class="fa fa-check-square-o" aria-hidden="true"></i> OK 
@@ -42,6 +37,8 @@
                         </div>
                     </fieldset>
                 </div>
+                <div id="info-login" class="alert alert-success" style="display: none; font-size: 24px;"></div>
+                <div id="error-login" class="alert alert-danger" style="display: none; font-size: 18px;"></div>
             </div>
             <div class="col-lg-3"></div>
         </div>
