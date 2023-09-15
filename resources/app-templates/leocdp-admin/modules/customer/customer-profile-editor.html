@@ -673,11 +673,13 @@
     	
     	var callback = function(rs){
     		if(rs != null){
-    			location.hash = "calljs-leoCdpRouter('Customer_Profile_Info','" + rs + "')";
     			iziToast.success({
     	    	    title: 'Profile Editor',
     	    	    message: 'Profile data is saved OK!',
-    	    	    timeout: 3000,
+    	    	    timeout: 5000,
+    	    	    onClosed: function () {
+    	    	    	location.hash = "calljs-leoCdpRouter('Customer_Profile_Info','" + rs + "')";
+    	    	    }
     	    	});
     		}
     		else {
