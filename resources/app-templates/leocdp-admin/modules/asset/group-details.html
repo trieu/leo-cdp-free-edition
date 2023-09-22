@@ -121,8 +121,8 @@
 
                 assetCategoryId = assetGroupModel.categoryIds[0] || '';
                 isGroupTemplate = assetType === 4 ||  assetType === 6 ||  assetType === 7;
-                isGroupFeedbackForm =  assetType === 13; 
-                isGroupPresentation =  assetType === 16; 
+                isGroupFeedbackForm = assetType === 13; 
+                isGroupPresentation = assetType === 16; 
                 
                 contentTypeButtonRender(assetType, isGroupTemplate);
                 
@@ -310,8 +310,9 @@
                     	var assetType = row.assetType;
                     	var contentClass = row.contentClass;
                     	var title =  row.title;
+                    	var fUrl = row.fullUrl;
                     	
-                    	if(isGroupTemplate){
+                    	if(isGroupTemplate || isGroupFeedbackForm){
                     		// no preview for template, go directly editor
                     		var params = leoCdpRouterParams([itemId, assetGroupId, assetCategoryId ]) ;
                         	var callJsStr = "#calljs-leoCdpRouter('Asset_Template_Editor','" + params + "')";
@@ -320,15 +321,15 @@
                     	else {
                     		var params = leoCdpRouterParams([itemId, assetGroupId, assetCategoryId ]) ;
                         	
-                        	var callViewJsStr = "#calljs-leoCdpRouter('Asset_Content_View','" + params + "')";
+                        	//var callViewJsStr = "#calljs-leoCdpRouter('Asset_Content_View','" + params + "')";
+                        	var callViewJsStr = (typeof fUrl === 'string' && fUrl.indexOf('http')===0) ? fUrl : row.shortLinkUrl;
                         	var callEditJsStr = "#" + getAssetEditorCallJs(assetType, params);
                         	
                         	var html = '';
-                        	//html += '<a class="text_wrapper" title="View: ' + title + '" href="' + callViewJsStr + '" ><i class="fa fa-info-circle" aria-hidden="true"></i> View</a> <br>';
+                        	html += '<a target="_blank" rel="noreferrer" class="text_wrapper" title="View: ' + title + '" href="' + callViewJsStr + '" ><i class="fa fa-info-circle" aria-hidden="true"></i> View</a> <br>';
                         	html += '<a class="text_wrapper" title="Edit: ' + title + '" href="' + callEditJsStr + '" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>';
                             return html;
                     	}
-                    	
                     },
                     "targets": 5
                 }

@@ -27,16 +27,17 @@ The deployed server must have Internet connection, please set the out-bound fire
 
 ### Nginx Proxy
 
-[Install nginx on Ubuntu 20](https://www.tecmint.com/install-nginx-on-ubuntu-20-04)
+[Install nginx on Ubuntu 22](https://www.tecmint.com/install-nginx-on-ubuntu-20-04)
 
 	sudo wget https://nginx.org/keys/nginx_signing.key
 	sudo apt-key add nginx_signing.key
+	
 	sudo nano /etc/apt/sources.list
-	deb https://nginx.org/packages/mainline/ubuntu/ focal nginx
-	deb-src https://nginx.org/packages/mainline/ubuntu/ focal nginx
+		deb https://nginx.org/packages/mainline/ubuntu/ jammy nginx
+		deb-src https://nginx.org/packages/mainline/ubuntu/ jammy nginx
+	
 	sudo apt-get remove nginx-common
-	sudo apt-get update && sudo apt-get install nginx
-	sudo service nginx start
+	sudo apt-get update ; sudo apt-get install nginx; sudo service nginx start
 
 
 ### SSL for Nginx Server
@@ -60,7 +61,7 @@ The deployed server must have Internet connection, please set the out-bound fire
 * [Redis on Ubuntu](https://vitux.com/install-redis-on-ubuntu/)
 * [Redis Cluster](https://success.outsystems.com/Support/Enterprise_Customers/Installation/Configuring_OutSystems_with_Redis_in-memory_session_storage/Set_up_a_Redis_Cluster_for_Production_environments)
 
-    sudo apt-get update; sudo apt -y install redis-server
+    sudo apt-get update; sudo apt -y install redis-server git
 
 ## Install Notes for Linux Server
 
@@ -72,10 +73,10 @@ The deployed server must have Internet connection, please set the out-bound fire
 	echo 'leocdp ALL=(ALL) NOPASSWD: ALL' | sudo tee -a /etc/sudoers >/dev/null
 	# make folder to git pull 
 	sudo mkdir /build/
+	sudo mkdir -p /home/leocdp/ ; sudo chown -R leocdp:leocdp /home/leocdp/
 	sudo git clone https://github.com/trieu/leo-cdp-free-edition.git /build/leo-cdp
 	sudo chown -R leocdp:leocdp /build/ ; sudo chmod +x /build/leo-cdp/*.sh
-	sudo mkdir -p /home/leocdp/ ; sudo chown -R leocdp:leocdp /home/leocdp/
-
+	
 ### DNS hosts for LEO CDP servers 
 
 Command to edit hosts: 

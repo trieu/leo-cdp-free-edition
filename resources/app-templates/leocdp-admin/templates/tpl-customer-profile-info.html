@@ -91,13 +91,13 @@
 	  <div class="col-md-2 text-center" style="margin-top: 15px;" > <%- eventCount %> events </div>
       <div class="col-md-10">
          <small class="text-muted pull-right"> Updated: <%- updatedAt %> </small>
-         <h5 class="media-heading"> <a target="_blank" href="<%- url %>" > <%- name %> </a> </h5>
+         <h5 class="media-heading"> <a target="_blank" rel="noreferrer" href="<%- url %>" > <%- name %> </a> </h5>
          <div class="text-nowrap " >  
 			 <i class="fa fa-link" aria-hidden="true"></i> <span class="small"><%- truncatedUrl %></span> 
 		 </div>
  		 <div class="text-nowrap" style="display: <%- cssShowLocationCode %>" >  
 			<i class="fa fa-map-marker" aria-hidden="true"></i>  
-			<span class="small" > Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','Touchpoint Location')" > </a>  </span> 
+			<span class="small" > Location at <a href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','Touchpoint Location')" > </a>  </span> 
 		 </div>
       </div>
    </div>
@@ -110,7 +110,7 @@
       <div class="col-md-2 text-center" style="margin-top: 15px;" > <i class="fa fa-internet-explorer" aria-hidden="true" style="font-size:2em" ></i> <br> <div class="event_text"><%- metricName %></div> </div>
       <div class="col-md-10">
          <small class="text-muted pull-right"> <%- createdAt %> </small>
-         <h5 class="media-heading"> <a target="_blank" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
+         <h5 class="media-heading"> <a target="_blank" rel="noreferrer" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
          <div class="text-nowrap " >  
 			 <i class="fa fa-link" aria-hidden="true"></i> <span class="small"><%- srcTouchpoint.truncatedUrl %></span> 
 		 </div>
@@ -147,7 +147,7 @@
       <div class="col-md-2 text-center highlight_text" style="margin-top: 15px;"> <i class="fa fa-info-circle" aria-hidden="true" style="font-size:2em" ></i> <br> <div class="event_text"><%- metricName %></div> </div>
       <div class="col-md-10">
          <small class="text-muted pull-right"> <%- createdAt %> </small>
-         <h5 class="media-heading"> <a target="_blank" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
+         <h5 class="media-heading"> <a target="_blank" rel="noreferrer" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
          <div class="text-nowrap " >  
 			 <i class="fa fa-link" aria-hidden="true"></i> <span class="small"><%- srcTouchpoint.truncatedUrl %></span> 
 		 </div>
@@ -184,7 +184,7 @@
       <div class="col-md-2 text-center highlight_text" style="margin-top: 15px;"> <i class="fa fa-sign-in" aria-hidden="true" style="font-size:2.5em" ></i> <br> <div class="event_text"><%- metricName %></div> </div>
       <div class="col-md-10">
          <small class="text-muted pull-right"> <%- createdAt %> </small>
-         <h5 class="media-heading"> <a target="_blank" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
+         <h5 class="media-heading"> <a target="_blank" rel="noreferrer" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
          <div class="text-nowrap " > 
 			 <span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Action Data:</b> <br>  
 			 <i class="fa fa-commenting-o" aria-hidden="true"></i> Message: <mark> <%- message %> </mark> <br>
@@ -225,7 +225,7 @@
       <div class="col-md-2 text-center highlight_text" style="margin-top: 15px;" >  <i class="fa fa-cart-plus" aria-hidden="true" style="font-size:3em" ></i> <br> <div class="event_text"><%- metricName %></div> </div>
       <div class="col-md-10">
          <small class="text-muted pull-right"> <%- createdAt %>  </small>
-         <h5 class="media-heading"> <a target="_blank" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
+         <h5 class="media-heading"> <a target="_blank" rel="noreferrer" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
          <div class="text-nowrap " >  
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Transaction Data:</b> <br> 
 			<i class="fa fa-usd" aria-hidden="true"></i> ID Code: <mark> <%- transactionId %> </mark> <br>
@@ -355,7 +355,7 @@
 	 <div class="col-md-10">
 		<small class="text-muted pull-right"> Created at: <%- createdAt %> </small>
 		<h5 class="media-heading">  <%- product.title %> </h5>
-		<span class="small item_link" > <a target="_blank" href="<%- product.fullUrl %>" > <%- product.fullUrl %> </a>  </span> 
+		<span class="small item_link" > <a target="_blank" rel="noreferrer" href="<%- product.fullUrl %>" > <%- product.fullUrl %> </a>  </span> 
  		<div class="text-nowrap" > 
 			<i class="fa fa-info" aria-hidden="true"></i> Transaction ID: <mark> <%- transactionId %> </mark> <br>
 			<i class="fa fa-info" aria-hidden="true"></i> <%- product.productIdType %> : <mark> <%- product.productId %> </mark>
@@ -378,7 +378,7 @@
  		 <hr>
          <div class="text-nowrap" >  
 			<i class="fa fa-info-circle" aria-hidden="true"></i> Touchpoint Name: <strong title="<%- touchpointName %>"> <%- touchpointName.length > 90 ? touchpointName.substring(0,90) + "..." : touchpointName %> </strong> <br>
-			<i class="fa fa-link" aria-hidden="true"></i> Touchpoint URL: <a target="_blank" href="<%- previewUrl %>" > <%- previewUrl %> </a> 
+			<i class="fa fa-link" aria-hidden="true"></i> Touchpoint URL: <a target="_blank" rel="noreferrer" href="<%- previewUrl %>" > <%- previewUrl %> </a> 
 		 </div>
 		 <div class="text-nowrap" >  
 			<i class="fa fa-star" aria-hidden="true"></i>  
@@ -421,7 +421,7 @@
  		 <hr>
          <div class="text-nowrap" >  
 			<i class="fa fa-info-circle" aria-hidden="true"></i> Touchpoint Name: <strong title="<%- touchpointName %>"> <%- touchpointName.length > 90 ? touchpointName.substring(0,90) + "..." : touchpointName %> </strong> <br>
-			<i class="fa fa-link" aria-hidden="true"></i> Touchpoint URL: <a target="_blank" href="<%- previewUrl %>" > <%- previewUrl %> </a> 
+			<i class="fa fa-link" aria-hidden="true"></i> Touchpoint URL: <a target="_blank" rel="noreferrer" href="<%- previewUrl %>" > <%- previewUrl %> </a> 
 		 </div>
 		 <div class="text-nowrap" >  
 			<i class="fa fa-star" aria-hidden="true"></i>  

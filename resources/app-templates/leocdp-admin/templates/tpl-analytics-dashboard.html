@@ -81,12 +81,12 @@ div.download_link_holder {
         <div class="col-md-10">
             <small class="text-muted pull-right"> Updated at <b>  <%- createdAt %> </b> 
 				<br>
-				<a class="exportDataCxSurvey btn btn-do-now" id="exportDataCxSurvey_<%- id %>" style="display: none;" target="_blank" > 
+				<a class="exportDataCxSurvey btn btn-do-now" id="exportDataCxSurvey_<%- id %>" style="display: none;" target="_blank" rel="noreferrer" > 
 					<i class="fa fa-cloud-download" aria-hidden="true"></i> Click to download 
 				</a>
 			</small>
             <h5 class="media-heading"> 
-				<a href="<%- previewUrl %>" target="_blank"> Feedback survey: <%- header %> </a> 
+				<a href="<%- previewUrl %>" target="_blank" rel="noreferrer" > Feedback survey: <%- header %> </a> 
 			</h5>
 
             <div class="survey_title">
@@ -171,7 +171,7 @@ div.download_link_holder {
 				<% _.forEach(profileIds, function(profileId) { %>
                     <li class="list-group-item col-md-8 ">
 						<i class="fa fa-user-circle-o" aria-hidden="true"></i>
-						<a target="_blank" href="#calljs-leoCdpRouter('Customer_Profile_Info','<%- profileId %>')"> <b>Profile ID:</b> <%- profileId %> </a>
+						<a target="_blank" rel="noreferrer" href="#calljs-leoCdpRouter('Customer_Profile_Info','<%- profileId %>')"> <b>Profile ID:</b> <%- profileId %> </a>
 					</li> 
 				<% }); %>
 			</ul>

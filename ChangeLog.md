@@ -30,7 +30,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-09-11
+## [0.9.0] - 2023-09-22
 
 ### Added
 
@@ -57,6 +57,7 @@
 
 ### Fixed
 
+- add rel="noreferrer" in ahref to avoid add referrer from admin domain
 - fix when update profile in Admin
 - fix bug Last-seen Touchpoint + sorting profile meta data
 - improve UI/UX, fix search and filter tracking events in profile report, 
@@ -81,6 +82,8 @@
 
 ### Changed
 
+- add View link for asset items in group details
+- update UI/UX of content item 
 - add more fields in profile data quality scoring 
 - improve UI/UX of profile info, system login
 - improve UI/UX of asset group and profile reports 

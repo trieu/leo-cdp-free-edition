@@ -47,10 +47,15 @@
 	 */
 	
 	/* Links */
-	a,
+	
 	a:focus,
 	a:hover {
 	  color: #fff;
+	}
+	
+	a {
+		color: yellow!important;
+    	text-decoration:underline!important;
 	}
 	
 	/* Custom default button */
@@ -128,7 +133,7 @@
 	    	<h3 class="cover-heading">{{pageTitle}}</h3>
 	    	
 	    	<div id="image_container" >
-	    		<img id="image_holder"  src="{{{customData.content.headlineImageUrl}}}" />
+	    		<img id="image_holder" src="{{{customData.content.headlineImageUrl}}}" />
 	    	</div>
 	    	<hr>
 	    	<div style="display: none;" id="video_holder" >
