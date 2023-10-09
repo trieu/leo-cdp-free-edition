@@ -5,7 +5,7 @@
 - [Done] import tool to upload event data as CSV file in LEO CDP Admin
 - [In Plan => 2022-11-07] new UI for journey map report
 
-## Feature Plan for the final beta release 1.0 - 2023-05-01
+## Feature Plan for the final beta release 1.0 - 2023-11-11
 
 #### Tasks
 
@@ -30,7 +30,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-09-22
+## [0.9.0] - 2023-10-09
 
 ### Added
 
@@ -50,13 +50,14 @@
 - [Leo Bot] can create new content from answer
 - [Leo Bot] add chatgpt as personal assistant
 - [LeoCdpLicense] simplify process to easier upgrade
-- [Data Connector] New data connector protocol
-- [Data Connector] tool for administration; create, update and delete a connector
-- [Data Connector] Data Activation with time scheduler
-- [Data Connector] add EmailMarketingConnector
+- [Data Service] New data connector protocol
+- [Data Service] tool for administration; create, update and delete a connector
+- [Data Service] Data Activation with time scheduler
+- [Data Service] add EmailMarketingConnector
 
 ### Fixed
 
+- fix and improve UI UX of LEO Chatbot
 - add rel="noreferrer" in ahref to avoid add referrer from admin domain
 - fix when update profile in Admin
 - fix bug Last-seen Touchpoint + sorting profile meta data
@@ -82,6 +83,8 @@
 
 ### Changed
 
+- [profile] show purchased items directly in profile info
+- refactoring [Data Connector] to [Data Service] to scale customer data computation in multiple ways
 - add View link for asset items in group details
 - update UI/UX of content item 
 - add more fields in profile data quality scoring 
@@ -102,7 +105,7 @@
 - upgrade core Java libraries
 - upgrade arangodb java driver
 - update init-connector-configs.json when setup new system
-- [Data Connector] update UI and UX for easier administration
+- [Data Service] update UI and UX for easier administration
 - [Segment] update UX and UI of data activation in segment
 - [Profile] load data from all journey, then filter
 
@@ -197,7 +200,7 @@
 - [Asset Item] can not save and update keywords , sort by updatedAt field
 - [Journey Map] can not save data with totalProfile is null
 - [Event Reporting] improve AQL for performance, duplicated rating event
-- [Data Connector] fix overriding old data when upgrade system, improve SendInBlue connector
+- [Data Service] fix overriding old data when upgrade system, improve SendInBlue connector
 - [Tracking Event] fix when import and improve UI
 - [Profile API] fix bugs and use journeyMapIds to set multiple journey map
 - [Profile API] refactoring and can set journey maps from API

@@ -1,62 +1,62 @@
 <style>
-.active_connector_box {
+.active_data_service_box {
 	border-color: #0E0E0E!important;
 }
-.active_connector_box > .panel-heading {
+.active_data_service_box > .panel-heading {
 	background-color: #fcf8e3!important;
 }
-#filter_connectors_keywords {
+#filter_data_services_keywords {
 	width: 100%;
 }
 
 </style>
 
-<!-- Data Connector Services -->
+<!-- Data Service Services -->
 
 <div class="row">
 	<div class="col-lg-10">
 		<h5 class="page-header" id="page_breadcrumb"></h5>
 	</div>
 	<div class="col-lg-2 text-right" style="padding: 10px;">
-		<button type="button" class="btn btn-goto-router data-control-insert" onclick="newDataConnector()" title="Install New Data Connector" >
-			<i class="fa fa-plus-circle" aria-hidden="true"></i> New Data Connector
+		<button type="button" class="btn btn-goto-router data-control-insert" onclick="newDataService()" title="Install New Data Service" >
+			<i class="fa fa-plus-circle" aria-hidden="true"></i> New Data Service
 		</button>
 	</div>
 </div>
 
 <div class="top_page_header" >
 	<h4> 
-		<i class="fa fa-exchange " aria-hidden="true"></i> Data Connector Management 
-		<i id="connectors_tooltip" class="fa fa-question-circle" aria-hidden="true" title="Please set configuration to activate connectors" ></i>
+		<i class="fa fa-exchange " aria-hidden="true"></i> Data Service Management 
+		<i id="data_services_tooltip" class="fa fa-question-circle" aria-hidden="true" title="Please set configuration to activate data_services" ></i>
 	</h4>
 </div>
 
 <div class="col-lg-12 row">
 	<div class="panel panel-info" >
 	   	<div class="panel-heading">
-	   		<b> <i class="fa fa-search" aria-hidden="true"></i> Connector Filter </b>
+	   		<b> <i class="fa fa-search" aria-hidden="true"></i> Service Filter </b>
 	   	</div>
 	    <div class="panel-body">
 	      	<div class="col-lg-12 row">
 	      		<div class="col-lg-8" >
-					<input id="filter_connectors_keywords" type="text" placeholder="Enter keywords to search connectors" autocomplete="off">				
-					<label for="select_filter_connectors" style="margin-top:10px;" >Connector Status</label>
-					<select class="form-control" id="select_filter_connectors" >
-				    	<option value="all"> All connectors</option>
-				    	<option value="active"> Active connectors </option>
-				    	<option value="active_for_personalization" title="filter only active connectors for data personalization" > Active connectors for data personalization</option>
-				    	<option value="active_for_enrichment" title="filter only active connectors for data enrichment"> Active connectors for data enrichment</option>
-				    	<option value="active_for_synchronization" title="filter only active connectors for data synchronization"> Active connectors for data synchronization</option>
+					<input id="filter_data_services_keywords" type="text" placeholder="Enter keywords to search data services" autocomplete="off">				
+					<label for="select_filter_data_services" style="margin-top:10px;" >Service Status</label>
+					<select class="form-control" id="select_filter_data_services" >
+				    	<option value="all"> All data services</option>
+				    	<option value="active"> Active data services </option>
+				    	<option value="active_for_personalization" title="filter only active data services for data personalization" > Active data services for data personalization</option>
+				    	<option value="active_for_enrichment" title="filter only active data services for data enrichment"> Active data services for data enrichment</option>
+				    	<option value="active_for_synchronization" title="filter only active data services for data synchronization"> Active data services for data synchronization</option>
 				    </select>
 				</div>
 				<div class="col-lg-4">
 					<div class="col-md-6 text-center" >
-					 	<button type="button" style="width: 100%;" class="btn btn-do-now" onclick="resetConnectorFilter()" >
+					 	<button type="button" style="width: 160px;" class="btn btn-do-now" onclick="resetDataServiceFilter()" >
 					 		<i class="fa fa-fw fa-undo"></i> Reset 
 					 	</button>
 					</div>
-					<div class="col-md-6 text-center" >
-					 	<button type="button" style="width: 100%;" class="btn btn-goto-router" onclick="doConnectorFilter()" >
+					<div class="col-md-5 text-center" >
+					 	<button type="button" style="width: 160px;" class="btn btn-goto-router" onclick="loadAllDataServices()" >
 					 		<i class="fa fa-fw fa-filter"></i> OK 
 					 	</button>
 					</div>
@@ -65,24 +65,17 @@
 	    </div>
 	</div>
 	<div class="row gridholder">
-		<div id="data_connectors_loader" class="loader"></div>
-		<div class="col-lg-12" id="data_connectors_holder" style="display: none;">
+		<div id="data_services_loader" class="loader"></div>
+		<div class="col-lg-12" id="data_services_holder" style="display: none;">
 			<!-- list -->
 		</div>
-		<div class="col-lg-12" id="data_connectors_pagination" > </div>
+		<div class="col-lg-12" id="data_services_pagination" > </div>
 	</div>	
 </div>
 
-
-<script>
-	var initDataConnectorList = function() {
-		doConnectorFilter();		
-	}
-</script>
-
-<script id='tpl_data_connector_view' type="text/html" >
-<div class="connector_box col-lg-4">
-  <div class="panel panel-default" id="connector_box_<%- id %>">
+<script id='tpl_data_service_view' type="text/html" >
+<div class="data_service_box col-lg-4">
+  <div class="panel panel-default" id="data_service_box_<%- id %>">
 	<div class="panel-heading"   > 
 		<b id="header_<%- id %>" > 
 			<i class="fa fa-exchange " aria-hidden="true"></i> <span style="font-size:13px"> <%- name %> </span> 
@@ -107,18 +100,18 @@
 		</div>
 	 	<div id="<%- id %>_buttons_div" class="row" style="margin-top:12px">
 			<div class="col-md-4 text-center">
-		    	<button type="button" class="btn btn-goto-router btn-sm" title="Set configs for this connector" onclick="loadDataConnector('<%- id %>')" > 
-		  			<i class="fa fa-cog" aria-hidden="true"></i> Configs 
+		    	<button type="button" class="btn btn-danger btn-sm" title="Delete this data service" onclick="deleteDataService('<%- id %>')" > 
+		  			<i class="fa fa-trash" aria-hidden="true"></i> Delete
 		  		</button>
 		    </div>
 			<div class="col-md-4 text-center">
-		    	<button type="button" class="btn btn-do-now btn-sm" title="Delete all configs of this connector" onclick="resetDataConnector('<%- id %>')" > 
+		    	<button type="button" class="btn btn-danger btn-sm" title="Delete all configs of this data service" onclick="resetDataService('<%- id %>')" > 
 		  			<i class="fa fa-undo" aria-hidden="true"></i> Reset
 		  		</button>
-		    </div>
+		    </div>			
 			<div class="col-md-4 text-center">
-		    	<button type="button" class="btn btn-danger btn-sm" title="Delete this connector" onclick="deleteDataConnector('<%- id %>')" > 
-		  			<i class="fa fa-trash" aria-hidden="true"></i> Delete
+		    	<button type="button" class="btn btn-goto-router btn-sm" title="Set configs for this data_service" onclick="loadDataService('<%- id %>')" > 
+		  			<i class="fa fa-cog" aria-hidden="true"></i> Configs 
 		  		</button>
 		    </div>
 	 	</div>
@@ -139,33 +132,33 @@
 
 
 <!-- dialog html -->
-<div class="modal fade" id="dialogSetConnectorInfo" role="dialog">
+<div class="modal fade" id="dialogSetDataServiceInfo" role="dialog">
 	<div class="modal-dialog modal-lg" >
 		<!-- Modal content-->
 		<div class="modal-content">   
 			<div class="modal-header">
-				<h4 class="modal-title text-center" > <i class="fa fa-info-circle" aria-hidden="true"></i> Data Connector Information </h4>
+				<h4 class="modal-title text-center" > <i class="fa fa-info-circle" aria-hidden="true"></i> Data Service Information </h4>
 			</div>         
 			<div class="modal-body">
 			
 				<div class="row form-group">
-					<label class="control-label col-md-3" for="connectorName" > Connector Name </label>
+					<label class="control-label col-md-3" for="dataServiceName" > Service Name </label>
 					<div class="col-md-9 float-left" >
-				    	<input type="text" id="connectorName"  placeholder="Enter Connector Name" class="form-control" style="width: 98%" >
+				    	<input type="text" id="dataServiceName"  placeholder="Enter Service Name" class="form-control" style="width: 98%" >
 				   	</div>
 				</div>
 				
 				<div class="row form-group">
-					<label class="control-label col-md-3" for="connectorDescription" > Description </label>
+					<label class="control-label col-md-3" for="dataServiceDescription" > Description </label>
 					<div class="col-md-9 float-left" >
-				    	<textarea id="connectorDescription" class="form-control" rows="2" style="width: 98%" ></textarea>
+				    	<textarea id="dataServiceDescription" class="form-control" rows="2" style="width: 98%" ></textarea>
 				   	</div>
 				</div>
 				
 				<div class="row form-group">
-				   	<label class="control-label col-md-3" for="connectorBuiltIn" >  Built-in connector </label>
+				   	<label class="control-label col-md-3" for="dataServiceBuiltIn" >  Built-in Data Service </label>
 					<div class="col-md-9 float-left" >
-				    	<input id="connectorBuiltIn" type="checkbox" class="form-control" style="width: 32px; margin-bottom: 8px;" disabled="disabled"> 
+				    	<input id="dataServiceBuiltIn" type="checkbox" class="form-control" style="width: 24px;" disabled="disabled"> 
 				   	</div>
 				</div>
 				<hr>
@@ -186,15 +179,22 @@
 				    </div>
 				</div>
 				<hr>
-				<strong>Configurations</strong>
-				<div id="connectorConfigList" style="max-height: 350px; overflow-y: scroll; overflow-x: hidden; margin-top: 5px;" > </div>
+				<strong>Data Service Configurations</strong>
+				<div id="dataServiceConfigList" style="max-height: 220px; overflow-y: scroll; overflow-x: hidden; margin-top: 5px;" > </div>
 			</div>
 			<div class="modal-footer" >
 				<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
-				<button type="button" class="btn btn-success" onclick="saveDataConnectorInfo(this)" id="dataConnectorSaveButton"  >
+				<button type="button" class="btn btn-success" onclick="saveDataServiceInfo(this)" id="dataServiceSaveButton"  >
 					<i class="fa fa-check-square-o" aria-hidden="true"></i> Save 
 				</button>		        
 		    </div>  
 		</div>
 	</div>
 </div>
+
+
+<script>
+	var initDataServiceList = function() {
+		loadAllDataServices();		
+	}
+</script>

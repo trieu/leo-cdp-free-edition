@@ -191,12 +191,16 @@
           	<a href="javascript:" data-target-tab="panel_profile_information" title="Data of profile" > <i class="fa fa-info-circle" aria-hidden="true"></i> Profile Data </a>
          </li>
          
-         <li data-industry="MEDIA" style="display: none;" onclick="loadRecommendedContentsForProfile(viewProfileId, true)">
-          	<a href="javascript:" data-target-tab="panel_content_suggestions" title="Recommended contents for direct marketing" > <i class="fa fa-list-ol" aria-hidden="true"></i> Recommended Contents </a>
+         <li data-industry="MEDIA" style="display: none;" >
+          	<a href="javascript: loadRecommendedContentsOfProfile(viewProfileId, true)" data-target-tab="panel_content_suggestions" title="Recommended contents for direct marketing" > <i class="fa fa-list-ol" aria-hidden="true"></i> Recommended Contents </a>
          </li>
          
-         <li data-industry="COMMERCE" style="display: none;" onclick="loadRecommendedProductsForProfile(viewProfileId, true)" >
-         	<a href="javascript:" data-target-tab="panel_recommended_products"  title="Recommended products for direct marketing" > <i class="fa fa-list-ol" aria-hidden="true"></i> Recommended Products </a>
+         <li data-industry="COMMERCE" style="display: none;"  >
+         	<a href="javascript: loadRecommendedProductsOfProfile(viewProfileId, true)" data-target-tab="panel_recommended_products"  title="Recommended products for direct marketing" > <i class="fa fa-list-ol" aria-hidden="true"></i> Recommended Products </a>
+         </li>
+         
+         <li data-industry="COMMERCE" style="display: none;">
+         	<a href="javascript: loadPurchasedItemsOfProfile()" data-target-tab="panel_purchased_products" title="Show purchased products" ><i class="fa fa-shopping-cart" aria-hidden="true"></i> Purchased Products </a>
          </li>
          
          <li data-industry="FINANCE" style="display: none"  onclick="loadFinancialEventList()" >
@@ -228,7 +232,6 @@
 		                	<li><a href="#panel_data_touchpoints" data-toggle="tab" onclick="loadProfileTopTouchpoints()"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Top Touchpoints </a></li>
 		                	<li><a href="#panel_profile_scoring_data" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Advanced Scores</a></li>
 		                    <li><a href="#panel_user_consent" data-toggle="tab"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Privacy Consent </a></li>
-		                    <li><a href="#panel_purchased_items" data-toggle="tab" onclick="loadPurchasedItems()" ><i class="fa fa-shopping-cart" aria-hidden="true"></i> Purchased Items </a></li>
 		                </ul>
 		                
 		                <div id="event_flow_vertital_tabs" class="tab-content col-md-10" >
@@ -511,10 +514,9 @@
 								<!-- touchpoint chart -->
 								<div id="profileTouchpointChart" class="col-lg-12"> </div>
 								<!-- table list  -->
-								<div class="row" style="height: 1000px; overflow-y: scroll;" >
+								<div class="col-lg-12" style="height:900px; overflow-y: scroll; width: 99%" >
 									<ul id="engaged_touchpoint_list" class="list-group list-group-dividered list-group-full"  >
 										<div id="journeyFlowChart" class="experience_journey_flow" style="height:420px;"></div>
-						     			<!-- data list -->
 						     			<li>
 						     				<div class="list-group-item" > No data available </div>
 						     			</li>
@@ -589,16 +591,6 @@
 								      </div>
                                   </div>
 		                    </div>
-		                    
-							<!-- tab : purchased items  -->
-							<div class="tab-pane" id="panel_purchased_items"  >
-								<!-- tab 7 content  -->
-						     	<h4 class="highlight_text" > <i class="fa fa-shopping-cart" aria-hidden="true"></i> Top 100 recently purchased items </h4>
-						     	<div id="purchased_items_list" class="list-group col">
-						     		<div class="list-group-item" > No data available </div>
-								</div>
-								<div  id="purchased_items_pagination" ></div>
-							</div>	
 		                    
 		                </div>
 		            </div>
@@ -1074,6 +1066,15 @@
 		     		<div class="list-group-item" > No data available </div>
 				</div>
 			</div>
+			
+			<!-- tab 8: purchased items  -->
+			<div class="tab-pane" id="panel_purchased_products"  >
+		     	<h4 class="highlight_text" > <i class="fa fa-shopping-cart" aria-hidden="true"></i> Top 100 recently purchased products </h4>
+		     	<div id="purchased_items_list" class="list-group col">
+		     		<div class="list-group-item" > No data available </div>
+				</div>
+				<div  id="purchased_items_pagination" ></div>
+			</div>	
 
 			<!-- /tabs -->
 	   </div>

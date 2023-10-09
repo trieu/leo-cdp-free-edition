@@ -102,12 +102,10 @@
 
 
 <script>
-	
 	var currentJourneyMapId = ""; 
     var intEventDataDashboard =  function() {
     	// init tabs
     	setupTabPanels();
-    	
     	// data filter
     	initDateFilterComponent(false, null, null, 30);
     	
@@ -186,11 +184,12 @@
         		
 	    		// render chart data
 	    		var chartId = 'timeseriesEventChart';
+	    		var showAllDataset = true;
 	    		if(refresh === true && eventTimeseriesChart !== false){
-	    			renderTimeseriesChart(chartId, json.data , true, eventTimeseriesChart);
+	    			renderTimeseriesChart(chartId, json.data , true, window.eventTimeseriesChart, showAllDataset );
 	    		}
 	    		else {
-	    			window.eventTimeseriesChart = renderTimeseriesChart(chartId, json.data , false);
+	    			window.eventTimeseriesChart = renderTimeseriesChart(chartId, json.data , false, false, showAllDataset);
 	    		}
 	    		
 	    		loadEventMatrixSummaryReport();

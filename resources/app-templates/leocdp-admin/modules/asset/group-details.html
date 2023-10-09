@@ -311,8 +311,11 @@
                     	var contentClass = row.contentClass;
                     	var title =  row.title;
                     	var fUrl = row.fullUrl;
+                    	if(isGroupFeedbackForm){
+                    		fUrl = "https://" + baseLeoObserverDomain + "/webform?preview=1&tplid=" + itemId + "&cb=" + new Date().getTime();
+                    	}
                     	
-                    	if(isGroupTemplate || isGroupFeedbackForm){
+                    	if(isGroupTemplate){
                     		// no preview for template, go directly editor
                     		var params = leoCdpRouterParams([itemId, assetGroupId, assetCategoryId ]) ;
                         	var callJsStr = "#calljs-leoCdpRouter('Asset_Template_Editor','" + params + "')";

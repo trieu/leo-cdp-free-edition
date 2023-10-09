@@ -63,7 +63,12 @@ arangosh --server.endpoint http+tcp://127.0.0.1:8529 --server.password rootpassw
 
 ### How to dump database
 ```
-arangodump --server.endpoint tcp://127.0.0.1:8529 --server.username root --server.database leocdp --output-directory backup
+arangodump --server.endpoint tcp://127.0.0.1:8600 --server.username root --server.database leocdp --output-directory backup
 ```
+
+### How to restore database
+```
+arangorestore --server.endpoint tcp://127.0.0.1:8600 --server.username uspa --server.database leo_cdp_uspa --input-directory leo_cdp_uspa
+ ``` 
 
 Enjoy your local ArangoDB database server for any purpose you want, for me this setup is fine for testing purpose.

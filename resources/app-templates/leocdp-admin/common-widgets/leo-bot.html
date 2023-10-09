@@ -95,13 +95,11 @@
     }
 
     var showLeoChatBot = function () {
-    	var actionModel = [{
-            text: 'Show segments',
-            value: 'valuable-segments'
-        }, {
-            text: 'Search profiles',
-            value: 'search-profiles'
-        }];
+    	var actionModel = [];
+    	actionModel.push({text: 'Show segments', value: 'valuable-segments'});
+    	actionModel.push({text: 'Search profiles', value: 'search-profiles'});    	
+    	// actionModel.push({text: 'Create a digital asset', value: 'create-digital-asset'});
+    	
     	
     	if(IS_LEO_BOT_READY) {
     		actionModel.push({ text: 'Ask question', value: 'ask-question'});
@@ -131,6 +129,13 @@
                          content: res.text
                      });
                 	 leoBotSearchProfiles();
+                } 
+                else if ( v === 'create-digital-asset') {
+               	 	botui.message.human({
+                        delay: 500,
+                        content: res.text
+                    });
+               	 	leoBotCreateDigitalAsset();
                 } 
                 else if ( v === 'write-content') {
 	               	 botui.message.human({
@@ -168,7 +173,7 @@
                        size: 80,
                        icon: 'search',
                        value: '', // show the saved keywords if any
-                       placeholder: 'Enter your question here or type "exit" to exit Leo Bot'
+                       placeholder: 'Enter your question in English'
                    }
                })
            }).then(function (res) {
@@ -189,7 +194,7 @@
                        size: 100,
                        icon: 'text',
                        value: '', // show the saved keywords if any
-                       placeholder: 'Enter the title of content or type "exit" to exit Leo Bot'
+                       placeholder: 'Enter the title of content in English'
                    }
                })
            }).then(function (res) {
@@ -208,7 +213,7 @@
                 delay: 1000,
                 action: {
                     size: 100, icon: 'text', value: '', // show the saved keywords if any
-                    placeholder: 'Enter the title of presentation or type "exit" to exit Leo Bot'
+                    placeholder: 'Enter the title of presentation in English'
                 }
             })
         }).then(function (res) {
@@ -239,6 +244,11 @@
         });
     }
     
+    var leoBotCreateDigitalAsset = function(){
+    	location.hash = "calljs-leoCdpRouter('Digital_Asset_Management')";
+		exitAndCloseLeoBotDialog();
+    }
+    
     var exitAndCloseLeoBotDialog = function(){
 		botui.message.removeAll();
     	$('#leoBotDialog').modal('hide')
@@ -247,21 +257,25 @@
     var leoBotRecommendation = function(context, content) {
 		if(content.length > 1 && content !== "exit" ) {
 			var callback = function(data) {
-				if(data.error){
-					notifyErrorMessage(data.answer)
-					exitAndCloseLeoBotDialog();
-				}
-				else {
+				if(typeof data.answer === 'string') {
 					var answerInRaw = data.answer.trim();
-					var answerInHtml = marked.parse(answerInRaw);
+					var answerInHtml = marked.parse(answerInRaw);					
 					
 					if('ask' === context){
 						botui.message.add({ human: false, content: answerInHtml , type: 'html'});
+						setTimeout(function(){
+							$('div.botui-message').find('a').attr('target','_blank');	
+						},1000);
+						
 			   	    	// next question
 			   	    	leoBotAskKeywords()
 			     	}
 					else {
 						botui.message.add({ human: false, content: answerInHtml , type: 'html' });
+						setTimeout(function(){
+							$('div.botui-message').find('a').attr('target','_blank');	
+						},1000);
+						
 						var reply = 'Would you like to write a content post?';
 						if('presentation' === context) {
 							reply = 'Would you like to create a presentation ?';
@@ -292,8 +306,20 @@
 						});
 					}
 				}
-	   			};
-			var payload =  { 'content': content, 'usersession' : getUserSession(), 'userlogin' : currentUserProfile.userLogin };
+				else if(data.error){
+					notifyErrorMessage(data.answer)
+					exitAndCloseLeoBotDialog();
+				}
+				else {
+					notifyErrorMessage('LEO BOT is getting a system error !')
+				}
+	   		};
+	   		
+	   		var prompt = content;
+	   		if(context === 'presentation'){
+	   			prompt = 'Create a presentation about "' + content + '" in 10 slides, format in markdown code'; 
+	   		}	   		
+			var payload =  { 'prompt': prompt, 'content': content, 'usersession' : getUserSession(), 'userlogin' : currentUserProfile.userLogin };
 			LeoAdminApiUtil.callPostApi(BASE_URL_LEOBOT, payload, callback , exitAndCloseLeoBotDialog);
 		}
 		else {
@@ -325,10 +351,7 @@
         };
         var html = template(context);
         botui.message
-            .bot({
-                delay: 500,
-                content: html
-            });
+            .bot({ delay: 500, content: html });
 
         setTimeout(function () {
             $("#suggestedVideoCarousel").on('slid.bs.carousel', function () {
@@ -361,13 +384,10 @@
         var autoplay = true;
 
         var adConfigs = [];
-        adConfigs = [];
-        MediaPlayerOne.create(autoplay, placeHolderId, videoSource, '', adUrls, defaultSkipAdTime,
-            adConfigs,
+        MediaPlayerOne.create(autoplay, placeHolderId, videoSource, '', adUrls, defaultSkipAdTime, adConfigs,
             function (player) {
-                setTimeout(function () {
-                    player.muted(false);
-                }, 1000)
-            });
+                setTimeout(function () { player.muted(false); }, 1000)
+        	}
+        );
     }
 </script>

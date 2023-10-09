@@ -21,10 +21,13 @@
 		float: right;
 		text-align: left!important;
 	}
-	#panel_segment_data_personalization .highlight_box {
+	#segment_info_tabs .highlight_box {
 		background-color: #e8e8e8!important;
     	border-radius: 10px!important;;
 		padding: 8px 8px 34px 8px!important;
+	}
+	b.segment_size {
+		font-size: 14.5px!important;
 	}
 	input.url_holder {
 		background-color: #FFF8DC!important;
@@ -67,27 +70,12 @@
 
 	<!-- Details  -->
 	<div class="panel panel-leoadmin">
-		<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Details </b> </div>
-		<div class="panel-body row">
-			<ul class="list-group">
-			  	<li class="list-group-item ">
-			 		<b>Segment Name</b> <span id="sm_name" class="highlight_text"></span>
-			  	</li>
-			  	<li class="list-group-item ">
-			  		<b>Total profiles in segment</b> <span id="sm_size" class="highlight_text" ></span>
-			  	</li>
-			  	<li class="list-group-item ">
-			  		<b>Description</b> <span id="sm_description" ></span>
-			  	</li>
-		   	</ul>
-		</div>
-	</div>
-	
-	<!-- Data Authorization  -->
-	<div class="panel panel-leoadmin">
-		<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Data Authorization & Activation Priotity </b> </div>
+		<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Segment Name </b>  <span id="sm_name" class="highlight_text"></span> </div>
 		<div class="panel-body row">
 			 <ul class="list-group">
+			 	<li class="list-group-item ">
+			  		<b>Description</b> <span id="sm_description" ></span>
+			  	</li>
 			  	<li class="list-group-item ">
 			  		<b>Authorized users can view data</b> <span id="sm_authorizedViewers" class="highlight_text"></span>
 			  	</li>
@@ -95,7 +83,7 @@
 			  		<b>Authorized users can update data</b> <span id="sm_authorizedEditors" class="highlight_text" ></span>
 			  	</li>
 			  	<li class="list-group-item ">	  		
-			  		<b>Priority score for activation</b> <span id="sm_indexScore" class="highlight_text" ></span>	  		 
+			  		<b>Priority score for data activation</b> <span id="sm_indexScore" class="highlight_text" ></span>	  		 
 			  	</li>
 		   	</ul>
 		</div>
@@ -106,10 +94,13 @@
 		<!--  Tab Navigation Items -->
 	    <ul class="nav nav-tabs" data-tab-content="segment_info_tabs" >
 			<li class="active" >
-				<a href="javascript:" data-target-tab="panel_segment_report_and_profiles" title="Data Report & Profiles" > <i class="fa fa-line-chart" aria-hidden="true"></i> Report & Profiles</a>
+				<a href="javascript:" data-target-tab="panel_segment_reports" title="Data Reports of Segment" > <i class="fa fa-line-chart" aria-hidden="true"></i> Reports </a>
 	       	</li>
 	       	<li>
-				<a href="javascript:" data-target-tab="panel_segment_query_details" title="Data Query Rule Details" > <i class="fa fa-filter" aria-hidden="true"></i> Data Query </a>
+				<a href="javascript:" data-target-tab="panel_segment_query_details" title="Data Query Rules" > <i class="fa fa-filter" aria-hidden="true"></i> Query Rules </a>
+	       	</li>
+	       	<li >
+				<a href="javascript:" data-target-tab="panel_segment_matched_profiles" title="Matched Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Matched Profiles</a>
 	       	</li>
 	       	<li data-for-superadmin="true" style="display: none" >
 				<a href="javascript:" data-target-tab="panel_segment_data_exporting" title="Data Exporting" > <i class="fa fa-upload" aria-hidden="true"></i> Data Exporting </a>
@@ -121,7 +112,7 @@
 				<a href="javascript:" data-target-tab="panel_segment_enrichment" title="Data Enrichment" > <i class="fa fa-connectdevelop" aria-hidden="true"></i> Data Enrichment</a>
 	       	</li>
 	       	<li data-for-superadmin="true" id="segment_data_synchronization" style="display: none" >
-				<a href="javascript:" data-target-tab="panel_segment_synchronization" title="Data Synchronization" > <i class="fa fa-exchange" aria-hidden="true"></i> Data Synchronization </a>
+				<a href="javascript:" data-target-tab="panel_segment_synchronization" title="Data Synchronization" > <i class="fa fa-exchange" aria-hidden="true"></i> Synchronization </a>
 	       	</li>
 	       	<li data-for-superadmin="true" id="segment_data_personalization" style="display: none">
 				<a href="javascript:handleSegmentPersonalizationTabs()" data-target-tab="panel_segment_data_personalization" title="Data Personalization" > <i class="fa fa-smile-o" aria-hidden="true"></i> Personalization </a>
@@ -132,11 +123,11 @@
 	    <div id="segment_info_tabs" class="tab-content" style="min-height: 750px;"  >
 	    	
 	    	<!-- tab 1 Data Report with Profiles  -->
-			<div class="tab-pane active" id="panel_segment_report_and_profiles" >
+			<div class="tab-pane active" id="panel_segment_reports" >
 				<div class="panel panel-leoadmin">
-					<div class="panel-heading"> <b> <i class="fa fa-line-chart" aria-hidden="true"></i> 
-						 Event Data Report <span id="eventDataFromDate" class="highlight_text">  </span> 
-										<i class="fa fa-arrow-right" aria-hidden="true"></i> <span id="eventDataToDate" class="highlight_text" > </span> </b> 
+					<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> 
+						 Event Data Report: <span id="eventDataFromDate" >  </span> 
+						 <i class="fa fa-arrow-right" aria-hidden="true"></i> <span id="eventDataToDate"  > </span> </b> 
 					</div>
 					<div class="panel-body row">
 						<div class="col-lg-9">
@@ -161,7 +152,7 @@
 						        </div>
 						        <div class='col-lg-2 col-xs-12 text-center'>
 						        	<button type="button" class="btn btn-primary" style="width: 120px" onclick="loadSegmentEventReport(true)" > 
-						        		<i class="fa fa-check-circle" aria-hidden="true"></i> View Report </button>
+						        		<i class="fa fa-check" aria-hidden="true"></i> OK </button>
 						        </div>
 						    </div>
 							<div class="highlight_box">
@@ -174,7 +165,39 @@
 						</div>
 					</div>
 				</div>
-				
+			</div>
+			
+			<!-- tab 2 Data Query  -->
+			<div class="tab-pane" id="panel_segment_query_details" >
+				<div class="form-group highlight_box" >
+		     		<div class="col-lg-3">
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Segment Profile Count  </label>
+		     		</div>
+		     		<div class="col-lg-9">
+		     			<b class="segment_size highlight_text" >0</b>
+		     		</div>
+				</div>
+				<div class="panel panel-leoadmin">
+					<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Data Query Rules </b> </div>
+					<div class="panel-body row">
+						<h4>You are looking for a group of people</h4>
+						<div class="col-lg-12">
+							<div id="segment-builder-holder" ></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- tab 3 Matched Profiles  -->
+			<div class="tab-pane" id="panel_segment_matched_profiles" >
+				<div class="form-group highlight_box" >
+		     		<div class="col-lg-3">
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Segment Profile Count  </label>
+		     		</div>
+		     		<div class="col-lg-9">
+		     			<b class="segment_size highlight_text" >0</b>
+		     		</div>
+				</div>
 				<div class="panel panel-leoadmin" id="profile-list-panel"  >
 					<div class="panel-heading">
 						<div class="row"> 
@@ -206,26 +229,13 @@
 				</div>
 			</div>
 			
-			<!-- tab 2 Data Query  -->
-			<div class="tab-pane" id="panel_segment_query_details" >
-				<div class="panel panel-leoadmin">
-					<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Data Query Rules </b> </div>
-					<div class="panel-body row">
-						<h4>You are looking for a group of people</h4>
-						<div class="col-lg-12">
-							<div id="segment-builder-holder" ></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<!-- tab 3 Data Exporting  -->
+			<!-- tab 4 Data Exporting  -->
 			<div class="tab-pane" id="panel_segment_data_exporting" >
 				<div class="form-group highlight_box" >
-		     		<div class="col-lg-5">
-		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total Profile Count </label>
+		     		<div class="col-lg-3">
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Segment Profile Count  </label>
 		     		</div>
-		     		<div class="col-lg-7">
+		     		<div class="col-lg-9">
 		     			<b class="segment_size highlight_text" >0</b>
 		     		</div>
 				</div>
@@ -268,13 +278,13 @@
 				</div>
 			</div>
 			
-			<!-- tab 4 Data Connection  -->
+			<!-- tab 5 Data Connection  -->
 			<div class="tab-pane" id="panel_segment_data_connection" >
 				<div class="form-group highlight_box" >
-		     		<div class="col-lg-5">
-		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total Profile Count </label>
+		     		<div class="col-lg-3">
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Segment Profile Count  </label>
 		     		</div>
-		     		<div class="col-lg-7">
+		     		<div class="col-lg-9">
 		     			<b class="segment_size highlight_text" >0</b>
 		     		</div>
 				</div>		
@@ -311,8 +321,16 @@
 					
 			</div>
 			
-			<!-- tab 5 Data Enrichment  -->
+			<!-- tab 6 Data Enrichment  -->
 			<div class="tab-pane" id="panel_segment_enrichment" >
+				<div class="form-group highlight_box" >
+		     		<div class="col-lg-3">
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Segment Profile Count  </label>
+		     		</div>
+		     		<div class="col-lg-9">
+		     			<b class="segment_size highlight_text" >0</b>
+		     		</div>
+				</div>
 			 	<div class="panel panel-leoadmin" >
 					<div class="panel-body row col-lg-12">
 						<div class="panel panel-default">
@@ -328,7 +346,7 @@
 							     <div class="form-group" >
 									<div class="col-lg-12 sm_purpose" id="sm_forDeepAnalytics" > 
 										<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i>
-										To enrich profile data (CLV scoring, RFM scoring, data labels,...) by using connector with 
+										To enrich profile data (CLV scoring, RFM scoring, data labels,...) by using service with 
 											Jupyter Notebook or Google Colab </label>
 										<button type="button" class="btn btn-primary" title="Data Enrichment " data-purpose="forDataEnrichment" > 
 											<i class="fa fa-check-circle" aria-hidden="true"></i> Activate Enrichment
@@ -336,7 +354,7 @@
 									</div>
 								 </div>
 						         <div class="table-responsive col-lg-12">
-						         	<div id="segment_enrichment_connectors"></div>
+						         	<div id="segment_enrichment_services"></div>
 						         </div>							         
 						      </div>
 						    </div>
@@ -345,43 +363,53 @@
 				</div>
 			</div>
 			
-			<!-- tab 6 Data Synchronization  -->
+			<!-- tab 7 Data Synchronization  -->
 			<div class="tab-pane" id="panel_segment_synchronization" >
-			 	<div class="panel panel-leoadmin" >
-					<div class="panel-body row col-lg-12">
-						
-						<div class="panel panel-default">
-						    <div class="panel-heading collapse-panel-heading active" role="tab" id="synchronizationPlanHeader">
-						      <h4 class="panel-title">
-						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#synchronizationPlan" aria-expanded="false" aria-controls="synchronizationPlan">
-						          <i class="fa fa-info-circle" aria-hidden="true"></i>  Data Synchronization 
-						        </a>
-						      </h4>
-						    </div>
-						    <div id="synchronizationPlan" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="activationPlanHeader">
-						      <div class="panel-body">
-							      <div class="form-group" >
-									<div class="col-lg-12 sm_purpose" id="sm_for3rdSynchronization"  > 
-										<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> 
-										To synchronize customer data into external systems </label>
-										<button type="button" class="btn btn-primary" title="Data Synchronization" data-purpose="forSynchronization" > 
-											<i class="fa fa-check-circle" aria-hidden="true"></i> Activate Synchronization
-										</button>
-									</div>
-								 </div>
-								 <div class="table-responsive col-lg-12">
-			                			<div id="segment_synchronization_connectors"></div>
-			            		 </div>
-						      </div>
-						    </div>
-						</div>
-						
-					</div>
+				<div class="form-group highlight_box" >
+		     		<div class="col-lg-3">
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Segment Profile Count  </label>
+		     		</div>
+		     		<div class="col-lg-9">
+		     			<b class="segment_size highlight_text" >0</b>
+		     		</div>
 				</div>
+			 	<div class="panel panel-default">
+					    <div class="panel-heading collapse-panel-heading active" role="tab" id="synchronizationPlanHeader">
+					      <h4 class="panel-title">
+					        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#synchronizationPlan" aria-expanded="false" aria-controls="synchronizationPlan">
+					          <i class="fa fa-info-circle" aria-hidden="true"></i>  Data Synchronization 
+					        </a>
+					      </h4>
+					    </div>
+					    <div id="synchronizationPlan" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="activationPlanHeader">
+					      <div class="panel-body">
+						      <div class="form-group" >
+								<div class="col-lg-12 sm_purpose" id="sm_for3rdSynchronization"  > 
+									<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> 
+									To synchronize customer data into external systems </label>
+									<button type="button" class="btn btn-primary" title="Data Synchronization" data-purpose="forSynchronization" > 
+										<i class="fa fa-check-circle" aria-hidden="true"></i> Activate Synchronization
+									</button>
+								</div>
+							 </div>
+							 <div class="table-responsive col-lg-12">
+		                			<div id="segment_synchronization_services"></div>
+		            		 </div>
+					      </div>
+					    </div>
+					</div>
 			</div>
 			
-			<!-- tab 7 Data Personalization  -->
+			<!-- tab 8 Data Personalization  -->
 			<div class="tab-pane" id="panel_segment_data_personalization" >
+				<div class="form-group highlight_box" >
+		     		<div class="col-lg-3">
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Segment Profile Count  </label>
+		     		</div>
+		     		<div class="col-lg-9">
+		     			<b class="segment_size highlight_text" >0</b>
+		     		</div>
+				</div>
 				<div class="panel panel-default">
 				    <div class="panel-heading collapse-panel-heading active" role="tab" id="personalizationPlanHeader">
 				      <h4 class="panel-title">
@@ -393,26 +421,22 @@
 				    <div id="personalizationPlan" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="personalizationPlanHeader">
 				      <div class="panel-body">
 					      <ul class="nav nav-tabs" data-tab-content="segment_personalization_tabs" >
-					      	
 					      	<li class="active">
 								<a id="tab_segment_content_catalog" href="javascript:" data-target-tab="panel_segment_content_catalog" title="Content Catalog for Personalization" > 
 									<i class="fa fa-list" aria-hidden="true"></i> Content Catalog
 								</a>
 					       	</li>
-					      	
-							<li >
+							<li>
 								<a id="tab_segment_product_catalog" href="javascript:" data-target-tab="panel_segment_product_catalog" title="Product Catalog for Personalization" > 
 									<i class="fa fa-list" aria-hidden="true"></i> Product Catalog
 								</a>
 					       	</li>
-					       	
 					       	<li>
-								<a href="javascript:" data-target-tab="panel_segment_personalization_connectors" title="Personalization Engine Connector for Personalization" > 
+								<a href="javascript:" data-target-tab="panel_segment_personalization_dataServices" title="Personalization Engine Service for Personalization" > 
 									<i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Personalization Engine
 								</a>
 					       	</li>
 					  	  </ul>
-					  	  
 					  	  <div id="segment_personalization_tabs" class="tab-content" >
 								
 								<!-- tab 5.1 Content Catalog  -->
@@ -479,18 +503,18 @@
 									</div>
 								</div>
 								
-								<!-- tab 5.3 Recommendation Engine Connector  -->
-							  	<div class="tab-pane" id="panel_segment_personalization_connectors" >
+								<!-- tab 5.3 Recommendation Engine Service  -->
+							  	<div class="tab-pane" id="panel_segment_personalization_dataServices" >
 							  		<div class="form-group" >
 										<div class="col-lg-12 sm_purpose" > 
 											<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i>
-											To personalize data for all profiles in segment, you need to set a data connector of your personalization engine </label>
-											<button type="button" class="btn btn-primary" title="Activate Recommendation Engine Connector" data-purpose="forPersonalization"> 
+											To personalize data for all profiles in segment, you need to set a data service of your personalization engine </label>
+											<button type="button" class="btn btn-primary" title="Activate Recommendation Engine Service" data-purpose="forPersonalization"> 
 												<i class="fa fa-check-circle" aria-hidden="true"></i> Activate Personalization
 											</button>
 										</div>
 								 	</div>
-							        <div class="table-responsive col-lg-12"> <div id="segment_personalization_connectors"></div> </div>	
+							        <div class="table-responsive col-lg-12"> <div id="segment_personalization_services"></div> </div>	
 							  	</div>
 							</div>
 				      </div>
@@ -530,17 +554,17 @@
 
 
 <!-- Synchronization dialog html -->
-<div class="modal fade" id="dialogSelectDataConnector" role="dialog">
+<div class="modal fade" id="dialogSelectDataService" role="dialog">
 	<div class="modal-dialog modal-lg">
 		<!-- Modal content-->
 		<div class="modal-content">   
 			<div class="modal-header">
 				<h4 class="modal-title text-center" > <i class="fa fa-info-circle" aria-hidden="true"></i> 
-					Select data connector to activate segment data
+					Select data service to activate segment data
 				</h4>
 			</div>  
-			<div id="dataConnectorSelector_loader" class="loader"></div>       
-			<div id="dataConnectorSelector_holder" class="modal-body row" >
+			<div id="dataServiceSelector_loader" class="loader"></div>       
+			<div id="dataServiceSelector_holder" class="modal-body row" >
 				<div class="form-group highlight_box" >
 		     		<div class="col-lg-5">
 		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Total profile </label>
@@ -552,10 +576,10 @@
 			
 				<div class="form-group highlight_box col-lg-12"  >
 		     		<div class="col-lg-12 ">
-		     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Data Connector </label>
+		     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Data Service </label>
 		     		</div>
-		     		<div id="dataConnectorHolder" style="padding-left: 32px;" >
-						 <select id="dataConnectorSelector" class="form-control" data-placeholder="Choose a data connector" class="select" > </select>
+		     		<div id="dataServiceHolder" style="padding-left: 32px;" >
+						 <select id="dataServiceSelector" class="form-control" data-placeholder="Choose a data service" class="select" > </select>
 		     		</div>
 				</div>
 				
@@ -564,24 +588,24 @@
 		     			<label class="label_box" > <i class="fa fa-bolt" aria-hidden="true"></i> Rule to trigger <span id="purpose_activation_name"></span> </label>
 		     		</div>
 		     		<div class="col-lg-7">
-		     			<select class="form-control" id="connectorSchedulingTime" onchange="updateSpecificTimeToRunConnector()">
+		     			<select class="form-control" id="dataServiceSchedulingTime" onchange="setTimeToRunDataService()">
 						</select>
 		     		</div>
 				</div>
 				
 				<div class="form-group highlight_box col-lg-12" id="box_everyday_at_time" style="display: none" >
 		     		<div class="col-lg-5">
-		     			<label class="label_box" > <i class="fa fa-clock-o" aria-hidden="true"></i> Specific time to run connector </label>
+		     			<label class="label_box" > <i class="fa fa-clock-o" aria-hidden="true"></i> Specific time to run service </label>
 		     		</div>
 		     		<div class="col-lg-7">
-		     			<input type="time" id="connector_run_specific_time"  placeholder="Enter specific time" class="form-control"  >
+		     			<input type="time" id="dataServiceDateTimeStart"  placeholder="Enter specific time" class="form-control"  >
 		     		</div>
 	     		</div>
 			</div>  
 			
 			<div class="modal-footer" >
 				<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
-				<button type="button" class="btn btn-success" id="btnOkActivateSegment" onclick="activateDataConnector(this)">
+				<button type="button" class="btn btn-success" id="btnOkActivateSegment" onclick="activateDataService(this)">
 					<i class="fa fa-check-circle" aria-hidden="true"></i> OK 
 				</button>
 		    </div>  

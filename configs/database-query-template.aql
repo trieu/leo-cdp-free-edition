@@ -1720,49 +1720,49 @@ AQL_GET_CAMPAIGNS_TO_DELETE_FOREVER =>
 	RETURN e
 ;
 
-########### SYSTEM_CONFIG  ########################################################################################################;
+########### SYSTEM_SERVICE  ########################################################################################################;
 
-AQL_GET_SYSTEM_CONFIG_BY_ID =>
-	FOR e in system_config FILTER e._key == @id
+AQL_GET_SYSTEM_SERVICE_BY_ID =>
+	FOR e in system_service FILTER e._key == @id
 	RETURN e
 ;
 
-AQL_GET_PUBLIC_SYSTEM_CONFIGS =>
-	FOR e in system_config FILTER e.index >= 0
+AQL_GET_PUBLIC_SYSTEM_SERVICES =>
+	FOR e in system_service FILTER e.index >= 0
 	SORT e.index
 	RETURN e
 ;
 
-AQL_REMOVE_ALL_SYSTEM_CONFIGS =>
-	FOR e in system_config  
+AQL_REMOVE_ALL_SYSTEM_SERVICES =>
+	FOR e in system_service  
 	FILTER e.index >= 0
-    REMOVE { _key: e._key } IN system_config
+    REMOVE { _key: e._key } IN system_service
 ;
 
-AQL_GET_ALL_SYSTEM_CONFIGS =>
-	FOR e in system_config 
+AQL_GET_ALL_SYSTEM_SERVICES =>
+	FOR e in system_service 
 	SORT e.index
 	RETURN e
 ;
 
-########### DATA_CONNECTOR  ########################################################################################################;
+########### DATA_SERVICE  ########################################################################################################;
 
-AQL_GET_DATA_CONNECTOR_BY_ID =>
-	FOR e in cdp_dataconnector 
+AQL_GET_DATA_SERVICE_BY_ID =>
+	FOR e in cdp_dataservice 
 	FILTER e._key == @id
 	RETURN e
 ;
 
-AQL_LIST_DATA_CONNECTORS =>
-	FOR e in cdp_dataconnector 
+AQL_LIST_DATA_SERVICES =>
+	FOR e in cdp_dataservice 
 	FILTER (LOWER(e.name) LIKE LOWER(@keywords) OR LOWER(e.description) LIKE LOWER(@keywords) OR @keywords == "")
 	SORT e.updatedAt DESC
 	LIMIT @startIndex, @numberResult
 	RETURN e
 ;
 
-AQL_LIST_DATA_CONNECTORS_WITH_FILTER =>
-	FOR e in cdp_dataconnector   
+AQL_LIST_DATA_SERVICES_WITH_FILTER =>
+	FOR e in cdp_dataservice   
 	FILTER (LOWER(e.name) LIKE LOWER(@keywords) OR LOWER(e.description) LIKE LOWER(@keywords) OR @keywords == "") 
 		AND e.status == 1   
 		AND ( (e.forSynchronization == @forSynchronization AND @forSynchronization == true)
@@ -1773,17 +1773,17 @@ AQL_LIST_DATA_CONNECTORS_WITH_FILTER =>
 	RETURN e
 ;
 
-AQL_LIST_ALL_ACTIVE_DATA_CONNECTORS =>
-	FOR e in cdp_dataconnector 
+AQL_LIST_ALL_ACTIVE_DATA_SERVICES =>
+	FOR e in cdp_dataservice 
 	FILTER LENGTH(e.configs['service_api_key']) > 0 AND e.status == 1
 	RETURN e
 ;
 
 ########### ACTIVATION_RULES  ########################################################################################################;
 
-AQL_GET_ACTIVE_ACTIVATION_RULES_BY_CONNECTOR_ID =>
+AQL_GET_ACTIVE_ACTIVATION_RULES_BY_SERVICE_ID =>
 	FOR e in cdp_activationrule 
-	FILTER e.dataConnectorId == @dataConnectorId AND e.active == true
+	FILTER e.dataServiceId == @dataServiceId AND e.active == true
 	SORT e.createdAt DESC
 	RETURN e
 ;

@@ -468,7 +468,7 @@
    		    fields: [
    		    	{ name: "activationType", title : "Activation Type", type: "BoldText", width: 120, align: "center" },
    		        { name: "action", title : "Action", type: "text", width: 70, align: "center" },
-   		     	{ name: "dataConnectorName", title : "Data Connector", type: "text", align: "center" },
+   		     	{ name: "dataServiceName", title : "Data Service", type: "text", align: "center" },
    		        { name: "assetTemplateName", title : "Asset Template", type: "text", align: "center" },
    		     	{ name: "priority", title : "Priority", type: "number", width: 30, align: "center" },
    		        { name: "schedulingTime", title : "Scheduling Time", type: "number", width: 64, align: "center" },
@@ -629,27 +629,27 @@
 	
 	
 	var doDataSynchronization = function(node){
-		var connectorId = $('#dataConnectorHolder input[name="dataconnector"]:checked').val();
-		if(typeof connectorId === "string"){
+		var dataServiceId = $('#dataServiceHolder input[name="dataService"]:checked').val();
+		if(typeof dataServiceId === "string"){
 			var accountId = $(node).data('accountId');
 			var accountName = $(node).data('accountName')
 
-			var info = accountName + " is being synchronized to [" + connectorId + "]";
+			var info = accountName + " is being synchronized to [" + dataServiceId + "]";
 			iziToast.info({ title: 'Information',message: info });
 			$('#dialogDataSynchronization').modal('hide');
 			
-			LeoAdminApiUtil.callPostAdminApi('/cdp/data-connector/trigger',{"accountId" : accountId, "connectorId" : connectorId}, function(json) { 
-				if(json.data === connectorId){
+			LeoAdminApiUtil.callPostAdminApi('/cdp/data-service/trigger',{"accountId" : accountId, "dataServiceId" : dataServiceId}, function(json) { 
+				if(json.data === dataServiceId){
 					var info =  'Data Synchronization is OK for the account [' + accountName + ']';
 					iziToast.success({title: 'OK', message: info});
 				}
 				else {
-					var msg = 'Data Synchronization is failed for the account [' + accountName + '], please set valid API keys for ' + connectorId;
+					var msg = 'Data Synchronization is failed for the account [' + accountName + '], please set valid API keys for ' + dataServiceId;
 					iziToast.error({ title: 'Error', message: msg});
 				}
 			})
 		} else {
-			iziToast.error({ title: 'Error', message: "Please select a connector to synchronize data"});
+			iziToast.error({ title: 'Error', message: "Please select a Service to synchronize data"});
 		}
 	}
 	
@@ -785,17 +785,17 @@
 			
 				<div class="form-group highlight_box" >
 		     		<div class="col-lg-12">
-		     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Email Data Connectors </label>
+		     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Email Data Services </label>
 		     		</div>
-		     		<div id="emailConnectorHolder" style="padding-left: 32px;" >
+		     		<div id="emailServiceHolder" style="padding-left: 32px;" >
 		     			 <div class="radio">
-						  	<label for="ec_sendinblue" ><input id="ec_sendinblue" type="radio" value="sendinblue" name="dataconnector">SendInBlue email service</label>
+						  	<label for="ec_sendinblue" ><input id="ec_sendinblue" type="radio" value="sendinblue" name="dataService">SendInBlue email service</label>
 						 </div>
 						 <div class="radio">
-						  	<label for="ec_mailchimp" ><input id="ec_mailchimp" type="radio" value="mailchimp" name="dataconnector">MailChimp email service</label>
+						  	<label for="ec_mailchimp" ><input id="ec_mailchimp" type="radio" value="mailchimp" name="dataService">MailChimp email service</label>
 						</div>
 						<div class="radio">
-						  	<label for="ec_local_smtp_mail_server" ><input id="ec_local_smtp_mail_server" type="radio" value="local_smtp_mail_server" name="dataconnector">SMTP mail server to send email directly</label>
+						  	<label for="ec_local_smtp_mail_server" ><input id="ec_local_smtp_mail_server" type="radio" value="local_smtp_mail_server" name="dataService">SMTP mail server to send email directly</label>
 						</div>
 		     		</div>
 				</div>
@@ -860,14 +860,14 @@
 			
 				<div class="form-group highlight_box"  >
 		     		<div class="col-lg-12 ">
-		     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Data Connectors </label>
+		     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Data Services </label>
 		     		</div>
-		     		<div id="dataConnectorHolder" style="padding-left: 32px;" >
+		     		<div id="dataServiceHolder" style="padding-left: 32px;" >
 		     			 <div class="radio">
-						  	<label for="c_sendinblue" ><input id="c_sendinblue" type="radio" value="sendinblue" name="dataconnector"> SendInBlue Email Marketing Automation </label>
+						  	<label for="c_sendinblue" ><input id="c_sendinblue" type="radio" value="sendinblue" name="dataService"> SendInBlue Email Marketing Automation </label>
 						 </div>
 						 <div class="radio">
-						  	<label for="c_mailchimp" ><input id="c_mailchimp" type="radio" value="mailchimp" name="dataconnector"> MailChimp Email Marketing Automation </label>
+						  	<label for="c_mailchimp" ><input id="c_mailchimp" type="radio" value="mailchimp" name="dataService"> MailChimp Email Marketing Automation </label>
 						</div>
 		     		</div>
 				</div>
