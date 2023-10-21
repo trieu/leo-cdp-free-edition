@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8">
-	<meta name="author" content="Trieu Nguyen(Thomas) - trieu@leocdp.com">
+	<meta name="author" content="Trieu Nguyen(Thomas) at LEOCDP.com">
 	<meta name="referrer" content="no-referrer" />
 	<meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=4, user-scalable=1" name="viewport"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=100"/>
 	
-	<base href="//{{dnsDomainLeoAdmin}}/">
-	
 	<title> {{pageTitle}} </title>
 	<meta name="description" content="LEO CDP Admin"/>
+	<meta name="robots" content="noindex">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">	
 
+	<base href="//{{dnsDomainLeoAdmin}}/">
+	
 	<link rel="apple-touch-icon" sizes="180x180" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/favicon-16x16.png">
-	<link rel="manifest" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/site.webmanifest">
 	<link rel="mask-icon" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/safari-pinned-tab.svg" color="#5bbad5">
 	
-	<meta name="msapplication-TileColor" content="#da532c">
-	<meta name="theme-color" content="#ffffff">
-
 	<!-- LeoCDP Admin Common Data, injected by WebData model -->
 	<script>
 		var baseStaticDomain = '{{baseStaticUrl}}';
@@ -50,7 +48,7 @@
 		var cacheBustingKey = '{{cacheBustingKey}}';
 		var leoCdpEdition = '{{leoCdpEdition}}';
 		var minifySuffix = '{{minifySuffix}}';
-		var maxTotalDataQualityScore = {{maxTotalDataQualityScore}};
+		var maxTotalDataQualityScore = parseInt('{{maxTotalDataQualityScore}}');
 	</script>
 
 	<!-- Bootstrap Core CSS -->
@@ -239,7 +237,7 @@
 	<!-- https://markjs.io : keyword highlighter  -->
 	<script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/jquery.mark.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	
-	<!-- Drawflow -->
+	<!-- https://github.com/jerosoler/Drawflow : create data flows -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.css" rel="stylesheet" type="text/css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<script src="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	
@@ -274,45 +272,51 @@
 	<script src="https://{{baseStaticUrl}}/js/filepond/config-filepond.js?_={{cacheBustingKey}}"></script>
 	
 	<!-- videojs player -->
-	<script src="https://{{baseStaticUrl}}/mediaplayer/mediaplayer.one.min.js"></script>
+	<script src="https://{{baseStaticUrl}}/mediaplayer/mediaplayer.one.min.js" async="true"></script>
 	
 	<!-- mermaid-js: create diagrams and visualizations using text and code -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.7/mermaid.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.5.1/mermaid.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async="true"></script>
 	
-	<!-- MarkDown parser: create document and rich-text format -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/5.1.0/marked.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- marked.js to parse markdown code into HTML -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.2/marked.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async="true"></script>
+	
+	<!-- DOMPurify XSS sanitizer for HTML -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async="true" ></script>
 	
 	<!-- LEO Admin Core -->
-	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leo.admin.common.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leo.admin.common.js?admin=1&_={{cacheBustingKey}}" ></script>
 	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.router.js?admin=1&_={{cacheBustingKey}}"></script>
 	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.router.functions.js?admin=1&_={{cacheBustingKey}}"></script>
 	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.core-admin.js?admin=1&_={{cacheBustingKey}}"></script>
 	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.visualization.js?admin=1&_={{cacheBustingKey}}"></script>
 	
 	<!-- Dashboard  -->
-	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.dashboard.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.dashboard.js?admin=1&_={{cacheBustingKey}}" async="true"></script>
 	
 	<!-- Journey Map  -->
-	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.journey.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.journey.js?admin=1&_={{cacheBustingKey}}" async="true"></script>
 	
 	<!-- asset: group-details  -->
-	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.digital.asset.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.digital.asset.js?admin=1&_={{cacheBustingKey}}" async="true"></script>
 	
 	<!-- profile -->
-	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.profile.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.profile.js?admin=1&_={{cacheBustingKey}}" async="true"></script>
 	
 	<!-- segment -->
-	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.segment.builder.js?admin=1&_={{cacheBustingKey}}"></script>
-	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.segment.details.js?admin=1&_={{cacheBustingKey}}"></script>	
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.segment.builder.js?admin=1&_={{cacheBustingKey}}" async="true"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.segment.details.js?admin=1&_={{cacheBustingKey}}" async="true" ></script>	
 	
 	<!-- feedback survey -->
-	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.feedback.survey.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.feedback.survey.js?admin=1&_={{cacheBustingKey}}" async="true"></script>
 	
 	<!-- data service -->
-	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.data.service.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.data.service.js?admin=1&_={{cacheBustingKey}}" async="true" ></script>
 	
 	<!-- system management and event monitoring  -->
-	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.system.js?admin=1&_={{cacheBustingKey}}"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.system.js?admin=1&_={{cacheBustingKey}}" async="true" ></script>
+	
+	<!-- chatbot  -->
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.chatbot.js?admin=1&_={{cacheBustingKey}}" async="true"></script>
 	
 	<!-- after deps are loaded -->
 	<script>
@@ -329,7 +333,7 @@
 		        '/view/common-widgets/query-filter-modal.html',
 		        '/view/common-widgets/post-type-selection-modal.html',
 		        '/view/common-widgets/confirm-delete-data-modal.html',
-		        '/view/common-widgets/leo-bot.html',
+		        '/view/common-widgets/leo-chatbot.html',
 		        '/view/templates/tpl-analytics-dashboard.html',
 		        '/view/templates/tpl-customer-profile-info.html',
 		        '/view/templates/tpl-customer-journey-flow.html'
@@ -340,7 +344,6 @@
 		    });
 		});
 	</script>
-
+	
 </body>
-
 </html>

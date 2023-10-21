@@ -130,7 +130,7 @@
 							<input type="hidden" id="keywordsToSearchProfiles" value="" >
 							
 							<select class="form-control" id="filterProfileListByStatus" >
-						    	<option value="">ACTIVE PROFILES</option>
+						    	<option value="" selected="selected" >ACTIVE PROFILES</option>
 						    	<option value="0">INACTIVE PROFILES</option>
 						    	<option value="-1">INVALID PROFILES</option>
 						    	<option value="-4">REMOVED PROFILES</option>
@@ -361,7 +361,7 @@
     		document.title = "Customer Data Hub - Searching profiles by keywords: " + keywordsToSearch;
     		$('#keywordsToSearchProfiles').val(keywordsToSearch);
     		$('#main_search_profile').val(keywordsToSearch);
-    		$('#profile_filter_inputs > .form-control, #profile_filter_input_label').hide();
+    		$('#filterProfileListByStatus').val('');
     	} 
     	else {
     		$('#profile_filter_inputs > input:first').show();

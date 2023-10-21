@@ -30,10 +30,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-10-09
+## [0.9.0] - 2023-10-22
 
 ### Added
 
+- [LEO ChatBot] using Google PaLM 2 as default AI model
 - [Profile] can filter tracking events by touchpoint's name, using ArangoDB query
 - [Profile2Product] add discount and discountCode for dynamic pricing model 
 - [Profile List] add filter by CRM ID and Fingerprint ID (FingerprintJS)
@@ -57,7 +58,8 @@
 
 ### Fixed
 
-- fix and improve UI UX of LEO Chatbot
+- fix when search profile by keywords
+- fix and improve UI UX of LEO Chatbot to answer question, create content and presentation
 - add rel="noreferrer" in ahref to avoid add referrer from admin domain
 - fix when update profile in Admin
 - fix bug Last-seen Touchpoint + sorting profile meta data
@@ -167,7 +169,7 @@
 - [Data Deduplication] merge context session keys for duplicated profiles
 - [Data Segmentation] implement 2 new operators: data_equals, data_contains
 - [UI] add sortable list by Data Quality Score, Journey Score and Updated At in Profile Data Management
-- [SystemTrackedEvent] to tracking user account activities, login for security monitoring
+- [SystemEvent] to tracking user account activities, login for security monitoring
 - [Data Model] AbstractProfile
 - [User Authorization] improve security check for Segment model and Profile model
 - [Authorization] add 2 new roles: customer data viewer and editor, add SystemUserRole
