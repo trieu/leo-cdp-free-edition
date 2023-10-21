@@ -78,6 +78,9 @@ user_agent_parsers:
   # 'Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) PingdomTMS/0.8.5 Safari/534.34'
   - regex: '(PingdomTMS)/(\d+)\.(\d+)\.(\d+)'
     family_replacement: 'PingdomBot'
+  # 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/61.0.3163.100 Chrome/61.0.3163.100 Safari/537.36 PingdomPageSpeed/1.0 (pingbot/2.0; +http://www.pingdom.com/)'
+  - regex: '(PingdomPageSpeed)/(\d+)\.(\d+)'
+    family_replacement: 'PingdomBot'
 
   # PTST / WebPageTest.org crawlers
   - regex: ' (PTST)/(\d+)(?:\.(\d+)|)$'
@@ -138,7 +141,7 @@ user_agent_parsers:
   - regex: '(DAVdroid)/(\d+)\.(\d+)(?:\.(\d+)|)'
 
   # Downloader ...
-  - regex: '(Google-HTTP-Java-Client|Apache-HttpClient|Go-http-client|scalaj-http|http%20client|Python-urllib|HttpMonitor|TLSProber|WinHTTP|JNLP|okhttp|aihttp|reqwest|axios|unirest-(?:java|python|ruby|nodejs|php|net))(?:[ /](\d+)(?:\.(\d+)|)(?:\.(\d+)|)|)'
+  - regex: '(Google-HTTP-Java-Client|Apache-HttpClient|PostmanRuntime|Go-http-client|scalaj-http|http%20client|Python-urllib|HttpMonitor|TLSProber|WinHTTP|JNLP|okhttp|aihttp|reqwest|axios|unirest-(?:java|python|ruby|nodejs|php|net))(?:[ /](\d+)(?:\.(\d+)|)(?:\.(\d+)|)|)'
 
   # Pinterestbot
   - regex: '(Pinterest(?:bot|))/(\d+)(?:\.(\d+)|)(?:\.(\d+)|)[;\s(]+\+https://www.pinterest.com/bot.html'
@@ -213,11 +216,15 @@ user_agent_parsers:
   - regex: '(Twitter for (?:iPhone|iPad)|TwitterAndroid)(?:\/(\d+)\.(\d+)|)'
     family_replacement: 'Twitter'
 
-  # aspiegel.com spider (owned by Huawei)
-  - regex: 'Mozilla.{1,100}Mobile.{1,100}AspiegelBot'
+  # Phantom app
+  - regex: 'Mozilla.{1,200}Mobile.{1,100}(Phantom\/ios|android).(\d+)\.(\d+)\.(\d+)'
+    family_replacement: 'Phantom'
+
+  # aspiegel.com spider (owned by Huawei, later called PetalBot)
+  - regex: 'Mozilla.{1,100}Mobile.{1,100}(AspiegelBot|PetalBot)'
     family_replacement: 'Spider'
 
-  - regex: 'AspiegelBot'
+  - regex: 'AspiegelBot|PetalBot'
     family_replacement: 'Spider'
 
   # Basilisk
@@ -381,8 +388,12 @@ user_agent_parsers:
   # Edge Mobile
   - regex: 'Windows Phone .{0,200}(Edge)/(\d+)\.(\d+)'
     family_replacement: 'Edge Mobile'
-  - regex: '(EdgiOS|EdgA)/(\d+)\.(\d+)\.(\d+)\.(\d+)'
+  - regex: '(EdgiOS|EdgA)/(\d+)\.(\d+)\.(\d+)(?:\.(\d+)|)'
     family_replacement: 'Edge Mobile'
+
+  # Oculus Browser, should go before Samsung Internet
+  - regex: '(OculusBrowser)/(\d+)\.(\d+).0.0(?:\.([0-9\-]+)|)'
+    family_replacement: 'Oculus Browser'
 
   # Samsung Internet (based on Chrome, but lacking some features)
   - regex: '(SamsungBrowser)/(\d+)\.(\d+)'
@@ -516,6 +527,10 @@ user_agent_parsers:
 
   # Palo Alto GlobalProtect Linux
   - regex: 'PAN (GlobalProtect)/(\d+)\.(\d+)\.(\d+) .{1,100} \(X11; Linux x86_64\)'
+
+  # Surveyon https://www.surveyon.com/
+  - regex: '^(surveyon)/(\d+)\.(\d+)\.(\d+)'
+    family_replacement: 'Surveyon'
 
   #### END SPECIAL CASES TOP ####
 
@@ -913,7 +928,7 @@ user_agent_parsers:
   # AFTER THE EDGE CASES ABOVE!
   # AFTER IE11
   # BEFORE all other IE
-  - regex: '(Firefox)/(\d+)\.(\d+)\.(\d+)'
+  - regex: '(Firefox)/(\d+)\.(\d+)(?:\.(\d+)|$)'
   - regex: '(Firefox)/(\d+)\.(\d+)(pre|[ab]\d+[a-z]*|)'
 
 
@@ -924,7 +939,7 @@ user_agent_parsers:
     family_replacement: 'Python Requests'
 
   # headless user-agents
-  - regex: '\b(Windows-Update-Agent|WindowsPowerShell|Microsoft-CryptoAPI|SophosUpdateManager|SophosAgent|Debian APT-HTTP|Ubuntu APT-HTTP|libcurl-agent|libwww-perl|urlgrabber|curl|PycURL|Wget|wget2|aria2|Axel|OpenBSD ftp|lftp|jupdate|insomnia|fetch libfetch|akka-http|got|CloudCockpitBackend|ReactorNetty|axios|Jersey|Vert.x-WebClient|Apache-CXF|Go-CF-client|go-resty|AHC)(?:[ /](\d+)(?:\.(\d+)|)(?:\.(\d+)|)|)'
+  - regex: '\b(Windows-Update-Agent|WindowsPowerShell|Microsoft-CryptoAPI|SophosUpdateManager|SophosAgent|Debian APT-HTTP|Ubuntu APT-HTTP|libcurl-agent|libwww-perl|urlgrabber|curl|PycURL|Wget|wget2|aria2|Axel|OpenBSD ftp|lftp|jupdate|insomnia|fetch libfetch|akka-http|got|CloudCockpitBackend|ReactorNetty|axios|Jersey|Vert.x-WebClient|Apache-CXF|Go-CF-client|go-resty|AHC|HTTPie)(?:[ /](\d+)(?:\.(\d+)|)(?:\.(\d+)|)|)'
 
   # CloudFoundry
   - regex: '^(cf)\/(\d+)\.(\d+)\.(\S+)'
@@ -953,11 +968,29 @@ user_agent_parsers:
   - regex: '(Python/3\.\d{1,3} aiohttp)/(\d+)\.(\d+)\.(\d+)'
     family_replacement: 'Python aiohttp'
 
-  - regex: '(Java)[/ ]?\d+\.(\d+)\.(\d+)[_-]*([a-zA-Z0-9]+|)'
+  - regex: '(Java)[/ ]?\d{1}\.(\d+)\.(\d+)[_-]*([a-zA-Z0-9]+|)'
+
+  - regex: '(Java)[/ ]?(\d+)\.(\d+)\.(\d+)'
+
+  # minio-go (https://github.com/minio/minio-go)
+  - regex: '(minio-go)/v(\d+)\.(\d+)\.(\d+)'
+
+  # ureq - minimal request library in rust (https://github.com/algesten/ureq)
+  - regex: '^(ureq)[/ ](\d+)\.(\d+).(\d+)'
+
+  # http.rb - HTTP (The Gem! a.k.a. http.rb) - a fast Ruby HTTP client
+  # (https://github.com/httprb/http/blob/3aa7470288deb81f7d7b982c1e2381871049dcbb/lib/http/request.rb#L27)
+  - regex: '^(http\.rb)/(\d+)\.(\d+).(\d+)'
+
+  # Guzzle, PHP HTTP client (https://docs.guzzlephp.org/)
+  - regex: '^(GuzzleHttp)/(\d+)\.(\d+).(\d+)'
+
+  # lorien/grab - Web Scraping Framework (https://github.com/lorien/grab)
+  - regex: '^(grab)\b'
 
   # Cloud Storage Clients
   - regex: '^(Cyberduck)/(\d+)\.(\d+)\.(\d+)(?:\.\d+|)'
-  - regex: '^(S3 Browser) (\d+)-(\d+)-(\d+)(?:\s*http://s3browser\.com|)'
+  - regex: '^(S3 Browser) (\d+)[.-](\d+)[.-](\d+)(?:\s*https?://s3browser\.com|)'
   - regex: '(S3Gof3r)'
   # IBM COS (Cloud Object Storage) API
   - regex: '\b(ibm-cos-sdk-(?:core|java|js|python))/(\d+)\.(\d+)(?:\.(\d+)|)'
@@ -979,6 +1012,20 @@ user_agent_parsers:
   # ViaFree streaming app https://www.viafree.{dk|se|no}
   - regex: '^(ViaFree|Viafree)-(?:tvOS-)?[A-Z]{2}/(\d+)\.(\d+)\.(\d+)'
     family_replacement: 'ViaFree'
+
+  # Transmit (https://library.panic.com/transmit/)
+  - regex: '(Transmit)/(\d+)\.(\d+)\.(\d+)'
+
+  # Download Master (https://downloadmaster.ru/)
+  - regex: '(Download Master)'
+
+  # HTTrack crawler
+  - regex: '\b(HTTrack) (\d+)\.(\d+)(?:[\.\-](\d+)|)'
+
+  # SerenityOS (https://serenityos.org)
+  # https://github.com/SerenityOS/serenity/blob/2e1bbcb0faeae92d7595b8e0b022a8cdcecca07e/Userland/Libraries/LibWeb/Loader/ResourceLoader.h#L27
+  - regex: 'SerenityOS'
+    family_replacement: 'SerenityOS Browser'
 
 os_parsers:
   ##########
@@ -1039,8 +1086,8 @@ os_parsers:
   # generic HbbTV, hoping to catch manufacturer name (always after 2nd comma) and the first string that looks like a 2011-2019 year
   - regex: 'HbbTV/\d+\.\d+\.\d+ \(.{0,30}; ?([a-zA-Z]+) ?;.{0,30}(201[1-9]).{0,30}\)'
 
-  # aspiegel.com spider (owned by Huawei)
-  - regex: 'AspiegelBot'
+  # aspiegel.com spider (owned by Huawei, later renamed PetalBot)
+  - regex: 'AspiegelBot|PetalBot'
     os_replacement: 'Other'
 
   ##########
@@ -1090,6 +1137,7 @@ os_parsers:
 
   # Android 9; Android 10;
   - regex: '(Android) (\d+);'
+  - regex: '(Android): (\d+)(?:\.(\d+)(?:\.(\d+)|)|);'
 
   # UCWEB
   - regex: '^UCWEB.{0,200}; (Adr) (\d+)\.(\d+)(?:[.\-]([a-z0-9]{1,100})|);'
@@ -1104,6 +1152,12 @@ os_parsers:
 
   # Salesforce
   - regex: '(android)\s(?:mobile\/)(\d+)(?:\.(\d+)(?:\.(\d+)|)|)'
+    os_replacement: 'Android'
+
+  ##########
+  # Meta Quest
+  ##########
+  - regex: 'Quest'
     os_replacement: 'Android'
 
   ##########
@@ -1514,9 +1568,71 @@ os_parsers:
     os_replacement: 'iOS'
     os_v1_replacement: '14'
     os_v2_replacement: '5'
+  - regex: 'CFNetwork/12.{0,100} Darwin/20\.5\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '14'
+    os_v2_replacement: '6'
+  - regex: 'CFNetwork/12.{0,100} Darwin/20\.6\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '14'
+    os_v2_replacement: '8'
   - regex: 'CFNetwork/.{0,100} Darwin/(20)\.\d+'
     os_replacement: 'iOS'
     os_v1_replacement: '14'
+  - regex: 'CFNetwork/13.{0,100} Darwin/21\.0\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '15'
+    os_v2_replacement: '0'
+  - regex: 'CFNetwork/13.{0,100} Darwin/21\.1\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '15'
+    os_v2_replacement: '1'
+  - regex: 'CFNetwork/13.{0,100} Darwin/21\.2\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '15'
+    os_v2_replacement: '2'
+  - regex: 'CFNetwork/13.{0,100} Darwin/21\.3\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '15'
+    os_v2_replacement: '3'
+  - regex: 'CFNetwork/13.{0,100} Darwin/21\.4\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '15'
+    os_v2_replacement: '4'
+  - regex: 'CFNetwork/13.{0,100} Darwin/21\.5\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '15'
+    os_v2_replacement: '5'
+  - regex: 'CFNetwork/13.{0,100} Darwin/21\.6\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '15'
+    os_v2_replacement: '6'
+  - regex: 'CFNetwork/.{0,100} Darwin/(21)\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '15'
+  - regex: 'CFNetwork/.{0,100} Darwin/22\.0\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '16'
+    os_v2_replacement: '0'
+  - regex: 'CFNetwork/.{0,100} Darwin/22\.1\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '16'
+    os_v2_replacement: '1'
+  - regex: 'CFNetwork/.{0,100} Darwin/22\.2\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '16'
+    os_v2_replacement: '2'
+  - regex: 'CFNetwork/.{0,100} Darwin/22\.3\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '16'
+    os_v2_replacement: '3'
+  - regex: 'CFNetwork/.{0,100} Darwin/22\.4\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '16'
+    os_v2_replacement: '4'
+  - regex: 'CFNetwork/.{0,100} Darwin/(22)\.\d+'
+    os_replacement: 'iOS'
+    os_v1_replacement: '16'
   - regex: 'CFNetwork/.{0,100} Darwin/'
     os_replacement: 'iOS'
 
@@ -1528,7 +1644,7 @@ os_parsers:
   ##########
   # Apple Watch
   ##########
-  - regex: '(watchOS)/(\d+)\.(\d+)(?:\.(\d+)|)'
+  - regex: '(watchOS)[/ ](\d+)\.(\d+)(?:\.(\d+)|)'
     os_replacement: 'WatchOS'
 
   ##########################
@@ -1699,7 +1815,7 @@ os_parsers:
 
   # just os
   - regex: '(Windows|Android|WeTab|Maemo|Web0S)'
-  - regex: '(Ubuntu|Kubuntu|Arch Linux|CentOS|Slackware|Gentoo|openSUSE|SUSE|Red Hat|Fedora|PCLinuxOS|Mageia|(?:Free|Open|Net|\b)BSD)'
+  - regex: '(Ubuntu|Kubuntu|Arch Linux|CentOS|Slackware|Gentoo|openSUSE|SUSE|Red Hat|Fedora|PCLinuxOS|Mageia|SerenityOS|(?:Free|Open|Net|\b)BSD)'
   # Linux + Kernel Version
   - regex: '(Linux)(?:[ /](\d+)\.(\d+)(?:\.(\d+)|)|)'
   - regex: 'SunOS'
@@ -1745,11 +1861,11 @@ device_parsers:
     brand_replacement: 'Spider'
 
   # aspiegel.com spider (owned by Huawei)
-  - regex: 'Mozilla.{1,100}Mobile.{1,100}AspiegelBot'
+  - regex: 'Mozilla.{1,100}Mobile.{1,100}(AspiegelBot|PetalBot)'
     device_replacement: 'Spider'
     brand_replacement: 'Spider'
     model_replacement: 'Smartphone'
-  - regex: 'Mozilla.{0,200}AspiegelBot'
+  - regex: 'Mozilla.{0,200}(AspiegelBot|PetalBot)'
     device_replacement: 'Spider'
     brand_replacement: 'Spider'
     model_replacement: 'Desktop'
@@ -2431,10 +2547,6 @@ device_parsers:
     device_replacement: 'Dell $1'
     brand_replacement: 'Dell'
     model_replacement: '$1'
-  - regex: '; {0,2}Dell ([^;/]{1,100}?)(?: Build|\) AppleWebKit)'
-    device_replacement: 'Dell $1'
-    brand_replacement: 'Dell'
-    model_replacement: '$1'
 
   #########
   # Denver
@@ -2641,10 +2753,14 @@ device_parsers:
     device_replacement: '$1'
     brand_replacement: 'Google'
     model_replacement: '$1'
-  - regex: '; {0,2}(Pixel.{0,200}?)(?: Build|\) AppleWebKit)'
-    device_replacement: '$1'
+  - regex: '; {0,2}([g|G]oogle)? (Pixel[ a-zA-z0-9]{1,100});(?: Build|.{0,50}\) AppleWebKit)'
+    device_replacement: '$2'
     brand_replacement: 'Google'
-    model_replacement: '$1'
+    model_replacement: '$2'
+  - regex: '; {0,2}([g|G]oogle)? (Pixel.{0,200}?)(?: Build|\) AppleWebKit)'
+    device_replacement: '$2'
+    brand_replacement: 'Google'
+    model_replacement: '$2'
 
   #########
   # Gigabyte
@@ -3463,6 +3579,25 @@ device_parsers:
     model_replacement: '$1'
 
   #########
+  # Meta
+  # @ref: https://www.meta.com
+  #########
+  - regex: 'Quest 2'
+    device_replacement: 'Quest'
+    brand_replacement: 'Meta'
+    model_replacement: 'Quest 2'
+
+  - regex: 'Quest Pro'
+    device_replacement: 'Quest'
+    brand_replacement: 'Meta'
+    model_replacement: 'Quest Pro'
+
+  - regex: 'Quest'
+    device_replacement: 'Quest'
+    brand_replacement: 'Meta'
+    model_replacement: 'Quest'
+
+  #########
   # Micromax
   # @ref: http://www.micromaxinfo.com
   #########
@@ -3769,6 +3904,18 @@ device_parsers:
     model_replacement: '$1'
   - regex: '; (ONEPLUS [a-zA-Z]\d+)(?: Build|\) AppleWebKit)'
     device_replacement: 'OnePlus $1'
+    brand_replacement: 'OnePlus'
+    model_replacement: '$1'
+  - regex: '; {0,2}(HD1903|GM1917|IN2025|LE2115|LE2127|HD1907|BE2012|BE2025|BE2026|BE2028|BE2029|DE2117|DE2118|EB2101|GM1900|GM1910|GM1915|HD1905|HD1925|IN2015|IN2017|IN2019|KB2005|KB2007|LE2117|LE2125|BE2015|GM1903|HD1900|HD1901|HD1910|HD1913|IN2010|IN2013|IN2020|LE2111|LE2120|LE2121|LE2123|BE2011|IN2023|KB2003|LE2113|NE2215|DN2101)(?: Build|\) AppleWebKit)'
+    device_replacement: 'OnePlus $1'
+    brand_replacement: 'OnePlus'
+    model_replacement: 'OnePlus $1'
+  - regex: '; (OnePlus[ a-zA-z0-9]{0,50});((?: Build|.{0,50}\) AppleWebKit))'
+    device_replacement: '$1'
+    brand_replacement: 'OnePlus'
+    model_replacement: '$1'
+  - regex: '; (OnePlus[ a-zA-z0-9]{0,50})((?: Build|\) AppleWebKit))'
+    device_replacement: '$1'
     brand_replacement: 'OnePlus'
     model_replacement: '$1'
 
@@ -5451,6 +5598,15 @@ device_parsers:
     device_replacement: 'Motorola $1'
     brand_replacement: 'Motorola'
     model_replacement: '$1'
+  - regex: '; (moto[ a-zA-z0-9()]{0,50});((?: Build|.{0,50}\) AppleWebKit))'
+    device_replacement: '$1'
+    brand_replacement: 'Motorola'
+    model_replacement: '$1'
+  - regex: '; {0,2}(moto)(.{0,50})(?: Build|\) AppleWebKit)'
+    device_replacement: 'Motorola$2'
+    brand_replacement: 'Motorola'
+    model_replacement: '$2'
+
 
   ##########
   # nintendo

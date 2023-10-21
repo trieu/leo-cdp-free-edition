@@ -85,6 +85,7 @@
 
 ### Changed
 
+- upgrade user_agent_parsers
 - [profile] show purchased items directly in profile info
 - refactoring [Data Connector] to [Data Service] to scale customer data computation in multiple ways
 - add View link for asset items in group details
