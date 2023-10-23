@@ -13,18 +13,17 @@
 		</a>
 
 		<div style="width: 100%;">
-			<input id="main_search_profile" type="text" placeholder="To search data: enter name, email or phone number of a customer" autocomplete="off" >
+			<input id="main_search_profile" type="text" placeholder="Enter a name, an email or a phone number to search profile" autocomplete="off" >
 		</div>
 
 		<!-- Top User Menu -->
 		<ul class="nav navbar-right top-nav">
 
-			<li class="dropdown" style="min-width:165px!important;">
+			<li class="dropdown" style="min-width:168px!important;">
 				<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">
 					<i class="fa fa-user"></i> <span id="userDisplayName"></span> <b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
-					
 					<li style="display: none;" > 
 						<a href="#"> <i class="fa fa-fw fa-envelope"></i> Inbox </a> 
 					</li>
@@ -33,9 +32,8 @@
 					</li>
 					<li class="divider"></li>
 					<li>
-						<a href="javascript: initLeoChatBot('global')"> <i class="fa fa-question-circle"></i> LEO Chatbot </a> 
+						<a href="javascript: initLeoChatBot('global')"> <i class="fa fa-commenting-o"></i> LEO Chatbot </a> 
 					</li>
-					
 					<li class="divider"></li>
 					<li>
 						<a href="javascript:LeoAdminApiUtil.logout()"> <i class="fa fa-power-off"></i> Log Out </a>
@@ -43,34 +41,6 @@
 				</ul>
 			</li>
 		</ul>
-		
-		
-		<!-- Top User Menu -->
-		<ul class="nav navbar-right top-nav-sub" style="display: none;">
-			<li class="dropdown">
-				<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="fa fa-university"></i> Knowledge Base <b class="caret"></b>
-				</a>
-				<ul class="dropdown-menu" style="width: 275px">
-					<li>
-						<a target="_blank" href="https://knowledge.leocdp.net/p/what-is-uspa-framework.html"> <i class="fa fa-book" aria-hidden="true"></i> Introduction to USPA framework</a>
-					</li>
-					<li>
-						<a target="_blank" href="https://knowledge.leocdp.net/p/introduction-to-leo-cdp-101.html"> <i class="fa fa-book" aria-hidden="true"></i> Introduction to LEO CDP </a>
-					</li>
-					<li>
-						<a target="_blank" href="https://knowledge.leocdp.net/p/how-to-do-customer-analytics.html"> <i class="fa fa-book" aria-hidden="true"></i> How to do Customer Analytics </a>
-					</li>
-					<li>
-						<a target="_blank" href="https://knowledge.leocdp.net/p/how-to-design-customer-journey.html"> <i class="fa fa-book" aria-hidden="true"></i> How to design customer journey</a>
-					</li>
-					<li>
-						<a target="_blank" href="https://knowledge.leocdp.net/p/how-to-segment-customer-data.html"> <i class="fa fa-book" aria-hidden="true"></i> How to segment customer data</a>
-					</li>
-				</ul>
-			</li>
-		</ul>
-		
 	</div>
 
 	<!-- Sidebar Menu Items -->
@@ -235,7 +205,6 @@
 
 	/////////////////////////////// READY //////////////////////////////////
 	
-
 	function pageWrapperResize(){
 		var w = $(window).width() - 220;
 		$('#page-wrapper').attr('style', 'width:'+ w + 'px!important');
