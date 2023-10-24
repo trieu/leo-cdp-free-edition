@@ -18,21 +18,19 @@
 
 		<!-- Top User Menu -->
 		<ul class="nav navbar-right top-nav">
-
+			<li>				 
+				<a href="javascript: initLeoChatBot('global')"> <i class="fa fa-commenting-o"></i> LEO Chatbot </a> 
+			</li>
 			<li class="dropdown" style="min-width:168px!important;">
 				<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="fa fa-user"></i> <span id="userDisplayName"></span> <b class="caret"></b>
+					<i class="fa fa-bars" aria-hidden="true"></i> System Control <b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
 					<li style="display: none;" > 
 						<a href="#"> <i class="fa fa-fw fa-envelope"></i> Inbox </a> 
-					</li>
+					</li>					
 					<li>
-						<a href="#calljs-leoCdpRouter('My_Login_Editor')"> <i class="fa fa-user"></i> My Login Info </a> 
-					</li>
-					<li class="divider"></li>
-					<li>
-						<a href="javascript: initLeoChatBot('global')"> <i class="fa fa-commenting-o"></i> LEO Chatbot </a> 
+						<a href="#calljs-leoCdpRouter('My_Login_Editor')"> <i class="fa fa-user"></i> <span id="userDisplayName" ></span> </a> 
 					</li>
 					<li class="divider"></li>
 					<li>
@@ -196,9 +194,15 @@
 	                		}
 	                	});
 	                }	                
-	                $('#userDisplayName').html(systemUser.displayName);
+	                
+	                var dn = textTruncate(systemUser.displayName,15);
+	                var tt = 'Click to view the login information of ' + systemUser.displayName;
+	                $('#userDisplayName').text(dn).attr('title', tt);
 	                window.currentUserProfile = systemUser;
 	            }
+	            
+	         	// after login, check Leo Bot to support user
+		        checkLeoBotIsServerReady();
 	        }
 	    });
 	}
@@ -263,7 +267,7 @@
 			
 			pageWrapperResize();
 			loadUserInfoWidget();
-			navigationSetup();
+			navigationSetup();			
 			
 			$('#main_admin_navigation').show();
 			$('#logo-img').attr('src',window.pageHeaderLogo).show();

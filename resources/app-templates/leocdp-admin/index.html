@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<base href="//{{dnsDomainLeoAdmin}}/">
+	
 	<meta charset="UTF-8">
 	<meta name="author" content="Trieu Nguyen(Thomas) at LEOCDP.com">
 	<meta name="referrer" content="no-referrer" />
@@ -13,9 +15,8 @@
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">	
 
-	<base href="//{{dnsDomainLeoAdmin}}/">
-	
 	<link rel="apple-touch-icon" sizes="180x180" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/apple-touch-icon.png">
+	<link rel="icon" type="image/x-icon" sizes="32x32" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/favicon-16x16.png">
 	<link rel="mask-icon" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/safari-pinned-tab.svg" color="#5bbad5">
@@ -290,17 +291,20 @@
 	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.core-admin.js?admin=1&_={{cacheBustingKey}}"></script>
 	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.visualization.js?admin=1&_={{cacheBustingKey}}"></script>
 	
+	<!-- system management and event monitoring  -->
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.system.js?admin=1&_={{cacheBustingKey}}"></script>
+	
 	<!-- Dashboard  -->
-	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.dashboard.js?admin=1&_={{cacheBustingKey}}" async="true"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.dashboard.js?admin=1&_={{cacheBustingKey}}" ></script>
 	
 	<!-- Journey Map  -->
-	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.journey.js?admin=1&_={{cacheBustingKey}}" async="true"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.journey.js?admin=1&_={{cacheBustingKey}}" ></script>
 	
 	<!-- asset: group-details  -->
-	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.digital.asset.js?admin=1&_={{cacheBustingKey}}" async="true"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.digital.asset.js?admin=1&_={{cacheBustingKey}}" ></script>
 	
 	<!-- profile -->
-	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.profile.js?admin=1&_={{cacheBustingKey}}" async="true"></script>
+	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.profile.js?admin=1&_={{cacheBustingKey}}" ></script>
 	
 	<!-- segment -->
 	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.segment.builder.js?admin=1&_={{cacheBustingKey}}" async="true"></script>
@@ -311,9 +315,6 @@
 	
 	<!-- data service -->
 	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.data.service.js?admin=1&_={{cacheBustingKey}}" async="true" ></script>
-	
-	<!-- system management and event monitoring  -->
-	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.system.js?admin=1&_={{cacheBustingKey}}" async="true" ></script>
 	
 	<!-- chatbot  -->
 	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.chatbot.js?admin=1&_={{cacheBustingKey}}" async="true"></script>

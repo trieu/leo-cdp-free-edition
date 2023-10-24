@@ -16,6 +16,9 @@ div.leobot-answer .botui-message-content {
 div.leobot-info .botui-message-content {
     color: #CB4335 !important;
 }
+div.botui-actions-buttons {
+	font-size: 13.8px;
+}
 #LEO_ChatBot_Container div[class='botui-message-content loading'] {
 	position: relative !important; width: 99px !important;
 	background-image:none !important;
@@ -23,7 +26,7 @@ div.leobot-info .botui-message-content {
 </style>
 
 <div class="modal fade" id="leoChatBotDialog" role="dialog">
-    <div class="modal-dialog  modal-lg">
+    <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -38,7 +41,7 @@ div.leobot-info .botui-message-content {
             <div class="modal-footer">
             	<div class="col-md-10" >
             		<!-- BCP-47 language code https://en.wikipedia.org/wiki/IETF_language_tag  -->
-	            	<select id="leobot_answer_in_language" class="form-control">
+	            	<select id="leobot_answer_in_language" class="form-control" style="display: none;">
 				      	<option value="en" selected="selected"> Answer the question in English </option>
 		                <option value="vi"> Trả lời câu hỏi bằng tiếng Việt </option>
 		                <option value="de"> Beantworten Sie Fragen auf Deutsch </option>

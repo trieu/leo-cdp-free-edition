@@ -30,7 +30,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-10-22
+## [0.9.0] - 2023-10-24
 
 ### Added
 
@@ -85,6 +85,7 @@
 
 ### Changed
 
+- improve UI UX of Leo Chatbot
 - upgrade user_agent_parsers
 - [profile] show purchased items directly in profile info
 - refactoring [Data Connector] to [Data Service] to scale customer data computation in multiple ways
