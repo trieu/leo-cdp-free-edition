@@ -30,7 +30,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-10-24
+## [0.9.0] - 2023-11-02
 
 ### Added
 
@@ -85,6 +85,7 @@
 
 ### Changed
 
+- improve UI UX of Admin system: all save buttons must in the same style
 - improve UI UX of Leo Chatbot
 - upgrade user_agent_parsers
 - [profile] show purchased items directly in profile info

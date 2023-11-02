@@ -116,8 +116,8 @@
                 <button type="button" class="btn btn-danger" onclick="LeoCdpAdmin.navFunctions.deleteItemAsset(itemData)">
                 	<i class="fa fa-trash" aria-hidden="true"></i> Delete
                 </button>
-                <button type="button" class="btn btn-success data-control-edit" onclick="postEditorSave()"  > 
-	        		<i class="fa fa-fw fa-check"></i> Save 
+                <button type="button" class="btn btn-goto-router data-control-edit" onclick="postEditorSave()"  > 
+	        		<i class="fa fa-fw fa-check-square-o"></i> Save 
 	        	</button>  
             </div>
             <hr>
@@ -357,7 +357,7 @@
                             if(json.data === ''){
                                 $('#error-on-save').html('Data is not valid !').show().delay(6000).fadeOut('slow');
                             } else {
-                                callback(json.data);
+                                callback(itemData); // OK
                             }                        
                         }
                     } else {
@@ -370,9 +370,10 @@
     }
 
     function postEditorSave() {
-        var onSaveOk = function (itemId) {   
+        var onSaveOk = function (item) {
+            notifySavedOK("Content")  
             $('#ajaxLoaderDialog').modal('hide');   
-            location.hash =  "#calljs-leoCdpRouter('Asset_Group_Details','" + groupId + "')";
+            location.hash = "calljs-leoCdpRouter('Asset_Group_Details','" + item.groupId + "')";
         }
         saveDataPostEditor(onSaveOk);
     }

@@ -44,7 +44,7 @@
              <button type="button" class="btn btn-danger" onclick="LeoCdpAdmin.navFunctions.deleteItemAsset(presentationModel)">
                	<i class="fa fa-trash" aria-hidden="true"></i> Delete
              </button>
-             <button type="button" class="btn btn-success data-control-edit" onclick="presentationFormEditorSave()"  > 
+             <button type="button" class="btn btn-goto-router data-control-edit" onclick="presentationFormEditorSave()"  > 
         		<i class="fa fa-fw fa-check"></i> Save 
         	 </button>  
         </div>
@@ -354,7 +354,7 @@
                             if(json.data === ''){
                                 $('#error-on-save').html('Data is not valid !').show().delay(6000).fadeOut('slow');
                             } else {
-                                callback(json.data);
+                                callback(presentationModel); // OK
                             }                        
                         }
                     } else {
@@ -367,10 +367,10 @@
     }
 
     function presentationFormEditorSave() {
-        var onSaveOk = function (itemId) {
-            console.log('=====> presentationFormEditorSave ', itemId);   
-            $('#ajaxLoaderDialog').modal('hide'); 
-            location.hash = "calljs-leoCdpRouter('Asset_Group_Details','"+presentationModel.groupId+"')";
+        var onSaveOk = function (item) {            
+            notifySavedOK("Presentation Slides")  
+            $('#ajaxLoaderDialog').modal('hide');   
+            location.hash = "calljs-leoCdpRouter('Asset_Group_Details','" + item.groupId + "')";
         }
         savePresentationItem(onSaveOk, true);
     }

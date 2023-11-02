@@ -14,7 +14,7 @@
 		<button type="button" class="btn btn-danger data-control-delete" title="Delete this segment"> 
 			<i class="fa fa-trash" aria-hidden="true"></i> Delete 
 		</button>
-		<button type="button" class="btn btn-success" onclick="saveSegment()" title="Save this segment" > 
+		<button type="button" class="btn btn-goto-router" onclick="saveSegment()" title="Save this segment" > 
 			<i class="fa fa-check-square-o" aria-hidden="true"></i> Save 
 		</button>
 	</div>
@@ -522,6 +522,7 @@
 	                } else {
 	                	var segmentId = json.data;
 	                	location.hash = "calljs-leoCdpRouter('Segment_Details','" + segmentId + "')";
+	                	notifySavedOK('Segment')
 	                }
 	            } else {
 	            	if( json.errorMessage.indexOf('jsonQueryRules') >= 0 ) {

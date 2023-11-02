@@ -19,7 +19,7 @@ div.panel_header {
 	       	<button type="button" class="btn btn-danger data-control-delete" onclick="deleteUserLoginAccount()" title="Delete Login Account" > 
 	     		<i class="fa fa-trash" aria-hidden="true"></i> Delete 
 	     	</button>
-	       	<button type="button" class="btn btn-success data-control-edit" onclick="saveUserProfile()" title="Save Login Account"  > 
+	       	<button type="button" class="btn btn-goto-router data-control-edit" onclick="saveUserProfile()" title="Save Login Account"  > 
 	     		<i class="fa fa-check-square-o" aria-hidden="true"></i> Save 
 	     	</button>
 	     </div>
@@ -513,15 +513,9 @@ div.panel_header {
             urlStr = baseLeoAdminUrl + '/user/update';
         }
 
-        var onSaveOk = function (data) {
-        	 iziToast.info({
- 	    	    title: 'Login Account Information',
- 	    	    onClosed: function(){
- 	    	    	location.hash = "calljs-leoCdpRouter('User_Login_Management')";
- 	    	    },
- 	    	    message: "Updated information successfully!",
- 	    	    timeout: 2000
- 	    	});
+        var onSaveOk = function (data) {        	
+        	notifySavedOK("User Login Account");
+        	location.hash = "calljs-leoCdpRouter('User_Login_Management')";
         }
 
         LeoAdminApiUtil.callPostAdminApi(urlStr, userLoginModel, function (json) {

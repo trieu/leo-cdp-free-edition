@@ -19,7 +19,7 @@
        	<button type="button" class="btn btn-danger data-control-delete" onclick="removeCurrentProfile()" title="Remove this profile" > 
      		<i class="fa fa-trash" aria-hidden="true"></i> Remove 
      	</button>
-       	<button type="button" class="btn btn-success data-control-edit" onclick="saveProfileHandler()" title="Edit this profile"  > 
+       	<button type="button" class="btn btn-goto-router data-control-edit" onclick="saveProfileHandler()" title="Edit this profile"  > 
      		<i class="fa fa-check-square-o" aria-hidden="true"></i> Save 
      	</button>
      </div>
@@ -673,14 +673,8 @@
     	
     	var callback = function(rs){
     		if(rs != null){
-    			iziToast.success({
-    	    	    title: 'Profile Editor',
-    	    	    message: 'Profile data is saved OK!',
-    	    	    timeout: 5000,
-    	    	    onClosed: function () {
-    	    	    	location.hash = "calljs-leoCdpRouter('Customer_Profile_Info','" + rs + "')";
-    	    	    }
-    	    	});
+    			location.hash = "calljs-leoCdpRouter('Customer_Profile_Info','" + rs + "')";
+    			notifySavedOK('Profile')
     		}
     		else {
     			console.error('saveProfileHandler ', rs)

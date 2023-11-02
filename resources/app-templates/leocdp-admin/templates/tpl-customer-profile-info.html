@@ -83,6 +83,9 @@
 	.event_matrix_active {
 		width: 100%; background-color: #e8e8e8; border-radius: 10px;
 	}
+	.btn-import-data {
+		background-color: #FBF95A; color: black; border:solid 1px black;
+	} 
 </style>
 
 <script id='engaged-touchpoint-tpl' type="text/html" >
@@ -518,6 +521,30 @@
             <div class="modal-footer">
             	<button type="button" class="btn btn-primary" data-dismiss="modal"> Cancel </button>
                 <button type="button" class="btn btn-success" onclick="okSaveNewObservedEvent()"> OK </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Merge Duplicate Profile -->
+<div class="modal fade" id="mergeDuplicateProfileDialog" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title"> <i class="fa fa-compress" aria-hidden="true"></i> Merge Duplicate Profile </h3>
+            </div>
+			<div class="modal-body">
+                <div class="alert alert-info">
+                    <h4> <i class="fa fa-question-circle-o" aria-hidden="true"></i>  Do you want to merge all duplicate profiles in the database ? </h4>
+                </div>
+                <input id="delete_callback" type="hidden" name="delete_callback" value="removeCustomerProfile6RB1XvM8P28pX7U2mCwzDL">
+            </div>
+            <div class="modal-footer">
+            	<button type="button" class="btn btn-primary" data-dismiss="modal"> <i class="fa fa-minus-circle" aria-hidden="true"></i> CANCEL </button>
+                <button type="button" class="btn btn-goto-router" onclick="okMergeDuplicateProfile()"> <i class="fa fa-check" aria-hidden="true"></i> OK </button>
             </div>
         </div>
 

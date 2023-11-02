@@ -44,8 +44,8 @@
                	<i class="fa fa-trash" aria-hidden="true"></i> Delete
              </button>
              
-             <button type="button" class="btn btn-success data-control-edit" onclick="feedbackFormEditorSave()"  > 
-        		<i class="fa fa-fw fa-check"></i> Save 
+             <button type="button" class="btn btn-goto-router data-control-edit" onclick="feedbackFormEditorSave()"  > 
+        		<i class="fa fa-fw fa-check-square-o"></i> Save 
         	 </button>  
            
         </div>
@@ -377,7 +377,7 @@
                             if(json.data === ''){
                                 $('#error-on-save').html('Data is not valid !').show().delay(6000).fadeOut('slow');
                             } else {
-                                callback(json.data);
+                                callback(feedbackModel); // OK
                             }                        
                         }
                     } else {
@@ -390,10 +390,10 @@
     }
 
     function feedbackFormEditorSave() {
-        var onSaveOk = function (itemId) {
-            console.log('=====> feedbackFormEditorSave ', itemId);   
+        var onSaveOk = function (item) {
+        	notifySavedOK("Feedback Template")  
             $('#ajaxLoaderDialog').modal('hide'); 
-            location.hash = "calljs-leoCdpRouter('Asset_Group_Details','"+feedbackModel.groupId+"')";
+            location.hash = "calljs-leoCdpRouter('Asset_Group_Details','"+item.groupId+"')";
         }
         saveFeedbackFormData(onSaveOk, true);
     }
