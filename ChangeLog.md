@@ -30,7 +30,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-11-02
+## [0.9.0] - 2023-11-07
 
 ### Added
 
@@ -58,6 +58,7 @@
 
 ### Fixed
 
+- all event data with SCORING_PROSPECT_METRIC must update prospect score in profile
 - fix when search profile by keywords
 - fix and improve UI UX of LEO Chatbot to answer question, create content and presentation
 - add rel="noreferrer" in ahref to avoid add referrer from admin domain
@@ -85,6 +86,7 @@
 
 ### Changed
 
+- Leo Observer JS should tracking action event and send data using HTTP POST
 - improve UI UX of Admin system: all save buttons must in the same style
 - improve UI UX of Leo Chatbot
 - upgrade user_agent_parsers
