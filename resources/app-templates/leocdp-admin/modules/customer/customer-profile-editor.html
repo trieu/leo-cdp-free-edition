@@ -243,22 +243,22 @@
                                    	<label for="profile_primaryEmail" > <i class="fa fa-fw fa-envelope"></i> Primary Personal Email <span class="small_highlight_text">(Data for Identity Resolution)</span> </label> 
                                    	<input id="profile_primaryEmail" class="form-control" type="email" placeholder="Email" data-field="primaryEmail" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
 	                            </li>
-	                               
-                                <li>
-                                   	<label for="profile_primaryPhone" > <i class="fa fa-fw fa-phone-square"></i> Primary Personal Mobile <span class="small_highlight_text">(Data for Identity Resolution)</span> </label> 
-                                   	<input id="profile_primaryPhone" class="form-control" type="tel" placeholder="Mobile Phone" data-field="primaryPhone" data-fieldholder="inputvalue" data-fieldtype="tel" autocomplete="off" >
-                               	</li>
-	                               
-								<li>
-				                   	<b data-persona="key" > <i class="fa fa-fw fa-list"></i>  Secondary Personal Emails <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+	                            
+	                            <li>
+				                   	<b data-persona="key" > <i class="fa fa-fw fa-envelope"></i>  Secondary Personal Emails <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
 				                   	<button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('secondaryEmails')" title="Add new email"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Email 
 				    			   	</button>
 				                   	<p data-field="secondaryEmails" data-fieldholder="html_hashset"  data-fieldtype="hashset" data-editable="true"  >  </p>
 				               	</li>
+	                               
+                                <li>
+                                   	<label for="profile_primaryPhone" > <i class="fa fa-fw fa-phone-square"></i> Primary Personal Mobile <span class="small_highlight_text">(Data for Identity Resolution)</span> </label> 
+                                   	<input id="profile_primaryPhone" class="form-control" type="tel" placeholder="Mobile Phone" data-field="primaryPhone" data-fieldholder="inputvalue" data-fieldtype="tel" autocomplete="off" >
+                               	</li>
 				               	
 				               	<li>
-				                   	<b data-persona="key" > <i class="fa fa-fw fa-list"></i> Secondary Personal Phones <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+				                   	<b data-persona="key" > <i class="fa fa-fw fa-phone-square"></i> Secondary Personal Phones <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
 				                   	<button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('secondaryPhones')" title="Add new phone"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Phone 
 				    			   	</button>
@@ -274,7 +274,7 @@
                                 </li>
 							    
                                 <li>
-				                   	<b data-persona="key" > <i class="fa fa-fw fa-list"></i> Business Contacts <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
+				                   	<b data-persona="key" > <i class="fa fa-fw fa-id-card-o"></i> Business Contacts <span class="small_highlight_text">(Data for Identity Resolution)</span> </b> 
 				                   	<button type="button" class="btn btn-do-now btn-xs" onclick="addNewHashMapItem('businessContacts', ContactIconsMap)" title="Add new"  > 
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Business Contact 
 				    			   	</button>

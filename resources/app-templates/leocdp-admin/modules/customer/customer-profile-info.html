@@ -32,21 +32,21 @@
            <div class="col-md-7">
   			  
                <div class="text-center" >
-               	   
                    <img id="profile_avatar" src="/public/images/avatars/profile-default-avatar.png" alt="Profile Avatar" class="rounded mx-auto d-block avatar"> <br>
                    <h4 id="profile_full_name" style="color:blue; font-weight: bold;" > - </h4>
                </div>
 			   <hr>
                <div class="col-md-12" >
+				   
+				   <div class="col-md-4" >
+                     	<b> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Data Quality Score <a href="https://en.wikipedia.org/wiki/Data_quality" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+                     	<p class="scoring_field_credit" data-field="dataQualityScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+                    </div>
+                    
                		<div class="col-md-4" >
                      	<b> <i class="fa fa-fw fa-line-chart"></i> Lead Score <a href="https://en.wikipedia.org/wiki/Lead_scoring" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
                      	<p class="scoring_field" data-field="totalLeadScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
                  	</div>
-            
-                 	<div class="col-md-4" >
-                     	<b> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Data Quality Score <a href="https://en.wikipedia.org/wiki/Data_quality" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-                     	<p class="scoring_field_credit" data-field="dataQualityScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-                    </div>
                  
                 	<div class="col-md-4" >
                         <b> <i class="fa fa-usd" aria-hidden="true"></i> CLV (Lifetime Value) <a href="https://cio-wiki.org/wiki/Customer_Lifetime_Value" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
@@ -54,14 +54,14 @@
                     </div>
                     
                     <div class="col-md-4" >
-                      	<b> <i class="fa fa-heartbeat fa-heartbeat" aria-hidden="true"></i> Engagement Score <a href="https://cio-wiki.org/wiki/Customer_Engagement" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-					    <p class="scoring_field" data-field="totalEngagementScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-                    </div>
-                    
-               		<div class="col-md-4" >
                         <b> <i class="fa fa-heartbeat" aria-hidden="true"></i> Loyalty Score <a href="https://en.wikipedia.org/wiki/Loyalty_program" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
                         <p class="scoring_field_credit" data-field="totalLoyaltyScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-                 	</div>                   
+                 	</div> 
+                    
+                    <div class="col-md-4" >
+                      	<b> <i class="fa fa-heartbeat fa-heartbeat" aria-hidden="true"></i> Engagement Score <a href="https://cio-wiki.org/wiki/Customer_Engagement" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+					    <p class="scoring_field" data-field="totalEngagementScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+                    </div>         
                     
                     <div class="col-md-4" >
                     	<b> <i class="fa fa-usd" aria-hidden="true"></i> Total Transaction ({{currency_code}}) </b> 
@@ -95,33 +95,47 @@
 	        	
 	        	<!-- Primary fields -->
 	        	<div>
-                  
-	                <div class="primary_field" > 
-                    	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Created at: </b> 
-                    	<span class="data_field" data-field="createdAt" data-fieldholder="html"  data-fieldtype="date_time"  > - </span> 
-                    </div>  
-                    <div class="primary_field" >   
-                    	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Updated at: </b> 
-                   		<span class="data_field" data-field="updatedAt" data-fieldholder="html"  data-fieldtype="date_time"  > -  </span> 
-                    </div>
-                    
-                    <hr>
-                    
+				  
                     <div class="primary_field" > 
-	        			<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Profile ID: </b> 
+	        			<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Unified Profile ID: </b> 
 	                	<span class="data_field" data-field="id" data-fieldholder="html" data-fieldtype="string" > - </span>
 	                </div>
-	                  
 	                <div class="primary_field" >      	   
 	                	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Web Visitor ID: </b> 
 	                	<span class="data_field" data-field="visitorId" data-fieldholder="html"  data-fieldtype="string" > - </span>
 	                </div>
 	                <div class="primary_field" >      	      
-	                	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> CRM User ID: </b> 
+	                	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Last Imported CRM ID: </b> 
 	                	<span class="data_field" data-field="crmRefId" data-fieldholder="html" data-fieldtype="string" > - </span>
 	                </div>
+                    
+                    <hr>
+                    
+	                <div class="primary_field" > 
+                    	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Created at: </b> 
+                    	<span class="data_field" data-field="createdAt" data-fieldholder="html"  data-fieldtype="date_time"  > - </span> 
+                    </div>  
+                    
+                    <div class="primary_field" >   
+                    	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Updated at: </b> 
+                   		<span class="data_field" data-field="updatedAt" data-fieldholder="html"  data-fieldtype="date_time"  > -  </span> 
+                    </div>
 	                  
-	                <hr>  
+	                <hr>
+	                <div class="primary_field" > 
+                    	<b class="primary_field" >  <i class="fa fa-user-circle-o" aria-hidden="true"></i> Profile Type: </b>
+                    	<span class="data_field" data-field="typeAsText" data-fieldholder="html"  data-fieldtype="string"  > - </span>
+                    </div>
+                    <div class="primary_field" >
+                    	<b class="primary_field" > <i class="fa fa-envelope" aria-hidden="true"></i> Primary Email: </b>  
+                    	<span class="data_field" data-field="primaryEmail" data-fieldholder="html" data-fieldtype="string" >  - </span>
+                    </div>                    
+                    <div class="primary_field" >
+                    	<b class="primary_field" > <i class="fa fa-phone-square" aria-hidden="true"></i>  Primary Phone: </b>  
+                    	<span class="data_field" data-field="primaryPhone" data-fieldholder="html" data-fieldtype="tel" > - </span>
+                    </div>
+                    
+                    <hr>
 	                
 	                <div class="primary_field" > 
 	                	<b > <i class="fa fa-fw fa-id-badge"></i> First Name: </b> 
@@ -154,21 +168,6 @@
 	                	<b > <i class="fa fa-fw fa-venus-mars"></i> Marital Status: </b> 
 	                	<span class="data_field" data-field="maritalStatusAsText" data-fieldholder="html" data-fieldtype="string" > - </span>  
 	                </div>	
-	                
-	                <hr>
-	                    
-                    <div class="primary_field" > 
-                    	<b class="primary_field" > <i class="fa fa-user-circle-o" aria-hidden="true"></i> Profile Type: </b> 
-                    	<span class="data_field" data-field="typeAsText" data-fieldholder="html"  data-fieldtype="string"  > - </span>
-                    </div> 
-                    <div class="primary_field" >
-                    	<b class="primary_field" > <i class="fa fa-envelope-o" aria-hidden="true"></i> Primary Email: </b>  
-                    	<span class="data_field" data-field="primaryEmail" data-fieldholder="html" data-fieldtype="string" >  - </span>
-                    </div>                    
-                    <div class="primary_field" >
-                    	<b class="primary_field" > <i class="fa fa-phone" aria-hidden="true"></i> Primary Phone: </b>  
-                    	<span class="data_field" data-field="primaryPhone" data-fieldholder="html" data-fieldtype="tel" > - </span>
-                    </div>
                     
 	        	</div>
 	        	
@@ -185,10 +184,6 @@
          
          <li>
          	<a href="javascript:" data-target-tab="panel_customer_feedbacks" title="Customer Feedback Data" > <i class="fa fa-commenting-o" aria-hidden="true"></i> Feedback Analytics </a>
-         </li>
-         
-         <li onclick="handleProfileTabExtInfo()" >
-          	<a href="javascript:" data-target-tab="panel_profile_information" title="Data of profile" > <i class="fa fa-info-circle" aria-hidden="true"></i> Profile Data </a>
          </li>
          
          <li data-industry="MEDIA" style="display: none;" >
@@ -209,6 +204,10 @@
          
          <li style="display: none;"  >
          	<a href="javascript:" data-target-tab="panel_insights"  > <i class="fa fa-briefcase" aria-hidden="true"></i> Data Insight </a>
+         </li>
+         
+         <li onclick="handleProfileTabExtInfo()" >
+          	<a href="javascript:" data-target-tab="panel_profile_information" title="Data of profile" > <i class="fa fa-info-circle" aria-hidden="true"></i> Profile Details </a>
          </li>
 	   </ul>
 
@@ -705,7 +704,106 @@
 				</div>
 			</div>
 			
-			<!-- tab 3 Personal Extension Data  -->
+			<!-- tab 3 Insights and Predictive Reports  -->
+       		<div class="tab-pane" id="panel_insights" >
+       			<!-- tab 3 content  -->
+       			<div class="row" >
+		            <h4 class="text-center" >Profile Data Insights</h4>
+		            <!-- tabs left -->
+		            <div class="tabbable">
+		                <ul class="nav nav-pills nav-stacked col-md-3 text-center">
+		                    <li class="active" ><a href="#moment_of_truths" data-toggle="tab">1. Moments of Truth</a></li>
+		                    <li><a href="#impacting_keywords" data-toggle="tab">2. Impacting Keywords</a></li>
+		                    <li><a href="#data_touchpoint_flow" data-toggle="tab">3. Data Touchpoints</a></li>
+		                    <li><a href="#attribution_heatmap" data-toggle="tab">4. Attribution Heatmap</a></li>
+		                    <li><a href="#personality_traits" data-toggle="tab">5. Personality Traits</a></li>
+		                </ul>
+		                <div class="tab-content col-md-9">
+		                    <div class="tab-pane active" id="moment_of_truths" >
+		                    	Event Chart in Moments of Truth
+		                    </div>
+		                    <div class="tab-pane" id="impacting_keywords" >
+		                    	Impacting Keywords
+		                    </div>
+		                    <div class="tab-pane" id="data_touchpoint_flow" >
+		                    	Data Touchpoint Flow
+		                    	
+					            <div class="line" ></div>
+		                    </div>
+		                    <div class="tab-pane" id="attribution_heatmap" >
+		                    	Attribution Heatmap
+		                    	<h4 style="text-align:center;width: 100%;">Customer Attribution Matrix of Profile and Persona </h4>
+	
+					            <div id="attribution_description"></div> <br>
+								
+								<div class="row" >
+									<div class="col-md-3 "></div>
+									<div class="col-md-3 ">
+						            	<div class="user_profile_attrs"> &nbsp; &nbsp; &nbsp; &nbsp; </div> &nbsp; are attributes of Customer Profile 
+						            </div>
+						            <div class="col-md-3 ">
+						            	<div class="persona_profile_attrs"> &nbsp; &nbsp; &nbsp; &nbsp; </div> &nbsp; are attributes of Customer Persona 
+									</div>
+									<div class="col-md-3 "></div>
+								</div>
+				            	<div id="profile_attribution" class="col-md-12 bar-module" style="text-align: center;"></div>
+		                    </div>
+		                    <div class="tab-pane" id="personality_traits" >
+		                    	Personality Traits
+		                    	<div class="col-md-12 ">
+					                <div>
+					                    <h4>Predictive Personality Traits(OCEAN Model) </h4>
+					                </div>
+					                <div class="pairs">
+					                    <div id="chart_persornality">
+					                    </div>
+					                </div>
+					            </div>
+		                    </div>
+		                </div>
+		            </div>
+			    </div>
+			</div>
+			
+			<!-- tab 4 recommended contents -->
+			<div class="tab-pane" id="panel_content_suggestions"  >
+				<!-- tab 4 content  -->
+		     	<h4 class="highlight_text" > <i class="fa fa-list-ol" aria-hidden="true"></i> Top recommended contents </h4>
+		     	<h5> <i class="fa fa-info" aria-hidden="true"></i> You can drag and drop the items below to customize content ranking </h5>
+		     	<div id="recommended_content_list" class="list-group col">
+					<div class="list-group-item" > No data available </div>
+				</div>
+			</div>
+			
+			<!-- tab 5 recommended products -->
+			<div class="tab-pane" id="panel_recommended_products"  >
+				<!-- tab 6 content  -->
+		     	<h4 class="highlight_text" > <i class="fa fa-list-ol" aria-hidden="true"></i> Top recommended products </h4>
+		     	<h5> <i class="fa fa-info" aria-hidden="true"></i> You can drag and drop the items below to customize product ranking </h5>
+		     	<div id="recommended_product_list" class="list-group col">
+					<div class="list-group-item" > No data available </div>
+				</div>
+			</div>
+			
+			<!-- tab 6 financial event -->
+			<div class="tab-pane" id="panel_financial_information"  >
+				<!-- tab 8 content  -->
+		     	<h4 class="highlight_text" > <i class="fa fa-list-ul" aria-hidden="true"></i> Financial Data Event </h4>
+		     	<div id="financial_event_list" class="list-group col">
+		     		<div class="list-group-item" > No data available </div>
+				</div>
+			</div>
+			
+			<!-- tab 7: purchased items  -->
+			<div class="tab-pane" id="panel_purchased_products"  >
+		     	<h4 class="highlight_text" > <i class="fa fa-shopping-cart" aria-hidden="true"></i> Top 100 recently purchased products </h4>
+		     	<div id="purchased_items_list" class="list-group col">
+		     		<div class="list-group-item" > No data available </div>
+				</div>
+				<div  id="purchased_items_pagination" ></div>
+			</div>
+			
+			<!-- tab 8 Profile Details -->
 			<div class="tab-pane" id="panel_profile_information" >
 				<div class="tabbable">
 		                <ul id="profile_ext_info_tabs" class="nav nav-pills nav-stacked col-md-2">
@@ -730,19 +828,19 @@
 				                       <td>
 											<ol class="profile_ext_data" data-field="personal_attributes">
 												<li>
-								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Secondary Emails </b> 
+								                   <b data-persona="key" > <i class="fa fa-fw fa-envelope"></i> Secondary Emails </b> 
 								                   <p data-field="secondaryEmails" data-fieldholder="html_hashset"  data-fieldtype="hashset"   >  </p>
 								               	</li>
 								               	<li>
-								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Secondary Phones </b> 
+								                   <b data-persona="key" > <i class="fa fa-fw fa-phone-square"></i> Secondary Phones </b> 
 								                   <p data-field="secondaryPhones" data-fieldholder="html_hashset"  data-fieldtype="hashset"   >  </p>
 								               	</li>
 												<li>
-								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> List of Citizen/Passport ID (Government Issued IDs) </b> 
+								                   <b data-persona="key" > <i class="fa fa-fw fa-id-card-o"></i> List of Citizen/Passport ID (Government Issued IDs) </b> 
 								                   <p data-field="governmentIssuedIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" > </p>
 								               	</li>
 								               	<li>
-								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> List of Application ID </b> 
+								                   <b data-persona="key" > <i class="fa fa-fw fa-id-card-o"></i> List of Application ID </b> 
 								                   <p data-field="applicationIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" > </p>
 								               	</li>
 								               	<li>
@@ -750,7 +848,7 @@
 				                                   <p data-field="socialMediaProfiles" data-fieldholder="html_hashmap"  data-fieldtype="hashmap" id="socialMediaProfiles" >  </p>
 				                                </li>
 				                                <li>
-								                   <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Business Contacts </b> 
+								                   <b data-persona="key" > <i class="fa fa-fw fa-id-card-o"></i> Business Contacts </b> 
 								                   <p data-field="businessContacts" data-fieldholder="html_hashmap" data-fieldtype="hashmap" id="businessContacts" > </p>
 								               	</li>
 								               	
@@ -977,105 +1075,6 @@
                
 			</div>
 			
-			<!-- tab 4 Insights and Predictive Reports  -->
-       		<div class="tab-pane" id="panel_insights" >
-       			<!-- tab 3 content  -->
-       			<div class="row" >
-		            <h4 class="text-center" >Profile Data Insights</h4>
-		            <!-- tabs left -->
-		            <div class="tabbable">
-		                <ul class="nav nav-pills nav-stacked col-md-3 text-center">
-		                    <li class="active" ><a href="#moment_of_truths" data-toggle="tab">1. Moments of Truth</a></li>
-		                    <li><a href="#impacting_keywords" data-toggle="tab">2. Impacting Keywords</a></li>
-		                    <li><a href="#data_touchpoint_flow" data-toggle="tab">3. Data Touchpoints</a></li>
-		                    <li><a href="#attribution_heatmap" data-toggle="tab">4. Attribution Heatmap</a></li>
-		                    <li><a href="#personality_traits" data-toggle="tab">5. Personality Traits</a></li>
-		                </ul>
-		                <div class="tab-content col-md-9">
-		                    <div class="tab-pane active" id="moment_of_truths" >
-		                    	Event Chart in Moments of Truth
-		                    </div>
-		                    <div class="tab-pane" id="impacting_keywords" >
-		                    	Impacting Keywords
-		                    </div>
-		                    <div class="tab-pane" id="data_touchpoint_flow" >
-		                    	Data Touchpoint Flow
-		                    	
-					            <div class="line" ></div>
-		                    </div>
-		                    <div class="tab-pane" id="attribution_heatmap" >
-		                    	Attribution Heatmap
-		                    	<h4 style="text-align:center;width: 100%;">Customer Attribution Matrix of Profile and Persona </h4>
-	
-					            <div id="attribution_description"></div> <br>
-								
-								<div class="row" >
-									<div class="col-md-3 "></div>
-									<div class="col-md-3 ">
-						            	<div class="user_profile_attrs"> &nbsp; &nbsp; &nbsp; &nbsp; </div> &nbsp; are attributes of Customer Profile 
-						            </div>
-						            <div class="col-md-3 ">
-						            	<div class="persona_profile_attrs"> &nbsp; &nbsp; &nbsp; &nbsp; </div> &nbsp; are attributes of Customer Persona 
-									</div>
-									<div class="col-md-3 "></div>
-								</div>
-				            	<div id="profile_attribution" class="col-md-12 bar-module" style="text-align: center;"></div>
-		                    </div>
-		                    <div class="tab-pane" id="personality_traits" >
-		                    	Personality Traits
-		                    	<div class="col-md-12 ">
-					                <div>
-					                    <h4>Predictive Personality Traits(OCEAN Model) </h4>
-					                </div>
-					                <div class="pairs">
-					                    <div id="chart_persornality">
-					                    </div>
-					                </div>
-					            </div>
-		                    </div>
-		                </div>
-		            </div>
-			    </div>
-			</div>
-			
-			<!-- tab 5 recommended contents -->
-			<div class="tab-pane" id="panel_content_suggestions"  >
-				<!-- tab 4 content  -->
-		     	<h4 class="highlight_text" > <i class="fa fa-list-ol" aria-hidden="true"></i> Top recommended contents </h4>
-		     	<h5> <i class="fa fa-info" aria-hidden="true"></i> You can drag and drop the items below to customize content ranking </h5>
-		     	<div id="recommended_content_list" class="list-group col">
-					<div class="list-group-item" > No data available </div>
-				</div>
-			</div>
-			
-			<!-- tab 6 recommended products -->
-			<div class="tab-pane" id="panel_recommended_products"  >
-				<!-- tab 6 content  -->
-		     	<h4 class="highlight_text" > <i class="fa fa-list-ol" aria-hidden="true"></i> Top recommended products </h4>
-		     	<h5> <i class="fa fa-info" aria-hidden="true"></i> You can drag and drop the items below to customize product ranking </h5>
-		     	<div id="recommended_product_list" class="list-group col">
-					<div class="list-group-item" > No data available </div>
-				</div>
-			</div>
-			
-			<!-- tab 7 financial event -->
-			<div class="tab-pane" id="panel_financial_information"  >
-				<!-- tab 8 content  -->
-		     	<h4 class="highlight_text" > <i class="fa fa-list-ul" aria-hidden="true"></i> Financial Data Event </h4>
-		     	<div id="financial_event_list" class="list-group col">
-		     		<div class="list-group-item" > No data available </div>
-				</div>
-			</div>
-			
-			<!-- tab 8: purchased items  -->
-			<div class="tab-pane" id="panel_purchased_products"  >
-		     	<h4 class="highlight_text" > <i class="fa fa-shopping-cart" aria-hidden="true"></i> Top 100 recently purchased products </h4>
-		     	<div id="purchased_items_list" class="list-group col">
-		     		<div class="list-group-item" > No data available </div>
-				</div>
-				<div  id="purchased_items_pagination" ></div>
-			</div>	
-
 			<!-- /tabs -->
 	   </div>
       
