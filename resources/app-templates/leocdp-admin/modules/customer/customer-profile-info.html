@@ -8,10 +8,10 @@
      	<button type="button" class="btn btn-info" title="Go back" onclick="history.back()" > 
 			<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back 
 		</button>
-		<button type="button" class="btn btn-do-now" onclick="location.reload(true)" title="Refresh data"  > 
+		<button type="button" class="btn btn-do-now" onclick="refreshCurrentProfile()" title="Refresh data"  > 
        		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
        	</button>
-		<button id="btn_profile_deduplicate" type="button" class="btn btn-primary data-control-edit" title="Use this as primary profile for data deduplication"  > 
+		<button id="btn_profile_deduplicate" type="button" class="btn btn-primary data-control-edit" title="Do data deduplication for this profile"  > 
 			<i class="fa fa-compress" aria-hidden="true"></i> Deduplicate 
 		</button>
      	<button type="button" class="btn btn-danger data-control-delete" onclick="removeCurrentProfile()" title="Remove this profile" > 
