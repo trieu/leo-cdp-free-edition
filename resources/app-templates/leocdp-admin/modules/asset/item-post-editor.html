@@ -281,7 +281,7 @@
                                 }                               
                             }     
                             else if(k === "headlineImageUrl") {
-                            	var imgUrl = (value.indexOf('/public/') === 0) ? baseStaticUrl + value.replace('/public/','/') : value;
+                            	var imgUrl = (value.indexOf('/public/') === 0) ? (baseUploadedFilesDomain + value) : value;
                             	setupImageInputForContent('#headlineImageUrl', imgUrl)
                             }
                             else {
