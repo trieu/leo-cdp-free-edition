@@ -222,24 +222,25 @@
 		            <div class="tabbable">
 		            
 		            	<!-- vertical tab panel -->
-		                <ul id="event_flow_tabs" class="nav nav-pills nav-stacked col-md-2">
-		                	<li class="active" ><a href="#panel_event_journey_report" data-toggle="tab"> <i class="fa fa-map-o"></i> Data Journey Map </a></li>
-		                	<li><a href="#panel_events_in_time" data-toggle="tab" > <i class="fa fa-line-chart" aria-hidden="true"></i> Event Time Series</a></li>
-		                	<li><a href="#panel_events_in_stream" data-toggle="tab" onclick="initProfileEventInStream()" > <i class="fa fa-list-ol" aria-hidden="true"></i> Event Data Stream</a></li>
+		                <ul id="event_flow_tabs" class="nav nav-pills nav-stacked col-md-2">		                	
+		                	<li class="active"><a href="#panel_events_in_time" data-toggle="tab" > <i class="fa fa-line-chart" aria-hidden="true"></i> Event Time Series</a></li>
+		                	<li><a href="#panel_events_in_stream" data-toggle="tab" onclick="initProfileEventInStream()" > <i class="fa fa-list-ol" aria-hidden="true"></i> Event Data Stream </a></li>
+		                	<li><a href="#panel_event_journey_report" data-toggle="tab" onclick="loadProfileDataJourneyReport()" > <i class="fa fa-map-o"></i> Data Journey Report </a></li>
 		                	<li><a href="#panel_referral_channels" data-toggle="tab"  > <i class="fa fa-globe" aria-hidden="true"></i> Referral Channels </a></li>
 		                	<li><a href="#panel_last_session_details" data-toggle="tab"> <i class="fa fa-hourglass-end" aria-hidden="true"></i> Last Session Data </a></li>
-		                	<li><a href="#panel_data_touchpoints" data-toggle="tab" onclick="loadProfileTopTouchpoints()"> <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Top Touchpoints </a></li>
+		                	<li><a href="#panel_data_touchpoints" data-toggle="tab" onclick="loadProfileTopTouchpoints()" > <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Top Touchpoints </a></li>
 		                	<li><a href="#panel_profile_scoring_data" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Advanced Scores</a></li>
 		                    <li><a href="#panel_user_consent" data-toggle="tab"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Privacy Consent </a></li>
 		                </ul>
 		                
 		                <div id="event_flow_vertital_tabs" class="tab-content col-md-10" >
 		                	
-		                    <!-- vertical tab: Event Data Report  -->
-		                    <div class="tab-pane active" id="panel_event_journey_report" >
-		                    	
-		                    	<div style="padding-bottom: 10px" class="col-lg-12">
-				        			<h4 class="highlight_text" > <i class="fa fa-map-o" aria-hidden="true"></i> Report for Journey Map: <span id="profileJourneyName"></span> </h4> 
+		                     <!-- vertical tab: Time Series Report -->
+		                    <div class="tab-pane active" id="panel_events_in_time" >
+								<div style="padding-bottom: 10px" class="col-lg-12">
+				        			<h4 class="highlight_text" > <i class="fa fa-map-o" aria-hidden="true"></i> Report for Journey Map: 
+				        				<span class="profileJourneyName"></span> 
+				        			</h4> 
 				        			<div class='col-lg-6 col-xs-12' style="font-weight: bold;">
 				        				<select id="journeyMapList" data-placeholder="Choose an Journey Map" class="select" > </select>
 				        			</div>
@@ -247,83 +248,7 @@
 				        			 	<label>Sentiment Score </label>  <span id="profileJourneySentimentScore" class="data_field" >0</span>
 				        			</div>
 				        		</div>
-				        		
-				        		<div class="col-ld-12" > 
-				        			<div class="funnel-flow" id="profile_funnel_report" >
-				               			<div class="funnel-stage" id="profile_funnel_stage_1" >
-				               				New Visitor
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_2" >
-				               				Returning Visitor
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_3" >
-				               				Lead
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_4" >
-				               				Prospect
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_5" >
-				               				New Customer
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_6" >
-				               				Engaged Customer
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_7" >
-				               				Happy Customer
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_8" >
-				               				Customer Advocate
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_9" >
-				               				Unhappy Customer
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_10" >
-				               				Terminated Customer
-				               			</div>
-				               		</div>
-				               		<div class="progress" style="text-transform: uppercase; font-weight: bold; width: 100%!important;" >
-									  	<div id="profileJourneyFunnel" class="progress-bar progress-bar-striped active" role="progressbar"
-									  				aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%" >
-									    	<span id="profileJourneyFunnelValue" >0</span> % journey
-									  	</div>
-								   	</div>
-							   	</div>
-							   	
-							   	<div class="vcenter highlight_box col-md-12" style="padding: 20px 20px 40px 20px;">
-		                    		<h4 id="event_journey_funnel_info" ></h4>		                    		
-	                  				<div id="event_journey_funnel" class="funnel" ></div>
-	               				</div>
 								
-								<!-- Event Matrix Report  -->
-								<div class="col-md-12"  >
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Matrix Report </h4> 
-									<div id="profile_event_matrix" class="col-lg-12"> </div>
-								</div>
-	               				
-	               				<!--  Data Journey Map -->
-	               				<div class="vcenter highlight_box col-md-12" style="padding: 20px; margin-top: 20px; display: none;">
-	               					<h3 style="text-align: center; color: #0000CD;"> Data Journey Map </h3>
-	               					<div id="journeyFlowChart" class="experience_journey_flow" style="height:420px;display: none;"></div>
-	               				</div>
-								
-								<!-- Data Journey Graph  -->
-								<div class="col-md-12" >
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Data Journey Graph </h4> 
-									<div id="profileTouchpointFlow" style="height: 650px; width: 100%; background-color: #e8e8e8; border-radius: 10px;">
-										<div class="loader"></div>
-									</div>
-								</div>				
-	               				
-	               				<div class="col-md-12" style="display: none;">
-					                <div id="venn_two" style=float:left>
-					                    <h4 style="text-align: center">Media Touchpoints</h4>
-					                </div>
-					            </div>
-	               				
-		                    </div>  
-		                    
-		                     <!-- vertical tab: Time Series Report -->
-		                    <div class="tab-pane" id="panel_events_in_time" >
 		                    	<!-- Event Summary Report -->
 	               				<div class="col-lg-12">
 									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Summary Report </h4> 
@@ -404,6 +329,84 @@
 						     		</button>
 								</div>
 		                    </div>
+		                    
+		                    <!-- vertical tab: Event Data Report  -->
+		                    <div class="tab-pane" id="panel_event_journey_report" >
+		                    	<h4 class="highlight_text" > <i class="fa fa-map-o" aria-hidden="true"></i> Report for Journey Map: 
+			        				<span class="profileJourneyName"></span> 
+			        			</h4> 
+				        		<div class="col-ld-12" > 
+				        			<div class="funnel-flow" id="profile_funnel_report" >
+				               			<div class="funnel-stage" id="profile_funnel_stage_1" >
+				               				New Visitor
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_2" >
+				               				Returning Visitor
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_3" >
+				               				Lead
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_4" >
+				               				Prospect
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_5" >
+				               				New Customer
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_6" >
+				               				Engaged Customer
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_7" >
+				               				Happy Customer
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_8" >
+				               				Customer Advocate
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_9" >
+				               				Unhappy Customer
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_10" >
+				               				Terminated Customer
+				               			</div>
+				               		</div>
+				               		<div class="progress" style="text-transform: uppercase; font-weight: bold; width: 100%!important;" >
+									  	<div id="profileJourneyFunnel" class="progress-bar progress-bar-striped active" role="progressbar"
+									  				aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%" >
+									    	<span id="profileJourneyFunnelValue" >0</span> % journey
+									  	</div>
+								   	</div>
+							   	</div>
+							   	
+							   	<div class="vcenter highlight_box col-md-12" style="padding: 20px 20px 40px 20px;">
+		                    		<h4 id="event_journey_funnel_info" ></h4>		                    		
+	                  				<div id="event_journey_funnel" class="funnel" ></div>
+	               				</div>
+								
+								<!-- Event Matrix Report  -->
+								<div class="col-md-12"  >
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Matrix Report </h4> 
+									<div id="profile_event_matrix" class="col-lg-12"> </div>
+								</div>
+	               				
+	               				<!--  Data Journey Map -->
+	               				<div class="vcenter highlight_box col-md-12" style="padding: 20px; margin-top: 20px; display: none;">
+	               					<h3 style="text-align: center; color: #0000CD;"> Data Journey Map </h3>
+	               					<div id="journeyFlowChart" class="experience_journey_flow" style="height:420px;display: none;"></div>
+	               				</div>
+								
+								<!-- Data Journey Graph  -->
+								<div class="col-md-12" >
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Data Journey Graph </h4> 
+									<div id="profileTouchpointFlow" style="height: 650px; width: 100%; background-color: #e8e8e8; border-radius: 10px;">
+										<div class="loader"></div>
+									</div>
+								</div>				
+	               				
+	               				<div class="col-md-12" style="display: none;">
+					                <div id="venn_two" style=float:left>
+					                    <h4 style="text-align: center">Media Touchpoints</h4>
+					                </div>
+					            </div>
+		                    </div>  
 		                    
 		                    <!-- vertical tab: Referrer Channels  -->
 		                    <div class="tab-pane" id="panel_referral_channels" >
@@ -1106,8 +1109,7 @@
         	 $('#profile_key_info_loader').hide();
         	 
         	 //console.log(LeoCdpAdmin.routerContext.dataObject);
-			 var daysToQueryEventData = 30; // 30 days
-			 
+			
         	 var profileData = LeoCdpAdmin.routerContext.dataObject;
         	 if(profileData.primaryAvatar != ''){
         		 $('#profile_avatar').attr('src', profileData.primaryAvatar);
@@ -1128,13 +1130,14 @@
         	 loadEventsInProfileIndex = 0;
         	 
         	 // Profile Analytics Report
-        	 loadJourneyReportForProfile(profileId, profileData);
+        	 loadJourneyReportForProfile(profileData);
         	 
+        	 // timeseries 
+        	 var daysToQueryEventData = 30; // days
+        	 initDateFilterComponent(true, null, null, daysToQueryEventData);
+             loadProfileEventDailyReportUnit(profileId);
         	 
         	 setTimeout(function(){
-        		 initDateFilterComponent(true, null, null, daysToQueryEventData);
-            	 loadProfileEventDailyReportUnit(profileId);
-            	 
         		 // feedback data from customer
             	 loadFeedbacksInProfileIndex = 0;
             	 loadFeedbackEventsInProfile();
