@@ -1241,7 +1241,7 @@ AQL_GET_TRACKING_EVENTS_BY_PAGINATION =>
 
 AQL_GET_TRACKING_EVENTS_BY_PROFILE_ID =>
 	FOR e in cdp_trackingevent 
-	FILTER e.refProfileId == @refProfileId  
+	FILTER e.refProfileId == @refProfileId AND (e.refJourneyId == @refJourneyId OR @refJourneyId == "")
 	SORT e.timestamp DESC
 	LIMIT @startIndex,@numberResult 
 	RETURN e
@@ -1249,7 +1249,8 @@ AQL_GET_TRACKING_EVENTS_BY_PROFILE_ID =>
 
 AQL_SEARCH_TRACKING_EVENTS_BY_PROFILE_ID_AND_KEYWORDS =>
 	FOR e in cdp_trackingevent 
-	FILTER e.refProfileId == @refProfileId AND LOWER(e.srcTouchpointName) LIKE @searchValue
+	FILTER e.refProfileId == @refProfileId AND (e.refJourneyId == @refJourneyId OR @refJourneyId == "") 
+			AND LOWER(e.srcTouchpointName) LIKE @searchValue
 	SORT e.timestamp DESC
 	LIMIT @startIndex,@numberResult 
 	RETURN e

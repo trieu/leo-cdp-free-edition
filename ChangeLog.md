@@ -58,6 +58,7 @@
 
 ### Fixed
 
+- load event data of profile, with selected journey ID
 - all event data with SCORING_PROSPECT_METRIC must update prospect score in profile
 - fix when search profile by keywords
 - fix and improve UI UX of LEO Chatbot to answer question, create content and presentation

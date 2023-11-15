@@ -278,7 +278,7 @@
 								            </div>
 								        </div>
 								        <div class='col-lg-2 col-xs-12 text-center'>
-								        	<button type="button" class="btn btn-do-now" style="width: 100%" onclick="loadProfileEventDailyReportUnit(viewProfileId,true)" > 
+								        	<button type="button" class="btn btn-do-now" style="width: 100%" onclick="loadProfileEventDailyReportUnit()" > 
 								        		<i class="fa fa-check" aria-hidden="true"></i> OK </button>
 								        </div>
 								    </div>
@@ -1132,10 +1132,9 @@
         	 // Profile Analytics Report
         	 loadJourneyReportForProfile(profileData);
         	 
-        	 // timeseries 
+        	 // init date time selector 
         	 var daysToQueryEventData = 30; // days
         	 initDateFilterComponent(true, null, null, daysToQueryEventData);
-             loadProfileEventDailyReportUnit(profileId);
         	 
         	 setTimeout(function(){
         		 // feedback data from customer
