@@ -13,7 +13,6 @@ LEO CDP (Customer Data Platform) is a software platform that allows businesses t
 3. <b> Personalization and targeting </b>: With LEO CDP, businesses can use customer data to personalize and target their marketing efforts, such as by sending targeted email campaigns or displaying personalized website content.
 4. <b> Analytics and reporting </b>: LEO CDP provides real-time analytics and reporting capabilities, allowing businesses to measure the effectiveness of their marketing efforts and gain insights into customer behavior.
 5. <b> Integration with other systems </b>: LEO CDP can integrate with other systems such as CRM, marketing automation, email marketing service and advertising platforms to create a seamless and holistic view of customer data across the organization.
-6. <b> Integration with AI CHATBOT </b>: LEO Chatbot can assist in collecting valuable customer data through natural language conversations. By analyzing these interactions, businesses can gather insights into customer preferences, behaviors, and needs, contributing to a more comprehensive customer profile within the CDP.
 
 # LEO CDP Data Flow
 
@@ -32,7 +31,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # System Demo
 
-* URL to login: https://vnuk.leocdp.net
+* Login URL: https://vnuk.leocdp.net
 * Username: demo
 * Password: 123456 
 
@@ -59,7 +58,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 2. Redis 6
 3. Amazon Java 11 Corretto
 4. Python 3.10
-5. ArangoDB 3.11 (Community Edition / Enterprise Edition / Cloud Oasis)
+5. ArangoDB 3.10 (Community Edition / Enterprise Edition / Cloud Oasis)
 6. Jupyter Notebook / Google Colab for advanced data analytics and machine learning services
 7. Apache Airflow for ETL job scheduling and data connector
 8. Prometheus 2 for System Monitoring
@@ -120,7 +119,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 # For Vietnamese user
 
 * Miễn phí sử dụng, chỉ cần tôn trọng bản quyền tác giả là được
-* Số profile miễn phí là 5000 contact profiles (Contact profile là profile có email hay số phone)
+* Số profile miễn phí là 1000 user profiles
 * Nếu bạn đang làm việc trong lĩnh vực giáo dục hoặc tổ chức phi lợi nhuận, gửi cho tôi email để có miễn phí cho 10000 profiles
 
 ## Bằng chứng về bản quyền mô hình framework USPA và phát minh LEO CDP 
