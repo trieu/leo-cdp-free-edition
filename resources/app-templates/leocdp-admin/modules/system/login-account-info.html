@@ -60,6 +60,12 @@
 	                    <input type="text" class="form-control" placeholder="Enter new password to update" name="userPass" autocorrect="off"
 	                        autocapitalize="off" autocomplete="nope">
 	                </div>
+	                <div class="form-group">
+	                    <label> Profile Visitor ID (<a id="systemUser_profileViewByVisitorId" href="javascript:" style="display: none;">View My Profile in CDP</a>) </label>
+	                    <input type="text" class="form-control" placeholder="Enter Profile Visitor ID" name="profileVisitorId"
+	                        autocorrect="off" autocapitalize="off" autocomplete="off"  >
+	                        
+	                </div>
 	                <hr>
 	                 <div class="form-group" >
 	                    <label> Business Unit </label>
@@ -100,6 +106,7 @@
 	                    <input type="text" class="form-control" placeholder="Job Title / Job Position" name="customData_position"
 	                        autocorrect="off" autocapitalize="off" autocomplete="off">
 	                </div>
+	                
 	                
 				</div>
 				
@@ -151,6 +158,16 @@
 
     function initMyLoginInfo() {
     	 setupTabPanels();
+    	 
+    	 LeoObserverProxy.synchLeoVisitorId(function (vid) {
+   	  		if(window.currentUserProfile){
+   	  			window.currentUserProfile.profileVisitorId = vid;
+   	  			$('input[name="profileVisitorId"]').val(vid);
+   	  			var url = "#calljs-leoCdpRouter('Customer_Profile_Info_By_Visitor_ID','"+vid+"')";
+	  			$('#systemUser_profileViewByVisitorId').attr('href',url).show();
+   	  		}
+   	  	 });
+    	
     	
     	 var key = currentUserProfile.key;
          var urlStr = baseLeoAdminUrl + '/user/get';
@@ -177,7 +194,7 @@
                      
                      node.find('input[name="displayName"]').val(userLoginModel.displayName);
                      node.find('input[name="userEmail"]').val(userLoginModel.userEmail);
-
+                                          
                      //customData
                      var position = userLoginModel.customData.position ? userLoginModel.customData.position : '';
                      node.find('input[name="customData_position"]').val(position);
@@ -202,7 +219,6 @@
                  }
              }
          });
-
     }
 
     
@@ -210,6 +226,7 @@
         var node = $('#user_form');
         
         userLoginModel.displayName = node.find('input[name="displayName"]').val();
+        userLoginModel.profileVisitorId = node.find('input[name="profileVisitorId"]').val();
         userLoginModel.userEmail = node.find('input[name="userEmail"]').val();
         userLoginModel.userPass = node.find('input[name="userPass"]').val();
                 

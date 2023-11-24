@@ -47,10 +47,15 @@
 	                <div class="form-group">
 	                    <label> User Login</label>:
 	                    <span id="systemUser_userLogin" class="highlight_text"></span>
-	                </div>
+	                </div>	                
 	                <div class="form-group">
 	                    <label> Contact Email </label>:
 	                    <span id="systemUser_userEmail" class="highlight_text"></span>
+	                </div>
+	                <div class="form-group">
+	                    <label> Profile Visitor ID </label>:
+	                    <span id="systemUser_profileVisitorId" class="highlight_text"></span>
+	                    (<a id="systemUser_profileViewByVisitorId" href="javascript:" style="display: none;">View My Profile in CDP</a>)
 	                </div>
 	                
 	                <hr>
@@ -149,6 +154,15 @@
 
     function initUserLoginReport(userLogin) {
     	 setupTabPanels();
+    	 
+    	 LeoObserverProxy.synchLeoVisitorId(function (vid) {
+ 	  		if(window.currentUserProfile){
+ 	  			window.currentUserProfile.profileVisitorId = vid;
+ 	  			$('#systemUser_profileVisitorId').text(vid); 	  			
+ 	  			var url = "#calljs-leoCdpRouter('Customer_Profile_Info_By_Visitor_ID','"+vid+"')";
+ 	  			$('#systemUser_profileViewByVisitorId').attr('href',url).show();
+ 	  		}
+ 	  	 });
     	
          var urlStr = baseLeoAdminUrl + '/user/get-by-username';
          LeoAdminApiUtil.callPostAdminApi(urlStr, { 'userLogin': userLogin }, function (json) {
@@ -162,7 +176,7 @@
                      $('#systemUser_displayName').text(userLoginModel.displayName);
                      $('#systemUser_userLogin').text(userLoginModel.userLogin);
                      $('#systemUser_userEmail').text(userLoginModel.userEmail);
-                     $('#systemUser_businessUnit').text(userLoginModel.businessUnit);
+                     $('#systemUser_businessUnit').text(userLoginModel.businessUnit);                     
                      
                   	 // inGroups
                   	 var inGroupsNode = $('#systemUser_inGroups');                     

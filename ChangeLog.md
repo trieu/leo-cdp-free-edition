@@ -30,10 +30,12 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-11-15
+## [0.9.0] - 2023-11-25
 
 ### Added
 
+- [Profile] can view profile details using Visitor ID
+- [LEO ChatBot] using Visitor ID in profile as chatbot session
 - [LEO ChatBot] using Google PaLM 2 as default AI model
 - [Profile] can filter tracking events by touchpoint's name, using ArangoDB query
 - [Profile2Product] add discount and discountCode for dynamic pricing model 

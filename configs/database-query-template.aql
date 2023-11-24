@@ -951,10 +951,18 @@ AQL_GET_PROFILE_BY_ID_FOR_ADMIN =>
 	RETURN p
 ;
 
-AQL_GET_PROFILE_BY_CRM_ID =>
+AQL_GET_PROFILE_BY_CRM_ID_FOR_ADMIN =>
 	LET crmId = TO_STRING(@crmRefId)
 	FOR p in cdp_profile 
 	FILTER crmId != "" AND p.crmRefId == crmId AND p.status == 1 AND (@loginUsername IN p.authorizedViewers[*] OR @hasAdminRole == TRUE)
+	LIMIT 1
+	RETURN p
+;
+
+AQL_GET_PROFILE_BY_VISITOR_ID_FOR_ADMIN =>
+	LET visitorId = TO_STRING(@visitorId)
+	FOR p in cdp_profile 
+	FILTER visitorId != "" AND p.visitorId == visitorId AND p.status == 1 AND (@loginUsername IN p.authorizedViewers[*] OR @hasAdminRole == TRUE)
 	LIMIT 1
 	RETURN p
 ;

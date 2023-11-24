@@ -1090,21 +1090,21 @@
     var currentJourneyMapId = "";
     var viewProfileId = '';
     
-    function initProfile360Analytics(profileId, crmRefId) {
+    function initProfile360Analytics(profileId, crmRefId, visitorId) {
     	viewProfileId = profileId;
     	//setup tab navigation 
 		setupTabPanels();
-		loadProfile360Analytics(profileId, crmRefId);
+		loadProfile360Analytics(profileId, crmRefId, visitorId);
     }
     
     function editCurrentProfile(){
     	gotoLeoCdpRouter('Customer_Profile_Editor', viewProfileId );
     }
     
-    function loadProfile360Analytics(profileId, crmRefId) {
-         console.log('loadProfile360Analytics profileId:' + profileId + " crmRefId:" + crmRefId);
+    function loadProfile360Analytics(profileId, crmRefId, visitorId) {
+         console.log('loadProfile360Analytics profileId:' + profileId + " crmRefId:" + crmRefId  + " visitorId:" + visitorId);
          
-         loadProfileDataIntoDOM(false, profileId, crmRefId, profileInfoLoadProcessor, function(){
+         loadProfileDataIntoDOM(false, profileId, crmRefId, visitorId, profileInfoLoadProcessor, function(){
         	 $('#profile_key_info').show();
         	 $('#profile_key_info_loader').hide();
         	 

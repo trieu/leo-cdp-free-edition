@@ -169,9 +169,6 @@
 
 <script>
 	
-	// global data for admin app
-	window.currentUserProfile = {'displayName':''};
-	
 	function loadUserInfoWidget() {
 	    var urlStr = baseLeoAdminUrl + '/user/get';
 	    LeoAdminApiUtil.callPostAdminApi(urlStr, {}, function (json) {
@@ -199,10 +196,11 @@
 	                var tt = 'Click to view the login information of ' + systemUser.displayName;
 	                $('#userDisplayName').text(dn).attr('title', tt);
 	                window.currentUserProfile = systemUser;
-	            }
-	            
-	         	// after login, check Leo Bot to support user
-		        checkLeoBotIsServerReady();
+	                
+	             	// after login, check Leo Bot to support user
+			        checkLeoBotIsServerReady(systemUser.profileVisitorId);
+	            }            
+	         	
 	        }
 	    });
 	}

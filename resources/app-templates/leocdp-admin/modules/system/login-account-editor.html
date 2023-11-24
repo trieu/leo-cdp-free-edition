@@ -91,6 +91,11 @@ div.panel_header {
 	                    <input type="text" class="form-control" placeholder="Enter New Password To Update" name="userPass" autocorrect="off"
 	                        autocapitalize="off" autocomplete="nope"  >
 	                </div>
+	                <div class="form-group">
+	                    <label> Profile Visitor ID (<a id="systemUser_profileViewByVisitorId" href="javascript:" style="display: none;">View My Profile in CDP</a>)   </label>
+	                    <input type="text" class="form-control" placeholder="Enter Profile Visitor ID" name="profileVisitorId"
+	                        autocorrect="off" autocapitalize="off" autocomplete="off"  >	                      
+	                </div>
 	                
 	                <hr>
 	                <div class="form-group">
@@ -143,7 +148,7 @@ div.panel_header {
 	                    <label> Job Title / Job Position </label>
 	                    <input type="text" class="form-control" placeholder="Enter Position" name="customData_position"
 	                        autocorrect="off" autocapitalize="off" autocomplete="off">
-	                </div>
+	                </div>	                
 	                
 				</div>
 				
@@ -408,7 +413,17 @@ div.panel_header {
     
     var initUserLoginEditor = function(key) {
     	 var isUpdateData = key !== 'newuser';
-    	 setupTabPanels(isUpdateData);
+    	 setupTabPanels(isUpdateData);    	 
+    	 
+    	 LeoObserverProxy.synchLeoVisitorId(function (vid) {
+	  		if(window.currentUserProfile){
+	  			window.currentUserProfile.profileVisitorId = vid;
+	  			$('input[name="profileVisitorId"]').val(vid);
+	  			var url = "#calljs-leoCdpRouter('Customer_Profile_Info_By_Visitor_ID','"+vid+"')";
+	  			$('#systemUser_profileViewByVisitorId').attr('href',url).show();
+	  		}
+	  	 });
+    	 
     	 loadUserProfile(isUpdateData, key);
     }
     
@@ -435,7 +450,7 @@ div.panel_header {
                      }
                      node.find('input[name="displayName"]').val(userLoginModel.displayName);
                      node.find('input[name="userEmail"]').val(userLoginModel.userEmail);
-
+                   
                      //customData
                      var position = userLoginModel.customData.position ? userLoginModel.customData.position : '';
                      node.find('input[name="customData_position"]').val(position);
@@ -452,8 +467,7 @@ div.panel_header {
                      node.find('select[name="inGroups"]').chosen({
                          width: "100%",
                          no_results_text: "No data available!"
-                     }).trigger("chosen:updated");
-                     
+                     }).trigger("chosen:updated");                     
 
                      //can not delete superadmin
                      if(userLoginModel.userLogin === 'superadmin'){
@@ -487,6 +501,7 @@ div.panel_header {
         var node = $('#user_login_editor_form');
         userLoginModel.displayName = node.find('input[name="displayName"]').val();
         userLoginModel.userLogin = node.find('input[name="userLogin"]').val();
+        userLoginModel.profileVisitorId = node.find('input[name="profileVisitorId"]').val();
         userLoginModel.userEmail = node.find('input[name="userEmail"]').val();
         userLoginModel.userPass = node.find('input[name="userPass"]').val();
         userLoginModel.status = parseInt(node.find('input[name="status"]:checked').val());

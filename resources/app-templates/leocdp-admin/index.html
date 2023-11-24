@@ -3,24 +3,6 @@
 <head>
 	<base href="//{{dnsDomainLeoAdmin}}/">
 	
-	<meta charset="UTF-8">
-	<meta name="author" content="Trieu Nguyen(Thomas) at LEOCDP.com">
-	<meta name="referrer" content="no-referrer" />
-	<meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=4, user-scalable=1" name="viewport"/>
-	<meta http-equiv="X-UA-Compatible" content="IE=100"/>
-	
-	<title> {{pageTitle}} </title>
-	<meta name="description" content="LEO CDP Admin"/>
-	<meta name="robots" content="noindex">
-	<meta name="msapplication-TileColor" content="#da532c">
-	<meta name="theme-color" content="#ffffff">	
-
-	<link rel="apple-touch-icon" sizes="180x180" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/apple-touch-icon.png">
-	<link rel="icon" type="image/x-icon" sizes="32x32" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/favicon-16x16.png">
-	<link rel="mask-icon" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/safari-pinned-tab.svg" color="#5bbad5">
-	
 	<!-- LeoCDP Admin Common Data, injected by WebData model -->
 	<script>
 		var baseStaticDomain = '{{baseStaticUrl}}';
@@ -52,7 +34,25 @@
 		var minifySuffix = '{{minifySuffix}}';
 		var maxTotalDataQualityScore = parseInt('{{maxTotalDataQualityScore}}');
 	</script>
+	
+	<meta charset="UTF-8">
+	<meta name="author" content="Trieu Nguyen(Thomas) at LEOCDP.com">
+	<meta name="referrer" content="no-referrer" />
+	<meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=4, user-scalable=1" name="viewport"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=100"/>
+	
+	<title> {{pageTitle}} </title>
+	<meta name="description" content="LEO CDP Admin"/>
+	<meta name="robots" content="noindex">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">	
 
+	<link rel="apple-touch-icon" sizes="180x180" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/apple-touch-icon.png">
+	<link rel="icon" type="image/x-icon" sizes="32x32" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/favicon-16x16.png">
+	<link rel="mask-icon" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/safari-pinned-tab.svg" color="#5bbad5">
+	
 	<!-- Bootstrap Core CSS -->
 	<link href="https://{{baseStaticUrl}}/css/bootstrap.min.css?_={{cacheBustingKey}}" rel="stylesheet">
 	
@@ -321,7 +321,7 @@
 	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.chatbot.js?admin=1&_={{cacheBustingKey}}" async="true"></script>
 	
 	<!-- after deps are loaded -->
-	<script>
+	<script type="text/javascript" >
 		// video player
 		window.mediaPlayerOneReady = function () {
 			// ready to play content
@@ -344,8 +344,39 @@
 				var url = uri + "?admin=1&_={{cacheBustingKey}}";
 		        loadModalboxHtml(url);
 		    });
+			
+			loadLeoSystemMainView();
 		});
 	</script>
 	
+	<!-- leo observer for admin -->
+	<script type="text/javascript" >
+		// global data for admin app
+		window.currentUserProfile = {'displayName':''};
+		
+		// self-tracking for all admin users
+		var leoObserverId = "leo_data_observer";
+	    var leoObserverLogDomain = baseLeoObserverDomain;
+	    var leoObserverCdnDomain = baseStaticDomain;
+	
+		// Data Touchpoint Metadata
+		window.srcTouchpointName = encodeURIComponent(document.title);
+	  	window.srcTouchpointUrl = encodeURIComponent(location.href);
+
+	  	// the main proxy LEO JS
+	  	var leoproxyJsPath = "/js/leo-observer/leo.proxy.min.js";
+	  	var src = location.protocol + "//" + window.leoObserverCdnDomain + leoproxyJsPath;
+	  	var jsNode = document.createElement("script");
+	  	jsNode.async = true;	  	
+	  	jsNode.src = src;
+	  	var s = document.getElementsByTagName("script")[0];
+	  	s.parentNode.insertBefore(jsNode, s);
+	  	
+	  	function leoObserverProxyReady(session) {
+	  		// 
+	  		// LeoObserverProxy.recordViewEvent("admin-view");
+	  	}
+	</script>
+		
 </body>
 </html>
