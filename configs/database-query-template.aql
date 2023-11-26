@@ -947,7 +947,7 @@ AQL_GET_PROFILE_BY_ID_FOR_SYSTEM =>
 
 AQL_GET_PROFILE_BY_ID_FOR_ADMIN =>
 	FOR p in cdp_profile 
-	FILTER p._key == @id AND @loginUsername IN p.authorizedViewers[*]
+	FILTER p._key == @id AND (@loginUsername IN p.authorizedViewers[*] OR p.visitorId == @profileVisitorId)
 	RETURN p
 ;
 
@@ -962,7 +962,8 @@ AQL_GET_PROFILE_BY_CRM_ID_FOR_ADMIN =>
 AQL_GET_PROFILE_BY_VISITOR_ID_FOR_ADMIN =>
 	LET visitorId = TO_STRING(@visitorId)
 	FOR p in cdp_profile 
-	FILTER visitorId != "" AND p.visitorId == visitorId AND p.status == 1 AND (@loginUsername IN p.authorizedViewers[*] OR @hasAdminRole == TRUE)
+	FILTER visitorId != "" AND p.visitorId == visitorId AND p.status == 1 
+			AND (@loginUsername IN p.authorizedViewers[*] OR @hasAdminRole == TRUE OR p.visitorId == @profileVisitorId)
 	LIMIT 1
 	RETURN p
 ;

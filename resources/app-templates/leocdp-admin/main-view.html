@@ -197,13 +197,31 @@
 	                $('#userDisplayName').text(dn).attr('title', tt);
 	                window.currentUserProfile = systemUser;
 	                
-	             	// after login, check Leo Bot to support user
-			        checkLeoBotIsServerReady(systemUser.profileVisitorId);
-	            }            
-	         	
+	                loadLeoObserverForAdmin();
+	            }
 	        }
 	    });
 	}
+	
+	function loadLeoObserverForAdmin(){
+		// the main proxy LEO JS
+	  	var leoproxyJsPath = "/js/leo-observer/leo.proxy.min.js";
+	  	var src = location.protocol + "//" + window.leoObserverCdnDomain + leoproxyJsPath;
+	  	var jsNode = document.createElement("script");	  	
+	  	jsNode.async = true;
+	  	jsNode.src = src;
+	  	var s = document.getElementsByTagName("script")[0];
+	  	s.parentNode.insertBefore(jsNode, s);
+	}
+	
+	function leoObserverProxyReady(session) {
+  		// LeoObserverProxy.recordViewEvent("admin-view");
+  		// after login, check Leo Bot to support user
+  		LeoObserverProxy.synchLeoVisitorId(function (vid) {
+	  		window.currentUserProfile.profileVisitorId = vid;
+	  		checkLeoBotIsServerReady(vid);
+	  	});	       
+  	}
 
 	/////////////////////////////// READY //////////////////////////////////
 	

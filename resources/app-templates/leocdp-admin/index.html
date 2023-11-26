@@ -361,21 +361,7 @@
 	
 		// Data Touchpoint Metadata
 		window.srcTouchpointName = encodeURIComponent(document.title);
-	  	window.srcTouchpointUrl = encodeURIComponent(location.href);
-
-	  	// the main proxy LEO JS
-	  	var leoproxyJsPath = "/js/leo-observer/leo.proxy.min.js";
-	  	var src = location.protocol + "//" + window.leoObserverCdnDomain + leoproxyJsPath;
-	  	var jsNode = document.createElement("script");
-	  	jsNode.async = true;	  	
-	  	jsNode.src = src;
-	  	var s = document.getElementsByTagName("script")[0];
-	  	s.parentNode.insertBefore(jsNode, s);
-	  	
-	  	function leoObserverProxyReady(session) {
-	  		// 
-	  		// LeoObserverProxy.recordViewEvent("admin-view");
-	  	}
+	  	window.srcTouchpointUrl = encodeURIComponent(location.href);	  	
 	</script>
 		
 </body>

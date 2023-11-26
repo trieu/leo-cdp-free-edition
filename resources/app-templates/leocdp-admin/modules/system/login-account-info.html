@@ -61,7 +61,8 @@
 	                        autocapitalize="off" autocomplete="nope">
 	                </div>
 	                <div class="form-group">
-	                    <label> Profile Visitor ID (<a id="systemUser_profileViewByVisitorId" href="javascript:" style="display: none;">View My Profile in CDP</a>) </label>
+	                    <label> Profile Visitor ID 
+							<a id="systemUser_profileViewByVisitorId" href="javascript:" style="display: none;" target="_blank" > My Data Profile </a> </label>
 	                    <input type="text" class="form-control" placeholder="Enter Profile Visitor ID" name="profileVisitorId"
 	                        autocorrect="off" autocapitalize="off" autocomplete="off"  >
 	                        
@@ -158,16 +159,13 @@
 
     function initMyLoginInfo() {
     	 setupTabPanels();
-    	 
-    	 LeoObserverProxy.synchLeoVisitorId(function (vid) {
-   	  		if(window.currentUserProfile){
-   	  			window.currentUserProfile.profileVisitorId = vid;
-   	  			$('input[name="profileVisitorId"]').val(vid);
-   	  			var url = "#calljs-leoCdpRouter('Customer_Profile_Info_By_Visitor_ID','"+vid+"')";
-	  			$('#systemUser_profileViewByVisitorId').attr('href',url).show();
-   	  		}
-   	  	 });
-    	
+   	  	 
+   	  	 if(window.currentUserProfile && window.currentUserProfile.profileVisitorId){
+  			var vid = window.currentUserProfile.profileVisitorId;
+  			$('input[name="profileVisitorId"]').val(vid);
+  			var url = "#calljs-leoCdpRouter('Customer_Profile_Info_By_Visitor_ID','"+vid+"')";
+  			$('#systemUser_profileViewByVisitorId').attr('href',url).show();
+  		 }
     	
     	 var key = currentUserProfile.key;
          var urlStr = baseLeoAdminUrl + '/user/get';

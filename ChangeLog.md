@@ -30,7 +30,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-11-25
+## [0.9.0] - 2023-11-26
 
 ### Added
 
@@ -60,6 +60,7 @@
 
 ### Fixed
 
+- fix and improve LEO Chatbot, the smart assistant for end-user
 - load event data of profile, with selected journey ID
 - all event data with SCORING_PROSPECT_METRIC must update prospect score in profile
 - fix when search profile by keywords

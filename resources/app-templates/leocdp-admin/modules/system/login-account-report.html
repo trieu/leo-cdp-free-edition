@@ -55,7 +55,7 @@
 	                <div class="form-group">
 	                    <label> Profile Visitor ID </label>:
 	                    <span id="systemUser_profileVisitorId" class="highlight_text"></span>
-	                    (<a id="systemUser_profileViewByVisitorId" href="javascript:" style="display: none;">View My Profile in CDP</a>)
+	                    <a id="systemUser_profileViewByVisitorId" href="javascript:" style="display: none;" target="_blank" > Data Profile </a>
 	                </div>
 	                
 	                <hr>
@@ -154,16 +154,7 @@
 
     function initUserLoginReport(userLogin) {
     	 setupTabPanels();
-    	 
-    	 LeoObserverProxy.synchLeoVisitorId(function (vid) {
- 	  		if(window.currentUserProfile){
- 	  			window.currentUserProfile.profileVisitorId = vid;
- 	  			$('#systemUser_profileVisitorId').text(vid); 	  			
- 	  			var url = "#calljs-leoCdpRouter('Customer_Profile_Info_By_Visitor_ID','"+vid+"')";
- 	  			$('#systemUser_profileViewByVisitorId').attr('href',url).show();
- 	  		}
- 	  	 });
-    	
+ 	  	 
          var urlStr = baseLeoAdminUrl + '/user/get-by-username';
          LeoAdminApiUtil.callPostAdminApi(urlStr, { 'userLogin': userLogin }, function (json) {
              if (json.httpCode === 0 && json.errorMessage === '') {
@@ -195,6 +186,14 @@
                      
                      var position = userLoginModel.customData.position ? userLoginModel.customData.position : '';
                      $('#systemUser_jobPosition').text(position);
+                     
+                     var vid = userLoginModel.profileVisitorId || '';
+                     if(vid !== ''){
+						$('#systemUser_profileVisitorId').text(vid); 	  			
+		 	  		 	var url = "#calljs-leoCdpRouter('Customer_Profile_Info_By_Visitor_ID','"+vid+"')";
+		 	  		 	$('#systemUser_profileViewByVisitorId').attr('href',url).show();
+					 }
+		  			
                      
                      // 
                      $('input[name="role"]').parent().parent().hide();

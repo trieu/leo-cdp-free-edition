@@ -107,7 +107,14 @@
 	                   <tr>
 	                       <td>
 	                           <ol id="personal_attributes" data-field="personal_attributes">
-	                           	  
+	                           	  <li>
+	                               		<label> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Data Verification </label> 
+	                               		<div class="checkbox">
+								         <label><input type="checkbox" name="dataVerification" data-field="dataVerification" data-fieldholder="selectionvalue" data-fieldtype="boolean" > 
+								         	<mark>DATA IS VERIFIED</mark>  </label>
+								      	</div>
+	                               </li>
+	                               
 	                           	   <li>
 	                                   <label for="profile_firstName" > <i class="fa fa-fw fa-id-badge"></i> First Name </label> 
 	                                   <input id="profile_firstName" class="form-control" type="text" placeholder="First Name" data-field="firstName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
@@ -178,14 +185,7 @@
 									   </div>
 	                               </li>
 	                               
-	                               <li>
-	                               		<label> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Data Verification </label> 
-	                               		<div class="checkbox">
-								         <label><input type="checkbox" name="dataVerification" data-field="dataVerification" data-fieldholder="selectionvalue" data-fieldtype="boolean" > 
-								         	DATA IS VERIFIED </label>
-								      	</div>
-									    
-	                               </li>
+	                               
 					               
 	                           </ol>
 	                       </td>
@@ -304,15 +304,7 @@
 										</select>
 									</div>
 								 </li>
-							
-								 <li>
-					                 <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Data Labels </b> 
-					                 <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('dataLabels')" title="Add new label"  > 
-					    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Label 
-					    			 </button>
-					                 <p data-field="dataLabels" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" >  </p>
-					             </li>
-					               	
+								   	
 					             <li>
 			                           <b> <i class="fa fa-id-card-o" aria-hidden="true"></i> Profile Type <span class="small_highlight_text">(Data for Identity Resolution)</span> </b>  <br>
 		                               <div style="font-size: 13px; background-color: #fff;padding: 8px 25px;" >
@@ -354,6 +346,14 @@
 										   	</div>
 										</div>
 	                              </li>
+	                              
+	                              <li>
+					                 <b data-persona="key" > <i class="fa fa-fw fa-list"></i> Data Labels </b> 
+					                 <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('dataLabels')" title="Add new label"  > 
+					    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Label 
+					    			 </button>
+					                 <p data-field="dataLabels" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" >  </p>
+					             </li>
 	                              
 	             			</ol>
                	  		</td>
