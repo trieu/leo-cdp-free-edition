@@ -628,7 +628,7 @@
 			
 			<!-- tab 10 User Authorization  -->
 			<div class="tab-pane" id="panel_profile_data_authorization" >
-				<h4 class="highlight_text" > <i class="fa fa-lock" aria-hidden="true"></i> User Authorization </h4>
+				<h4 class="highlight_text" > <i class="fa fa-lock" aria-hidden="true"></i> User Authorization (Only system user with admin role could update the authorization) </h4>
 				<div class="form-group row"  >
 					<label class="control-label col-sm-3" for="authorizedProfileViewers">Authorized users can view data</label>
 					<div class="col-sm-9" >
@@ -747,7 +747,6 @@
          	 // profile maritalStatus
          	 formatSelectionList('input[name="maritalStatus"]')
          	 
-         	 loadSystemUsersForDataAuthorization(editedProfileModel, $('#authorizedProfileViewers'), $('#authorizedProfileEditors'));
          	 
          	 // set search link
          	 if(typeof editedProfileModel.livingLocation === "string") {
@@ -769,10 +768,15 @@
     			$('#locationCodeSearch').attr("href", 'https://www.google.com/maps/?q=' +  newVal);
     		 })
     		 
+    		 var editable = false;
     		 if(currentUserProfile.role === 6){
     			 $('#profileJourneyMapEditorRow').show();
     			 loadDataJourneyMapEditor('#profileJourneyMapEditor', editedProfileModel.inJourneyMaps);
+    			 
+    			 // data authorization
+    			 editable = true;
     		 }
+    		 loadSystemUsersForDataAuthorization(editable, editedProfileModel, $('#authorizedProfileViewers'), $('#authorizedProfileEditors'));
          });
     }
     
@@ -871,13 +875,13 @@
     		editedProfileModel.dateOfBirth = null;
     	}
     	
-    	// data authorization
-		editedProfileModel.authorizedViewers = $('#authorizedProfileViewers').val() || [];
-		editedProfileModel.authorizedEditors = $('#authorizedProfileEditors').val() || [];
-		
 		// journey maps
 		if(currentUserProfile.role === 6){
 			editedProfileModel.inJourneyMaps = getJourneyMapsFromEditor('#profileJourneyMapEditor', editedProfileModel.inJourneyMaps);
+			
+			// data authorization
+			editedProfileModel.authorizedViewers = $('#authorizedProfileViewers').val() || [];
+			editedProfileModel.authorizedEditors = $('#authorizedProfileEditors').val() || [];
 		}
 		return editedProfileModel;
     }
