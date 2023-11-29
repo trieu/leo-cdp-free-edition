@@ -13,9 +13,60 @@ The deployed server must have Internet connection, please set the out-bound fire
     https://us1.api.mailchimp.com
     https://api.brevo.com
 
-## Software requirements for new server
+## This requirements for all server
 
-### ArangoDB database
+### 1. Update DNS hosts for LEO CDP servers 
+
+Command to edit hosts: 
+	
+	sudo nano /etc/hosts
+
+#### Add Local DNS for all servers
+
+- [the network IP of ArangoDB Server] leocdp.database
+- [the network IP of Redis Server] leocdp.redis
+- [the network IP of LeoCDP Admin] leocdp.admin
+- [the network IP of Data Observer] leocdp.observer
+
+#### Example DNS for 1 ArangoDB database server, 1 Redis cache server, 1 Admin server and 2 data observers
+
+	127.0.0.1 leocdp.database
+	127.0.0.1 leocdp.redis
+	127.0.0.1 leocdp.admin
+	127.0.0.1 leocdp.observer
+
+### 2. Install Java 11 JVM for all 
+
+[Java 11 from Amazon](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/generic-linux-install.html)
+
+	wget -O- https://apt.corretto.aws/corretto.key | sudo apt-key add -
+	sudo add-apt-repository 'deb https://apt.corretto.aws stable main'
+	sudo apt-get update; sudo apt-get install -y java-11-amazon-corretto-jdk fontconfig git
+	
+Java 11 on Rocky / CentOS
+
+	sudo rpm --import https://yum.corretto.aws/corretto.key
+	sudo curl -L -o /etc/yum.repos.d/corretto.repo https://yum.corretto.aws/corretto.repo
+	sudo yum install -y java-11-amazon-corretto-devel git fontconfig
+
+### 3. Create user for SSH
+
+	sudo useradd leocdp -s /bin/bash -p '*'
+	sudo passwd -d leocdp
+	sudo usermod -aG sudo leocdp
+	echo 'leocdp ALL=(ALL) NOPASSWD: ALL' | sudo tee -a /etc/sudoers >/dev/null
+
+### 4. Set SSH keys
+
+	sudo su leocdp
+	cd /home/leocdp 
+	mkdir .ssh
+	nano .ssh/authorized_keys
+
+Set your SSH public key
+
+
+## This requirements for ArangoDB database
 
 Set Linux configs to scale on high load
 
@@ -43,7 +94,7 @@ Set Linux configs to scale on high load
 	sudo firewall-cmd --add-port=8601/tcp --permanent
 	sudo firewall-cmd --reload
 
-### Nginx Proxy for Observer, Admin and ArangoDB 
+## This requirements for HTTP Observer, Admin and Database 
 
 [Install nginx on Ubuntu 22](https://www.fosstechnix.com/how-to-install-nginx-on-ubuntu-22-04/)
 
@@ -64,6 +115,7 @@ Set Linux configs to scale on high load
 	sudo systemctl start nginx
 	sudo firewall-cmd --permanent --add-service=http
 	sudo firewall-cmd --reload
+	systemctl status nginx
 	
 
 ### SSL for Nginx Server
@@ -78,21 +130,6 @@ SSL certbot on Rocky Linux
 	sudo dnf install certbot python3-certbot-nginx
 	sudo certbot --nginx
 
-### Java 11 JVM for all 
-
-[Java 11 from Amazon](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/generic-linux-install.html)
-
-	wget -O- https://apt.corretto.aws/corretto.key | sudo apt-key add -
-	sudo add-apt-repository 'deb https://apt.corretto.aws stable main'
-	sudo apt-get update; sudo apt-get install -y java-11-amazon-corretto-jdk fontconfig
-	
-Java 11 on Rocky / CentOS
-
-	sudo rpm --import https://yum.corretto.aws/corretto.key
-	sudo curl -L -o /etc/yum.repos.d/corretto.repo https://yum.corretto.aws/corretto.repo
-	sudo yum install -y java-11-amazon-corretto-devel
-	
-
 ### Redis Caching for Admin
 
 * [Redis on Ubuntu](https://vitux.com/install-redis-on-ubuntu/)
@@ -100,43 +137,20 @@ Java 11 on Rocky / CentOS
 
 Ubuntu 
 
-    sudo apt-get update; sudo apt -y install redis-server git
+    sudo apt-get update; sudo apt -y install redis-server
 
 CentOS or Rocky
     
-    sudo dnf -y install redis git
+    sudo dnf -y install redis
     sudo systemctl enable redis --now
 
-## Install Notes for Linux Server
+## Java Deployment for Admin, Observer and Data Jobs
 
 ### Clone binary code for new server
 
-	sudo useradd leocdp -s /bin/bash -p '*'
-	sudo passwd -d leocdp
-	sudo usermod -aG sudo leocdp
-	echo 'leocdp ALL=(ALL) NOPASSWD: ALL' | sudo tee -a /etc/sudoers >/dev/null
 	# make folder to git pull 
 	sudo mkdir /build/
 	sudo mkdir -p /home/leocdp/ ; sudo chown -R leocdp:leocdp /home/leocdp/
 	sudo git clone https://github.com/trieu/leo-cdp-free-edition.git /build/leo-cdp
 	sudo chown -R leocdp:leocdp /build/ ; sudo chmod +x /build/leo-cdp/*.sh
 	
-### DNS hosts for LEO CDP servers 
-
-Command to edit hosts: 
-	
-	sudo nano /etc/hosts
-
-#### Add Local DNS for all servers
-
-- [the network IP of ArangoDB Server] leocdp.database
-- [the network IP of Redis Server] leocdp.redis
-- [the network IP of LeoCDP Admin] leocdp.admin
-- [the network IP of Data Observer] leocdp.observer
-
-#### Example DNS for 1 ArangoDB database server, 1 Redis cache server, 1 Admin server and 2 data observers
-
-	127.0.0.1 leocdp.database
-	127.0.0.1 leocdp.redis
-	127.0.0.1 leocdp.admin
-	127.0.0.1 leocdp.observer
