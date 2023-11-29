@@ -65,25 +65,8 @@
 					</li>
 				</ul>
 			</li>
-		
-			<!--  2 - Data Journey Hub   -->
-			<li id="nav_journey_hub" style="display: none;" data-system-user-roles="0,2,4,5" >
-				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#journey_hub_menu"> <i class="fa fa-fw fa-map"></i>
-				 	Data Journey Hub <i id="journey_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
-				</a>
-				<ul id="journey_hub_menu" class="collapse in" aria-expanded="true">					
-					<li>
-						<a id="Data_Journey_Map" href="#calljs-leoCdpRouter('Data_Journey_Map','id_default_journey')" title="Data Journey Map Management"> 
-							<i class="fa fa-fw fa-map-o"></i> Data Journey Maps </a>
-					</li>
-					<li id="Event_Data_Funnel_Menu" >
-						<a id="Event_Data_Funnel" href="#calljs-leoCdpRouter('Event_Data_Funnel')" title="Event Data Funnel Management" >
-							<i class="fa fa-fw fa-filter"></i> Event Data Metrics </a>
-					</li>
-				</ul>
-			</li>
-		
-			<!--  3 - Customer Data Hub Menu  -->
+			
+			<!--  2 - Customer Data Hub Menu  -->
 			<li id="nav_customer_hub" style="display: none;" data-system-user-roles="1,2,3,4,5" >
 				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#customer_hub_menu"> <i class="fa fa-fw fa-address-card-o"></i>
 					Customer Data Hub <i id="customer_data_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
@@ -99,6 +82,24 @@
 					</li>
 				</ul>
 			</li>
+		
+			<!--  3 - Data Journey Hub   -->
+			<li id="nav_journey_hub"  >
+				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#journey_hub_menu"> <i class="fa fa-fw fa-map"></i>
+				 	Data Journey Hub <i id="journey_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
+				</a>
+				<ul id="journey_hub_menu" class="collapse in" aria-expanded="true">					
+					<li style="display: none;" data-system-user-roles="5">
+						<a id="Data_Journey_Map" href="#calljs-leoCdpRouter('Data_Journey_Map','id_default_journey')" title="Data Journey Map Management"> 
+							<i class="fa fa-fw fa-map-o"></i> Data Journey Maps </a>
+					</li>
+					<li id="Event_Data_Funnel_Menu"  >
+						<a id="Event_Data_Funnel" href="#calljs-leoCdpRouter('Event_Data_Funnel')" title="Event Data Funnel Management" >
+							<i class="fa fa-fw fa-filter"></i> Event Data Metrics </a>
+					</li>
+				</ul>
+			</li>
+			
 			
 			<!-- 4 - Data Activation Hub Menu -->
 			<li id="nav_activation_hub" style="display: none;" data-system-user-roles="4,5" >
@@ -177,6 +178,11 @@
 	                var systemUser = json.data;
 	                var role = systemUser.role;
 	                
+	                var dn = textTruncate(systemUser.displayName,15);
+	                var tt = 'Click to view the login information of ' + systemUser.displayName;
+	                $('#userDisplayName').text(dn).attr('title', tt);
+	                window.currentUserProfile = systemUser;
+	                
 	                if(role === 6) {
 	                	// hasSuperAdminRole === true
 	                	$("#nav_system_management").show();
@@ -184,18 +190,15 @@
 	                } 
 	                else {
 	                	$('#main-navbar').find("li[data-system-user-roles]").each(function(){
-	                		var roles = $(this).data("system-user-roles");
-	                		//console.log("roles " + roles)
+	                		var roles = $(this).data("system-user-roles") + "";
+	                		console.log("roles " , roles, roles.indexOf)
 	                		if(roles.indexOf(role)>=0){
 	                			$(this).show()
 	                		}
 	                	});
 	                }	                
 	                
-	                var dn = textTruncate(systemUser.displayName,15);
-	                var tt = 'Click to view the login information of ' + systemUser.displayName;
-	                $('#userDisplayName').text(dn).attr('title', tt);
-	                window.currentUserProfile = systemUser;
+	              
 	                
 	                loadLeoObserverForAdmin();
 	            }
