@@ -231,7 +231,12 @@
 		
 		<!--  2 query  -->
 		<div class="panel panel-leoadmin">
-			<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Data Query Rules </b> </div>
+			<div class="panel-heading"> 
+				<b> <i class="fa fa-filter" aria-hidden="true"></i> Data Query Rules </b> 
+				<button type="button" class="btn btn-sm btn-goto-router" onclick="initLeoChatBot('segment')" title="Query with LEO AI" style="margin-left: 16px;display:none;">  
+					<i class="fa fa-object-group" aria-hidden="true"></i> Query with LEO AI
+       			</button>
+			</div>
 			<div class="panel-body row">
 				
 				<!-- Query Details -->
@@ -242,7 +247,7 @@
 				<div class="col-lg-3 text-center">
 					<div class="btn-group" style="margin-bottom: 20px;" >
 						<button type="button" class="btn btn-goto-router" id="btn-run-querybuilder"> 
-							<i class="fa fa-check-circle-o" aria-hidden="true"></i> Query </button>
+							<i class="fa fa-check" aria-hidden="true"></i> Run Query </button>
 						<button type="button" class="btn btn-danger" id="btn-reset-querybuilder"> 
 							<i class="fa fa-trash" aria-hidden="true"></i> Reset </button>
 					</div>

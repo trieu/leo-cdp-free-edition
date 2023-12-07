@@ -30,10 +30,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-11-29
+## [0.9.0] - 2023-12-07
 
 ### Added
 
+- [Segment] add event tracking date filters
 - [Profile] can view profile details using Visitor ID
 - [LEO ChatBot] using Visitor ID in profile as chatbot session
 - [LEO ChatBot] using Google PaLM 2 as default AI model
