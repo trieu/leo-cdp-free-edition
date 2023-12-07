@@ -1259,7 +1259,7 @@ AQL_GET_TRACKING_EVENTS_BY_PROFILE_ID =>
 AQL_SEARCH_TRACKING_EVENTS_BY_PROFILE_ID_AND_KEYWORDS =>
 	FOR e in cdp_trackingevent 
 	FILTER e.refProfileId == @refProfileId AND (e.refJourneyId == @refJourneyId OR @refJourneyId == "") 
-			AND ( LOWER(e.srcTouchpointName) LIKE @searchValue OR e.metricName == @searchValue)
+			AND ( LOWER(e.srcTouchpointName) LIKE @searchValue OR e.metricName == @metricName)
 	SORT e.timestamp DESC
 	LIMIT @startIndex,@numberResult 
 	RETURN e
