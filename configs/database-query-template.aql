@@ -932,6 +932,28 @@ AQL_GET_ACTIVE_PROFILES_BY_PAGINATION =>
 	RETURN p
 ; 
 
+AQL_GET_ROOT_PROFILES_IN_SEGMENT =>
+	FOR p in cdp_profile
+	FILTER @segmentId IN p.inSegments[*].id AND p.status > 0 AND p.mergeCode == 0
+	SORT p.updatedAt DESC 
+	LIMIT @startIndex,@numberResult 
+	RETURN p
+;
+
+AQL_COUNT_ROOT_PROFILES_IN_SEGMENT =>
+	RETURN LENGTH(
+	    FOR p in cdp_profile
+	    FILTER @segmentId IN p.inSegments[*].id AND p.status > 0 AND p.mergeCode == 0
+	    RETURN p._key
+	)
+;
+
+AQL_GET_ALL_PROFILE_IDS_IN_SEGMENT =>
+	FOR p IN cdp_profile  
+  		FILTER @segmentId IN p.inSegments[*].id AND p.status > 0 AND p.mergeCode == 0
+  	RETURN p._key
+;
+
 AQL_GET_PROFILES_BY_PAGINATION =>
 	FOR p in cdp_profile  
 	SORT p[@sortBy] DESC
@@ -1105,12 +1127,6 @@ AQL_PROFILE_TIMESERIES_COLLECTOR =>
 	    FILTER d.updatedAt >= @beginFilterDate AND d.updatedAt <= @endFilterDate
 	   	COLLECT dateTime = DATE_TRUNC(d.updatedAt, @truncatedUnit), collectorKey = d.funnelStage WITH COUNT INTO length
 	    RETURN { "dateTime" : dateTime, "collectorKey" : collectorKey, "collectorCount" : length }
-;
-
-AQL_GET_ALL_PROFILE_IDS_IN_SEGMENT =>
-	FOR d IN cdp_profile  
-  		FILTER @segmentId IN d.inSegments[*].id
-  	RETURN d._key
 ;
 
 AQL_INSERT_SEGMENT_REF_KEY_FOR_PROFILE =>

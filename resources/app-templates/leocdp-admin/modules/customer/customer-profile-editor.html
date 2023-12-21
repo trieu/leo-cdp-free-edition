@@ -869,7 +869,7 @@
     	
     	var dateOfBirth = $('#profileDateOfBirth').data("DateTimePicker").date();
     	if(dateOfBirth != null) {
-    		editedProfileModel.dateOfBirth = new moment.utc(dateOfBirth);
+    		editedProfileModel.dateOfBirth = new moment.utc(dateOfBirth).local();
     	}
     	else {
     		editedProfileModel.dateOfBirth = null;

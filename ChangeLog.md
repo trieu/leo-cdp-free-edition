@@ -30,10 +30,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-12-07
+## [0.9.0] - 2023-12-21
 
 ### Added
 
+- [Segment] new operators to compare the date of birth of profile with current date
 - [Segment] add event tracking date filters
 - [Profile] can view profile details using Visitor ID
 - [LEO ChatBot] using Visitor ID in profile as chatbot session
@@ -92,6 +93,7 @@
 
 ### Changed
 
+- [Activation] using Java quartz-scheduler as main backend for job scheduling
 - the Event Time Series is default report of profile details
 - Leo Observer JS should tracking action event and send data using HTTP POST
 - improve UI UX of Admin system: all save buttons must in the same style
