@@ -30,7 +30,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-12-21
+## [0.9.0] - 2023-12-22
 
 ### Added
 
@@ -62,6 +62,7 @@
 
 ### Fixed
 
+- check status of Activation Rule before run a scheduled job
 - fix bugs update profile for non-admin system user 
 - fix and improve LEO Chatbot, the smart assistant for end-user
 - load event data of profile, with selected journey ID

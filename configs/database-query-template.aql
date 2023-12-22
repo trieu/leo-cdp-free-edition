@@ -1835,6 +1835,16 @@ AQL_REMOVE_ACTIVATION_RULE_BY_ID =>
   	RETURN removed._key
 ;
 
+AQL_IS_ACTIVATION_RULE_READY_TO_RUN =>
+	RETURN LENGTH(
+		FOR e IN cdp_activationrule
+			FOR d IN cdp_dataservice
+			FILTER e.dataServiceId == d._key AND e._key == @activationRuleId
+			AND e.active == TRUE AND d.status == 1 AND CHAR_LENGTH(d.configs['service_api_key']) > 0
+		RETURN e._key
+	) > 0
+;
+
 ########### PERSONALIZATION ENGINE  ########################################################################################################;
 
 AQL_GET_METADATA_RECOMMENDED_PRODUCTS_OF_PROFILE =>
