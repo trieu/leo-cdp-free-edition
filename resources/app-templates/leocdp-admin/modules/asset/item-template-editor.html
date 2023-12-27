@@ -1,117 +1,125 @@
 <style>
 #webtpl_url_holder {
 	font-size: 11.5px;
-    font-weight: bold;
-    color: #3300ff;
+	font-weight: bold;
+	color: #3300ff;
 }
 </style>
 <div class="container-fluid" id="item_editor_form">
 
-    <!-- MAIN BODY here -->
-    <div class="row">
-        <div class="col-lg-9">
-	         <h5 class="page-header" id="page_breadcrumb" > </h5>
-        </div>
-       	<div class="col-lg-3 text-right">
-            
-	         <button type="button" class="btn btn-info" onclick="history.back()">
-               	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
-             </button>
-               
-             <button type="button" class="btn btn-danger" onclick="LeoCdpAdmin.navFunctions.deleteItemAsset(htmlTemplateData)">
-               	<i class="fa fa-trash" aria-hidden="true"></i> Delete
-             </button>
-             
-             <button type="button" class="btn btn-goto-router data-control-edit" onclick="webTemplateEditorSave()"  > 
-        		<i class="fa fa-fw fa-check-square-o"></i> Save 
-        	</button>  
-           
-        </div>
-    </div>
+	<!-- MAIN BODY here -->
+	<div class="row">
+		<div class="col-lg-9">
+			<h5 class="page-header" id="page_breadcrumb"></h5>
+		</div>
+		<div class="col-lg-3 text-right">
 
-    <!-- MAIN BODY here -->
-    <div class="row">
-        
-         <fieldset>
-			  <div class="form-group">
-                  <label>Slug (SEO-friendly URI)</label>
-                  <div id="slug_div" >
-                      <input type="text" name="slug" class="form-control">
-                  </div>
-              </div>
+			<button type="button" class="btn btn-info" onclick="history.back()">
+				<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
+			</button>
 
-             <div class="form-group">
-                 <label>Title</label>
-                 <input id="asset_item_title" type="text" class="form-control" placeholder="Enter title" name="title" autocomplete="off">
-             </div>
+			<button type="button" class="btn btn-danger"
+				onclick="LeoCdpAdmin.navFunctions.deleteItemAsset(htmlTemplateData)">
+				<i class="fa fa-trash" aria-hidden="true"></i> Delete
+			</button>
 
-             <div class="form-group">
-                 <label>Description</label>
-                 <div id="description_div" style="display: block;">
-                     <textarea class="form-control" rows="2" placeholder="Enter description" name="description"></textarea>
-                 </div>
-             </div>
-             
-             <div id="contentClassForEmailTemplate" class="form-group" >
-             	<label>Content Class</label>
-             	<div>
-             		 <div class="radio">
-					  	<label for="cl_basic_email_content" >
-					  		<input id="cl_basic_email_content" type="radio" value="basic_email_content" name="contentClass">Basic Email Content
-					  	</label>
-					 </div>
-	     			 <div class="radio">
-					  	<label for="cl_product_recommendation" >
-					  		<input id="cl_product_recommendation" type="radio" value="product_recommendation" name="contentClass">Product Recommendation
-					  	</label>
-					 </div>
-					 <div class="radio">
-					  	<label for="cl_content_recommendation" >
-					  		<input id="cl_content_recommendation" type="radio" value="content_recommendation" name="contentClass">Content Recommendation
-					  	</label>
+			<button type="button" class="btn btn-goto-router data-control-edit"
+				onclick="webTemplateEditorSave()">
+				<i class="fa fa-fw fa-check-square-o"></i> Save
+			</button>
+
+		</div>
+	</div>
+
+	<!-- MAIN BODY here -->
+	<div class="row">
+
+		<fieldset>
+
+			<div class="form-group">
+				<label>Title</label> <input id="asset_item_title" type="text"
+					class="form-control" placeholder="Enter title" name="title"
+					autocomplete="off">
+			</div>
+
+			<div class="form-group">
+				<label>Description</label>
+				<div id="description_div" style="display: block;">
+					<textarea class="form-control" rows="2"
+						placeholder="Enter description" name="description"></textarea>
+				</div>
+			</div>
+
+			<div id="contentClassForEmailTemplate" class="form-group">
+				<label>Content Class</label>
+				<div>
+					<div class="radio">
+						<label for="cl_basic_email_content"> <input
+							id="cl_basic_email_content" type="radio"
+							value="basic_email_content" name="contentClass">Basic
+							Email Content
+						</label>
 					</div>
 					<div class="radio">
-					  	<label for="cl_feedback_survey" >
-					  		<input id="cl_feedback_survey" type="radio" value="feedback_survey" name="contentClass">Feedback Survey
-					  	</label>
+						<label for="cl_product_recommendation"> <input
+							id="cl_product_recommendation" type="radio"
+							value="product_recommendation" name="contentClass">Product
+							Recommendation
+						</label>
 					</div>
 					<div class="radio">
-					  	<label for="cl_feedback_survey" >
-					  		<input id="cl_basic_landing_page" type="radio" value="basic_landing_page" name="contentClass">Basic Landing Page
-					  	</label>
+						<label for="cl_content_recommendation"> <input
+							id="cl_content_recommendation" type="radio"
+							value="content_recommendation" name="contentClass">Content
+							Recommendation
+						</label>
 					</div>
-	     		</div>
-	     	 </div>
-             
-             <div class="form-group" >
-                 <label>Template JSON Model</label>
-                 <div id="json_metadata_container" style="width: 100%;" >
-                     <textarea id="json_metadata"></textarea>
-                 </div>  
-                 <hr>
-             </div>
-				
-			 <div id="webtpl_url_holder" class="alert alert-info" role="alert" >
-				 <i class="fa fa-qrcode" aria-hidden="true" style="font-size: 1.1em" ></i> 
-				 <b>Preview Content URL</b> <a id="webtpl_url" class="small-text" href="javascript:" target="_blank" ></a> <br>
-			 </div>	
-			 
-			 <div id="qr_code_holder" class="thumbnail">
-			 	 <img id="webtpl_qrcode_url" style="max-height: 200px" />
-			 </div>
-			 
-             <div class="form-group" id="content_div_wrapper">
-                 <label>Template Content</label>
-                
-                 <div id="content_div"></div>                   
-                 <div id="raw_media_container" style="width: 100%;" >
-                     <textarea id="raw_media_html"></textarea>
-                 </div>  
-             </div>
+					<div class="radio">
+						<label for="cl_feedback_survey"> <input
+							id="cl_feedback_survey" type="radio" value="feedback_survey"
+							name="contentClass">Feedback Survey
+						</label>
+					</div>
+					<div class="radio">
+						<label for="cl_feedback_survey"> <input
+							id="cl_basic_landing_page" type="radio"
+							value="basic_landing_page" name="contentClass">Basic
+							Landing Page
+						</label>
+					</div>
+				</div>
+			</div>
 
-        </fieldset>
+			<div class="form-group">
+				<label>Template JSON Model</label>
+				<div id="json_metadata_container" style="width: 100%;">
+					<textarea id="json_metadata"></textarea>
+				</div>
+				<hr>
+			</div>
 
-    </div>
+			<div id="webtpl_url_holder" class="alert alert-info" role="alert">
+				<i class="fa fa-qrcode" aria-hidden="true" style="font-size: 1.1em"></i>
+				<b>Preview Content URL</b> <a id="webtpl_url" class="small-text"
+					href="javascript:" target="_blank"></a> <br>
+			</div>
+
+			<div id="qr_code_holder" class="thumbnail">
+				<img id="webtpl_qrcode_url" style="max-height: 200px" />
+			</div>
+
+			<div class="form-group" id="content_div_wrapper">
+				<label>Template Content</label>
+
+				<div id="content_div"></div>
+				<div id="raw_media_container" style="width: 100%;">
+					<textarea id="raw_media_html"></textarea>
+				</div>
+			</div>
+
+		</fieldset>
+
+	</div>
 </div>
 
 <hr>
@@ -126,18 +134,19 @@
 
     //raw HTML code editor
     var rawHtmlEditor = false, rawJsonEditor = false;
-
+    
     function initTemplateEditor(params){
     	htmlTemplateData = false;
     	
     	// html code editor
     	rawHtmlEditor = CodeMirror.fromTextArea(document.getElementById("raw_media_html"), {        
-            mode: "htmlmixed",           
-            lineNumbers: true ,
-            smartIndent: true ,
-            lineWrapping : true,
-            matchBrackets : true,
-            matchTags: {bothTags: true}
+    		 mode: "htmlmixed",           
+             lineNumbers: true ,
+             smartIndent: true ,
+             lineWrapping : true,
+             matchBrackets : true,
+             matchTags: {bothTags: true},
+             extraKeys: {"Ctrl-Space": "autocomplete"}
         });
         rawHtmlEditor.setSize($('#raw_media_container').width()-18, 1);
         
@@ -186,7 +195,8 @@
                     var assetType = htmlTemplateData.assetType;
                     document.title = htmlTemplateData.title ? 'Asset Template Editor - ' + htmlTemplateData.title : 'New Content Template';
                     
-                 	// breadcrumb link update
+
+        	     	// breadcrumb link update
         	        updateBreadcrumbInAssetPost(htmlTemplateData.assetCategories, htmlTemplateData.assetGroups, htmlTemplateData.title );
 
                     var form = $('#item_editor_form');

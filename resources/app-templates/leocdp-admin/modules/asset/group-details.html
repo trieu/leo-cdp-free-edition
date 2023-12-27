@@ -227,18 +227,17 @@
                     	var assetType = row.assetType;
                     	var contentClass = row.contentClass;
                     	var title =  row.title;
+                    	var params = leoCdpRouterParams([itemId, assetGroupId, assetCategoryId ]) ;
+                    	
                         if(isGroupTemplate){
-                    		var params = leoCdpRouterParams([itemId, assetGroupId, assetCategoryId ]) ;
                         	var callJsStr = "#calljs-leoCdpRouter('Asset_Template_Editor','" + params + "')";
                             html = '<a class="text_wrapper" title="Edit: ' + title + '" href="' + callJsStr + '" > '+data+'</a>';
                     	}
                         else if(isGroupPresentation){
-                        	var params = leoCdpRouterParams([itemId, assetGroupId, assetCategoryId ]) ;
                         	var callJsStr = "#calljs-leoCdpRouter('Asset_Presentation_Editor','" + params + "')";
                             html = '<a class="text_wrapper" title="Edit: ' + title + '" href="' + callJsStr + '" > '+data+'</a>';
                         }
                     	else {
-                    		var params = leoCdpRouterParams([itemId, assetGroupId, assetCategoryId ]) ;
                         	var callEditJsStr = "#" + getAssetEditorCallJs(assetType, params);
                         	html = '<a class="text_wrapper" title="Edit: ' + title + '" href="' + callEditJsStr + '" > '+data+'</a>';
                             return html;

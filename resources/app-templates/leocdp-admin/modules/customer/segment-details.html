@@ -82,7 +82,7 @@
 			  	<li class="list-group-item ">
 			  		<b>Authorized users can update data</b> <span id="sm_authorizedEditors" class="highlight_text" ></span>
 			  	</li>
-			  	<li class="list-group-item ">	  		
+			  	<li class="list-group-item" style="display: none;">	  		
 			  		<b>Priority score for data activation</b> <span id="sm_indexScore" class="highlight_text" ></span>	  		 
 			  	</li>
 		   	</ul>
@@ -337,7 +337,7 @@
 						    <div class="panel-heading collapse-panel-heading active" role="tab" id="enrichmentPlanHeader">
 						      <h4 class="panel-title">
 						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#enrichmentPlan" aria-expanded="false" aria-controls="enrichmentPlan">
-						          <i class="fa fa-info-circle" aria-hidden="true"></i> Data Enrichment  
+						          <i class="fa fa-info-circle" aria-hidden="true"></i> Activation Rules for Data Enrichment  
 						        </a>
 						      </h4>
 						    </div>
@@ -377,7 +377,7 @@
 					    <div class="panel-heading collapse-panel-heading active" role="tab" id="synchronizationPlanHeader">
 					      <h4 class="panel-title">
 					        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#synchronizationPlan" aria-expanded="false" aria-controls="synchronizationPlan">
-					          <i class="fa fa-info-circle" aria-hidden="true"></i>  Data Synchronization 
+					          <i class="fa fa-info-circle" aria-hidden="true"></i>  Activation Rules for Synchronization 
 					        </a>
 					      </h4>
 					    </div>
@@ -414,7 +414,7 @@
 				    <div class="panel-heading collapse-panel-heading active" role="tab" id="personalizationPlanHeader">
 				      <h4 class="panel-title">
 				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#personalizationPlan" aria-expanded="false" aria-controls="personalizationPlan">
-				          <i class="fa fa-info-circle" aria-hidden="true"></i>  Data Personalization 
+				          <i class="fa fa-info-circle" aria-hidden="true"></i>  Activation Rules for Personalization 
 				        </a>
 				      </h4>
 				    </div>
@@ -455,10 +455,10 @@
 						            
 						            <div class="form-group text-right" >
 						            	<button type="button" class="btn btn-primary" onclick="setContentPersonalizationInSegment()">
-						            		<i class="fa fa-check-circle" aria-hidden="true"></i> Set contents in selected group
+						            		<i class="fa fa-check-circle" aria-hidden="true"></i> Set contents 
 						            	</button>
 						            	<button type="button" class="btn btn-danger" onclick="removeRecommendedContentsInSegment(false)">
-						            		<i class="fa fa-trash" aria-hidden="true"></i> Remove contents in selected group
+						            		<i class="fa fa-trash" aria-hidden="true"></i> Remove contents 
 						            	</button>
 						            	<button type="button" class="btn btn-danger" onclick="removeRecommendedContentsInSegment(true)">
 						            		<i class="fa fa-trash" aria-hidden="true"></i> Remove all contents
@@ -487,10 +487,10 @@
 						            
 						            <div class="form-group text-right" >
 						            	<button type="button" class="btn btn-primary" onclick="setProductPersonalizationInSegment()">
-						            		<i class="fa fa-check-circle" aria-hidden="true"></i> Set products in selected group
+						            		<i class="fa fa-check-circle" aria-hidden="true"></i> Set products 
 						            	</button>
 						            	<button type="button" class="btn btn-danger" onclick="removeRecommendedProductsInSegment(false)">
-						            		<i class="fa fa-trash" aria-hidden="true"></i> Remove products in selected group
+						            		<i class="fa fa-trash" aria-hidden="true"></i> Remove products
 						            	</button>
 						            	<button type="button" class="btn btn-danger" onclick="removeRecommendedProductsInSegment(true)">
 						            		<i class="fa fa-trash" aria-hidden="true"></i> Remove all products
@@ -544,12 +544,7 @@
 		loadSchedulingTimeSelect();
 	}
 	
-	var refreshSegmentDetails = function(){
-		if(segmentDataModel){
-			var id = segmentDataModel.id;
-			location.hash  = "#calljs-leoCdpRouter('Segment_Details','"+id+"','_refresh_"+new Date().getTime()+"')";	
-		}
-	}
+	
 </script>
 
 
@@ -598,7 +593,7 @@
 		     			<label class="label_box" > <i class="fa fa-clock-o" aria-hidden="true"></i> Specific GMT time to run service </label>
 		     		</div>
 		     		<div class="col-lg-7">
-		     			<input type="time" id="dataServiceDateTimeStart"  placeholder="Enter specific time" class="form-control"  >
+		     			<input type="time" id="dataServiceDateTimeStart" placeholder="Enter specific time" class="form-control"  >
 		     		</div>
 	     		</div>
 			</div>  
