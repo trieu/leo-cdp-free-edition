@@ -1,19 +1,16 @@
 <!-- Customer Profile Information  -->
 
 <div class="row">
-     <div class="col-lg-6" >
+     <div class="col-lg-8" >
  		<h5 class="page-header" id="page_breadcrumb" > </h5>
  	 </div> 
-     <div class="col-lg-6 text-right" style="padding: 10px">
+     <div class="col-lg-4 text-right" style="padding: 10px">
      	<button type="button" class="btn btn-info" title="Go back" onclick="history.back()" > 
 			<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back 
 		</button>
 		<button type="button" class="btn btn-do-now" onclick="refreshCurrentProfile()" title="Refresh data"  > 
        		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
        	</button>
-		<button id="btn_profile_deduplicate" type="button" class="btn btn-primary data-control-edit" title="Do data deduplication for this profile"  > 
-			<i class="fa fa-compress" aria-hidden="true"></i> Deduplicate 
-		</button>
      	<button type="button" class="btn btn-danger data-control-delete" onclick="removeCurrentProfile()" title="Remove this profile" > 
      		<i class="fa fa-trash" aria-hidden="true"></i> Remove 
      	</button>
@@ -176,14 +173,14 @@
            <!--  End Profile Key Information -->
        </div>
       
-       <!--  Profile Tab Navigation Items -->
+       <!--  Main Tabs of Profile Info -->
        <ul id="profile_info_tabs" class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" >
          <li class="active" onclick="handleProfileTabBehavioralInfo()">
-          	<a href="javascript:" data-target-tab="panel_behavioral_Data" title="Behavioral Data"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Behavioral Analytics </a>
+          	<a href="javascript:" data-target-tab="panel_behavioral_Data" title="Customer Behavioral Data"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Behavioral Data </a>
          </li>
          
          <li>
-         	<a href="javascript:" data-target-tab="panel_customer_feedbacks" title="Customer Feedback Data" > <i class="fa fa-commenting-o" aria-hidden="true"></i> Feedback Analytics </a>
+         	<a href="javascript:" data-target-tab="panel_customer_experience" title="Customer Feedback Data" > <i class="fa fa-commenting-o" aria-hidden="true"></i> Customer Experience </a>
          </li>
          
          <li data-industry="MEDIA" style="display: none;" >
@@ -207,7 +204,11 @@
          </li>
          
          <li onclick="handleProfileTabExtInfo()" >
-          	<a href="javascript:" data-target-tab="panel_profile_information" title="Data of profile" > <i class="fa fa-info-circle" aria-hidden="true"></i> Profile Details </a>
+          	<a href="javascript:" data-target-tab="panel_profile_information" title="Data of profile" > <i class="fa fa-info-circle" aria-hidden="true"></i> Profile Info </a>
+         </li>
+         
+         <li onclick="loadDuplicatedProfiles()" >
+          	<a href="javascript:" data-target-tab="panel_duplicate_profiles" title="All duplicate profiles" > <i class="fa fa-list-ol" aria-hidden="true"></i> Duplicate Profiles </a>
          </li>
 	   </ul>
 
@@ -228,10 +229,10 @@
 		                	<li><a href="#panel_event_journey_report" data-toggle="tab" onclick="loadProfileDataJourneyReport()" > <i class="fa fa-map-o"></i> Data Journey Report </a></li>
 		                	<li><a href="#panel_referral_channels" data-toggle="tab"  > <i class="fa fa-globe" aria-hidden="true"></i> Referral Channels </a></li>
 		                	<li><a href="#panel_last_session_details" data-toggle="tab"> <i class="fa fa-hourglass-end" aria-hidden="true"></i> Last Session Data </a></li>
-		                	<li><a href="#panel_data_touchpoints" data-toggle="tab" onclick="loadProfileTopTouchpoints()" > <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Top Touchpoints </a></li>
+		                	<li><a href="#panel_data_touchpoints" data-toggle="tab" onclick="loadProfileTopTouchpoints()" > <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Engaged Touchpoints </a></li>
 		                	<li><a href="#panel_profile_scoring_data" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Advanced Scores</a></li>
 		                    <li><a href="#panel_user_consent" data-toggle="tab"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Privacy Consent </a></li>
-		                    <li><a href="#tab_profile_notes" data-toggle="tab"> <i class="fa fa-sticky-note-o" aria-hidden="true"></i> Notes / Description </a></li>
+		                    
 		                </ul>
 		                
 		                <div id="event_flow_vertital_tabs" class="tab-content col-md-10" >
@@ -595,14 +596,6 @@
                                   </div>
 		                    </div>
 		                    
-		                    <div class="tab-pane" id="tab_profile_notes" >
-				               <!-- profile info tab 6 -->
-				               <h4 class="highlight_text" > <i class="fa fa-sticky-note-o" aria-hidden="true"></i> Notes </h4>
-				               <div class="col-md-12" style="padding: 4px 8px; background-color: #f6f6f6; border-radius: 8px" >									
-									<textarea style="resize: vertical;" class="form-control" rows="24" placeholder="Notes" data-field="notes" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" readonly="readonly" ></textarea>
-				                </div>		                    
-		                    </div>
-		                    
 		                </div>
 		            </div>
 		            <!-- /tabs -->
@@ -611,11 +604,11 @@
 			</div>
 			
 			<!-- tab 2 customer feedbacks  -->
-			<div class="tab-pane " id="panel_customer_feedbacks" >
+			<div class="tab-pane " id="panel_customer_experience" >
 				<!-- tab 7 feedbacks  -->
 		     	<div class="row">
 					<div class="col-lg-12">
-						<h4 class="highlight_text" > <i class="fa fa-commenting-o" aria-hidden="true"></i> Customer Feedback </h4> 
+						<h4 class="highlight_text" > <i class="fa fa-commenting-o" aria-hidden="true"></i> Customer Experience Scores </h4> 
 					</div>
 					<div class="col-lg-12">
 						<div class="col-lg-12">
@@ -827,6 +820,7 @@
 		                	<li><a href="#tab_profile_sale_sources" data-toggle="tab"> <i class="fa fa-info-circle" aria-hidden="true"></i> Sale Sources </a></li>
 		                	<li><a href="#tab_profile_custom_fields" data-toggle="tab"> <i class="fa fa-table" aria-hidden="true"></i> Custom Fields </a></li>
 		                	<li><a href="#tab_profile_data_authorization" data-toggle="tab"> <i class="fa fa-lock" aria-hidden="true"></i> User Authorization </a></li>
+		                	<li><a href="#tab_profile_notes" data-toggle="tab"> <i class="fa fa-sticky-note-o" aria-hidden="true"></i> Notes / Description </a></li>
 		                </ul>
 		                
 		                <div id="profile_ext_info_vertital_tabs" class="tab-content col-md-10" >
@@ -853,6 +847,10 @@
 								               	<li>
 								                   <b data-persona="key" > <i class="fa fa-fw fa-id-card-o"></i> List of Application ID </b> 
 								                   <p data-field="applicationIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" > </p>
+								               	</li>
+								               	<li>
+								                   <b data-persona="key" > <i class="fa fa-fw fa-id-card-o"></i> List of Loyalty ID </b> 
+								                   <p data-field="loyaltyIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" > </p>
 								               	</li>
 								               	<li>
 				                                   <b data-persona="key"  >  <i class="fa fa-fw fa-users"></i> Social Media Profiles </b> 
@@ -1051,6 +1049,7 @@
 									</p>
 				                </div>		                    
 		                   </div>
+		                   
 		                   <div class="tab-pane" id="tab_profile_data_authorization" >
 				               <!-- profile info tab 7 -->
 				               <h4 class="highlight_text" > <i class="fa fa-lock" aria-hidden="true"></i> User Authorization </h4>
@@ -1071,10 +1070,70 @@
 				                   </tr>
 				               </table>			                    
 		                   </div>
+		                   
+		                   <div class="tab-pane" id="tab_profile_notes" >
+				               <!-- profile info tab 6 -->
+				               <h4 class="highlight_text" > <i class="fa fa-sticky-note-o" aria-hidden="true"></i> Notes </h4>
+				               <div class="col-md-12" style="padding: 4px 8px; background-color: #f6f6f6; border-radius: 8px" >									
+									<textarea style="resize: vertical;" class="form-control" rows="24" placeholder="Notes" data-field="notes" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" readonly="readonly" ></textarea>
+				                </div>		                    
+		                    </div>
 		                    
 					</div>
 		        </div>
                
+			</div>
+			
+			<!-- tab 9  duplicate profiles -->
+			<div class="tab-pane" id="panel_duplicate_profiles"  >
+		     	
+	     		<h4 class="highlight_text" > <i class="fa fa-list-ol" aria-hidden="true"></i> Top duplicate profiles 
+	     			<button id="btn_profile_deduplicate" type="button" class="btn btn-sm btn-primary data-control-edit" title="Do data deduplication" style="float: right;" > 
+						<i class="fa fa-compress" aria-hidden="true"></i> Deduplicate 
+					</button>
+				</h4>
+		
+		     	 <!-- duplicate profile list -->
+				<div class="row gridholder">
+				    <div class="col-lg-12">
+				    	<div id="duplicate_profile_loader" class="loader"></div>
+				        <div id="duplicate_profile_container" class="table-responsive" style="display: none;">
+				        	
+				            <table id="duplicate_profile_table" class="display" style="width:100%;">
+				                <thead>
+				                    <tr>
+				                        <th class="text-center" ></th>
+				                        <th> Full Name </th>
+				                        <th class="text-center">Email</th>
+				                        <th class="text-center">Phone</th>
+				                        <th class="text-center">Last-seen Touchpoint</th>
+				                        <th class="text-center">Data Quality</th>
+				                        <th class="text-center">Lead Score</th>
+				                        <th class="text-center">CLV Score</th>	                        
+				                        <th class="text-center">Updated</th>
+				                        <th class="text-center">Status</th>
+				                        <th class="text-center">Actions</th>
+				                    </tr>
+				                </thead>
+				                <tfoot>
+				                    <tr>
+				                        <th class="text-center" ></th>
+				                        <th> Full Name </th>
+				                        <th class="text-center">Email</th>
+				                        <th class="text-center">Phone</th>
+				                        <th class="text-center">Last-seen Touchpoint</th>
+				                        <th class="text-center">Data Quality</th>
+				                        <th class="text-center">Lead Score</th>
+				                        <th class="text-center">CLV Score</th>	                        
+				                        <th class="text-center">Updated</th>
+				                        <th class="text-center">Status</th>
+				                        <th class="text-center">Actions</th>
+				                    </tr>
+				                </tfoot>
+				            </table>
+				        </div>
+				    </div>
+				</div>
 			</div>
 			
 			<!-- /tabs -->
@@ -1088,9 +1147,14 @@
     
     var currentJourneyMapId = "";
     var viewProfileId = '';
+    var selectedDuplicateProfileIdMap = {};
+    var duplicateProfileTable = false;
     
     function initProfile360Analytics(profileId, crmRefId, visitorId) {
     	viewProfileId = profileId;
+    	duplicateProfileTable = false;
+    	selectedDuplicateProfileIdMap = {};
+    	
     	//setup tab navigation 
 		setupTabPanels();
 		loadProfile360Analytics(profileId, crmRefId, visitorId);

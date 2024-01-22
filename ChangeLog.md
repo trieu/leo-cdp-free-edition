@@ -30,10 +30,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2023-12-27
+## [0.9.0] - 2024-20-20
 
 ### Added
 
+- [Profile] show duplicate profile to merge data manually
 - [Segment] new operators to compare the date of birth of profile with current date
 - [Segment] add event tracking date filters
 - [Profile] can view profile details using Visitor ID
@@ -62,6 +63,7 @@
 
 ### Fixed
 
+- update and ranking
 - check status of Activation Rule before run a scheduled job
 - fix bugs update profile for non-admin system user 
 - fix and improve LEO Chatbot, the smart assistant for end-user

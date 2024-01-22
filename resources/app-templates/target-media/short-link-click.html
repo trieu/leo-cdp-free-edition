@@ -112,6 +112,9 @@
    		var idType = "{{customData.productIdType}}";
 		var productIds = "{{customData.productId}}";
 		
+		// content
+		var contentId = "{{customData.contentId}}";
+		
 		// to set ID from server if refVisitorId is stored in the TargetMediaUnit 
 		var injectedVisitorId = "{{customData.injectedVisitorId}}".trim();
 		
@@ -119,8 +122,7 @@
 		var targetMediaUrl = "{{{customData.targetMediaUrl}}}";
 		
 		var pageLoader = $('#page_loader');
-		var subscriptionBox = $('#subscription_box');
-		
+		var subscriptionBox = $('#subscription_box');		
 	
 		(function() {
 			if(referer == '') {
@@ -139,7 +141,12 @@
 		
 		var submitShortLinkClickEvent = function(){
 			// record event
-			var eventData = {"landingPageUrl" : targetMediaUrl, "productIds": productIds, "idType":idType };
+			var eventData = { "landingPageUrl" : targetMediaUrl };
+			
+			eventData['productIds'] = productIds;
+			eventData['idType'] = idType;			
+			eventData['contentId'] = contentId;
+			
 			eventData['adId'] = "{{{customData.adId}}}";
 			eventData['placementId'] = "{{{customData.placementId}}}";
 			eventData['campaignId'] = "{{{customData.campaignId}}}";
@@ -160,7 +167,7 @@
 				
 				// redirect
 				location.href = targetMediaUrl;
-			},1000)
+			},900)
 		}
 		
 		// handle click action of user
@@ -183,13 +190,12 @@
 			if(name !== "" && email !== ""){
 				subscriptionBox.hide();
 				pageLoader.show();
-				localStorage.setItem("submited_subscription", email)
-				
+				localStorage.setItem("submited_subscription", email);
+				// submit data to server
 				var userData = {firstName: name, email: email, loginId : "" ,loginProvider: 'Newsletter_Subscription'};
 	        	LeoObserverProxy.updateProfileBySession(userData);
 				gotoTargetUrl(injectedVisitorId);
-			}
-			
+			}			
 			return false;
 		});
 		

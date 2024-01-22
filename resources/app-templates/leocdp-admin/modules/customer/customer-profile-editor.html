@@ -43,6 +43,15 @@
       		<div class="col-md-5">
 	        	<!-- Primary fields -->
 	        	<div>
+	        		<div class="primary_field" > 
+						<label> <i class="fa fa-id-badge" aria-hidden="true"></i> Profile ID </label> 
+             					<span class="data_field" data-field="id" data-fieldholder="html" data-fieldtype="string" > - </span>
+					</div>
+					<div class="primary_field" > 
+						<label> <i class="fa fa-id-badge" aria-hidden="true"></i> Web Visitor ID </label> 
+             					<span class="data_field" data-field="visitorId" data-fieldholder="html"  data-fieldtype="string" > - </span>
+					</div>
+					<hr>
 	                <div class="primary_field" > 
                     	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Created at </b> 
                     	<span class="data_field" data-field="createdAt" data-fieldholder="html"  data-fieldtype="date_time"  > - </span> 
@@ -54,7 +63,7 @@
                      <hr>
 	                <div class="primary_field" >      	      
 	                	<label for="profile_notes"> <i class="fa fa-sticky-note-o" aria-hidden="true"></i> Notes / Description </label>
-	                	<textarea id="profile_notes" style="resize: vertical;" class="form-control" rows="5" placeholder="Notes" data-field="notes" data-fieldholder="inputvalue" data-fieldtype="string" ></textarea>
+	                	<textarea id="profile_notes" style="resize: vertical;" class="form-control" rows="3" placeholder="Notes" data-field="notes" data-fieldholder="inputvalue" data-fieldtype="string" ></textarea>
 	                </div>
                     <div class="primary_field" style="padding-top: 10px;">
 					   <b> <i class="fa fa-user-o" aria-hidden="true"></i> Profile Status </b> 
@@ -81,7 +90,7 @@
        <!--  Tab Navigation Items -->
        <ul class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" style="font-size: 12.8px;" >
        		<li class="active" >
-       			<a href="javascript:" data-target-tab="panel_personal_info" > <i class="fa fa-user-circle-o" aria-hidden="true"></i> Personal </a>
+       			<a href="javascript:" data-target-tab="panel_personal_info" > <i class="fa fa-user-circle-o" aria-hidden="true"></i> Personal Info </a>
        		</li>	
           	<li ><a href="javascript:" data-target-tab="panel_profile_contact" > <i class="fa fa-address-card-o" aria-hidden="true"></i> ID & Contact</a></li>
           	<li ><a href="javascript:" data-target-tab="panel_profile_taxonomy" > <i class="fa fa-tags" aria-hidden="true"></i> Taxonomy</a></li>
@@ -203,14 +212,7 @@
                    <tr>
                        <td>
 							<ol class="profile_ext_data" data-field="personal_attributes">
-								<li>
-									<label> <i class="fa fa-id-badge" aria-hidden="true"></i> Profile ID </label> 
-                					<span class="data_field" data-field="id" data-fieldholder="html" data-fieldtype="string" > - </span>
-								</li>
-								<li>
-									<label> <i class="fa fa-id-badge" aria-hidden="true"></i> Web Visitor ID </label> 
-                					<span class="data_field" data-field="visitorId" data-fieldholder="html"  data-fieldtype="string" > - </span>
-								</li>
+								
 								<li>
 									<label for="profile_crmRefId"> <i class="fa fa-id-badge" aria-hidden="true"></i> CRM Profile ID / Imported Customer ID </label> 
                 					<input id="profile_crmRefId" class="form-control" type="text" placeholder="CRM User ID" data-field="crmRefId" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
@@ -228,6 +230,13 @@
 				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Application ID 
 				    			   </button>
 				                   <p data-field="applicationIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
+				              	</li>
+				              	<li>
+				                   <label > <i class="fa fa-fw fa-list"></i> List of Loyalty ID <span class="small_highlight_text">(Data for Identity Resolution)</span> </label> 
+				                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('loyaltyIDs')"title="Add New Loyalty ID"  > 
+				    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Loyalty ID 
+				    			   </button>
+				                   <p data-field="loyaltyIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
 				              	</li>
 			               	</ol>
                	  		</td>

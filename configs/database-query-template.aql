@@ -1029,6 +1029,15 @@ AQL_GET_PROFILE_ID_BY_VISITOR_ID =>
 	RETURN p._key
 ;
 
+AQL_GET_PROFILE_BY_FINGERPRINT_OR_VISITOR_ID =>
+	FOR p in cdp_profile 
+	FILTER p.status == 1 
+		AND ( (@lastSeenIp == p.lastSeenIp AND @lastUsedDeviceId == p.lastUsedDeviceId AND @fingerprintId == p.fingerprintId)
+		OR  @visitorId == p.visitorId ) 
+	LIMIT 1
+	RETURN p
+;
+
 AQL_GET_PROFILE_BY_LOGIN_INFO =>
 	FOR p in cdp_profile 
 	FILTER @loginInfo != "" AND @loginInfo IN p.identities[*] AND p.status == 1
