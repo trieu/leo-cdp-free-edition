@@ -52,30 +52,13 @@
 	   		<b> <i class="fa fa-search" aria-hidden="true"></i> Data Query Filter </b>
 	   	</div>
 	    <div class="panel-body">
-	      	<div class="col-md-12 row">
+	      	<div class="col-lg-12 row">
 				
-				<div class="col-md-6" > 
+				<div class="col-lg-7" > 
 					<div class="col-md-12 profile_filter_box"  id="filterByJourneyMap" style="padding-bottom: 10px; font-weight: bold;" >
       					<select id="journeyMapList" class="form-control" data-placeholder="Choose an Journey Map" class="select" > </select>
 			  		</div>
-					<div class="col-md-12 profile_filter_box" >
-						<div class="col-md-3">
-							<label title="Filter all visitor profiles" > 
-								<input id="showVisitorProfile" type="checkbox" checked="checked"> Show visitor 
-							</label>
-						</div> 
-						<div class="col-md-5">
-							<label title="Filter all lead profiles" > 
-								<input id="showLeadAndProspectProfile" type="checkbox" checked="checked"> Show lead & prospect 
-							</label>
-						</div> 
-						<div class="col-md-4">
-							<label title="Filter all customer profiles" > 
-								<input id="showCustomerProfile" type="checkbox" checked="checked"> Show customer 
-							</label>
-						</div> 
-					</div> 
-					<div class="col-md-12 profile_filter_box" >
+			  		<div class="col-md-12 profile_filter_box" >
 						<div class="col-md-12">
 							<label title="Filter all profiles within the specified date range"> 
 								<input id="filter_profile_by_dates" type="checkbox" > Filter data by modification date 
@@ -102,9 +85,28 @@
 				            </div>
 						</div>
 					</div>
+					<div class="col-md-12 profile_filter_box" >
+						<h5 style="font-weight: bold;">Profile Type</h5>
+						<div class="col-md-4">
+							<label title="Filter all visitor profiles" > 
+								<input id="showVisitorProfile" type="checkbox" checked="checked"> Web Visitor 
+							</label>
+						</div> 
+						<div class="col-md-4">
+							<label title="Filter all lead profiles" > 
+								<input id="showLeadAndProspectProfile" type="checkbox" checked="checked"> Lead & Prospect 
+							</label>
+						</div> 
+						<div class="col-md-4">
+							<label title="Filter all customer profiles" > 
+								<input id="showCustomerProfile" type="checkbox" checked="checked"> Customer 
+							</label>
+						</div> 
+					</div> 
+					
 				</div>
 				
-				<div class="col-md-6" > 
+				<div class="col-lg-5" > 
 					<div class="col-md-12" >
 						<div class="dropdown">
 						    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">

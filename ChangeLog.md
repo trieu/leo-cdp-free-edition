@@ -30,7 +30,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-20-20
+## [0.9.0] - 2024-30-01
 
 ### Added
 
@@ -96,6 +96,7 @@
 
 ### Changed
 
+- [Profile] improve UI and UX of profile filter
 - [Activation] improve UI UX of activation rules
 - [Activation] using Java quartz-scheduler as main backend for job scheduling
 - the Event Time Series is default report of profile details
