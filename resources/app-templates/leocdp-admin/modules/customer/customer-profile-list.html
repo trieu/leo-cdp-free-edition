@@ -307,14 +307,14 @@
     	});
 	}
 	
-	var okMergeDuplicateProfile = function(){
-		$('#mergeDuplicateProfileDialog').modal('hide');	
+	var okDeduplicateAllProfiles = function(){
+		$('#deduplicateAllProfilesDialog').modal('hide');	
 		LeoAdminApiUtil.callPostAdminApi('/cdp/profiles/merge-duplicates', {'mergeStrategy' : 'automation'}, function (json) {
             if (json.httpCode === 0 && json.errorMessage === '') {
     			if(json.data){
     				iziToast.info({
-    		    	    title: 'Merge Duplicate Profile',
-    		    	    message: 'LEO CDP is processing all profiles in the database. It takes several minutes for this job'
+    		    	    title: 'Profile Data Deduplication',
+    		    	    message: 'CDP is processing for profile deduplication. It takes several minutes to do this job'
     		    	});
     			}
     			
@@ -325,7 +325,7 @@
 	}
 	
 	var showMergeDuplicateProfileDialog = function() {
-		$('#mergeDuplicateProfileDialog').modal({ backdrop: 'static', keyboard: false, focus: true });
+		$('#deduplicateAllProfilesDialog').modal({ backdrop: 'static', keyboard: false, focus: true });
 	}
 	
 	var refreshAllProfiles = function(){

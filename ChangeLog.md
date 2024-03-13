@@ -64,6 +64,7 @@
 
 ### Fixed
 
+- [Data Deduplication] improve UI UX in profile list and profile info
 - update and ranking
 - check status of Activation Rule before run a scheduled job
 - fix bugs update profile for non-admin system user 

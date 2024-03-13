@@ -1213,11 +1213,15 @@
              // Deduplicate must worok with active profile only
              var btnDeduplicate = $('#btn_profile_deduplicate');
              if(profileData.status === 1){
-            	 btnDeduplicate.click(deduplicateCurrentProfile);
+            	btnDeduplicate.click(function(){ 
+            		deduplicateCurrentProfileDialog(); 
+            	});
              }
              else {
             	 btnDeduplicate.attr('disabled','disabled');
              }
          });
     }   
+    
+
 </script>

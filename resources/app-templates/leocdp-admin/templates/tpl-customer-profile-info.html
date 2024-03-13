@@ -527,24 +527,47 @@
     </div>
 </div>
 
-<!-- Merge Duplicate Profile -->
-<div class="modal fade" id="mergeDuplicateProfileDialog" role="dialog">
+<!-- Merge Duplicate for all Profiles -->
+<div class="modal fade" id="deduplicateAllProfilesDialog" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title"> <i class="fa fa-compress" aria-hidden="true"></i> Merge Duplicate Profile </h3>
+                <h3 class="modal-title"> <i class="fa fa-compress" aria-hidden="true"></i> Deduplicate All Profiles </h3>
             </div>
 			<div class="modal-body">
                 <div class="alert alert-info">
-                    <h4> <i class="fa fa-question-circle-o" aria-hidden="true"></i>  Do you want to merge all duplicate profiles in the database ? </h4>
+                    <h4> <i class="fa fa-question-circle-o" aria-hidden="true"></i>  Do you want to do data deduplication ? </h4>
                 </div>
-                <input id="delete_callback" type="hidden" name="delete_callback" value="removeCustomerProfile6RB1XvM8P28pX7U2mCwzDL">
             </div>
             <div class="modal-footer">
             	<button type="button" class="btn btn-primary" data-dismiss="modal"> <i class="fa fa-minus-circle" aria-hidden="true"></i> CANCEL </button>
-                <button type="button" class="btn btn-goto-router" onclick="okMergeDuplicateProfile()"> <i class="fa fa-check" aria-hidden="true"></i> OK </button>
+                <button type="button" class="btn btn-goto-router" onclick="okDeduplicateAllProfiles()"> <i class="fa fa-check" aria-hidden="true"></i> OK </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Merge Duplicate from Current Profile -->
+<div class="modal fade" id="deduplicateCurrentProfileDialog" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title"> <i class="fa fa-compress" aria-hidden="true"></i> Deduplicate Current Profile </h3>
+            </div>
+			<div class="modal-body">
+                <div class="alert alert-info">
+                    <h4> <i class="fa fa-question-circle-o" aria-hidden="true"></i>  Do you want to do data deduplication ? </h4>
+                </div>
+            </div>
+            <div class="modal-footer">
+            	<button type="button" class="btn btn-primary" data-dismiss="modal"> <i class="fa fa-minus-circle" aria-hidden="true"></i> CANCEL </button>
+                <button type="button" class="btn btn-goto-router" onclick="deduplicateCurrentProfile()"> <i class="fa fa-check" aria-hidden="true"></i> OK </button>
             </div>
         </div>
 
