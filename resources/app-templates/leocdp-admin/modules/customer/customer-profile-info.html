@@ -32,57 +32,32 @@
                    <img id="profile_avatar" src="/public/images/avatars/profile-default-avatar.png" alt="Profile Avatar" class="rounded mx-auto d-block avatar"> <br>
                    <h4 id="profile_full_name" style="color:blue; font-weight: bold;" > - </h4>
                </div>
-			   <hr>
-               <div class="col-md-12" >
-				   
-				   <div class="col-md-4" >
-                     	<b> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Data Quality Score <a href="https://en.wikipedia.org/wiki/Data_quality" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-                     	<p class="scoring_field_credit" data-field="dataQualityScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-                    </div>
-                    
-               		<div class="col-md-4" >
-                     	<b> <i class="fa fa-fw fa-line-chart"></i> Lead Score <a href="https://en.wikipedia.org/wiki/Lead_scoring" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-                     	<p class="scoring_field" data-field="totalLeadScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-                 	</div>
-                 
-                	<div class="col-md-4" >
-                        <b> <i class="fa fa-usd" aria-hidden="true"></i> CLV (Lifetime Value) <a href="https://cio-wiki.org/wiki/Customer_Lifetime_Value" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-                        <p class="scoring_field_profit" data-field="totalCLV" data-fieldholder="html" data-fieldtype="int" > 0 </p>
-                    </div>
-                    
-                    <div class="col-md-4" >
-                        <b> <i class="fa fa-heartbeat" aria-hidden="true"></i> Loyalty Score <a href="https://en.wikipedia.org/wiki/Loyalty_program" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-                        <p class="scoring_field_credit" data-field="totalLoyaltyScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-                 	</div> 
-                    
-                    <div class="col-md-4" >
-                      	<b> <i class="fa fa-heartbeat fa-heartbeat" aria-hidden="true"></i> Engagement Score <a href="https://cio-wiki.org/wiki/Customer_Engagement" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-					    <p class="scoring_field" data-field="totalEngagementScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-                    </div>         
-                    
-                    <div class="col-md-4" >
-                    	<b> <i class="fa fa-usd" aria-hidden="true"></i> Total Transaction ({{currency_code}}) </b> 
-					    <p class="scoring_field_profit" data-field="totalTransactionValue" data-fieldholder="html"  data-fieldtype="int" > 0 </p> 
-                    </div>
-               </div>
                
                <div class="col-md-12" >  
-                    <ul class="list-group" style="margin-top: 12px">
+                    <ul class="list-group" style="margin-top: 10px">
                     	<li class="list-group-item" >
-					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Data Journeys: </b> 
-					  		[<span class="data_field" id="profileInJourneyMaps" > </span> ]
+					  		<i class="fa fa-user-circle-o" aria-hidden="true"></i> <b> Profile Type: </b> 
+					  		<span class="data_field" data-field="typeAsText" data-fieldholder="html"  data-fieldtype="string"  > - </span>
+					  	</li>
+					  	<li class="list-group-item" >
+                    		<i class="fa fa-info-circle" aria-hidden="true"></i> <b> Data Quality Score: </b> 
+                    		<span class="scoring_field" data-field="dataQualityScore" data-fieldholder="html"  data-fieldtype="int" > 0 </span>
+                        </li>
+                    	<li class="list-group-item" >
+					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Journey Maps: </b> 
+					  		<span class="data_field" id="profileInJourneyMaps" > </span> 
 					  	</li>
 					  	<li class="list-group-item">
 					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Segments: </b> 
-					  		[<span class="data_field" id="profileInSegments" > </span> ]
+					  		<span class="data_field" id="profileInSegments" > </span> 
 					  	</li>
 					  	<li class="list-group-item" style="display: none">
-					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Accounts: </b> 
-					  		[<span class="data_field" id="profileInAccounts" > </span> ]
+					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Accounts: </b> 
+					  		<span class="data_field" id="profileInAccounts" > </span> 
 					  	</li>
 					  	<li class="list-group-item">
 					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Data Labels: </b> 
-					  		[<span class="data_field" id="profileDataLabels" > </span> ]
+					  		<span class="data_field" id="profileDataLabels" > </span> 
 					  	</li>
 				   	</ul>  
 				</div>
@@ -119,10 +94,6 @@
                     </div>
 	                  
 	                <hr>
-	                <div class="primary_field" > 
-                    	<b class="primary_field" >  <i class="fa fa-user-circle-o" aria-hidden="true"></i> Profile Type: </b>
-                    	<span class="data_field" data-field="typeAsText" data-fieldholder="html"  data-fieldtype="string"  > - </span>
-                    </div>
                     <div class="primary_field" >
                     	<b class="primary_field" > <i class="fa fa-envelope" aria-hidden="true"></i> Primary Email: </b>  
                     	<span class="data_field" data-field="primaryEmail" data-fieldholder="html" data-fieldtype="string" >  - </span>
@@ -145,26 +116,12 @@
                     <div class="primary_field" > 
                     	<b > <i class="fa fa-fw fa-id-badge"></i> Last Name: </b> 
                     	<span class="data_field" data-field="lastName" data-fieldholder="html" data-fieldtype="string" >  - </span> 
-                    </div>    
-                        
-                    <hr>    
+                    </div>  
                             
                     <div class="primary_field" > 
 	                	<b > <i class="fa fa-fw fa-user-o"></i> Gender: </b> 
 	                	<span class="data_field" data-field="genderAsText" data-fieldholder="html" data-fieldtype="string" > - </span>  
-	                </div>	                
-	                <div class="primary_field" > 
-	                	<b class="primary_field"  > <i class="fa fa-fw fa-user-o"></i> Age: </b> 
-	                	<span class="data_field" data-field="age" data-fieldholder="html" data-fieldtype="int" > - </span> 
-	                </div>	                     
-	                <div class="primary_field" > 
-                    	<b class="primary_field"  > <i class="fa fa-fw fa-user-o"></i> Date of Birth </b> 
-                    	<span class="data_field" data-field="dateOfBirth" data-fieldholder="html" data-fieldtype="date"  > -  </span> 
 	                </div>
-	                <div class="primary_field" > 
-	                	<b > <i class="fa fa-fw fa-venus-mars"></i> Marital Status: </b> 
-	                	<span class="data_field" data-field="maritalStatusAsText" data-fieldholder="html" data-fieldtype="string" > - </span>  
-	                </div>	
                     
 	        	</div>
 	        	
@@ -176,7 +133,7 @@
        <!--  Main Tabs of Profile Info -->
        <ul id="profile_info_tabs" class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" >
          <li class="active" onclick="handleProfileTabBehavioralInfo()">
-          	<a href="javascript:" data-target-tab="panel_behavioral_Data" title="Customer Behavioral Data"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Behavioral Data </a>
+          	<a href="javascript:" data-target-tab="panel_behavioral_Data" title="Customer Behavioral Data"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Behaviors </a>
          </li>
          
          <li>
@@ -230,7 +187,7 @@
 		                	<li><a href="#panel_referral_channels" data-toggle="tab"  > <i class="fa fa-globe" aria-hidden="true"></i> Referral Channels </a></li>
 		                	<li><a href="#panel_last_session_details" data-toggle="tab"> <i class="fa fa-hourglass-end" aria-hidden="true"></i> Last Session Data </a></li>
 		                	<li><a href="#panel_data_touchpoints" data-toggle="tab" onclick="loadProfileTopTouchpoints()" > <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Engaged Touchpoints </a></li>
-		                	<li><a href="#panel_profile_scoring_data" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Advanced Scores</a></li>
+		                	<li><a href="#panel_profile_scoring_data" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Total Scoring Data</a></li>
 		                    <li><a href="#panel_user_consent" data-toggle="tab"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Privacy Consent </a></li>
 		                    
 		                </ul>
@@ -250,12 +207,7 @@
 				        			 	<label>Sentiment Score </label>  <span id="profileJourneySentimentScore" class="data_field" >0</span>
 				        			</div>
 				        		</div>
-								
-		                    	<!-- Event Summary Report -->
-	               				<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Summary Report </h4> 
-									<div id="profileEventStatsChart" class="col-lg-12"> </div>
-								</div>
+		                    	<!-- Event Time Series -->
 		                   		<div class="col-lg-12">
 									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Time Series </h4> 
 								</div>
@@ -293,6 +245,11 @@
 										<canvas id="timeseriesProfileEventChart" ></canvas>
 									</div>
 					      		</div>
+					      		<!-- Event Summary Report -->
+	               				<div class="col-lg-12">
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Summary Report </h4> 
+									<div id="profileEventStatsChart" class="col-lg-12"> </div>
+								</div>
 		                    </div>  
 		                  
 		                    <!-- vertical tab: Event Data Stream  -->
@@ -531,12 +488,36 @@
 		                    <!-- vertical tab Event Statistics  -->
 		                    <div class="tab-pane" id="panel_profile_scoring_data" >
 		                    	<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Advanced Scoring Data </h4> 
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Total Scoring Data </h4> 
 								</div>
 						     	<table border=0 class="underlined" style="width: 100%; margin-top: 8px;">
 					                   <tr>
 					                       <td>
 					                           <ol id="profile_scoring" data-field="profile_scoring" >
+					                          	   <li>
+								                   		<b> <i class="fa fa-fw fa-line-chart"></i> Lead Score <a href="https://en.wikipedia.org/wiki/Lead_scoring" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+								                     	<p class="scoring_field" data-field="totalLeadScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+								                   </li>
+								                 
+								                   <li>
+								                        <b> <i class="fa fa-usd" aria-hidden="true"></i> CLV (Lifetime Value) <a href="https://cio-wiki.org/wiki/Customer_Lifetime_Value" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+								                        <p class="scoring_field_profit" data-field="totalCLV" data-fieldholder="html" data-fieldtype="int" > 0 </p>
+								                   </li>
+								                    
+								                   <li>
+								                        <b> <i class="fa fa-heartbeat" aria-hidden="true"></i> Loyalty Score <a href="https://en.wikipedia.org/wiki/Loyalty_program" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+								                        <p class="scoring_field_credit" data-field="totalLoyaltyScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+								                   </li> 
+								                    
+								                   <li>
+								                      	<b> <i class="fa fa-heartbeat fa-heartbeat" aria-hidden="true"></i> Engagement Score <a href="https://cio-wiki.org/wiki/Customer_Engagement" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+													    <p class="scoring_field" data-field="totalEngagementScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+								                   </li>         
+								                    
+								                   <li>
+								                    	<b> <i class="fa fa-usd" aria-hidden="true"></i> Total Transaction ({{currency_code}}) </b> 
+													    <p class="scoring_field_profit" data-field="totalTransactionValue" data-fieldholder="html"  data-fieldtype="int" > 0 </p> 
+								                   </li>
 					                           	   <li>
 								                       <b> <i class="fa fa-usd" aria-hidden="true"></i> Prospect Score <a href="https://en.wikipedia.org/wiki/Lead_scoring" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
 								                       <p class="scoring_field" data-field="totalProspectScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
@@ -826,6 +807,19 @@
 		                <div id="profile_ext_info_vertital_tabs" class="tab-content col-md-10" >
 		                	
 		                    <div class="tab-pane active" id="tab_profile_contact_info" >
+			                    <div class="primary_field" > 
+				                	<b class="primary_field"  > <i class="fa fa-fw fa-user-o"></i> Age: </b> 
+				                	<span class="data_field" data-field="age" data-fieldholder="html" data-fieldtype="int" > - </span> 
+				                </div>	                     
+				                <div class="primary_field" > 
+			                    	<b class="primary_field"  > <i class="fa fa-fw fa-user-o"></i> Date of Birth </b> 
+			                    	<span class="data_field" data-field="dateOfBirth" data-fieldholder="html" data-fieldtype="date"  > -  </span> 
+				                </div>
+				                <div class="primary_field" > 
+				                	<b > <i class="fa fa-fw fa-venus-mars"></i> Marital Status: </b> 
+				                	<span class="data_field" data-field="maritalStatusAsText" data-fieldholder="html" data-fieldtype="string" > - </span>  
+				                </div>	
+		                    
 		                    	<!-- profile info tab 1 -->
 								<h4 class="highlight_text" > <i class="fa fa-address-card-o" aria-hidden="true"></i> Contact Data </h4>
 							 	<table border=0 class="underlined" style="width: 100%;">

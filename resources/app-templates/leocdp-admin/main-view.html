@@ -13,7 +13,7 @@
 		</a>
 
 		<div style="width: 100%;">
-			<input id="main_search_profile" type="text" placeholder="Search customer profiles by name, email or phone number" autocomplete="off" >
+			<input id="main_search_profile" type="text" placeholder="Enter name, email or phone number to search customer profiles" autocomplete="off" >
 		</div>
 
 		<!-- Top User Menu -->
@@ -53,7 +53,7 @@
 				<ul id="analytics_hub_menu" class="collapse in" aria-expanded="true">
 					<li id="Customer_Data_Report_Menu" >
 						<a id="Customer_Data_Report" href="#calljs-leoCdpRouter('Customer_Data_Report')" title="Customer Data Report" > 
-							<i class="fa fa-fw fa-filter"></i> Customer Data Report </a>
+							<i class="fa fa-fw fa-filter"></i> Customer Report </a>
 					</li>
 					<li>
 						<a id="Event_Data_Report" href="#calljs-leoCdpRouter('Event_Data_Report')" title="Event Data Report" > 
@@ -66,40 +66,43 @@
 				</ul>
 			</li>
 			
-			<!--  2 - Customer Data Hub Menu  -->
-			<li id="nav_customer_hub" style="display: none;" data-system-user-roles="1,2,3,4,5" >
-				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#customer_hub_menu"> <i class="fa fa-fw fa-address-card-o"></i>
-					Customer Data Hub <i id="customer_data_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
-				</a>
-				<ul id="customer_hub_menu" class="collapse in" aria-expanded="true">
-					<li id="Profile_Management_Menu" >
-						<a id="Profile_Management" href="#calljs-leoCdpRouter('Profile_Management')" title="All Customer Profiles" > 
-							<i class="fa fa-fw fa-users"></i> Profile Management </a>
-					</li>
-					<li id="Segment_Management_Menu" >
-						<a id="Segment_Management" href="#calljs-leoCdpRouter('Segment_Management')" title="All Customer Segments"> 
-							<i class="fa fa-object-group" aria-hidden="true"></i> Segment Management </a>
-					</li>
-				</ul>
-			</li>
-		
-			<!--  3 - Data Journey Hub   -->
+			<!--  2 - Data Journey Hub   -->
 			<li id="nav_journey_hub"  >
 				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#journey_hub_menu"> <i class="fa fa-fw fa-map"></i>
 				 	Data Journey Hub <i id="journey_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
 				</a>
 				<ul id="journey_hub_menu" class="collapse in" aria-expanded="true">			
+					<li style="display: none;" data-system-user-roles="5">
+						<a id="Data_Journey_Map" href="#calljs-leoCdpRouter('Data_Journey_Map','id_default_journey')" title="Data Journey Map Management"> 
+							<i class="fa fa-fw fa-map-o"></i> Data Journey Map </a>
+					</li>
 					<li id="Event_Data_Funnel_Menu"  >
 						<a id="Event_Data_Funnel" href="#calljs-leoCdpRouter('Event_Data_Funnel')" title="Event Data Funnel Management" >
 							<i class="fa fa-fw fa-filter"></i> Event Data Metrics </a>
 					</li>
-					<li style="display: none;" data-system-user-roles="5">
-						<a id="Data_Journey_Map" href="#calljs-leoCdpRouter('Data_Journey_Map','id_default_journey')" title="Data Journey Map Management"> 
-							<i class="fa fa-fw fa-map-o"></i> Data Journey Maps </a>
-					</li>
 				</ul>
 			</li>
 			
+			<!--  3 - Customer Data Hub Menu  -->
+			<li id="nav_customer_hub" style="display: none;" data-system-user-roles="1,2,3,4,5" >
+				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#customer_hub_menu"> <i class="fa fa-fw fa-address-card-o"></i>
+					Customer Data Hub <i id="customer_data_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
+				</a>
+				<ul id="customer_hub_menu" class="collapse in" aria-expanded="true">
+					<li id="Community_Management_Menu" style="display: none">
+						<a id="Profile_Management" href="#calljs-leoCdpRouter('Profile_Management')" title="All Customer Profiles" > 
+							<i class="fa fa-fw fa-users"></i> Customer Community </a>
+					</li>
+					<li id="Profile_Management_Menu" >
+						<a id="Profile_Management" href="#calljs-leoCdpRouter('Profile_Management')" title="All Customer Profiles" > 
+							<i class="fa fa-fw fa-address-card-o"></i> Customer Profiles </a>
+					</li>
+					<li id="Segment_Management_Menu" >
+						<a id="Segment_Management" href="#calljs-leoCdpRouter('Segment_Management')" title="All Customer Segments"> 
+							<i class="fa fa-object-group" aria-hidden="true"></i> Customer Segments </a>
+					</li>
+				</ul>
+			</li>
 			
 			<!-- 4 - Data Activation Hub Menu -->
 			<li id="nav_activation_hub" style="display: none;" data-system-user-roles="4,5" >
@@ -109,15 +112,19 @@
 				<ul id="data_activation_hub_menu" class="collapse in" aria-expanded="true">
 					<li>
 						<a id="Digital_Asset_Management" href="#calljs-leoCdpRouter('Digital_Asset_Management')" title="Digital Asset Management" > 
-							<i class="fa fa-fw fa-list" ></i> Asset Management </a>
+							<i class="fa fa-fw fa-list" ></i> Digital Data Assets </a>
 					</li>
 					<li id="Data_Service_Management_Menu" style="display: none;" data-system-user-roles="5,6" >
 						<a id="Data_Service_Management" href="#calljs-leoCdpRouter('Data_Service_Management')">
 							<i class="fa fa-fw fa-exchange" aria-hidden="true" ></i> Activation Services </a>
 					</li>
-					<li id="Campaign_Management_Menu" style="display: none" >
-						<a id="Campaign_Management" href="#calljs-leoCdpRouter('Campaign_Management')">
-							<i class="fa fa-fw fa-envelope-o" aria-hidden="true" ></i> Campaign Management</a>
+					<li id="Activation_Rules_Menu" style="display: none" >
+						<a id="Activation_Rules" href="#calljs-leoCdpRouter('Activation_Rules')">
+							<i class="fa fa-fw fa-cogs" aria-hidden="true" ></i> Activation Rules </a>
+					</li>
+					<li id="Automated_Campaigns_Menu" >
+						<a id="Automated_Campaigns" href="#calljs-leoCdpRouter('Automated_Campaigns')">
+							<i class="fa fa-fw fa-cogs" aria-hidden="true" ></i> Automated Campaigns </a>
 					</li>
 				</ul>
 			</li>
@@ -130,7 +137,7 @@
 				<ul id="system_management_menu" class="collapse in" aria-expanded="true">
 					<li>
 						<a id="User_Login_Management" href="#calljs-leoCdpRouter('User_Login_Management')">
-							<i class="fa fa-user-plus" aria-hidden="true"></i> Login Management </a>
+							<i class="fa fa-user-plus" aria-hidden="true"></i> User Login Accounts </a>
 					</li>
 					<li id="System_Data_Settings_Menu" >
 						<a id="System_Data_Settings" href="#calljs-leoCdpRouter('System_Data_Settings')" >
@@ -139,16 +146,20 @@
 				</ul>
 			</li>
 			
-			<li id="promo_panel" style="visibility: visible;" >
+			<li >
 				<div class="panel panel-default">
 				    <div class="panel-body" style="font-size: 11px;" >
 				    	<div>
-				    		<b> <a href="https://leocdp.com" target="_blank" > LEO <span id="leo_product_type" ></span> </a> <span id="leocdp_version_type" ></span> Edition </b> <br>
-				    		ID: <b><span id="leocdp_version_number" ></span></b>
+				    		<b> 
+				    			Version: <span id="leo_product_type" ></span>
+				    			<span id="leocdp_version_type" ></span>  
+				    		</b> 
+				    		<br>
+				    		<b>ID: <span id="leocdp_version_number" ></span></b>
 				    	</div>
-				    	<div>
-				    		<b> Powered by</b> <br>
-				    		<img id="uspa_logo" style="margin: auto;" src="/public/images/uspa-tech-logo.png" alt="USPA Technology" title="Go to USPA Technology website" >
+				    	<div id="promo_panel" style="visibility:visible;" >
+				    		<b> Powered by </b> <br>
+				    		<img id="uspa_logo" style="margin:auto" src="/public/images/uspa-tech-logo.png" alt="USPA Technology" title="Go to USPA Technology website" >
 				    	</div>
 				    </div>
 				</div>
@@ -229,7 +240,7 @@
 	/////////////////////////////// READY //////////////////////////////////
 	
 	function pageWrapperResize(){
-		var w = $(window).width() - 220;
+		var w = $(window).width() - 216;
 		$('#page-wrapper').attr('style', 'width:'+ w + 'px!important');
 		window.pageWrapperWidth = w;
 	}

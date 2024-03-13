@@ -32,7 +32,7 @@
 					<a href="javascript:" data-target-tab="panel_sys_services" title="System Services" > <i class="fa fa-cogs" aria-hidden="true"></i> System Services </a>
 		       	</li>
 		       	<li >
-					<a href="javascript:" data-target-tab="panel_sys_upgrade" title="Upgrade System" > <i class="fa fa-cloud-download" aria-hidden="true"></i> Download & Upgrade System </a>
+					<a href="javascript:" data-target-tab="panel_sys_upgrade" title="Upgrade System" > <i class="fa fa-cloud-download" aria-hidden="true"></i> Upgrade System </a>
 		       	</li>
 		  	</ul>
 		  	
@@ -70,16 +70,16 @@
 				<!-- tab 3 Event Report  -->
 				<div class="tab-pane " id="panel_sys_upgrade" >
 					<div class="col-lg-9">
-		         		<h4> <i class="fa fa-cloud-download" aria-hidden="true"></i> 
-		         			<mark> To run automatically download and upgrade the system, please click "Donwload & Upgrade"</mark> </h4>
+		         		<h4> <i class="fa fa-info-circle" aria-hidden="true"></i> 
+		         			<mark> To run automatically download and upgrade the system, please click "System Upgrade"</mark> </h4>
 		         	</div>
 		         	<div class="col-lg-3 text-right" >
 			         	<button type="button" class="btn btn-goto-router" onclick="callSystemControlUpgrade()" title="Upgrade System"  > 
-				     		<i class="fa fa-cloud-download" aria-hidden="true"></i> Donwload & Upgrade
+				     		<i class="fa fa-cloud-download" aria-hidden="true"></i> System Upgrade
 				     	</button>
 			     	</div>
 					<div class="col-lg-12" style="margin-top: 8px;">
-			            <textarea class="form-control" id="upgrade_system_logs" rows="9"></textarea>
+			            <textarea class="form-control" id="upgrade_system_logs" rows="9" placeholder="system upgrade logs"></textarea>
 			        </div>
 				</div>
 			</div>

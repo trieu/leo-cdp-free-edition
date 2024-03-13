@@ -24,17 +24,6 @@
 	<div class="col-lg-12">
 	
 		<div class="row">
-			<div class="col-lg-8" >
-				<div class="panel panel-info">
-            		<div class="panel-heading"> <h3 class="panel-title text-center"> <i class="fa fa-info-circle" aria-hidden="true"></i> Journey Name </h3> </div>
-				  	<div class="panel-body" style="height: 80px" >
-				  		 <h4 class="highlight_text text-center" >
-				  		 	<a id="journeyMapName" href="javascript: editJourneyMapName()" title="Click to edit name" >&nbsp;</a>
-				  		 	<input id="journeyMapNameEditor" type="text" class="form-control"  placeholder="Enter journey map name" style="display: none" >
-				  		 </h4>
-				  	</div>
-				</div>
-			</div>
 			<div class="col-lg-4" >
 	            <div class="panel panel-info">
             		<div class="panel-heading"> <h3 class="panel-title text-center"> <i class="fa fa-list" aria-hidden="true"></i> All Journey Maps</h3> </div>
@@ -45,6 +34,17 @@
 		                <div id="default_journey_map_check" style="display: none; margin-top: 8px; font-weight: bold;" > 
 				  			<i style="font-size:1.2em;color:#3300ff" class="fa fa-check-square-o" aria-hidden="true"></i> Default Journey Map
 				  		</div>
+				  	</div>
+				</div>
+			</div>
+			<div class="col-lg-8" >
+				<div class="panel panel-info">
+            		<div class="panel-heading"> <h3 class="panel-title text-center"> <i class="fa fa-info-circle" aria-hidden="true"></i> Journey Name </h3> </div>
+				  	<div class="panel-body" style="height: 80px" >
+				  		 <h4 class="highlight_text text-center" >
+				  		 	<a id="journeyMapName" href="javascript: editJourneyMapName()" title="Click to edit name" >&nbsp;</a>
+				  		 	<input id="journeyMapNameEditor" type="text" class="form-control"  placeholder="Enter journey map name" style="display: none" >
+				  		 </h4>
 				  	</div>
 				</div>
 			</div>
@@ -60,20 +60,11 @@
 		        			<i class="fa fa-pencil-square" aria-hidden="true"></i> Journey Map Design 
 		        		</a>
 		       		</li>
-		       		<li>
-		       			<a href="javascript:loadJourneyFlowReport()" data-target-tab="panel_journey_flow_report" > 
-		       				<i class="fa fa-snowflake-o" aria-hidden="true"></i> Event Flow Report 
-		       			</a>
-		       		</li>
 				</ul>
 				<div class="tab-content" id="journey_flow_tabs" style="min-height: 550px;" >
 					<!-- tab 1 Design Mode   -->
 					<div class="tab-pane active" id="panel_journey_flow_design" >
 						<div id="journeyFlowChart" class="experience_journey_flow" style="height: 550px;"></div>
-					</div>
-					<!-- tab 2 Report Mode  -->
-					<div class="tab-pane" id="panel_journey_flow_report" >
-						 <div id="journeyFlowReport" class="experience_journey_flow" style="height: 550px;"></div>
 					</div>
 				</div>
 		  	</div>
@@ -81,24 +72,50 @@
 		
 		<!--  Tab Navigation Items -->
 		<ul class="nav nav-tabs" data-tab-content="journey_touchpoint_tabs" > 
-			<li class="active"  >
-       			<a href="javascript:" data-target-tab="panel_summary_report"  > <i class="fa fa-bar-chart aria-hidden="true"></i> Summary Report  </a>
-       		</li>
-	   		<li >
+	   		<li class="active"  >
         		<a href="javascript:" data-target-tab="panel_touchpoint_hubs" > <i class="fa fa-list" aria-hidden="true"></i> Touchpoint Hub</a>
        		</li>
        		<li id="tab_journey_data_observers" style="display: none">
        			<a href="javascript:" data-target-tab="panel_data_observers"  > <i class="fa fa-list" aria-hidden="true"></i> Event Observer </a>
        		</li>
+       		<li>
+       			<a href="javascript:" data-target-tab="panel_summary_report"  > <i class="fa fa-bar-chart aria-hidden="true"></i> Touchpoint Hub Report  </a>
+       		</li>
+       		<li>
+       			<a href="javascript:loadJourneyFlowReport()" data-target-tab="panel_journey_flow_report" > 
+       				<i class="fa fa-snowflake-o" aria-hidden="true"></i> Event Flow Report 
+       			</a>
+       		</li>
        		<li id="tab_journey_data_authorization" style="display: none">
        			<a href="javascript:" data-target-tab="panel_journey_data_authorization"  > <i class="fa fa-lock" aria-hidden="true"></i> User Authorization </a>
        		</li>
+       		
 		</ul>
 
 		<div class="tab-content" id="journey_touchpoint_tabs" style="min-height:450px; margin-bottom:60px;" >
 		
-			<!-- tab 1 Journey Data Report  -->
-			<div class="tab-pane active" id="panel_summary_report" >
+			<!-- tab 1 Touchpoint Data Hub   -->
+			<div class="tab-pane active" id="panel_touchpoint_hubs" >
+				<div class="top_page_header" >
+					<h4> All Touchpoint Data Hubs </h4>
+				</div>
+				<div class="table-responsive">
+		    		<div id="touchpoint_hub_table"></div>
+		    	</div>
+			</div>
+			
+			<!-- tab 2 Touchpoint Data Observer  -->
+			<div class="tab-pane" id="panel_data_observers" >
+				<div class="top_page_header" >
+					<h4> All Event Observers for Touchpoint Hubs </h4>
+				</div>
+		        <div class="table-responsive" >
+		            <div id="data_observers_table"></div>
+		        </div>
+			</div>
+			
+			<!-- tab 3 Journey Data Report  -->
+			<div class="tab-pane" id="panel_summary_report" >
 				<!-- Event Matrix -->
 				<div class="col-lg-12"  >
 					<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Matrix Report between the Touchpoint Hubs and Event Metrics </h4> 
@@ -111,28 +128,13 @@
 					<div id="journeyObserverChart" class="col-lg-12"> </div>
 				</div>	
 			</div>
-
-			<!-- tab 2 Touchpoint Data Hub   -->
-			<div class="tab-pane" id="panel_touchpoint_hubs" >
-				<div class="top_page_header" >
-					<h4> All Touchpoint Data Hubs </h4>
-				</div>
-				<div class="table-responsive">
-		    		<div id="touchpoint_hub_table"></div>
-		    	</div>
+			
+			<!-- tab 4 Report Mode  -->
+			<div class="tab-pane" id="panel_journey_flow_report" >
+				 <div id="journeyFlowReport" class="experience_journey_flow" style="height: 720px;"></div>
 			</div>
 			
-			<!-- tab 3 Touchpoint Data Observer  -->
-			<div class="tab-pane" id="panel_data_observers" >
-				<div class="top_page_header" >
-					<h4> All Event Observers for Touchpoint Hubs </h4>
-				</div>
-		        <div class="table-responsive" >
-		            <div id="data_observers_table"></div>
-		        </div>
-			</div>
-			
-			<!-- tab 4 User Authorization  -->
+			<!-- tab 5 User Authorization  -->
 			<div class="tab-pane" id="panel_journey_data_authorization" >
 				<div class="top_page_header" >
 					<h4> User Authorization of journey map "<span id="authorizedJourneyName"></span>" </h4>

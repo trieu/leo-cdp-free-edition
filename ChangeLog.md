@@ -30,10 +30,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-30-01
+## [0.9.0] - 2024-03-13
 
 ### Added
 
+- [Campaign] UI to listing campaigns
 - [Profile] show duplicate profile to merge data manually
 - [Segment] new operators to compare the date of birth of profile with current date
 - [Segment] add event tracking date filters
@@ -96,6 +97,9 @@
 
 ### Changed
 
+- [Journey Map] improve UI UX 
+- [Profile] update UI to show profile scores, prepare show score report of journey map
+- [Profile] do not merge profile automatically when save profile from web sources
 - [Profile] improve UI and UX of profile filter
 - [Activation] improve UI UX of activation rules
 - [Activation] using Java quartz-scheduler as main backend for job scheduling
