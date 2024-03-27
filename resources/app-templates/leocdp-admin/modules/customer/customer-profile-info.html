@@ -39,10 +39,6 @@
 					  		<i class="fa fa-user-circle-o" aria-hidden="true"></i> <b> Profile Type: </b> 
 					  		<span class="data_field" data-field="typeAsText" data-fieldholder="html"  data-fieldtype="string"  > - </span>
 					  	</li>
-					  	<li class="list-group-item" >
-                    		<i class="fa fa-info-circle" aria-hidden="true"></i> <b> Data Quality Score: </b> 
-                    		<span class="scoring_field" data-field="dataQualityScore" data-fieldholder="html"  data-fieldtype="int" > 0 </span>
-                        </li>
                     	<li class="list-group-item" >
 					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Journey Maps: </b> 
 					  		<span class="data_field" id="profileInJourneyMaps" > </span> 
@@ -80,6 +76,11 @@
 	                	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Last Imported CRM ID: </b> 
 	                	<span class="data_field" data-field="crmRefId" data-fieldholder="html" data-fieldtype="string" > - </span>
 	                </div>
+	                <hr>
+                    <div class="primary_field" > 
+                   		<b> <i class="fa fa-info-circle" aria-hidden="true"></i> Data Quality Score: </b> 
+                   		<span class="scoring_field" data-field="dataQualityScore" data-fieldholder="html"  data-fieldtype="int" > 0 </span>
+                    </div> 
                     
                     <hr>
                     
@@ -116,13 +117,7 @@
                     <div class="primary_field" > 
                     	<b > <i class="fa fa-fw fa-id-badge"></i> Last Name: </b> 
                     	<span class="data_field" data-field="lastName" data-fieldholder="html" data-fieldtype="string" >  - </span> 
-                    </div>  
-                            
-                    <div class="primary_field" > 
-	                	<b > <i class="fa fa-fw fa-user-o"></i> Gender: </b> 
-	                	<span class="data_field" data-field="genderAsText" data-fieldholder="html" data-fieldtype="string" > - </span>  
-	                </div>
-                    
+                    </div>          
 	        	</div>
 	        	
       		</div>
@@ -134,6 +129,10 @@
        <ul id="profile_info_tabs" class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" >
          <li class="active" onclick="handleProfileTabBehavioralInfo()">
           	<a href="javascript:" data-target-tab="panel_behavioral_Data" title="Customer Behavioral Data"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Behaviors </a>
+         </li>
+         
+         <li onclick="handleProfileTabExtInfo()" >
+          	<a href="javascript:" data-target-tab="panel_profile_information" title="Data of profile" > <i class="fa fa-info-circle" aria-hidden="true"></i> Profile Details </a>
          </li>
          
          <li>
@@ -148,9 +147,7 @@
          	<a href="javascript: loadRecommendedProductsOfProfile(viewProfileId, true)" data-target-tab="panel_recommended_products"  title="Recommended products for direct marketing" > <i class="fa fa-list-ol" aria-hidden="true"></i> Recommended Products </a>
          </li>
          
-         <li data-industry="COMMERCE" style="display: none;">
-         	<a href="javascript: loadPurchasedItemsOfProfile()" data-target-tab="panel_purchased_products" title="Show purchased products" ><i class="fa fa-shopping-cart" aria-hidden="true"></i> Purchased Products </a>
-         </li>
+         
          
          <li data-industry="FINANCE" style="display: none"  onclick="loadFinancialEventList()" >
          	<a href="javascript:" data-target-tab="panel_financial_information"  > <i class="fa fa-usd" aria-hidden="true"></i> Financial Data </a>
@@ -158,10 +155,6 @@
          
          <li style="display: none;"  >
          	<a href="javascript:" data-target-tab="panel_insights"  > <i class="fa fa-briefcase" aria-hidden="true"></i> Data Insight </a>
-         </li>
-         
-         <li onclick="handleProfileTabExtInfo()" >
-          	<a href="javascript:" data-target-tab="panel_profile_information" title="Data of profile" > <i class="fa fa-info-circle" aria-hidden="true"></i> Profile Info </a>
          </li>
          
          <li onclick="loadDuplicatedProfiles()" >
@@ -176,11 +169,21 @@
 			<div class="tab-pane active" id="panel_behavioral_Data" >
 				
 				<div class="row" >
+					<div class="col-lg-12"  >
+						<h4 class="highlight_text" > <i class="fa fa-map-o" aria-hidden="true"></i> Data Journey Map </h4> 
+	        			<div class='col-lg-8 col-xs-12' style="font-weight: bold;">
+	        				<select id="journeyMapList" data-placeholder="Choose an Journey Map" class="select" > </select>
+	        			</div>
+	        			<div class='col-lg-4 col-xs-12'>
+	        			 	<label>Sentiment Score </label>  <span id="profileJourneySentimentScore" class="data_field" >0</span>
+	        			</div>
+	        		</div>
+				
 		            <!-- tabs left -->
-		            <div class="tabbable">
+		            <div class="tabbable" >
 		            
 		            	<!-- vertical tab panel -->
-		                <ul id="event_flow_tabs" class="nav nav-pills nav-stacked col-md-2">		                	
+		                <ul id="event_flow_tabs" class="nav nav-pills nav-stacked col-md-2" style="padding: 20px 0" >		                	
 		                	<li class="active"><a href="#panel_events_in_time" data-toggle="tab" > <i class="fa fa-line-chart" aria-hidden="true"></i> Event Time Series</a></li>
 		                	<li><a href="#panel_events_in_stream" data-toggle="tab" onclick="initProfileEventInStream()" > <i class="fa fa-list-ol" aria-hidden="true"></i> Event Data Stream </a></li>
 		                	<li><a href="#panel_event_journey_report" data-toggle="tab" onclick="loadProfileDataJourneyReport()" > <i class="fa fa-map-o"></i> Data Journey Report </a></li>
@@ -190,28 +193,24 @@
 		                	<li><a href="#panel_profile_scoring_data" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Total Scoring Data</a></li>
 		                    <li><a href="#panel_user_consent" data-toggle="tab"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Privacy Consent </a></li>
 		                    
+		                    <li>
+					        	<a href="#panel_purchased_products" data-toggle="tab" onclick="loadPurchasedItemsOfProfile()" title="Show purchased products" >
+					        		<i class="fa fa-shopping-cart" aria-hidden="true"></i> Purchased Products 
+					        	</a>
+					        </li>
+		                    
 		                </ul>
 		                
 		                <div id="event_flow_vertital_tabs" class="tab-content col-md-10" >
 		                	
 		                     <!-- vertical tab: Time Series Report -->
 		                    <div class="tab-pane active" id="panel_events_in_time" >
-								<div style="padding-bottom: 10px" class="col-lg-12">
-				        			<h4 class="highlight_text" > <i class="fa fa-map-o" aria-hidden="true"></i> Report for Journey Map: 
-				        				<span class="profileJourneyName"></span> 
-				        			</h4> 
-				        			<div class='col-lg-6 col-xs-12' style="font-weight: bold;">
-				        				<select id="journeyMapList" data-placeholder="Choose an Journey Map" class="select" > </select>
-				        			</div>
-				        			<div class='col-lg-6 col-xs-12'>
-				        			 	<label>Sentiment Score </label>  <span id="profileJourneySentimentScore" class="data_field" >0</span>
-				        			</div>
-				        		</div>
+								
 		                    	<!-- Event Time Series -->
 		                   		<div class="col-lg-12">
 									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Time Series </h4> 
 								</div>
-								<div class="col-lg-12 highlight_box row" >
+								<div class="col-lg-12 highlight_box" >
 									<div class="col-lg-12 float-right">
 								        <div class='col-lg-5 col-xs-12'>
 								            <div class="form-group">
@@ -269,7 +268,7 @@
 									     		<i class="fa fa-filter" aria-hidden="true"></i> Filter
 									     	</button>
 									     	<button type="button" class="btn btn-do-now" onclick="loadEventsInProfile(true,true)" title="Refresh event activities"  > 
-									     		<i class="fa fa-refresh" aria-hidden="true"></i> Reload data
+									     		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
 									     	</button>
 										</div>
 									</div>
@@ -291,9 +290,7 @@
 		                    
 		                    <!-- vertical tab: Event Data Report  -->
 		                    <div class="tab-pane" id="panel_event_journey_report" >
-		                    	<h4 class="highlight_text" > <i class="fa fa-map-o" aria-hidden="true"></i> Report for Journey Map: 
-			        				<span class="profileJourneyName"></span> 
-			        			</h4> 
+		                    	<h4 class="highlight_text" > <i class="fa fa-map-o" aria-hidden="true"></i> Customer Data Funnel </h4> 
 				        		<div class="col-ld-12" > 
 				        			<div class="funnel-flow" id="profile_funnel_report" >
 				               			<div class="funnel-stage" id="profile_funnel_stage_1" >
@@ -355,7 +352,8 @@
 								<!-- Data Journey Graph  -->
 								<div class="col-md-12" >
 									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Data Journey Graph </h4> 
-									<div id="profileTouchpointFlow" style="height: 650px; width: 100%; background-color: #e8e8e8; border-radius: 10px;">
+									<div id="profileTouchpointFlow_nodata" class="list-group-item" > No data available </div>
+									<div id="profileTouchpointFlow" style="height: 660px; width: 100%; background-color: #e8e8e8; border-radius: 10px; display: none;">
 										<div class="loader"></div>
 									</div>
 								</div>				
@@ -369,7 +367,7 @@
 		                    
 		                    <!-- vertical tab: Referrer Channels  -->
 		                    <div class="tab-pane" id="panel_referral_channels" >
-		                    <!-- Top Observable Data Sources -->
+		                    	<!-- Top Observable Data Sources -->
 	               				<div class="col-lg-12" >
 									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Top Observable Data Sources </h4> 
 									<div id="profileObserverChart" class="col-lg-12"> </div>
@@ -577,6 +575,15 @@
                                   </div>
 		                    </div>
 		                    
+		                    <!-- tab: purchased items  -->
+							<div class="tab-pane" id="panel_purchased_products"  >
+						     	<h4 class="highlight_text" > <i class="fa fa-shopping-cart" aria-hidden="true"></i> Top 100 recently purchased products </h4>
+						     	<div id="purchased_items_list" class="list-group col">
+						     		<div class="list-group-item" > No data available </div>
+								</div>
+								<div  id="purchased_items_pagination" ></div>
+							</div>
+		                    
 		                </div>
 		            </div>
 		            <!-- /tabs -->
@@ -780,24 +787,18 @@
 				</div>
 			</div>
 			
-			<!-- tab 7: purchased items  -->
-			<div class="tab-pane" id="panel_purchased_products"  >
-		     	<h4 class="highlight_text" > <i class="fa fa-shopping-cart" aria-hidden="true"></i> Top 100 recently purchased products </h4>
-		     	<div id="purchased_items_list" class="list-group col">
-		     		<div class="list-group-item" > No data available </div>
-				</div>
-				<div  id="purchased_items_pagination" ></div>
-			</div>
+			
 			
 			<!-- tab 8 Profile Details -->
 			<div class="tab-pane" id="panel_profile_information" >
 				<div class="tabbable">
 		                <ul id="profile_ext_info_tabs" class="nav nav-pills nav-stacked col-md-2">
-		                	<li class="active" ><a href="#tab_profile_contact_info" data-toggle="tab"> <i class="fa fa-address-card-o" aria-hidden="true"></i> Contact Info </a></li>
+		                	<li class="active" ><a href="#tab_profile_demographic" data-toggle="tab"> <i class="fa fa-address-card-o" aria-hidden="true"></i> Demographic </a></li>
+		                	<li><a href="#tab_profile_contact_info" data-toggle="tab"> <i class="fa fa-address-card-o" aria-hidden="true"></i> Contacts </a></li>
 		                	<li><a href="#tab_profile_location_info" data-toggle="tab"> <i class="fa fa-map-marker" aria-hidden="true"></i> Living Location </a></li>
 		                	<li><a href="#tab_profile_education" data-toggle="tab"> <i class="fa fa-graduation-cap" aria-hidden="true"></i> Education </a></li>
 		                	<li><a href="#tab_profile_work_experience" data-toggle="tab"> <i class="fa fa-briefcase" aria-hidden="true"></i> Work and Income</a></li>
-		                	<li><a href="#tab_profile_marketing_data" data-toggle="tab"> <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing Info </a></li>
+		                	<li><a href="#tab_profile_marketing_data" data-toggle="tab"> <i class="fa fa-info-circle" aria-hidden="true"></i> Marketing Data </a></li>
 		                	<li><a href="#tab_profile_sale_sources" data-toggle="tab"> <i class="fa fa-info-circle" aria-hidden="true"></i> Sale Sources </a></li>
 		                	<li><a href="#tab_profile_custom_fields" data-toggle="tab"> <i class="fa fa-table" aria-hidden="true"></i> Custom Fields </a></li>
 		                	<li><a href="#tab_profile_data_authorization" data-toggle="tab"> <i class="fa fa-lock" aria-hidden="true"></i> User Authorization </a></li>
@@ -806,22 +807,40 @@
 		                
 		                <div id="profile_ext_info_vertital_tabs" class="tab-content col-md-10" >
 		                	
-		                    <div class="tab-pane active" id="tab_profile_contact_info" >
-			                    <div class="primary_field" > 
-				                	<b class="primary_field"  > <i class="fa fa-fw fa-user-o"></i> Age: </b> 
-				                	<span class="data_field" data-field="age" data-fieldholder="html" data-fieldtype="int" > - </span> 
-				                </div>	                     
-				                <div class="primary_field" > 
-			                    	<b class="primary_field"  > <i class="fa fa-fw fa-user-o"></i> Date of Birth </b> 
-			                    	<span class="data_field" data-field="dateOfBirth" data-fieldholder="html" data-fieldtype="date"  > -  </span> 
-				                </div>
-				                <div class="primary_field" > 
-				                	<b > <i class="fa fa-fw fa-venus-mars"></i> Marital Status: </b> 
-				                	<span class="data_field" data-field="maritalStatusAsText" data-fieldholder="html" data-fieldtype="string" > - </span>  
-				                </div>	
+		                    <div class="tab-pane active" id="tab_profile_demographic" >
+			                    
+				                <!-- profile info tab 1 -->
+								<h4 class="highlight_text" > <i class="fa fa-address-card-o" aria-hidden="true"></i> Demographic Information </h4>
+							 	<table border=0 class="underlined" style="width: 100%;">
+				                   <tr>
+				                       <td>
+											<ol class="profile_ext_data" data-field="personal_attributes">
+	                							<li>
+								                   <b data-persona="key" > <i class="fa fa-fw fa-user-o"></i> Gender </b> 
+								                   <p class="data_field" data-field="genderAsText" data-fieldholder="html" data-fieldtype="string" > - </p> 
+								               	</li>
+												<li>
+								                   <b data-persona="key" > <i class="fa fa-fw fa-user-o"></i> Age </b> 
+								                   <p class="data_field" data-field="age" data-fieldholder="html" data-fieldtype="int" > - </p> 
+								               	</li>
+								               	<li>
+								                   <b data-persona="key" > <i class="fa fa-fw fa-user-o"></i> Date of Birth </b> 
+								                   <p class="data_field" data-field="dateOfBirth" data-fieldholder="html" data-fieldtype="date" > - </p> 
+								               	</li>
+												<li>
+								                   <b data-persona="key" > <i class="fa fa-fw fa-venus-mars"></i> Marital Status </b> 
+								                   <p class="data_field" data-field="maritalStatusAsText" data-fieldholder="html" data-fieldtype="string"  > - </p> 
+								               	</li>
+							               	</ol>
+				               	  		</td>
+				                   </tr>
+				               </table>
+		                    	
+		                    </div>
 		                    
+		                    <div class="tab-pane" id="tab_profile_contact_info" >
 		                    	<!-- profile info tab 1 -->
-								<h4 class="highlight_text" > <i class="fa fa-address-card-o" aria-hidden="true"></i> Contact Data </h4>
+								<h4 class="highlight_text" > <i class="fa fa-address-card-o" aria-hidden="true"></i> Contact Information </h4>
 							 	<table border=0 class="underlined" style="width: 100%;">
 				                   <tr>
 				                       <td>

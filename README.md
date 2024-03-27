@@ -96,7 +96,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # Author and copyright owner
 
-<a href="https://www.facebook.com/tantrieuf31" target="_blank"> Trieu Nguyen(Thomas) </a>
+<a href="https://www.facebook.com/dataism.one" target="_blank"> Trieu Nguyen(Thomas) </a>
 
 # Software license and quota 
 

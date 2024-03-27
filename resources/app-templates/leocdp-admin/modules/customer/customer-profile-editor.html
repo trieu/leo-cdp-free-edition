@@ -896,17 +896,18 @@
     }
     
     var initProfileAvatarUploader = function (profileData) {
-    	var defaultAvatarUrl = baseLeoAdminUrl + '/public/images/avatars/profile-default-avatar.png';
+    	
     	var avatarUrl = '';
     	if(profileData.primaryAvatar === ''){
-    		 avatarUrl = defaultAvatarUrl;
+    		var defaultAvatarUrl = baseLeoAdminUrl + '/public/images/avatars/profile-default-avatar.png';
+    		$('#profile_avatar_img').attr('src', defaultAvatarUrl);
     	}
     	else {
     		 avatarUrl = profileData.primaryAvatar;
+    		 $('#profile_avatar_img').attr('src', avatarUrl);
+    		 $('#profile_avatar_input').val(avatarUrl);
     	}
     	
-    	$('#profile_avatar_img').attr('src', avatarUrl);
-    	$('#profile_avatar_input').val(avatarUrl);
     	$('#profile_avatar_img').show();
     	
 		//headline image uploader

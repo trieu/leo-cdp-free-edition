@@ -353,7 +353,7 @@
 <script id='purchased-product-tpl' type="text/html" >
  <div class="list-group-item col-md-12" id="purchased_item_<%- key %>" data-key="<%- key %>" >
 	<div class="col-md-2 text-center"> 
-		<img src="<%- product.headlineImageUrl %>" alt="Product Image" class="rounded mx-auto d-block item-headline-img"  > 
+		<img src="<%- product.headlineImageUrl %>" alt="Product Image" class="rounded mx-auto d-block item-headline-img" onerror="this.src = 'https://cdn-icons-png.freepik.com/512/1478/1478920.png'" > 
 	</div>
 	 <div class="col-md-10">
 		<small class="text-muted pull-right"> Created at: <%- createdAt %> </small>

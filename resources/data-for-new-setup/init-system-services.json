@@ -75,7 +75,7 @@
 		"index" : 5,
 		"id": "leo_classification",
 		"name": "Profile Data Classification",
-		"description": "To set-up the ongoing process of synchronizing data from LEO CDP to digital marketing platforms",
+		"description": "To set-up the ongoing process of synchronizing data from CDP to digital marketing platforms",
 		"configs": {
 			"icon": "fa-download",
 			"read_only": false,

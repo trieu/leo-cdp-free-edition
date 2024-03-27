@@ -44,8 +44,8 @@
 	},
 	{
 		"id": "leo_personalization_service",
-		"name": "LEO Personalization Service",
-		"description": "The default personalization service of LEO CDP",
+		"name": "Personalization Engine",
+		"description": "The default personalization engine of CDP",
 		"forPersonalization": true,
 		"status": 1,
 		"configs": {
@@ -57,7 +57,7 @@
 	},
 	{
 		"id": "leo_compute_clv_service",
-		"name": "LEO Computation Service for CLV",
+		"name": "CLV Computation Service",
 		"description": "The default Computation Service for Customer Lifetime Value (CLV)",
 		"forDataEnrichment": true,
 		"status": 1,
@@ -71,7 +71,7 @@
 	{
 		"id": "leo_email_marketing",
 		"name": "LEO Email Marketing",
-		"description": "The default email marketing engine of LEO CDP",
+		"description": "The default email marketing engine of CDP",
 		"forPersonalization": true,
 		"status": 0,
 		"configs": {

@@ -30,7 +30,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-03-13
+## [0.9.0] - 2024-03-27
 
 ### Added
 
@@ -98,6 +98,8 @@
 
 ### Changed
 
+- [Core CDP] refactoring to support SaaS
+- [Profile] improve UI UX of profile
 - [Journey Map] improve UI UX 
 - [Profile] update UI to show profile scores, prepare show score report of journey map
 - [Profile] do not merge profile automatically when save profile from web sources
