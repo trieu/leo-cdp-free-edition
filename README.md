@@ -2,9 +2,10 @@
 	<img src="https://cdn.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files@latest//images/leo-cdp-logo.png" alt="LEO CDP" style="width:640px;margin:auto;"/>
 </div>
 
-# What is LEO CDP ?
+# What is LEO CDP Framework ?
 
-LEO CDP (Customer Data Platform) is a software platform that allows businesses to collect, unify, segment, personalize and activate customer data in order to create a more personalized and effective customer experience.
+* LEO CDP (Customer Data Platform) is a open CDP framework that allows developers to develop your own CDP 
+* With CDP, any business can collect, unify, segment, personalize and activate customer data in order to create a more personalized and effective customer experience.
 
 # Core features
 
@@ -100,9 +101,9 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # Software license and quota 
 
-* Free to use and respect my work
-* Free quota: 5000 contact profiles in database
-* If you are working in education or non-profit organization, just send me an email to free license for 100,000 profiles
+* Free to develop and use
+* Just respect my work
+* You can develeop and use your own brand CDP
 
 # Community Support 
 
@@ -124,6 +125,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 ## Bằng chứng về bản quyền mô hình framework USPA và phát minh LEO CDP 
 
+* Miễn phí sử dụng và tự phát triển theo nhu cầu của doanh nghiệp
 * Đây là bằng chứng ý tưởng cho LEO CDP đã có từ 2014 <a href="https://www.facebook.com/photo/?fbid=10158746916044506" target="_blank"> Link ý tưởng </a> 
 * USPA framework cho code CDP đã được phát triển từ tháng 10 năm 2019 <a href="https://www.youtube.com/watch?v=tyASsGaE8jg" target="_blank"> Link video </a> 
 * <a href="https://www.brandsvietnam.com/congdong/topic/23444-Digital-Transformation-15-Datadriven-Marketing-Tan-dung-du-lieu-de-toi-uu-tiep-thi-Phan-2" target="_blank"> Digital Transformation #15: Data-driven Marketing – Tận dụng dữ liệu để tối ưu tiếp thị </a>
