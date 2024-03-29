@@ -80,7 +80,7 @@ Set Linux configs to scale on high load
 	sudo apt-key add - < Release.key
 	echo 'deb https://download.arangodb.com/arangodb311/DEBIAN/ /' | sudo tee /etc/apt/sources.list.d/arangodb.list
 	sudo apt-get install apt-transport-https
-	sudo apt-get update && sudo apt-get install arangodb3=3.11.5-1
+	sudo apt-get update && sudo apt-get install arangodb3=3.11.8-1
 	
 [ArangoDB on CentOS or Rocky Linux](https://idroot.us/install-arangodb-centos-8/)
 	
