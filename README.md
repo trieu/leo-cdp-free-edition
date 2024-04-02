@@ -1,31 +1,37 @@
 <div style="background-color: #F0F8FF; text-align:center; border-radius:8px;">
-	<img src="https://cdn.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files@latest//images/leo-cdp-logo.png" alt="D-CDP" style="width:640px;margin:auto;"/>
+	<img src="https://cdn.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files@latest//images/leo-cdp-logo.png" alt="LEO CDP framework" style="width:640px;margin:auto;"/>
 </div>
 
-# What is D-CDP ?
+# What is LEO CDP framework?
 
-D-CDP (Customer Data Platform) is a software platform that allows businesses to collect, unify, segment, personalize and activate customer data in order to create a more personalized and effective customer experience.
+LEO CDP is a free Customer Data Platform (CDP) framework designed to help businesses centralize, unify, and manage their customer data from various sources. 
+This allows for a holistic understanding of customers, leading to enhanced marketing and personalization. 
+The framework provides the building blocks for developers to customize their CDP according to specific business needs.
+
+# Core ideas
+
+The philosophy of Dataism => USPA as Big Data framework => LEO CDP framework
 
 # Core features
 
-1. <b> Data collection and unification </b>: D-CDP allows businesses to collect customer data from various sources, such as websites, mobile apps, and offline interactions. It then unifies this data into a single customer profile, which can include demographic information, behavioral data, and more.
-2. <b> Segmentation and audience creation </b>: D-CDP provides UI tools for businesses to segment their customer data and create custom audiences based on criteria such as lead scoring, CLV scoring, customer behavior, demographics, or preferences.
-3. <b> Personalization and targeting </b>: With D-CDP, businesses can use customer data to personalize and target their marketing efforts, such as by sending targeted email campaigns or displaying personalized website content.
-4. <b> Analytics and reporting </b>: D-CDP provides real-time analytics and reporting capabilities, allowing businesses to measure the effectiveness of their marketing efforts and gain insights into customer behavior.
-5. <b> Integration with other systems </b>: D-CDP can integrate with other systems such as CRM, marketing automation, email marketing service and advertising platforms to create a seamless and holistic view of customer data across the organization.
+1. <b> Data collection and unification </b>: LEO CDP framework allows businesses to collect customer data from various sources, such as websites, mobile apps, and offline interactions. It then unifies this data into a single customer profile, which can include demographic information, behavioral data, and more.
+2. <b> Segmentation and audience creation </b>: LEO CDP framework provides UI tools for businesses to segment their customer data and create custom audiences based on criteria such as lead scoring, CLV scoring, customer behavior, demographics, or preferences.
+3. <b> Personalization and targeting </b>: With LEO CDP framework, businesses can use customer data to personalize and target their marketing efforts, such as by sending targeted email campaigns or displaying personalized website content.
+4. <b> Analytics and reporting </b>: LEO CDP framework provides real-time analytics and reporting capabilities, allowing businesses to measure the effectiveness of their marketing efforts and gain insights into customer behavior.
+5. <b> Integration with other systems </b>: LEO CDP framework can integrate with other systems such as CRM, marketing automation, email marketing service and advertising platforms to create a seamless and holistic view of customer data across the organization.
 
-# D-CDP Data Flow
+# LEO CDP framework data flow
 
-[![D-CDP Data Flow](https://raw.githubusercontent.com/trieu/leo-cdp-free-edition/main/leo-cdp-how-it-works.png)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)	
+[![LEO CDP framework Data Flow](https://raw.githubusercontent.com/trieu/leo-cdp-free-edition/main/leo-cdp-how-it-works.png)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)	
 
-# Why is D-CDP ?
+# Why is LEO CDP framework ?
 
 1. It allows businesses to unify customer data from various sources such as websites, mobile apps, and offline interactions into a single customer profile. This can help businesses better understand their customers and provide a more consistent experience across channels.
-2. It offers ease of use: D-CDP has a user-friendly interface and can be easily integrated with other marketing technologies. This makes it easy for businesses to use and implement without requiring extensive technical knowledge.
-3. D-CDP is the on-premises software solution, so you can deploy in your private cloud servers or even your PC
+2. It offers ease of use: LEO CDP framework has a user-friendly interface and can be easily integrated with other marketing technologies. This makes it easy for businesses to use and implement without requiring extensive technical knowledge.
+3. LEO CDP framework is the on-premises software solution, so you can deploy in your private cloud servers or even your PC
 4. You can custom and build your own Customer Data Platform (CDP) for your digital business and digital transformation
 
-# D-CDP FREE Edition
+# LEO CDP framework FREE Edition
 
 This is the binary build (JAR file) from Java Source Code in my private Github repository
 
@@ -41,7 +47,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 * [Customer Data Platforms - The Ultimate Handbook 2023](https://datahub4uspa.leocdp.net/ct/2HtlqyYdyBjmEPJ4pkZwHZ)
 * [Data Model and Customer Journey Map Sample](https://docs.google.com/spreadsheets/d/1hzSvkmTE8WuvUFqnpWNfsPMzpjF8gYOSJfkc9eJIjWk/edit?usp=sharing)
 * [Core Functions for Analytics CDP](https://docs.google.com/document/d/1cavhFAs_uX-98qUvtXJI3v859I6h3knl0m_tSQ4235M/edit?usp=sharing)
-* [Data strategy with D-CDP](https://docs.google.com/document/d/1la6mP21gfd2bHlpwj4hBTRQlxaPfhnpQRL6fV223Es0/edit?usp=sharing)
+* [Data strategy with LEO CDP framework](https://docs.google.com/document/d/1la6mP21gfd2bHlpwj4hBTRQlxaPfhnpQRL6fV223Es0/edit?usp=sharing)
 
 # Technology Architecture
 
@@ -70,23 +76,20 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 2. OneSignal / SendPulse / Firebase Cloud Messaging for push notification
 3. Facebook for Business Marketing 
 4. Google Ads for Search Engine Marketing
-5. Vimeo Premium for Video Livestream Marketing
-6. Buffer Social Media Toolkit
+5. Zalo Cloud for marketing (if you want to run marketing automation in Vietnam) 
 7. Blogger API and YouTube API for SEO
-8. Google Sheets and Google Data Studio for Custom Reports
-9. Google BigQuery to analyse Big Data in the Cloud
+8. Google BigQuery to analyse Big Data in the Cloud
 
 ## Proposal cloud server vendors
 
 1. Google Cloud
 2. VNG Cloud 
 3. AWS Cloud
-4. Digital Ocean Cloud
-5. Your private cloud server !
+4. Any your own cloud server !
 
 ## How to install
 
-[Please check this D-CDP Installation Guide](https://github.com/trieu/leo-cdp-free-edition/blob/main/NOTES-FOR-NEW-SETUP.md)
+[Please check this LEO CDP framework Installation Guide](https://github.com/trieu/leo-cdp-free-edition/blob/main/NOTES-FOR-NEW-SETUP.md)
 
 ---
 
@@ -96,9 +99,9 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 # Software license
 
-* Free to develop and use
+* Free to develop and use in your own servers
 * Just respect my work
-* You can develeop and use your own brand CDP
+* You can develop and use your own brand CDP (white label CDP solution)
 
 # Community Support 
 
@@ -109,16 +112,10 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 * Video tutorials are still under development 
 * <a href="https://www.youtube.com/@bigdatavn" target="_blank" > YouTube playlist for training </a>
-* More information will be updated at <a href="https://knowledge.leocdp.net/" target="_blank"> D-CDP Blog </a>
+* More information will be updated at <a href="https://knowledge.leocdp.net/" target="_blank"> LEO CDP framework Blog </a>
 
-# For Vietnamese user
+## Bằng chứng về bản quyền mô hình và phát minh LEO CDP framework
 
-* Miễn phí sử dụng, chỉ cần tôn trọng bản quyền tác giả là được
-* Số profile miễn phí là 1000 user profiles
-* Nếu bạn đang làm việc trong lĩnh vực giáo dục hoặc tổ chức phi lợi nhuận, gửi cho tôi email để có miễn phí cho 10000 profiles
-
-## Bằng chứng về bản quyền mô hình framework USPA và phát minh D-CDP 
-
-* Đây là bằng chứng ý tưởng cho D-CDP đã có từ 2014 <a href="https://www.facebook.com/photo/?fbid=10158746916044506" target="_blank"> Link ý tưởng </a> 
+* Đây là bằng chứng ý tưởng cho LEO CDP đã có từ 2014 <a href="https://www.facebook.com/photo/?fbid=10158746916044506" target="_blank"> Link ý tưởng </a> 
 * USPA framework cho code CDP đã được phát triển từ tháng 10 năm 2019 <a href="https://www.youtube.com/watch?v=tyASsGaE8jg" target="_blank"> Link video </a> 
 * <a href="https://www.brandsvietnam.com/congdong/topic/23444-Digital-Transformation-15-Datadriven-Marketing-Tan-dung-du-lieu-de-toi-uu-tiep-thi-Phan-2" target="_blank"> Digital Transformation #15: Data-driven Marketing – Tận dụng dữ liệu để tối ưu tiếp thị </a>
