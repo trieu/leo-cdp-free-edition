@@ -30,10 +30,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-03-27
+## [0.9.0] - 2024-04-04
 
 ### Added
 
+- [Admin UI] show menu user guide
 - [Campaign] UI to listing campaigns
 - [Profile] show duplicate profile to merge data manually
 - [Segment] new operators to compare the date of birth of profile with current date
@@ -98,6 +99,8 @@
 
 ### Changed
 
+ -[System User Login] update capcha text generation
+- [Profile] improve UI UX of profile
 - [Core CDP] refactoring to support SaaS
 - [Profile] improve UI UX of profile
 - [Journey Map] improve UI UX 
