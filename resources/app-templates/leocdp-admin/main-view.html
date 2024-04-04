@@ -174,7 +174,7 @@
 				    		<br>
 				    		<b>ID: <span id="leocdp_version_number" ></span></b>
 				    	</div>
-				    	<div id="promo_panel" style="visibility:visible;" >
+				    	<div id="promo_panel" style="visibility:visible; display: none;" >
 				    		<b> Powered by </b> <br>
 				    		<img id="uspa_logo" style="margin:auto" src="/public/images/uspa-tech-logo.png" alt="USPA Technology" title="Go to USPA Technology website" >
 				    	</div>
@@ -309,16 +309,15 @@
 			var msg ='<div class="alert alert-info"> <strong> The CDP Admin </strong> is currently not supported on mobile browsers! </div>';
 			$('#page-main-notification').show().html(msg);
 		} else {
+			$('#promo_panel').css("visibility",promoVisibility);
 			$('#uspa_logo').click(function(){ window.open('https://uspa.tech','_blank') });
 			$(window).resize(pageWrapperResize);
+			$('#logo-img').attr('src',window.pageHeaderLogo).show();
 			
 			pageWrapperResize();
 			loadUserInfoWidget();
-			navigationSetup();			
-			
+			navigationSetup();
 			$('#main_admin_navigation').show();
-			$('#logo-img').attr('src',window.pageHeaderLogo).show();
-			$('#promo_panel').css("visibility",promoVisibility);
 			
 			$('#leo_product_type').text(leoProductType);
 			$('#leocdp_version_type').text(leoCdpEdition.toUpperCase());
