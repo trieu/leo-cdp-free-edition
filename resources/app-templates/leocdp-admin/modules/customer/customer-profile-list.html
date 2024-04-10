@@ -120,6 +120,7 @@
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByDataLabel')" >Profile Data Label</a></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByLastTouchpoint')" >Last Touchpoint Name</a></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterBySegmentName')" >Segment Name</a></li>
+						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByMediaChannel')" >Media Channel</a></li>
 						      	<li><hr></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByProfileId')" >Profile ID</a></li>
 						    	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterEmail')" > Email Address</a></li>
@@ -156,6 +157,7 @@
 					  		<input style="display: none;" type="text" class="form-control" id="filterByAuthorizedEditor" placeholder="Enter login username of editor" >
 					  		<input style="display: none;" type="text" class="form-control" id="filterByLastTouchpoint" placeholder="Enter touchpoint name" >
 					  		<input style="display: none;" type="text" class="form-control" id="filterBySegmentName" placeholder="Enter segment name" >
+					  		<input style="display: none;" type="text" class="form-control" id="filterByMediaChannel" placeholder="Enter media channel" >
 					  		
 						</div>
 					</div>
@@ -266,7 +268,7 @@
 			$('#showCustomerProfile').prop('checked', true);
 			
 			// reset filter data
-			var sel = '#filterEmail, #filterPhone, #filterByVisitorId, #filterByCrmRefId, #filterByFingerprintId, #filterByProfileId, #filterByLastTouchpoint, #filterBySegmentName, #filterByDataLabel, #filterByAuthorizedViewer, #filterByAuthorizedEditor';
+			var sel = '#filterEmail, #filterPhone, #filterByVisitorId, #filterByCrmRefId, #filterByFingerprintId, #filterByProfileId, #filterByLastTouchpoint, #filterBySegmentName, #filterByDataLabel, #filterByAuthorizedViewer, #filterByAuthorizedEditor, #filterByMediaChannel';
 			$(sel).val('');
 			
 			$('#filterProfileListByStatus').val('');
@@ -412,6 +414,8 @@
     		d.lastTouchpointName = $('#filterByLastTouchpoint').val().trim();
     		d.segmentName = $('#filterBySegmentName').val().trim();
     		d.dataLabel = $('#filterByDataLabel').val().trim();
+    		d.mediaChannel = $('#filterByMediaChannel').val().trim();
+    		
     		d.authorizedViewer = $('#filterByAuthorizedViewer').val().trim();
     		d.authorizedEditor = $('#filterByAuthorizedEditor').val().trim();
     		

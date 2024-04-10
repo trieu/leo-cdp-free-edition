@@ -5,10 +5,11 @@
 - [Done] import tool to upload event data as CSV file in LEO CDP Admin
 - [In Plan => 2022-11-07] new UI for journey map report
 
-## Feature Plan for the final beta release 1.0 - 2023-11-11
+## Feature Plan for the final beta release 1.0 - 2024-05-01
 
 #### Tasks
 
+- [In Plan] Automated Campaign
 - [In Plan] Using Jupyter notebook to update profile CLV, RFM score and Credit Scoring 
 - [In Plan] LEO Tag JS to link FB user and Google user
 - [In Plan] Segment Activation: sending email directly with SMTP from LEO CDP
@@ -30,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-04-04
+## [0.9.0] - 2024-04-10
 
 ### Added
 
@@ -99,6 +100,7 @@
 
 ### Changed
 
+- [Profile] UI of report
  -[System User Login] update capcha text generation
 - [Profile] improve UI UX of profile
 - [Core CDP] refactoring to support SaaS
