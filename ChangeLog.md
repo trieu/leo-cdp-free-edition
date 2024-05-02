@@ -31,10 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-04-10
+## [0.9.0] - 2024-05-02
 
 ### Added
 
+- [Campaign UI] show automated flow using mermaid.js
 - [Admin UI] show menu user guide
 - [Campaign] UI to listing campaigns
 - [Profile] show duplicate profile to merge data manually
@@ -66,6 +67,7 @@
 
 ### Fixed
 
+- [User Authorization]
 - [Data Deduplication] improve UI UX in profile list and profile info
 - update and ranking
 - check status of Activation Rule before run a scheduled job

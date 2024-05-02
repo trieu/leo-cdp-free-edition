@@ -1,0 +1,134 @@
+
+<div class="row" id="breadcrumb_header">
+	<div class="col-md-12">
+		<div class="col-lg-9">
+			<h5 class="page-header" id="page_breadcrumb"></h5>
+		</div>
+		<div class="col-lg-3 text-center" style="padding: 10px">
+			<button type="button" class="btn btn-info" title="Go back"
+				onclick="history.back()">
+				<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
+			</button>
+			<button type="button" class="btn btn-danger data-control-delete"
+				title="Delete this Campaign">
+				<i class="fa fa-trash" aria-hidden="true"></i> Delete
+			</button>
+			<button type="button" class="btn btn-success"
+				title="Save this Campaign">
+				<i class="fa fa-check-square-o" aria-hidden="true"></i> Save
+			</button>
+		</div>
+	</div>
+</div>
+
+<div class="container row">
+
+	<h4 id="campaign_title" class="highlight_text"></h4>
+	<p>...</p>
+
+	<div class="panel-group">
+
+		<!--  1 metadata  -->
+		<div class="panel panel-leoadmin">
+			<div class="panel-heading">
+				<b> <i class="fa fa-info-circle" aria-hidden="true"></i>
+					Campaign Metadata
+				</b>
+			</div>
+			<div class="panel-body">
+				<div class="col-lg-12">
+					<form class="form-horizontal" action="/action_page.php">
+						<div class="form-group">
+							<div class="col-sm-10">
+								<b>Title:</b> <span id="cp_title"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-10">
+								<b>Description:</b> <span id="cp_description"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-10" id="cp_type">
+								<b>Type:</b> Ad hoc query segmentation
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-10"></div>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+
+		<!--  2 targeted segments  -->
+		<div class="panel panel-leoadmin">
+			<div class="panel-heading">
+				<b> <i class="fa fa-filter" aria-hidden="true"></i> Automated
+					Flow
+				</b>
+			</div>
+			<div class="panel-body">
+				<textarea id="mermaidInput" cols="30" rows="10"
+					style="display: none;">
+					flowchart 
+S_2a7hPxmTiyLYoTe1TTTkvU[Segment: hot_lead] --> C_isProfitableCustomer{ check: is profile a profitable customer ? }
+C_isProfitableCustomer -->|Yes| A_personalizationByContent[Personalization By Content]
+C_isProfitableCustomer ---->|No| END
+A_personalizationByContent --> A_sendEmail[Send Email]
+
+click S_2a7hPxmTiyLYoTe1TTTkvU href "javascript:automatedFlowNodeClick('S_2a7hPxmTiyLYoTe1TTTkvU');"
+click C_isProfitableCustomer href "javascript:automatedFlowNodeClick('C_isProfitableCustomer');"
+				</textarea>
+				<div id="ma_flow_container">
+					<div id="mermaidOutput" style="margin: 50px"></div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="panel panel-leoadmin">
+			<div class="col-lg-12"></div>
+		</div>
+
+		<!--  3 products  -->
+		<div class="panel panel-leoadmin" id="profile-list-panel"
+			style="display: none">
+			<div class="panel-heading">
+				<b> <i class="fa fa-list" aria-hidden="true"></i> List of all
+					profiles in segment
+				</b>
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive" id="profilelist_holder"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	#mermaidOutput {
+		overflow-x: auto;
+		padding-bottom: 40px;
+		overflow: scroll;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		top: 0;
+		text-align: center;
+	}
+	#ma_flow_container {
+		height: calc(100% - 100px) !important;
+		min-height: 800px !important;
+		position: relative;
+	}
+</style>
+
+<script>
+	var initCampaignEditor = function(id) {
+		loadCampaignEditor(id)
+	}
+</script>

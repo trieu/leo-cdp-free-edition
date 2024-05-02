@@ -1,0 +1,63 @@
+{
+	"recipient": {
+		"user_id": "5142508272691811276"
+	},
+	"message": {
+		"attachment": {
+			"type": "template",
+			"payload": {
+				"template_type": "promotion",
+				"elements": [
+					{
+						"image_url": "https://www.everonvn.vn/chi-tiet/images/upload/hinhanh/EPC-24041.jpg",
+						"attachment_id": "",
+						"type": "banner"
+					},
+					{
+						"type": "header",
+						"content": "💥💥Bộ Everon EPC-24041 thuộc bộ sưu tập 2024💥💥"
+					},
+					{
+						"type": "text",
+						"align": "left",
+						"content": "Ưu đãi dành riêng cho khách hàng Nguyen Tan Trieu <br> Voucher trị giá 500000 VND"
+					},
+					{
+						"type": "table",
+						"content": [
+							{
+								"value": "VC09279222",
+								"key": "Voucher"
+							},
+							{
+								"value": "12/05/2024",
+								"key": "Hạn sử dụng"
+							}
+						]
+					},
+					{
+						"type": "text",
+						"align": "center",
+						"content": "Áp dụng tất cả cửa hàng trên toàn quốc"
+					}
+				],
+				"buttons": [
+					{
+						"title": "Tham khảo chương trình",
+						"image_icon": "",
+						"type": "oa.open.url",
+						"payload": {
+							"url": "https://dcdp-demo.blogspot.com/2024/04/epc-24041-cotton.html"
+						}
+					},
+					{
+						"title": "Liên hệ ",
+						"image_icon": "https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTEwL3JtNTM1LWJvb2stMDJhXzEucG5n.png",
+						"type": "oa.query.hide",
+						"payload": "#tuvan"
+					}
+				]
+			}
+		}
+	}
+}

@@ -454,13 +454,6 @@ AQL_GET_TOUCHPOINTS_BY_FILTER =>
 	RETURN p
 ;
 
-AQL_GET_TOP_1000_TOUCHPOINTS_BY_PROFILE =>
-	FOR p in cdp_profile 
-	FILTER p._key == @profileId
-	    FOR t IN cdp_touchpoint
-	        FILTER t._key IN p.top1000Touchpoints
-	        RETURN t
-;
 
 AQL_UPDATE_CONTEXT_SESSION_AFTER_MERGE =>
 	FOR d IN cdp_contextsession
@@ -504,7 +497,6 @@ AQL_GET_TOUCHPOINT_REPORT_FOR_PROFILE =>
 		LIMIT @startIndex,@numberResult 
 	RETURN {"touchpoint":t, "eventCount": eventCount}
 ;
-
 
 AQL_GET_TOUCHPOINT_FLOW_STATISTICS =>
 	LET stats = 

@@ -208,12 +208,12 @@
                             if (k === 'mediaInfo') {
                             	 rawHtmlEditor.setValue(value);
                                  CodeMirrorAutoFormat(rawHtmlEditor);
-                                 rawHtmlEditor.setSize(null, 800);
+                                 rawHtmlEditor.setSize(null, 650);
                             } 
                             else if (k === 'jsonMetadata') {
                             	rawJsonEditor.setValue(value);
                                 CodeMirrorAutoFormat(rawJsonEditor);
-                                rawJsonEditor.setSize(null, 220);
+                                rawJsonEditor.setSize(null, 450);
                             }
                             else if (k === 'description') {
                                 form.find("textarea[name='description']").val(value);
@@ -283,10 +283,10 @@
             var jsonMetadata = rawJsonEditor.getValue().trim();
             htmlTemplateData.jsonMetadata = jsonMetadata;
             
-            if(htmlTemplateData.title === "" || htmlTemplateData.mediaInfo === "") {
+            if(htmlTemplateData.title === "") {
             	iziToast.error({
             	    title: 'Error',
-            	    message: 'The title and template can not be empty !'
+            	    message: 'The title can not be empty !'
             	});
             }
             else {

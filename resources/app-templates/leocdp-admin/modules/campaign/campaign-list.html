@@ -1,0 +1,55 @@
+
+<!-- Customer Activation with Marketing Campaigns  -->
+
+
+<!-- Data Science Jupyter Notebooks -->
+<div class="row">
+    <div class="col-lg-9">
+        <h5 class="page-header" id="page_breadcrumb" > </h5>
+    </div>
+    <div class="col-lg-3 text-right" style="padding: 10px">
+    	<button type="button" class="btn btn-do-now" onclick="campaignListRefresh()" title="Refresh data of campaign list" > 
+    		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
+    	</button>
+		<button type="button" class="btn btn-success data-control-insert" onclick="" >
+			<i class="fa fa-plus-circle" aria-hidden="true"></i> New Campaign
+		</button>
+	</div>
+</div>
+
+  
+<div class="row">
+     <div class="col-lg-12">
+     	<div class="top_page_header" >
+			<h4> <i class="fa fa-cogs" aria-hidden="true"></i> Automated Campaigns </h4>
+			 <b class="highlight_text"> This feature is still under development </b>
+		</div>
+        <div class="table-responsive">
+             <table id="campaign-list" class="display" style="width:100%">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Status</th>
+                      <th>Targeted Segments</th>
+                      
+                      <th>Updated at</th>
+                      <th>Last run </th>
+                      <th>Owner Name</th>
+                      <th>Actions</th>
+                  </tr>
+              </thead>
+          </table>
+      </div>
+	</div>
+</div>
+
+
+<script>
+    
+    var initCampaignManagement =  initCampaignManagement ||  function() {
+    	loadCampaignList();
+    }    
+    
+   
+</script>

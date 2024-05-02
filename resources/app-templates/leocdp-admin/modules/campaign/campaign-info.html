@@ -1,0 +1,134 @@
+
+<div class="row" id="breadcrumb_header" >
+   	<div class="col-md-12" >
+        <div class="col-lg-10">
+	        <h5 class="page-header" id="page_breadcrumb" > </h5>
+	    </div>
+	    <div class="col-lg-2 text-center" style="padding: 10px">
+	    	<button type="button" class="btn btn-info" title="Go back" onclick="history.back()" > 
+				<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back 
+			</button>
+			<button type="button" class="btn btn-success data-control-edit" >
+				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit
+			</button>
+		</div>
+    </div>
+</div>
+
+  
+
+	
+	<h4 id="campaign_title" class="highlight_text" >  </h4>
+	<p> campaign metadata </p>
+	
+	<div class="panel-group">
+	
+		<!--  1 metadata  -->
+		<div class="panel panel-leoadmin">
+			<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i>  Campaign Metadata </b>  </div>
+			<div class="panel-body">
+				<div class="col-lg-12">
+					<form class="form-horizontal" action="/action_page.php">
+						
+						<div class="form-group">
+							<div class="col-sm-10">
+								<b>Description:</b> <span id="cp_description" ></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-10"  id="cp_type" >
+								<b>Type:</b> Ad hoc query segmentation
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<div class="col-sm-10"   >
+							
+							</div>
+						</div>
+					</form>
+				</div>
+				
+
+			</div>
+		</div>
+		
+		<!--  2 targeted segments  -->
+		<div class="panel panel-leoadmin">
+			<div class="panel-heading"> <b> <i class="fa fa-filter" aria-hidden="true"></i> Targeted Segments </b> </div>
+			<div class="panel-body">
+				
+				
+			</div>
+		</div>
+		
+		<!--  3 products  -->
+		<div class="panel panel-leoadmin" id="profile-list-panel" style="display: none" >
+			<div class="panel-heading"> <b> <i class="fa fa-list" aria-hidden="true"></i> List of all profiles in segment </b>  </div>
+			<div class="panel-body">
+				<div class="table-responsive" id="profilelist_holder" >
+				
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<script id='productlist_tpl' type="text/html" >
+ <table id="productlist_<%- tbid %>" class="display" style="width:100%;">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Last seen at touchpoint</th>
+            <th>Primary Email</th>
+            <th>Lead Score</th>
+            <th>Created at</th>
+            <th>Last Updated at</th>
+        </tr>
+    </thead>
+ </table>
+</script>
+    
+
+<script>
+	
+	var campaignModel = false;
+	var campaignStats = false;
+    var initCampaignInfo = initCampaignInfo || function(id) {
+    	
+		var urlStr = baseLeoAdminUrl + '/cdp/campaign/get';
+        LeoAdminApiUtil.callPostAdminApi(urlStr, { 'id': id }, function (json) {
+            if (json.httpCode === 0 && json.errorMessage === '') {
+        		// only super-admin role can remove the segment 
+        		
+        		if( ! json.canEditData ){
+        			$('button.data-control-edit').attr('disabled','disabled');
+        		} else {
+        			$('button.data-control-edit').click(function(){
+        				location.hash = "calljs-leoCdpRouter('Campaign_Editor','" + id + "')";
+        			})
+        		}
+        		
+        		campaignModel = json.data;
+        		
+                var cpId = campaignModel.id;
+                var title = campaignModel.title;
+                
+                document.title = 'Campaign Details: ' + title;
+                $('#campaign_title').text(title);
+                
+             	// init UI after setting data into DOM
+              
+                loadProductsInCampaign(cpId)
+            } else {
+                LeoAdminApiUtil.logErrorPayload(json);
+            }
+        });
+    }
+    
+    var loadProductsInCampaign = loadProductsInCampaign || function(cpId){
+    	
+    }
+</script>
