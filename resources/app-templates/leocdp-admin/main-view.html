@@ -21,8 +21,8 @@
 		<!-- Top User Menu -->
 		<ul class="nav navbar-right top-nav">
 			<li>				 
-				<a href="javascript: initLeoChatBot('global')" title="Athena Chatbot" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Your personal AI assistant on the CDP"  > 
-					<i class="fa fa-commenting-o"></i> Athena Chatbot 
+				<a href="javascript: initLeoChatBot('global')" title="Leo Chatbot" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Your personal AI assistant on the CDP"  > 
+					<i class="fa fa-commenting-o"></i> Leo Chatbot 
 				</a> 
 			</li>
 			<li class="dropdown" style="min-width:168px!important;">
@@ -46,7 +46,7 @@
 	</div>
 
 	<!-- Sidebar Menu Items -->
-	<div id="main-navbar" class="collapse navbar-collapse navbar-ex1-collapse">
+	<div id="main-navbar" class="collapse navbar-collapse navbar-ex1-collapse" style="visibility: hidden;">
 		<ul class="nav navbar-nav side-nav">
 			
 			<!--  1 - Unified Data Hub Menu   -->
@@ -225,10 +225,8 @@
 	                			$(this).show()
 	                		}
 	                	});
-	                }	                
-	                
-	              
-	                
+	                }	
+	                // tracking user and save events to profile
 	                loadLeoObserverForAdmin();
 	            }
 	        }
@@ -236,7 +234,7 @@
 	}
 	
 	function loadLeoObserverForAdmin(){
-		// the main proxy LEO JS
+		// the main proxy Leo JS
 	  	var leoproxyJsPath = "/js/leo-observer/leo.proxy.min.js";
 	  	var src = location.protocol + "//" + window.leoObserverCdnDomain + leoproxyJsPath;
 	  	var jsNode = document.createElement("script");	  	

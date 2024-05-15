@@ -4,7 +4,7 @@
 		<div class="col-lg-9">
 			<h5 class="page-header" id="page_breadcrumb"></h5>
 		</div>
-		<div class="col-lg-3 text-center" style="padding: 10px">
+		<div class="col-lg-3 text-right" style="padding: 10px">
 			<button type="button" class="btn btn-info" title="Go back"
 				onclick="history.back()">
 				<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
@@ -13,7 +13,7 @@
 				title="Delete this Campaign">
 				<i class="fa fa-trash" aria-hidden="true"></i> Delete
 			</button>
-			<button type="button" class="btn btn-success"
+			<button type="button" class="btn btn-goto-router"
 				title="Save this Campaign">
 				<i class="fa fa-check-square-o" aria-hidden="true"></i> Save
 			</button>
@@ -21,10 +21,7 @@
 	</div>
 </div>
 
-<div class="container row">
-
-	<h4 id="campaign_title" class="highlight_text"></h4>
-	<p>...</p>
+<div >
 
 	<div class="panel-group">
 
@@ -40,7 +37,7 @@
 					<form class="form-horizontal" action="/action_page.php">
 						<div class="form-group">
 							<div class="col-sm-10">
-								<b>Title:</b> <span id="cp_title"></span>
+								<b>Name:</b> <span id="cp_title">Test</span>
 							</div>
 						</div>
 						<div class="form-group">
@@ -71,19 +68,22 @@
 				</b>
 			</div>
 			<div class="panel-body">
-				<textarea id="mermaidInput" cols="30" rows="10"
-					style="display: none;">
-					flowchart 
-S_2a7hPxmTiyLYoTe1TTTkvU[Segment: hot_lead] --> C_isProfitableCustomer{ check: is profile a profitable customer ? }
-C_isProfitableCustomer -->|Yes| A_personalizationByContent[Personalization By Content]
-C_isProfitableCustomer ---->|No| END
-A_personalizationByContent --> A_sendEmail[Send Email]
+				<textarea id="mermaidInput" cols="30" rows="10" style="display: none;">
+	 
+flowchart 
+S_2a7hPxmTiyLYoTe1TTTkvU[Targeted Segment: hot_lead <img class="targetedSegmentIcon" src='https://cdn-icons-png.flaticon.com/128/4577/4577216.png' style="width:90px" />] --> C_isProfitableCustomer{Next Best Actions are  <br><br> order-checkout, purchase}
+C_isProfitableCustomer -->|Yes| A_personalizationForContents[ <img class="actionIcon" src="https://cdn-icons-png.flaticon.com/128/4413/4413780.png" />  Content Personalization <br> with Asset Group <br><br> Retail HCM Stores ]
+C_isProfitableCustomer ---->|No| END[<img src="https://cdn-icons-png.flaticon.com/128/5277/5277603.png" />]
+A_personalizationForContents --> C_isRightTimeToSend{"Is right time for activation ? <br><br> $Now.Date == 10/05/2024"}
+C_isRightTimeToSend -->|Yes| A_sendEmail[Send Email <img class="actionIcon" src="https://cdn-icons-png.flaticon.com/128/3062/3062634.png" />]
+C_isRightTimeToSend ---->|No| END[<img src="https://cdn-icons-png.flaticon.com/128/5277/5277603.png" />]
 
 click S_2a7hPxmTiyLYoTe1TTTkvU href "javascript:automatedFlowNodeClick('S_2a7hPxmTiyLYoTe1TTTkvU');"
 click C_isProfitableCustomer href "javascript:automatedFlowNodeClick('C_isProfitableCustomer');"
+
 				</textarea>
 				<div id="ma_flow_container">
-					<div id="mermaidOutput" style="margin: 50px"></div>
+					<div id="mermaidOutput" </div>
 				</div>
 
 			</div>
@@ -122,8 +122,19 @@ click C_isProfitableCustomer href "javascript:automatedFlowNodeClick('C_isProfit
 	}
 	#ma_flow_container {
 		height: calc(100% - 100px) !important;
-		min-height: 800px !important;
+		min-height: 1400px !important;
 		position: relative;
+	}
+	#mermaidOutput img.targetedSegmentIcon {
+		width: 120px !important;
+		margin: 16px auto;
+	}
+	#mermaidOutput img.actionIcon {
+		width: 90px !important;
+		margin: 10px auto;
+	}
+	#mermaidOutput span.nodeLabel {
+		color: blue;
 	}
 </style>
 

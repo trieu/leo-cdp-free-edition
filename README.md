@@ -1,5 +1,5 @@
 <div style="background-color: #F0F8FF; text-align:center; border-radius:8px;">
-	<img src="https://cdn.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files@latest//images/leo-cdp-logo.png" alt="LEO CDP framework" style="width:640px;margin:auto;"/>
+	<img src="https://gcore.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files@latest//images/leo-cdp-logo.png" alt="LEO CDP framework" style="width:640px;margin:auto;"/>
 </div>
 
 # What is LEO CDP framework?

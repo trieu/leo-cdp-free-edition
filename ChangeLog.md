@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-05-02
+## [0.9.0] - 2024-05-15
 
 ### Added
 
@@ -67,6 +67,7 @@
 
 ### Fixed
 
+- [De-duplication] fix Top duplicate profiles and refactoring code
 - [User Authorization]
 - [Data Deduplication] improve UI UX in profile list and profile info
 - update and ranking
