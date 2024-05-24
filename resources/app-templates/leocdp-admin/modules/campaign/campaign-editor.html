@@ -70,17 +70,6 @@
 			<div class="panel-body">
 				<textarea id="mermaidInput" cols="30" rows="10" style="display: none;">
 	 
-flowchart 
-S_2a7hPxmTiyLYoTe1TTTkvU[Targeted Segment: hot_lead <img class="targetedSegmentIcon" src='https://cdn-icons-png.flaticon.com/128/4577/4577216.png' style="width:90px" />] --> C_isProfitableCustomer{Next Best Actions are  <br><br> order-checkout, purchase}
-C_isProfitableCustomer -->|Yes| A_personalizationForContents[ <img class="actionIcon" src="https://cdn-icons-png.flaticon.com/128/4413/4413780.png" />  Content Personalization <br> with Asset Group <br><br> Retail HCM Stores ]
-C_isProfitableCustomer ---->|No| END[<img src="https://cdn-icons-png.flaticon.com/128/5277/5277603.png" />]
-A_personalizationForContents --> C_isRightTimeToSend{"Is right time for activation ? <br><br> $Now.Date == 10/05/2024"}
-C_isRightTimeToSend -->|Yes| A_sendEmail[Send Email <img class="actionIcon" src="https://cdn-icons-png.flaticon.com/128/3062/3062634.png" />]
-C_isRightTimeToSend ---->|No| END[<img src="https://cdn-icons-png.flaticon.com/128/5277/5277603.png" />]
-
-click S_2a7hPxmTiyLYoTe1TTTkvU href "javascript:automatedFlowNodeClick('S_2a7hPxmTiyLYoTe1TTTkvU');"
-click C_isProfitableCustomer href "javascript:automatedFlowNodeClick('C_isProfitableCustomer');"
-
 				</textarea>
 				<div id="ma_flow_container">
 					<div id="mermaidOutput" </div>
@@ -120,19 +109,32 @@ click C_isProfitableCustomer href "javascript:automatedFlowNodeClick('C_isProfit
 		top: 0;
 		text-align: center;
 	}
+	#mermaidOutput svg {
+		transform: scale(1)
+	}
 	#ma_flow_container {
 		height: calc(100% - 100px) !important;
 		min-height: 1400px !important;
 		position: relative;
 	}
 	#mermaidOutput img.targetedSegmentIcon {
-		width: 120px !important;
-		margin: 16px auto;
-	}
-	#mermaidOutput img.actionIcon {
 		width: 90px !important;
 		margin: 10px auto;
 	}
+	#mermaidOutput img.actionIcon {
+		width: 80px !important;
+		margin: 5px auto;
+	}
+	#mermaidOutput img.questionIcon {
+		width: 80px !important;
+		margin: 5px auto;
+	}
+	#mermaidOutput .nodeInfo {
+		margin-top: 8px;
+    	color: red;
+	} 
+	
+	
 	#mermaidOutput span.nodeLabel {
 		color: blue;
 	}

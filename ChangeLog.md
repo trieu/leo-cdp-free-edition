@@ -31,10 +31,12 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-05-15
+## [0.9.0] - 2024-05-24
 
 ### Added
 
+- [Core] add core AutomatedFlow Java models
+- [Campaign] add MarketingAutomation, parsing JSON of Automated Flow Rules
 - [Campaign UI] show automated flow using mermaid.js
 - [Admin UI] show menu user guide
 - [Campaign] UI to listing campaigns
@@ -67,6 +69,7 @@
 
 ### Fixed
 
+- [Profile API] update error message  
 - [De-duplication] fix Top duplicate profiles and refactoring code
 - [User Authorization]
 - [Data Deduplication] improve UI UX in profile list and profile info
@@ -103,6 +106,8 @@
 
 ### Changed
 
+- [Core] remove easy-rules java lib, add MVEL for dynamic rules in campaign
+- [Campaign] refactoring model
 - [Profile] UI of report
  -[System User Login] update capcha text generation
 - [Profile] improve UI UX of profile
