@@ -41,13 +41,13 @@ Command to edit hosts:
 
 	wget -O- https://apt.corretto.aws/corretto.key | sudo apt-key add -
 	sudo add-apt-repository 'deb https://apt.corretto.aws stable main'
-	sudo apt-get update; sudo apt-get install -y java-11-amazon-corretto-jdk fontconfig git
+	sudo apt-get update; sudo apt-get install -y java-11-amazon-corretto-jdk fontconfig git nano
 	
 Java 11 on Rocky / CentOS
 
 	sudo rpm --import https://yum.corretto.aws/corretto.key
 	sudo curl -L -o /etc/yum.repos.d/corretto.repo https://yum.corretto.aws/corretto.repo
-	sudo yum install -y java-11-amazon-corretto-devel git fontconfig
+	sudo yum install -y java-11-amazon-corretto-devel git fontconfig git nano
 
 ### 3. Create user for SSH
 
@@ -59,7 +59,9 @@ Java 11 on Rocky / CentOS
 ### 4. Set SSH keys
 
 	sudo su leocdp
-	cd /home/leocdp 
+	sudo mkdir -p /home/leocdp
+	cd /home/leocdp
+	sudo chown -R leocdp:leocdp /home/leocdp
 	mkdir .ssh
 	nano .ssh/authorized_keys
 
@@ -80,7 +82,7 @@ Set Linux configs to scale on high load
 	sudo apt-key add - < Release.key
 	echo 'deb https://download.arangodb.com/arangodb311/DEBIAN/ /' | sudo tee /etc/apt/sources.list.d/arangodb.list
 	sudo apt-get install apt-transport-https
-	sudo apt-get update && sudo apt-get install arangodb3=3.11.8-1
+	sudo apt-get update && sudo apt-get install arangodb3=3.11.9-1
 	
 [ArangoDB on CentOS or Rocky Linux](https://idroot.us/install-arangodb-centos-8/)
 	
