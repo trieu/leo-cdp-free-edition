@@ -1,8 +1,8 @@
 [
     {
       "appId": "10000",
-      "name": "LEO CDP Admin",
-      "pageTitle": "Leo CDP Admin",
+      "name": "CDP Admin",
+      "pageTitle": "CDP Admin",
       "pageHeaderLogo": "https://www.the-learning-agency-lab.com/wp-content/uploads/2021/04/TheLearningAgency_Black_Logo20_XL.png",
       "webTemplateFolder": "leocdp-admin",
       "webTemplateCache": false,
@@ -10,9 +10,9 @@
     },
     {
       "appId": "1",
-      "name": "LEO Content Hub",
+      "name": "CDP Content Hub",
       "domain": "localhost",
-      "pageTitle": "LEO Content Hub",
+      "pageTitle": "CDP Content Hub",
       "pageHeaderLogo": "/public/images/leo-cdp-logo.png",
       "webTemplateFolder": "content-hub",
       "webTemplateCache": true,
