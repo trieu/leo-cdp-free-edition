@@ -7,4 +7,4 @@ echo "Enter the superadmin-password: "
 read superadmin_password 
 echo "Username: superadmin and password: $superadmin_password" 
 
-java -jar $JAR_MAIN setup-leocdp-with-password $superadmin_password
+java -jar $JAR_MAIN setup-system-with-password $superadmin_password
