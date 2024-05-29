@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-05-24
+## [0.9.0] - 2024-05-29
 
 ### Added
 
@@ -69,7 +69,7 @@
 
 ### Fixed
 
-- [Profile API] update error message  
+- [Profile API] update error message, can not save profile with email and phone
 - [De-duplication] fix Top duplicate profiles and refactoring code
 - [User Authorization]
 - [Data Deduplication] improve UI UX in profile list and profile info
