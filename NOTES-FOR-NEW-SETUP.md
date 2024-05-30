@@ -1,21 +1,20 @@
-# Infrastructure Setup for a new LeoCDP instance
+# Infrastructure Setup for a new CDP instance
 
-The tutorial video: [How to setup a new software instance of LEO CDP](https://knowledge.leocdp.net/p/how-to-setup-new-software-instance-of.html)
+TODO: create tutorial videos
 
 ## Network requirements
 
 The deployed server must have Internet connection, please set the out-bound firewall rules to these domains
 
-    https://storage.googleapis.com/leocdp-license
+    https://storage.googleapis.com
     https://nominatim.openstreetmap.org
-    https://cloudservice.leocdp.com
     http://api.ipstack.com
     https://us1.api.mailchimp.com
     https://api.brevo.com
 
 ## This requirements for all server
 
-### 1. Update DNS hosts for LEO CDP servers 
+### 1. Update DNS hosts for CDP Solution servers 
 
 Command to edit hosts: 
 	
@@ -23,17 +22,17 @@ Command to edit hosts:
 
 #### Add Local DNS for all servers
 
-- [the network IP of ArangoDB Server] leocdp.database
-- [the network IP of Redis Server] leocdp.redis
-- [the network IP of LeoCDP Admin] leocdp.admin
-- [the network IP of Data Observer] leocdp.observer
+- [the network IP of ArangoDB Server] cdpsys.database
+- [the network IP of Redis Server] cdpsys.redis
+- [the network IP of CDP Admin] cdpsys.admin
+- [the network IP of Data Observer] cdpsys.observer
 
 #### Example DNS for 1 ArangoDB database server, 1 Redis cache server, 1 Admin server and 2 data observers
 
-	127.0.0.1 leocdp.database
-	127.0.0.1 leocdp.redis
-	127.0.0.1 leocdp.admin
-	127.0.0.1 leocdp.observer
+	127.0.0.1 cdpsys.database
+	127.0.0.1 cdpsys.redis
+	127.0.0.1 cdpsys.admin
+	127.0.0.1 cdpsys.observer
 
 ### 2. Install Java 11 JVM for all 
 
@@ -51,21 +50,21 @@ Java 11 on Rocky / CentOS
 
 ### 3. Create user for SSH
 
-	sudo useradd leocdp -s /bin/bash -p '*'
-	sudo passwd -d leocdp
-	sudo usermod -aG sudo leocdp
-	echo 'leocdp ALL=(ALL) NOPASSWD: ALL' | sudo tee -a /etc/sudoers >/dev/null
+	sudo useradd cdpsysuser -s /bin/bash -p '*'
+	sudo passwd -d cdpsysuser
+	sudo usermod -aG sudo cdpsysuser
+	echo 'cdpsysuser ALL=(ALL) NOPASSWD: ALL' | sudo tee -a /etc/sudoers >/dev/null
 
 ### 4. Set SSH keys
 
-	sudo su leocdp
-	sudo mkdir -p /home/leocdp
-	cd /home/leocdp
-	sudo chown -R leocdp:leocdp /home/leocdp
+	sudo su cdpsysuser
+	sudo mkdir -p /home/cdpsysuser
+	cd /home/cdpsysuser
+	sudo chown -R cdpsysuser:cdpsysuser /home/cdpsysuser
 	mkdir .ssh
 	nano .ssh/authorized_keys
 
-Set your SSH public key
+=> Set your SSH public key
 
 
 ## This requirements for ArangoDB database
@@ -152,7 +151,7 @@ CentOS or Rocky
 
 	# make folder to git pull 
 	sudo mkdir /build/
-	sudo mkdir -p /home/leocdp/ ; sudo chown -R leocdp:leocdp /home/leocdp/
-	sudo git clone https://github.com/trieu/leo-cdp-free-edition.git /build/leo-cdp
-	sudo chown -R leocdp:leocdp /build/ ; sudo chmod +x /build/leo-cdp/*.sh
+	sudo mkdir -p /home/cdpsysuser/ ; sudo chown -R cdpsys:cdpsys /home/cdpsysuser/
+	sudo git clone https://github.com/trieu/leo-cdp-free-edition.git /build/cdp-instance
+	sudo chown -R cdpsys:cdpsys /build/ ; sudo chmod +x /build/cdp-instance/*.sh
 	

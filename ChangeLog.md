@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-05-29
+## [0.9.0] - 2024-05-30
 
 ### Added
 
@@ -106,6 +106,7 @@
 
 ### Changed
 
+- [Core] update setup document
 - [Core] remove easy-rules java lib, add MVEL for dynamic rules in campaign
 - [Campaign] refactoring model
 - [Profile] UI of report
