@@ -5,7 +5,7 @@
 - [Done] import tool to upload event data as CSV file in LEO CDP Admin
 - [In Plan => 2022-11-07] new UI for journey map report
 
-## Feature Plan for the final beta release 1.0 - 2024-05-01
+## Feature Plan for the final beta release 1.0 - 2024-05-03
 
 #### Tasks
 
@@ -35,6 +35,7 @@
 
 ### Added
 
+- [Profile] add getBySocialMediaIds for the save profile API, data from Facebook, Zalo or Tiktok
 - [Core] add core AutomatedFlow Java models
 - [Campaign] add MarketingAutomation, parsing JSON of Automated Flow Rules
 - [Campaign UI] show automated flow using mermaid.js
