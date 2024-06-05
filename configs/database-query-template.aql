@@ -1059,7 +1059,9 @@ AQL_GET_PROFILES_BY_PHONES =>
 ;
 
 AQL_GET_PROFILES_BY_APPLICATION_IDS =>
-	FOR applicationID in @applicationIDs FOR p in cdp_profile FILTER applicationID IN p.applicationIDs AND p.status == 1 RETURN DISTINCT p
+	FOR applicationID in @applicationIDs 
+		FOR p in cdp_profile FILTER applicationID IN p.applicationIDs AND p.status == 1 
+		RETURN DISTINCT p
 ;
 
 AQL_GET_PROFILES_BY_GOVERNMENT_ISSUED_IDS =>
