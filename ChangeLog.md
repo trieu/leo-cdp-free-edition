@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-05-31
+## [0.9.0] - 2024-06-08
 
 ### Added
 
@@ -70,6 +70,7 @@
 
 ### Fixed
 
+- [Profile API] update to save profile with social media profile Id, application Id, loyalty Id
 - [Profile API] update error message, can not save profile with email and phone, save from specified event observer
 - [De-duplication] fix Top duplicate profiles and refactoring code
 - [User Authorization]
