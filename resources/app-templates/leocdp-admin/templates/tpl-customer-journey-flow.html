@@ -126,7 +126,7 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 					</div>
 	            </div>
 				<div id="code_holder" ><textarea id="data_observer_code" class="code">
-// (1) EVENT OBSERVER: load JavaScript code for [__tpHubName__]
+// (1) CDP EVENT OBSERVER: load JavaScript code for [__tpHubName__]
 (function() { 	
 	// Observer ID
 	window.leoObserverId = "__leoObserverId__";
@@ -156,11 +156,11 @@ var parseDataUTM = window.parseDataUTM || function () {
     }
 }
 	
-// (2) CDP OBSERVER: set-up all event tracking functions
+// (2) CDP EVENT OBSERVER: set-up all event tracking functions
 var LeoObserver = {};
 __eventTrackingFunctions__
 
-// (3) CDP OBSERVER is ready
+// (3) CDP EVENT OBSERVER is ready
 function leoObserverProxyReady(session) {
    	// auto tracking when CDP JS is ready
    	__autoTrackingFunctions__ ;
