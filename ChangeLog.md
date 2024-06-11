@@ -31,10 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-06-08
+## [0.9.0] - 2024-06-11
 
 ### Added
 
+- [Core CDP] add webhook to receive daata from third-party data sources: KiotViet, Zalo, Facebook
 - [Profile] add getBySocialMediaIds for the save profile API, data from Facebook, Zalo or Tiktok
 - [Core] add core AutomatedFlow Java models
 - [Campaign] add MarketingAutomation, parsing JSON of Automated Flow Rules
