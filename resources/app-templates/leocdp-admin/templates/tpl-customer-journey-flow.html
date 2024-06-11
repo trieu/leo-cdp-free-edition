@@ -77,7 +77,7 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 
 <!-- https://developers.google.com/analytics/devguides/collection/ga4 -->
 <script id='google-analytics-javascript-tpl' type="text/html" >
-	// Google Analytics 4: load JavaScript Code and synch LEO Visitor ID
+	// Google Analytics 4: load JavaScript Code and synch CDP Visitor ID
 	(function() { 	
 		var src = 'https://www.googletagmanager.com/gtag/js?id=<%- measurementId %>';
    		var jsNode = document.createElement('script');
@@ -126,7 +126,7 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 					</div>
 	            </div>
 				<div id="code_holder" ><textarea id="data_observer_code" class="code">
-// (1) LEO OBSERVER: load JavaScript code for [__tpHubName__]
+// (1) EVENT OBSERVER: load JavaScript code for [__tpHubName__]
 (function() { 	
 	// Observer ID
 	window.leoObserverId = "__leoObserverId__";
@@ -139,7 +139,7 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 	window.srcTouchpointName = encodeURIComponent(document.title);
 	window.srcTouchpointUrl = encodeURIComponent(location.href);
 
-	// the main proxy LEO JS
+	// the main proxy CDP JS
 	var leoproxyJsPath = '/js/leo-observer/leo.proxy.min.js';
     var src = location.protocol + '//' + window.leoObserverCdnDomain + leoproxyJsPath;
     var jsNode = document.createElement('script');
@@ -156,16 +156,16 @@ var parseDataUTM = window.parseDataUTM || function () {
     }
 }
 	
-// (2) LEO OBSERVER: set-up all event tracking functions
+// (2) CDP OBSERVER: set-up all event tracking functions
 var LeoObserver = {};
 __eventTrackingFunctions__
 
-// (3) LEO OBSERVER is ready
+// (3) CDP OBSERVER is ready
 function leoObserverProxyReady(session) {
    	// auto tracking when CDP JS is ready
    	__autoTrackingFunctions__ ;
    	
-   	// set tracking LEO visitor ID into all a[href] nodes
+   	// set tracking CDP web visitor ID into all a[href] nodes
 	LeoObserverProxy.synchLeoVisitorId(function(vid){
 		var aNodes = document.querySelectorAll('a');
 		[].forEach.call(aNodes, function(aNode) {
@@ -349,7 +349,7 @@ LeoObserver.addTrackingAllButtons = function(){
     var iframeH = __iframeHeight__;
     var autoScaleHeight = true;
     
-    // LEO Observer ID
+    // CDP Observer ID
     var observerId = "__observerId__";
     var templateId = "__templateId__";
     var iframeId = observerId + "_" + templateId;
@@ -503,13 +503,13 @@ setTimeout(function(){
 </div>
 
 <div class="modal fade" id="observerApiInfoDialog" role="dialog">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog modal-lg" style="width:960px;" >
 		<!-- Modal content-->
 		<div class="modal-content">   
 			<div class="modal-header">
-				<h4 class="modal-title text-center" > LEO API Information </h4>
+				<h4 class="modal-title text-center" > API Information </h4>
 			</div>         
-			<div class="modal-body ">
+			<div class="modal-body">
 				<h4> <i class="fa fa-info-circle" aria-hidden="true"></i> API Tokens for <span id="leoCdpApiObserverName" class="highlight_text" ></span> </h4>
 				<p> In the HTTP Header, you must set the "tokenkey" for API Token Key and the "tokenvalue" for API Token Value</p>
 				<div class="form-group" >
@@ -528,6 +528,11 @@ setTimeout(function(){
 				<input type="text" class="form-control" readonly value="" id="leoCdpTrackEventApiUrl" >
 				<label class="highlight_text"> To get all the events associated with a particular profile, call this API with HTTP GET: </label> <br>
 				<input type="text" class="form-control" readonly value="" id="leoCdpListEventsApiUrl" >
+				<hr>
+	            <h4> <i class="fa fa-info-circle" aria-hidden="true"></i> 
+	            	Webhook Endpoint URL 
+	            </h4>
+				<input type="text" class="form-control" readonly value="" id="leoCdpWebhookUrl" >
 			</div>  
 			<div class="modal-footer">
 				<button type="button" class="btn btn-danger" onclick="resetAccessTokenForLeoObserverApi()" >

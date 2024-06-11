@@ -31,11 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-06-11
+## [0.9.0] - 2024-06-12
 
 ### Added
 
-- [Core CDP] add webhook to receive daata from third-party data sources: KiotViet, Zalo, Facebook
+- [Core CDP] add webhook to receive data from third-party data sources: KiotViet, Zalo, Facebook
 - [Profile] add getBySocialMediaIds for the save profile API, data from Facebook, Zalo or Tiktok
 - [Core] add core AutomatedFlow Java models
 - [Campaign] add MarketingAutomation, parsing JSON of Automated Flow Rules
@@ -71,6 +71,7 @@
 
 ### Fixed
 
+- [Core CDP] check webhook URL with secured token, fix bugs
 - [Profile API] update to save profile with social media profile Id, application Id, loyalty Id
 - [Profile API] update error message, can not save profile with email and phone, save from specified event observer
 - [De-duplication] fix Top duplicate profiles and refactoring code
