@@ -5,7 +5,7 @@
 - [Done] import tool to upload event data as CSV file in LEO CDP Admin
 - [In Plan => 2022-11-07] new UI for journey map report
 
-## Feature Plan for the final beta release 1.0 - 2024-05-03
+## Feature Plan for the final beta release 1.0 - 2024-05-13
 
 #### Tasks
 
@@ -71,6 +71,7 @@
 
 ### Fixed
 
+- [Core CDP] fix bugs data deduplication
 - [Core CDP] check webhook URL with secured token, fix bugs
 - [Profile API] update to save profile with social media profile Id, application Id, loyalty Id
 - [Profile API] update error message, can not save profile with email and phone, save from specified event observer
