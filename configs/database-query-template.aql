@@ -1476,6 +1476,15 @@ AQL_DELETE_FEEDBACK_EVENTS_BY_PROFILE_ID =>
     REMOVE { _key: e._key } IN cdp_feedbackdata
 ;
 
+###########  WEBHOOK EVENT  ########################################################################################################;
+
+AQL_GET_WEBHOOK_EVENTS_BY_SOURCE =>
+	FOR e in cdp_webhookdataevent  
+	FILTER e.source == @source
+	SORT e.createdAt DESC  
+	RETURN e
+;
+
 ########### PRODUCT ITEM  ########################################################################################################;
 
 AQL_GET_PRODUCT_ITEM_BY_ID =>
