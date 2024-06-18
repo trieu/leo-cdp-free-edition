@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-06-14
+## [0.9.0] - 2024-06-18
 
 ### Added
 
@@ -72,6 +72,7 @@
 
 ### Fixed
 
+- [Core CDP] update profile from web session with only email or phone
 - [Core CDP] fix bugs data deduplication
 - [Core CDP] check webhook URL with secured token, fix bugs
 - [Profile API] update to save profile with social media profile Id, application Id, loyalty Id
