@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-06-18
+## [0.9.0] - 2024-06-19
 
 ### Added
 
@@ -72,6 +72,7 @@
 
 ### Fixed
 
+- [Core CDP] fix and improve the processor of Webhook Data Event
 - [Core CDP] update profile from web session with only email or phone
 - [Core CDP] fix bugs data deduplication
 - [Core CDP] check webhook URL with secured token, fix bugs
