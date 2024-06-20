@@ -777,11 +777,11 @@ var onSubmitForm = function(errors, formData) {
 				jQuery('#leo_form_error').html(errorMsg).show().delay(5000).fadeOut('slow');
 			} 
 			else {
-				var okMsg = "Thank you for your feedback data !";
+				var okMsg = "Thank you very much !";
 				if(surveyTemplateModel.Language === "vn") {
-					okMsg = "Cảm ơn bạn về những thông tin phản hồi !";
+					okMsg = "Cảm ơn bạn về thông tin!";
 				} 
-				var successInfoHtml = '<div class="alert alert-success"> <h4><i class="fa fa-check-circle" aria-hidden="true"></i> ' + okMsg + ' </h4> </div>';
+				var successInfoHtml = '<div class="alert alert-success"> <h2><i class="fa fa-check-circle" aria-hidden="true"></i> ' + okMsg + ' </h2> </div>';
 				
 				jQuery('#survey_placeholder').hide().parent().append(successInfoHtml).show();
 				
