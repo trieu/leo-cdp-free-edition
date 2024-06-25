@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-06-19
+## [0.9.0] - 2024-06-25
 
 ### Added
 
@@ -114,6 +114,8 @@
 
 ### Changed
 
+- [Product] improve import data
+- [Segment] Authorized user can export profile or connect to segment raw JSON data
 - [Core] update setup document
 - [Core] remove easy-rules java lib, add MVEL for dynamic rules in campaign
 - [Campaign] refactoring model

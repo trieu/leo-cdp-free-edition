@@ -1746,14 +1746,14 @@ AQL_GET_CAMPAIGN_BY_ID =>
 AQL_GET_CAMPAIGNS_BY_PAGINATION =>
 	FOR e in cdp_campaign  
 	FILTER e.status >= 0
-	SORT e.createdAt DESC
+	SORT e.updatedAt DESC
 	LIMIT @startIndex,@numberResult 
 	RETURN e
 ;
 
 AQL_GET_CAMPAIGNS_TO_DELETE_FOREVER =>
 	FOR e in cdp_campaign  
-	SORT e.createdAt DESC
+	SORT e.updatedAt DESC
 	LIMIT @startIndex,@numberResult 
 	RETURN e
 ;

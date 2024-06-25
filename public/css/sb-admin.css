@@ -1935,7 +1935,8 @@ scale
 }
 
 .top_nav_item {
-	background-color: #D3D3D3;
+	background-color: #E2E2E2;
+	font-weight: bold;
     border-radius: 6px;
     margin: 0px 1px 0px 3px;  
 }

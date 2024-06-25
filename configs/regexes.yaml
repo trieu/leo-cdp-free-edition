@@ -217,7 +217,7 @@ user_agent_parsers:
     family_replacement: 'Twitter'
 
   # Phantom app
-  - regex: 'Mozilla.{1,200}Mobile.{1,100}(Phantom\/ios|android).(\d+)\.(\d+)\.(\d+)'
+  - regex: 'Mozilla.{1,200}Mobile.{1,100}(Phantom\/ios|Phantom\/android).(\d+)\.(\d+)\.(\d+)'
     family_replacement: 'Phantom'
 
   # aspiegel.com spider (owned by Huawei, later called PetalBot)
@@ -378,6 +378,29 @@ user_agent_parsers:
   - regex: '(Nintendo 3DS)'
     family_replacement: 'NetFront NX'
 
+  # Huawei Browser, should go before Safari and Chrome Mobile
+  - regex: '(HuaweiBrowser)/(\d+)\.(\d+)\.(\d+)\.\d+'
+    family_replacement: 'Huawei Browser'
+
+  # AVG
+  - regex: '(AVG)/(\d+)\.(\d+)\.(\d+)\.\d+'
+    family_replacement: 'AVG'
+
+  # Avast
+  - regex: '(AvastSecureBrowser|Avast)/(\d+)\.(\d+)\.(\d+)'
+    family_replacement: 'Avast Secure Browser'
+
+  # Instabridge
+  - regex: '(Instabridge)/(\d+)(?:\.(\d+)|)(?:\.(\d+)|)'
+
+  # Aloha Browser
+  - regex: '(AlohaBrowser)/(\d+)\.(\d+)\.(\d+)(?:\.(\d+)|)'
+    family_replacement: 'Aloha Browser'
+
+  # Brave Browser https://brave.com/ , should go before Safari and Chrome Mobile
+  - regex: '((?:B|b)rave(?:\sChrome)?)/(\d+)(?:\.(\d+)|)(?:\.(\d+)|)(?:\.(\d+)|)'
+    family_replacement: 'Brave'
+
   # Amazon Silk, should go before Safari and Chrome Mobile
   - regex: '(Silk)/(\d+)\.(\d+)(?:\.([0-9\-]+)|)'
     family_replacement: 'Amazon Silk'
@@ -388,7 +411,7 @@ user_agent_parsers:
   # Edge Mobile
   - regex: 'Windows Phone .{0,200}(Edge)/(\d+)\.(\d+)'
     family_replacement: 'Edge Mobile'
-  - regex: '(EdgiOS|EdgA)/(\d+)\.(\d+)\.(\d+)(?:\.(\d+)|)'
+  - regex: '(EdgiOS|EdgA)/(\d+)(?:\.(\d+)|)(?:\.(\d+)|)(?:\.(\d+)|)'
     family_replacement: 'Edge Mobile'
 
   # Oculus Browser, should go before Samsung Internet
@@ -450,12 +473,24 @@ user_agent_parsers:
     family_replacement: 'QQ Browser'
 
   # DuckDuckGo
-  - regex: 'Mobile.{0,200}(DuckDuckGo)/(\d+)'
+  - regex: 'Mozilla.{1,200}Mobile.{1,100}(DuckDuckGo)/(\d+)'
     family_replacement: 'DuckDuckGo Mobile'
+  - regex: 'Mozilla.{1,200}(DuckDuckGo)/(\d+)'
+    family_replacement: 'DuckDuckGo'
+  - regex: 'Mozilla.{1,200}Mobile.{1,100}(Ddg)/(\d+)(?:\.(\d+)|)'
+    family_replacement: 'DuckDuckGo Mobile'
+  - regex: 'Mozilla.{1,200}(Ddg)/(\d+)(?:\.(\d+)|)'
+    family_replacement: 'DuckDuckGo'
 
   # Tenta Browser
   - regex: '(Tenta/)(\d+)\.(\d+)\.(\d+)'
     family_replacement: 'Tenta Browser'
+
+  # Ecosia on iOS / Android
+  - regex: '(Ecosia) ios@(\d+)\.(\d+)\.(\d+)\.(\d+)'
+    family_replacement: 'Ecosia iOS'
+  - regex: '(Ecosia) android@(\d+)\.(\d+)\.(\d+)\.(\d+)'
+    family_replacement: 'Ecosia Android'
 
   # Chrome Mobile
   - regex: 'Version/.{1,300}(Chrome)/(\d+)\.(\d+)\.(\d+)\.(\d+)'
@@ -464,7 +499,7 @@ user_agent_parsers:
     family_replacement: 'Chrome Mobile WebView'
   - regex: '(CrMo)/(\d+)\.(\d+)\.(\d+)\.(\d+)'
     family_replacement: 'Chrome Mobile'
-  - regex: '(CriOS)/(\d+)\.(\d+)\.(\d+)\.(\d+)'
+  - regex: '(CriOS)/(\d+)(?:\.(\d+)|)(?:\.(\d+)|)(?:\.(\d+)|)'
     family_replacement: 'Chrome Mobile iOS'
   - regex: '(Chrome)/(\d+)\.(\d+)\.(\d+)\.(\d+) Mobile(?:[ /]|$)'
     family_replacement: 'Chrome Mobile'
@@ -495,6 +530,8 @@ user_agent_parsers:
 
   # Yandex Browser
   - regex: '(YaBrowser)/(\d+)\.(\d+)\.(\d+)'
+    family_replacement: 'Yandex Browser'
+  - regex: '(YaSearchBrowser)/(\d+)\.(\d+)\.(\d+)'
     family_replacement: 'Yandex Browser'
 
   # Mail.ru Amigo/Internet Browser (Chromium-based)
@@ -600,17 +637,13 @@ user_agent_parsers:
   - regex: 'Superhuman'
     family_replacement: 'Superhuman'
 
-  # Vivaldi uses "Vivaldi"
-  - regex: '(Vivaldi)/(\d+)\.(\d+)\.(\d+)'
+  # Vivaldi
+  - regex: '(Vivaldi)/(\d+)(?:\.(\d+)|)(?:\.(\d+)|)'
 
   # Edge/major_version.minor_version
   # Edge with chromium Edg/major_version.minor_version.patch.minor_patch
   - regex: '(Edge?)/(\d+)(?:\.(\d+)|)(?:\.(\d+)|)(?:\.(\d+)|)'
     family_replacement: 'Edge'
-
-  # Brave Browser https://brave.com/
-  - regex: '(brave)/(\d+)\.(\d+)\.(\d+) Chrome'
-    family_replacement: 'Brave'
 
   # Iron Browser ~since version 50
   - regex: '(Chrome)/(\d+)\.(\d+)\.(\d+)[\d.]{0,100} Iron[^/]'
@@ -1022,10 +1055,12 @@ user_agent_parsers:
   # HTTrack crawler
   - regex: '\b(HTTrack) (\d+)\.(\d+)(?:[\.\-](\d+)|)'
 
-  # SerenityOS (https://serenityos.org)
-  # https://github.com/SerenityOS/serenity/blob/2e1bbcb0faeae92d7595b8e0b022a8cdcecca07e/Userland/Libraries/LibWeb/Loader/ResourceLoader.h#L27
-  - regex: 'SerenityOS'
-    family_replacement: 'SerenityOS Browser'
+  # Ladybird Browser (https://ladybird.dev)
+  # https://github.com/SerenityOS/serenity/blob/6a662e0d43810c1dbd56fbf0c123f258aa1d694e/Userland/Libraries/LibWeb/Loader/ResourceLoader.h#L64
+  - regex: '(Ladybird)\/(\d+)\.(\d+)'
+
+  # MullvadBrowser (https://mullvad.net/en/browser)
+  - regex: '(MullvadBrowser)/(\d+)(?:\.(\d+)|)(?:\.(\d+)|)'
 
 os_parsers:
   ##########
@@ -1109,6 +1144,29 @@ os_parsers:
 
   # Special case for new ArcGIS Mobile products
   - regex: 'ArcGISRuntime-(?:Android|iOS)\/\d+\.\d+(?:\.\d+|) \((Android|iOS) (\d+)(?:\.(\d+)(?:\.(\d+)|)|);'
+
+  ##########
+  # Chromecast
+  ##########
+  # Ex: Mozilla/5.0 (Linux; Android 12.0; Build/STTL.240206.002) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.0 Safari/537.36 CrKey/1.56.500000 DeviceType/AndroidTV
+  # These are the newer Android-based "Google TV" Chromecast devices.
+  # Google stopped updating the Chromecast firmware version in these, so they always say CrKey/1.56.500000.  Therefore we extract the more useful Android version instead.
+  - regex: '(Android) (\d+)(?:\.(\d+)).*CrKey'
+    os_replacement: 'Chromecast Android'
+
+  # Ex: Mozilla/5.0 (Fuchsia) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 CrKey/1.56.500000
+  # These are some intermediate "Nest Hub" Chromecast devices running Fuchsia.
+  - regex: 'Fuchsia.*(CrKey)(?:[/](\d+)\.(\d+)(?:\.(\d+)|)|)'
+    os_replacement: 'Chromecast Fuchsia'
+
+  # Ex: Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.225 Safari/537.36 CrKey/1.56.500000 DeviceType/SmartSpeaker
+  - regex: 'Linux.*(CrKey)(?:[/](\d+)\.(\d+)(?:\.(\d+)|)|).*DeviceType/SmartSpeaker'
+    os_replacement: 'Chromecast SmartSpeaker'
+
+  # Ex: Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.225 Safari/537.36 CrKey/1.56.500000 DeviceType/Chromecast
+  # These are the oldest Chromecast devices that ran Linux.
+  - regex: 'Linux.*(CrKey)(?:[/](\d+)\.(\d+)(?:\.(\d+)|)|)'
+    os_replacement: 'Chromecast Linux'
 
   ##########
   # Android
@@ -1272,6 +1330,10 @@ os_parsers:
   # spoofs Android so pushing it above
   ##########
   - regex: '(Tizen)[/ ](\d+)\.(\d+)'
+
+  # Chrome and Edge on iOS with desktop mode contains Mac OS X, so it must be before any Mac OS check
+  - regex: 'Intel Mac OS X.+(CriOS|EdgiOS)/\d+'
+    os_replacement: 'iOS'
 
   ##########
   # Mac OS
@@ -1786,12 +1848,6 @@ os_parsers:
   - regex: '(GoogleTV)(?: (\d+)\.(\d+)(?:\.(\d+)|)|/[\da-z]+)'
 
   - regex: '(WebTV)/(\d+).(\d+)'
-
-  ##########
-  # Chromecast
-  ##########
-  - regex: '(CrKey)(?:[/](\d+)\.(\d+)(?:\.(\d+)|)|)'
-    os_replacement: 'Chromecast'
 
   ##########
   # Misc mobile
@@ -2425,6 +2481,39 @@ device_parsers:
     device_replacement: '$1'
     brand_replacement: 'ChangJia'
     model_replacement: '$1'
+
+  ##########
+  # Chromecast
+  # @ref: https://en.wikipedia.org/wiki/Chromecast#Hardware_and_design
+  ##########
+  # Ex: Mozilla/5.0 (Linux; Android 12.0; Build/STTL.240206.002) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.0 Safari/537.36 CrKey/1.56.500000 DeviceType/AndroidTV
+  # Ex: Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.225 Safari/537.36 CrKey/1.56.500000 DeviceType/SmartSpeaker
+  # Ex: Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.225 Safari/537.36 CrKey/1.56.500000 DeviceType/Chromecast
+  # These are the newer Chromecast devices, such as smart speakers, Google TVs, etc. that have an explicit device type.
+  - regex: 'CrKey.*DeviceType/([^/]*)'
+    brand_replacement: 'Google'
+    device_replacement: 'Chromecast'
+    model_replacement: '$1'
+
+  # Ex: Mozilla/5.0 (Fuchsia) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 CrKey/1.56.500000
+  # These are some intermediate "Nest Hub" Chromecast devices running Fuchsia.
+  - regex: 'Fuchsia.*CrKey'
+    brand_replacement: 'Google'
+    device_replacement: 'Chromecast'
+    model_replacement: 'Nest Hub'
+
+  # Ex: Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.47 Safari/537.36 CrKey/1.36.159268
+  # These are the first generation of Chromecast devices that ran Linux.  They don't specify a device type.
+  - regex: 'Linux.*CrKey/1.36'
+    brand_replacement: 'Google'
+    device_replacement: 'Chromecast'
+    model_replacement: 'First Generation'
+
+  # We have no data on the user agent strings of other models, except that they all report CrKey/
+  - regex: 'CrKey/'
+    brand_replacement: 'Google'
+    device_replacement: 'Chromecast'
+    model_replacement: 'Chromecast'
 
   #########
   # Cloudfone
@@ -3582,6 +3671,11 @@ device_parsers:
   # Meta
   # @ref: https://www.meta.com
   #########
+  - regex: 'Quest 3'
+    device_replacement: 'Quest'
+    brand_replacement: 'Meta'
+    model_replacement: 'Quest 3'
+
   - regex: 'Quest 2'
     device_replacement: 'Quest'
     brand_replacement: 'Meta'
@@ -5615,7 +5709,7 @@ device_parsers:
     device_replacement: 'Nintendo Wii U'
     brand_replacement: 'Nintendo'
     model_replacement: 'Wii U'
-  - regex: 'Nintendo (DS|3DS|DSi|Wii);'
+  - regex: 'Nintendo (Switch|DS|3DS|DSi|Wii);'
     device_replacement: 'Nintendo $1'
     brand_replacement: 'Nintendo'
     model_replacement: '$1'
