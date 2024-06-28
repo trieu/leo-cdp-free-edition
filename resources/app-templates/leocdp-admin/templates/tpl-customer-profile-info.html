@@ -226,9 +226,8 @@
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Ordered Items:</b> <br> 
 			<div>
 			<% _.forOwn(orderedItems, function(item) { %>
-				<div style="padding:20px"> 
+				<div style="padding:10px"> 
 					<b> Name </b> : <mark> <%- item.name %> </mark>  <br>
-					<b> Original Price </b> : <mark> <%- item.originalPrice %> <%- item.currency %></mark>  <br>
 				</div>
 			<% }) %>
 			<div>
@@ -258,7 +257,7 @@
          <div class="text-nowrap " >  
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Transaction Data:</b> <br> 
 			<i class="fa fa-usd" aria-hidden="true"></i> ID Code: <mark> <%- transactionId %> </mark> <br>
-			<i class="fa fa-usd" aria-hidden="true"></i> Transaction Value: <mark> <%- transactionValue %> <%- transactionCurrency %> </mark>	
+			<i class="fa fa-usd" aria-hidden="true"></i> Transaction Value: <mark> <%- formatCurrency(transactionValue) %> <%- transactionCurrency %> </mark>	
 		 </div>
 		 <div class="text-nowrap " >  
 			<i class="fa fa-link" aria-hidden="true"></i> <span class="small" ><%- srcTouchpoint.truncatedUrl %></span> <br> 
@@ -283,9 +282,8 @@
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Ordered Items:</b> <br> 
 			<div>
 			<% _.forOwn(orderedItems, function(item) { %>
-				<div style="padding:20px"> 
+				<div style="padding:10px"> 
 					<b> Name </b> : <mark> <%- item.name %> </mark>  <br>
-					<b> Original Price </b> : <mark> <%- item.originalPrice %> <%- item.currency %></mark>  <br>
 				</div>
 			<% }) %>
 			<div>
