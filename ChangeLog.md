@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-06-25
+## [0.9.0] - 2024-06-28
 
 ### Added
 
@@ -72,6 +72,8 @@
 
 ### Fixed
 
+- [Profile] fix and improve show ordered items of purchase action event in Profile
+- [Core CDP] fix and improve GeoLocation Service
 - [Core CDP] fix and improve the processor of Webhook Data Event
 - [Core CDP] update profile from web session with only email or phone
 - [Core CDP] fix bugs data deduplication

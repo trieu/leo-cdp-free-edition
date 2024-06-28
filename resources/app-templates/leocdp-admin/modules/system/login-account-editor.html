@@ -67,55 +67,49 @@ div.panel_header {
 					<h4 class="highlight_text"> <i class="fa fa-info-circle" aria-hidden="true"></i> User Information </h4>
 					
 					<div class="action-div">
-	                    <label>Status</label>
-	                    <div class="radio">
-	                        <label><input type="radio" name="status" value="0"> Pending account </label>
-	                    </div>
-	                    <div class="radio">
+						<span style="margin-left: 30px">
 	                        <label ><input type="radio" name="status" value="1"> Active account </label>
-	                    </div>
-	                    <div class="radio">
+	                    </span>
+	                    <span style="margin-left: 30px">
+	                        <label><input type="radio" name="status" value="0"> Pending account </label>
+	                    </span>
+	                    <span style="margin-left: 30px" >
 	                        <label><input type="radio" name="status" value="2"> Disabled account </label>
-	                    </div>
+	                    </span>
 	                </div>
 	                <hr>
 															
 	                <div class="form-group">
-	                    <label> User Login </label>
+	                    <label> User Login (required) </label>
 	                    <input data-validation="length alphanumeric" data-validation-length="min4" type="text" class="form-control"
 	                        placeholder="Enter User Login" name="userLogin" autocomplete="nope" autocorrect="off"
 	                        autocapitalize="none" spellcheck="false" required >
 	                </div>	                
 	                <div class="form-group">
-	                    <label> Login Password </label>
+	                    <label> Login Password (required)</label>
 	                    <input type="text" class="form-control" placeholder="Enter New Password To Update" name="userPass" autocorrect="off"
-	                        autocapitalize="off" autocomplete="nope"  >
-	                </div>
-	                <div class="form-group">
-	                    <label> Profile Visitor ID 
-							<a id="systemUser_profileViewByVisitorId" href="javascript:" style="display: none;" target="_blank" > Data Profile </a>   </label>
-	                    <input type="text" class="form-control" placeholder="Enter Profile Visitor ID" name="profileVisitorId"
-	                        autocorrect="off" autocapitalize="off" autocomplete="off"  >	                      
+	                        autocapitalize="off" autocomplete="nope" required >
 	                </div>
 	                
 	                <hr>
 	                <div class="form-group">
-	                    <label> Display Name</label>
+	                    <label> Display Name (required) </label>
 	                    <input type="text" class="form-control" placeholder="Enter Display Name" name="displayName"
-	                        autocorrect="off" autocapitalize="off" autocomplete="off required ">
+	                        autocorrect="off" autocapitalize="off" autocomplete="off" required>
 	                </div>
 	                <div class="form-group">
-	                    <label> Contact Email </label>
+	                    <label> Email (required) </label>
 	                    <input data-validation="email" type="email" class="form-control" placeholder="Enter Email" name="userEmail"
 	                        autocorrect="off" autocapitalize="off" autocomplete="off" required  >
 	                </div>
 	                <hr>                
 	                
 	                <div class="form-group" >
-	                    <label> Business Unit </label>
+	                    <label> Team Name / Business Unit (required) </label>
 	                    <input type="text" class="form-control" placeholder="Enter the name of business unit" name="businessUnit"
-	                        autocorrect="off" autocapitalize="off" autocomplete="off required ">
+	                        autocorrect="off" autocapitalize="off" autocomplete="off" required>
 	                </div>
+	                
 	                <div class="form-group">
 	                    <label> Departments / User Groups </label>
 	                    <select name="inGroups" data-placeholder="Select some departments or user-groups" class="select" multiple="multiple" >
@@ -145,11 +139,19 @@ div.panel_header {
 	                        <option value="sales_agent"> Sales Agent / Sales Representative </option>
 	                    </select>
 	                </div>
+	                
 	                <div class="form-group">
 	                    <label> Job Title / Job Position </label>
 	                    <input type="text" class="form-control" placeholder="Enter Position" name="customData_position"
 	                        autocorrect="off" autocapitalize="off" autocomplete="off">
-	                </div>	                
+	                </div>	  
+	                <hr>
+	                <div class="form-group">
+	                    <label> Profile Visitor ID 
+							<a id="systemUser_profileViewByVisitorId" href="javascript:" style="display: none;" target="_blank" > Data Profile </a>   </label>
+	                    <input type="text" class="form-control" placeholder="Enter Profile Visitor ID" name="profileVisitorId"
+	                        autocorrect="off" autocapitalize="off" autocomplete="off"  >	                      
+	                </div>              
 	                
 				</div>
 				

@@ -119,9 +119,14 @@
 		 </div>
  		 <div class="text-nowrap " >  
 			<i class="fa fa-map-marker" aria-hidden="true"></i>  
-			<span class="small" > Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a>  </span> 
+			<div style="display: <%- cssStyleDisplayLocation %>" >
+				<i class="fa fa-map-marker" aria-hidden="true"></i>  
+				<span class="small" > 
+					Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a> 
+				</span> 
+ 			</div>
 		 </div>
- 		 <div class="text-wrap" style="display: <%- cssStyleDisplay %>" >  
+ 		 <div class="text-wrap" style="display: <%- cssStyleDisplayEventData %>" >  
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br> 
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
@@ -156,9 +161,14 @@
 		 </div>
  		 <div class="text-nowrap " >  
 			<i class="fa fa-map-marker" aria-hidden="true"></i>  
-			<span class="small" > Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a>  </span> 
+			<div style="display: <%- cssStyleDisplayLocation %>" >
+				<i class="fa fa-map-marker" aria-hidden="true"></i>  
+				<span class="small" > 
+					Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a> 
+				</span> 
+ 			</div>
 		 </div>
-		 <div class="text-wrap" style="display: <%- cssStyleDisplay %>" >  
+		 <div class="text-wrap" style="display: <%- cssStyleDisplayEventData %>" >  
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br>
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
@@ -195,17 +205,35 @@
 		 </div>
 		 <div class="text-nowrap " >  
 			<i class="fa fa-link" aria-hidden="true"></i> <span class="small" ><%- srcTouchpoint.truncatedUrl %></span> <br>
-			<i class="fa fa-map-marker" aria-hidden="true"></i>
-			<span class="small" > Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a>  </span> 
+			<div style="display: <%- cssStyleDisplayLocation %>" >
+				<i class="fa fa-map-marker" aria-hidden="true"></i>  
+				<span class="small" > 
+					Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a> 
+				</span> 
+ 			</div>
 		 </div>
 		 <hr>
- 		 <div class="text-wrap" style="display: <%- cssStyleDisplay %>" >   
+ 		 <div class="text-wrap" style="display: <%- cssStyleDisplayEventData %>" >   
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br> 
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
 				<li> <b> <%- key %> </b> : <mark> <%- decodeURIComponent(value) %> </mark>  </li>
 			<% }) %>
 			<ul>
+			</span> 
+		 </div>
+		<div class="text-wrap" style="display: <%- cssStyleDisplayOrderedItems %>" >   
+			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Ordered Items:</b> <br> 
+			<div>
+			<% _.forOwn(orderedItems, function(item) { %>
+				<div style="padding:20px"> 
+					<b> Name </b> : <mark> <%- item.name %> </mark>  <br>
+					<b> Original Price </b> : <mark> <%- item.originalPrice %> <%- item.currency %></mark>  <br>
+					<b> Sale Price </b> : <mark> <%- item.salePrice %> <%- item.currency %> </mark>  <br>
+					<b> Quantity </b> : <mark> <%- item.quantity %> </mark>  <br>
+				</div>
+			<% }) %>
+			<div>
 			</span> 
 		 </div>
  		 <div style="margin-top:8px">
@@ -236,17 +264,35 @@
 		 </div>
 		 <div class="text-nowrap " >  
 			<i class="fa fa-link" aria-hidden="true"></i> <span class="small" ><%- srcTouchpoint.truncatedUrl %></span> <br> 
-			<i class="fa fa-map-marker" aria-hidden="true"></i>  
-			<span class="small" > Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a>  </span> 
+			<div style="display: <%- cssStyleDisplayLocation %>" >
+				<i class="fa fa-map-marker" aria-hidden="true"></i>  
+				<span class="small" > 
+					Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a> 
+				</span> 
+ 			</div>
 		 </div>
 		 <hr>
-		 <div class="text-wrap" style="display: <%- cssStyleDisplay %>" >  
+		 <div class="text-wrap" style="display: <%- cssStyleDisplayEventData %>" >  
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br> 
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
 				<li> <b> <%- key %> </b> : <mark> <%- decodeURIComponent(value) %> </mark>  </li>
 			<% }) %>
 			<ul>
+			</span> 
+		 </div>
+		<div class="text-wrap" style="display: <%- cssStyleDisplayOrderedItems %>" >   
+			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Ordered Items:</b> <br> 
+			<div>
+			<% _.forOwn(orderedItems, function(item) { %>
+				<div style="padding:20px"> 
+					<b> Name </b> : <mark> <%- item.name %> </mark>  <br>
+					<b> Original Price </b> : <mark> <%- item.originalPrice %> <%- item.currency %></mark>  <br>
+					<b> Sale Price </b> : <mark> <%- item.salePrice %> <%- item.currency %> </mark>  <br>
+					<b> Quantity </b> : <mark> <%- item.quantity %> </mark>  <br>
+				</div>
+			<% }) %>
+			<div>
 			</span> 
 		 </div>
  		 <div style="margin-top:8px">
