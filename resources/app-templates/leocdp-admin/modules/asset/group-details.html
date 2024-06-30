@@ -365,15 +365,18 @@
             	"lengthMenu": [[10, 30, 50], [10, 30, 50]],
             	'processing': true,
                 'serverSide': true,
-                'searching': false,
+                'searching': true,
+                'search': { return: true },
                 'serverMethod': 'POST',
                 "ajax": {
                     "url": baseLeoAdminUrl + '/cdp/asset-item/filter-by-group',
                     "contentType": 'application/json',
                     "type": "POST",
                     "data": function (d) {
+                    	d.searchValue = d.search.value;
                         d.usersession = usersession;
                         d.groupId = assetGroupId;
+                        delete d.search;
                         return JSON.stringify(d);
                     }
                 },

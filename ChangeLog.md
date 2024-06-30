@@ -31,10 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-06-28
+## [0.9.0] - 2024-06-30
 
 ### Added
 
+- [Asset Item] search by name for product items, content items, slides, template 
 - [Event API] add new parameters: tsdiscount (TRANSACTION_DISCOUNT) , tspayment (TRANSACTION_PAYMENT)
 - [Data Source] add process webhook event from Zalo OA: save profile, follow and unfollow event
 - [Core CDP] add webhook to receive data from third-party data sources: KiotViet, Zalo, Facebook
@@ -73,6 +74,7 @@
 
 ### Fixed
 
+- [Segment] do not load all product items, use input text 
 - [Profile] fix and improve show ordered items of purchase action event in Profile
 - [Core CDP] fix and improve GeoLocation Service
 - [Core CDP] fix and improve the processor of Webhook Data Event
@@ -117,6 +119,7 @@
 
 ### Changed
 
+- [Profile] merge profile scores (totalCreditScore,totalTransactionValue...) from external scoring model, non-computable from Event Metric
 - [Product] improve import data
 - [Segment] Authorized user can export profile or connect to segment raw JSON data
 - [Core] update setup document

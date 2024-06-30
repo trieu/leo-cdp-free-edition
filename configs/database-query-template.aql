@@ -715,7 +715,7 @@ AQL_GET_ASSET_CONTENT_BY_FILTER =>
 
 AQL_GET_ASSET_CONTENT_BY_GROUP =>
 	FOR p in cdp_assetcontent 
-	FILTER @groupId IN p.groupIds[*]
+	FILTER @groupId IN p.groupIds[*] AND ( @keywords == "" OR LOWER(p.title) LIKE LOWER(@keywords) )
 	SORT p.updatedAt DESC
 	LIMIT @startIndex,@numberResult 
 	RETURN p
@@ -723,7 +723,7 @@ AQL_GET_ASSET_CONTENT_BY_GROUP =>
 
 AQL_GET_ALL_ASSET_CONTENT_BY_GROUP =>
 	FOR p in cdp_assetcontent 
-	FILTER @groupId IN p.groupIds[*]
+	FILTER @groupId IN p.groupIds[*] AND ( @keywords == "" OR LOWER(p.title) LIKE LOWER(@keywords) )
 	SORT p.updatedAt DESC
 	RETURN p
 ;
@@ -1500,10 +1500,11 @@ AQL_GET_PRODUCT_ITEMS =>
 		RETURN e
 ;
 
-AQL_GET_PRODUCT_CATALOG_MAP => 
+AQL_SEARCH_PRODUCT_ITEMS_BY_KEYWORDS => 
 	FOR e in cdp_productitem 
-		FILTER e.status >= 0 AND LENGTH(e.productId) > 0 
-		RETURN {"productId": e.productId, "title": e.title }
+	FILTER e.status >= 0 AND LENGTH(e.productId) > 0 AND e.title LIKE @keywords
+	LIMIT @startIndex,@numberResult  
+	RETURN {"productId": e.productId, "title": e.title }
 ;
 
 AQL_GET_PRODUCT_ITEM_BY_FULL_URL =>
@@ -1518,7 +1519,7 @@ AQL_GET_PRODUCT_ITEM_BY_PRODUCT_ID_AND_ID_TYPE =>
 
 AQL_GET_PRODUCT_ITEMS_IN_GROUP =>
 	FOR p in cdp_productitem 
-		FILTER @groupId IN p.groupIds[*] AND p.status >= 0
+		FILTER @groupId IN p.groupIds[*] AND p.status >= 0 AND ( @keywords == "" OR LOWER(p.title) LIKE LOWER(@keywords) )
 		SORT p.updatedAt DESC
 		LIMIT @startIndex,@numberResult 
 		RETURN p
@@ -1532,7 +1533,7 @@ AQL_GET_PRODUCT_ITEMS_BY_CAMPAIGN =>
 
 AQL_COUNT_PRODUCT_ITEMS_IN_GROUP =>
 	FOR p IN cdp_productitem 
-	FILTER @groupId IN p.groupIds[*]
+	FILTER @groupId IN p.groupIds[*] AND ( @keywords == "" OR LOWER(p.title) LIKE LOWER(@keywords) )
     COLLECT WITH COUNT INTO length
     RETURN length
 ;
@@ -1558,7 +1559,7 @@ AQL_GET_TEMPLATES =>
 
 AQL_GET_TEMPLATES_IN_GROUP =>
 	FOR p IN cdp_assettemplate 
-	FILTER @groupId IN p.groupIds[*] AND p.status >= 0
+	FILTER @groupId IN p.groupIds[*] AND p.status >= 0 AND ( @keywords == "" OR LOWER(p.title) LIKE LOWER(@keywords) )
 	SORT p.updatedAt DESC
 	LIMIT @startIndex,@numberResult 
 	RETURN p
@@ -1566,7 +1567,7 @@ AQL_GET_TEMPLATES_IN_GROUP =>
 
 AQL_COUNT_TEMPLATES_IN_GROUP =>
 	FOR p IN cdp_assettemplate 
-		FILTER @groupId IN p.groupIds[*]
+		FILTER @groupId IN p.groupIds[*] AND ( @keywords == "" OR LOWER(p.title) LIKE LOWER(@keywords) )
 	    COLLECT WITH COUNT INTO length
 	    RETURN length
 ;

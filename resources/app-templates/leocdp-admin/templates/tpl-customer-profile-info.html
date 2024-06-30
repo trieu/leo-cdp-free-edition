@@ -86,6 +86,7 @@
 	.btn-import-data {
 		background-color: #FBF95A; color: black; border:solid 1px black;
 	} 
+
 </style>
 
 <script id='engaged-touchpoint-tpl' type="text/html" >
@@ -411,12 +412,12 @@
 		<img src="<%- product.headlineImageUrl %>" alt="Product Image" class="rounded mx-auto d-block item-headline-img" onerror="this.src = 'https://cdn-icons-png.freepik.com/512/1478/1478920.png'" > 
 	</div>
 	 <div class="col-md-10">
-		<small class="text-muted pull-right"> Created at: <%- createdAt %> </small>
-		<h5 class="media-heading">  <%- product.title %> </h5>
-		<span class="small item_link" > <a target="_blank" rel="noreferrer" href="<%- product.fullUrl %>" > <%- product.fullUrl %> </a>  </span> 
+		<small class="text-muted pull-right"> Transaction Date: <%- createdAt %> </small>
  		<div class="text-nowrap" > 
-			<i class="fa fa-info" aria-hidden="true"></i> Transaction ID: <mark> <%- transactionId %> </mark> <br>
-			<i class="fa fa-info" aria-hidden="true"></i> <%- product.productIdType %> : <mark> <%- product.productId %> </mark>
+			<i class="fa fa-info" aria-hidden="true"></i> Product <%- product.productIdType %> : <b> <%- product.productId %> </b> <br>
+			<h5 class="media-heading">  <%- product.title %> </h5> 
+			<span class="small item_link" > <a target="_blank" rel="noreferrer" href="<%- product.fullUrl %>" > <%- product.fullUrl %> </a>  </span> <br>
+			<i class="fa fa-info" aria-hidden="true"></i> Transaction ID: <b> <%- transactionId %> </b> 
 		</div>
 	</div>
   </div>

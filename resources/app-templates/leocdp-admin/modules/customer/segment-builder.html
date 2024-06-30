@@ -287,15 +287,6 @@
 <script>
 	var segmentDataModel = false;
 	var segmentDataStats = false;
-	var productCatalogMap = {}
-	
-    function initProductCatalogMap(callback) {
-    	var urlStr = window.baseLeoAdminUrl + "/cdp/asset-item/product-catalog-map";
-    	LeoAdminApiUtil.getSecuredData(urlStr, {}, function (json) { 
-    		productCatalogMap = json.data.allProductItems;
-    		callback();
-    	})
-    }
 	
 	var initSegmentBuilder = function(id) {
 		segmentDataModel = false;
@@ -303,11 +294,9 @@
 		if(id === 'new'){
 			// init UI for new segment
 			$('button.data-control-delete').hide();
-			initProductCatalogMap(createNewSegmentModel);
+			createNewSegmentModel();
 		} else {
-			initProductCatalogMap(function(){
-				getSegmentBuilderData(id);
-			})
+			getSegmentBuilderData(id);
 		}
 	}
 
