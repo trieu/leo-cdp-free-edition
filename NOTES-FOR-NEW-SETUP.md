@@ -8,7 +8,7 @@ The deployed server must have Internet connection, please set the out-bound fire
 
     https://storage.googleapis.com
     https://nominatim.openstreetmap.org
-    http://api.ipstack.com
+    http://ip-api.com
     https://us1.api.mailchimp.com
     https://api.brevo.com
 

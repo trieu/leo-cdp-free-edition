@@ -5,16 +5,16 @@
  		<h5 class="page-header" id="page_breadcrumb" > </h5>
  	 </div> 
      <div class="col-lg-5 text-right" style="padding: 10px">
-     	<button type="button" class="btn btn-info" title="Go back" onclick="history.back()" > 
+     	<button id='btn_profileInfoGoBack' type="button" class="btn btn-info" title="Go back" onclick="profileInfoGoBack()" > 
 			<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back 
 		</button>
-		<button type="button" class="btn btn-do-now" onclick="refreshCurrentProfile()" title="Refresh data"  > 
+		<button id='btn_refreshCurrentProfile' type="button" class="btn btn-do-now data-control-refresh" onclick="refreshCurrentProfile()" title="Refresh data"  > 
        		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
        	</button>
-     	<button type="button" class="btn btn-danger data-control-delete" onclick="removeCurrentProfile()" title="Remove this profile" > 
+     	<button id='btn_refreshCurrentProfile' type="button" class="btn btn-danger data-control-delete" onclick="removeCurrentProfile()" title="Remove this profile" > 
      		<i class="fa fa-trash" aria-hidden="true"></i> Remove 
      	</button>
-       	<button type="button" class="btn btn-goto-router data-control-edit" onclick="editCurrentProfile()" title="Edit this profile"  > 
+       	<button id='btn_editCurrentProfile' type="button" class="btn btn-goto-router data-control-edit" onclick="editCurrentProfile()" title="Edit this profile"  > 
      		<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit 
      	</button>
      </div>
@@ -28,31 +28,27 @@
        	   <!--  Begin Profile Key Information -->
            <div class="col-md-7">
   			  
-               <div class="text-center" >
+               <div class="text-center" style="margin-top:20px" >
                    <img id="profile_avatar" src="/public/images/avatars/profile-default-avatar.png" alt="Profile Avatar" class="rounded mx-auto d-block avatar"> <br>
                    <h4 id="profile_full_name" style="color:blue; font-weight: bold;" > - </h4>
                </div>
                
                <div class="col-md-12" >  
-                    <ul class="list-group" style="margin-top: 10px">
+                    <ul class="list-group" style="margin-top:20px">
                     	<li class="list-group-item" >
-					  		<i class="fa fa-user-circle-o" aria-hidden="true"></i> <b> Profile Type: </b> 
-					  		<span class="data_field" data-field="typeAsText" data-fieldholder="html"  data-fieldtype="string"  > - </span>
-					  	</li>
-                    	<li class="list-group-item" >
-					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Data Journey Maps: </b> 
+					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Journey Maps </b> <br>
 					  		<span class="data_field" id="profileInJourneyMaps" > </span> 
 					  	</li>
 					  	<li class="list-group-item">
-					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Segments: </b> 
+					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Segments </b> <br>
 					  		<span class="data_field" id="profileInSegments" > </span> 
 					  	</li>
 					  	<li class="list-group-item" style="display: none">
-					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Accounts: </b> 
+					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Accounts </b> <br>
 					  		<span class="data_field" id="profileInAccounts" > </span> 
 					  	</li>
 					  	<li class="list-group-item">
-					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Data Labels: </b> 
+					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Data Labels </b> <br>
 					  		<span class="data_field" id="profileDataLabels" > </span> 
 					  	</li>
 				   	</ul>  
@@ -77,6 +73,32 @@
 	                	<span class="data_field" data-field="crmRefId" data-fieldholder="html" data-fieldtype="string" > - </span>
 	                </div>
 	                <hr>
+	                <div class="primary_field" > 
+	                	<b > <i class="fa fa-fw fa-id-badge"></i> First Name: </b> 
+                    	<span class="data_field" data-field="firstName" data-fieldholder="html" data-fieldtype="string" >  - </span> 
+	                </div>   
+	                <div class="primary_field" > 
+	                	<b > <i class="fa fa-fw fa-id-badge"></i> Middle Name: </b> 
+                    	<span class="data_field" data-field="middleName" data-fieldholder="html" data-fieldtype="string" >  - </span> 
+	                </div>                  
+                    <div class="primary_field" > 
+                    	<b > <i class="fa fa-fw fa-id-badge"></i> Last Name: </b> 
+                    	<span class="data_field" data-field="lastName" data-fieldholder="html" data-fieldtype="string" >  - </span> 
+                    </div>  
+	                <hr>
+	                <div class="primary_field" >
+                    	<b class="primary_field" > <i class="fa fa-envelope" aria-hidden="true"></i> Primary Email: </b>  
+                    	<span class="data_field" data-field="primaryEmail" data-fieldholder="html" data-fieldtype="string" >  - </span>
+               		</div>                    
+               		<div class="primary_field" >
+                   		<b class="primary_field" > <i class="fa fa-phone-square" aria-hidden="true"></i>  Primary Phone: </b>  
+                   		<span class="data_field" data-field="primaryPhone" data-fieldholder="html" data-fieldtype="tel" > - </span>
+               		</div>
+	                 <hr>
+	                <div class="primary_field" > 
+				  		<i class="fa fa-user-circle-o" aria-hidden="true"></i> <b> Profile Type: </b> 
+				  		<span class="data_field" data-field="typeAsText" data-fieldholder="html"  data-fieldtype="string"  > - </span>
+				  	</div> 
                     <div class="primary_field" > 
                    		<b> <i class="fa fa-info-circle" aria-hidden="true"></i> Data Quality Score: </b> 
                    		<span class="scoring_field" data-field="dataQualityScore" data-fieldholder="html"  data-fieldtype="int" > 0 </span>
@@ -93,31 +115,7 @@
                     	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Updated at: </b> 
                    		<span class="data_field" data-field="updatedAt" data-fieldholder="html"  data-fieldtype="date_time"  > -  </span> 
                     </div>
-	                  
-	                <hr>
-                    <div class="primary_field" >
-                    	<b class="primary_field" > <i class="fa fa-envelope" aria-hidden="true"></i> Primary Email: </b>  
-                    	<span class="data_field" data-field="primaryEmail" data-fieldholder="html" data-fieldtype="string" >  - </span>
-                    </div>                    
-                    <div class="primary_field" >
-                    	<b class="primary_field" > <i class="fa fa-phone-square" aria-hidden="true"></i>  Primary Phone: </b>  
-                    	<span class="data_field" data-field="primaryPhone" data-fieldholder="html" data-fieldtype="tel" > - </span>
-                    </div>
-                    
-                    <hr>
-	                
-	                <div class="primary_field" > 
-	                	<b > <i class="fa fa-fw fa-id-badge"></i> First Name: </b> 
-                    	<span class="data_field" data-field="firstName" data-fieldholder="html" data-fieldtype="string" >  - </span> 
-	                </div>   
-	                <div class="primary_field" > 
-	                	<b > <i class="fa fa-fw fa-id-badge"></i> Middle Name: </b> 
-                    	<span class="data_field" data-field="middleName" data-fieldholder="html" data-fieldtype="string" >  - </span> 
-	                </div>                  
-                    <div class="primary_field" > 
-                    	<b > <i class="fa fa-fw fa-id-badge"></i> Last Name: </b> 
-                    	<span class="data_field" data-field="lastName" data-fieldholder="html" data-fieldtype="string" >  - </span> 
-                    </div>          
+	                   
 	        	</div>
 	        	
       		</div>
@@ -126,7 +124,7 @@
        </div>
       
        <!--  Main Tabs of Profile Info -->
-       <ul id="profile_info_tabs" class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" >
+       <ul id="profile_info_tabs" class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" style="margin-top:20px" >
          <li class="active" onclick="handleProfileTabBehavioralInfo()">
           	<a href="javascript:" data-target-tab="panel_behavioral_Data" title="Customer Behavioral Data"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Behaviors </a>
          </li>
@@ -1164,6 +1162,7 @@
     
     var currentJourneyMapId = "";
     var viewProfileId = '';
+    var loadProfileInfoOk = false;
     var selectedDuplicateProfileIdMap = {};
     var duplicateProfileTable = false;
     
@@ -1176,76 +1175,5 @@
 		setupTabPanels();
 		loadProfile360Analytics(profileId, crmRefId, visitorId);
     }
-    
-    function editCurrentProfile(){
-    	gotoLeoCdpRouter('Customer_Profile_Editor', viewProfileId );
-    }
-    
-    function loadProfile360Analytics(profileId, crmRefId, visitorId) {
-         console.log('loadProfile360Analytics profileId:' + profileId + " crmRefId:" + crmRefId  + " visitorId:" + visitorId);
-         
-         loadProfileDataIntoDOM(false, profileId, crmRefId, visitorId, profileInfoLoadProcessor, function(){
-        	 
-        	 //console.log(LeoCdpAdmin.routerContext.dataObject);
-			
-        	 var profileData = LeoCdpAdmin.routerContext.dataObject;
-        	 if(profileData.primaryAvatar != ''){
-        		 $('#profile_avatar').attr('src', profileData.primaryAvatar);
-        	 }
-        	 var fullNameHtml = '';
-        	 if(profileData.dataVerification) {
-        		 fullNameHtml = '<i class="fa fa-check-circle-o" aria-hidden="true" title="Verified Data" ></i> ' + profileData.fullName;
-        	 }
-        	 else {
-        		 fullNameHtml = profileData.fullName;
-        	 }
-        	 $('#profile_full_name').html(fullNameHtml);
-        	 
-        	 // journeyMaps, Segments, dataLabels
-        	 renderTaxonomyTextData(profileData);
-        	 
-        	 // event flow
-        	 loadEventsInProfileIndex = 0;
-        	 
-        	 // Profile Analytics Report
-        	 loadJourneyReportForProfile(profileData);
-        	 
-        	 // init date time selector 
-        	 var daysToQueryEventData = 30; // days
-        	 initDateFilterComponent(true, null, null, daysToQueryEventData);
-        	 
-        	 setTimeout(function(){
-        		 // feedback data from customer
-            	 loadFeedbacksInProfileIndex = 0;
-            	 loadFeedbackEventsInProfile();
-        	 },5000);
-        	 
-        	 // timeseries
-        	 setTimeout(function(){
-            	 // Financial Events
-            	 loadFinancialEventList();
-			 },7000)
-        	 
-        	 //renderJourneyFlowChart();
-        	 //loadProfileAttribution();
-             //loadMediaTouchpoints();
-             //personalityDiagram();
-             
-             // Deduplicate must worok with active profile only
-             var btnDeduplicate = $('#btn_profile_deduplicate');
-             if(profileData.status === 1){
-            	btnDeduplicate.click(function(){ 
-            		deduplicateCurrentProfileDialog(); 
-            	});
-             }
-             else {
-            	 btnDeduplicate.attr('disabled','disabled');
-             }
-             
-             $('#profile_key_info').show();
-        	 $('#profile_key_info_loader').hide();
-         });
-    }   
-    
 
 </script>

@@ -31,10 +31,12 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-06-30
+## [0.9.0] - 2024-07-02
 
 ### Added
 
+- [User Login] add show password checkbox
+- [Core CDP] set leoCdpLicenseKey=free_for_dataism as default for FREE VERSION
 - [Asset Item] search by name for product items, content items, slides, template 
 - [Event API] add new parameters: tsdiscount (TRANSACTION_DISCOUNT) , tspayment (TRANSACTION_PAYMENT)
 - [Data Source] add process webhook event from Zalo OA: save profile, follow and unfollow event

@@ -665,8 +665,8 @@ AQL_SEGMENT_SIZE_DAILY_REPORT_UNITS =>
 AQL_SEGMENT_DAILY_REPORT_UNITS =>
 	FOR d IN cdp_dailyreportunit
 		FOR p in cdp_profile
-    			FILTER @segmentId IN p.inSegments[*].id AND d.createdAt >= @fromDate AND d.createdAt <= @toDate 
-        				AND d.objectName == "cdp_profile" AND d.objectId == p._key AND p.status > 0 
+    		FILTER @segmentId IN p.inSegments[*].id AND d.createdAt >= @fromDate AND d.createdAt <= @toDate 
+        			AND d.objectName == "cdp_profile" AND d.objectId == p._key AND p.status > 0 
     SORT d.createdAt
 	RETURN DISTINCT d
 ;

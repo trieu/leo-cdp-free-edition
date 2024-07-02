@@ -14,14 +14,16 @@
 						<hr>					
 						<div id="system_user_login_form" >
 	                        <div class="form-group">
-	                            <label> Username </label>
+	                            <label for="username"> Username </label>
 	                            <input type="text" class="form-control" placeholder="Enter username" name="username" id="username"
 	                                autocapitalize="off" autocomplete="off">
 	                        </div>
 	                        <div class="form-group">
-	                            <label> Password</label>
-	                            <input type="password" class="form-control" placeholder="Enter password" name="password" id="password"
-	                                 autocapitalize="off" autocomplete="off">
+	                            <label for="password"> Password </label>
+	                            <input id="password" type="password" class="form-control" placeholder="Enter password" name="password" 
+	                                 autocapitalize="off" autocomplete="off"> <br>
+	                            <input id="showLoginAccountPassword" style="margin-left:15px;" type="checkbox" onclick="showLoginAccountPassword('password')"> 
+	                     		<label for="showLoginAccountPassword"> Show Password </label> 
 	                        </div>
 	                         <div class="form-group">
 	                            <label> Captcha Image for Human Verification </label>

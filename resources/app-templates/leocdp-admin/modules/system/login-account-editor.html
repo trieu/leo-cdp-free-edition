@@ -65,47 +65,51 @@ div.panel_header {
 	    		<!-- tab 1 General Login Information  -->
 				<div class="tab-pane active" id="panel_login_account_tab_general" >
 					<h4 class="highlight_text"> <i class="fa fa-info-circle" aria-hidden="true"></i> User Information </h4>
-					
-					<div class="action-div">
-						<span style="margin-left: 30px">
-	                        <label ><input type="radio" name="status" value="1"> Active account </label>
-	                    </span>
-	                    <span style="margin-left: 30px">
-	                        <label><input type="radio" name="status" value="0"> Pending account </label>
-	                    </span>
-	                    <span style="margin-left: 30px" >
-	                        <label><input type="radio" name="status" value="2"> Disabled account </label>
-	                    </span>
-	                </div>
-	                <hr>
-															
+				
+													
 	                <div class="form-group">
-	                    <label> User Login (required) </label>
-	                    <input data-validation="length alphanumeric" data-validation-length="min4" type="text" class="form-control"
+	                    <label for="login_account_userLogin" class="highlight_text"> User Login (required) </label>
+	                    <input id="login_account_userLogin" data-validation="length alphanumeric" data-validation-length="min4" type="text" class="form-control"
 	                        placeholder="Enter User Login" name="userLogin" autocomplete="nope" autocorrect="off"
 	                        autocapitalize="none" spellcheck="false" required >
 	                </div>	                
 	                <div class="form-group">
-	                    <label> Login Password (required)</label>
-	                    <input type="text" class="form-control" placeholder="Enter New Password To Update" name="userPass" autocorrect="off"
-	                        autocapitalize="off" autocomplete="nope" required >
+	                    <label for="login_account_userPass" class="highlight_text"> Login Password (required) </label> 
+	                    <input id="login_account_userPass" type="text" class="form-control" placeholder="Enter New Password To Update" name="userPass" autocorrect="off"
+	                        autocapitalize="off" autocomplete="off" > <br>
+	                     
+	                     <input id="showLoginAccountPassword" style="margin-left:15px;" type="checkbox" onclick="showLoginAccountPassword('login_account_userPass')"> 
+	                     <label for="showLoginAccountPassword"> Hide Password </label>  
 	                </div>
+	                <hr>
+	                <div class="form-group">
+						<label class="highlight_text"> User Status </label> <br>
+						<span style="margin-left: 30px">
+	                        <label ><input type="radio" name="status" value="1"> Active </label>
+	                    </span>
+	                    <span style="margin-left: 30px">
+	                        <label><input type="radio" name="status" value="0"> Pending </label>
+	                    </span>
+	                    <span style="margin-left: 30px" >
+	                        <label><input type="radio" name="status" value="2"> Disabled </label>
+	                    </span>
+	                </div>	
 	                
 	                <hr>
 	                <div class="form-group">
-	                    <label> Display Name (required) </label>
+	                    <label class="highlight_text"> Display Name (required) </label>
 	                    <input type="text" class="form-control" placeholder="Enter Display Name" name="displayName"
 	                        autocorrect="off" autocapitalize="off" autocomplete="off" required>
 	                </div>
 	                <div class="form-group">
-	                    <label> Email (required) </label>
+	                    <label class="highlight_text"> Email (required) </label>
 	                    <input data-validation="email" type="email" class="form-control" placeholder="Enter Email" name="userEmail"
 	                        autocorrect="off" autocapitalize="off" autocomplete="off" required  >
 	                </div>
 	                <hr>                
 	                
 	                <div class="form-group" >
-	                    <label> Team Name / Business Unit (required) </label>
+	                    <label class="highlight_text"> Team Name / Business Unit (required) </label>
 	                    <input type="text" class="form-control" placeholder="Enter the name of business unit" name="businessUnit"
 	                        autocorrect="off" autocapitalize="off" autocomplete="off" required>
 	                </div>
@@ -145,13 +149,6 @@ div.panel_header {
 	                    <input type="text" class="form-control" placeholder="Enter Position" name="customData_position"
 	                        autocorrect="off" autocapitalize="off" autocomplete="off">
 	                </div>	  
-	                <hr>
-	                <div class="form-group">
-	                    <label> Profile Visitor ID 
-							<a id="systemUser_profileViewByVisitorId" href="javascript:" style="display: none;" target="_blank" > Data Profile </a>   </label>
-	                    <input type="text" class="form-control" placeholder="Enter Profile Visitor ID" name="profileVisitorId"
-	                        autocorrect="off" autocapitalize="off" autocomplete="off"  >	                      
-	                </div>              
 	                
 				</div>
 				
@@ -195,12 +192,12 @@ div.panel_header {
 				
 				<!-- tab 3 authorized journeys  -->
 				<div class="tab-pane" id="panel_login_account_authorized_journeys" >
-				
+					 
 					<div class="col-lg-12 panel_header" >
 						<div class="col-lg-10" >
 						 	<h4 class="highlight_text"> <i class="fa fa-map-o" aria-hidden="true"></i> Authorized Data Journey Maps </h4>
 						</div>
-						<div class="col-lg-2" style="text-align: right;">
+						<div class="col-lg-2" style="text-align: right;margin-top: 10px;">
 						 	<button type="button" class="btn btn-danger" onclick="removeUserDataAuthorization('removeAllAuthorizedJourneys','authorized_journeys')" >
 						 		<i class="fa fa-fw fa-trash"></i> Remove All
 							</button>
@@ -212,6 +209,7 @@ div.panel_header {
 					    <!-- authorized journey list -->
 						<div class="row gridholder">
 						    <div class="col-lg-12">
+						    	
 						    	<div class="checkbox">
 								  <label style="font-weight: bold;">
 								  	<input type="checkbox" id="updateAllProfilesInJourney" checked="checked"> Update user authorization for all profiles in the updated journey map
@@ -232,9 +230,18 @@ div.panel_header {
 						                </thead>
 						            </table>
 						        </div>
+						        
 						    </div>
 						</div>
 					</div> 
+					<hr>
+					<div class="form-group">
+	                    <label> 
+							<a id="systemUser_profileViewByVisitorId" href="javascript:" style="display: none;" target="_blank" > Web Visitor ID </a>   
+						</label>
+	                    <input type="text" class="form-control" placeholder="Web Visitor ID" name="profileVisitorId"
+	                        autocorrect="off" autocapitalize="off" autocomplete="off" style="width: 400px" >	                      
+	                </div>   
 				</div>
 				
 				
@@ -245,7 +252,7 @@ div.panel_header {
 						<div class="col-lg-10" >
 						 	<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Viewable Customer Profiles </h4>
 						</div>
-						<div class="col-lg-2" style="text-align: right;">
+						<div class="col-lg-2" style="text-align: right;margin-top: 10px;">
 						 	<button type="button" class="btn btn-danger" onclick="removeUserDataAuthorization('removeAllViewableProfiles','viewable_profile_list')" >
 						 		<i class="fa fa-fw fa-trash"></i> Remove All
 							</button>
@@ -288,7 +295,7 @@ div.panel_header {
 						<div class="col-lg-10" >
 						 	<h4 class="highlight_text"> <i class="fa fa-users" aria-hidden="true"></i> Editable Customer Profiles </h4>
 						</div>
-						<div class="col-lg-2" style="text-align: right;">
+						<div class="col-lg-2" style="text-align: right;margin-top: 10px;">
 						 	<button type="button" class="btn btn-danger" onclick="removeUserDataAuthorization('removeAllEditableProfiles','editable_profile_list')"  >
 						 		<i class="fa fa-fw fa-trash"></i> Remove All
 							</button>
@@ -331,7 +338,7 @@ div.panel_header {
 						<div class="col-lg-10" >
 						 	<h4 class="highlight_text"> <i class="fa fa-object-group" aria-hidden="true"></i> Viewable Segments </h4>
 						</div>
-						<div class="col-lg-2" style="text-align: right;">
+						<div class="col-lg-2" style="text-align: right;margin-top: 10px;">
 						 	<button type="button" class="btn btn-danger" onclick="removeUserDataAuthorization('removeAllViewableSegments','viewable_segment_list')" >
 						 		<i class="fa fa-fw fa-trash"></i> Remove All
 							</button>
@@ -371,7 +378,7 @@ div.panel_header {
 						<div class="col-lg-10" >
 						 	<h4 class="highlight_text"> <i class="fa fa-object-group" aria-hidden="true"></i> Editable Segments </h4>
 						</div>
-						<div class="col-lg-2" style="text-align: right;">
+						<div class="col-lg-2" style="text-align: right;margin-top: 10px;">
 						 	<button type="button" class="btn btn-danger" onclick="removeUserDataAuthorization('removeAllEditableSegments','editable_segment_list')" >
 						 		<i class="fa fa-fw fa-trash"></i> Remove All
 							</button>
@@ -414,13 +421,13 @@ div.panel_header {
 
 <script>
     
+	var userLoginModel = false;
+
     var initUserLoginEditor = function(key) {
     	 var isUpdateData = key !== 'newuser';
     	 setupTabPanels(isUpdateData);    	 
     	 loadUserProfile(isUpdateData, key);
     }
-    
-    var userLoginModel = false;
 
     function loadUserProfile(isUpdateData, key) {
     	 var urlStr = baseLeoAdminUrl + '/user/get';
@@ -477,9 +484,13 @@ div.panel_header {
                      // set authorized_user_login
                      if(isUpdateData){
                     	 $('#authorized_user_login').text('User Login: '+userLoginModel.userLogin);
+                    	 $('#login_account_userPass').focus(function(){
+                    		 $(this).attr('required','required')
+                    	 });
                      }
                      else {
                     	 $('#authorized_user_login').text('New User Login');
+                    	 $('#login_account_userPass').attr('required','required')
                      }
                      
                      // admin role can view and edit all data
@@ -504,6 +515,7 @@ div.panel_header {
         userLoginModel.profileVisitorId = node.find('input[name="profileVisitorId"]').val();
         userLoginModel.userEmail = node.find('input[name="userEmail"]').val();
         userLoginModel.userPass = node.find('input[name="userPass"]').val();
+
         userLoginModel.status = parseInt(node.find('input[name="status"]:checked').val());
         userLoginModel.role = parseInt(node.find('input[name="role"]:checked').val());
         userLoginModel.businessUnit = node.find('input[name="businessUnit"]').val();
@@ -577,6 +589,7 @@ div.panel_header {
             }
     	}
     }
+    
     
     var viewableProfilesTable = false;
     function loadViewableProfiles() {
