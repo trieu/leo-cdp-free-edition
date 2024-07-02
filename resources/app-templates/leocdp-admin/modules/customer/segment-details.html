@@ -108,21 +108,24 @@
 	       	<li>
 				<a href="javascript:" data-target-tab="panel_segment_data_connection" title="Data Connection" > <i class="fa fa-exchange" aria-hidden="true"></i> Data Connection </a>
 	       	</li>
-	       	<li data-for-superadmin="true" id="segment_data_enrichment" style="display: none" >
-				<a href="javascript:" data-target-tab="panel_segment_enrichment" title="Data Enrichment" > <i class="fa fa-connectdevelop" aria-hidden="true"></i> Data Enrichment</a>
+	       	<li id="segment_data_enrichment" >
+				<a href="javascript:" data-target-tab="panel_segment_enrichment" title="Data Enrichment" > <i class="fa fa-connectdevelop" aria-hidden="true"></i> Enrichment</a>
 	       	</li>
-	       	<li data-for-superadmin="true" id="segment_data_synchronization" style="display: none" >
+	       	<li id="segment_data_synchronization" >
 				<a href="javascript:" data-target-tab="panel_segment_synchronization" title="Data Synchronization" > <i class="fa fa-exchange" aria-hidden="true"></i> Synchronization </a>
 	       	</li>
-	       	<li data-for-superadmin="true" id="segment_data_personalization" style="display: none">
+	       	<li id="segment_data_personalization" >
 				<a href="javascript:handleSegmentPersonalizationTabs()" data-target-tab="panel_segment_data_personalization" title="Data Personalization" > <i class="fa fa-smile-o" aria-hidden="true"></i> Personalization </a>
+	       	</li>
+	       	<li id="segment_campaigns" >
+				<a href="javascript:handleSegmentCampaignsTabs()" data-target-tab="panel_segment_automated_campaigns" title="Automated Campaigns" > <i class="fa fa-fw fa-cogs" aria-hidden="true"></i> Campaigns </a>
 	       	</li>
 	  	</ul>
 	  	
 	  	<!-- Tab Contents  -->
 	    <div id="segment_info_tabs" class="tab-content" style="min-height: 750px;"  >
 	    	
-	    	<!-- tab 1 Data Report with Profiles  -->
+	    	<!-- tab 1 Event Report with Profiles  -->
 			<div class="tab-pane active" id="panel_segment_reports" >
 				<div class="panel panel-leoadmin">
 					<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> 
@@ -374,30 +377,30 @@
 		     		</div>
 				</div>
 			 	<div class="panel panel-default">
-					    <div class="panel-heading collapse-panel-heading active" role="tab" id="synchronizationPlanHeader">
-					      <h4 class="panel-title">
-					        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#synchronizationPlan" aria-expanded="false" aria-controls="synchronizationPlan">
-					          <i class="fa fa-info-circle" aria-hidden="true"></i>  Activation Rules for Synchronization 
-					        </a>
-					      </h4>
-					    </div>
-					    <div id="synchronizationPlan" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="activationPlanHeader">
-					      <div class="panel-body">
-						      <div class="form-group" >
-								<div class="col-lg-12 sm_purpose" id="sm_for3rdSynchronization"  > 
-									<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> 
-									To synchronize customer data into external systems </label>
-									<button type="button" class="btn btn-primary" title="Data Synchronization" data-purpose="forSynchronization" > 
-										<i class="fa fa-check-circle" aria-hidden="true"></i> Activate Synchronization
-									</button>
-								</div>
-							 </div>
-							 <div class="table-responsive col-lg-12">
-		                			<div id="segment_synchronization_services"></div>
-		            		 </div>
-					      </div>
-					    </div>
-					</div>
+				    <div class="panel-heading collapse-panel-heading active" role="tab" id="synchronizationPlanHeader">
+				      <h4 class="panel-title">
+				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#synchronizationPlan" aria-expanded="false" aria-controls="synchronizationPlan">
+				          <i class="fa fa-info-circle" aria-hidden="true"></i>  Activation Rules for Synchronization 
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="synchronizationPlan" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="activationPlanHeader">
+				      <div class="panel-body">
+					      <div class="form-group" >
+							<div class="col-lg-12 sm_purpose" id="sm_for3rdSynchronization"  > 
+								<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> 
+								To synchronize customer data into external systems </label>
+								<button type="button" class="btn btn-primary" title="Data Synchronization" data-purpose="forSynchronization" > 
+									<i class="fa fa-check-circle" aria-hidden="true"></i> Activate Synchronization
+								</button>
+							</div>
+						 </div>
+						 <div class="table-responsive col-lg-12">
+	                			<div id="segment_synchronization_services"></div>
+	            		 </div>
+				      </div>
+				    </div>
+				</div>
 			</div>
 			
 			<!-- tab 8 Data Personalization  -->
@@ -521,7 +524,44 @@
 				    </div>
 				</div>
 			</div>
-			
+
+			<!-- tab 9 automated campaigns  -->
+			<div class="tab-pane" id="panel_segment_automated_campaigns" >
+				<div class="form-group highlight_box" >
+		     		<div class="col-lg-3">
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Segment Profile Count  </label>
+		     		</div>
+		     		<div class="col-lg-9">
+		     			<b class="segment_size highlight_text" >0</b>
+		     		</div>
+				</div>
+			 	<div class="panel panel-default">
+				    <div class="panel-heading collapse-panel-heading active" role="tab" id="automatedCampaignsHeader">
+				      <h4 class="panel-title">
+				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#automatedCampaignPlan" aria-expanded="false" aria-controls="synchronizationPlan">
+				          <i class="fa fa-info-circle" aria-hidden="true"></i> Automated Campaigns 
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="automatedCampaignPlan" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="automatedCampaignsHeader">
+				      <div class="panel-body">
+					      <div class="form-group" >
+							<div class="col-lg-12 sm_purpose"  > 
+								<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> 
+								To automate digital marketing campaigns </label>
+								<button type="button" class="btn btn-primary" title="Set Automated Campaign" data-purpose="forAutomatedCampaigns" > 
+									<i class="fa fa-check-circle" aria-hidden="true"></i> Set Automated Campaign
+								</button>
+							</div>
+						 </div>
+						 <div class="table-responsive col-lg-12">
+	                		 <div id="segment_automated_campaigns"></div>
+	            		 </div>
+				      </div>
+				    </div>
+				</div>
+			</div>
+
 	    </div>
 	</div>
 </div>
