@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-07-02
+## [0.9.0] - 2024-07-04
 
 ### Added
 

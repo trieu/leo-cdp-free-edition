@@ -1646,6 +1646,13 @@ AQL_GET_ALL_SEGMENTS_BY_AUTHORIZATION =>
 		RETURN d
 ;
 
+AQL_GET_ALL_SEGMENT_REFS_BY_AUTHORIZATION =>
+	FOR d in cdp_segment  
+		FILTER d.status >= 0 AND (@authorizedViewer IN d.authorizedViewers OR @authorizedViewer == "") AND (@authorizedEditor IN d.authorizedEditors OR @authorizedEditor == "")
+		SORT d.updatedAt DESC
+		RETURN {"id":d._key, "name":d.name, "totalCount": d.totalCount}
+;
+
 AQL_REMOVE_VIEWABLE_SEGMENTS_FOR_USER =>
 	FOR d in cdp_segment
 		FILTER @userLogin IN d.authorizedViewers
@@ -1746,10 +1753,16 @@ AQL_GET_CAMPAIGN_BY_ID =>
 
 AQL_GET_CAMPAIGNS_BY_PAGINATION =>
 	FOR e in cdp_campaign  
-	FILTER e.status >= 0
-	SORT e.updatedAt DESC
-	LIMIT @startIndex,@numberResult 
-	RETURN e
+		FILTER e.status >= 0 
+		LET targetedSegmentNames = (	
+		    FOR id in e.targetedSegmentIds
+		        FOR s in cdp_segment
+		            FILTER s._key == id
+		    RETURN s.name
+		)
+		SORT e.updatedAt DESC
+		LIMIT @startIndex,@numberResult 
+	RETURN MERGE(e, {'targetedSegmentNames':targetedSegmentNames} )
 ;
 
 AQL_GET_CAMPAIGNS_TO_DELETE_FOREVER =>

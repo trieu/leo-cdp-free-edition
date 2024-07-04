@@ -1,0 +1,67 @@
+ {
+  "type": "flowchart",
+  "nodes": {
+    "S_load_segment": {
+      "id": "S_load_segment",
+      "type": "data_node",
+      "label": "Targeted Segment: <br> {{segment_name}} <img class='targetedSegmentIcon' src='https://cdn-icons-png.flaticon.com/128/4577/4577216.png'>",
+      "actions": []
+    },
+    "C_condition_expression": {
+      "id": "C_condition_expression",
+      "type": "condition_node",
+      "label": "<img class=\"questionIcon\" src=\"https://cdn-icons-png.flaticon.com/128/189/189665.png\" /> {{condition_name}} ",
+      "condition": "{{condition_expression}}"
+    },
+    "C_frequency_capping": {
+      "id": "C_frequency_capping",
+      "type": "condition_node",
+      "label": "<img class=\"questionIcon\" src=\"https://cdn-icons-png.flaticon.com/256/2867/2867335.png\" />  Check the limit to do action ?",
+      "condition": "context.checkAndIncrementMessageCount(\"{{campaign_action_type}}\",\"{{frequency_capping_timeunit}}\",{{frequency_capping_limit}})"
+    },
+    "A_actionCommands": {
+      "id": "A_actionCommands",
+      "type": "action_node",
+      "label": "Send {{campaign_action_type}}  <img class=\"actionIcon\" src=\"https://cdn-icons-png.flaticon.com/128/3062/3062634.png\" />",
+      "actions": ["{{action_command}}", "System.out.println(\"Do {{action_command}} at date: @{systemDateTime}\")"]
+    },
+    "END": {
+      "id": "END",
+      "type": "end_node",
+      "label": "<img src=\"https://cdn-icons-png.flaticon.com/64/5277/5277603.png\" />",
+      "actions": ["context.end()"]
+    }
+  },
+  "rules": [
+    {
+      "start": "S_load_segment",
+      "conditionResult": null,
+      "end": "C_condition_expression"
+    },    
+    {
+      "start": "C_condition_expression",
+      "conditionResult": "true",
+      "end": "C_frequency_capping"
+    },
+    {
+      "start": "C_condition_expression",
+      "conditionResult": "false",
+      "end": "END"
+    },
+    {
+      "start": "C_frequency_capping",
+      "conditionResult": "true",
+      "end": "A_actionCommands"
+    },
+    {
+      "start": "C_frequency_capping",
+      "conditionResult": "false",
+      "end": "END"
+    },
+    {
+      "start": "A_actionCommands",
+      "conditionResult": null,
+      "end": "END"
+    }
+  ]
+}
