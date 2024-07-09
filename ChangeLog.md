@@ -13,8 +13,8 @@
 - [In Plan] Using Jupyter notebook to update profile CLV, RFM score and Credit Scoring 
 - [In Plan] LEO Tag JS to link FB user and Google user
 - [In Plan] Segment Activation: sending email directly with SMTP from LEO CDP
-- [In Plan] Data Reporting with Jupyter notebook in profile and segment
-- [In Plan] System User Notification when profile data is updated or created
+- [In Plan] Custom Dashboard using Apache Superset
+- [In Plan] System User Notification when a campaign / segment is updated or created
 - [In Plan] web form in leocdp.com for new clients, to try free LEO CDP version with docker
 - [In Plan] use cases for retail, education and media
 - [In Plan] video, slide and update document for version 1.0
@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-07-04
+## [0.9.0] - 2024-07-09
 
 ### Added
 

@@ -152,6 +152,12 @@
   
 
 <script>
+
+	window.cxDailyReportChart = false;
+	window.overallCxChart = false;
+	var defaultCxScoreLabels = { "positive" : "Positive", "neutral" : "Neutral", "negative" : "Negative"};
+	var defaultNpsScoreLabels = { "positive" : "Promoter", "neutral" : "Passive", "negative" : "Detractor"};
+
     var initCXAnalyticsDashboard = function() {
     	setupTabPanels();
     	initDateFilterComponent(false, null, null, 45);
@@ -165,10 +171,7 @@
     	initFeedbackSurveySelection()
     }
 	
-	window.cxDailyReportChart = false;
-	window.overallCxChart = false;
-	var defaultCxScoreLabels = { "positive" : "Positive", "neutral" : "Neutral", "negative" : "Negative"};
-	var defaultNpsScoreLabels = { "positive" : "Promoter", "neutral" : "Passive", "negative" : "Detractor"};
+	
 	
 	// 
     var loadCxRatingReport = function(refresh){
