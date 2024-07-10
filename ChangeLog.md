@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-07-09
+## [0.9.0] - 2024-07-10
 
 ### Added
 
@@ -76,6 +76,7 @@
 
 ### Fixed
 
+- [Tracking Event] fix bugs when save data from API
 - [Segment] do not load all product items, use input text 
 - [Profile] fix and improve show ordered items of purchase action event in Profile
 - [Core CDP] fix and improve GeoLocation Service
