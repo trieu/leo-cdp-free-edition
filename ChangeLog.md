@@ -76,6 +76,7 @@
 
 ### Fixed
 
+- [CDP Admin] improve and fix bugs when Ajax load large JSON (profiles in segment)
 - [Segment] improve performance when query and load macthed profiles in segment
 - [Tracking Event] fix bugs when save data from API
 - [Segment] do not load all product items, use input text 
