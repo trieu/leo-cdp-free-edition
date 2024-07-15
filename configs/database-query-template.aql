@@ -924,25 +924,25 @@ AQL_GET_ACTIVE_PROFILES_BY_PAGINATION =>
 	RETURN p
 ; 
 
-AQL_GET_ROOT_PROFILES_IN_SEGMENT =>
+AQL_GET_PROFILES_BY_SEGMENT_ID =>
 	FOR p in cdp_profile
-	FILTER @segmentId IN p.inSegments[*].id AND p.status > 0 AND p.mergeCode == 0
+	FILTER @segmentId IN p.inSegments[*].id AND p.status > 0 
 	SORT p.updatedAt DESC 
 	LIMIT @startIndex,@numberResult 
 	RETURN p
 ;
 
-AQL_COUNT_ROOT_PROFILES_IN_SEGMENT =>
+AQL_COUNT_PROFILE_BY_SEGMENT_ID =>
 	RETURN LENGTH(
 	    FOR p in cdp_profile
-	    FILTER @segmentId IN p.inSegments[*].id AND p.status > 0 AND p.mergeCode == 0
+	    FILTER @segmentId IN p.inSegments[*].id AND p.status > 0 
 	    RETURN p._key
 	)
 ;
 
 AQL_GET_ALL_PROFILE_IDS_IN_SEGMENT =>
 	FOR p IN cdp_profile  
-  		FILTER @segmentId IN p.inSegments[*].id AND p.status > 0 AND p.mergeCode == 0
+  		FILTER @segmentId IN p.inSegments[*].id AND p.status > 0 
   	RETURN p._key
 ;
 
