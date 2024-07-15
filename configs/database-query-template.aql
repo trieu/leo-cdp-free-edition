@@ -924,14 +924,6 @@ AQL_GET_ACTIVE_PROFILES_BY_PAGINATION =>
 	RETURN p
 ; 
 
-AQL_GET_PROFILES_BY_SEGMENT_ID =>
-	FOR p in cdp_profile
-	FILTER @segmentId IN p.inSegments[*].id AND p.status > 0 
-	SORT p.updatedAt DESC 
-	LIMIT @startIndex,@numberResult 
-	RETURN p
-;
-
 AQL_COUNT_PROFILE_BY_SEGMENT_ID =>
 	RETURN LENGTH(
 	    FOR p in cdp_profile
