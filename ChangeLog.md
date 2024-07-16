@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-07-15
+## [0.9.0] - 2024-07-16
 
 ### Added
 
@@ -124,6 +124,7 @@
 
 ### Changed
 
+- [CDP Admin] improve UI of profile and segment
 - [Profile] merge profile scores (totalCreditScore,totalTransactionValue...) from external scoring model, non-computable from Event Metric
 - [Product] improve import data
 - [Segment] Authorized user can export profile or connect to segment raw JSON data

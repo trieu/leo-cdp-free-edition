@@ -26,53 +26,19 @@
 	   <div id="profile_key_info_loader" class="loader"></div>
        <div id="profile_key_info" class="row" style="display: none;" >
        	   <!--  Begin Profile Key Information -->
-           <div class="col-md-7">
+           <div class="col-lg-5">
   			  
                <div class="text-center" style="margin-top:20px" >
                    <img id="profile_avatar" src="/public/images/avatars/profile-default-avatar.png" alt="Profile Avatar" class="rounded mx-auto d-block avatar"> <br>
                    <h4 id="profile_full_name" style="color:blue; font-weight: bold;" > - </h4>
                </div>
-               
-               <div class="col-md-12" >  
-                    <ul class="list-group" style="margin-top:20px">
-                    	<li class="list-group-item" >
-					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Journey Maps </b> <br>
-					  		<span class="data_field" id="profileInJourneyMaps" > </span> 
-					  	</li>
-					  	<li class="list-group-item">
-					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Segments </b> <br>
-					  		<span class="data_field" id="profileInSegments" > </span> 
-					  	</li>
-					  	<li class="list-group-item" style="display: none">
-					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Accounts </b> <br>
-					  		<span class="data_field" id="profileInAccounts" > </span> 
-					  	</li>
-					  	<li class="list-group-item">
-					  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Data Labels </b> <br>
-					  		<span class="data_field" id="profileDataLabels" > </span> 
-					  	</li>
-				   	</ul>  
-				</div>
-           </div>
-           
-           <div class="col-md-5">
-	        	
-	        	<!-- Primary fields -->
-	        	<div>
-				  
-                    <div class="primary_field" > 
-	        			<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Unified Profile ID: </b> 
-	                	<span class="data_field" data-field="id" data-fieldholder="html" data-fieldtype="string" > - </span>
-	                </div>
-	                <div class="primary_field" >      	   
-	                	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Web Visitor ID: </b> 
-	                	<span class="data_field" data-field="visitorId" data-fieldholder="html"  data-fieldtype="string" > - </span>
-	                </div>
-	                <div class="primary_field" >      	      
-	                	<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Last Imported CRM ID: </b> 
-	                	<span class="data_field" data-field="crmRefId" data-fieldholder="html" data-fieldtype="string" > - </span>
-	                </div>
-	                <hr>
+               <div class="col-md-2"></div>
+			   <div class="col-md-8">
+				  	<div class="primary_field" > 
+				  		<i class="fa fa-user-circle-o" aria-hidden="true"></i> <b> Type: </b> 
+				  		<span class="data_field" data-field="typeAsText" data-fieldholder="html"  data-fieldtype="string"  > - </span>
+				  	</div> 
+				  	<hr>
 	                <div class="primary_field" > 
 	                	<b > <i class="fa fa-fw fa-id-badge"></i> First Name: </b> 
                     	<span class="data_field" data-field="firstName" data-fieldholder="html" data-fieldtype="string" >  - </span> 
@@ -94,29 +60,46 @@
                    		<b class="primary_field" > <i class="fa fa-phone-square" aria-hidden="true"></i>  Primary Phone: </b>  
                    		<span class="data_field" data-field="primaryPhone" data-fieldholder="html" data-fieldtype="tel" > - </span>
                		</div>
-	                 <hr>
-	                <div class="primary_field" > 
-				  		<i class="fa fa-user-circle-o" aria-hidden="true"></i> <b> Profile Type: </b> 
-				  		<span class="data_field" data-field="typeAsText" data-fieldholder="html"  data-fieldtype="string"  > - </span>
-				  	</div> 
-                    <div class="primary_field" > 
-                   		<b> <i class="fa fa-info-circle" aria-hidden="true"></i> Data Quality Score: </b> 
-                   		<span class="scoring_field" data-field="dataQualityScore" data-fieldholder="html"  data-fieldtype="int" > 0 </span>
-                    </div> 
-                    
-                    <hr>
-                    
-	                <div class="primary_field" > 
-                    	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Created at: </b> 
-                    	<span class="data_field" data-field="createdAt" data-fieldholder="html"  data-fieldtype="date_time"  > - </span> 
-                    </div>  
-                    
-                    <div class="primary_field" >   
-                    	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Updated at: </b> 
-                   		<span class="data_field" data-field="updatedAt" data-fieldholder="html"  data-fieldtype="date_time"  > -  </span> 
-                    </div>
-	                   
+               		
+	               
 	        	</div>
+	        	<div class="col-md-2"></div>
+           </div>
+           
+           <div class="col-lg-7">
+	        	 <ul class="list-group" style="margin-top:20px;">
+	        	 	<li class="list-group-item">
+	        	 		
+	                    <div class="primary_field" > 
+	                   		<b> <i class="fa fa-info-circle" aria-hidden="true"></i> Data Quality Score: </b> 
+	                   		<span class="scoring_field" data-field="dataQualityScore" data-fieldholder="html"  data-fieldtype="int" > 0 </span>
+	                    </div> 
+	                    <div class="primary_field" > 
+	                    	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Created at: </b> 
+	                    	<span class="data_field" data-field="createdAt" data-fieldholder="html"  data-fieldtype="date_time"  > - </span> 
+	                    </div>  
+	                    <div class="primary_field" >   
+	                    	<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Updated at: </b> 
+	                   		<span class="data_field" data-field="updatedAt" data-fieldholder="html"  data-fieldtype="date_time"  > -  </span> 
+	                    </div>
+	        	 	</li>
+                   	<li class="list-group-item" >
+				  		<i class="fa fa-tags" aria-hidden="true"></i> <b> In Journey Maps </b> <br>
+				  		<span class="data_field" id="profileInJourneyMaps" > </span> 
+				  	</li>
+				  	<li class="list-group-item">
+				  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Segments </b> <br>
+				  		<span class="data_field" id="profileInSegments" > </span> 
+				  	</li>
+				  	<li class="list-group-item" style="display: none">
+				  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Accounts </b> <br>
+				  		<span class="data_field" id="profileInAccounts" > </span> 
+				  	</li>
+				  	<li class="list-group-item">
+				  		<i class="fa fa-tags" aria-hidden="true"></i> <b> Data Labels </b> <br>
+				  		<span class="data_field" id="profileDataLabels" > </span> 
+				  	</li>
+			   	</ul>  
 	        	
       		</div>
            
@@ -795,7 +778,8 @@
 			<div class="tab-pane" id="panel_profile_information" >
 				<div class="tabbable">
 		                <ul id="profile_ext_info_tabs" class="nav nav-pills nav-stacked col-md-2">
-		                	<li class="active" ><a href="#tab_profile_demographic" data-toggle="tab"> <i class="fa fa-address-card-o" aria-hidden="true"></i> Demographic </a></li>
+		                	<li class="active" ><a href="#tab_profile_identities" data-toggle="tab"> <i class="fa fa-address-card-o" aria-hidden="true"></i> Identities </a></li>
+		                	<li><a href="#tab_profile_demographic" data-toggle="tab"> <i class="fa fa-address-card-o" aria-hidden="true"></i> Demographic </a></li>
 		                	<li><a href="#tab_profile_contact_info" data-toggle="tab"> <i class="fa fa-address-card-o" aria-hidden="true"></i> Contacts </a></li>
 		                	<li><a href="#tab_profile_location_info" data-toggle="tab"> <i class="fa fa-map-marker" aria-hidden="true"></i> Living Location </a></li>
 		                	<li><a href="#tab_profile_education" data-toggle="tab"> <i class="fa fa-graduation-cap" aria-hidden="true"></i> Education </a></li>
@@ -808,8 +792,34 @@
 		                </ul>
 		                
 		                <div id="profile_ext_info_vertital_tabs" class="tab-content col-md-10" >
+		                	<!-- profile ids -->
+		                	<div class="tab-pane active" id="tab_profile_identities" >
+
+				                <!-- profile info tab 1 -->
+								<h4 class="highlight_text" > <i class="fa fa-address-card-o" aria-hidden="true"></i> Identities </h4>
+							 	<table border=0 class="underlined" style="width: 100%;">
+				                   <tr>
+				                       <td>
+											<ol class="profile_ext_data" data-field="personal_attributes">
+	                							<li>
+								                   <b data-persona="key" > <i class="fa fa-id-badge"></i> Unified Profile ID </b> 
+								                   <p class="data_field" data-field="id" data-fieldholder="html" data-fieldtype="string" > - </p> 
+								               	</li>
+								               	<li>
+								                   <b data-persona="key" > <i class="fa fa-id-badge"></i> Web Visitor ID </b> 
+								                   <p class="data_field" data-field="visitorId" data-fieldholder="html" data-fieldtype="string" > - </p> 
+								               	</li>
+								               	<li>
+								                   <b data-persona="key" > <i class="fa fa-id-badge"></i> Imported CRM ID </b> 
+								                   <p class="data_field" data-field="crmRefId" data-fieldholder="html" data-fieldtype="string" > - </p> 
+								               	</li>
+							               	</ol>
+				               	  		</td>
+				                   </tr>
+				                </table>
+		                	</div>
 		                	
-		                    <div class="tab-pane active" id="tab_profile_demographic" >
+		                    <div class="tab-pane" id="tab_profile_demographic" >
 			                    
 				                <!-- profile info tab 1 -->
 								<h4 class="highlight_text" > <i class="fa fa-address-card-o" aria-hidden="true"></i> Demographic Information </h4>
