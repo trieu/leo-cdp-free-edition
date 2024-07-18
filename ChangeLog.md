@@ -35,6 +35,7 @@
 
 ### Added
 
+- [API] save purchase event with application ID, transaction Status (tsstatus) and message
 - [User Login] add show password checkbox
 - [Core CDP] set leoCdpLicenseKey=free_for_dataism as default for FREE VERSION
 - [Asset Item] search by name for product items, content items, slides, template 
