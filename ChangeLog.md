@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-07-16
+## [0.9.0] - 2024-07-18
 
 ### Added
 
@@ -76,6 +76,7 @@
 
 ### Fixed
 
+- [Segment] fix show update time in local format of profile in segment 
 - [CDP Admin] improve and fix bugs when Ajax load large JSON (profiles in segment)
 - [Segment] improve performance when query and load macthed profiles in segment
 - [Tracking Event] fix bugs when save data from API
@@ -124,6 +125,7 @@
 
 ### Changed
 
+- [Observer] add fields: jobTitles, personalProblems when update profile from web
 - [CDP Admin] improve UI of profile and segment
 - [Profile] merge profile scores (totalCreditScore,totalTransactionValue...) from external scoring model, non-computable from Event Metric
 - [Product] improve import data
