@@ -60,28 +60,9 @@
 			  		</div>
 			  		
 			  		<div class="col-md-12 profile_filter_box" >
-						<h5 style="font-weight: bold;">Profile Type</h5>
-						<div class="col-md-4">
-							<label title="Filter all visitor profiles with no contact data" > 
-								<input id="showVisitorProfile" type="checkbox" checked="checked"> Web Visitor 
-							</label>
-						</div> 
-						<div class="col-md-4">
-							<label title="Filter all leads & prospects" > 
-								<input id="showLeadAndProspectProfile" type="checkbox" checked="checked"> Lead & Prospect 
-							</label>
-						</div> 
-						<div class="col-md-4">
-							<label title="Filter all customer profiles" > 
-								<input id="showCustomerProfile" type="checkbox" checked="checked"> Customer 
-							</label>
-						</div> 
-					</div> 
-			  		
-			  		<div class="col-md-12 profile_filter_box" >
 						<div class="col-md-12">
 							<label title="Filter all profiles within the specified date range"> 
-								<input id="filter_profile_by_dates" type="checkbox" > Filter data by modification date 
+								<input id="filter_profile_by_dates" type="checkbox" > Filter by modification date 
 							</label>
 						</div> 
 						<div id='beginFilterDateHolder' class="col-md-6"> 
@@ -105,7 +86,25 @@
 				            </div>
 						</div>
 					</div>
-					
+			  		
+			  		<div class="col-md-12 profile_filter_box" >
+			  			<div class="col-md-2"> <b>Type</b> </div>						
+						<div class="col-md-3">
+							<label title="Filter all visitor profiles with no contact data" > 
+								<input id="showVisitorProfile" type="checkbox" checked="checked"> Web Visitor 
+							</label>
+						</div> 
+						<div class="col-md-4">
+							<label title="Filter all leads & prospects" > 
+								<input id="showLeadAndProspectProfile" type="checkbox" checked="checked"> Lead & Prospect 
+							</label>
+						</div> 
+						<div class="col-md-3">
+							<label title="Filter all customer profiles" > 
+								<input id="showCustomerProfile" type="checkbox" checked="checked"> Customer 
+							</label>
+						</div> 
+					</div> 					
 					
 				</div>
 				
@@ -133,8 +132,8 @@
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByAuthorizedEditor')" >Authorized Editor</a></li>
 						    </ul>
 						</div>
-						<div id="profile_filter_inputs" class="profile_filter_box col-md-12" style="padding-bottom: 10px; font-weight: bold;" >
-							<label id="profile_filter_input_label" style="margin-top:10px;" >Profile Status</label>
+						<div id="profile_filter_inputs" class="profile_filter_box col-md-12" style="padding-bottom: 10px; font-weight: bold;margin-top:5px;" >
+							<label id="profile_filter_input_label" style="margin-top:10px;" >Status</label>
 							<input type="hidden" id="keywordsToSearchProfiles" value="" >
 							
 							<select class="form-control" id="filterProfileListByStatus" >

@@ -30,7 +30,7 @@
   			  
                <div class="text-center" style="margin-top:20px" >
                    <img id="profile_avatar" src="/public/images/avatars/profile-default-avatar.png" alt="Profile Avatar" class="rounded mx-auto d-block avatar"> <br>
-                   <h4 id="profile_full_name" style="color:blue; font-weight: bold;" > - </h4>
+                   <h4  > <mark id="profile_full_name" style="color:blue!important; font-weight: bold;" ></mark> </h4>
                </div>
                <div class="col-md-2"></div>
 			   <div class="col-md-8">
@@ -1175,9 +1175,9 @@
     var duplicateProfileTable = false;
     
     function initProfile360Analytics(profileId, crmRefId, visitorId) {
-    	viewProfileId = profileId;
-    	duplicateProfileTable = false;
-    	selectedDuplicateProfileIdMap = {};
+    	window.viewProfileId = profileId;
+    	window.duplicateProfileTable = false;
+    	window.selectedDuplicateProfileIdMap  = {};
     	
     	//setup tab navigation 
 		setupTabPanels();
