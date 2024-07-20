@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-07-19
+## [0.9.0] - 2024-07-20
 
 ### Added
 
@@ -127,6 +127,7 @@
 
 ### Changed
 
+- [Profile Info] improve UI UX to show Journey Maps, Segment and Labels of profile 
 - [Observer] add fields: jobTitles, personalProblems when update profile from web
 - [CDP Admin] improve UI of profile and segment
 - [Profile] merge profile scores (totalCreditScore,totalTransactionValue...) from external scoring model, non-computable from Event Metric
