@@ -31,10 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-07-20
+## [0.9.0] - 2024-07-24
 
 ### Added
 
+- [API] save purchase event with social media ID (targetUpdateaSocialMediaID)
 - [API] save purchase event with application ID, transaction Status (tsstatus) and message
 - [User Login] add show password checkbox
 - [Core CDP] set leoCdpLicenseKey=free_for_dataism as default for FREE VERSION
