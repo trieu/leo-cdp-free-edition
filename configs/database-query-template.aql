@@ -1206,7 +1206,7 @@ AQL_PROFILE_BATCH_UPDATE_STATUS =>
 AQL_PROFILE_BATCH_REMOVE =>
 	FOR p IN cdp_profile
 		FILTER p._key IN @selectedProfileIds
-		UPDATE p WITH { status: @newStatus, inSegments : [] } IN cdp_profile
+		UPDATE p WITH { status: @newStatus, inSegments: [] } IN cdp_profile
 ;
 
 AQL_UPDATE_AUTHORIZATION_FOR_PROFILES_BY_JOURNEY =>
