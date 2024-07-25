@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-07-24
+## [0.9.0] - 2024-07-25
 
 ### Added
 
@@ -78,6 +78,7 @@
 
 ### Fixed
 
+- [Profile] fix delete in database for removed profiles, delete profiles in segment
 - [Profile] can not remove selected profiles in CDP admin
 - [Segment] fix show update time in local format of profile in segment 
 - [CDP Admin] improve and fix bugs when Ajax load large JSON (profiles in segment)
