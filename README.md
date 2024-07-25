@@ -22,7 +22,7 @@ The philosophy of Dataism => USPA as Big Data framework => LEO CDP framework
 
 # LEO CDP framework data flow
 
-[![LEO CDP framework Data Flow](https://raw.githubusercontent.com/trieu/leo-cdp-free-edition/main/leo-cdp-how-it-works.png)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)	
+[![LEO CDP framework Data Flow](https://raw.githubusercontent.com/trieu/leo-cdp/master/core-leo-cdp/leo-cdp-how-it-works.png)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)	
 
 # Why is LEO CDP framework ?
 
@@ -52,11 +52,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 # Technology Architecture
 
 ## System Overview
-![alt technology-architecture-leo-cdp](https://blogger.googleusercontent.com/img/a/AVvXsEiMumpMfN32dIcKry8UsCvrb2xG85hqxk6iRPI2-oyuTbvtJfGdbtrjoUyelB-01dDhFNH04VyVZsGi1MnIrNaPX1xE697WLooaSta-FwMBm-TvoWi3GmcirzSX56skENUVrp-am8pkqTnfq_sqQFX-cD7CJkRybXVjTRzi3QtWJezWIZzJ52vfEZTB=s2048)
-
-## Data Pipeline 
-![alt data-pipeline-leo-cdp](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh2dLUXFRM-ASIx-LjRGNBFGq1RmCetBYxfzj5ZIpeCx2oNVQWa5HbpLrYvkP68w8RqPtRzYOW4FrdFjuJxCCl1kLaKqh_RofcklrYJIBlDTxaFu4NLb6bQ6VKnzIIenWRAiYmI0F3Fu5ebUx72dFw9YZ4QR3aZ-BezGaeTHqKJIHWBLy5ueemVzM8s/s1651/Architecture%20and%20Data%20Pipeline%20of%20LEO%20CDP-Data%20Pipeline.png)
-
+![alt technology-architecture-leo-cdp](https://raw.githubusercontent.com/trieu/leo-cdp/master/core-leo-cdp/leo-cdp-version-1.0.png)
 
 ## Software Requirements
 
