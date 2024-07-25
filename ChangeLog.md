@@ -35,6 +35,7 @@
 
 ### Added
 
+- [API] list all segments, load profiles in segment
 - [API] save purchase event with social media ID (targetUpdateaSocialMediaID)
 - [API] save purchase event with application ID, transaction Status (tsstatus) and message
 - [User Login] add show password checkbox
