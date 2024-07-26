@@ -31,10 +31,6 @@ The philosophy of Dataism => USPA as Big Data framework => LEO CDP framework
 3. LEO CDP framework is the on-premises software solution, so you can deploy in your private cloud servers or even your PC
 4. You can custom and build your own Customer Data Platform (CDP) for your digital business and digital transformation
 
-# LEO CDP framework FREE Edition
-
-This is the binary build (JAR file) from Java Source Code in my private Github repository
-
 # System Demo
 
 * Login URL: https://dcdp.bigdatavietnam.org
@@ -53,6 +49,8 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 ## System Overview
 ![alt technology-architecture-leo-cdp](https://raw.githubusercontent.com/trieu/leo-cdp/master/core-leo-cdp/leo-cdp-version-1.0.png)
+
+* https://docs.google.com/document/d/15tqxA9uMOi5uyIIAr4bq_sZpBWEkGWw17e3fVNap9Uw/edit?usp=sharing
 
 ## Software Requirements
 
@@ -85,7 +83,7 @@ This is the binary build (JAR file) from Java Source Code in my private Github r
 
 ## How to install
 
-[Please check this LEO CDP framework Installation Guide](https://github.com/trieu/leo-cdp-free-edition/blob/main/NOTES-FOR-NEW-SETUP.md)
+[Please check this LEO CDP framework Installation Guide](NOTES-FOR-NEW-SETUP.md)
 
 ---
 
