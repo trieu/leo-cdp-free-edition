@@ -62,7 +62,7 @@
 			  		<div class="col-md-12 profile_filter_box" >
 						<div class="col-md-12">
 							<label title="Filter all profiles within the specified date range"> 
-								<input id="filter_profile_by_dates" type="checkbox" > Filter by modification date 
+								<input id="filter_profile_by_dates" type="checkbox" > Filter by date modified 
 							</label>
 						</div> 
 						<div id='beginFilterDateHolder' class="col-md-6"> 
@@ -116,7 +116,7 @@
 						   </button>
 						    <ul class="dropdown-menu">
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterProfileListByStatus')" >Profile Status</a></li>
-						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByDataLabel')" >Profile Data Label</a></li>
+						      	<li><a id="btnFilterByDataLabel" href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByDataLabel')" >Profile Data Label</a></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByLastTouchpoint')" >Last Touchpoint Name</a></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterBySegmentName')" >Segment Name</a></li>
 						      	<li><a href="javascript:" onclick="handleProfileListFiltersBy(this,'#filterByMediaChannel')" >Media Channel</a></li>
@@ -257,7 +257,8 @@
 	}
 	
 	function resetProfileSearch() {
-		if(LeoCdpAdmin.routerKey === "Customer_Profile_Search" || LeoCdpAdmin.routerKey === "Profile_List_By_Type"){
+		var k = LeoCdpAdmin.routerKey;
+		if(k === "Customer_Profile_Search" || k === "Profile_List_By_Type" || k === 'Customer_Profile_Filter'){
 			$('#main_search_profile').val('');
 			location.hash = "calljs-leoCdpRouter('Profile_Management')";
 		} 
@@ -334,6 +335,12 @@
 		location.hash = "#calljs-leoCdpRouter('Profile_Management','_refresh_"+t+"')"
 	}
 	
+	function initCustomerProfileFilter(dataLabels) {
+		handleProfileListFiltersBy($('#btnFilterByDataLabel')[0],'#filterByDataLabel')
+		$('#filterByDataLabel').val(dataLabels);
+		initCustomerProfileList();
+	}
+	
     function initCustomerProfileList(encodedKeywords, profileType) {
     	selectedProfileIdMap = {};
     	
@@ -376,7 +383,7 @@
     	// search profiles by keywords
     	if(typeof encodedKeywords === 'string' ) {
     		var keywordsToSearch = Base64.decode(encodedKeywords);
-    		document.title = "Customer Data Hub - Searching profiles by keywords: " + keywordsToSearch;
+    		document.title = "Customer Data Hub - Search profiles by keywords: " + keywordsToSearch;
     		$('#keywordsToSearchProfiles').val(keywordsToSearch);
     		$('#main_search_profile').val(keywordsToSearch);
     		$('#filterProfileListByStatus').val('');

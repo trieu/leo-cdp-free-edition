@@ -31,10 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-07-25
+## [0.9.0] - 2024-07-28
 
 ### Added
 
+- [Admin] filter profiles by click text labels in profile info
 - [API] list all segments, load profiles in segment
 - [API] save purchase event with social media ID (targetUpdateaSocialMediaID)
 - [API] save purchase event with application ID, transaction Status (tsstatus) and message
@@ -79,6 +80,7 @@
 
 ### Fixed
 
+- [Segment] fix load profiles in segment using API with correct pagination
 - [Profile] fix delete in database for removed profiles, delete profiles in segment
 - [Profile] can not remove selected profiles in CDP admin
 - [Segment] fix show update time in local format of profile in segment 

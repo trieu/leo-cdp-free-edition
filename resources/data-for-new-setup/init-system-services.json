@@ -43,59 +43,16 @@
 	},
 	{
 		"index" : 3,
-		"id": "leo_recommender",
-		"name": "Recommender Service for Personalization",
-		"description": "The Personalization Engine to suggest most personalized information directly to your customers",
+		"id": "etl_airflow_server",
+		"name": "ETL Apache Airflow Server",
+		"description": "The Airflow server for local services like data enrichment, customer personalization and campaign activation",
 		"configs": {
-			"icon": "fa-user-circle-o",
+			"icon": "fa-cogs",
 			"read_only": false,
-			"service_api_url": "",
-			"service_api_key": "",
-			"service_max_item_for_profile": 50,
-			"service_max_item_for_request": 10,
-			"active": false,
-			"show": true
-		}
-	},
-	{
-		"index" : 4,
-		"id": "leo_cx_analytics",
-		"name": "Customer Experience Analytics Service",
-		"description": "Using Machine Learning to compute Feedback Score from comment data and text data",
-		"configs": {
-			"icon": "fa-heartbeat",
-			"read_only": false,
-			"service_api_url": "",
-			"service_api_key": "",
-			"active": false,
-			"show": true
-		}
-	},
-	{
-		"index" : 5,
-		"id": "leo_classification",
-		"name": "Profile Data Classification",
-		"description": "To set-up the ongoing process of synchronizing data from CDP to digital marketing platforms",
-		"configs": {
-			"icon": "fa-download",
-			"read_only": false,
-			"service_api_url": "",
-			"service_api_key": "",
-			"active": false,
-			"show": true
-		}
-	},
-	{
-		"index" : 6,
-		"id": "leo_prediction",
-		"name": "Profile Score Prediction",
-		"description": "To predict Customer Acquisition Cost (CAC), Customer Lifetime Value (CLV) and Credit Score from behavioral data",
-		"configs": {
-			"icon": "fa-line-chart",
-			"read_only": false,
-			"service_api_url": "",
-			"service_api_key": "",
-			"active": false,
+			"service_base_url":"http://0.0.0.0:8080/api/v1/dags/",
+			"service_authorization_username": "",
+			"service_authorization_password": "",
+			"active": true,
 			"show": true
 		}
 	},
