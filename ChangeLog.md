@@ -31,10 +31,12 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-07-28
+## [0.9.0] - 2024-07-31
 
 ### Added
 
+- [Activation] add manually activation in segment
+- [Activation] run activation jobs using Apache Airflow as default engine
 - [Admin] filter profiles by click text labels in profile info
 - [API] list all segments, load profiles in segment
 - [API] save purchase event with social media ID (targetUpdateaSocialMediaID)
@@ -132,6 +134,7 @@
 
 ### Changed
 
+- [Segment API] expose more fields of profile when call /api/segment/profiles
 - [Profile Info] improve UI UX to show Journey Maps, Segment and Labels of profile 
 - [Observer] add fields: jobTitles, personalProblems when update profile from web
 - [CDP Admin] improve UI of profile and segment

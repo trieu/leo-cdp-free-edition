@@ -5,12 +5,8 @@
 		"name": "SMTP Mail Server for System Management",
 		"description": "The Email SMTP for user login management and system monitoring alert",
 		"configs": {
-			"icon": "fa-envelope",
-			"read_only": false,
-			"active": true,
-			"show": true,
-			"service_api_url": "local_smtp_server",
-			"service_api_key": ".",
+			"service_api_url": "",
+			"service_api_key": "",
 			"smtp_enabled":false,
 			"smtp_username": "",
 			"smtp_password": "",
@@ -26,12 +22,8 @@
 		"name": "SMTP Mail Server for Email Marketing",
 		"description": "To target your customers through email, by providing useful content, product information, PR event and feedback survey",
 		"configs": {
-			"icon": "fa-envelope-o",
-			"read_only": false,
-			"active": true,
-			"show": true,
-			"service_api_url": "local_smtp_server",
-			"service_api_key": ".",
+			"service_api_url": "",
+			"service_api_key": "",
 			"smtp_enabled":false,
 			"smtp_username": "",
 			"smtp_password": "",
@@ -43,19 +35,46 @@
 	},
 	{
 		"index" : 3,
-		"id": "etl_airflow_server",
-		"name": "ETL Apache Airflow Server",
-		"description": "The Airflow server for local services like data enrichment, customer personalization and campaign activation",
+		"id": "local_airflow_server",
+		"name": "Local Airflow Server",
+		"description": "The Airflow server for data services: information enrichment, customer personalization and campaign activation",
 		"configs": {
-			"icon": "fa-cogs",
-			"read_only": false,
-			"service_base_url":"http://0.0.0.0:8080/api/v1/dags/",
-			"service_authorization_username": "",
-			"service_authorization_password": "",
-			"active": true,
-			"show": true
+			"service_api_url":"http://0.0.0.0:8080/api/v1/dags/",
+			"airflow_authorization_username": "dev_airflow",
+			"airflow_authorization_password": "123456"
 		}
 	},
+	{
+		"index" : 4,
+		"id": "leo_recommender",
+		"name": "Recommendation Service for Personalization",
+		"description": "The Personalization Engine to suggest most personalized information directly to your customers",
+		"configs": {
+			"service_api_url":"http://0.0.0.0:8080/api/v1/dags/leo_recommender/dagRuns",
+			"service_max_item_for_profile": 50,
+			"service_max_item_for_request": 10
+		}
+	},
+	
+	{
+		"index" : 5,
+		"id": "leo_classification",
+		"name": "Profile Data Classification",
+		"description": "To set-up the ongoing process of synchronizing data from CDP to digital marketing platforms",
+		"configs": {
+			"service_api_url":"http://0.0.0.0:8080/api/v1/dags/leo_classification/dagRuns"
+		}
+	},
+	{
+		"index" : 6,
+		"id": "leo_prediction",
+		"name": "Profile Score Prediction",
+		"description": "To predict Customer Acquisition Cost (CAC), Customer Lifetime Value (CLV) and Credit Score from behavioral data",
+		"configs": {
+			"service_api_url":"http://0.0.0.0:8080/api/v1/dags/leo_prediction/dagRuns"
+		}
+	},
+	
 	{
 		"index" : -1,
 		"id": "leo_cdp_metadata",

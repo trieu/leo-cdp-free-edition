@@ -63,7 +63,7 @@
 					<div  >
 						<h4> <i class="fa fa-cogs" aria-hidden="true"></i> <mark> Configuration Management for Core System Services </mark> </h4>
 					</div>
-					<div  id="configs_holder" >
+					<div  id="system_configs_holder" >
 						<!-- list -->
 					</div>
 				</div>
@@ -99,10 +99,10 @@
 
 <script id='tpl_system_config_box' type="text/html" >
 <div class="col-lg-4">
-  <div class="panel panel-default panel_active_<%- configs.active %> ">
+  <div class="panel panel-default panel_active_<%- status === 1 %> ">
 	<div class="panel-heading"   > 
-		<b id="header_<%- id %>_<%- configs.active %>" > 
-			<i class="fa <%- configs.icon %> " aria-hidden="true"></i> <mark> <span style="font-size:13px"> <%- name %> </span> </mark> 
+		<b id="header_<%- id %>_<%- status === 1 %>" > 
+			<i class="fa fa-cogs" aria-hidden="true"></i> <mark> <span style="font-size:14px"> <%- name %> </span> </mark> 
 		</b>
 		<i class="fa fa-question-circle config_description" aria-hidden="true" style="float:right" title="<%- description %>" ></i>
 	</div>
@@ -110,27 +110,22 @@
 		<div class="row" >
 			<div class="col-md-12">
 				<div class="form-group">
-					<div id="<%- id %>_api_key_div" >
-						<mark> <label id="<%- id %>_api_key_label" for="<%- id %>_api_key">  API Key <%- enterpriseEditionText %>  </label></mark>
-						<input id="<%- id %>_api_key"  autocomplete="off" type="text" value="<%- service_api_key %>" class="form-control" placeholder="API key" disabled >
-						<br>
-					</div>
 					<div id="<%- id %>_api_url_div" >
-  						<mark> <label for="<%- id %>_api_url">  API URL </label></mark>
+  						<label for="<%- id %>_api_url">  Service URL </label>
   						<input id="<%- id %>_api_url" autocomplete="off" type="text" value="<%- configs.service_api_url %>" class="form-control" placeholder="API URL" disabled >
 					</div>
 				</div>
 			</div>
 		</div>
-	 	<div id="<%- id %>_buttons_div" class="row read_only_<%- configs.read_only %> active_<%- configs.active %>" style="margin-top:12px">
+	 	<div id="<%- id %>_buttons_div" class="row" style="margin-top:10px">
 			<div class="col-md-6 text-center">
 		    	<button type="button" class="btn btn-goto-router btn-sm"  title="Set Configs" onclick="setSystemServiceInfo('<%- id %>')" <%- disabledText %>  > 
 		  			<i class="fa fa-cog" aria-hidden="true"></i> Set Configs 
 		  		</button>
 		    </div>
 			<div class="col-md-6 text-center">
-		    	<button type="button" class="btn btn-danger btn-sm"  title="Delete all configs of this service" onclick="deleteSystemServiceInfo('<%- id %>')" <%- disabledText %>  > 
-		  			<i class="fa fa-trash" aria-hidden="true"></i> Delete Configs 
+		    	<button type="button" class="btn btn-danger btn-sm"  title="Reset all configs of this service" onclick="resetSystemServiceInfo('<%- id %>')" <%- disabledText %>  > 
+		  			<i class="fa fa-trash" aria-hidden="true"></i> Reset Configs 
 		  		</button>
 		    </div>
 	 	</div>
@@ -143,7 +138,7 @@
 <div class="row form-group">
 	<label id="config_label_<%- inputName %>" class="control-label col-md-4" for="<%- inputName %>" ><%- inputName %></label>
 	<div class="col-md-8 float-left" style="background-color:#DCDCDC!important;padding:2px">
-    	<input disabled type="<%- inputType %>" name="<%- inputName %>" placeholder="Enter the value of <%- inputName %>" class="form-control" style="border: none!important;margin:0!important">
+    	<input type="<%- inputType %>" name="<%- inputName %>" placeholder="Enter the value of <%- inputName %>" class="form-control" style="border: none!important;margin:0!important">
    	</div>
 </div>
 </script>
@@ -159,10 +154,16 @@
 			<div class="modal-body">
 				<strong id="systemServiceName" >  </strong>
 				<div id="systemServiceDescription" >  </div>
+				<div  class="col-md-12 float-left" style="padding:2px">
+					<label class="control-label col-md-4 highlight_text" for="systemServiceStatus">Status</label>
+					<div class="col-md-8 float-left" >
+				    	<input type="checkbox" id="systemServiceStatus" name="status" class="form-control" style="border: none!important;margin:0!important">
+				   	</div>
+				</div>
 				<hr>
 				<strong >Configuration List</strong>
-				<div id="systemServiceConfigList" style="max-height: 450px; overflow-y: scroll; overflow-x: hidden;width: 100%" >
-					<!--  -->
+				<div id="systemServiceConfigList" style="max-height: 500px; overflow-y: scroll; overflow-x: hidden;width: 100%" >
+					<!-- systemServiceConfigList -->
 				</div>
 			</div>
 			<div class="modal-footer" >

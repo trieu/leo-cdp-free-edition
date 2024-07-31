@@ -101,7 +101,12 @@
 				</div>
 			</div>
 		</div>
-	 	<div id="<%- id %>_buttons_div" class="row" style="margin-top:12px">
+	 	<div id="<%- id %>_buttons_div" class="row" style="margin-top:10px">
+			<div class="col-md-4 text-center">
+		    	<button type="button" class="btn btn-goto-router btn-sm" title="Set configs for this data_service" onclick="loadDataService('<%- id %>')" > 
+		  			<i class="fa fa-cog" aria-hidden="true"></i> Configs 
+		  		</button>
+		    </div>
 			<div class="col-md-4 text-center">
 		    	<button type="button" class="btn btn-danger btn-sm" title="Delete this data service" onclick="deleteDataService('<%- id %>')" > 
 		  			<i class="fa fa-trash" aria-hidden="true"></i> Delete
@@ -110,11 +115,6 @@
 			<div class="col-md-4 text-center">
 		    	<button type="button" class="btn btn-danger btn-sm" title="Delete all configs of this data service" onclick="resetDataService('<%- id %>')" > 
 		  			<i class="fa fa-undo" aria-hidden="true"></i> Reset
-		  		</button>
-		    </div>			
-			<div class="col-md-4 text-center">
-		    	<button type="button" class="btn btn-goto-router btn-sm" title="Set configs for this data_service" onclick="loadDataService('<%- id %>')" > 
-		  			<i class="fa fa-cog" aria-hidden="true"></i> Configs 
 		  		</button>
 		    </div>
 	 	</div>
@@ -125,11 +125,16 @@
 
 
 <script id='tpl_config_row_item' type="text/html" >
-<div class="row form-group">
-	<label id="config_label_<%- inputName %>" class="control-label col-md-3 highlight_text" for="<%- inputName %>" ><%- inputName %></label>
-	<div class="col-md-9 float-left" style="background-color:#DCDCDC!important;padding:2px">
-    	<input type="<%- inputType %>" name="<%- inputName %>" placeholder="Enter the value of <%- inputName %>" class="form-control" style="border: none!important;margin:0!important">
+<div class="col-md-12 form-group config_item"  id="configDataService_<%- serviceId %>_<%- time %>" >
+	<div class="col-md-3 float-left" >
+    	<input type="text" name="configName" placeholder="Enter key" class="form-control" value="<%- configName %>" >
    	</div>
+	<div class="col-md-8 float-left" >
+    	<input type="<%- inputType %>" name="configValue" placeholder="Enter value" class="form-control" value="<%- configValue %>">
+   	</div>
+	<div title="Delete" class="col-md-1" onclick="deleteConfigOfDataService('configDataService_<%- serviceId %>_<%- time %>')"> 
+		<h4><i class="fa fa-times-circle delete-item-btn" aria-hidden="true"></i></h4> 
+	</div>
 </div>
 </script>
 
@@ -158,12 +163,22 @@
 				   	</div>
 				</div>
 				
+				
 				<div class="row form-group">
-				   	<label class="control-label col-md-3" for="dataServiceBuiltIn" >  Built-in Data Service </label>
+					<label class="control-label col-md-3" for="dataServiceDagId" > Airflow DAG ID </label>
 					<div class="col-md-9 float-left" >
-				    	<input id="dataServiceBuiltIn" type="checkbox" class="form-control" style="width: 24px;" disabled="disabled"> 
+				    	<input type="text" id="dataServiceDagId"  placeholder="Enter Airflow DAG ID" class="form-control" style="width: 98%" >
 				   	</div>
 				</div>
+				<div class="row form-group">
+					<label class="control-label col-md-3" for="dataServiceStatus" > Status of service </label>
+					<div class="col-md-9 float-left" >
+				    	<label class="checkbox-inline control-label" >
+					      	<input id="dataServiceStatus" type="checkbox" > Ready
+					    </label>
+				   	</div>
+				</div>
+				
 				<hr>
 				<div class="row form-group">
 					<label class="control-label col-md-3" > Purposes of data activation</label>
@@ -182,7 +197,12 @@
 				    </div>
 				</div>
 				<hr>
-				<strong>Data Service Configurations</strong>
+				<div style="margin-bottom: 10px" > 
+					<strong> Configurations </strong>
+					<button type="button" class="btn btn-primary btn-sm" title="Add a configuration" onclick="addNewConfigForDataService('newConfig')" > 
+		  			<i class="fa fa-plus" aria-hidden="true"></i> New Config
+		  		</button>
+				</div>
 				<div id="dataServiceConfigList" style="max-height: 220px; overflow-y: scroll; overflow-x: hidden; margin-top: 5px;" > </div>
 			</div>
 			<div class="modal-footer" >

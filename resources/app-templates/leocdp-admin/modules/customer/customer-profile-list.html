@@ -88,7 +88,7 @@
 					</div>
 			  		
 			  		<div class="col-md-12 profile_filter_box" >
-			  			<div class="col-md-2"> <b>Type</b> </div>						
+			  			<div class="col-md-2"> <b> Type </b> </div>						
 						<div class="col-md-3">
 							<label title="Filter all visitor profiles with no contact data" > 
 								<input id="showVisitorProfile" type="checkbox" checked="checked"> Web Visitor 
@@ -336,8 +336,11 @@
 	}
 	
 	function initCustomerProfileFilter(dataLabels) {
-		handleProfileListFiltersBy($('#btnFilterByDataLabel')[0],'#filterByDataLabel')
-		$('#filterByDataLabel').val(dataLabels);
+		handleProfileListFiltersBy($('#btnFilterByDataLabel')[0],'#filterByDataLabel');
+		
+		var input = $('#filterByDataLabel');
+		input.val(dataLabels);
+		setTimeout(function() { input.focus() }, 2200);
 		initCustomerProfileList();
 	}
 	
