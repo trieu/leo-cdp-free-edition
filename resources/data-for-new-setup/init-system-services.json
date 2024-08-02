@@ -40,8 +40,8 @@
 		"description": "The Airflow server for data services: information enrichment, customer personalization and campaign activation",
 		"configs": {
 			"service_api_url":"http://0.0.0.0:8080/api/v1/dags/",
-			"airflow_authorization_username": "dev_airflow",
-			"airflow_authorization_password": "123456"
+			"airflow_authorization_username": "",
+			"airflow_authorization_password": ""
 		}
 	},
 	{
@@ -51,6 +51,8 @@
 		"description": "The Personalization Engine to suggest most personalized information directly to your customers",
 		"configs": {
 			"service_api_url":"http://0.0.0.0:8080/api/v1/dags/leo_recommender/dagRuns",
+			"airflow_authorization_username": "",
+			"airflow_authorization_password": "",
 			"service_max_item_for_profile": 50,
 			"service_max_item_for_request": 10
 		}
@@ -62,7 +64,9 @@
 		"name": "Profile Data Classification",
 		"description": "To set-up the ongoing process of synchronizing data from CDP to digital marketing platforms",
 		"configs": {
-			"service_api_url":"http://0.0.0.0:8080/api/v1/dags/leo_classification/dagRuns"
+			"service_api_url":"http://0.0.0.0:8080/api/v1/dags/leo_classification/dagRuns",
+			"airflow_authorization_username": "",
+			"airflow_authorization_password": ""
 		}
 	},
 	{
@@ -71,7 +75,9 @@
 		"name": "Profile Score Prediction",
 		"description": "To predict Customer Acquisition Cost (CAC), Customer Lifetime Value (CLV) and Credit Score from behavioral data",
 		"configs": {
-			"service_api_url":"http://0.0.0.0:8080/api/v1/dags/leo_prediction/dagRuns"
+			"service_api_url":"http://0.0.0.0:8080/api/v1/dags/leo_prediction/dagRuns",
+			"airflow_authorization_username": "",
+			"airflow_authorization_password": ""
 		}
 	},
 	

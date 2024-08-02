@@ -31,11 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-07-31
+## [0.9.0] - 2024-08-02
 
 ### Added
 
-- [Activation] add manually activation in segment
+- [Activation] add manually activation in segment, fix bugs
 - [Activation] run activation jobs using Apache Airflow as default engine
 - [Admin] filter profiles by click text labels in profile info
 - [API] list all segments, load profiles in segment
