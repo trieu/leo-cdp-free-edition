@@ -115,7 +115,7 @@
 				<a href="javascript:" data-target-tab="panel_segment_data_connection" title="Data Connection" > <i class="fa fa-exchange" aria-hidden="true"></i> Data Connection </a>
 	       	</li>
 	       	<li id="segment_data_enrichment" >
-				<a href="javascript:" data-target-tab="panel_segment_enrichment" title="Data Enrichment" > <i class="fa fa-connectdevelop" aria-hidden="true"></i> Enrichment</a>
+				<a href="javascript:" data-target-tab="panel_segment_enrichment" title="Data Enrichment" > <i class="fa fa-connectdevelop" aria-hidden="true"></i> Data Enrichment</a>
 	       	</li>
 	       	<li id="segment_data_synchronization" >
 				<a href="javascript:" data-target-tab="panel_segment_synchronization" title="Data Synchronization" > <i class="fa fa-exchange" aria-hidden="true"></i> Synchronization </a>
@@ -123,7 +123,7 @@
 	       	<li id="segment_data_personalization" >
 				<a href="javascript:handleSegmentPersonalizationTabs()" data-target-tab="panel_segment_data_personalization" title="Data Personalization" > <i class="fa fa-smile-o" aria-hidden="true"></i> Personalization </a>
 	       	</li>
-	       	<li id="segment_campaigns" style="display: none;">
+	       	<li id="segment_campaigns" >
 				<a href="javascript:handleSegmentCampaignsTabs()" data-target-tab="panel_segment_automated_campaigns" title="Automated Campaigns" > <i class="fa fa-fw fa-cogs" aria-hidden="true"></i> Campaigns </a>
 	       	</li>
 	  	</ul>
@@ -358,7 +358,7 @@
 										To enrich profile data (CLV scoring, RFM scoring, data labels,...) by using service with 
 											Jupyter Notebook or Google Colab </label>
 										<button type="button" class="btn btn-primary" title="Data Enrichment " data-purpose="forDataEnrichment" > 
-											<i class="fa fa-check-circle" aria-hidden="true"></i> Activate Enrichment
+											<i class="fa fa-check-circle" aria-hidden="true"></i> Set Enrichment Service
 										</button>
 									</div>
 								 </div>
@@ -397,7 +397,7 @@
 								<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> 
 								To synchronize customer data into external systems </label>
 								<button type="button" class="btn btn-primary" title="Data Synchronization" data-purpose="forSynchronization" > 
-									<i class="fa fa-check-circle" aria-hidden="true"></i> Activate Synchronization
+									<i class="fa fa-check-circle" aria-hidden="true"></i> Set Synchronization Service
 								</button>
 							</div>
 						 </div>
@@ -519,7 +519,7 @@
 											<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i>
 											To personalize data for all profiles in segment, you need to set a data service of your personalization engine </label>
 											<button type="button" class="btn btn-primary" title="Activate Recommendation Engine Service" data-purpose="forPersonalization"> 
-												<i class="fa fa-check-circle" aria-hidden="true"></i> Activate Personalization
+												<i class="fa fa-check-circle" aria-hidden="true"></i> Set Personalization Service
 											</button>
 										</div>
 								 	</div>
@@ -599,7 +599,7 @@
 		<div class="modal-content">   
 			<div class="modal-header">
 				<h4 class="modal-title text-center" > <i class="fa fa-info-circle" aria-hidden="true"></i> 
-					Select data service to activate segment data
+					Set <span class="purpose_activation_name"></span> service for segment
 				</h4>
 			</div>  
 			<div id="dataServiceSelector_loader" class="loader"></div>       
@@ -615,7 +615,7 @@
 			
 				<div class="form-group highlight_box col-lg-12"  >
 		     		<div class="col-lg-12 ">
-		     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i> Data Service </label>
+		     			<label class="label_box" > <i class="fa fa-info-circle" aria-hidden="true"></i>  Activation Service </label>
 		     		</div>
 		     		<div id="dataServiceHolder" style="padding-left: 32px;" >
 						 <select id="dataServiceSelector" class="form-control" data-placeholder="Choose a data service" class="select" > </select>
@@ -624,7 +624,7 @@
 				
 				<div class="form-group highlight_box col-lg-12" style="height: 50px;">
 		     		<div class="col-lg-5">
-		     			<label class="label_box" > <i class="fa fa-bolt" aria-hidden="true"></i> Rule to trigger <span id="purpose_activation_name"></span> </label>
+		     			<label class="label_box" > <i class="fa fa-bolt" aria-hidden="true"></i> Rule to activate <span class="purpose_activation_name"></span> </label>
 		     		</div>
 		     		<div class="col-lg-7">
 		     			<select class="form-control" id="dataServiceSchedulingTime" onchange="setTimeToRunDataService()">

@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-08-02
+## [0.9.0] - 2024-08-05
 
 ### Added
 
@@ -82,6 +82,7 @@
 
 ### Fixed
 
+- [Segment] query profile with birthday is now
 - [Segment] fix load profiles in segment using API with correct pagination
 - [Profile] fix delete in database for removed profiles, delete profiles in segment
 - [Profile] can not remove selected profiles in CDP admin
