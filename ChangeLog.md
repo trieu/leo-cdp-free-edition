@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-08-05
+## [0.9.0] - 2024-08-06
 
 ### Added
 
@@ -135,6 +135,8 @@
 
 ### Changed
 
+- [Segment] use realtimeQuery = true when load profiles in segment details
+- [Profile] improve address, location and display data of profile 
 - [Segment API] expose more fields of profile when call /api/segment/profiles
 - [Profile Info] improve UI UX to show Journey Maps, Segment and Labels of profile 
 - [Observer] add fields: jobTitles, personalProblems when update profile from web

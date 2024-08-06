@@ -57,7 +57,7 @@ def build_bizfly_payload(source, detail, context):
         'name': detail['name'],
         'gender': detail['gender'],
         "address": detail['address'],
-        "birthday":detail['birthday'],
+        "ngaysinh":detail['birthday'], 
         "tongMuaHang": detail['totalTransactionvalue'],
         "cdp_dataLabels": dataLabels,
         "dataLabels": detail['cdp_dataLabels'],

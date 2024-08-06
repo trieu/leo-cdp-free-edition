@@ -189,7 +189,10 @@
 								   </div>
                                </li>
                                
-                               
+                               <li>
+	                                <label for="profile_primaryNationality"> <i class="fa fa-fw fa-map-marker"></i>  Nationality </label> 
+	                                <input id="profile_primaryNationality" class="form-control" type="text" placeholder="Primary Nationality" data-field="primaryNationality" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                           </li>
 				               
                            </ol>
                        </td>
@@ -379,45 +382,59 @@
 							<li class="personal_info" >
                                   	<label for="profile_permanentLocation" > <i class="fa fa-fw fa-map-marker"></i> Permanent Location Address </label>
                                   	<input id="profile_permanentLocation" class="form-control" type="text" placeholder="Permanent Location Address" data-field="permanentLocation" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
-                               </li>
+                            </li>
 							<li class="personal_info" >
                                   	<label for="profile_livingLocation" > <i class="fa fa-fw fa-map-marker"></i> Living Location Address </label>
                                   	<input id="profile_livingLocation" class="form-control" type="text" placeholder="Living Location Address" data-field="livingLocation" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
-                               </li>
+                            </li>
+                            <hr>
+                            
+							<li>
+                                <label for="profile_currentZipCode" > <i class="fa fa-fw fa-map-marker"></i> ZipCode of Living Location  </label> 
+                                <input id="profile_currentZipCode" class="form-control" type="text" placeholder="Current Location Zip Code" data-field="currentZipCode" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+                            </li>
                             <li class="personal_info" > 
                                   	<label for="profile_locationCode" > <i class="fa fa-fw fa-map-marker"></i> Living Location Code 
                                   		(<a id="locationCodeSearch" class="small_highlight_text" href="https://www.google.com/maps/?q=" target="_blank">Search the location code</a>)
                                   	</label>
                                   	<input id="profile_locationCode" class="form-control" type="text" placeholder="Living Location Code" data-field="locationCode" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off">
                             </li>
+                            
+                            <hr>
+                            
                             <li>
-                                <label for="profile_currentZipCode" > <i class="fa fa-fw fa-map-marker"></i> Current Location Zip Code </label> 
-                                <input id="profile_currentZipCode" class="form-control" type="text" placeholder="Current Location Zip Code" data-field="currentZipCode" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
-                            </li>	
-							<li>
-                                <label for="profile_primaryNationality"> <i class="fa fa-fw fa-map-marker"></i> Primary Nationality </label> 
-                                <input id="profile_primaryNationality" class="form-control" type="text" placeholder="Primary Nationality" data-field="primaryNationality" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
-                            </li>
-                            <li>
-                                <label for="profile_livingCity" > <i class="fa fa-fw fa-map-marker"></i> Current Living City </label> 
-                                <input id="profile_livingCity" class="form-control" type="text" placeholder="Current Living City" data-field="livingCity" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
-                            </li>
-                            <li>
-                                <label for="profile_livingProvince" > <i class="fa fa-fw fa-map-marker"></i> Current Living Province </label> 
-                                <input id="profile_livingProvince" class="form-control" type="text" placeholder="Current Living Province" data-field="livingProvince" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
-                            </li>
-                            <li>
-                                <label for="profile_livingCounty" > <i class="fa fa-fw fa-map-marker"></i> Current Living County </label> 
-                                <input id="profile_livingCounty" class="form-control" type="text" placeholder="Current Living County" data-field="livingCounty" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+                                <label for="profile_livingCountry" > <i class="fa fa-fw fa-map-marker"></i> Current Living Country </label> 
+                                <input id="profile_livingCountry" class="form-control" type="text" placeholder="Current Living Country" data-field="livingCountry" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
                             </li>
                             <li>
                                 <label for="profile_livingState" > <i class="fa fa-fw fa-map-marker"></i> Current Living State </label> 
                                 <input id="profile_livingState" class="form-control" type="text" placeholder="Current Living State" data-field="livingState" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
                             </li>
                             <li>
-                                <label for="profile_livingCountry" > <i class="fa fa-fw fa-map-marker"></i> Current Living Country </label> 
-                                <input id="profile_livingCountry" class="form-control" type="text" placeholder="Current Living Country" data-field="livingCountry" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
-                            </li>				
+                                <label for="profile_livingCounty" > <i class="fa fa-fw fa-map-marker"></i> Current Living County </label> 
+                                <input id="profile_livingCounty" class="form-control" type="text" placeholder="Current Living County" data-field="livingCounty" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+                            </li>
+                             <li>
+                                <label for="profile_livingProvince" > <i class="fa fa-fw fa-map-marker"></i> Current Living Province </label> 
+                                <input id="profile_livingProvince" class="form-control" type="text" placeholder="Current Living Province" data-field="livingProvince" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+                            </li>
+                            <hr>
+                              
+                            <li>
+                                <label for="profile_livingCity" > <i class="fa fa-fw fa-map-marker"></i> Current Living City </label> 
+                                <input id="profile_livingCity" class="form-control" type="text" placeholder="Current Living City" data-field="livingCity" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+                            </li>
+                            <li>
+                                <label for="profile_livingDistrict" > <i class="fa fa-fw fa-map-marker"></i> Current Living District </label> 
+                                <input id="profile_livingDistrict" class="form-control" type="text" placeholder="Current Living District" data-field="livingDistrict" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+                            </li>
+                             <li>
+                                <label for="profile_livingWard" > <i class="fa fa-fw fa-map-marker"></i> Current Living Ward </label> 
+                                <input id="profile_livingWard" class="form-control" type="text" placeholder="Current Living Ward" data-field="livingWard" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+                            </li>
+                            
+                            
+                            				
 						</ol>
 					</td>
 				</tr>

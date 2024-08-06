@@ -46,11 +46,11 @@
 	},
 	{
 		"index" : 4,
-		"id": "leo_recommender",
+		"id": "cdp_recommender",
 		"name": "Recommendation Service for Personalization",
 		"description": "The Personalization Engine to suggest most personalized information directly to your customers",
 		"configs": {
-			"service_api_url":"http://0.0.0.0:8080/api/v1/dags/leo_recommender/dagRuns",
+			"service_api_url":"http://0.0.0.0:8080/api/v1/dags/cdp_recommender/dagRuns",
 			"airflow_authorization_username": "",
 			"airflow_authorization_password": "",
 			"service_max_item_for_profile": 50,
@@ -60,22 +60,22 @@
 	
 	{
 		"index" : 5,
-		"id": "leo_classification",
+		"id": "cdp_classification",
 		"name": "Profile Data Classification",
 		"description": "To set-up the ongoing process of synchronizing data from CDP to digital marketing platforms",
 		"configs": {
-			"service_api_url":"http://0.0.0.0:8080/api/v1/dags/leo_classification/dagRuns",
+			"service_api_url":"http://0.0.0.0:8080/api/v1/dags/cdp_classification/dagRuns",
 			"airflow_authorization_username": "",
 			"airflow_authorization_password": ""
 		}
 	},
 	{
 		"index" : 6,
-		"id": "leo_prediction",
+		"id": "cdp_prediction",
 		"name": "Profile Score Prediction",
 		"description": "To predict Customer Acquisition Cost (CAC), Customer Lifetime Value (CLV) and Credit Score from behavioral data",
 		"configs": {
-			"service_api_url":"http://0.0.0.0:8080/api/v1/dags/leo_prediction/dagRuns",
+			"service_api_url":"http://0.0.0.0:8080/api/v1/dags/cdp_prediction/dagRuns",
 			"airflow_authorization_username": "",
 			"airflow_authorization_password": ""
 		}
