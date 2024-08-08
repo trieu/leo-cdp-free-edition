@@ -82,6 +82,7 @@
 
 ### Fixed
 
+- [Profile Import] fix bugs when upload CSV file and improve import data from CSV
 - [Segment] query profile with birthday is now
 - [Segment] fix load profiles in segment using API with correct pagination
 - [Profile] fix delete in database for removed profiles, delete profiles in segment
