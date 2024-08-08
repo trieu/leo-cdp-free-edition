@@ -99,14 +99,16 @@
 	
 		<!--  Tab Navigation Items -->
 	    <ul class="nav nav-tabs" data-tab-content="segment_info_tabs" >
-			<li class="active" >
-				<a href="javascript:" data-target-tab="panel_segment_reports" title="Data Reports of Segment" > <i class="fa fa-line-chart" aria-hidden="true"></i> Reports </a>
+	    	<li class="active" >
+				<a href="javascript:" data-target-tab="panel_segment_matched_profiles" title="Matched Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Matched Profiles</a>
+	       	</li>
+			<li >
+				<a href="javascript:loadSegmentEventReport()" data-target-tab="panel_segment_reports" title="Reports of Segment" > 
+					<i class="fa fa-line-chart" aria-hidden="true"></i> Reports 
+				</a>
 	       	</li>
 	       	<li>
 				<a href="javascript:" data-target-tab="panel_segment_query_details" title="Data Query Rules" > <i class="fa fa-filter" aria-hidden="true"></i> Query Rules </a>
-	       	</li>
-	       	<li >
-				<a href="javascript:" data-target-tab="panel_segment_matched_profiles" title="Matched Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Matched Profiles</a>
 	       	</li>
 	       	<li>
 				<a href="javascript:" data-target-tab="panel_segment_data_exporting" title="Data Exporting" > <i class="fa fa-upload" aria-hidden="true"></i> Data Exporting </a>
@@ -131,8 +133,49 @@
 	  	<!-- Tab Contents  -->
 	    <div id="segment_info_tabs" class="tab-content" style="min-height: 750px;"  >
 	    	
-	    	<!-- tab 1 Event Report with Profiles  -->
-			<div class="tab-pane active" id="panel_segment_reports" >
+	    	<!-- tab 1 Matched Profiles  -->
+			<div class="tab-pane active" id="panel_segment_matched_profiles" >
+				<div class="form-group highlight_box" >
+		     		<div class="col-lg-3">
+		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Segment Profile Count  </label>
+		     		</div>
+		     		<div class="col-lg-9">
+		     			<b class="segment_size highlight_text" >0</b>
+		     		</div>
+				</div>
+				<div class="panel panel-leoadmin" id="profile-list-panel"  >
+					<div class="panel-heading">
+						<div class="row"> 
+							<div class="col-lg-12">
+			                      <b> <i class="fa fa-list-ul" aria-hidden="true"></i> <label> All Matched Profiles </label> </b>                     
+			                </div>
+		                </div> 
+					</div>
+					<div class="panel-body row">
+						<div class="table-responsive" id="profilelist_holder" style="display: none;">
+						 	<table id="profile_list_querybuilder" class="display" style="width:100%;">
+						    	<thead>
+						        	<tr>
+							            <th >Full Name</th>					            
+							            <th class="text-center">Profile Type</th>
+							            <th >Gender</th>
+							            <th class="text-center">Email</th>
+							            <th class="text-center">Phone</th>
+							            <th >Last-seen Touchpoint</th>
+							            <th class="text-center">Data Quality</th>
+							            <th class="text-center">Lead Score</th>
+							            <th class="text-center">CLV Score</th>
+							            <th class="text-center">Last Updated at</th>
+						        	</tr>
+						    	</thead>
+						 	</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+	    	<!-- tab 2 Event Report with Profiles  -->
+			<div class="tab-pane " id="panel_segment_reports" >
 				<div class="panel panel-leoadmin">
 					<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> 
 						 Event Data Report: <span id="eventDataFromDate" >  </span> 
@@ -172,11 +215,11 @@
 						<div class="col-lg-3 text-center">
 							<div id="segment_size_chart" style="max-width: 300px; margin: 70px auto; "></div>
 						</div>
-					</div>
+					</div> 
 				</div>
 			</div>
 			
-			<!-- tab 2 Data Query  -->
+			<!-- tab 3 Data Query  -->
 			<div class="tab-pane" id="panel_segment_query_details" >
 				<div class="form-group highlight_box" >
 		     		<div class="col-lg-3">
@@ -197,46 +240,6 @@
 				</div>
 			</div>
 			
-			<!-- tab 3 Matched Profiles  -->
-			<div class="tab-pane" id="panel_segment_matched_profiles" >
-				<div class="form-group highlight_box" >
-		     		<div class="col-lg-3">
-		     			<label class="label_box"  > <i class="fa fa-info-circle" aria-hidden="true"></i> Segment Profile Count  </label>
-		     		</div>
-		     		<div class="col-lg-9">
-		     			<b class="segment_size highlight_text" >0</b>
-		     		</div>
-				</div>
-				<div class="panel panel-leoadmin" id="profile-list-panel"  >
-					<div class="panel-heading">
-						<div class="row"> 
-							<div class="col-lg-12">
-			                      <b> <i class="fa fa-list-ul" aria-hidden="true"></i> <label> All Matched Profiles </label> </b>                     
-			                </div>
-		                </div> 
-					</div>
-					<div class="panel-body row">
-						<div class="table-responsive" id="profilelist_holder" style="display: none;">
-						 	<table id="profile_list_querybuilder" class="display" style="width:100%;">
-						    	<thead>
-						        	<tr>
-							            <th >Full Name</th>					            
-							            <th class="text-center">Profile Type</th>
-							            <th >Gender</th>
-							            <th class="text-center">Email</th>
-							            <th class="text-center">Phone</th>
-							            <th >Last-seen Touchpoint</th>
-							            <th class="text-center">Data Quality</th>
-							            <th class="text-center">Lead Score</th>
-							            <th class="text-center">CLV Score</th>
-							            <th class="text-center">Last Updated at</th>
-						        	</tr>
-						    	</thead>
-						 	</table>
-						</div>
-					</div>
-				</div>
-			</div>
 			
 			<!-- tab 4 Data Exporting  -->
 			<div class="tab-pane" id="panel_segment_data_exporting" >
