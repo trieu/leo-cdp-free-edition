@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-08-06
+## [0.9.0] - 2024-08-12
 
 ### Added
 
@@ -82,6 +82,7 @@
 
 ### Fixed
 
+- [Event Import] fix bugs when import from CSV file
 - [Profile Import] fix bugs when upload CSV file and improve import data from CSV
 - [Segment] query profile with birthday is now
 - [Segment] fix load profiles in segment using API with correct pagination
