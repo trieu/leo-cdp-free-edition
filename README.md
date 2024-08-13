@@ -22,7 +22,7 @@ The philosophy of Dataism => USPA as Big Data framework => LEO CDP framework
 
 # LEO CDP framework data flow
 
-[![LEO CDP framework Data Flow](https://raw.githubusercontent.com/trieu/leo-cdp/master/core-leo-cdp/leo-cdp-how-it-works.png)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)	
+[![LEO CDP framework Data Flow](leo-cdp-how-it-works.png)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)	
 
 # Why is LEO CDP framework ?
 
@@ -48,7 +48,7 @@ The philosophy of Dataism => USPA as Big Data framework => LEO CDP framework
 # Technology Architecture
 
 ## System Overview
-![alt technology-architecture-leo-cdp](https://raw.githubusercontent.com/trieu/leo-cdp/master/core-leo-cdp/leo-cdp-version-1.0.png)
+![alt technology-architecture-leo-cdp](leo-cdp-version-1.0.png)
 
 * https://docs.google.com/document/d/15tqxA9uMOi5uyIIAr4bq_sZpBWEkGWw17e3fVNap9Uw/edit?usp=sharing
 
