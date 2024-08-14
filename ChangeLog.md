@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-08-13
+## [0.9.0] - 2024-08-14
 
 ### Added
 
@@ -137,6 +137,7 @@
 
 ### Changed
 
+- [Event API] save eventdata as JSON object, not string
 - [Segment] use realtimeQuery = true when load profiles in segment details
 - [Profile] improve address, location and display data of profile 
 - [Segment API] expose more fields of profile when call /api/segment/profiles
