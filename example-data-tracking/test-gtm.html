@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup Example</title>
+    <style>
+        /* Thêm một số CSS để căn giữa nút */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TC95QWJR');</script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TC95QWJR" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Hai nút bấm -->
+    <button id="button1">Button 1</button>
+    <button id="button2">Button 2</button>
+
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            "siteName": "The name of ecommerce website",
+            "entityCreated": "1581657801",
+            "entityLangcode": "en",
+            "entityStatus": "1",
+            "entityUid": "1",
+            "entityUuid": "6ddd407b-e12a-4a40-b9bf-e834dd052e3d",
+            "entityBundle": "commerce_product", // default value for product item tracking
+            "entityTitle": "High-tech Publication - Software Sector", // product name
+            "entityQuantity": 1, // default number item in shopping cart
+            "userUid": "372",
+            "firstName": "Trieu", // if no login, set empty string
+            "lastName": "Nguyen", // if no login, set empty string
+            "email": "trieu@leocdp.com", // if no login, set empty string
+            "phone": "+840903"
+        }); 
+    </script>
+</body>
+
+</html>

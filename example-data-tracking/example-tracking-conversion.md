@@ -20,7 +20,7 @@ var eventName = "add-to-cart";
 
 var transactionId = "";
 var eventData = { "productIds": productId, "idType": idType };
-var shoppingItems = [{ "itemtId": productId, "idType": idType, quantity: quantity }];
+var shoppingItems = [{ "itemId": productId, "idType": idType, quantity: quantity }];
 
 LeoObserverProxy.recordConversionEvent(eventName, eventData,transactionId, shoppingItems,0, currency);
 ```
@@ -36,7 +36,7 @@ var eventName = "order-checkout";
 
 var transactionId = "";
 var eventData = { "productIds": productId, "idType": idType };
-var shoppingItems = [{ "itemtId": productId, "idType": idType, quantity: quantity }];
+var shoppingItems = [{ "itemId": productId, "idType": idType, quantity: quantity }];
 
 LeoObserverProxy.recordConversionEvent(eventName, eventData,transactionId, shoppingItems,0, currency);
 ```
@@ -53,7 +53,7 @@ var eventName = "purchase";
 
 var transactionId = "order-1234";
 var eventData = { "productIds": productId, "idType": idType };
-var shoppingItems = [{ "itemtId": productId, "idType": idType, quantity: quantity }];
+var shoppingItems = [{ "itemId": productId, "idType": idType, quantity: quantity }];
 
 LeoObserverProxy.recordConversionEvent(eventName, eventData,transactionId, shoppingItems,0, currency);
 ```

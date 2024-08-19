@@ -12,12 +12,10 @@
             text-align: center;
             font-family: arial;
         }
-
         .price {
             color: grey;
             font-size: 22px;
         }
-
         .card button {
             border: none;
             outline: 0;
@@ -29,22 +27,15 @@
             width: 100%;
             font-size: 18px;
         }
-
         .card button:hover {
             opacity: 0.7;
         }
     </style>
 
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-5FFCFND');</script>
-    <!-- End Google Tag Manager -->
 </head>
 
 <body>
+    <h1 id="user-info"></h1>
 
     <div class="card">
         <img src="https://images-na.ssl-images-amazon.com/images/I/41gUgegbS3L._SX336_BO1,204,203,200_.jpg"
@@ -56,53 +47,36 @@
         <p><button id="btn-purchase" onclick="processPurchasing(this)" style="display: none;">Purchase</button></p>
     </div>
 
-    <script id="leoFeedbackForm_munIcNzze8YqHQveKisr3" >
-        (function() {
-                //  Feedback/Survey Form Collector for [Rating] Customer Feedback Score (CFS) by Star Rating
-                var svf = document.title;
-                var tprefurl = location.href;
-                var tplFeedbackType = "RATING";
-                var cb = Math.floor(Math.random() * 100000);
-                
-                var url  = 'https://demotrack.leocdp.net/webform?tplid=munIcNzze8YqHQveKisr3';
-                url = url + "&tplfbt=" + tplFeedbackType;
-                url = url + "&tpname=" + document.title;
-                url = url + "&tpurl=" + location.href;
-                url = url + "&cb=" + cb;
-                
-                // container
-                var divWrapper = document.createElement("div"); 
-                var cssDiv = "position: relative; width:100%; overflow: hidden;  height: 100px ";
-                divWrapper.setAttribute("style",cssDiv);
-                
-                // iframe 
-                var iframe = document.createElement("iframe"); 
-                var cssIframe = "position: absolute; top:0; left:0; bottom:0; right:0; width:100%; border: none; overflow: hidden; height: 100px ";
-                iframe.setAttribute("style",cssIframe);
-                iframe.setAttribute("src",url);
-                divWrapper.appendChild(iframe);
-                
-                var referenceNode = document.getElementById("leoFeedbackForm_munIcNzze8YqHQveKisr3");
-                referenceNode.parentNode.insertBefore(divWrapper, referenceNode.nextSibling);
-            })();
-        </script>
-
     <!-- Data Model for LEO Observer JS -->
     <script>
-        // to synch product data into Leo CDP using JavaScript
-        var leoCdpTrackedProducts = leoCdpTrackedProducts || [];
-        leoCdpTrackedProducts.push({
+        // to synch user data into Leo CDP using JavaScript
+        var userInfo = {};
+        userInfo["loginId"] = "123";
+        userInfo["loginProvider"] = "facebook";
+        userInfo["email"] = "trieu@leocdp.com";
+        userInfo["firstName"] = "Trieu";
+        userInfo["lastName"] = "Nguyen";
+
+        // to synch product data into CDP using JavaScript
+        var productInfo = {
             name: "Customer Data Platforms",
-            itemtId: "978-1119790112",
+            description:"the book about Customer Data Platform (CDP) for beginners",
+            itemId: "978-1119790112",
             idType: "ISBN-13",
+            productCode: "",
             originalPrice: 25,
             salePrice: 25,
             quantity: 1,
             currency: "USD",
-            supplierId: "",
-            couponCode: "",
+            storeId: "",
+            source:"amazon",
+            imageUrl:"https://images-na.ssl-images-amazon.com/images/I/41gUgegbS3L._SX336_BO1,204,203,200_.jpg",
             fullUrl: "https://www.amazon.com/Customer-Data-Platforms-Transform-Engagement/dp/1119790115/"
-        });
+        }
+
+        // the shopping cart items
+        var shoppingCartItems = shoppingCartItems || [];
+       
     </script>
 
     <script>
@@ -111,6 +85,9 @@
             alert('The add-to-cart event is tracked!');
             $(node).hide();
             $('#btn-purchase').show().css("background-color", "blue");
+
+            shoppingCartItems.push(productInfo);
+            LeoObserver.recordEventAddToCart(productInfo)
         }
         //
         function processPurchasing(node) {
@@ -119,6 +96,187 @@
 
             //set a global transaction ID for Google Tag Manager can fire purchase event with a transaction info
             window.transactionId = "transaction_demo_" + new Date().getTime();
+            LeoObserver.recordEventPurchase([], shoppingCartItems, window.transactionId, 25, "USD");
+        }
+    </script>
+
+    <script>
+        // (1) CDP EVENT OBSERVER: load JavaScript code for [video.example.com]
+        (function () {
+            // Observer ID
+            window.leoObserverId = "7gMWEg2kzbEV7xNuiGQD0q";
+
+            // CDN of JS
+            window.leoObserverLogDomain = "datahub4dcdp.bigdatavietnam.org";
+            window.leoObserverCdnDomain = "static.leocdp.com";
+
+            // Data Touchpoint Metadata 
+            window.srcTouchpointName = encodeURIComponent(document.title);
+            window.srcTouchpointUrl = encodeURIComponent(location.href);
+
+            // the main proxy CDP JS
+            var leoproxyJsPath = '/js/leo-observer/leo.proxy.min.js';
+            var src = location.protocol + '//' + window.leoObserverCdnDomain + leoproxyJsPath;
+            var jsNode = document.createElement('script');
+            jsNode.async = true; jsNode.defer = true; jsNode.src = src;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jsNode, s);
+        })();
+
+        var parseDataUTM = window.parseDataUTM || function () {
+            if (location.search.indexOf('utm_') > 0) {
+                var search = location.search.substring(1);
+                var json = decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"');
+                return JSON.parse('{"' + json + '"}');
+            }
+        }
+
+        // (2) CDP EVENT OBSERVER: set-up all event tracking functions
+        var LeoObserver = {};
+
+        // (2.1) function to track View Event "PageView"
+        LeoObserver.recordEventPageView = function (eventData) {
+            eventData = eventData ? eventData : {};
+            LeoObserverProxy.recordViewEvent("page-view", eventData);
+        }
+
+        // (2.2) function to track View Event "AcceptTracking"
+        LeoObserver.recordEventAcceptTracking = function (eventData) {
+            eventData = eventData ? eventData : {};
+            LeoObserverProxy.recordViewEvent("accept-tracking", eventData);
+        }
+
+        // (2.3) function to track View Event "Like"
+        LeoObserver.recordEventLike = function (eventData) {
+            eventData = eventData ? eventData : {};
+            LeoObserverProxy.recordViewEvent("like", eventData);
+        }
+
+        // (2.4) function to track Action Event "Search"
+        LeoObserver.recordEventSearch = function (eventData) {
+            eventData = eventData ? eventData : {};
+            LeoObserverProxy.recordActionEvent("search", eventData);
+        }
+
+        // (2.5) function to track View Event "ItemView"
+        LeoObserver.recordEventItemView = function (eventData) {
+            eventData = eventData ? eventData : {};
+            LeoObserverProxy.recordViewEvent("item-view", eventData);
+        }
+
+        // (2.6) function to track Action Event "ClickDetails"
+        LeoObserver.recordEventClickDetails = function (eventData) {
+            eventData = eventData ? eventData : {};
+            LeoObserverProxy.recordActionEvent("click-details", eventData);
+        }
+
+        // (2.7) function to track Action Event "PlayVideo"
+        LeoObserver.recordEventPlayVideo = function (eventData) {
+            eventData = eventData ? eventData : {};
+            LeoObserverProxy.recordActionEvent("play-video", eventData);
+        }
+
+        // (2.8) function to track View Event "SubmitContact"
+        LeoObserver.recordEventSubmitContact = function (eventData) {
+            eventData = eventData ? eventData : {};
+            LeoObserverProxy.recordViewEvent("submit-contact", eventData);
+        }
+
+        // (2.9) function to track Action Event "RegisterAccount"
+        LeoObserver.recordEventRegisterAccount = function (eventData) {
+            eventData = eventData ? eventData : {};
+            LeoObserverProxy.recordActionEvent("register-account", eventData);
+        }
+
+        // (2.10) function to track Action Event "UserLogin"
+        LeoObserver.recordEventUserLogin = function (eventData) {
+            eventData = eventData ? eventData : {};
+            LeoObserverProxy.recordActionEvent("user-login", eventData);
+        }
+
+        // (2.11) function to track Action Event "AskQuestion"
+        LeoObserver.recordEventAskQuestion = function (eventData) {
+            eventData = eventData ? eventData : {};
+            LeoObserverProxy.recordActionEvent("ask-question", eventData);
+        }
+
+        // (2.12) function to track Action Event "AddToCart"
+        LeoObserver.recordEventAddToCart = function (eventData) {
+            eventData = eventData ? eventData : {};
+            LeoObserverProxy.recordActionEvent("add-to-cart", eventData);
+        }
+
+        // (2.13) function to track Conversion Event "OrderCheckout"
+        LeoObserver.recordEventOrderCheckout = function (eventData, shoppingCartItems, transactionId, transactionValue, currencyCode) {
+            // need 5 params
+            eventData = typeof eventData === "object" ? eventData : {};
+            shoppingCartItems = typeof shoppingCartItems === "object" ? shoppingCartItems : [];
+            transactionId = typeof transactionId === "string" ? transactionId : "";
+            transactionValue = typeof transactionValue === "number" ? transactionValue : 0;
+            currencyCode = typeof currencyCode === "string" ? currencyCode : "USD";
+            LeoObserverProxy.recordConversionEvent("order-checkout", eventData, transactionId, shoppingCartItems, transactionValue, currencyCode);
+        }
+
+        // (2.14) function to track Conversion Event "Purchase"
+        LeoObserver.recordEventPurchase = function (eventData, shoppingCartItems, transactionId, transactionValue, currencyCode) {
+            // need 5 params
+            eventData = typeof eventData === "object" ? eventData : {};
+            shoppingCartItems = typeof shoppingCartItems === "object" ? shoppingCartItems : [];
+            transactionId = typeof transactionId === "string" ? transactionId : "";
+            transactionValue = typeof transactionValue === "number" ? transactionValue : 0;
+            currencyCode = typeof currencyCode === "string" ? currencyCode : "USD";
+            LeoObserverProxy.recordConversionEvent("purchase", eventData, transactionId, shoppingCartItems, transactionValue, currencyCode);
+        }
+
+
+        // (3) CDP EVENT OBSERVER is ready
+        function leoObserverProxyReady(session) {
+            // auto tracking when CDP JS is ready
+            LeoObserver.recordEventPageView(parseDataUTM());
+            LeoObserver.recordEventUserLogin(userInfo);
+            $('#user-info').text("recordEventUserLogin for email: "+userInfo['email'])
+
+            // set tracking CDP web visitor ID into all a[href] nodes
+            LeoObserverProxy.synchLeoVisitorId(function (vid) {
+                var aNodes = document.querySelectorAll('a');
+                [].forEach.call(aNodes, function (aNode) {
+                    var hrefUrl = aNode.href || "";
+                    var check = hrefUrl.indexOf('http') >= 0 && hrefUrl.indexOf(location.host) < 0;
+                    if (check) {
+                        if (hrefUrl.indexOf('?') > 0) hrefUrl += ("&leosyn=" + vid);
+                        else hrefUrl += ("?leosyn=" + vid);
+                        aNode.href = hrefUrl;
+                    }
+                });
+                if (typeof window.synchLeoCdpToGA4 === "function") {
+                    window.synchLeoCdpToGA4(vid)
+                }
+            });
+        }
+
+        // track users when they click any link in the web-page
+        LeoObserver.addTrackingAllLinks = function () {
+            setTimeout(function () {
+                document.querySelectorAll('a').forEach(function (e) {
+                    e.addEventListener('click', function () {
+                        var url = e.getAttribute('href') || "";
+                        var data = { 'url': url, 'link-text': e.innerText };
+                        LeoObserver.recordEventClickDetails(data)
+                    })
+                })
+            }, 1500);
+        }
+
+        // track users when they click any button in the web-page
+        LeoObserver.addTrackingAllButtons = function () {
+            setTimeout(function () {
+                document.querySelectorAll('button').forEach(function (e) {
+                    e.addEventListener('click', function () {
+                        var data = { 'button-text': e.innerText };
+                        LeoObserver.recordEventClickDetails(data)
+                    })
+                })
+            }, 1600);
         }
     </script>
 </body>

@@ -206,7 +206,7 @@ window.dataLayer.push({
           var quantity = 1;
           var currency = "VND";
           var eventName = "add-to-cart";
-          var productItem = { "itemtId": productId, "idType": idType, quantity: quantity };
+          var productItem = { "itemId": productId, "idType": idType, quantity: quantity };
           
           var eventData = { "productIds": productId, "idType": idType };
           eventData["primaryPhone"] = phone;
@@ -258,7 +258,7 @@ window.dataLayer.push({
           var quantity = 1;
           var currency = "VND";
           var eventName = "order-checkout";
-          var productItem = { "itemtId": productId, "idType": idType, quantity: quantity };
+          var productItem = { "itemId": productId, "idType": idType, quantity: quantity };
           
           var eventData = { "productIds": productId, "idType": idType };
           eventData["primaryPhone"] = phone;
@@ -304,7 +304,7 @@ location.href.indexOf("/checkout/") > 0 && location.href.indexOf("/order_informa
           var quantity = 1;
           var currency = "VND";
           var eventName = "purchase";
-          var productItem = { "itemtId": productId, "idType": idType, quantity: quantity };
+          var productItem = { "itemId": productId, "idType": idType, quantity: quantity };
           
           var eventData = { "productIds": productId, "idType": idType };
           eventData["primaryPhone"] = phone;
