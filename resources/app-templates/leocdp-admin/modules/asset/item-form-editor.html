@@ -1,0 +1,90 @@
+<div class="container-fluid" id="web_form_editor">
+
+    <!-- MAIN BODY here -->
+     <div class="row">
+        <div class="col-lg-10">
+	         <h5 class="page-header" id="page_breadcrumb" > </h5>
+        </div>
+       	<div class="col-lg-2 text-right">
+            
+	        <button type="button" class="btn btn-danger data-control-delete" id="btn_delete_page" style="display: none;" >
+	            <i class="fa fa-trash" aria-hidden="true"></i> Delete
+	        </button>
+	        
+	        <button type="button" class="btn btn-primary data-control-edit" id="btn_edit_page" style="display: none;"  > 
+	       		<i class="fa fa-fw fa-pencil-square-o"></i> Edit 
+	       	</button>
+           
+        </div>
+    </div>
+    
+    <!-- MAIN BODY here -->
+    <div class="row">
+        <div class="col-lg-9">
+
+            <fieldset>
+
+                <div class="form-group">
+                    <label> Web Form Name </label>
+                    <input id="asset_item_title" type="text" class="form-control" placeholder="Enter title" name="title" autocomplete="off">
+                </div>
+               
+
+                <div class="form-group">
+                    <label> Description </label>
+                    <div id="description_div" style="display: block;">
+                        <textarea class="form-control" rows="2" placeholder="Enter description" name="description"></textarea>
+                    </div>
+                    <hr>
+                </div>
+               
+               
+               
+            </fieldset>
+
+        </div>
+        <div class="col-lg-3">
+            <div id="error-on-save" class="alert alert-danger" style="display: none;"></div>
+            <div class="action-div row-centered ">
+                <button type="button" class="btn btn-info" onclick="history.back()">
+                	<i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                	Back
+                </button>
+                <button type="button" class="btn btn-danger" onclick="LeoCdpAdmin.navFunctions.deleteItemAsset(itemData)">
+                	<i class="fa fa-trash" aria-hidden="true"></i> Delete
+                </button>
+                <button type="button" class="btn btn-goto-router data-control-edit" onclick="postEditorSave()"  > 
+	        		<i class="fa fa-fw fa-check-square-o"></i> Save 
+	        	</button>  
+            </div>
+            
+            <div class="action-div">
+                <label>Access Privacy</label>
+                <div class="radio">
+                    <label><input type="radio" name="privacyStatus" value="0">Public for everyone</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="privacyStatus" value="1">Protected (for logged users)</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="privacyStatus" value="-1">Private</label>
+                </div>
+            </div>
+            <hr>
+            <div class="action-div">
+                <label>Content Keywords</label>
+                <input id="postKeywords" name="keywords" type="text" class="tags" value="" />
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var itemId = "";
+    var groupId = "";
+    var categoryId = "";
+  
+
+</script>

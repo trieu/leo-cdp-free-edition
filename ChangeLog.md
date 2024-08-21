@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-08-14
+## [0.9.0] - 2024-08-21
 
 ### Added
 
@@ -82,6 +82,7 @@
 
 ### Fixed
 
+- [Profile API] fix bugs save applicationIDs
 - [Event Import] fix bugs when import from CSV file
 - [Profile Import] fix bugs when upload CSV file and improve import data from CSV
 - [Segment] query profile with birthday is now
