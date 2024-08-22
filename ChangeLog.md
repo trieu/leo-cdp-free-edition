@@ -35,6 +35,7 @@
 
 ### Added
 
+- [Core CDP] do vectorization and improve search indexing: identities, dataLabels, inSegments, inCampaigns, inAccounts, inJourneyMaps
 - [Core profile] setDataLabels from web event, validates the length of the given input
 - [Activation] add manually activation in segment, fix bugs
 - [Activation] run activation jobs using Apache Airflow as default engine
@@ -83,6 +84,7 @@
 
 ### Fixed
 
+- [Profile UI] hide duplicated profile tab if profile is not active (status!= 1)
 - [Profile API] fix bugs save applicationIDs
 - [Event Import] fix bugs when import from CSV file
 - [Profile Import] fix bugs when upload CSV file and improve import data from CSV

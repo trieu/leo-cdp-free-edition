@@ -107,7 +107,7 @@
        <!--  Main Tabs of Profile Info -->
        <ul id="profile_info_tabs" class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" style="margin-top:20px" >
          <li class="active" onclick="handleProfileTabBehavioralInfo()">
-          	<a href="javascript:" data-target-tab="panel_behavioral_Data" title="Customer Behavioral Data"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Customer Behaviors </a>
+          	<a href="javascript:" data-target-tab="panel_behavioral_Data" title="Customer Behavioral Data"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Behavioral Data </a>
          </li>
          
          <li onclick="handleProfileTabExtInfo()" >
@@ -126,8 +126,6 @@
          	<a href="javascript: loadRecommendedProductsOfProfile(viewProfileId, true)" data-target-tab="panel_recommended_products"  title="Recommended products for direct marketing" > <i class="fa fa-list-ol" aria-hidden="true"></i> Recommended Products </a>
          </li>
          
-         
-         
          <li data-industry="FINANCE" style="display: none"  onclick="loadFinancialEventList()" >
          	<a href="javascript:" data-target-tab="panel_financial_information"  > <i class="fa fa-usd" aria-hidden="true"></i> Financial Data </a>
          </li>
@@ -136,7 +134,7 @@
          	<a href="javascript:" data-target-tab="panel_insights"  > <i class="fa fa-briefcase" aria-hidden="true"></i> Data Insight </a>
          </li>
          
-         <li onclick="loadDuplicatedProfiles()" >
+         <li onclick="loadDuplicatedProfiles()" id="menu_duplicated_profiles" >
           	<a href="javascript:" data-target-tab="panel_duplicate_profiles" title="All duplicate profiles" > <i class="fa fa-list-ol" aria-hidden="true"></i> Duplicate Profiles </a>
          </li>
 	   </ul>
@@ -767,8 +765,6 @@
 		     		<div class="list-group-item" > No data available </div>
 				</div>
 			</div>
-			
-			
 			
 			<!-- tab 8 Profile Details -->
 			<div class="tab-pane" id="panel_profile_information" >
