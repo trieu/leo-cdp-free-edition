@@ -31,10 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-08-21
+## [0.9.0] - 2024-08-22
 
 ### Added
 
+- [Core profile] setDataLabels from web event, validates the length of the given input
 - [Activation] add manually activation in segment, fix bugs
 - [Activation] run activation jobs using Apache Airflow as default engine
 - [Admin] filter profiles by click text labels in profile info
