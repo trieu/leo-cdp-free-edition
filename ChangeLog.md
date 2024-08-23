@@ -31,10 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-08-22
+## [0.9.0] - 2024-08-23
 
 ### Added
 
+- [Product Catalog] in OrderedItem and ProductItem, add 3 fields: productCode, categoryId, categoryName
 - [Core CDP] do vectorization and improve search indexing: identities, dataLabels, inSegments, inCampaigns, inAccounts, inJourneyMaps
 - [Core profile] setDataLabels from web event, validates the length of the given input
 - [Activation] add manually activation in segment, fix bugs
@@ -141,6 +142,7 @@
 
 ### Changed
 
+- [OrderedItem API] use JSON object key in lower case. E.g: productcode, categoryname, originalprice
 - [Event API] save eventdata as JSON object, not string
 - [Segment] use realtimeQuery = true when load profiles in segment details
 - [Profile] improve address, location and display data of profile 
