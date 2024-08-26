@@ -31,10 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-08-23
+## [0.9.0] - 2024-08-26
 
 ### Added
 
+- [Core CDP] data segmentation for date type using operator compare month & day between
 - [Product Catalog] in OrderedItem and ProductItem, add 3 fields: productCode, categoryId, categoryName
 - [Core CDP] do vectorization and improve search indexing: identities, dataLabels, inSegments, inCampaigns, inAccounts, inJourneyMaps
 - [Core profile] setDataLabels from web event, validates the length of the given input
