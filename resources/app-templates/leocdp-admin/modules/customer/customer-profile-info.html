@@ -168,6 +168,7 @@
 		                	<li><a href="#panel_last_session_details" data-toggle="tab"> <i class="fa fa-hourglass-end" aria-hidden="true"></i> Last Session Data </a></li>
 		                	<li><a href="#panel_data_touchpoints" data-toggle="tab" onclick="loadProfileTopTouchpoints()" > <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Engaged Touchpoints </a></li>
 		                	<li><a href="#panel_profile_scoring_data" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Total Scoring Data</a></li>
+		                	<li><a href="#panel_profile_extMetrics" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Custom Scoring Data </a></li>
 		                    <li><a href="#panel_user_consent" data-toggle="tab"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Privacy Consent </a></li>
 		                    <li>
 					        	<a href="#panel_purchased_products" data-toggle="tab" onclick="loadPurchasedItemsOfProfile()" title="Show purchased products" >
@@ -468,61 +469,73 @@
 									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Total Scoring Data </h4> 
 								</div>
 						     	<table border=0 class="underlined" style="width: 100%; margin-top: 8px;">
-					                   <tr>
-					                       <td>
-					                           <ol id="profile_scoring" data-field="profile_scoring" >
-					                          	   <li>
-								                   		<b> <i class="fa fa-fw fa-line-chart"></i> Lead Score <a href="https://en.wikipedia.org/wiki/Lead_scoring" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-								                     	<p class="scoring_field" data-field="totalLeadScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-								                   </li>
-								                 
-								                   <li>
-								                        <b> <i class="fa fa-usd" aria-hidden="true"></i> CLV (Lifetime Value) <a href="https://cio-wiki.org/wiki/Customer_Lifetime_Value" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-								                        <p class="scoring_field_profit" data-field="totalCLV" data-fieldholder="html" data-fieldtype="int" > 0 </p>
-								                   </li>
-								                    
-								                   <li>
-								                        <b> <i class="fa fa-heartbeat" aria-hidden="true"></i> Loyalty Score <a href="https://en.wikipedia.org/wiki/Loyalty_program" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-								                        <p class="scoring_field_credit" data-field="totalLoyaltyScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-								                   </li> 
-								                    
-								                   <li>
-								                      	<b> <i class="fa fa-heartbeat fa-heartbeat" aria-hidden="true"></i> Engagement Score <a href="https://cio-wiki.org/wiki/Customer_Engagement" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-													    <p class="scoring_field" data-field="totalEngagementScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-								                   </li>         
-								                    
-								                   <li>
-								                    	<b> <i class="fa fa-usd" aria-hidden="true"></i> Total Transaction ({{currency_code}}) </b> 
-													    <p class="scoring_field_profit" data-field="totalTransactionValue" data-fieldholder="html"  data-fieldtype="int" > 0 </p> 
-								                   </li>
-					                           	   <li>
-								                       <b> <i class="fa fa-usd" aria-hidden="true"></i> Prospect Score <a href="https://en.wikipedia.org/wiki/Lead_scoring" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-								                       <p class="scoring_field" data-field="totalProspectScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-								                   </li>
-					                               <li>
-					                                   <b> <i class="fa fa-usd" aria-hidden="true"></i> CAC (Customer Acquisition Cost) in {{currency_code}} <a href="https://en.wikipedia.org/wiki/Customer_acquisition_cost" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-					                                   <p class="scoring_field_profit" data-field="totalCAC" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-					                               </li>
-					                               <li>
-					                                   <b> <i class="fa fa-heartbeat fa-line-chart" aria-hidden="true"></i> RFE Score (Recency, Frequency, Engagement) <a href="https://en.wikipedia.org/wiki/RFM_(market_research)" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-					                                   <p class="scoring_field" data-field="rfeScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-					                               </li>
-					                               <li>
-					                                   <b> <i class="fa fa-heartbeat fa-line-chart" aria-hidden="true"></i> RFM Score (Recency, Frequency, Monetary)<a href="https://en.wikipedia.org/wiki/RFM_(market_research)" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-					                                   <p class="scoring_field" data-field="rfmScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-					                               </li>
-					                               <li>
-					                                   <b> <i class="fa fa-heart" aria-hidden="true"></i> Financial Credit Score <a href="https://www.cgap.org/sites/default/files/publications/2019_07_Technical_Guide_CreditScore.pdf" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-													   <p class="scoring_field_credit" data-field="totalCreditScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-					                               </li>
-					                               <li>
-					                                   <b> <i class="fa fa-heart-o" aria-hidden="true"></i> Customer Churn Score <a href="https://cio-wiki.org/wiki/Customer_Churn" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
-					                                   <p class="scoring_field_credit" data-field="churnScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
-					                               </li>
-					                           </ol>
-					                       </td>
-					                   </tr>
+				                   <tr>
+				                       <td>
+				                           <ol id="profile_scoring" data-field="profile_scoring" >
+				                          	   <li>
+							                   		<b> <i class="fa fa-fw fa-line-chart"></i> Lead Score <a href="https://en.wikipedia.org/wiki/Lead_scoring" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+							                     	<p class="scoring_field" data-field="totalLeadScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+							                   </li>
+							                 
+							                   <li>
+							                        <b> <i class="fa fa-usd" aria-hidden="true"></i> CLV (Lifetime Value) <a href="https://cio-wiki.org/wiki/Customer_Lifetime_Value" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+							                        <p class="scoring_field_profit" data-field="totalCLV" data-fieldholder="html" data-fieldtype="int" > 0 </p>
+							                   </li>
+							                    
+							                   <li>
+							                        <b> <i class="fa fa-heartbeat" aria-hidden="true"></i> Loyalty Score <a href="https://en.wikipedia.org/wiki/Loyalty_program" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+							                        <p class="scoring_field_credit" data-field="totalLoyaltyScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+							                   </li> 
+							                    
+							                   <li>
+							                      	<b> <i class="fa fa-heartbeat fa-heartbeat" aria-hidden="true"></i> Engagement Score <a href="https://cio-wiki.org/wiki/Customer_Engagement" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+												    <p class="scoring_field" data-field="totalEngagementScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+							                   </li>         
+							                    
+							                   <li>
+							                    	<b> <i class="fa fa-usd" aria-hidden="true"></i> Total Transaction ({{currency_code}}) </b> 
+												    <p class="scoring_field_profit" data-field="totalTransactionValue" data-fieldholder="html"  data-fieldtype="int" > 0 </p> 
+							                   </li>
+				                           	   <li>
+							                       <b> <i class="fa fa-usd" aria-hidden="true"></i> Prospect Score <a href="https://en.wikipedia.org/wiki/Lead_scoring" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+							                       <p class="scoring_field" data-field="totalProspectScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+							                   </li>
+				                               <li>
+				                                   <b> <i class="fa fa-usd" aria-hidden="true"></i> CAC (Customer Acquisition Cost) in {{currency_code}} <a href="https://en.wikipedia.org/wiki/Customer_acquisition_cost" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+				                                   <p class="scoring_field_profit" data-field="totalCAC" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+				                               </li>
+				                               <li>
+				                                   <b> <i class="fa fa-heartbeat fa-line-chart" aria-hidden="true"></i> RFE Score (Recency, Frequency, Engagement) <a href="https://en.wikipedia.org/wiki/RFM_(market_research)" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+				                                   <p class="scoring_field" data-field="rfeScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+				                               </li>
+				                               <li>
+				                                   <b> <i class="fa fa-heartbeat fa-line-chart" aria-hidden="true"></i> RFM Score (Recency, Frequency, Monetary)<a href="https://en.wikipedia.org/wiki/RFM_(market_research)" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+				                                   <p class="scoring_field" data-field="rfmScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+				                               </li>
+				                               <li>
+				                                   <b> <i class="fa fa-heart" aria-hidden="true"></i> Financial Credit Score <a href="https://www.cgap.org/sites/default/files/publications/2019_07_Technical_Guide_CreditScore.pdf" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+												   <p class="scoring_field_credit" data-field="totalCreditScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+				                               </li>
+				                               <li>
+				                                   <b> <i class="fa fa-heart-o" aria-hidden="true"></i> Customer Churn Score <a href="https://cio-wiki.org/wiki/Customer_Churn" target="_blank" rel="noreferrer"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> </b> 
+				                                   <p class="scoring_field_credit" data-field="churnScore" data-fieldholder="html"  data-fieldtype="int" > 0 </p>
+				                               </li>
+				                           </ol>
+				                       </td>
+				                   </tr>
 					            </table>
+		                    </div>
+		                    
+		                    <!-- vertical tab  Custom Metrics  -->
+		                    <div class="tab-pane" id="panel_profile_extMetrics" >
+		                    	<div class="col-lg-12">
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Custom Scoring Data </h4> 
+								</div>
+				                <div class="col-md-12" style="padding: 4px 8px; background-color: #f6f6f6; border-radius: 8px" >
+									<p id="profile_extMetrics" data-field="extMetrics" data-fieldholder="html_custom_field" data-fieldtype="custom_field"  > 
+										-
+									</p>
+				                </div>	
 		                    </div>
 		                    
 		                    <!-- vertical tab Consent Information  -->

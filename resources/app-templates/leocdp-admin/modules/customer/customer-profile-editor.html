@@ -206,46 +206,7 @@
 
 		<!-- tab 2 Personal Extension Data  -->
 		<div class="tab-pane" id="panel_profile_contact" >
-			<!--  Begin Profile ID-->
-	     	<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Identity Information </h4>		     	
-		    <table border=0 class="underlined" style="width: 100%;">
-                  <tr>
-                      <td>
-						<ol class="profile_ext_data" data-field="personal_attributes">
-							<li>
-		             			<label for="profile_visitorId"> <i class="fa fa-id-badge" aria-hidden="true"></i> Web Visitor ID </label> 
-               					<input id="profile_visitorId" class="form-control" type="text" placeholder="Web Visitor Id" data-field="visitorId" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" disabled="disabled" >
-							</li>
-							<li>
-								<label for="profile_crmRefId"> <i class="fa fa-id-badge" aria-hidden="true"></i> Imported CRM ID </label> 
-               					<input id="profile_crmRefId" class="form-control" type="text" placeholder="CRM User ID" data-field="crmRefId" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
-							</li>
-		              	 	<li>
-			                   <label > <i class="fa fa-fw fa-list"></i> List of Citizen/Passport ID (Government Issued IDs) <span class="small_highlight_text">(Data for Identity Resolution)</span> </label> 
-			                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('governmentIssuedIDs')"title="Add New Citizen/Passport ID"  > 
-			    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Citizen/Passport ID 
-			    			   </button>
-			                   <p data-field="governmentIssuedIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
-			              	</li>				               
-                             	<li>
-			                   <label > <i class="fa fa-fw fa-list"></i> List of Application User ID <span class="small_highlight_text">(Data for Identity Resolution)</span> </label> 
-			                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('applicationIDs')"title="Add New Application ID"  > 
-			    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Application User ID 
-			    			   </button>
-			                   <p data-field="applicationIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
-			              	</li>
-			              	<li>
-			                   <label > <i class="fa fa-fw fa-list"></i> List of Loyalty User ID <span class="small_highlight_text">(Data for Identity Resolution)</span> </label> 
-			                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('loyaltyIDs')"title="Add New Loyalty ID"  > 
-			    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Loyalty User ID 
-			    			   </button>
-			                   <p data-field="loyaltyIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
-			              	</li>
-		               	</ol>
-              	  		</td>
-                  </tr>
-               </table>
-		
+
 			<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Contact Information </h4>
 			<table border=0 class="underlined" style="width: 100%;">
                   <tr>
@@ -297,7 +258,45 @@
                   </tr>
               </table>
               
-              
+              <!--  Begin Profile ID-->
+	     	<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Identity Information </h4>		     	
+		    <table border=0 class="underlined" style="width: 100%;">
+                 <tr>
+                     <td>
+					<ol class="profile_ext_data" data-field="personal_attributes">
+						<li>
+	             			<label for="profile_visitorId"> <i class="fa fa-id-badge" aria-hidden="true"></i> Web Visitor ID </label> 
+              					<input id="profile_visitorId" class="form-control" type="text" placeholder="Web Visitor Id" data-field="visitorId" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" disabled="disabled" >
+						</li>
+						<li>
+							<label for="profile_crmRefId"> <i class="fa fa-id-badge" aria-hidden="true"></i> Imported CRM ID </label> 
+              					<input id="profile_crmRefId" class="form-control" type="text" placeholder="CRM User ID" data-field="crmRefId" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+						</li>
+	              	 	<li>
+		                   <label > <i class="fa fa-fw fa-list"></i> List of Citizen/Passport ID (Government Issued IDs) <span class="small_highlight_text">(Data for Identity Resolution)</span> </label> 
+		                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('governmentIssuedIDs')"title="Add New Citizen/Passport ID"  > 
+		    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Citizen/Passport ID 
+		    			   </button>
+		                   <p data-field="governmentIssuedIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
+		              	</li>				               
+                            	<li>
+		                   <label > <i class="fa fa-fw fa-list"></i> List of Application User ID <span class="small_highlight_text">(Data for Identity Resolution)</span> </label> 
+		                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('applicationIDs')"title="Add New Application ID"  > 
+		    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Application User ID 
+		    			   </button>
+		                   <p data-field="applicationIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
+		              	</li>
+		              	<li>
+		                   <label > <i class="fa fa-fw fa-list"></i> List of Loyalty User ID <span class="small_highlight_text">(Data for Identity Resolution)</span> </label> 
+		                   <button type="button" class="btn btn-do-now btn-xs" onclick="profileAddNewTextHashSet('loyaltyIDs')"title="Add New Loyalty ID"  > 
+		    					<i class="fa fa-plus-circle" aria-hidden="true"></i> Add Loyalty User ID 
+		    			   </button>
+		                   <p data-field="loyaltyIDs" data-fieldholder="html_hashset" data-fieldtype="hashset" data-editable="true" > </p>
+		              	</li>
+	               	</ol>
+             	  		</td>
+                 </tr>
+            </table>
 		</div>
 		
 		<!-- tab 3 Taxonomy  -->
