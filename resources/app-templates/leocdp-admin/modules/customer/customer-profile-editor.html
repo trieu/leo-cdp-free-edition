@@ -149,7 +149,7 @@
                                
                                <li class="personal_info" >
                                   <label for="profile_dateOfBirth" > <i class="fa fa-fw fa-user-o"></i> Date of Birth, the value must be yyyy-MM-dd (YEAR-MONTH-DAY) </label>      
-								  <div class='input-group date' id='profileDateOfBirth' >
+								  <div style="width: 400px" class='input-group date' id='profileDateOfBirth'  >
 										<input id="profile_dateOfBirth" type='text' class="form-control" autocomplete="off" /> 
 										<span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
 								  </div>
@@ -157,8 +157,13 @@
                                
                                <li class="personal_info" >
                                    <label for="profileAge"  > <i class="fa fa-fw fa-user-o"></i> Age </label> 
-                                   <input id='profileAge' readonly="readonly" class="form-control" type="number" placeholder="Age" data-field="age" data-fieldholder="inputvalue" data-fieldtype="int" autocomplete="false" >
+                                   <input style="width: 400px" id='profileAge' readonly="readonly" class="form-control" type="number" placeholder="Age" data-field="age" data-fieldholder="inputvalue" data-fieldtype="int" autocomplete="false" >
                                </li>
+                               
+                               <li>
+	                                <label for="profile_primaryNationality"> <i class="fa fa-fw fa-map-marker"></i>  Nationality </label> 
+	                                <input id="profile_primaryNationality" class="form-control" type="text" placeholder="Primary Nationality" data-field="primaryNationality" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                           </li>
        						   
        						   <li class="personal_info" >
                                    <label  > <i class="fa fa-fw fa-venus-mars"></i> Marital Status </label> 
@@ -189,10 +194,7 @@
 								   </div>
                                </li>
                                
-                               <li>
-	                                <label for="profile_primaryNationality"> <i class="fa fa-fw fa-map-marker"></i>  Nationality </label> 
-	                                <input id="profile_primaryNationality" class="form-control" type="text" placeholder="Primary Nationality" data-field="primaryNationality" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
-	                           </li>
+                               
 				               
                            </ol>
                        </td>
