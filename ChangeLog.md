@@ -31,11 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-08-28
+## [0.9.0] - 2024-08-29
 
 ### Added
 
-- [Core CDP] segment builder using operator compare month & day between, exactly after, exactly before
+- [Core CDP] segment builder using operator compare month & day between, after, before
 - [Product Catalog] in OrderedItem and ProductItem, add 3 fields: productCode, categoryId, categoryName
 - [Core CDP] do vectorization and improve search indexing: identities, dataLabels, inSegments, inCampaigns, inAccounts, inJourneyMaps
 - [Core profile] setDataLabels from web event, validates the length of the given input
@@ -86,6 +86,7 @@
 
 ### Fixed
 
+- [Core CDP] segment builder using operator after, before
 - [Profile] save data labels for Vietnamese (UTF8 bugs)
 - [Profile UI] hide duplicated profile tab if profile is not active (status!= 1)
 - [Profile API] fix bugs save applicationIDs
@@ -144,6 +145,7 @@
 
 ### Changed
 
+- [Profile API] allow update profile by specified updateByKey: primaryPhone, primaryEmail, ...
 - [OrderedItem API] use JSON object key in lower case. E.g: productcode, categoryname, originalprice
 - [Event API] save eventdata as JSON object, not string
 - [Segment] use realtimeQuery = true when load profiles in segment details
