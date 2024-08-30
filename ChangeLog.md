@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-08-29
+## [0.9.0] - 2024-08-30
 
 ### Added
 
@@ -86,6 +86,7 @@
 
 ### Fixed
 
+- [Profile] fix bugs when update a new profile
 - [Core CDP] segment builder using operator after, before
 - [Profile] save data labels for Vietnamese (UTF8 bugs)
 - [Profile UI] hide duplicated profile tab if profile is not active (status!= 1)
