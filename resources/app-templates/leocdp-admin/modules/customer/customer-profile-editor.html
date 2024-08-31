@@ -30,7 +30,7 @@
       <!-- MAIN BODY here -->
 
      <div class="col-lg-12" >
-     		<div class="col-lg-7">
+     		<div class="col-lg-5">
      			<!-- Avatar Data -->
 	    		<div class="text-center" >
 		            <img id="profile_avatar_img" style="display: none;" alt="Profile Avatar" class="rounded mx-auto d-block avatar">
@@ -40,33 +40,29 @@
 		            </div>
 	        	</div>
      		</div>
-     		<div class="col-lg-5">
+     		<div class="col-lg-7">
 	        	<!-- Primary fields -->
 	        	<div>
-	        		<div class="primary_field" > 
+	        		<div class="primary_field row" > 
 						<b> <i class="fa fa-id-badge" aria-hidden="true"></i> Profile ID </b> 
 	            			<span class="data_field" data-field="id" data-fieldholder="html" data-fieldtype="string" > - </span>
 					</div>
-					<div class="primary_field" >   
-                   		<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Updated by CDP at </b> 
-                  		<span class="data_field" data-field="updatedAt" data-fieldholder="html"  data-fieldtype="date_time"  > -  </span> 
-	                </div>
-	                <div class="primary_field" > 
+					<div class="primary_field row" > 
                    		<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Created at </b> 
                    		<span class="data_field" data-field="createdAt" data-fieldholder="html"  data-fieldtype="date_time"  > - </span> 
-                   	</div>  
-	                <div class="primary_field" >   
+                   	</div> 
+					<div class="primary_field row" >   
+                   		<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Updated at </b> 
+                  		<span class="data_field" data-field="updatedAt" data-fieldholder="html"  data-fieldtype="date_time"  > -  </span> 
+	                </div>
+	                <div class="primary_field row" >   
                    		<b> <i class="fa fa-clock-o" aria-hidden="true"></i> Updated by CRM at </b> 
                   		<span class="data_field" data-field="updatedByCrmAt" data-fieldholder="html"  data-fieldtype="date_time"  > -  </span> 
 	                </div>
 	                <hr>
-	                <div class="primary_field" >      	      
-	                	<label for="profile_notes"> <i class="fa fa-sticky-note-o" aria-hidden="true"></i> Notes / Description </label>
-	                	<textarea id="profile_notes" style="resize: vertical;" class="form-control" rows="3" placeholder="Notes" data-field="notes" data-fieldholder="inputvalue" data-fieldtype="string" ></textarea>
-	                </div>
-	                   <div class="primary_field" style="padding-top: 10px;">
+	                <div class="primary_field" >
 					   <b> <i class="fa fa-user-o" aria-hidden="true"></i> Profile Status </b> 
-					   <div style="font-size:11px; padding-left: 20px;">
+					   <div style="font-size:11px; padding-left: 20px;" class="row" >
 					      <div class="radio">
 					         <label><input type="radio" name="status" value="1" data-field="status" data-fieldholder="selectionvalue" data-fieldtype="int" >ACTIVE</label>
 					      </div>
@@ -81,6 +77,11 @@
 					      </div>
 					   </div>
 					</div>
+					<hr>
+					<div class="primary_field" >      	      
+	                	<label for="profile_notes"> <i class="fa fa-sticky-note-o" aria-hidden="true"></i> Notes / Description </label>
+	                	<textarea id="profile_notes" style="resize: vertical;" class="form-control" rows="3" placeholder="Notes" data-field="notes" data-fieldholder="inputvalue" data-fieldtype="string" ></textarea>
+	                </div>
 	        	</div>
      		</div>
       </div>
@@ -123,6 +124,24 @@
 							      	</div>
                                </li>
                                
+                               <li class="personal_info" >
+                                  <label for="profile_dateOfBirth" > <i class="fa fa-fw fa-user-o"></i> Date of Birth, the value must be yyyy-MM-dd (YEAR-MONTH-DAY) </label>      
+								  <div style="width: 300px" class='input-group date' id='profileDateOfBirth'  >
+										<input id="profile_dateOfBirth" type='text' class="form-control" autocomplete="off" /> 
+										<span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
+								  </div>
+       						   </li>
+                               
+                               <li class="personal_info" >
+                                   <label for="profileAge"  > <i class="fa fa-fw fa-user-o"></i> Age </label> 
+                                   <input style="width: 300px" id='profileAge' readonly="readonly" class="form-control" type="number" placeholder="Age" data-field="age" data-fieldholder="inputvalue" data-fieldtype="int" autocomplete="false" >
+                               </li>
+                               
+                               <li>
+	                                <label for="profile_primaryNationality"> <i class="fa fa-fw fa-map-marker"></i>  Nationality </label> 
+	                                <input id="profile_primaryNationality" class="form-control" type="text" placeholder="Primary Nationality" data-field="primaryNationality" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
+	                           </li>
+                               
                            	   <li>
                                    <label for="profile_firstName" > <i class="fa fa-fw fa-id-badge"></i> First Name </label> 
                                    <input id="profile_firstName" class="form-control" type="text" placeholder="First Name" data-field="firstName" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
@@ -150,24 +169,6 @@
 									  <label><input type="radio" name="gender" value="7" data-field="gender" data-fieldholder="selectionvalue" data-fieldtype="int" >Unknown</label>
 								   </div>
                                </li>
-                               
-                               <li class="personal_info" >
-                                  <label for="profile_dateOfBirth" > <i class="fa fa-fw fa-user-o"></i> Date of Birth, the value must be yyyy-MM-dd (YEAR-MONTH-DAY) </label>      
-								  <div style="width: 400px" class='input-group date' id='profileDateOfBirth'  >
-										<input id="profile_dateOfBirth" type='text' class="form-control" autocomplete="off" /> 
-										<span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span> </span>
-								  </div>
-       						   </li>
-                               
-                               <li class="personal_info" >
-                                   <label for="profileAge"  > <i class="fa fa-fw fa-user-o"></i> Age </label> 
-                                   <input style="width: 400px" id='profileAge' readonly="readonly" class="form-control" type="number" placeholder="Age" data-field="age" data-fieldholder="inputvalue" data-fieldtype="int" autocomplete="false" >
-                               </li>
-                               
-                               <li>
-	                                <label for="profile_primaryNationality"> <i class="fa fa-fw fa-map-marker"></i>  Nationality </label> 
-	                                <input id="profile_primaryNationality" class="form-control" type="text" placeholder="Primary Nationality" data-field="primaryNationality" data-fieldholder="inputvalue" data-fieldtype="string" autocomplete="off" >
-	                           </li>
        						   
        						   <li class="personal_info" >
                                    <label  > <i class="fa fa-fw fa-venus-mars"></i> Marital Status </label> 

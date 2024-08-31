@@ -172,7 +172,7 @@
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br>
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
-				<li> <b> <%- key %> </b> : <mark> <%- (value) %> </mark>  </li>
+				<li> <b> <%- key %> </b> : <mark> <%- decodeURISafe(value) %> </mark>  </li>
 			<% }) %>
 			<ul>
 			</span> 
@@ -225,7 +225,7 @@
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br> 
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
-				<li> <b> <%- key %> </b> : <mark> <%- (value) %> </mark>  </li>
+				<li> <b> <%- key %> </b> : <mark> <%- decodeURISafe(value) %> </mark>  </li>
 			<% }) %>
 			<ul>
 			</span> 
@@ -288,7 +288,7 @@
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br> 
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
-				<li> <b> <%- key %> </b> : <mark> <%- (value) %> </mark>  </li>
+				<li> <b> <%- key %> </b> : <mark> <%- decodeURISafe(value) %> </mark>  </li>
 			<% }) %>
 			<ul>
 			</span> 
