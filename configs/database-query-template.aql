@@ -455,7 +455,6 @@ AQL_GET_TOUCHPOINTS_BY_FILTER =>
 	RETURN p
 ;
 
-
 AQL_UPDATE_CONTEXT_SESSION_AFTER_MERGE =>
 	FOR d IN cdp_contextsession
 		FILTER d.profileId == @oldProfileId 
