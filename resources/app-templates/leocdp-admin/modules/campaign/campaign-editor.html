@@ -69,23 +69,36 @@
 						</div>
 						
 						<div class="form-group row">
-							<label class="control-label col-sm-3" for="campaign_condition">Condition Type</label>
+							<label class="control-label col-sm-3" for="campaign_condition">Condition</label>
 							<div class="col-sm-9" style="padding-top: 10px">
 								<select id="campaign_condition" name="condition" data-placeholder="Select a condition to run in this campaign" class="select"  >
-			                        <option value="happyBirthday"> Today is the customer's birthday</option>
+			                        <option value="runAtDateAndTime"> Run at the date and time </option>
 			                        <option value="getEventAtUrl"> Get an event at a specific URL</option>		                        
 			                    </select>
 							</div>
 						</div>
 						
+						<div id="runAtDateAndTimeForCondition" class="form-group row" >
+			                <label class="control-label col-sm-3" for="eventForCampaignCondition"> Run at the date and time </label>
+							
+							<div class="col-sm-4" style="padding-top: 10px" >
+								<div class='input-group date' id='runAtDateAndTime'>
+					               <input type='text' class="form-control" />
+					               <span class="input-group-addon">
+					               <span class="glyphicon glyphicon-calendar"></span>
+					               </span>
+					            </div>
+							</div>
+			            </div> 
+			            
 						<div id="eventMetricWithUrlForCondition" class="form-group row" style="display: none;">
 			                <label class="control-label col-sm-3" for="eventForCampaignCondition"> Event Trigger at the URL </label>
-							<div class="col-sm-3" style="padding-top: 10px" >
+							<div class="col-sm-2" style="padding-top: 10px" >
 								<select id="eventForCampaignCondition"  data-placeholder="Event Trigger " class="select" >
 								  	
 								</select>
 							</div>
-							<div class="col-sm-6" style="padding-top: 10px" >
+							<div class="col-sm-7" style="padding-top: 10px" >
 								<input type="url" class="form-control" id="eventAtUrlForCampaignCondition" placeholder="Enter URL" >
 							</div>
 			            </div> 

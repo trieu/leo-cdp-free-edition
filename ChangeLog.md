@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-08-30
+## [0.9.0] - 2024-09-02
 
 ### Added
 
@@ -146,6 +146,7 @@
 
 ### Changed
 
+- [Profile UI] improve touchpoint flow
 - [Profile API] allow update profile by specified updateByKey: primaryPhone, primaryEmail, ...
 - [OrderedItem API] use JSON object key in lower case. E.g: productcode, categoryname, originalprice
 - [Event API] save eventdata as JSON object, not string
