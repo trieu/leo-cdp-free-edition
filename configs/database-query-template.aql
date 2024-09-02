@@ -430,6 +430,7 @@ AQL_GET_TOUCHPOINT_BY_ID =>
 
 AQL_GET_TOUCHPOINTS => 
 	FOR e in cdp_touchpoint 
+	FILTER e.name LIKE @searchPhrase OR @searchPhrase == ""
 	SORT e.createdAt DESC
 	LIMIT @startIndex,@numberResult 
 	RETURN e
@@ -970,6 +971,7 @@ AQL_GET_PROFILE_BY_VISITOR_ID_FOR_ADMIN =>
 	FOR p in cdp_profile 
 	FILTER visitorId != "" AND p.visitorId == visitorId AND p.status == 1 
 			AND (@loginUsername IN p.authorizedViewers[*] OR @hasAdminRole == TRUE OR p.visitorId == @profileVisitorId)
+	SORT p.dataQualityScore DESC
 	LIMIT 1
 	RETURN p
 ;
@@ -978,6 +980,7 @@ AQL_GET_PROFILE_BY_PRIMARY_EMAIL =>
 	LET email = TO_STRING(@email)
 	FOR p in cdp_profile 
 	FILTER (p.primaryEmail == email OR email IN p.identities[*]) AND p.status == 1
+	SORT p.dataQualityScore DESC
 	LIMIT 1
 	RETURN p
 ;
@@ -986,6 +989,7 @@ AQL_GET_PROFILE_BY_PRIMARY_PHONE =>
 	LET phone = TO_STRING(@phone)
 	FOR p in cdp_profile 
 	FILTER (p.primaryPhone == phone OR phone IN p.identities[*]) AND p.status == 1
+	SORT p.dataQualityScore DESC
 	LIMIT 1
 	RETURN p
 ;
@@ -994,6 +998,7 @@ AQL_GET_PROFILE_BY_VISITOR_ID =>
 	LET visitorId = TO_STRING(@visitorId)
 	FOR p in cdp_profile 
 	FILTER (p.visitorId == visitorId OR visitorId IN p.identities[*]) AND p.status == 1
+	SORT p.dataQualityScore DESC
 	LIMIT 1
 	RETURN p
 ;
@@ -1018,6 +1023,7 @@ AQL_GET_PROFILE_BY_FINGERPRINT_OR_VISITOR_ID =>
 	FILTER p.status == 1 
 		AND ( (@lastSeenIp == p.lastSeenIp AND @lastUsedDeviceId == p.lastUsedDeviceId AND @fingerprintId == p.fingerprintId)
 		OR  @visitorId == p.visitorId ) 
+	SORT p.dataQualityScore DESC
 	LIMIT 1
 	RETURN p
 ;
@@ -1025,6 +1031,7 @@ AQL_GET_PROFILE_BY_FINGERPRINT_OR_VISITOR_ID =>
 AQL_GET_PROFILE_BY_LOGIN_INFO =>
 	FOR p in cdp_profile 
 	FILTER @loginInfo != "" AND @loginInfo IN p.identities[*] AND p.status == 1
+	SORT p.dataQualityScore DESC
 	LIMIT 1
 	RETURN p
 ;
@@ -1032,6 +1039,7 @@ AQL_GET_PROFILE_BY_LOGIN_INFO =>
 AQL_GET_PROFILE_BY_LOGIN_INFO_WITH_PASSWORD =>
 	FOR p in cdp_profile 
 	FILTER @loginInfo != "" AND p.password == @password AND @loginInfo IN p.identities[*] AND p.status == 1
+	SORT p.dataQualityScore DESC
 	LIMIT 1
 	RETURN p
 ;
@@ -1271,6 +1279,23 @@ AQL_GET_TRACKING_EVENTS_BY_PROFILE_ID =>
 	SORT e.timestamp DESC
 	LIMIT @startIndex,@numberResult 
 	RETURN e
+;
+
+AQL_GET_LAST_EVENTS_OF_PROFILE_BY_METRIC_NAMES =>
+	LET events = (
+	    FOR metricName IN @metricNames
+	        LET lastEvent = FIRST(
+	            FOR e IN cdp_trackingevent
+	                FILTER e.refProfileId == @refProfileId 
+	                    AND (e.refJourneyId == @refJourneyId OR @refJourneyId == "")
+	                    AND e.metricName == metricName
+	                SORT e.timestamp DESC
+	                LIMIT 1
+	                RETURN e
+	        )
+	        RETURN { [metricName]: lastEvent }
+	)
+	RETURN {events: MERGE(events)}
 ;
 
 AQL_SEARCH_TRACKING_EVENTS_BY_PROFILE_ID_AND_KEYWORDS =>
