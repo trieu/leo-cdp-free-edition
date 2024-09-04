@@ -1294,7 +1294,16 @@ AQL_GET_LAST_EVENTS_OF_PROFILE_BY_METRIC_NAMES =>
 	        )
 	        RETURN { [metricName]: lastEvent }
 	)
-	RETURN {events: MERGE(events)}
+	
+	 LET lastEvent = FIRST(
+	    FOR e IN cdp_trackingevent
+	        FILTER e.refProfileId == @refProfileId 
+	            AND (e.refJourneyId == @refJourneyId OR @refJourneyId == "")
+	        SORT e.timestamp DESC
+	        LIMIT 1
+	        RETURN e
+	)
+	RETURN { lastEvent : lastEvent, events: MERGE(events)}
 ;
 
 AQL_SEARCH_TRACKING_EVENTS_BY_PROFILE_ID_AND_KEYWORDS =>

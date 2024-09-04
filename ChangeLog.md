@@ -31,10 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-09-02
+## [0.9.0] - 2024-09-04
 
 ### Added
 
+- [Core CDP] add date operator: is_today in segment builder
 - [Core CDP ] add withLastEvents in segment API
 - [Core CDP] segment builder using operator compare month & day between, after, before
 - [Product Catalog] in OrderedItem and ProductItem, add 3 fields: productCode, categoryId, categoryName

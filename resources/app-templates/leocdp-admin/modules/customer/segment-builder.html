@@ -223,6 +223,7 @@
 								</div>
 							</div>
 						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -313,9 +314,12 @@
 		loadSegmentStatistics(segmentDataStats);
 		
 		// compute segment size by submiting query to database
-		$('#btn-run-querybuilder').click(function() {
+		var runQueryBuilder = function() {
 			var result = $('#segment-builder-holder').queryBuilder('getRules');
 			if (!$.isEmptyObject(result)) {
+				$("#segment_builder_div").hide();
+			    $("#segment_builder_loader").show();
+				
 				var jsonQueryStr = JSON.stringify(result);
 				//console.log('jsonQueryStr ' + jsonQueryStr)
 				
@@ -325,6 +329,9 @@
 				// call and show statistics
 				var urlStr = baseLeoAdminUrl + '/cdp/segment/statistics';
 		        LeoAdminApiUtil.callPostAdminApi(urlStr, params , function (json) {
+		        	$("#segment_builder_div").show();
+				    $("#segment_builder_loader").hide();
+		        	
 		            if (json.httpCode === 0 && typeof json.data === 'object') {
 		               	loadSegmentStatistics(json.data);
 		   				
@@ -341,7 +348,9 @@
 		            }
 		        });
 			}
-		});
+		}
+		
+		$('#btn-run-querybuilder').click(runQueryBuilder);
 	}
 	
 	var getSegmentBuilderData = function(id) {
