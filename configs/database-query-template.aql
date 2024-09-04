@@ -1063,6 +1063,12 @@ AQL_GET_PROFILES_BY_APPLICATION_IDS =>
 		RETURN DISTINCT p
 ;
 
+AQL_GET_PROFILES_BY_LOYALTY_IDS =>
+	FOR loyaltyID in @loyaltyIDs 
+		FOR p in cdp_profile FILTER loyaltyID IN p.loyaltyIDs AND p.status == 1 
+		RETURN DISTINCT p
+;
+
 AQL_GET_PROFILES_BY_GOVERNMENT_ISSUED_IDS =>
 	FOR governmentIssuedID in @governmentIssuedIDs 
     	FOR p in cdp_profile 
