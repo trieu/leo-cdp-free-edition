@@ -35,6 +35,7 @@
 
 ### Added
 
+- [Core CDP ] add withLastEvents in segment API
 - [Core CDP] segment builder using operator compare month & day between, after, before
 - [Product Catalog] in OrderedItem and ProductItem, add 3 fields: productCode, categoryId, categoryName
 - [Core CDP] do vectorization and improve search indexing: identities, dataLabels, inSegments, inCampaigns, inAccounts, inJourneyMaps
