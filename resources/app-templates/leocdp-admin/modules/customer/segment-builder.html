@@ -256,8 +256,10 @@
 			</div>
 		</div>
 		
+		<div id="segment_profile_list_loader" class="loader" style="display: none;"></div>
+		
 		<!--  3 profiles  -->
-		<div class="panel panel-leoadmin" id="profile-list-panel"  >
+		<div class="panel panel-leoadmin" id="segment_profile_list"  >
 			<div class="panel-heading"> <b> <i class="fa fa-list" aria-hidden="true"></i> All matched profiles </b>  </div>
 			<div class="panel-body">
 				<div class="table-responsive" id="profilelist_holder" >
@@ -315,10 +317,12 @@
 		
 		// compute segment size by submiting query to database
 		var runQueryBuilder = function() {
+			var btn = $(this);
 			var result = $('#segment-builder-holder').queryBuilder('getRules');
 			if (!$.isEmptyObject(result)) {
-				$("#segment_builder_div").hide();
-			    $("#segment_builder_loader").show();
+				btn.attr('disabled','disabled')
+				$("#segment_profile_list").hide();
+			    $("#segment_profile_list_loader").show();
 				
 				var jsonQueryStr = JSON.stringify(result);
 				//console.log('jsonQueryStr ' + jsonQueryStr)
@@ -329,8 +333,9 @@
 				// call and show statistics
 				var urlStr = baseLeoAdminUrl + '/cdp/segment/statistics';
 		        LeoAdminApiUtil.callPostAdminApi(urlStr, params , function (json) {
-		        	$("#segment_builder_div").show();
-				    $("#segment_builder_loader").hide();
+		        	$("#segment_profile_list").show();
+				    $("#segment_profile_list_loader").hide();
+				    btn.removeAttr('disabled')
 		        	
 		            if (json.httpCode === 0 && typeof json.data === 'object') {
 		               	loadSegmentStatistics(json.data);
