@@ -54,6 +54,8 @@
 	<link rel="icon" type="image/png" sizes="16x16" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/favicon-16x16.png">
 	<link rel="mask-icon" href="//{{dnsDomainLeoAdmin}}/public/images/leocdp-icon/safari-pinned-tab.svg" color="#5bbad5">
 	
+	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	
 	<!-- Bootstrap Core CSS -->
 	<link href="https://{{baseStaticUrl}}/css/bootstrap.min.css?_={{cacheBustingKey}}" rel="stylesheet">
 	
@@ -257,6 +259,12 @@
 	
 	<!-- i18n Data Model -->
 	<script src="//{{dnsDomainLeoAdmin}}/view/i18n/us.js?admin=1&_={{cacheBustingKey}}"></script>
+	
+	<style>
+	    body {
+	      font-family: 'Roboto', sans-serif !important;
+	    }
+	</style>
 </head>
 
 <body>
@@ -310,7 +318,10 @@
 	<!-- profile -->
 	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.profile.js?admin=1&_={{cacheBustingKey}}" ></script>
 	
-	<!-- segment -->
+	<!-- product-categories for segmentation -->
+	<script src="https://{{baseStaticUrl}}/data-segment-builder/product-categories.js?_={{cacheBustingKey}}"></script>
+	
+	<!-- segmentation -->
 	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.segment.builder.js?admin=1&_={{cacheBustingKey}}" async="true"></script>
 	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.segment.details.js?admin=1&_={{cacheBustingKey}}" async="true" ></script>	
 	
@@ -322,6 +333,7 @@
 	
 	<!-- campaign -->
 	<script src="//{{dnsDomainLeoAdmin}}/view/common-resources{{minifySuffix}}/leocdp.campaign.js?admin=1&_={{cacheBustingKey}}" async="true" ></script>
+	
 	
 	<!-- after deps are loaded -->
 	<script type="text/javascript" >
