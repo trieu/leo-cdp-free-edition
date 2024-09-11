@@ -448,6 +448,13 @@ AQL_GET_TOUCHPOINT_BY_NAME =>
 	RETURN e
 ;
 
+AQL_GET_TOUCHPOINT_BY_URL_AND_NAME =>
+	FOR e in cdp_touchpoint 
+	FILTER e.url == @urlAND e.name == @name  
+	LIMIT 1
+	RETURN e
+;
+
 AQL_GET_TOUCHPOINTS_BY_FILTER =>
 	FOR p in cdp_touchpoint  
 	SORT p.createdAt DESC
