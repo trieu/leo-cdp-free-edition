@@ -220,30 +220,30 @@
 				</span> 
  			</div>
 		 </div>
-		 <hr>
+		 <br>
  		 <div class="text-wrap" style="display: <%- cssStyleDisplayEventData %>" >   
-			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br> 
+			<span class="small" > <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Event Data: </b> </span> 
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
 				<li> <b> <%- key %> </b> : <mark> <%- decodeURISafe(value) %> </mark>  </li>
 			<% }) %>
 			<ul>
-			</span> 
 		 </div>
 		<div class="text-wrap" style="display: <%- cssStyleDisplayOrderedItems %>" >   
-			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Ordered Items:</b> <br> 
-			<div>
+			<span class="small"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Ordered Items </b> </span> 
+			<div class="small">
 			<% _.forOwn(orderedItems, function(item) { %>
-				<div style="padding:20px"> 
+				<div style="padding:16px; border-top: dotted 0.6px;"> 
 					<b> Name </b> : <mark> <%- item.source %> : <%- item.name %> </mark>  <br>
 					<b> Original Price </b> : <mark> <%- item.originalPrice %> <%- item.currency %></mark>  <br>
 					<b> Sale Price </b> : <mark> <%- item.salePrice %> <%- item.currency %> </mark>  <br>
 					<b> Quantity </b> : <mark> <%- item.quantity %> </mark>  <br>
-					<b> Discount </b> : <mark> <%- item.discount %> <%- item.currency %>  <%- item.couponCode %> </mark>  <br>
+					<b> Discount </b> : <mark> <%- item.discount %> <%- item.currency %>  <%- item.couponCode %> </mark> <br>
+					<b> Category ID </b> : <mark> <%- item.categoryId %> </mark>  <br>
+					<b> Category Name </b> : <mark> <%- item.categoryName %> </mark> 
 				</div>
 			<% }) %>
 			<div>
-			</span> 
 		 </div>
  		 <div style="margin-top:8px">
 			<% _.forOwn(imageUrls, function(imageUrl) { %>
@@ -269,8 +269,7 @@
          <div class="text-nowrap"  >  
 			<i class="fa fa-commenting-o" aria-hidden="true"></i> Message: <mark> <%- message %> </mark> <br>
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Transaction Data:</b> <br> 
-			<i class="fa fa-usd" aria-hidden="true"></i> Transaction ID: <mark> <%- transactionId %> </mark> - Payment: <mark> <%- transactionPayment %> </mark> <br>
-			<i class="fa fa-info" aria-hidden="true"></i> Status: <mark> <%- transactionStatus %> </mark> <br>
+			<i class="fa fa-usd" aria-hidden="true"></i> Transaction ID: <mark> <%- transactionId %> </mark> Status: <mark> <%- transactionStatus %> </mark>  <br>
 			<i class="fa fa-usd" aria-hidden="true"></i> Transaction Value: <mark> <%- transactionValue %> <%- transactionCurrency %> </mark> - Payment: <mark> <%- transactionPayment %> </mark> <br>
 			<i class="fa fa-usd" aria-hidden="true"></i> Discount Value: <mark> <%- transactionDiscount %> <%- transactionCurrency %> </mark>
 		 </div>
@@ -283,30 +282,31 @@
 				</span> 
  			</div>
 		 </div>
-		 <hr>
-		 <div class="text-wrap" style="display: <%- cssStyleDisplayEventData %>" >  
-			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br> 
+		 <br>
+		 <div class="text-wrap" style="display: <%- cssStyleDisplayEventData %>; border-top: dotted 0.6px;" >  
+			<span class="small" > <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Event Data: </b> </span> 
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
 				<li> <b> <%- key %> </b> : <mark> <%- decodeURISafe(value) %> </mark>  </li>
 			<% }) %>
 			<ul>
-			</span> 
-		 </div>
+			
+		</div>
 		<div class="text-wrap" style="display: <%- cssStyleDisplayOrderedItems %>" >   
-			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Ordered Items:</b> <br> 
-			<div>
+			<span class="small"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Ordered Items </b> </span> 
+			<div class="small">
 			<% _.forOwn(orderedItems, function(item) { %>
-				<div style="padding:20px"> 
+				<div style="padding:16px; border-top: dotted 0.6px;"> 
 					<b> Name </b> : <mark> <%- item.source %> : <%- item.name %> </mark>  <br>
 					<b> Original Price </b> : <mark> <%- item.originalPrice %> <%- item.currency %></mark>  <br>
 					<b> Sale Price </b> : <mark> <%- item.salePrice %> <%- item.currency %> </mark>  <br>
 					<b> Quantity </b> : <mark> <%- item.quantity %> </mark>  <br>
-					<b> Discount </b> : <mark> <%- item.discount %> <%- item.currency %>  <%- item.couponCode %> </mark>  <br>
+					<b> Discount </b> : <mark> <%- item.discount %> <%- item.currency %>  <%- item.couponCode %> </mark> <br>
+					<b> Category ID </b> : <mark> <%- item.categoryId %> </mark>  <br>
+					<b> Category Name </b> : <mark> <%- item.categoryName %> </mark> 
 				</div>
 			<% }) %>
 			<div>
-			</span> 
 		 </div>
  		 <div style="margin-top:8px">
 			<% _.forOwn(imageUrls, function(imageUrl) { %>
