@@ -31,11 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-09-12
+## [0.9.0] - 2024-09-15
 
 ### Added
 
-- [Segment] add 
+- [Analytics] improve performance of main dashboard
 - [Core CDP] add date operator: is_today in segment builder
 - [Core CDP ] add withLastEvents in segment API
 - [Core CDP] segment builder using operator compare month & day between, after, before

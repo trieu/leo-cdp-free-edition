@@ -450,7 +450,7 @@ AQL_GET_TOUCHPOINT_BY_NAME =>
 
 AQL_GET_TOUCHPOINT_BY_URL_AND_NAME =>
 	FOR e in cdp_touchpoint 
-	FILTER e.url == @urlAND e.name == @name  
+	FILTER e.url == @url AND e.name == @name  
 	LIMIT 1
 	RETURN e
 ;
@@ -1120,14 +1120,61 @@ AQL_PROFILE_COLLECTOR_TOTAL =>
 	    RETURN { "collectorKey" : funnelStage, "collectorCount" : length }
 ;
 
-AQL_DATA_STATS_COLLECTOR =>
+AQL_PROFILE_STATS_COLLECTOR =>
+	LET totalProfile = FIRST(FOR p IN cdp_profile 
+	    FILTER p.status > 0 
+	    COLLECT WITH COUNT INTO length RETURN length)
+	    
+	LET totalVisitor = FIRST(FOR p IN cdp_profile 
+	    FILTER p.status > 0 AND p.type == 0  
+	    COLLECT WITH COUNT INTO length RETURN length)
+	    
+	LET totalCustomerProfile = FIRST(FOR p IN cdp_profile
+	    FILTER p.status > 0 AND p.type > 0 AND ("purchase" IN p.behavioralEvents || "subscribe" IN p.behavioralEvents)
+	    COLLECT WITH COUNT INTO length RETURN length)
+	
+	LET totalContactProfile = FIRST(FOR p IN cdp_profile
+	    FILTER p.status > 0 AND p.type > 0 AND (LENGTH(p.primaryEmail) > 0 OR LENGTH(p.primaryPhone) > 0)
+	    COLLECT WITH COUNT INTO length RETURN length)
+		
+	LET totalSegments = FIRST(FOR s IN cdp_segment 
+	    FILTER s.status > 0 
+	    COLLECT WITH COUNT INTO length RETURN length)
+	
+	LET totalInactiveVisitor = FIRST(FOR p IN cdp_profile
+	    FILTER p.type == 0 AND 
+	           p.totalLeadScore < 6 AND 
+	           p.totalEngagementScore < 6 AND 
+	           LENGTH(p.primaryEmail) == 0 AND
+	           LENGTH(p.primaryPhone) == 0 AND
+	           LENGTH(p.purchasedItemIds) == 0 AND 
+	           LENGTH(p.purchasedItems) == 0 AND 
+	           LENGTH(p.topEngagedTouchpointIds) < 2 AND
+	           LENGTH(p.governmentIssuedIDs) == 0 AND 
+	           LENGTH(p.applicationIDs) == 0 AND 
+	           LENGTH(p.crmRefId) == 0 AND 
+	           DATE_DIFF(p.updatedAt, DATE_NOW(), 'day') > 31
+	    COLLECT WITH COUNT INTO length RETURN length)
+	
+	
+	RETURN { 
+	    "totalProfile": totalProfile,
+	    "totalVisitor":totalVisitor,
+	    "totalInactiveVisitor":totalInactiveVisitor,
+	    "totalCustomerProfile":totalCustomerProfile,
+	    "totalContactProfile":totalContactProfile,
+	    "totalSegments":totalSegments
+	}
+;
+
+AQL_REVENUE_STATS_COLLECTOR =>
 	FOR d IN cdp_profile
-	    FILTER d.status > 0 AND d.type > 0
-		COLLECT AGGREGATE avgTransactionValue = AVERAGE(d.totalTransactionValue), totalTransactionValue = SUM(d.totalTransactionValue) 
-		RETURN { 
-		    "avgTransactionValue" : avgTransactionValue ? avgTransactionValue : 0, 
-		    "totalTransactionValue" : totalTransactionValue ? totalTransactionValue : 0
-		}
+	FILTER d.status > 0 AND d.type > 0
+	COLLECT AGGREGATE avgTransactionValue = AVERAGE(d.totalTransactionValue), totalTransactionValue = SUM(d.totalTransactionValue) 
+	RETURN { 
+	    "avgTransactionValue" : avgTransactionValue ? avgTransactionValue : 0, 
+	    "totalTransactionValue" : totalTransactionValue ? totalTransactionValue : 0
+	}
 ;
 
 AQL_PROFILE_COLLECTOR_IN_DATE_RANGE =>
@@ -1253,6 +1300,28 @@ AQL_DELETE_ALL_DEAD_VISITORS =>
 		REMOVE { _key: p._key } IN cdp_profile
 	)
 	RETURN c 
+;
+
+AQL_REMOVE_INACTIVE_PROFILES =>
+	LET removedProfiles = (
+	  FOR p IN cdp_profile
+	    FILTER p.type == 0 AND 
+	           p.totalLeadScore < 6 AND 
+	           p.totalEngagementScore < 6 AND 
+	           length(p.primaryEmail) == 0 AND
+	           length(p.primaryPhone) == 0 AND
+	           length(p.purchasedItemIds) == 0 AND 
+	           length(p.purchasedItems) == 0 AND 
+	           length(p.topEngagedTouchpointIds) < 2 AND
+	           length(p.governmentIssuedIDs) == 0 AND 
+	           length(p.applicationIDs) == 0 AND 
+	           length(p.crmRefId) == 0 AND 
+	           DATE_DIFF(p.updatedAt, DATE_NOW(), 'day') > @numberOfDays
+	    LIMIT @maxProfiles
+	    REMOVE { _key: p._key } IN cdp_profile
+	    RETURN OLD
+	)
+	RETURN LENGTH(removedProfiles)
 ;
 
 ###########  CONTEXT_SESSION  ########################################################################################################;
