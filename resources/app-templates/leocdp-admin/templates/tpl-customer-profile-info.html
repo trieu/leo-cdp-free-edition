@@ -200,7 +200,7 @@
          <h5 class="media-heading"> <a target="_blank" rel="noreferrer" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
          <div class="text-nowrap " > 
 			 <span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Action Data:</b> <br>  
-			 <i class="fa fa-commenting-o" aria-hidden="true"></i> Message: <mark> <%- message %> </mark> <br>
+			 <i class="fa fa-commenting-o" aria-hidden="true"></i> <span class="small" > Message: <mark> <%- message %></mark> </span>  <br>
 			 <i class="fa fa-info-circle" aria-hidden="true"></i> Value: <mark> <%- metricValue %> </mark> 
 		 </div>
 		 <div class="text-nowrap"  >  
@@ -266,15 +266,10 @@
       <div class="col-md-10">
          <small class="text-muted pull-right"> <%- createdAt %>  </small>
          <h5 class="media-heading"> <a target="_blank" rel="noreferrer" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
-         <div class="text-nowrap"  >  
-			<i class="fa fa-commenting-o" aria-hidden="true"></i> Message: <mark> <%- message %> </mark> <br>
-			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Transaction Data:</b> <br> 
-			<i class="fa fa-usd" aria-hidden="true"></i> Transaction ID: <mark> <%- transactionId %> </mark> Status: <mark> <%- transactionStatus %> </mark>  <br>
-			<i class="fa fa-usd" aria-hidden="true"></i> Transaction Value: <mark> <%- transactionValue %> <%- transactionCurrency %> </mark> - Payment: <mark> <%- transactionPayment %> </mark> <br>
-			<i class="fa fa-usd" aria-hidden="true"></i> Discount Value: <mark> <%- transactionDiscount %> <%- transactionCurrency %> </mark>
-		 </div>
-		 <div class="text-nowrap " >  
+		 
+		<div class="text-nowrap " >  
 			<i class="fa fa-link" aria-hidden="true"></i> <span class="small" ><%- srcTouchpoint.truncatedUrl %></span> <br> 
+			<i class="fa fa-commenting-o" aria-hidden="true"></i> <span class="small" > Message: <mark> <%- message %></mark> </span>  <br>
 			<div style="display: <%- cssStyleDisplayLocation %>" >
 				<i class="fa fa-map-marker" aria-hidden="true"></i>  
 				<span class="small" > 
@@ -282,6 +277,20 @@
 				</span> 
  			</div>
 		 </div>
+		 <hr>
+         <div class="text-nowrap"  >  
+			
+			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Transaction Data:</b> <br> 
+			<i class="fa fa-usd" aria-hidden="true"></i> Transaction ID: <mark> <%- transactionId %> </mark> Status: <mark> <%- transactionStatus %> </mark>  <br>
+			<i class="fa fa-usd" aria-hidden="true"></i> Transaction Value: <mark> <%- transactionValue %> <%- transactionCurrency %> </mark> - Payment: <mark> <%- transactionPayment %> </mark> <br>
+			<i class="fa fa-usd" aria-hidden="true"></i> Discount Value: <mark> <%- transactionDiscount %> <%- transactionCurrency %> </mark> <br>
+
+			<i class="fa fa-usd" aria-hidden="true"></i> Tax Value: <mark> <%- transactionTax %> <%- transactionCurrency %> </mark> <br>
+
+			<i class="fa fa-usd" aria-hidden="true"></i> Shipping Value: <mark> <%- transactionShippingValue %> <%- transactionCurrency %> </mark> <br>
+			<i class="fa fa-info" aria-hidden="true"></i> Shipping Info: <mark> <%- JSON.stringify(transactionShippingInfo) %> </mark>
+		 </div>
+		 
 		 <br>
 		 <div class="text-wrap" style="display: <%- cssStyleDisplayEventData %>; border-top: dotted 0.6px;" >  
 			<span class="small" > <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Event Data: </b> </span> 
