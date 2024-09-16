@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-09-15
+## [0.9.0] - 2024-09-16
 
 ### Added
 
@@ -149,6 +149,7 @@
 
 ### Changed
 
+- [Event API] add params: sourceip and useragent to save from WooCommerce Data Source
 - [Profile UI] improve touchpoint flow
 - [Profile API] allow update profile by specified updateByKey: primaryPhone, primaryEmail, ...
 - [OrderedItem API] use JSON object key in lower case. E.g: productcode, categoryname, originalprice
