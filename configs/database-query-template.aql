@@ -644,10 +644,10 @@ AQL_GET_DAILY_REPORT_UNITS_FOR_ONE_OBJECT =>
 AQL_OBJECT_COUNT_FROM_DAILY_REPORT_UNITS =>
 	RETURN LENGTH
 	(
-		FOR p in cdp_profile
-			FOR d IN cdp_dailyreportunit
-				FILTER d.createdAt >= @fromDate AND d.createdAt <= @toDate AND d.objectName == @objectName 
-					AND d.objectId == p._key AND p.status > 0 
+		FOR d IN cdp_dailyreportunit
+			FOR p in cdp_profile
+				FILTER d.createdAt >= @fromDate AND d.createdAt <= @toDate 
+					AND d.objectName == @objectName AND d.objectId == p._key AND p.status > 0 
 				RETURN DISTINCT p._key
 	)
 ;
@@ -661,8 +661,8 @@ AQL_UPDATE_DAILY_REPORT_UNITS_TO_NEW_PROFILE =>
 AQL_SEGMENT_SIZE_DAILY_REPORT_UNITS =>
 	RETURN LENGTH
 	(
-		FOR p in cdp_profile
-   			FOR d IN cdp_dailyreportunit
+		FOR d IN cdp_dailyreportunit
+			FOR p in cdp_profile
     			FILTER @segmentId IN p.inSegments[*].id AND d.createdAt >= @fromDate AND d.createdAt <= @toDate 
         				AND d.objectName == "cdp_profile" AND d.objectId == p._key AND p.status > 0 
     		RETURN DISTINCT p._key
@@ -1823,8 +1823,8 @@ AQL_GET_ALL_SEGMENTS =>
 
 AQL_UPDATE_SEGMENT_TOTAL_COUNT =>
 	FOR d IN cdp_segment
-	    FILTER d._key == @segmentId AND d.status >= 0
-	    UPDATE d WITH { totalCount: @totalCount } IN cdp_segment
+	    FILTER d._key == @segmentId 
+	    UPDATE d WITH { totalCount: @totalCount, updatedAt: @currentDateTime } IN cdp_segment
 ;
 
 ###########  BUSINESS ACCOUNT  ########################################################################################################;
