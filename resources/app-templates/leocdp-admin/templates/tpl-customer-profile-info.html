@@ -299,7 +299,7 @@
 		 </div>
 		 
 		
-		 <div class="text-wrap" style="display: <%- cssStyleDisplayEventData %>; border-top: dotted 0.6px;" >  
+		 <div class="text-wrap" style="display: <%- cssStyleDisplayEventData %>;" >  
 			<span class="small" > <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Event Data: </b> </span> 
 			<ul class="small" >
 			<% _.forOwn(eventData, function(value, key) { %>
@@ -313,15 +313,23 @@
 			<span class="small"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Ordered Items </b> </span> 
 			<div class="small">
 			<% _.forOwn(orderedItems, function(item) { %>
-				<div style="padding:16px; border-top: dotted 0.6px;"> 
-					<b> Name </b> : <mark> <%- item.source %> : <%- item.name %> </mark>  <br>
-					<b> Original Price </b> : <mark> <%- item.originalPrice %> <%- item.currency %></mark>  <br>
-					<b> Sale Price </b> : <mark> <%- item.salePrice %> <%- item.currency %> </mark>  <br>
-					<b> Quantity </b> : <mark> <%- item.quantity %> </mark>  <br>
-					<b> Discount </b> : <mark> <%- item.discount %> <%- item.currency %>  <%- item.couponCode %> </mark> <br>
-					<b> Category ID </b> : <mark> <%- item.categoryId %> </mark>  <br>
-					<b> Category Name </b> : <mark> <%- item.categoryName %> </mark> 
+				<div class="col-md-12" style="padding:5px; border-top: dotted 0.5px;"> 
+					<div class="col-md-8">					
+						<b> Name </b> : <mark> <%- item.source %> : <%- item.name %> </mark>  <br>
+						<b> Original Price </b> : <mark> <%- item.originalPrice %> <%- item.currency %></mark>  <br>
+						<b> Sale Price </b> : <mark> <%- item.salePrice %> <%- item.currency %> </mark>  <br>
+						<b> Quantity </b> : <mark> <%- item.quantity %> </mark>  <br>
+						<b> Discount </b> : <mark> <%- item.discount %> <%- item.currency %>  <%- item.couponCode %> </mark> <br>
+						<b> Category ID </b> : <mark> <%- item.categoryId %> </mark>  <br>
+						<b> Category Name </b> : <mark> <%- item.categoryName %> </mark>   <br>
+					</div>
+					<div class="col-md-4">
+						<a href="<%- item.imageUrl %>"  style="max-width:200px; <%- item.imageUrl.length === 0 ? "display:none" : '' %>" data-lightbox="image-1" data-title="Item Image" class="thumbnail">
+						<img src="<%- item.imageUrl %>" class="img-rounded" alt="Item Image" style="height:120px" >
+						</a>
+					</div>
 				</div>
+				
 			<% }) %>
 			<div>
 		 </div>
