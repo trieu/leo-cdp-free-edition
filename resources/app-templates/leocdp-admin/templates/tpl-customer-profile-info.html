@@ -288,19 +288,27 @@
 			<i class="fa fa-usd" aria-hidden="true"></i> Tax Value: <mark> <%- transactionTax %> <%- transactionCurrency %> </mark> <br>
 
 			<i class="fa fa-usd" aria-hidden="true"></i> Shipping Value: <mark> <%- transactionShippingValue %> <%- transactionCurrency %> </mark> <br>
-			<i class="fa fa-info" aria-hidden="true"></i> Shipping Info: <mark> <%- JSON.stringify(transactionShippingInfo) %> </mark>
+			<i class="fa fa-info" aria-hidden="true"></i> 
+				Shipping Info:
+				<ul>
+				<% _.forOwn(transactionShippingInfo, function(value, key) { %>
+					<li> <%- key %> : <mark> <%- (value) %> </mark>  </li>
+				<% }) %>
+				<ul>
+			 <br>
 		 </div>
 		 
-		 <br>
+		
 		 <div class="text-wrap" style="display: <%- cssStyleDisplayEventData %>; border-top: dotted 0.6px;" >  
 			<span class="small" > <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Event Data: </b> </span> 
-			<ul>
+			<ul class="small" >
 			<% _.forOwn(eventData, function(value, key) { %>
 				<li> <b> <%- key %> </b> : <mark> <%- decodeURISafe(value) %> </mark>  </li>
 			<% }) %>
 			<ul>
-			
+			<br>
 		</div>
+
 		<div class="text-wrap" style="display: <%- cssStyleDisplayOrderedItems %>" >   
 			<span class="small"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Ordered Items </b> </span> 
 			<div class="small">
