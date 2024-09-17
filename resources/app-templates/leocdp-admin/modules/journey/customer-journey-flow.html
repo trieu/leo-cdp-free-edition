@@ -71,12 +71,13 @@
 		
 		<!--  Tab Navigation Items -->
 		<ul class="nav nav-tabs" data-tab-content="journey_touchpoint_tabs" > 
-	   		<li class="active"  >
-        		<a href="javascript:" data-target-tab="panel_touchpoint_hubs" > <i class="fa fa-list" aria-hidden="true"></i> Touchpoint Hub</a>
-       		</li>
-       		<li id="tab_journey_data_observers" style="display: none">
+			<li class="active" id="tab_journey_data_observers" >
        			<a href="javascript:" data-target-tab="panel_data_observers"  > <i class="fa fa-list" aria-hidden="true"></i> Event Observer </a>
        		</li>
+	   		<li>
+        		<a href="javascript:" data-target-tab="panel_touchpoint_hubs" > <i class="fa fa-list" aria-hidden="true"></i> Touchpoint Hub</a>
+       		</li>
+       		
        		<li>
        			<a href="javascript:" data-target-tab="panel_summary_report"  > <i class="fa fa-bar-chart aria-hidden="true"></i> Touchpoint Hub Report  </a>
        		</li>
@@ -92,25 +93,24 @@
 		</ul>
 
 		<div class="tab-content" id="journey_touchpoint_tabs" style="min-height:450px; margin-bottom:60px;" >
-		
-			<!-- tab 1 Touchpoint Data Hub   -->
-			<div class="tab-pane active" id="panel_touchpoint_hubs" >
-				<div class="top_page_header" >
-					<h4> All Touchpoint Data Hubs </h4>
-				</div>
-				<div class="table-responsive">
-		    		<div id="touchpoint_hub_table"></div>
-		    	</div>
-			</div>
-			
 			<!-- tab 2 Touchpoint Data Observer  -->
-			<div class="tab-pane" id="panel_data_observers" >
+			<div class="tab-pane active" id="panel_data_observers" >
 				<div class="top_page_header" >
 					<h4> All Event Observers for Touchpoint Hubs </h4>
 				</div>
 		        <div class="table-responsive" >
 		            <div id="data_observers_table"></div>
 		        </div>
+			</div>
+		
+			<!-- tab 1 Touchpoint Data Hub   -->
+			<div class="tab-pane " id="panel_touchpoint_hubs" >
+				<div class="top_page_header" >
+					<h4> All Touchpoint Data Hubs </h4>
+				</div>
+				<div class="table-responsive">
+		    		<div id="touchpoint_hub_table"></div>
+		    	</div>
 			</div>
 			
 			<!-- tab 3 Journey Data Report  -->
@@ -192,12 +192,10 @@
 		}
 		
 		var role = currentUserProfile.role;
-    	if(role > 0) {
-    		$("#tab_journey_data_observers").show();
-    		if( role >=5 ) {
-    			$("#tab_journey_data_authorization").show();
-    		}
-    	}
+   		if( role >=5 ) {
+   			$("#tab_journey_data_authorization").show();
+   		}
+    	
     	
     	// panel tabs 
     	setupTabPanels();
