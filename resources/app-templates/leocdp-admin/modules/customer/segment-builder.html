@@ -403,7 +403,7 @@
                 loadSegmentBuilder(touchpointHubs, behavioralEventMap, assetGroups, jsonQueryRules, segmentQueryBuilderCallback);
                 
                 // load profile list table
-                setTimeout(loadProfilesInSegment,700);
+                loadProfilesInSegment(false, 700);
                 loadSystemUsersForDataAuthorization(true, segmentData, $('#authorizedSegmentViewers'), $('#authorizedSegmentEditors'));
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);
@@ -433,7 +433,7 @@
 				loadSegmentBuilder(touchpointHubs, behavioralEventMap, assetGroups , false, segmentQueryBuilderCallback);
                 
                 // load profile list table
-                setTimeout(loadProfilesInSegment,700);
+                loadProfilesInSegment(false, 700);
                 loadSystemUsersForDataAuthorization(true, segmentData, $('#authorizedSegmentViewers'), $('#authorizedSegmentEditors'));
             } else {
                 LeoAdminApiUtil.logErrorPayload(json);

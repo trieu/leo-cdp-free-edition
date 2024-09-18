@@ -55,8 +55,8 @@
 		<button type="button" class="btn btn-info" title="Go back" onclick="history.back()" > 
 			<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back 
 		</button>
-		<button type="button" class="btn btn-do-now" onclick="location.reload()" title="Refresh data"  > 
-       		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
+		<button type="button" class="btn btn-do-now" onclick="refreshSegmentDetails(true)" title="Refresh data of segmen"  > 
+       		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh Data
        	</button>
 		<button type="button" class="btn btn-danger data-control-delete" title="Delete this segment" > 
 			<i class="fa fa-trash" aria-hidden="true"></i> Delete 
@@ -144,7 +144,7 @@
 		     		</div>
 				</div>
 				
-				<div id="profile-list-panel_loader" class="loader"></div>
+				<div id="segment_profile_list_loader" class="loader" style="display: none;"></div>
 				<div class="panel panel-leoadmin" id="profile-list-panel" style="display: none;" >
 					<div class="panel-heading">
 						<div class="row"> 
