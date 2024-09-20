@@ -91,10 +91,10 @@ LeoObserver.recordEvent<%- eventMetricName %> = function(eventData) {
 
 	window.synchLeoCdpToGA4 = window.synchLeoCdpToGA4 || function (vid) {
 		window.dataLayer = window.dataLayer || []; 
-		dataLayer.push({ 'user_id': vid });
+		dataLayer.push({ 'cdp_visitor_id': vid });
 		function gtag(){dataLayer.push(arguments);}
 		gtag('js', new Date());
-		gtag('set', 'user_id', vid);
+		gtag('set', 'cdp_visitor_id', vid);
 		gtag('config', '<%- measurementId %>');
 	};
 </script>

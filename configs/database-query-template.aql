@@ -298,6 +298,30 @@ AQL_GET_TOUCHPOINT_HUB_REPORT =>
 	RETURN s
 ;
 
+AQL_TOUCHPOINT_HUB_PROFILE_REPORT =>
+	LET tpReports = (
+	  FOR t IN cdp_touchpointhub
+	  FILTER (t.journeyMapId == @journeyId OR @journeyId == "")
+	  FOR e IN cdp_profile2touchpointhub
+	  FILTER e._to == CONCAT('cdp_touchpointhub/', t._key) 
+	  COLLECT tpHubId = t._key, tpName = t.name
+	  AGGREGATE profileCount = COUNT_DISTINCT(e._from)
+	  RETURN { "id": tpHubId, "profileCount": profileCount }
+	)
+	
+	LET stats = APPEND(tpReports, { "id": "leo_data_observer" } )
+	
+	FOR t IN cdp_touchpointhub
+	    FILTER (t.journeyMapId == @journeyId OR @journeyId == "")
+	    FOR s IN stats
+	        LET profileCount = (s.id == t._key AND HAS(s, "profileCount")) ? s.profileCount : 0
+	RETURN DISTINCT {
+	    "touchpointHubId": t._key, 
+	    "name": t.name,               
+	    "profileCount": profileCount
+	}
+;
+
 AQL_TOUCHPOINT_HUB_DETAIL_REPORT =>
 	LET visitors = (
 	    FOR t in cdp_touchpointhub
@@ -1293,12 +1317,6 @@ AQL_DELETE_ALL_DEAD_VISITORS =>
 				AND p.type == 0 AND p.totalLeadScore == 0)  OR p.status == -44
 		RETURN p._key
 	)
-	LET c2 = LENGTH(
-		FOR p in cdp_profile
-		FILTER (CHAR_LENGTH(p.firstName) == 0 AND CHAR_LENGTH(p.lastName) == 0 AND CHAR_LENGTH(p.primaryEmail) == 0 AND CHAR_LENGTH(p.primaryPhone) == 0 AND CHAR_LENGTH(p.crmRefId) == 0 
-				AND p.type == 0 AND p.totalLeadScore == 0)  OR p.status == -44
-		REMOVE { _key: p._key } IN cdp_profile
-	)
 	RETURN c 
 ;
 
@@ -1317,11 +1335,25 @@ AQL_REMOVE_INACTIVE_PROFILES =>
 	           length(p.applicationIDs) == 0 AND 
 	           length(p.crmRefId) == 0 AND 
 	           DATE_DIFF(p.updatedAt, DATE_NOW(), 'day') > @numberOfDays
-	    LIMIT @maxProfiles
+	    LIMIT @limitSize
 	    REMOVE { _key: p._key } IN cdp_profile
 	    RETURN OLD
 	)
 	RETURN LENGTH(removedProfiles)
+;
+
+AQL_REMOVE_EVENTS_OF_DEAD_PROFILES =>
+	LET removedEventCount = LENGTH( 
+		FOR e IN cdp_trackingevent
+	    FILTER e.refProfileId NOT IN (
+	        FOR p IN cdp_profile
+	          RETURN p._key
+	    ) 
+	    LIMIT @limitSize
+	    REMOVE { _key: e._key } IN cdp_trackingevent
+	    RETURN OLD
+	 )
+	 RETURN removedEventCount
 ;
 
 ###########  CONTEXT_SESSION  ########################################################################################################;
