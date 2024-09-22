@@ -1,17 +1,7 @@
 [
 	{
-		"classpath": "leotech.cdp.job.scheduled.DataClassificationJob",
-		"delay": 10,
-		"period": 200
-	},
-	{
-		"classpath": "leotech.cdp.job.scheduled.DeletedDataCleaningJob",
-		"delay": 20,
-		"period": 200
-	},
-	{
-		"classpath": "leotech.cdp.job.scheduled.ProfileDataDeduplicationJob",
-		"delay": 30,
-		"period": 300
+		"classpath": "leotech.cdp.job.scheduled.DatabaseCleaningJob",
+		"delay": 	6,
+		"period": 	600
 	}
 ]
