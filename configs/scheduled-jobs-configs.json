@@ -3,5 +3,10 @@
 		"classpath": "leotech.cdp.job.scheduled.DatabaseCleaningJob",
 		"delay": 	6,
 		"period": 	600
-	}
+	},
+	{
+		"classpath": "leotech.cdp.job.scheduled.RefreshSegmentJob",
+		"delay": 	60,
+		"period": 	3600
+	}	
 ]
