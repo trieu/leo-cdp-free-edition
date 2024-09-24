@@ -218,7 +218,7 @@
 	                window.currentUserProfile = systemUser;
 	                
 	                // websocket
-	                registerUserToGetNotifications(systemUser);
+	                LeoCdpAdmin.initSystemNotifications(systemUser)
 	                
 	                if(role === 6) {
 	                	// hasSuperAdminRole === true
@@ -347,7 +347,6 @@
 			
 			// show main menu guide
 			initMainMenuGuide();
-			
 			
 		}
 	}

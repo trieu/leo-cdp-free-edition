@@ -31,10 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-09-21
+## [0.9.0] - 2024-09-25
 
 ### Added
 
+- [Core CDP] system notification using web socket
 - [Analytics] improve performance of main dashboard
 - [Core CDP] add date operator: is_today in segment builder
 - [Core CDP ] add withLastEvents in segment API
