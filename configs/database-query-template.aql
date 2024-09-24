@@ -1313,8 +1313,14 @@ AQL_UPDATE_AUTHORIZATION_FOR_PROFILES_BY_JOURNEY =>
 AQL_DELETE_ALL_DEAD_VISITORS =>
 	LET c = LENGTH(
 		FOR p in cdp_profile
-		FILTER (CHAR_LENGTH(p.firstName) == 0 AND CHAR_LENGTH(p.lastName) == 0 AND CHAR_LENGTH(p.primaryEmail) == 0 AND CHAR_LENGTH(p.primaryPhone) == 0 AND CHAR_LENGTH(p.crmRefId) == 0 
-				AND p.type == 0 AND p.totalLeadScore == 0)  OR p.status == -44
+		FILTER (CHAR_LENGTH(p.firstName) == 0 AND
+		        CHAR_LENGTH(p.lastName) == 0 AND
+		        CHAR_LENGTH(p.primaryEmail) == 0 AND
+		        CHAR_LENGTH(p.primaryPhone) == 0 AND
+		        CHAR_LENGTH(p.crmRefId) == 0 AND
+		        p.type == 0 AND
+		        p.totalLeadScore == 0) OR
+		       p.status == -44
 		RETURN p._key
 	)
 	RETURN c 

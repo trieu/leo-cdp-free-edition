@@ -80,8 +80,7 @@ Set Linux configs to scale on high load
 	curl -OL https://download.arangodb.com/arangodb311/DEBIAN/Release.key
 	sudo apt-key add - < Release.key
 	echo 'deb https://download.arangodb.com/arangodb311/DEBIAN/ /' | sudo tee /etc/apt/sources.list.d/arangodb.list
-	sudo apt-get install apt-transport-https
-	sudo apt-get update && sudo apt-get install arangodb3=3.11.9-1
+	sudo apt-get install apt-transport-https; sudo apt-get update && sudo apt-get install arangodb3=3.11.9-1
 	
 [ArangoDB on CentOS or Rocky Linux](https://idroot.us/install-arangodb-centos-8/)
 	
@@ -106,8 +105,7 @@ Set Linux configs to scale on high load
 		deb https://nginx.org/packages/mainline/ubuntu/ jammy nginx
 		deb-src https://nginx.org/packages/mainline/ubuntu/ jammy nginx
 	
-	sudo apt-get remove nginx-common
-	sudo apt-get update ; sudo apt-get install nginx; sudo service nginx start
+	sudo apt-get remove nginx-common; sudo apt-get update ; sudo apt-get install nginx; sudo service nginx start
 	
 [Install nginx on Rocky Linux 9](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-rocky-linux-9)
 	
