@@ -45,6 +45,7 @@
 					<div class="col-lg-9">
 		         		<h4> <i class="fa fa-database" aria-hidden="true"></i> 
 		         			<mark> There are <span id="profileAttributeCount"></span> attributes in the Profile Data Model to compute the total of data quality score </mark> </h4>
+		         		<h5> Max Total Data Quality Score <span id="maxTotalDataQualityScore" class="highlight_text"></span> </h5>
 		         	</div>
 		         	<div class="col-lg-3 text-right" >
 			         	<button type="button" class="btn btn-goto-router" onclick="callDataQualityComputeJob()" title="Recompute and update data quality score for all profiles"  > 
@@ -94,6 +95,7 @@
 	var initSystemConfigManagement = initSystemConfigManagement || function() {
 		setupTabPanels();
 		loadSystemInfoConfigs();
+		$('#maxTotalDataQualityScore').text(maxTotalDataQualityScore)
 	}
 </script>
 

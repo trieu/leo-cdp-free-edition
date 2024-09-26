@@ -1177,7 +1177,7 @@ AQL_PROFILE_STATS_COLLECTOR =>
 	           LENGTH(p.governmentIssuedIDs) == 0 AND 
 	           LENGTH(p.applicationIDs) == 0 AND 
 	           LENGTH(p.crmRefId) == 0 AND 
-	           DATE_DIFF(p.updatedAt, DATE_NOW(), 'day') > 31
+	           DATE_DIFF(p.updatedAt, DATE_NOW(), 'day') > @inactiveLimitDays
 	    COLLECT WITH COUNT INTO length RETURN length)
 	
 	

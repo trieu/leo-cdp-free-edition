@@ -25,13 +25,16 @@
 					<i class="fa fa-commenting-o"></i> AI Chatbot 
 				</a> 
 			</li>
-			<li class="dropdown" style="min-width:168px!important;">
+			<li class="dropdown" id="menu_system_control" style="min-width:170px!important;">
 				<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">
 					<i class="fa fa-bars" aria-hidden="true"></i> System Control <b class="caret"></b>
 				</a>
-				<ul class="dropdown-menu">
-					<li style="display: none;" > 
-						<a href="#"> <i class="fa fa-fw fa-envelope"></i> Inbox </a> 
+				<ul class="dropdown-menu"  style="min-width:180px!important;" >
+					<li> 
+						<a href="javascript:"> 
+							<i class="fa fa-fw fa-envelope"></i> Inbox 
+							<span id="notification_count" class="badge highlight_text">0</span> 
+						</a> 
 					</li>					
 					<li>
 						<a href="#calljs-leoCdpRouter('My_Login_Editor')"> <i class="fa fa-user"></i> <span id="userDisplayName" ></span> </a> 
