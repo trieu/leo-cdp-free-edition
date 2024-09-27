@@ -45,6 +45,10 @@
 		margin-top: 4px;
 		width: 99%;
 	}
+	
+	#btn_exported_facebook_csv, #btn_exported_excel_csv {
+		margin-top:10px; width: 180px;
+	}
 </style>
 
 <div class="row">
@@ -55,7 +59,7 @@
 		<button type="button" class="btn btn-info" title="Go back" onclick="history.back()" > 
 			<i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back 
 		</button>
-		<button type="button" class="btn btn-do-now" onclick="refreshSegmentDetails(true)" title="Refresh data of segmen"  > 
+		<button type="button" class="btn btn-do-now" onclick="refreshSegmentDetails(this, true)" title="Refresh data of segmen"  > 
        		<i class="fa fa-refresh" aria-hidden="true"></i> Refresh Data
        	</button>
 		<button type="button" class="btn btn-danger data-control-delete" title="Delete this segment" > 
@@ -263,7 +267,7 @@
 							<input type="text" class="form-control url_holder" id="txt_exported_facebook_csv" readonly placeholder="URL to download CSV data for Facebook Custom Audience" >
 						</div>
 						<div class="col-sm-2" >
-							<button type="button" class="btn btn-primary" id="btn_exported_facebook_csv" style="margin-top:10px;width: 176px;" onclick="getSegmentDownloadUrl(this,'txt_exported_facebook_csv')"> 
+							<button type="button" class="btn btn-primary" id="btn_exported_facebook_csv"  onclick="getSegmentDownloadUrl(this,'txt_exported_facebook_csv')"> 
 								<i class="fa fa-check-circle" aria-hidden="true"></i> Create URL and Copy 
 							</button>
 							<div class="download_link_holder">
@@ -280,7 +284,7 @@
 							<input type="text" class="form-control url_holder" id="txt_exported_excel_csv" readonly placeholder="URL to download CSV data for Excel / Google Sheets" >
 						</div>
 						<div class="col-sm-2" >
-							<button type="button" class="btn btn-primary" id="btn_exported_excel_csv" style="margin-top:10px;width: 176px;" onclick="getSegmentDownloadUrl(this,'txt_exported_excel_csv')" > 
+							<button type="button" class="btn btn-primary" id="btn_exported_excel_csv" style="" onclick="getSegmentDownloadUrl(this,'txt_exported_excel_csv')" > 
 								<i class="fa fa-check-circle" aria-hidden="true"></i> Create URL and Copy 
 							</button>
 							<div class="download_link_holder" >

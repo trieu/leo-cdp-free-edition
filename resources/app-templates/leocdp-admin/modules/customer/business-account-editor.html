@@ -393,7 +393,7 @@
 		
 		var generatingUrl = function(){
 			// noti
-			iziToast.info({ timeout : 2000, message: 'LEO CDP is processing data for the account "'+accountDataModel.name +'"' });
+			iziToast.info({ timeout : 2000, message: 'CDP is processing data for the account "'+accountDataModel.name +'"' });
 			var paramObj = { 'accountId': accountDataModel.id, 'csvType': csvType };
 	        var url = window.baseLeoAdminUrl + '/cdp/account/export-csv';
 	        LeoAdminApiUtil.getSecuredData(url, paramObj, function (json) {
