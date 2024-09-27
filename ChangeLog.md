@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-09-26
+## [0.9.0] - 2024-09-27
 
 ### Added
 
@@ -90,6 +90,7 @@
 
 ### Fixed
 
+- [Core CDP] fix exporting data in a segment
 - [Core CDP] improve performance of CDP Admin
 - [Profile] fix bugs when update a new profile
 - [Core CDP] segment builder using operator after, before
