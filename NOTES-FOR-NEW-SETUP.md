@@ -1,10 +1,10 @@
-# Infrastructure Setup for a new CDP instance
+# For learning about CDP and setup an instance in your server
 
-TODO: create tutorial videos
+	https://knowledge.leocdp.net/p/leo-cdp-training-course.html
 
 ## Network requirements
 
-The deployed server must have Internet connection, please set the out-bound firewall rules to these domains
+The deployed server must have Internet connection, please set the out-bound fire-wall rules to these domains
 
     https://storage.googleapis.com
     https://nominatim.openstreetmap.org
@@ -12,50 +12,69 @@ The deployed server must have Internet connection, please set the out-bound fire
     https://us1.api.mailchimp.com
     https://api.brevo.com
 
-## This requirements for all server
-
-### 1. Update DNS hosts for CDP Solution servers 
+## Update DNS hosts for CDP Solution servers 
 
 Command to edit hosts: 
 	
 	sudo nano /etc/hosts
 
-#### Add Local DNS for all servers
+### Add Local DNS for all servers
 
-- [the network IP of ArangoDB Server] cdpsys.database
-- [the network IP of Redis Server] cdpsys.redis
-- [the network IP of CDP Admin] cdpsys.admin
-- [the network IP of Data Observer] cdpsys.observer
+- [the network IP of CDP Database] cdpsys.database
+- [the network IP of CDP Admin] cdpsys.admin cdpsys.redis
+- [the network IP of CDP Observer] cdpsys.observer
 
-#### Example DNS for 1 ArangoDB database server, 1 Redis cache server, 1 Admin server and 2 data observers
+### Example DNS for 1 CDP Database, 1 CDP Admin and 1 CDP Observer
 
 	127.0.0.1 cdpsys.database
-	127.0.0.1 cdpsys.redis
-	127.0.0.1 cdpsys.admin
+	127.0.0.1 cdpsys.admin cdpsys.redis
 	127.0.0.1 cdpsys.observer
+	
+### Nginx config for db.example.com
 
-### 2. Install Java 11 JVM for all 
+```
+	server {
+
+        server_name db.example.com;
+        client_max_body_size 30M;
+
+        location / {
+             proxy_pass http://cdpsys.database:8600/;
+             proxy_set_header X-Forwarded-Proto $scheme;
+             proxy_set_header X-Forwarded-Port $server_port;
+             proxy_set_header Host            $host;
+             proxy_set_header X-Forwarded-For $remote_addr;
+        }
+
+        listen 80;
+        listen [::]:80;
+	}
+```
+
+## For all servers in CDP
+
+### 1. Install Java 11 JVM for all 
 
 [Java 11 from Amazon](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/generic-linux-install.html)
 
 	wget -O- https://apt.corretto.aws/corretto.key | sudo apt-key add -
 	sudo add-apt-repository 'deb https://apt.corretto.aws stable main'
-	sudo apt-get update; sudo apt-get install -y java-11-amazon-corretto-jdk fontconfig git nano
+	sudo apt-get update; sudo apt-get install -y java-11-amazon-corretto-jdk fontconfig git nano net-tools
 	
 Java 11 on Rocky / CentOS
 
 	sudo rpm --import https://yum.corretto.aws/corretto.key
 	sudo curl -L -o /etc/yum.repos.d/corretto.repo https://yum.corretto.aws/corretto.repo
-	sudo yum install -y java-11-amazon-corretto-devel git fontconfig git nano
+	sudo yum install -y java-11-amazon-corretto-devel fontconfig git nano net-tools
 
-### 3. Create user for SSH
+### 2. Create user for SSH
 
 	sudo useradd cdpsysuser -s /bin/bash -p '*'
 	sudo passwd -d cdpsysuser
 	sudo usermod -aG sudo cdpsysuser
 	echo 'cdpsysuser ALL=(ALL) NOPASSWD: ALL' | sudo tee -a /etc/sudoers >/dev/null
 
-### 4. Set SSH keys
+### 3. Set SSH keys
 
 	sudo su cdpsysuser
 	sudo mkdir -p /home/cdpsysuser
@@ -66,8 +85,7 @@ Java 11 on Rocky / CentOS
 
 => Set your SSH public key
 
-
-## This requirements for ArangoDB database
+## ArangoDB database
 
 Set Linux configs to scale on high load
 
@@ -116,7 +134,6 @@ Set Linux configs to scale on high load
 	sudo firewall-cmd --reload
 	systemctl status nginx
 	
-
 ### SSL for Nginx Server
 
 [SSL certbot on Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04)
@@ -129,7 +146,7 @@ SSL certbot on Rocky Linux
 	sudo dnf install certbot python3-certbot-nginx
 	sudo certbot --nginx
 
-### Redis Caching for Admin
+### Redis Caching for Admin & Observer
 
 * [Redis on Ubuntu](https://vitux.com/install-redis-on-ubuntu/)
 * [Redis Cluster](https://success.outsystems.com/Support/Enterprise_Customers/Installation/Configuring_OutSystems_with_Redis_in-memory_session_storage/Set_up_a_Redis_Cluster_for_Production_environments)
@@ -153,3 +170,30 @@ CentOS or Rocky
 	sudo git clone https://github.com/trieu/leo-cdp-free-edition.git /build/cdp-instance
 	sudo chown -R cdpsys:cdpsys /build/ ; sudo chmod +x /build/cdp-instance/*.sh
 	
+## Set-up configs for the CDP instance
+
+### 5 main configs of CDP
+
+- leocdp-metadata.properties => the main config
+- configs/PRO-database-configs.json => the database config
+- configs/http-routing-configs.json => the http port of CDP admin and event observer
+- configs/redis-configs.json => all redis configs to cache data here
+- configs/scheduled-jobs-configs.json => the config of all scheduled jobs in CDP
+
+### Admin Dashboard
+
+- Check the value in configs/http-routing-configs.json to get correct HTTP_ROUTER_KEY
+- If you need more than one observer instance, please set HTTP_ROUTER_KEY1, HTTP_ROUTER_KEY2,...
+- Open start-admin.sh, set correct HTTP_ROUTER_KEY. 
+- ./start-admin.sh
+
+### Event Observer
+
+- Check the value in configs/http-routing-configs.json to get correct HTTP_ROUTER_KEY1, HTTP_ROUTER_KEY2, ...
+- Open start-observer.sh, set correct HTTP_ROUTER_KEY1, HTTP_ROUTER_KEY2,...
+- ./start-observer.sh
+
+### Data Scheduled Jobs
+
+- To run data connector jobs and scheduled jobs, check start-data-connector-jobs.sh
+- ./start-data-connector-jobs.sh
