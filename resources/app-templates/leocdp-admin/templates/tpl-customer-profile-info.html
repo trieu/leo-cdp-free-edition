@@ -52,7 +52,6 @@
 	#profile_info_tabs {
 		margin-top: 15px;
 	}
-	
 	.funnel-flow {
 		text-transform: uppercase;
 		font-size: 12px!important;
@@ -85,7 +84,6 @@
 	    border-color: #BBBBBB;
 	    margin-top: 5px;
 	}
-
 </style>
 
 <script id='engaged-touchpoint-tpl' type="text/html" >
@@ -130,7 +128,7 @@
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br> 
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
-				<li> <%- key %> : <%- (value) %> </li>
+				<li><%- key %> : <%- (value) %></li>
 			<% }) %>
 			<ul>
 			</span> 
@@ -172,7 +170,7 @@
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br>
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
-				<li> <b> <%- key %> </b> : <mark> <%- decodeURISafe(value) %> </mark>  </li>
+				<li> <b><%- key %></b> : <mark><%- decodeURISafe(value) %></mark> </li>
 			<% }) %>
 			<ul>
 			</span> 
@@ -225,7 +223,7 @@
 			<span class="small" > <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Event Data: </b> </span> 
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
-				<li> <b> <%- key %> </b> : <mark> <%- decodeURISafe(value) %> </mark>  </li>
+				<li> <b><%- key %></b> : <mark><%- decodeURISafe(value) %></mark>  </li>
 			<% }) %>
 			<ul>
 		 </div>
@@ -303,7 +301,7 @@
 			<span class="small" > <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Event Data: </b> </span> 
 			<ul class="small" >
 			<% _.forOwn(eventData, function(value, key) { %>
-				<li> <b> <%- key %> </b> : <mark> <%- decodeURISafe(value) %> </mark>  </li>
+				<li> <b><%- key %></b> : <mark><%- decodeURISafe(value) %></mark>  </li>
 			<% }) %>
 			<ul>
 			<br>
