@@ -24,11 +24,12 @@ Command to edit hosts:
 - [the network IP of CDP Admin] cdpsys.admin cdpsys.redis
 - [the network IP of CDP Observer] cdpsys.observer
 
-### Example DNS for 1 CDP Database, 1 CDP Admin and 1 CDP Observer
+### Example DNS for 1 CDP Database, 1 CDP Admin, 1 CDP Observer, 1 local Redis server
 
-	127.0.0.1 cdpsys.database
-	127.0.0.1 cdpsys.admin cdpsys.redis
-	127.0.0.1 cdpsys.observer
+	192.168.1.6 cdpsys.database
+	192.168.1.6 cdpsys.admin             
+	192.168.1.5 cdpsys.observer
+	127.0.0.1 cdpsys.redis
 	
 ### Nginx config for db.example.com
 
@@ -98,7 +99,8 @@ Set Linux configs to scale on high load
 	curl -OL https://download.arangodb.com/arangodb311/DEBIAN/Release.key
 	sudo apt-key add - < Release.key
 	echo 'deb https://download.arangodb.com/arangodb311/DEBIAN/ /' | sudo tee /etc/apt/sources.list.d/arangodb.list
-	sudo apt-get install apt-transport-https; sudo apt-get update && sudo apt-get install arangodb3=3.11.9-1
+	sudo apt-get install apt-transport-https; sudo apt-get update; sudo apt-get install arangodb3=3.11.11-1
+	sudo ufw allow from [IP_Observer] to any port 8600
 	
 [ArangoDB on CentOS or Rocky Linux](https://idroot.us/install-arangodb-centos-8/)
 	
@@ -109,7 +111,7 @@ Set Linux configs to scale on high load
 	>  /var/log/arangodb3/arangod.log
 	nano /etc/arangodb3/arangod.conf
 	systemctl restart arangodb3.service
-	sudo firewall-cmd --add-port=8601/tcp --permanent
+	sudo firewall-cmd --add-port=8600/tcp --permanent
 	sudo firewall-cmd --reload
 
 ## This requirements for HTTP Observer, Admin and Database 

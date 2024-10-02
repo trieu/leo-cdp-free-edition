@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-09-27
+## [0.9.0] - 2024-10-02
 
 ### Added
 
@@ -90,7 +90,8 @@
 
 ### Fixed
 
-- [Core CDP] fix exporting data in a segment
+- [Segment] improve segment indexing and fix bugs
+- [Core CDP] fix exporting data in a segment 
 - [Core CDP] improve performance of CDP Admin
 - [Profile] fix bugs when update a new profile
 - [Core CDP] segment builder using operator after, before
@@ -152,6 +153,7 @@
 
 ### Changed
 
+- [Admin UI] update font-family: Noto Sans for admin CDP
 - [Segment] improve performance, add new way to refresh data of segment
 - [Event API] add params: sourceip and useragent to save from WooCommerce Data Source
 - [Profile UI] improve touchpoint flow

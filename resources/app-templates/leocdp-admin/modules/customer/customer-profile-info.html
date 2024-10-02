@@ -177,7 +177,7 @@
 		            
 		            	<!-- vertical tab panel -->
 		                <ul id="event_flow_tabs" class="nav nav-pills nav-stacked col-md-2" style="padding: 20px 0" >	
-		                	<li class="active"><a href="#panel_event_journey_report" data-toggle="tab" > <i class="fa fa-map-o"></i> Data Journey Map </a></li>	                	
+		                	<li class="active"><a href="#panel_event_journey_report" data-toggle="tab" onclick="refreshProfileDataJourneyMap()"> <i class="fa fa-map-o"></i> Data Journey Map </a></li>	                	
 		                	<li ><a href="#panel_events_in_time" data-toggle="tab" > <i class="fa fa-line-chart" aria-hidden="true"></i> Event Time Series</a></li>
 		                	<li><a href="#panel_events_in_stream" data-toggle="tab" onclick="initProfileEventInStream()" > <i class="fa fa-list-ol" aria-hidden="true"></i> Event Data Stream </a></li>
 		                	
@@ -196,52 +196,18 @@
 		                
 		                <div id="event_flow_vertital_tabs" class="tab-content col-md-10" >
 		                	<!-- vertical tab: Event Data Report  -->
-		                    <div class="tab-pane active" id="panel_event_journey_report" >
-		                    	<h4 class="highlight_text" > <i class="fa fa-map-o" aria-hidden="true"></i> Data Journey Report </h4> 
-				        		<div class="col-ld-12" id="profile_funnel_report_div" > 
-				        			<div class="funnel-flow" id="profile_funnel_report" >
-				               			<div class="funnel-stage" id="profile_funnel_stage_1" >
-				               				New Visitor
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_2" >
-				               				Returning Visitor
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_3" >
-				               				Lead
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_4" >
-				               				Prospect
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_5" >
-				               				New Customer
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_6" >
-				               				Engaged Customer
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_7" >
-				               				Happy Customer
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_8" >
-				               				Customer Advocate
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_9" >
-				               				Unhappy Customer
-				               			</div>
-				               			<div class="funnel-stage" id="profile_funnel_stage_10" >
-				               				Terminated Customer
-				               			</div>
-				               		</div>
-				               		<div class="progress" style="text-transform: uppercase; font-weight: bold; width: 100%!important;" >
-									  	<div id="profileJourneyFunnel" class="progress-bar progress-bar-striped active" role="progressbar"
-									  				aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%" >
-									    	<span id="profileJourneyFunnelValue" >0</span> % journey
-									  	</div>
-								   	</div>
-							   	</div>
-							   	
-							   	<div class="vcenter highlight_box col-md-12" style="padding: 20px 20px 40px 20px;">
-		                    		<h4 id="event_journey_funnel_info" ></h4>		                    		
+		                    <div class="tab-pane active" id="panel_event_journey_report"   >
+		                    	<h4 class="highlight_text" > <i class="fa fa-map-o" aria-hidden="true"></i> Behavioral Data Report </h4> 
+		              
+							   	<div class="col-md-12" style="padding: 10px 10px 10px 10px;">
+		                    		<h4 id="event_journey_funnel_info" ></h4>	
+		                    		<div class="col-md-1" >
+		                    		</div>	   
+		                    		<div class="col-md-8" >                 		
 	                  				<div id="event_journey_funnel" class="funnel" ></div>
+	                  				</div>
+	                  				<div class="col-md-3" >
+		                    		</div>	
 	               				</div>
 	               				
 	               				<!-- Data Journey Graph  -->
@@ -1046,9 +1012,52 @@
 		                    </div>
 		                    
 		                    <div class="tab-pane" id="tab_profile_marketing_data" >
+		                    	
 				               <!-- profile info tab 4 -->
 				               <h4 class="highlight_text" > <i class="fa fa-briefcase" aria-hidden="true"></i> Marketing Data </h4>
-							   <table border=0 class="underlined" style="width: 100%;">
+							   
+							   <div class="col-ld-12" id="profile_funnel_report_div"> 
+				        			<div class="funnel-flow" id="profile_funnel_report" >
+				               			<div class="funnel-stage" id="profile_funnel_stage_1" >
+				               				New Visitor
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_2" >
+				               				Returning Visitor
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_3" >
+				               				Lead
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_4" >
+				               				Prospect
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_5" >
+				               				New Customer
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_6" >
+				               				Engaged Customer
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_7" >
+				               				Happy Customer
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_8" >
+				               				Customer Advocate
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_9" >
+				               				Unhappy Customer
+				               			</div>
+				               			<div class="funnel-stage" id="profile_funnel_stage_10" >
+				               				Terminated Customer
+				               			</div>
+				               		</div>
+				               		<div class="progress" style="text-transform: uppercase; font-weight: bold; width: 100%!important;" >
+									  	<div id="profileJourneyFunnel" class="progress-bar progress-bar-striped active" role="progressbar"
+									  				aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%" >
+									    	<span id="profileJourneyFunnelValue" >0</span> % journey
+									  	</div>
+								   	</div>
+							   	</div>
+							   
+							   <table border=0 class="underlined" style="width: 100%; margin-top: 10px">
 				                   <tr>
 				                       <td>
 											<ol class="profile_ext_data" data-field="personal_attributes">

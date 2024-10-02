@@ -982,6 +982,29 @@ AQL_GET_PROFILE_BY_ID_FOR_SYSTEM =>
 	RETURN p
 ;
 
+AQL_GET_ACTIVE_PROFILE_IDENTITY_BY_ID =>
+	FOR profile in cdp_profile 
+	FILTER profile._key == @id AND profile.status > 0 
+	RETURN {
+	  id: profile._key,
+	  visitorId: profile.visitorId,
+	  crmRefId: profile.crmRefId,
+	  primaryEmail: profile.primaryEmail,
+	  primaryPhone: profile.primaryPhone,
+	  personaUri: profile.personaUri,
+	  primaryUsername: profile.primaryUsername,
+	  firstName: profile.firstName,
+	  lastName: profile.lastName,
+	  fingerprintId: profile.fingerprintId,
+	  socialMediaProfiles: profile.socialMediaProfiles,
+	  applicationIDs: profile.applicationIDs,
+	  governmentIssuedIDs: profile.governmentIssuedIDs,
+	  loyaltyIDs: profile.loyaltyIDs,
+	  fintechSystemIDs: profile.fintechSystemIDs,
+	  inSegments: profile.inSegments
+	}
+;
+
 AQL_GET_PROFILE_BY_ID_FOR_ADMIN =>
 	FOR p in cdp_profile 
 	FILTER p._key == @id AND (@loginUsername IN p.authorizedViewers[*] OR p.visitorId == @profileVisitorId)
@@ -1216,48 +1239,67 @@ AQL_PROFILE_TIMESERIES_COLLECTOR =>
 ;
 
 AQL_INSERT_SEGMENT_REF_KEY_FOR_PROFILE =>
-	FOR p in cdp_profile
-	    FILTER  p._key == @profileId
-	   	LET newAuthorizedViewers = APPEND(p.authorizedViewers, @authorizedViewers)
-	    LET newAuthorizedEditors = APPEND(p.authorizedEditors, @authorizedEditors)
-	    UPDATE p WITH { 
-	    	inSegments: [ {id: @segmentId, name: @segmentName, indexScore: @segmentIndexScore, queryHashedId: @queryHashedId} ],
-	    	authorizedViewers : newAuthorizedViewers, authorizedEditors : newAuthorizedEditors
-	    } IN cdp_profile
+	LET newSegment = {
+	  "id": @segmentId,
+	  "indexScore": @segmentIndexScore,
+	  "lastDataSynch": 0,
+	  "name": @segmentName,
+	  "queryHashedId": @queryHashedId,
+	  "authorizedViewers": @authorizedViewers,
+	  "authorizedEditors": @authorizedEditors
+	}
+	
+	UPDATE { _key: @profileId } 
+	WITH { inSegments: [newSegment] } 
+	IN cdp_profile
 ;
 
 AQL_UPDATE_SEGMENT_REF_KEY_FOR_PROFILE =>
-	FOR p in cdp_profile
-	    FILTER p._key == @profileId
-	    LET alteredList = (
-	        FOR s IN p.inSegments
-	        LET newItem = ( s.id == @segmentId ? MERGE(s, {name : @segmentName, indexScore: @segmentIndexScore, queryHashedId: @queryHashedId }) : s )
-	        RETURN newItem
-	    )
-	   	LET newAuthorizedViewers = APPEND(p.authorizedViewers, @authorizedViewers)
-	    LET newAuthorizedEditors = APPEND(p.authorizedEditors, @authorizedEditors)
-	    UPDATE p WITH { inSegments: alteredList, authorizedViewers : newAuthorizedViewers, authorizedEditors : newAuthorizedEditors } IN cdp_profile
+	FOR profile IN cdp_profile
+	  FILTER profile._key == @profileId
+	  LET updatedSegments = (
+	    FOR segment IN profile.inSegments
+	      RETURN MERGE(
+	        segment,
+	        segment.id == @segmentId ? { 
+	          indexScore: @segmentIndexScore, 
+	          name: @segmentName,
+	          queryHashedId: @queryHashedId,
+	          authorizedViewers: @authorizedViewers,
+	          authorizedEditors: @authorizedEditors
+	        } : {}
+	      )
+	  )
+	  UPDATE profile WITH { inSegments: updatedSegments } IN cdp_profile
 ;
    
 AQL_APPEND_SEGMENT_REF_KEY_FOR_PROFILE =>
-	FOR p in cdp_profile
-	    FILTER p._key == @profileId
-	    LET newInSegments = APPEND(p.inSegments, [ {id: @segmentId, name : @segmentName, indexScore: @segmentIndexScore, queryHashedId: @queryHashedId} ] )
-	    LET newAuthorizedViewers = APPEND(p.authorizedViewers, @authorizedViewers)
-	    LET newAuthorizedEditors = APPEND(p.authorizedEditors, @authorizedEditors)
-	    UPDATE p WITH { inSegments: newInSegments, authorizedViewers : newAuthorizedViewers, authorizedEditors : newAuthorizedEditors } IN cdp_profile    
+	LET newSegment = {
+	  "id": @segmentId,
+	  "indexScore": @segmentIndexScore,
+	  "lastDataSynch": 0,
+	  "name": @segmentName,
+	  "queryHashedId": @queryHashedId,
+	  "authorizedViewers": @authorizedViewers,
+	  "authorizedEditors": @authorizedEditors
+	}
+	
+	FOR profile IN cdp_profile
+	  FILTER profile._key == @profileId
+	  UPDATE profile 
+	  WITH { inSegments: PUSH(profile.inSegments, newSegment) } 
+	  IN cdp_profile   
 ;
 
-AQL_DELETE_SEGMENT_REF_KEY_FOR_PROFILE =>
-	FOR p in cdp_profile
-		FILTER p._key == @profileId
-		LET matchedSegmentRefs = ( FOR s IN p.inSegments LET newItem = ( s.id != @segmentId ? s : 0 ) RETURN newItem )
-		LET finalSegmentRefs = ( FOR s in matchedSegmentRefs FILTER s != 0 RETURN s)     
-		LET newViewers = ( FOR u IN p.authorizedViewers LET newItem = ( u NOT IN @oldAuthorizedViewers ? u : 0 ) RETURN newItem )
-		LET finalViewers = ( FOR u in newViewers FILTER u != 0 RETURN u) 
-		LET newEditors = ( FOR u IN p.authorizedEditors LET newItem = ( u NOT IN @oldAuthorizedEditors ? u : 0 ) RETURN newItem )
-		LET finalEditors = ( FOR u in newEditors FILTER u != 0 RETURN u) 
-		UPDATE p WITH { inSegments:  finalSegmentRefs, authorizedViewers: finalViewers, authorizedEditors: finalEditors } IN cdp_profile
+AQL_REMOVE_SEGMENT_REF_KEY_FOR_PROFILE =>
+	FOR profile IN cdp_profile
+	  FILTER profile._key == @profileId
+	  LET updatedSegments = (
+	    FOR segment IN profile.inSegments
+	      FILTER segment.id NOT IN @removedSegmentIds
+	      RETURN segment
+	  )
+  	UPDATE profile WITH { inSegments: updatedSegments } IN cdp_profile
 ;
 
 AQL_REMOVE_VIEWABLE_PROFILES_FOR_USER =>
@@ -1856,6 +1898,12 @@ AQL_GET_MAX_INDEX_SCORE_IN_SEGMENTS =>
 AQL_GET_ALL_SEGMENTS =>
 	FOR d in cdp_segment  
 		FILTER d.status >= 0 
+		RETURN d
+;
+
+AQL_GET_ALL_ACTIVE_SEGMENTS =>
+	FOR d in cdp_segment  
+		FILTER d.status > 0 
 		RETURN d
 ;
 
