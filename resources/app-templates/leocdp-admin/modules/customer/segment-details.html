@@ -264,11 +264,12 @@
 						<div class="col-sm-10" >
 							<label class="label_box" > <i class="fa fa-facebook-official" aria-hidden="true"></i> 
 								Export simple CSV data, the file is formated for Facebook / Google Custom Audience (The URL is valid in 15 minutes) </label>
-							<input type="text" class="form-control url_holder" id="txt_exported_facebook_csv" readonly placeholder="URL to download CSV data for Facebook Custom Audience" >
+							<input type="text" class="form-control url_holder" id="txt_exported_facebook_csv"  data-for-button="ahref_exported_facebook_csv"
+									readonly placeholder="URL to download CSV data for Facebook Custom Audience" >
 						</div>
 						<div class="col-sm-2" >
 							<button type="button" class="btn btn-primary" id="btn_exported_facebook_csv"  onclick="getSegmentDownloadUrl(this,'txt_exported_facebook_csv')"> 
-								<i class="fa fa-check-circle" aria-hidden="true"></i> Create URL and Copy 
+								<i class="fa fa-check-circle" aria-hidden="true"></i> Create Download URL
 							</button>
 							<div class="download_link_holder">
 								<a id="ahref_exported_facebook_csv" class="btn btn-do-now" style="display: none;width: 176px;" target="_blank" > <i class="fa fa-cloud-download" aria-hidden="true"></i> 
@@ -281,11 +282,12 @@
 						<div class="col-sm-10" >
 							<label class="label_box" > <i class="fa fa-file-excel-o" aria-hidden="true"></i> 
 								Export full CSV data, the file is formated for Excel or Google Sheets (The URL is valid in 15 minutes)</label>
-							<input type="text" class="form-control url_holder" id="txt_exported_excel_csv" readonly placeholder="URL to download CSV data for Excel / Google Sheets" >
+							<input type="text" class="form-control url_holder" id="txt_exported_excel_csv" data-for-button="ahref_exported_excel_csv"
+									 readonly placeholder="URL to download CSV data for Excel / Google Sheets" >
 						</div>
 						<div class="col-sm-2" >
 							<button type="button" class="btn btn-primary" id="btn_exported_excel_csv" style="" onclick="getSegmentDownloadUrl(this,'txt_exported_excel_csv')" > 
-								<i class="fa fa-check-circle" aria-hidden="true"></i> Create URL and Copy 
+								<i class="fa fa-check-circle" aria-hidden="true"></i> Create Download URL
 							</button>
 							<div class="download_link_holder" >
 								<a id="ahref_exported_excel_csv" class="btn btn-do-now" style="display: none;width: 176px;" target="_blank" > <i class="fa fa-cloud-download" aria-hidden="true"></i> 
