@@ -93,10 +93,10 @@
       <div class="col-lg-10">
          <small class="text-muted pull-right"> Updated: <%- updatedAt %> </small>
          <h5 class="media-heading"> <a target="_blank" rel="noreferrer" href="<%- url %>" > <%- name %> </a> </h5>
-         <div class="text-nowrap " >  
+         <div class="text-left " >  
 			 <i class="fa fa-link" aria-hidden="true"></i> <span class="small"><%- truncatedUrl %></span> 
 		 </div>
- 		 <div class="text-nowrap" style="display: <%- cssShowLocationCode %>" >  
+ 		 <div class="text-left" style="display: <%- cssShowLocationCode %>" >  
 			<i class="fa fa-map-marker" aria-hidden="true"></i>  
 			<span class="small" > Location at <a href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','Touchpoint Location')" > </a>  </span> 
 		 </div>
@@ -112,10 +112,10 @@
       <div class="col-md-10">
          <small class="text-muted pull-right"> <%- createdAt %> </small>
          <h5 class="media-heading"> <a target="_blank" rel="noreferrer" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
-         <div class="text-nowrap " >  
+         <div class="text-left " >  
 			 <i class="fa fa-link" aria-hidden="true"></i> <span class="small"><%- srcTouchpoint.truncatedUrl %></span> 
 		 </div>
- 		 <div class="text-nowrap " >  
+ 		 <div class="text-left " >  
 			<i class="fa fa-map-marker" aria-hidden="true"></i>  
 			<div style="display: <%- cssStyleDisplayLocation %>" >
 				<i class="fa fa-map-marker" aria-hidden="true"></i>  
@@ -154,10 +154,10 @@
       <div class="col-md-10">
          <small class="text-muted pull-right"> <%- createdAt %> </small>
          <h5 class="media-heading"> <a target="_blank" rel="noreferrer" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
-         <div class="text-nowrap " >  
+         <div class="text-left " >  
 			 <i class="fa fa-link" aria-hidden="true"></i> <span class="small"><%- srcTouchpoint.truncatedUrl %></span> 
 		 </div>
- 		 <div class="text-nowrap " >  
+ 		 <div class="text-left " >  
 			<i class="fa fa-map-marker" aria-hidden="true"></i>  
 			<div style="display: <%- cssStyleDisplayLocation %>" >
 				<i class="fa fa-map-marker" aria-hidden="true"></i>  
@@ -170,7 +170,7 @@
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Event Data:</b> <br>
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
-				<li> <b><%- key %></b> : <mark><%- decodeURISafe(value) %></mark> </li>
+				<li> <b><%- key %></b> : <mark><%- decodeObjectValue(key, value) %></mark> </li>
 			<% }) %>
 			<ul>
 			</span> 
@@ -196,12 +196,12 @@
       <div class="col-md-10">
          <small class="text-muted pull-right"> <%- createdAt %> </small>
          <h5 class="media-heading"> <a target="_blank" rel="noreferrer" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
-         <div class="text-nowrap " > 
-			 <span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Action Data:</b> <br>  
-			 <i class="fa fa-commenting-o" aria-hidden="true"></i> <span class="small" > Message: <mark> <%- message %></mark> </span>  <br>
-			 <i class="fa fa-info-circle" aria-hidden="true"></i> Value: <mark> <%- metricValue %> </mark> 
+         <div class="text-left small" > 
+			 <b><i class="fa fa-info-circle" aria-hidden="true"></i> Action Data:</b> <br>  
+			 <i class="fa fa-commenting-o" aria-hidden="true"></i> Message: <mark class="small"> <%- message %></mark>  <br>
+			 <i class="fa fa-info-circle" aria-hidden="true"></i> Value: <mark> <%- metricValue %> </mark> <br>
 		 </div>
-		 <div class="text-nowrap"  >  
+		 <div class="text-left" style="margin-top: 5px;" >  
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Transaction Data:</b> <br> 
 			<i class="fa fa-usd" aria-hidden="true"></i> Transaction ID: <mark> <%- transactionId %> </mark> - Payment: <mark> <%- transactionPayment %> </mark> <br>
 			<i class="fa fa-info" aria-hidden="true"></i> Status: <mark> <%- transactionStatus %> </mark> <br>
@@ -209,7 +209,7 @@
 			<i class="fa fa-usd" aria-hidden="true"></i> Transaction Value: <mark> <%- transactionValue %> <%- transactionCurrency %> </mark> <br>
 			<i class="fa fa-usd" aria-hidden="true"></i> Discount Value: <mark> <%- transactionDiscount %> <%- transactionCurrency %> </mark>	
 		 </div>
-		 <div class="text-nowrap " >  
+		 <div class="text-left " >  
 			<i class="fa fa-link" aria-hidden="true"></i> <span class="small" ><%- srcTouchpoint.truncatedUrl %></span> <br>
 			<div style="display: <%- cssStyleDisplayLocation %>" >
 				<i class="fa fa-map-marker" aria-hidden="true"></i>  
@@ -223,10 +223,10 @@
 			<span class="small" > <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Event Data: </b> </span> 
 			<ul>
 			<% _.forOwn(eventData, function(value, key) { %>
-				<li> <b><%- key %></b> : <mark><%- decodeURISafe(value) %></mark>  </li>
+				<li> <b><%- key %></b> : <mark><%- decodeObjectValue(key, value) %></mark>  </li>
 			<% }) %>
 			<ul>
-		 </div>
+		</div>
 		<div class="text-wrap" style="display: <%- cssStyleDisplayOrderedItems %>" >   
 			<span class="small"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Ordered Items </b> </span> 
 			<div class="small">
@@ -265,18 +265,19 @@
          <small class="text-muted pull-right"> <%- createdAt %>  </small>
          <h5 class="media-heading"> <a target="_blank" rel="noreferrer" href="<%- srcTouchpoint.url %>" > <%- srcTouchpoint.name %> </a> </h5>
 		 
-		<div class="text-nowrap " >  
+		<div class="text-left small " >  
 			<i class="fa fa-link" aria-hidden="true"></i> <span class="small" ><%- srcTouchpoint.truncatedUrl %></span> <br> 
-			<i class="fa fa-commenting-o" aria-hidden="true"></i> <span class="small" > Message: <mark> <%- message %></mark> </span>  <br>
+			<i class="fa fa-commenting-o" aria-hidden="true"></i> Message: <mark class="small"> <%- message %></mark>  <br>
 			<div style="display: <%- cssStyleDisplayLocation %>" >
 				<i class="fa fa-map-marker" aria-hidden="true"></i>  
 				<span class="small" > 
 					Location at <a  href="javascript:eModal.iframe('https://plus.codes/<%- locationCode %>','<%- locationName %>')" > <%- locationName %> </a> 
 				</span> 
  			</div>
+			 <br>
 		 </div>
-		 <hr>
-         <div class="text-nowrap"  >  
+
+         <div class="text-left" style="margin-top: 5px;"  >  
 			
 			<span class="small" > <b><i class="fa fa-info-circle" aria-hidden="true"></i> Transaction Data:</b> <br> 
 			<i class="fa fa-usd" aria-hidden="true"></i> Transaction ID: <mark> <%- transactionId %> </mark> Status: <mark> <%- transactionStatus %> </mark>  <br>
@@ -301,7 +302,7 @@
 			<span class="small" > <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Event Data: </b> </span> 
 			<ul class="small" >
 			<% _.forOwn(eventData, function(value, key) { %>
-				<li> <b><%- key %></b> : <mark><%- decodeURISafe(value) %></mark>  </li>
+				<li> <b><%- key %></b> : <mark><%- decodeObjectValue(key, value) %></mark>  </li>
 			<% }) %>
 			<ul>
 			<br>
@@ -408,7 +409,7 @@
 			</div>		
 		</div>
 
- 		<div class="text-nowrap" style="margin-top:5px;">
+ 		<div class="text-left" style="margin-top:5px;">
 
 			<div class="col-lg-6">
 				<i class="fa fa-info" aria-hidden="true"></i> <b class="small" > Original Price: <%- product.originalPrice %> <%- product.priceCurrency %> </b> 				
@@ -438,8 +439,8 @@
 	</div>
 	 <div class="col-md-10">
 		<small class="text-muted pull-right"> Transaction Date: <%- createdAt %> </small>
- 		<div class="text-nowrap" > 
-			<i class="fa fa-info" aria-hidden="true"></i> Product <%- product.productIdType %> : <b> <%- product.productId %> </b> <br>
+ 		<div class="text-left" > 
+			<i class="fa fa-info" aria-hidden="true"></i> Producsmallt <%- product.productIdType %> : <b> <%- product.productId %> </b> <br>
 			<h5 class="media-heading">  <%- product.title %> </h5> 
 			<span class="small item_link" > <a target="_blank" rel="noreferrer" href="<%- product.fullUrl %>" > <%- product.fullUrl %> </a>  </span> <br>
 			<i class="fa fa-info" aria-hidden="true"></i> Transaction ID: <b> <%- transactionId %> </b> 
@@ -460,11 +461,11 @@
          <h5> <i class="fa fa-info-circle" aria-hidden="true"></i>  Feedback Form: <mark style="font-weight:bold;font-size: 1.1em;"> <%- header %> </mark> </h5>
 		 <h6> <i class="fa fa-info-circle" aria-hidden="true"></i>  Type: <mark style="font-weight:bold;font-size: 1.1em;"> <%- feedbackType %> </mark></h6>
  		 <hr>
-         <div class="text-nowrap" >  
+         <div class="text-left" >  
 			<i class="fa fa-info-circle" aria-hidden="true"></i> Touchpoint Name: <strong title="<%- touchpointName %>"> <%- touchpointName.length > 90 ? touchpointName.substring(0,90) + "..." : touchpointName %> </strong> <br>
 			<i class="fa fa-link" aria-hidden="true"></i> Touchpoint URL: <a target="_blank" rel="noreferrer" href="<%- previewUrl %>" > <%- previewUrl %> </a> 
 		 </div>
-		 <div class="text-nowrap" >  
+		 <div class="text-left" >  
 			<i class="fa fa-star" aria-hidden="true"></i>  
 			Feedback Event Score:  <mark style="font-weight:bold;font-size: 1.2em;"><%- feedbackScore %></mark>
 		 </div>
@@ -503,11 +504,11 @@
 		 <h6> <i class="fa fa-info-circle" aria-hidden="true"></i>  Type: <mark style="font-weight:bold;font-size: 1.1em;"> <%- feedbackType %> </mark></h6>
 		 <h6> <i class="fa fa-info-circle" aria-hidden="true"></i>  Group: <%- group %>  </h6>
  		 <hr>
-         <div class="text-nowrap" >  
+         <div class="text-left" >  
 			<i class="fa fa-info-circle" aria-hidden="true"></i> Touchpoint Name: <strong title="<%- touchpointName %>"> <%- touchpointName.length > 90 ? touchpointName.substring(0,90) + "..." : touchpointName %> </strong> <br>
 			<i class="fa fa-link" aria-hidden="true"></i> Touchpoint URL: <a target="_blank" rel="noreferrer" href="<%- previewUrl %>" > <%- previewUrl %> </a> 
 		 </div>
-		 <div class="text-nowrap" >  
+		 <div class="text-left" >  
 			<i class="fa fa-star" aria-hidden="true"></i>  
 			Feedback Event Score: <mark style="font-weight:bold;font-size: 1.2em;"><%- feedbackScore %></mark>
 		 </div>
@@ -522,7 +523,7 @@
 			  		aria-valuemin="0" aria-valuemax="100" style="width:<%- scoreCX.neutral %>%">
 			    		<span><%- scoreCX.neutral %></span>% Neutral
 			  	</div>
-			  	<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="<%- scoreCX.positive %>"
+			  	<div class="progress-bar progress-bar-success prsmallogress-bar-striped active" role="progressbar" aria-valuenow="<%- scoreCX.positive %>"
 			  		aria-valuemin="0" aria-valuemax="100" style="width:<%- scoreCX.positive %>%">
 			    		<span><%- scoreCX.positive %></span>% Positive
 			  	</div>
@@ -538,10 +539,10 @@
 			<ul>
 		 </div>
 		 <hr>
-		 <div class="text-nowrap" >  
+		 <div class="text-left" >  
 			<i class="fa fa-info-circle" aria-hidden="true"></i>  Original Sources: <mark style="font-weight:bold;font-size: 1.1em;"><%- originalSources.join(", ") %></mark>
 		 </div>
-		 <div class="text-nowrap" >  
+		 <div class="text-left" >  
 			<i class="fa fa-commenting-o" aria-hidden="true"></i> Comment: <mark style="font-weight:bold;font-size: 1.1em;"> <%- comment %> </mark>
 		 </div>
 		 <hr>
