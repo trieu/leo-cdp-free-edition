@@ -51,27 +51,12 @@
 			</div>
 
 			<div id="contentClassForEmailTemplate" class="form-group">
-				<label>Content Class</label>
+				<label>Landing Page Type</label>
 				<div>
 					<div class="radio">
-						<label for="cl_basic_email_content"> <input
-							id="cl_basic_email_content" type="radio"
-							value="basic_email_content" name="contentClass">Basic
-							Email Content
-						</label>
-					</div>
-					<div class="radio">
-						<label for="cl_product_recommendation"> <input
-							id="cl_product_recommendation" type="radio"
-							value="product_recommendation" name="contentClass">Product
-							Recommendation
-						</label>
-					</div>
-					<div class="radio">
-						<label for="cl_content_recommendation"> <input
-							id="cl_content_recommendation" type="radio"
-							value="content_recommendation" name="contentClass">Content
-							Recommendation
+						<label for="cl_feedback_survey"> <input
+							id="cl_basic_landing_page" type="radio"
+							value="basic_landing_page" name="contentClass">Basic Landing Page
 						</label>
 					</div>
 					<div class="radio">
@@ -81,21 +66,12 @@
 						</label>
 					</div>
 					<div class="radio">
-						<label for="cl_feedback_survey"> <input
-							id="cl_basic_landing_page" type="radio"
-							value="basic_landing_page" name="contentClass">Basic
-							Landing Page
+						<label for="cl_gamification"> <input
+							id="cl_gamification" type="radio"
+							value="gamification" name="contentClass">Website Gamification
 						</label>
 					</div>
 				</div>
-			</div>
-
-			<div class="form-group">
-				<label>Template JSON Model</label>
-				<div id="json_metadata_container" style="width: 100%;">
-					<textarea id="json_metadata"></textarea>
-				</div>
-				<hr>
 			</div>
 
 			<div id="webtpl_url_holder" class="alert alert-info" role="alert">
@@ -109,12 +85,20 @@
 			</div>
 
 			<div class="form-group" id="content_div_wrapper">
-				<label>Template Content</label>
+				<label>Template </label>
 
 				<div id="content_div"></div>
 				<div id="raw_media_container" style="width: 100%;">
 					<textarea id="raw_media_html"></textarea>
 				</div>
+			</div>
+			
+			<div class="form-group" style="display: none;">
+				<label>Template JSON Model</label>
+				<div id="json_metadata_container" style="width: 100%;">
+					<textarea id="json_metadata"></textarea>
+				</div>
+				<hr>
 			</div>
 
 		</fieldset>
