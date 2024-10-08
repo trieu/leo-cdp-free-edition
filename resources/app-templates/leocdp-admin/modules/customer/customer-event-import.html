@@ -64,7 +64,7 @@
 	
 	var initEventImporter = function () {
 		//headline image uploader
-		var refObjectClass = 'profile';
+		var refObjectClass = 'event';
 		var refObjectKey = 'importer-'+ new Date().getTime();
         setupUploaderWidget(refObjectClass, refObjectKey, '#event_csv_file_uploader', function (rs) {
             var importFileUrl = rs.data.fileUrls[0];
