@@ -47,7 +47,7 @@
 	}
 	
 	#btn_exported_facebook_csv, #btn_exported_excel_csv {
-		margin-top:10px; width: 180px;
+		margin-top:15px; width: 180px;
 	}
 </style>
 
@@ -260,6 +260,21 @@
 				
 				<div class="form-group" >
 
+					 <div class="col-lg-12 sm_purpose" style="display: none"> 
+					 	<div class="col-sm-2" >
+					 		<label class="highlight_text"> Export Type </label> <br>
+					 	</div>
+						<div class="col-sm-10" style="font-size: 16px;padding-top: 5px;" id="segment_export_types" >
+							<span >
+		                        <label><input type="radio" name="segment_export_type" value="CSV_FILE"> CSV FILE </label>
+		                    </span>
+							<span style="margin-left: 20px" >
+		                        <label ><input type="radio" name="segment_export_type" value="GOOGLE_SHEET"> GOOGLE SHEET </label>
+		                    </span>
+	                    </div>
+	                    
+	                </div>
+	                
 					<div class="col-lg-12 sm_purpose" > 
 						<div class="col-sm-10" >
 							<label class="label_box" > <i class="fa fa-facebook-official" aria-hidden="true"></i> 
@@ -278,7 +293,7 @@
 						</div>
 					</div>
 					
-					<div class="col-lg-12 sm_purpose" > 
+					<div class="col-lg-12 sm_purpose" style="margin-top: 12px" > 
 						<div class="col-sm-10" >
 							<label class="label_box" > <i class="fa fa-file-excel-o" aria-hidden="true"></i> 
 								Export full CSV data, the file is formated for Excel or Google Sheets (The URL is valid in 15 minutes)</label>

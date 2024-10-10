@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-10-03
+## [0.9.0] - 2024-10-10
 
 ### Added
 
@@ -90,6 +90,7 @@
 
 ### Fixed
 
+- [Profile] all invalid phone number will be removed before save profile
 - [Segment] improve segment indexing and fix bugs
 - [Core CDP] fix exporting data in a segment 
 - [Core CDP] improve performance of CDP Admin

@@ -1014,7 +1014,7 @@ AQL_GET_PROFILE_BY_ID_FOR_ADMIN =>
 AQL_GET_PROFILE_BY_CRM_ID_FOR_ADMIN =>
 	LET crmId = TO_STRING(@crmRefId)
 	FOR p in cdp_profile 
-	FILTER crmId != "" AND p.crmRefId == crmId AND p.status == 1 AND (@loginUsername IN p.authorizedViewers[*] OR @hasAdminRole == TRUE)
+	FILTER p.status == 1 AND crmId != "" AND p.crmRefId == crmId AND (@loginUsername IN p.authorizedViewers[*] OR @hasAdminRole == TRUE)
 	LIMIT 1
 	RETURN p
 ;
@@ -1113,20 +1113,20 @@ AQL_GET_PROFILES_BY_PHONES =>
 
 AQL_GET_PROFILES_BY_APPLICATION_IDS =>
 	FOR applicationID in @applicationIDs 
-		FOR p in cdp_profile FILTER applicationID IN p.applicationIDs AND p.status == 1 
+		FOR p in cdp_profile FILTER p.status == 1 AND LENGTH(applicationID) > 0 AND applicationID IN p.applicationIDs   
 		RETURN DISTINCT p
 ;
 
 AQL_GET_PROFILES_BY_LOYALTY_IDS =>
 	FOR loyaltyID in @loyaltyIDs 
-		FOR p in cdp_profile FILTER loyaltyID IN p.loyaltyIDs AND p.status == 1 
+		FOR p in cdp_profile FILTER p.status == 1 AND LENGTH(loyaltyID) > 0 AND loyaltyID IN p.loyaltyIDs 
 		RETURN DISTINCT p
 ;
 
 AQL_GET_PROFILES_BY_GOVERNMENT_ISSUED_IDS =>
 	FOR governmentIssuedID in @governmentIssuedIDs 
     	FOR p in cdp_profile 
-		FILTER governmentIssuedID IN p.governmentIssuedIDs AND p.status == 1
+		FILTER p.status == 1 AND LENGTH(governmentIssuedID) > 0 AND governmentIssuedID IN p.governmentIssuedIDs
 		RETURN DISTINCT p
 ;
 
