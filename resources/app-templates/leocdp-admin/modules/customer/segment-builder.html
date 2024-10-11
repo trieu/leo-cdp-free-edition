@@ -29,7 +29,11 @@
 	<div class="panel-group">
 		<!--  1 metadata  -->
 		<div class="panel panel-leoadmin">
-			<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Segment Metadata </b>  </div>
+			<div class="panel-heading"> 
+				<b> <label class="label_box"> 
+				<i class="fa fa-info-circle" aria-hidden="true"></i> Segment Metadata 
+				</label></b> 
+			</div>
 			<div class="panel-body">
 				<div class="col-lg-12">
 				
@@ -50,11 +54,11 @@
 					</div>
 					
 					<div class="form-group row" >
-						<label class="control-label col-sm-3" for="sm_realtimeQuery">Real-time query to get profiles</label>
+						<label class="control-label col-sm-3" for="sm_realtimeQuery">Real-time query</label>
 						<div class="col-sm-9">
 							<div class="checkbox">
 								<label><input type="checkbox" id="sm_realtimeQuery" name="realtimeQuery"> 
-									Always using real-time query
+									Always utilize real-time queries to ensure access to the most up-to-date data
 								</label>
 							</div>
 						</div>
@@ -109,7 +113,7 @@
 						</div>
 					</div>
 					
-					<div class="form-group row"  >
+					<div class="form-group row" id="divSegmentViewers"  >
 						<label class="control-label col-sm-3" for="authorizedSegmentViewers">Authorized users can view data</label>
 						<div class="col-sm-9" >
 							<select id="authorizedSegmentViewers" multiple data-placeholder="Choose an authorized data viewer" class="select" style="display: none;" >
@@ -118,7 +122,7 @@
 						</div>
 					</div>
 					
-					<div class="form-group row"  >
+					<div class="form-group row" id="divSegmentEditors" >
 						<label class="control-label col-sm-3" for="authorizedSegmentEditors">Authorized users can update data</label>
 						<div class="col-sm-9" >
 							<select id="authorizedSegmentEditors" multiple data-placeholder="Choose an authorized data editor" class="select" style="display: none;" >
@@ -141,7 +145,7 @@
 		</div>
 		
 		<div class="panel panel-leoadmin"  >
-			<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Purposes </b>  </div>
+			<div class="panel-heading"> <b> <label class="label_box"> <i class="fa fa-info-circle" aria-hidden="true"></i> Purposes </label> </b>  </div>
 			<div class="panel-body">
 				<div class="col-lg-12">
 					<div class="form-group">
@@ -245,7 +249,7 @@
 		<!--  2 query  -->
 		<div class="panel panel-leoadmin">
 			<div class="panel-heading"> 
-				<b> <i class="fa fa-filter" aria-hidden="true"></i> Data Query Rules </b> 
+				<b> <label class="label_box"> <i class="fa fa-filter" aria-hidden="true"></i> Data Query Rules </label> </b> 
 				<button type="button" class="btn btn-sm btn-goto-router" onclick="initLeoChatBot('segment')" title="Run Data Query Builder with Generative AI" style="margin-left: 16px; display: none;">  
 					<i class="fa fa-object-group" aria-hidden="true"></i> Query with LEO AI
        			</button>
@@ -273,7 +277,11 @@
 		
 		<!--  3 profiles  -->
 		<div class="panel panel-leoadmin" id="segment_profile_list"  >
-			<div class="panel-heading"> <b> <i class="fa fa-list" aria-hidden="true"></i> All matched profiles </b>  </div>
+			<div class="panel-heading"> 
+				<b> <label class="label_box"> <i class="fa fa-list" aria-hidden="true"></i>  
+					All Matched Profiles 
+				</label> </b>  
+			</div>
 			<div class="panel-body">
 				<div class="table-responsive" id="profilelist_holder" >
 					<table id="profile_list_querybuilder" class="display" style="width:100%;">

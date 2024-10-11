@@ -31,7 +31,7 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-10-10
+## [0.9.0] - 2024-10-11
 
 ### Added
 
@@ -154,7 +154,7 @@
 
 ### Changed
 
-- [Segment] save CSV download URL into segment
+- [Segment] save CSV download URL into segment, improve UI
 - [Admin UI] update font-family: Noto Sans for admin CDP
 - [Segment] improve performance, add new way to refresh data of segment
 - [Event API] add params: sourceip and useragent to save from WooCommerce Data Source

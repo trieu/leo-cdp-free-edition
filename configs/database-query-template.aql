@@ -1244,13 +1244,11 @@ AQL_INSERT_SEGMENT_REF_KEY_FOR_PROFILE =>
 	  "indexScore": @segmentIndexScore,
 	  "lastDataSynch": 0,
 	  "name": @segmentName,
-	  "queryHashedId": @queryHashedId,
-	  "authorizedViewers": @authorizedViewers,
-	  "authorizedEditors": @authorizedEditors
+	  "queryHashedId": @queryHashedId
 	}
 	
 	UPDATE { _key: @profileId } 
-	WITH { inSegments: [newSegment] } 
+	WITH { inSegments: [newSegment], "authorizedViewers": @authorizedViewers, "authorizedEditors": @authorizedEditors } 
 	IN cdp_profile
 ;
 
@@ -1264,13 +1262,11 @@ AQL_UPDATE_SEGMENT_REF_KEY_FOR_PROFILE =>
 	        segment.id == @segmentId ? { 
 	          indexScore: @segmentIndexScore, 
 	          name: @segmentName,
-	          queryHashedId: @queryHashedId,
-	          authorizedViewers: @authorizedViewers,
-	          authorizedEditors: @authorizedEditors
+	          queryHashedId: @queryHashedId
 	        } : {}
 	      )
 	  )
-	  UPDATE profile WITH { inSegments: updatedSegments } IN cdp_profile
+	  UPDATE profile WITH { inSegments: updatedSegments, authorizedViewers: @authorizedViewers, authorizedEditors: @authorizedEditors } IN cdp_profile
 ;
    
 AQL_APPEND_SEGMENT_REF_KEY_FOR_PROFILE =>
@@ -1279,15 +1275,13 @@ AQL_APPEND_SEGMENT_REF_KEY_FOR_PROFILE =>
 	  "indexScore": @segmentIndexScore,
 	  "lastDataSynch": 0,
 	  "name": @segmentName,
-	  "queryHashedId": @queryHashedId,
-	  "authorizedViewers": @authorizedViewers,
-	  "authorizedEditors": @authorizedEditors
+	  "queryHashedId": @queryHashedId
 	}
 	
 	FOR profile IN cdp_profile
 	  FILTER profile._key == @profileId
 	  UPDATE profile 
-	  WITH { inSegments: PUSH(profile.inSegments, newSegment) } 
+	  WITH { inSegments: PUSH(profile.inSegments, newSegment), "authorizedViewers": @authorizedViewers, "authorizedEditors": @authorizedEditors } 
 	  IN cdp_profile   
 ;
 

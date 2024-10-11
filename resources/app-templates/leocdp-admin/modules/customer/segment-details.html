@@ -77,7 +77,7 @@
 
 	<!-- Details  -->
 	<div class="panel panel-leoadmin">
-		<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Segment Details </b>  </div>
+		<div class="panel-heading"> <b> <label class="label_box"> <i class="fa fa-info-circle" aria-hidden="true"></i> Segment Details </label> </b>  </div>
 		<div class="panel-body row">
 			 <ul class="list-group">
 			 	<li class="list-group-item ">
@@ -92,9 +92,7 @@
 			  	<li class="list-group-item ">
 			  		<b>Authorized users can update data</b> <span id="sm_authorizedEditors" class="highlight_text" ></span>
 			  	</li>
-			  	<li class="list-group-item" style="display: none;">	  		
-			  		<b>Priority score for data activation</b> <span id="sm_indexScore" class="highlight_text" ></span>	  		 
-			  	</li>
+			  	
 		   	</ul>
 		</div>
 	</div>
@@ -148,12 +146,16 @@
 		     		</div>
 				</div>
 				
+				
 				<div id="segment_profile_list_loader" class="loader" style="display: none;"></div>
 				<div class="panel panel-leoadmin" id="profile-list-panel" style="display: none;" >
 					<div class="panel-heading">
 						<div class="row"> 
 							<div class="col-lg-12">
-			                      <b> <i class="fa fa-list-ul" aria-hidden="true"></i> <label> All Matched Profiles </label> </b>                     
+		                      	<b> <label class="label_box"> <i class="fa fa-list-ul" aria-hidden="true"></i>  All Matched Profiles </label> </b> 
+		                      	<span class="small" style="display: none; margin-left: 4px" id="sm_realtimeQuery" >	  		
+						  		 	(This segment always utilize real-time queries to ensure access to the most up-to-date data)
+						  	  	</span>                  
 			                </div>
 		                </div> 
 					</div>
@@ -183,9 +185,9 @@
 	    	<!-- tab 2 Event Report with Profiles  -->
 			<div class="tab-pane " id="panel_segment_reports" >
 				<div class="panel panel-leoadmin">
-					<div class="panel-heading"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> 
+					<div class="panel-heading"> <b>  <label class="label_box"> <i class="fa fa-info-circle" aria-hidden="true"></i> 
 						 Event Data Report: <span id="eventDataFromDate" >  </span> 
-						 <i class="fa fa-arrow-right" aria-hidden="true"></i> <span id="eventDataToDate"  > </span> </b> 
+						 <i class="fa fa-arrow-right" aria-hidden="true"></i> <span id="eventDataToDate"  > </span> </label> </b> 
 					</div>
 					<div class="panel-body row">
 						<div class="col-lg-9">
