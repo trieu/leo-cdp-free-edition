@@ -252,9 +252,23 @@ AQL_GET_TOUCHPOINT_HUB_BY_OBSERVER =>
 ;
 
 AQL_GET_TOUCHPOINT_HUBS_BY_JOURNEY_MAP => 
-	FOR e in cdp_touchpointhub 
-	FILTER (e.journeyMapId == @journeyMapId OR e._key == "leo_data_observer" OR e.type >= 1000) AND e.status >= 0
-	RETURN e
+	LET observerStats = (
+	    FOR o IN cdp_eventobserver
+	    LET totalProfile = @refreshData == true ? LENGTH(
+	        FOR e IN cdp_trackingevent
+	        FOR p IN cdp_profile
+	        FILTER e.observerId == o._key AND p.status > 0 AND p._key == e.refProfileId
+	        RETURN DISTINCT e.refProfileId
+	    ) : -1
+	    RETURN {"totalProfile":totalProfile,"touchpointHubId":o.touchpointHubId}
+	)
+	FOR t IN cdp_touchpointhub
+	    FOR r IN observerStats
+	    LET total = r.totalProfile >= 0 ? r.totalProfile : t.totalProfile
+	    FILTER t._key == r.touchpointHubId 
+	            AND (t.journeyMapId == @journeyMapId OR t._key == "leo_data_observer" OR t.type >= 1000) AND t.status >= 0
+	    UPDATE t WITH { totalProfile: total } IN cdp_touchpointhub
+	    RETURN t
 ;
 
 AQL_GET_TOUCHPOINT_HUB_BY_ID =>
@@ -1384,8 +1398,9 @@ AQL_REMOVE_INACTIVE_PROFILES =>
 	RETURN LENGTH(removedProfiles)
 ;
 
-AQL_REMOVE_EVENTS_OF_DEAD_PROFILES =>
-	LET removedEventCount = LENGTH( 
+AQL_DELETE_DATA_OF_DEAD_PROFILES =>
+	
+	LET del_trackingevent = LENGTH( 
 		FOR e IN cdp_trackingevent
 	    FILTER e.refProfileId NOT IN (
 	        FOR p IN cdp_profile
@@ -1394,8 +1409,69 @@ AQL_REMOVE_EVENTS_OF_DEAD_PROFILES =>
 	    LIMIT @limitSize
 	    REMOVE { _key: e._key } IN cdp_trackingevent
 	    RETURN OLD
-	 )
-	 RETURN removedEventCount
+	)
+
+	LET del_profile2conversion = LENGTH(
+	    FOR e IN cdp_profile2conversion
+	    LET profileId = SUBSTRING(e._from , LENGTH("cdp_profile/") )
+	    FILTER profileId NOT IN (
+	        FOR p IN cdp_profile
+	          RETURN p._key
+	    ) 
+	    LIMIT @limitSize
+	    REMOVE { _key: e._key } IN cdp_profile2conversion
+	    RETURN OLD
+	)
+ 
+	LET del_profile2touchpointhub = LENGTH(
+	    FOR e IN cdp_profile2touchpointhub
+	    LET profileId = SUBSTRING(e._from , LENGTH("cdp_profile/") )
+	    FILTER profileId NOT IN (
+	        FOR p IN cdp_profile
+	          RETURN p._key
+	    ) 
+	    LIMIT @limitSize
+	    REMOVE { _key: e._key } IN cdp_profile2touchpointhub
+	    RETURN OLD
+	)
+
+	LET del_profile2content = LENGTH(
+	    FOR e IN cdp_profile2content
+	    LET profileId = SUBSTRING(e._from , LENGTH("cdp_profile/") )
+	    FILTER profileId NOT IN (
+	        FOR p IN cdp_profile
+	          RETURN p._key
+	    ) 
+	    LIMIT @limitSize
+	    REMOVE { _key: e._key } IN cdp_profile2content
+	    RETURN OLD
+	)
+
+	LET del_profile2product = LENGTH(
+	    FOR e IN cdp_profile2product
+	    LET profileId = SUBSTRING(e._from , LENGTH("cdp_profile/") )
+	    FILTER profileId NOT IN (
+	        FOR p IN cdp_profile
+	          RETURN p._key
+	    ) 
+	    LIMIT @limitSize
+	    REMOVE { _key: e._key } IN cdp_profile2product
+	    RETURN OLD
+	)
+
+	LET del_profile2profile = LENGTH(
+	    FOR e IN cdp_profile2profile
+	    LET profileId = SUBSTRING(e._from , LENGTH("cdp_profile/") )
+	    FILTER profileId NOT IN (
+	        FOR p IN cdp_profile
+	          RETURN p._key
+	    ) 
+	    LIMIT @limitSize
+	    REMOVE { _key: e._key } IN cdp_profile2profile
+	    RETURN OLD
+	)
+ 
+	RETURN del_trackingevent + del_profile2touchpointhub + del_profile2content + del_profile2product + del_profile2conversion + del_profile2profile
 ;
 
 ###########  CONTEXT_SESSION  ########################################################################################################;
