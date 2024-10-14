@@ -268,7 +268,7 @@ AQL_GET_TOUCHPOINT_HUBS_BY_JOURNEY_MAP =>
 	    FILTER t._key == r.touchpointHubId 
 	            AND (t.journeyMapId == @journeyMapId OR t._key == "leo_data_observer" OR t.type >= 1000) AND t.status >= 0
 	    UPDATE t WITH { totalProfile: total } IN cdp_touchpointhub
-	    RETURN t
+	    RETURN DISTINCT t
 ;
 
 AQL_GET_TOUCHPOINT_HUB_BY_ID =>
