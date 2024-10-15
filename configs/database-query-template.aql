@@ -1191,7 +1191,7 @@ AQL_PROFILE_STATS_COLLECTOR =>
 	    FILTER p.type == 0  
 	    COLLECT WITH COUNT INTO length RETURN length)
 	    
-	LET customerBehaviors = ["subscribe","purchase","order-failed", "product-return", "order-checkout","repurchase","call-for-support","chat-for-support","add-to-cart"]
+	LET customerBehaviors = ["subscribe","purchase","order-failed", "product-return", "order-checkout","repurchase"]
 	LET totalCustomerProfile = FIRST(
         FOR p IN cdp_profile
 	    FILTER p.status > 0 
