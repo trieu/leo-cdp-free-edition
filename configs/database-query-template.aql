@@ -1191,16 +1191,18 @@ AQL_PROFILE_STATS_COLLECTOR =>
 	    FILTER p.type == 0  
 	    COLLECT WITH COUNT INTO length RETURN length)
 	    
+	LET customerBehaviors = ["subscribe","purchase","order-failed", "product-return", "order-checkout","repurchase","call-for-support","chat-for-support","add-to-cart"]
 	LET totalCustomerProfile = FIRST(
         FOR p IN cdp_profile
 	    FILTER p.status > 0 
 	    FILTER p.type > 0 
-	    FILTER ( LENGTH(p.primaryPhone) > 0 || LENGTH(p.primaryEmail) > 0 ) 
-	    FILTER (p.behavioralEvents ANY IN ["subscribe","purchase"] || p.totalTransactionValue > 0)
+	    FILTER (p.behavioralEvents ANY IN customerBehaviors)
 	    COLLECT WITH COUNT INTO length RETURN length)
 	
 	LET totalContactProfile = FIRST(FOR p IN cdp_profile
-	    FILTER p.status > 0 FILTER p.type > 0 FILTER (LENGTH(p.primaryEmail) > 0 OR LENGTH(p.primaryPhone) > 0)
+	    FILTER p.status > 0 
+	    FILTER p.type > 0 
+	    FILTER (LENGTH(p.primaryEmail) > 0 OR LENGTH(p.primaryPhone) > 0)
 	    COLLECT WITH COUNT INTO length RETURN length)
 		
 	LET totalSegments = FIRST(FOR s IN cdp_segment 
