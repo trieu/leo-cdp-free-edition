@@ -1187,15 +1187,20 @@ AQL_PROFILE_STATS_COLLECTOR =>
 	    COLLECT WITH COUNT INTO length RETURN length)
 	    
 	LET totalVisitor = FIRST(FOR p IN cdp_profile 
-	    FILTER p.status > 0 AND p.type == 0  
+	    FILTER p.status > 0 
+	    FILTER p.type == 0  
 	    COLLECT WITH COUNT INTO length RETURN length)
 	    
-	LET totalCustomerProfile = FIRST(FOR p IN cdp_profile
-	    FILTER p.status > 0 AND p.type > 0 AND ("purchase" IN p.behavioralEvents || "subscribe" IN p.behavioralEvents)
+	LET totalCustomerProfile = FIRST(
+        FOR p IN cdp_profile
+	    FILTER p.status > 0 
+	    FILTER p.type > 0 
+	    FILTER ( LENGTH(p.primaryPhone) > 0 || LENGTH(p.primaryEmail) > 0 ) 
+	    FILTER (p.behavioralEvents ANY IN ["subscribe","purchase"] || p.totalTransactionValue > 0)
 	    COLLECT WITH COUNT INTO length RETURN length)
 	
 	LET totalContactProfile = FIRST(FOR p IN cdp_profile
-	    FILTER p.status > 0 AND p.type > 0 AND (LENGTH(p.primaryEmail) > 0 OR LENGTH(p.primaryPhone) > 0)
+	    FILTER p.status > 0 FILTER p.type > 0 FILTER (LENGTH(p.primaryEmail) > 0 OR LENGTH(p.primaryPhone) > 0)
 	    COLLECT WITH COUNT INTO length RETURN length)
 		
 	LET totalSegments = FIRST(FOR s IN cdp_segment 
@@ -1203,20 +1208,19 @@ AQL_PROFILE_STATS_COLLECTOR =>
 	    COLLECT WITH COUNT INTO length RETURN length)
 	
 	LET totalInactiveVisitor = FIRST(FOR p IN cdp_profile
-	    FILTER p.type == 0 AND 
-	           p.totalLeadScore < 6 AND 
-	           p.totalEngagementScore < 6 AND 
-	           LENGTH(p.primaryEmail) == 0 AND
-	           LENGTH(p.primaryPhone) == 0 AND
-	           LENGTH(p.purchasedItemIds) == 0 AND 
-	           LENGTH(p.purchasedItems) == 0 AND 
-	           LENGTH(p.topEngagedTouchpointIds) < 2 AND
-	           LENGTH(p.governmentIssuedIDs) == 0 AND 
-	           LENGTH(p.applicationIDs) == 0 AND 
-	           LENGTH(p.crmRefId) == 0 AND 
-	           DATE_DIFF(p.updatedAt, DATE_NOW(), 'day') > @inactiveLimitDays
+	    FILTER p.type == 0 
+	    FILTER p.totalLeadScore < 6 
+	    FILTER p.totalEngagementScore < 6 
+	    FILTER LENGTH(p.primaryEmail) == 0 
+	    FILTER LENGTH(p.primaryPhone) == 0 
+	    FILTER LENGTH(p.purchasedItemIds) == 0 
+	    FILTER LENGTH(p.purchasedItems) == 0 
+	    FILTER LENGTH(p.topEngagedTouchpointIds) < 2 
+	    FILTER LENGTH(p.governmentIssuedIDs) == 0 
+	    FILTER LENGTH(p.applicationIDs) == 0 
+	    FILTER LENGTH(p.crmRefId) == 0 
+	    FILTER DATE_DIFF(p.updatedAt, DATE_NOW(), 'day') > @inactiveLimitDays
 	    COLLECT WITH COUNT INTO length RETURN length)
-	
 	
 	RETURN { 
 	    "totalProfile": totalProfile,
