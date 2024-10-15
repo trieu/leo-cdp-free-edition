@@ -1195,7 +1195,6 @@ AQL_PROFILE_STATS_COLLECTOR =>
 	LET totalCustomerProfile = FIRST(
         FOR p IN cdp_profile
 	    FILTER p.status > 0 
-	    FILTER p.type > 0 
 	    FILTER (p.behavioralEvents ANY IN customerBehaviors)
 	    COLLECT WITH COUNT INTO length RETURN length)
 	
