@@ -1,5 +1,29 @@
 
 <!-- Modal box for data deletion -->
+<div class="modal fade" id="confirmActionDialog" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title"> Confirmation </h3>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger">
+                    <strong id="actionInfoMsg" > </strong><br>
+                </div>
+                <input id="confirm_action_callback" type="hidden" name="action_callback" value="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal"> <i class="fa fa-minus-circle" aria-hidden="true"></i> CANCEL </button>
+                <button type="button" class="btn btn-primary" onclick="confirmActionDialogOk()"> <i class="fa fa-check" aria-hidden="true"></i> OK, I CONFIRM </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal box for data deletion -->
 <div class="modal fade" id="confirmDeleteDialog" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -55,6 +79,14 @@
 </div>
 
 <script>
+	function confirmActionDialogOk() {
+	    var callback = $('#confirm_action_callback').val();
+	    if (typeof window[callback] === 'function') {
+	        window[callback]();
+	    }
+	    $('#confirmActionDialog').modal('hide');
+	}
+	
     function confirmDeleteDialogOk() {
         var callback = $('#delete_callback').val();
         if (typeof window[callback] === 'function') {
@@ -62,6 +94,7 @@
         }
         $('#confirmDeleteDialog').modal('hide');
     }
+    
     function confirmDeleteParentDialogOk() {
         var callback = $('#delete_parent_callback').val();
         if (typeof window[callback] === 'function') {

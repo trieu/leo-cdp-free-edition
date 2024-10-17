@@ -49,7 +49,12 @@
 		width: 180px;
 		margin:5px;
 	}
-	
+	div.exported_datetime {
+		margin-top: 6px; font-weight: bold;
+	}
+	div.exported_datetime span{
+		color: #3300ff!important;
+	}
 </style>
 
 <div class="row">
@@ -281,9 +286,12 @@
 					<div class="col-lg-12 sm_purpose" > 
 						<div class="col-sm-10" >
 							<label class="label_box" > <i class="fa fa-facebook-official" aria-hidden="true"></i> 
-								Export data for Facebook / Google Custom Audience  </label>
+								Export data for Ads Custom Audience (Facebook Ads / Google Ads) </label>
 							<input type="text" class="form-control url_holder" id="txt_exported_facebook_csv"  data-for-button="ahref_exported_facebook_csv"
-									readonly placeholder="URL to download CSV data for Facebook Custom Audience" >
+									readonly placeholder="URL to download CSV data for Ads Custom Audience" >
+							<div class="exported_datetime" style="display: none;"> 
+								The last time the data was exported was on <span id="exported_datetime_txt_exported_facebook_csv"></span>  
+							</div> 
 						</div>
 						<div class="col-sm-2" >
 							<button type="button" class="btn btn-primary" id="btn_exported_facebook_csv"  onclick="getSegmentDownloadUrl(this,'txt_exported_facebook_csv')"> 
@@ -302,6 +310,9 @@
 								Export data for Excel or Google Sheets </label>
 							<input type="text" class="form-control url_holder" id="txt_exported_excel_csv" data-for-button="ahref_exported_excel_csv"
 									 readonly placeholder="URL to download CSV data for Excel / Google Sheets" >
+							<div class="exported_datetime"  style="display: none;"> 
+								The last time the data was exported was on <span id="exported_datetime_txt_exported_excel_csv"></span> 
+							</div>
 						</div>
 						<div class="col-sm-2" >
 							<button type="button" class="btn btn-primary" id="btn_exported_excel_csv" style="" onclick="getSegmentDownloadUrl(this,'txt_exported_excel_csv')" > 
