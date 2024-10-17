@@ -45,7 +45,6 @@
 		margin-top: 4px;
 		width: 99%;
 	}
-	
 	#btn_exported_facebook_csv, #btn_exported_excel_csv {
 		margin-top:15px; width: 180px;
 	}
@@ -102,7 +101,7 @@
 		<!--  Tab Navigation Items -->
 	    <ul class="nav nav-tabs" data-tab-content="segment_info_tabs" >
 	    	<li class="active" >
-				<a href="javascript:" data-target-tab="panel_segment_matched_profiles" title="Matched Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Matched Profiles</a>
+				<a href="javascript:" data-target-tab="panel_segment_matched_profiles" title="Matched Profiles" > <i class="fa fa-users" aria-hidden="true"></i> Matched Profiles </a>
 	       	</li>
 			<li >
 				<a href="javascript:loadSegmentEventReport()" data-target-tab="panel_segment_reports" title="Reports of Segment" > 
@@ -113,7 +112,7 @@
 				<a href="javascript:" data-target-tab="panel_segment_query_details" title="Data Query Rules" > <i class="fa fa-filter" aria-hidden="true"></i> Query Rules </a>
 	       	</li>
 	       	<li>
-				<a href="javascript:" data-target-tab="panel_segment_data_exporting" title="Data Exporting" > <i class="fa fa-upload" aria-hidden="true"></i> Data Exporting </a>
+				<a href="javascript:" data-target-tab="panel_segment_data_exporting" title="Data Exporting" > <i class="fa fa-upload" aria-hidden="true"></i> Export Data </a>
 	       	</li>
 	       	<li style="display: none;" >
 				<a href="javascript:" data-target-tab="panel_segment_data_connection" title="Data Connection" > <i class="fa fa-exchange" aria-hidden="true"></i> Data Connection </a>
@@ -267,11 +266,11 @@
 					 		<label class="highlight_text"> Export Type </label> <br>
 					 	</div>
 						<div class="col-sm-10" style="font-size: 16px;padding-top: 5px;" id="segment_export_types" >
-							<span >
-		                        <label><input type="radio" name="segment_export_type" value="CSV_FILE" checked="checked"> CSV FILE </label>
+							<span style="display: none">
+		                        <label><input type="radio" name="segment_export_type" value="CSV_FILE" > CSV FILE </label>
 		                    </span>
-							<span style="margin-left: 20px; display: none" >
-		                        <label ><input type="radio" name="segment_export_type" value="GOOGLE_SHEET"> GOOGLE SHEET </label>
+							<span style="margin-left: 20px; display: block;" >
+		                        <label ><input type="radio" name="segment_export_type" value="GOOGLE_SHEET" checked="checked"> GOOGLE SHEET </label>
 		                    </span>
 	                    </div>
 	                    
@@ -280,7 +279,7 @@
 					<div class="col-lg-12 sm_purpose" > 
 						<div class="col-sm-10" >
 							<label class="label_box" > <i class="fa fa-facebook-official" aria-hidden="true"></i> 
-								Export simple CSV data, the file is formated for Facebook / Google Custom Audience (The URL is valid in 15 minutes) </label>
+								Export data for Facebook / Google Custom Audience (The URL is valid in 15 minutes) </label>
 							<input type="text" class="form-control url_holder" id="txt_exported_facebook_csv"  data-for-button="ahref_exported_facebook_csv"
 									readonly placeholder="URL to download CSV data for Facebook Custom Audience" >
 						</div>
@@ -298,7 +297,7 @@
 					<div class="col-lg-12 sm_purpose" style="margin-top: 12px" > 
 						<div class="col-sm-10" >
 							<label class="label_box" > <i class="fa fa-file-excel-o" aria-hidden="true"></i> 
-								Export full CSV data, the file is formated for Excel or Google Sheets (The URL is valid in 15 minutes)</label>
+								Export data for Excel or Google Sheets (The URL is valid in 15 minutes)</label>
 							<input type="text" class="form-control url_holder" id="txt_exported_excel_csv" data-for-button="ahref_exported_excel_csv"
 									 readonly placeholder="URL to download CSV data for Excel / Google Sheets" >
 						</div>

@@ -513,7 +513,7 @@ setTimeout(function(){
 				<h4 class="modal-title text-center" > API Information </h4>
 			</div>         
 			<div class="modal-body">
-				<h4> <i class="fa fa-info-circle" aria-hidden="true"></i> API Tokens for <span id="leoCdpApiObserverName" class="highlight_text" ></span> </h4>
+				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> API Tokens for <span id="leoCdpApiObserverName" ></span> </h4>
 				<p> In the HTTP Header, you must set the "tokenkey" for API Token Key and the "tokenvalue" for API Token Value</p>
 				<div class="form-group" >
 	                <label for="leoCdpApiTokenKey" class="highlight_text" > API Token Key ( tokenkey ) </label> 
@@ -522,8 +522,8 @@ setTimeout(function(){
 				    <input type="text" class="form-control" readonly value="" id="leoCdpApiTokenValue" >
 	            </div>
 	            <hr>
-	            <h4> <i class="fa fa-info-circle" aria-hidden="true"></i> 
-	            	CDP API Endpoints (<a href="https://github.com/USPA-Technology/leo-cdp-api-examples" target="_blank" rel="noreferrer">Get example code here</a>) 
+	            <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> 
+	            	API Endpoints (<a href="https://github.com/USPA-Technology/leo-cdp-api-examples" target="_blank" rel="noreferrer">Get example code here</a>) 
 	            </h4>
 				<label class="highlight_text" > To create a new profile or update an existed profile, call this API with HTTP POST: </label> <br>
 				<input type="text" class="form-control" readonly value="" id="leoCdpGetProfileApiUrl" >
@@ -532,7 +532,7 @@ setTimeout(function(){
 				<label class="highlight_text"> To get all the events associated with a particular profile, call this API with HTTP GET: </label> <br>
 				<input type="text" class="form-control" readonly value="" id="leoCdpListEventsApiUrl" >
 				<hr>
-	            <h4> <i class="fa fa-info-circle" aria-hidden="true"></i> 
+	            <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> 
 	            	Webhook Endpoint URL 
 	            </h4>
 				<input type="text" class="form-control" readonly value="" id="leoCdpWebhookUrl" >
