@@ -45,9 +45,11 @@
 		margin-top: 4px;
 		width: 99%;
 	}
-	#btn_exported_facebook_csv, #btn_exported_excel_csv {
-		margin-top:15px; width: 180px;
+	#btn_exported_facebook_csv, #btn_exported_excel_csv, #ahref_exported_excel_csv, #ahref_exported_facebook_csv {
+		width: 180px;
+		margin:5px;
 	}
+	
 </style>
 
 <div class="row">
@@ -279,16 +281,16 @@
 					<div class="col-lg-12 sm_purpose" > 
 						<div class="col-sm-10" >
 							<label class="label_box" > <i class="fa fa-facebook-official" aria-hidden="true"></i> 
-								Export data for Facebook / Google Custom Audience (The URL is valid in 15 minutes) </label>
+								Export data for Facebook / Google Custom Audience  </label>
 							<input type="text" class="form-control url_holder" id="txt_exported_facebook_csv"  data-for-button="ahref_exported_facebook_csv"
 									readonly placeholder="URL to download CSV data for Facebook Custom Audience" >
 						</div>
 						<div class="col-sm-2" >
 							<button type="button" class="btn btn-primary" id="btn_exported_facebook_csv"  onclick="getSegmentDownloadUrl(this,'txt_exported_facebook_csv')"> 
-								<i class="fa fa-check-circle" aria-hidden="true"></i> Create Download URL
+								<i class="fa fa-check-circle" aria-hidden="true"></i> Export Profile Data
 							</button>
 							<div class="download_link_holder">
-								<a id="ahref_exported_facebook_csv" class="btn btn-do-now" style="display: none;width: 176px;" target="_blank" > <i class="fa fa-cloud-download" aria-hidden="true"></i> 
+								<a id="ahref_exported_facebook_csv" class="btn btn-do-now" style="display: none;" target="_blank" > <i class="fa fa-cloud-download" aria-hidden="true"></i> 
 									Click to download </a>
 							</div>
 						</div>
@@ -297,16 +299,16 @@
 					<div class="col-lg-12 sm_purpose" style="margin-top: 12px" > 
 						<div class="col-sm-10" >
 							<label class="label_box" > <i class="fa fa-file-excel-o" aria-hidden="true"></i> 
-								Export data for Excel or Google Sheets (The URL is valid in 15 minutes)</label>
+								Export data for Excel or Google Sheets </label>
 							<input type="text" class="form-control url_holder" id="txt_exported_excel_csv" data-for-button="ahref_exported_excel_csv"
 									 readonly placeholder="URL to download CSV data for Excel / Google Sheets" >
 						</div>
 						<div class="col-sm-2" >
 							<button type="button" class="btn btn-primary" id="btn_exported_excel_csv" style="" onclick="getSegmentDownloadUrl(this,'txt_exported_excel_csv')" > 
-								<i class="fa fa-check-circle" aria-hidden="true"></i> Create Download URL
+								<i class="fa fa-check-circle" aria-hidden="true"></i> Export Profile Data
 							</button>
 							<div class="download_link_holder" >
-								<a id="ahref_exported_excel_csv" class="btn btn-do-now" style="display: none;width: 176px;" target="_blank" > <i class="fa fa-cloud-download" aria-hidden="true"></i> 
+								<a id="ahref_exported_excel_csv" class="btn btn-do-now" style="display: none;" target="_blank" > <i class="fa fa-cloud-download" aria-hidden="true"></i> 
 									Click to download </a>
 							</div>
 						</div>
@@ -329,7 +331,7 @@
 					<div class="col-lg-12 sm_purpose" > 
 						<div class="col-sm-10" >
 							<label class="label_box" > <i class="fa fa-exchange" aria-hidden="true"></i> 
-							Secured URL connection for raw JSON data (The URL is valid in 15 minutes) </label>
+							Secured URL connection for raw JSON data  </label>
 							<input type="text" class="form-control url_holder" id="segment_json_url" readonly placeholder="URL for JSON data connection" >
 						</div>
 						<div class="col-sm-2" >
@@ -344,7 +346,7 @@
 					<div class="col-lg-12 sm_purpose" > 
 						<div class="col-sm-10" >
 							<label class="label_box" > <i class="fa fa-exchange" aria-hidden="true"></i> 
-							Secured URL connection for raw CSV data (The URL is valid in 15 minutes) </label>
+							Secured URL connection for raw CSV data  </label>
 							<input type="text" class="form-control url_holder" id="segment_csv_url" readonly placeholder="URL for CSV data connection" >
 						</div>
 						<div class="col-sm-2" >
