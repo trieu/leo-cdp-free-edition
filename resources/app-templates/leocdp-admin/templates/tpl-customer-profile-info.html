@@ -247,7 +247,7 @@
 					<b> Category Name </b> : <mark> <%- item.categoryName %> </mark> 
 				</div>
 			<% }) %>
-			<div>
+			</div>
 		 </div>
  		 <div style="margin-top:8px">
 			<% _.forOwn(imageUrls, function(imageUrl) { %>
@@ -314,10 +314,37 @@
 			<br>
 		</div>
 
+<div class="text-wrap" style="display: <%- cssStyleDisplayOrderedItems %>" >   
+	<span class="small"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Service Items </b> </span> 
+	<div class="small">
+	<% _.forOwn(serviceItems, function(item) { %>
+		<div class="col-md-12" style="padding:5px; border-top: dotted 0.5px;"> 
+			<div class="col-md-8">					
+				<b> Name </b> : <mark> <%- item.source %> : <%- item.name %> </mark>  <br>
+				<b> Original Price </b> : <mark> <%- item.originalPrice %> <%- item.currency %></mark>  <br>
+				<b> Sale Price </b> : <mark> <%- item.salePrice %> <%- item.currency %> </mark>  <br>
+				<b> Quantity </b> : <mark> <%- item.quantity %> </mark>  <br>
+				<b> Gift Quantity </b> : <mark> <%- item.giftQuantity %> </mark> <br> <!-- Fixed closing </mark> -->
+				<b> Category ID </b> : <mark> <%- item.categoryId %> </mark>  <br>
+				<b> Category Name </b> : <mark> <%- item.categoryName %> </mark>   <br>
+			</div>
+			<div class="col-md-4">
+				<a href="<%- item.imageUrl %>"  style="max-width:200px; <%- item.imageUrl.length === 0 ? 'display:none' : '' %>" data-lightbox="image-1" data-title="Item Image" class="thumbnail">
+					<img src="<%- item.imageUrl %>" class="img-rounded" alt="Item Image" style="height:120px" >
+				</a>
+			</div>
+		</div>
+	<% }) %>
+	<div>
+	</div>
+</div>
+
+
 		<div class="text-wrap" style="display: <%- cssStyleDisplayOrderedItems %>" >   
 			<span class="small"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Ordered Items </b> </span> 
 			<div class="small">
 			<% _.forOwn(orderedItems, function(item) { %>
+
 				<div class="col-md-12" style="padding:5px; border-top: dotted 0.5px;"> 
 					<div class="col-md-8">					
 						<b> Name </b> : <mark> <%- item.source %> : <%- item.name %> </mark>  <br>
@@ -336,8 +363,11 @@
 				</div>
 				
 			<% }) %>
-			<div>
+			</div>
 		 </div>
+
+		
+
  		 <div style="margin-top:8px">
 			<% _.forOwn(imageUrls, function(imageUrl) { %>
 				<div class="col-xs-6 col-md-3">
