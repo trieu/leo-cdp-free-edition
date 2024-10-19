@@ -250,6 +250,16 @@
 						<div class="col-lg-12">
 							<div id="segment-builder-holder" data-realtime-query="false"  data-with-last-events="false"  ></div>
 						</div>
+						<hr>
+						<div id="segment_custom_query_holder" > 
+							<label class="control-label" for="segment_custom_aql_editor" style="margin-bottom: 8px;"> 
+			       				<mark> ArangoDB Query Editor </mark>  (You are an AQL expert. You know what you are doing)
+			       			</label>
+			       			<div  style="width: 98%; border-left: 1px dotted;">
+			       				<textarea id="segment_custom_aql_editor"  ></textarea>
+			       			</div>
+		       			</div>
+						
 					</div>
 				</div>
 			</div>
@@ -616,6 +626,7 @@
 	var segmentDataModel = false;
 	var segmentDataStats = false;
 	var segmentFirstProfileId = false;
+	var segmentCustomQueryEditor = false;
 	
 	var initSegmentDetails = function(id) {
 		// init UI tab

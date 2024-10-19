@@ -249,17 +249,52 @@
 		<!--  2 query  -->
 		<div class="panel panel-leoadmin">
 			<div class="panel-heading"> 
-				<b> <label class="label_box"> <i class="fa fa-filter" aria-hidden="true"></i> Data Query Rules </label> </b> 
-				<button type="button" class="btn btn-sm btn-goto-router" onclick="initLeoChatBot('segment')" title="Run Data Query Builder with Generative AI" style="margin-left: 16px; display: none;">  
-					<i class="fa fa-object-group" aria-hidden="true"></i> Query with LEO AI
-       			</button>
+				<b> <label class="label_box"> <i class="fa fa-filter" aria-hidden="true"></i> Segment Query Rules </label> </b> 
 			</div>
 			<div class="panel-body row">
 				
 				<!-- Query Details -->
 				<div class="col-lg-9">
-					<div id="segment-builder-holder" data-realtime-query="true"  data-with-last-events="true" ></div>
+					
+       				<ul  class="nav nav-tabs" data-tab-content="segment_query_tabs" >
+			         	<li class="active" >
+			          		<a href="javascript:" data-target-tab="panel_segment_builder" title="Segment Query Builder"> 
+			          			<i class="fa fa-filter" aria-hidden="true"></i> Visual Query Builder 
+			          		</a>
+			         	</li>
+         
+         				<li>
+          					<a href="javascript:initSegmentCustomQueryFilter()" data-target-tab="panel_segment_custom_query" title="Segment Custom Query Editor" >
+          						 <i class="fa fa-info-circle" aria-hidden="true"></i> Custom Query Filter
+          					</a>
+         				</li>
+         			</ul>
+         			
+         			<!-- Tab Contents  -->
+       				<div class="tab-content row" id="segment_query_tabs"  >
+
+						<!-- tab 1 segment-builder  -->
+						<div class="tab-pane active" id="panel_segment_builder" >
+							<div id="segment-builder-holder" data-realtime-query="true"  data-with-last-events="false" ></div>
+						</div>
+						
+						<!-- tab 2 custom_query  -->
+						<div class="tab-pane" id="panel_segment_custom_query" style="margin-left: 10px">
+							<button type="button" class="btn btn-sm btn-goto-router" onclick="initLeoChatBot('segment')" title="Run Data Query Builder with Generative AI" style="margin-left: 16px; display: none;">  
+								<i class="fa fa-object-group" aria-hidden="true"></i> Query with LEO AI
+			       			</button>
+			       			<label class="control-label" for="segment_custom_aql_editor" style="margin-bottom: 8px;"> 
+			       				<mark> ArangoDB Query Editor </mark>  (You are an AQL expert. You know what you are doing)
+			       			</label>
+			       			<div  id="segment_custom_query_holder" style="width: 98%; border-left: 1px dotted;">
+			       				<textarea id="segment_custom_aql_editor"  ></textarea>
+			       			</div>
+							
+						</div>
+					</div>
+					
 				</div>
+				
 				<!-- Query Summary -->
 				<div class="col-lg-3 text-center">
 					<div class="btn-group" style="margin-bottom: 20px;" >
@@ -311,9 +346,14 @@
 <script>
 	var segmentDataModel = false;
 	var segmentDataStats = false;
+	var segmentCustomQueryEditor = false;
 	
 	var initSegmentBuilder = function(id) {
 		segmentDataModel = false;
+		
+		setupTabPanels();
+		
+		
 		// Date Range Filtering Controller
 		if(id === 'new'){
 			// init UI for new segment
