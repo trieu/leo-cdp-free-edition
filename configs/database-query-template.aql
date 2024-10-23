@@ -1888,6 +1888,14 @@ AQL_GET_SEGMENTS_BY_PAGINATION =>
 		RETURN d
 ;
 
+AQL_GET_SEGMENTS_TO_REFRESH =>
+	FOR d in cdp_segment  
+		FILTER d.status >= 0 AND d.autoUpdateProfiles == TRUE
+		SORT d.updatedAt
+		LIMIT @startIndex,@numberResult 
+		RETURN d
+;
+
 AQL_COUNT_SEGMENT_FOR_PAGINATION =>
 	FOR d in cdp_segment  
 		FILTER d.status >= 0 AND (@searchValue != "" ? LOWER(d.name) LIKE @searchValue : true)
