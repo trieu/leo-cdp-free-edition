@@ -184,8 +184,8 @@
 		                	<li><a href="#panel_referral_channels" data-toggle="tab"  > <i class="fa fa-globe" aria-hidden="true"></i> Referral Channels </a></li>
 		                	<li><a href="#panel_last_session_details" data-toggle="tab"> <i class="fa fa-hourglass-end" aria-hidden="true"></i> Last Session Data </a></li>
 		                	<li><a href="#panel_data_touchpoints" data-toggle="tab" onclick="loadProfileTopTouchpoints()" > <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Engaged Touchpoints </a></li>
-		                	<li><a href="#panel_profile_scoring_data" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Total Scoring Data</a></li>
-		                	<li><a href="#panel_profile_extMetrics" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Custom Scoring Data </a></li>
+		                	<li><a href="#panel_profile_scoring_data" data-toggle="tab"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Scoring Metrics </a></li>
+		                	
 		                    <li><a href="#panel_user_consent" data-toggle="tab"> <i class="fa fa-check-circle-o" aria-hidden="true"></i> Privacy Consent </a></li>
 		                    <li>
 					        	<a href="#panel_purchased_products" data-toggle="tab" onclick="loadPurchasedItemsOfProfile()" title="Show purchased products" >
@@ -226,20 +226,11 @@
 										<div class="loader"></div>
 									</div>
 								</div>
-	               				
-	               				<!--  Data Journey Map -->
-	               				<div class="vcenter highlight_box col-md-12" style="padding: 20px; margin-top: 20px; display: none;">
-	               					<h3 style="text-align: center; color: #0000CD;"> Data Journey Map </h3>
-	               					<div id="journeyFlowChart" class="experience_journey_flow" style="height:420px;display: none;">
-	               						<div class="loader"></div>
-	               					</div>
-	               				</div>
-								
-												
-	               				
+	               			
+								<!-- Event Matrix Report  -->			               				
 	               				<div class="col-md-12" style="display: none;">
 					                <div id="venn_two" style=float:left>
-					                    <h4 style="text-align: center">Media Touchpoints</h4>
+					                    <h4 style="text-align: center">Touchpoint </h4>
 					                </div>
 					            </div>
 		                    </div> 
@@ -435,14 +426,16 @@
 		                    
 							<!-- vertical tab Engaged Touchpoints  -->
 		                    <div class="tab-pane" id="panel_data_touchpoints" >
-		                    	<div class="col-lg-12">
+		                    	<div class="col-lg-12 row">
 									<h4 class="highlight_text" > <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Top Engaged Touchpoint Details </h4> 
 								</div>
 								<!-- touchpoint chart -->
 								<div id="profileTouchpointChart" class="col-lg-12"> </div>
+								
+								<hr>
 								<!-- table list  -->
-								<div class="col-lg-12" style="height:900px; overflow-y: scroll; width: 99%" >
-									<div id="journeyFlowChart" class="experience_journey_flow" style="height:420px;"></div>
+								<div class="col-lg-12 row" style="height:650px; overflow-y: scroll; width: 99%" >
+									<div id="journeyFlowChart" class="experience_journey_flow" ></div>
 									<ul id="engaged_touchpoint_list" class="list-group list-group-dividered list-group-full"  >
 						     			<li>
 						     				<div class="list-group-item" > No data available </div>
@@ -454,7 +447,7 @@
 		                    <!-- vertical tab Event Statistics  -->
 		                    <div class="tab-pane" id="panel_profile_scoring_data" >
 		                    	<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Total Scoring Data </h4> 
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Key Scoring Metrics </h4> 
 								</div>
 						     	<table border=0 class="underlined" style="width: 100%; margin-top: 8px;">
 				                   <tr>
@@ -512,12 +505,9 @@
 				                       </td>
 				                   </tr>
 					            </table>
-		                    </div>
-		                    
-		                    <!-- vertical tab  Custom Metrics  -->
-		                    <div class="tab-pane" id="panel_profile_extMetrics" >
-		                    	<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Custom Scoring Data </h4> 
+					            
+					            <div class="col-lg-12">
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Custom Scoring Metrics </h4> 
 								</div>
 				                <div class="col-md-12" style="padding: 4px 8px; background-color: #f6f6f6; border-radius: 8px" >
 									<p id="profile_extMetrics" data-field="extMetrics" data-fieldholder="html_custom_field" data-fieldtype="custom_field"  > 

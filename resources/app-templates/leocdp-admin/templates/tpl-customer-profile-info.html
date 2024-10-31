@@ -314,10 +314,10 @@
 			<br>
 		</div>
 
-<div class="text-wrap" style="display: <%- cssStyleDisplayOrderedItems %>" >   
+<div class="text-wrap" style="display: <%- cssStyleDisplayServiceItems %>" >   
 	<span class="small"> <b> <i class="fa fa-info-circle" aria-hidden="true"></i> Service Items </b> </span> 
 	<div class="small">
-	<% _.forOwn(serviceItems, function(item) { %>
+		<% _.forOwn(serviceItems, function(item) { %>
 		<div class="col-md-12" style="padding:5px; border-top: dotted 0.5px;"> 
 			<div class="col-md-8">					
 				<b> Name </b> : <mark> <%- item.source %> : <%- item.name %> </mark>  <br>
@@ -334,7 +334,7 @@
 				</a>
 			</div>
 		</div>
-	<% }) %>
+		<% }) %>
 	<div>
 	</div>
 </div>
@@ -354,6 +354,11 @@
 						<b> Coupon Code </b> : <mark> <%- item.discount %> <%- item.currency %>  <%- item.couponCode %> </mark> <br>
 						<b> Category ID </b> : <mark> <%- item.categoryId %> </mark>  <br>
 						<b> Category Name </b> : <mark> <%- item.categoryName %> </mark>   <br>
+
+						<b> Service Available </b> : <mark> <%- item.serviceAvailable %> </mark> <br>
+						<b> Use Service </b> : <mark> <%- item.useService %> </mark> <br>
+						<b> In Package </b> : <mark> <%- item.inPackage %> </mark> <br>
+
 					</div>
 					<div class="col-md-4">
 						<a href="<%- item.imageUrl %>"  style="max-width:200px; <%- item.imageUrl.length === 0 ? "display:none" : '' %>" data-lightbox="image-1" data-title="Item Image" class="thumbnail">
