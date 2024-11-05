@@ -510,31 +510,35 @@ setTimeout(function(){
 		<!-- Modal content-->
 		<div class="modal-content">   
 			<div class="modal-header">
-				<h4 class="modal-title text-center" > API Information </h4>
+				<h4 class="modal-title text-center" > Data Observer API Information </h4>
 			</div>         
 			<div class="modal-body">
 				<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> API Tokens for <span id="leoCdpApiObserverName" ></span> </h4>
-				<p> In the HTTP Header, you must set the "tokenkey" for API Token Key and the "tokenvalue" for API Token Value</p>
+				<p class="small" > In the HTTP Header, you must set the "tokenkey" for API Token Key and the "tokenvalue" for API Token Value</p>
 				<div class="form-group" >
-	                <label for="leoCdpApiTokenKey" class="highlight_text" > API Token Key ( tokenkey ) </label> 
+	                <label for="leoCdpApiTokenKey" > API Token Key ( tokenkey ) </label> 
 	                <input type="text" class="form-control" readonly value="" id="leoCdpApiTokenKey" >
-	                <label for="leoCdpApiTokenValue" class="highlight_text" > API Token Value ( tokenvalue ) </label>
+	                <label for="leoCdpApiTokenValue" > API Token Value ( tokenvalue ) </label>
 				    <input type="text" class="form-control" readonly value="" id="leoCdpApiTokenValue" >
 	            </div>
 	            <hr>
 	            <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> 
-	            	API Endpoints (<a href="https://github.com/USPA-Technology/leo-cdp-api-examples" target="_blank" rel="noreferrer">Get example code here</a>) 
+	            	API Endpoints
 	            </h4>
-				<label class="highlight_text" > To create a new profile or update an existed profile, call this API with HTTP POST: </label> <br>
+	            <p class="small"  > 
+	            	<a href="https://github.com/USPA-Technology/leo-cdp-api-examples" target="_blank" rel="noreferrer"> Please refer to the example code available at the following GitHub URL </a>
+				</p> 
+				<label  > To create a new profile or update an existed profile, call this API with HTTP POST: </label> <br>
 				<input type="text" class="form-control" readonly value="" id="leoCdpGetProfileApiUrl" >
-				<label class="highlight_text"> To save a tracking event for a specific profile, call this API with HTTP POST: </label> <br>
+				<label > To save a tracking event for a specific profile, call this API with HTTP POST: </label> <br>
 				<input type="text" class="form-control" readonly value="" id="leoCdpTrackEventApiUrl" >
-				<label class="highlight_text"> To get all the events associated with a particular profile, call this API with HTTP GET: </label> <br>
+				<label > To get all the events associated with a particular profile, call this API with HTTP GET: </label> <br>
 				<input type="text" class="form-control" readonly value="" id="leoCdpListEventsApiUrl" >
 				<hr>
 	            <h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> 
 	            	Webhook Endpoint URL 
 	            </h4>
+	            <p class="small"  > Please set the value of source. E.g: source=facebook </p>
 				<input type="text" class="form-control" readonly value="" id="leoCdpWebhookUrl" >
 			</div>  
 			<div class="modal-footer">

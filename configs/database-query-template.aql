@@ -326,7 +326,7 @@ AQL_TOUCHPOINT_HUB_PROFILE_REPORT =>
 	LET stats = APPEND(tpReports, { "id": "leo_data_observer" } )
 	
 	FOR t IN cdp_touchpointhub
-	    FILTER (t.journeyMapId == @journeyId OR @journeyId == "")
+	    FILTER (t.journeyMapId == @journeyId OR @journeyId == "") && (t.type > 0 && t.type != 30)
 	    FOR s IN stats
 	        LET profileCount = (s.id == t._key AND HAS(s, "profileCount")) ? s.profileCount : 0
 	RETURN DISTINCT {
@@ -441,7 +441,14 @@ AQL_GET_EVENT_OBSERVERS_BY_TYPE =>
 
 AQL_GET_EVENT_OBSERVERS_BY_JOURNEY_MAP =>
 	FOR e in cdp_eventobserver 
-	FILTER (e.journeyMapId == @journeyMapId OR e._key == "leo_data_observer") AND e.type < 1000 AND e.status >= 0 
+	FILTER (e.journeyMapId == @journeyMapId OR e._key == "leo_data_observer") AND e.type < 1000 AND e.status >= 0
+	SORT e.journeyLevel 
+	RETURN e
+;
+
+AQL_FILTER_EVENT_OBSERVERS_BY_JOURNEY_MAP =>
+	FOR e in cdp_eventobserver 
+	FILTER (e.journeyMapId == @journeyMapId OR e._key == "leo_data_observer") AND e.type < 1000 AND e.status >= 0 AND LIKE(e.name, @filterKeywords, true)
 	SORT e.journeyLevel 
 	RETURN e
 ;

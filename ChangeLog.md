@@ -31,10 +31,11 @@
 * How to setup LEO CDP
 * How to monitor system
 
-## [0.9.0] - 2024-10-29
+## [0.9.0] - 2024-11-05
 
 ### Added
 
+- [Core CDP] in journey map UI, user can search observer by keywords
 - [Core CDP] add URI to monitor system /sysinfo
 - [Core CDP] system notification using web socket
 - [Analytics] improve performance of main dashboard
