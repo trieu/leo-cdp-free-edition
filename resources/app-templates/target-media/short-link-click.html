@@ -139,7 +139,19 @@
 		    s.parentNode.insertBefore(jsNode, s);
 		})();
 		
+		var landingPageParams = function(url){
+			var i = url.indexOf('?');
+			if(i > 0){
+				var search = url.substring(i+1);
+	        	var map = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+	        	return map;
+			}
+			return {};
+		}
+		
 		var submitShortLinkClickEvent = function(){
+			var map = landingPageParams(targetMediaUrl)
+			
 			// record event
 			var eventData = { "landingPageUrl" : targetMediaUrl };
 			
@@ -152,6 +164,15 @@
 			eventData['campaignId'] = "{{{customData.campaignId}}}";
 			eventData['affiliateId'] = "{{{customData.affiliateId}}}";
 			eventData['newsletterSubscription'] = newsletterSubscription;
+			
+			// set UTM Google Analytics from landing Page Url into event
+			eventData['utm_id'] = map['utm_id'] || '';
+			eventData['utm_campaign'] = map['utm_campaign'] || '';
+			eventData['utm_content'] = map['utm_content'] || '';
+			eventData['utm_medium'] = map['utm_medium'] || '';
+			eventData['utm_source'] = map['utm_source'] || '';
+			eventData['utm_term'] = map['utm_term'] || '';
+			
 			LeoObserverProxy.recordActionEvent("short-link-click", eventData);
 		}
 		

@@ -283,15 +283,15 @@
 							<button type="button" class="btn btn-sm btn-goto-router" onclick="initLeoChatBot('segment')" title="Run Data Query Builder with Generative AI" style="margin-left: 16px; display: none;">  
 								<i class="fa fa-object-group" aria-hidden="true"></i> Query with LEO AI
 			       			</button>
+			       			<p class="small"> 
+			       				You are an AQL expert. You know what you are doing. <br>
+			       				Disallow keywords: <b> 'update', 'remove', 'insert', or 'replace' or 'cdp_profile' </b> <br>
+			       				The final query is  "FOR d in cdp_profile FILTER d.status > 0 " + [Generated AQL from Visual Query Builder] + <b> [Your Custom Query] </b> + " RETURN d" 
+			       			</p>
+			       			<hr>
 			       			<label class="control-label" for="segment_custom_aql_editor" style="margin-bottom: 8px;"> 
 			       				<mark> ArangoDB Query Editor </mark>
 			       			</label>
-			       			<p class="small"> 
-			       				You are an AQL expert. You know what you are doing. <br>
-			       				Disallow 'update', 'remove', 'insert', or 'replace' or 'cdp_profile' keywords <br>
-			       				The final query is "FOR d in cdp_profile FILTER d.status > 0 " + [Generated AQL from Visual Query Builder] + [Your Custom Query] + " RETURN d" 
-			       			</p>
-			       			
 			       			<div  id="segment_custom_query_holder" style="width: 98%; border-left: 1px dotted;">
 			       				<textarea id="segment_custom_aql_editor"  ></textarea>
 			       			</div>
