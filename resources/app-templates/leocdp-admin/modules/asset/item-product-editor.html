@@ -61,7 +61,7 @@
 				    </div>
 				    <div id="productMetadataPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="productMetadataHeader">
 				      	<div class="panel-body">
-				      		 <div class="form-group">
+				      		<div class="form-group">
 			                    <label>Product Landing Page URL</label>
 			                    <input type="text" class="form-control" placeholder="Enter Product Landing page URL" name="fullUrl" autocomplete="off" required >
 			                </div>
@@ -107,6 +107,26 @@
 			                <div class="form-group">
 			                    <label>Mapping ID</label>
 			                    <input id="productId" type="text" class="form-control" placeholder="Enter Product ID" name="productId" autocomplete="off" required>
+			                </div>
+			                
+			                <div class="form-group">
+			                    <label> Product Brand </label>
+			                    <input type="text" class="form-control" placeholder="Enter Product Brand" name="brand" autocomplete="off" value="" >
+			                </div>
+			                
+			                <div class="form-group">
+			                    <label> Seller Name </label>
+			                    <input type="text" class="form-control" placeholder="Enter Seller Name" name="sellerName" autocomplete="off" value="" >
+			                </div>
+			                
+			                <div class="form-group">
+			                    <label> Product Condition</label>
+			                    <input type="text" class="form-control" placeholder="Enter Product Condition" name="itemCondition" autocomplete="off" value="" >
+			                </div>
+			                
+			                <div class="form-group">
+			                    <label> Product Availability </label>
+			                    <input type="text" class="form-control" placeholder="Enter Product Availability" name="availability" autocomplete="off" value="" >
 			                </div>
 				      	</div>
 				    </div>
@@ -425,6 +445,11 @@
             productData.productId = form.find('input[name="productId"]').val();
             productData.productIdType = form.find('select[name="productIdType"]').val();
             productData.productType = form.find('select[name="productType"]').val();
+            
+            productData.itemCondition = form.find('input[name="itemCondition"]').val();
+            productData.availability = form.find('input[name="availability"]').val();
+            productData.brand = form.find('input[name="brand"]').val();
+            productData.sellerName = form.find('input[name="sellerName"]').val();
             
             productData.fullUrl = form.find('input[name="fullUrl"]').val();
             productData.originalPrice =  parseFloat(form.find('input[name="originalPrice"]').val());

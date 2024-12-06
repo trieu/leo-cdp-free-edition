@@ -1,4 +1,4 @@
-<!-- Main Navigation Menu -->
+<!-- Admin Navigation Menu -->
 
 <nav id="main_admin_navigation" class="navbar navbar-fixed-top" role="navigation" style="display: none;">
 
@@ -9,19 +9,19 @@
 		</button>
 
 		<a class="navbar-brand" href="/">
-			<img id="logo-img" src="" alt="MainLogo" style="display: none;" title="CDP" data-container="body" data-toggle="popover" data-placement="bottom" 
-									data-content="Smart Customer Data Platform with AI" />
+			<img id="logo-img" src="" alt="MainLogo" style="display: none;" title="ReSynap" data-container="body" data-toggle="popover" data-placement="bottom" 
+									data-content="AI-Driven Insights Platform" />
 		</a>
 
-		<div style="width: 100%;">
+		<div style="width: 100%; display: none;">
 			<input id="main_search_profile" type="text" placeholder="Enter name, email or phone number to search customer profiles" autocomplete="off" 
 				title="Profile Search" data-container="body" data-toggle="popover" data-placement="bottom" data-content="You can enter name, email or phone number to search customer profiles" >
 		</div>
 
 		<!-- Top User Menu -->
 		<ul class="nav navbar-right top-nav">
-			<li style="display: none;" id="menu_ai_chatbot" >				 
-				<a href="javascript: initLeoChatBot('global')" title="AI Chatbot" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Your personal AI assistant on the CDP"  > 
+			<li id="menu_ai_chatbot" >				 
+				<a href="javascript: initLeoChatBot('global')" title="AI Chatbot" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Your personal AI assistant"  > 
 					<i class="fa fa-commenting-o"></i> AI Chatbot 
 				</a> 
 			</li>
@@ -52,88 +52,96 @@
 	<div id="main-navbar" class="collapse navbar-collapse navbar-ex1-collapse" style="visibility: hidden;">
 		<ul class="nav navbar-nav side-nav">
 			
-			<!--  1 - Unified Data Hub Menu   -->
+			<!--  1 - Data Reports Menu   -->
 			<li id="nav_analytics_hub" style="display: none;" data-system-user-roles="0,2,4,5" >
 				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#analytics_hub_menu"> <i class="fa fa-fw fa-pie-chart"></i>
-				 	Unified Reports <i id="data_analytics_hub_collapse_icon" class="fa fa-fw fa-caret-down"> </i>
+				 	Unified Report Hub <i id="data_analytics_hub_collapse_icon" class="fa fa-fw fa-caret-down"> </i>
 				</a>
 				<ul id="analytics_hub_menu" class="collapse in" aria-expanded="true">
-					<li id="Customer_Data_Report_Menu" >
-						<a id="Customer_Data_Report" href="#calljs-leoCdpRouter('Customer_Data_Report')" 
-							title="Customer Data Report" data-container="body" data-toggle="popover" data-placement="right" data-content="Show reports about profile funnel, profile journey, touchpoint and data journey map" > 
-							<i class="fa fa-fw fa-filter"></i> Customer Report </a>
-					</li>
 					<li>
 						<a id="Event_Data_Report" href="#calljs-leoCdpRouter('Event_Data_Report')" 
 							title="Event Data Report" data-container="body" data-toggle="popover" data-placement="right" data-content="Show reports about event data stream and event matrix" > 
-							<i class="fa fa-fw fa-line-chart"></i> Event Data Report </a>
+							<i class="fa fa-fw fa-line-chart"></i> Behavioral Report </a>
 					</li>
-					<li style="display: none;">
+					<li id="Customer_Data_Report_Menu" >
+						<a id="Customer_Data_Report" href="#calljs-leoCdpRouter('Customer_Data_Report')" 
+							title="Customer Data Report" data-container="body" data-toggle="popover" data-placement="right" data-content="Show reports about profile funnel, profile journey, touchpoint and data journey map" > 
+							<i class="fa fa-fw fa-filter"></i> Touchpoint Report </a>
+					</li>
+					<li>
 						<a id="CX_Data_Report" href="#calljs-leoCdpRouter('CX_Data_Report')" 
 							title="CX Data Report" data-container="body" data-toggle="popover" data-placement="right" data-content="Show customer experience reports: product/service rating and feedback survey" > 
 							<i class="fa fa-fw fa-tachometer"></i> CX Data Report </a>
 					</li>
-					<li style="display: none;">
+					<li>
 						<a id="Custom_Dashboard" href="#calljs-leoCdpRouter('Custom_Dashboard')" 
 							title="Custom Dashboard" data-container="body" data-toggle="popover" data-placement="right" data-content="Show custom dashboard about sales, marketing and finance" > 
-							<i class="fa fa-fw fa-bar-chart"></i> Custom Dashboard </a>
+							<i class="fa fa-fw fa-bar-chart"></i> Custom Reports </a>
 					</li>
 				</ul>
 			</li>
 			
-			<!--  2 - Data Journey Hub   -->
-			<li id="nav_journey_hub"  >
-				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#journey_hub_menu"> <i class="fa fa-fw fa-map"></i>
-				 	Data Journey <i id="journey_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
-				</a>
-				<ul id="journey_hub_menu" class="collapse in" aria-expanded="true">			
-					<li style="display: none;" data-system-user-roles="5">
-						<a id="Data_Journey_Map" href="#calljs-leoCdpRouter('Data_Journey_Map','id_default_journey')" 
-							title="Data Journey Map Management" data-container="body" data-toggle="popover" data-placement="right" data-content="Manage all customer data journey maps and touchpoint data hubs" > 
-							<i class="fa fa-fw fa-map-o"></i> Data Journey Map </a>
-					</li>
-					<li id="Event_Data_Funnel_Menu"  >
-						<a id="Event_Data_Funnel" href="#calljs-leoCdpRouter('Event_Data_Funnel')" 
-							title="Event Data Funnel Management" data-container="body" data-toggle="popover" data-placement="right" data-content="Manage all event data metrics for customer analytics" >
-							<i class="fa fa-fw fa-filter"></i> Event Data Metrics </a>
-					</li>
-				</ul>
-			</li>
-			
-			<!--  3 - Customer Data Hub Menu  -->
+			<!--  2 - Customer Data Hub Menu  -->
 			<li id="nav_customer_hub" style="display: none;" data-system-user-roles="1,2,3,4,5" >
 				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#customer_hub_menu"> <i class="fa fa-fw fa-address-card-o"></i>
-					Customer Data Hub<i id="customer_data_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
+					Customer Data Hub <i id="customer_data_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
 				</a>
 				<ul id="customer_hub_menu" class="collapse in" aria-expanded="true">
 					<li id="Community_Management_Menu" style="display: none">
 						<a id="Community_Management" href="#calljs-leoCdpRouter('Community_Management')" 
 							title="All Customer Communities" data-container="body" data-toggle="popover" data-placement="right" data-content="Manage all customer communities" > 
-							<i class="fa fa-fw fa-users"></i> Customer Communities </a>
-					</li>
-					<li id="Profile_Management_Menu" >
-						<a id="Profile_Management" href="#calljs-leoCdpRouter('Profile_Management')" 
-							title="All Customer Profiles" data-container="body" data-toggle="popover" data-placement="right" data-content="Manage all customer profiles: visitor, lead, prospect & engaged customers" > 
-							<i class="fa fa-fw fa-user-circle-o"></i> Customer Profiles </a>
+							<i class="fa fa-fw fa-users"></i> Communities </a>
 					</li>
 					<li id="Segment_Management_Menu" >
 						<a id="Segment_Management" href="#calljs-leoCdpRouter('Segment_Management')" 
 							title="All Customer Segments" data-container="body" data-toggle="popover" data-placement="right" data-content="Manage all customer segments: active visitors, leads, engaged customers,..."   > 
-							<i class="fa fa-users" aria-hidden="true"></i> Customer Segments </a>
+							<i class="fa fa-users" aria-hidden="true"></i> Segment Management </a>
+					</li>
+					<li id="Profile_Management_Menu" >
+						<a id="Profile_Management" href="#calljs-leoCdpRouter('Profile_Management')" 
+							title="All Customer Profiles" data-container="body" data-toggle="popover" data-placement="right" data-content="Manage all customer profiles: visitor, lead, prospect & engaged customers" > 
+							<i class="fa fa-fw fa-user-circle-o"></i> Profile Management </a>
+					</li>
+			
+				</ul>
+			</li>
+			
+			<!--  3 - Data Journey Hub   -->
+			<li id="nav_journey_hub"  >
+				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#journey_hub_menu"> <i class="fa fa-fw fa-map"></i>
+				 	Data Journey Hub <i id="journey_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
+				</a>
+				<ul id="journey_hub_menu" class="collapse in" aria-expanded="true">	
+					<li id="Event_Data_Funnel_Menu"  >
+						<a id="Event_Data_Funnel" href="#calljs-leoCdpRouter('Customer_Persona')" 
+							title="Event Data Funnel Management" data-container="body" data-toggle="popover" data-placement="right" data-content="Manage all event data metrics for customer analytics" >
+							<i class="fa fa-fw fa-user-circle-o"></i> Customer Persona </a>
+					</li>		
+					<li id="Event_Data_Funnel_Menu"  >
+						<a id="Event_Data_Funnel" href="#calljs-leoCdpRouter('Event_Data_Funnel')" 
+							title="Event Data Funnel Management" data-container="body" data-toggle="popover" data-placement="right" data-content="Manage all event data metrics for customer analytics" >
+							<i class="fa fa-fw fa-filter"></i> Behavioral Metrics </a>
+					</li>
+					<li style="display: none;" data-system-user-roles="5">
+						<a id="Data_Journey_Map" href="#calljs-leoCdpRouter('Data_Journey_Map','id_default_journey')" 
+							title="Data Journey Map Management" data-container="body" data-toggle="popover" data-placement="right" data-content="Manage all customer data journey maps and touchpoint data hubs" > 
+							<i class="fa fa-fw fa-exchange"></i> Data Journey Map </a>
 					</li>
 				</ul>
 			</li>
 			
+			
+			
 			<!-- 4 - Data Activation Hub Menu -->
 			<li id="nav_activation_hub" style="display: none;" data-system-user-roles="4,5" >
-				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#data_activation_hub_menu"> <i class="fa fa-fw fa-line-chart"></i>
-					Activation Hub <i id="data_activation_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
+				<a class="top_nav_item" href="javascript:;" data-toggle="collapse" data-target="#data_activation_hub_menu"> 
+				<i class="fa fa-fw fa-cogs"></i> Automation Hub <i id="data_activation_hub_collapse_icon" class="fa fa-fw fa-caret-down"></i>
 				</a>
 				<ul id="data_activation_hub_menu" class="collapse in" aria-expanded="true">
 					<li id="Automated_Campaigns_Menu" >
 						<a id="Automated_Campaigns" href="#calljs-leoCdpRouter('Automated_Campaigns')" 
-							title="Automated Campaigns" data-container="body" data-toggle="popover" data-placement="right" data-content="Manage automated campaigns for email marketing, Zalo marketing, SMS marketing, Facebook Ads,... " >
-							<i class="fa fa-fw fa-cogs" aria-hidden="true" ></i> Automated Campaigns </a>
+							title="Automation Rules" data-container="body" data-toggle="popover" data-placement="right" data-content="Manage Automation Rules for email marketing, Zalo marketing, SMS marketing, Facebook Ads,... " >
+							<i class="fa fa-fw fa-cogs" aria-hidden="true" ></i> Automation AI Model </a>
 					</li>
 					<li id="Data_Service_Management_Menu" style="display: none;" data-system-user-roles="5,6" >
 						<a id="Data_Service_Management" href="#calljs-leoCdpRouter('Data_Service_Management')" 
@@ -316,7 +324,7 @@
 
 	function mainViewReady() {
 		if (isMobileDevice()) {
-			var msg ='<div class="alert alert-info"> <strong> The CDP Admin </strong> is currently not supported on mobile browsers! </div>';
+			var msg ='<div class="alert alert-info"> <strong> The Admin Portal </strong> is currently not supported on mobile browsers! </div>';
 			$('#page-main-notification').show().html(msg);
 		} else {
 			$('#promo_panel').css("visibility",promoVisibility);
@@ -350,7 +358,8 @@
 			
 			// show main menu guide
 			initMainMenuGuide();
-			
+		
+			initLeoChatBot('global')
 		}
 	}
 	

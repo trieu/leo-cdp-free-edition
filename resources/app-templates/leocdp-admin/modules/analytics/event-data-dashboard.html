@@ -1,5 +1,5 @@
 
-<!-- Event Data Report -->
+<!-- Behavioral Report -->
   
 <div id="event_dashboard_loader" class="loader"></div>  
 <div id="event_dashboard" class="row" style="display: none;">
@@ -9,7 +9,7 @@
      	<div class="col-lg-9 ">
      			
      		<div class="report_page_header">
-				<h4> <i class="fa fa-bar-chart" aria-hidden="true"></i> Event Data Report from <mark id="eventDataFromDate"></mark> to <mark id="eventDataToDate" ></mark> </h4>
+				<h4> <i class="fa fa-bar-chart" aria-hidden="true"></i> Behavioral Report from <mark id="eventDataFromDate"></mark> to <mark id="eventDataToDate" ></mark> </h4>
 			</div>
 			
      		<!-- Date filter control -->
@@ -49,7 +49,7 @@
             	<ul class="nav nav-tabs" data-tab-content="main_dashboard_report_tabs" >   
             		<li class="active">
 		         		<a href="javascript:" data-target-tab="panel_event_timeseries_report" title="Time Series Report" > 
-		         			<i class="fa fa-line-chart" aria-hidden="true"></i> Time Series
+		         			<i class="fa fa-line-chart" aria-hidden="true"></i> Behavioral Event
 		         		</a>
 		         	</li>	         		
 		         	<li>
@@ -81,7 +81,7 @@
    		
 		<div class="col-lg-3"> 
         	<div class="chart_box">
-	        	<h5 class="highlight_text text-center" > Profile Count </h5>
+	        	<h5 class="highlight_text text-center" > Profile Statistics </h5>
 	            <div class="summary_metric">
 	                <div class="vcenter text-center profile_count" id="profile_count_for_events"  >
 	 					0
@@ -89,7 +89,7 @@
 	            </div>
 	        </div>
 	        <div class="chart_box" >   
-	            <h5 class="highlight_text text-center" > Summary Count </h5>
+	            <h5 class="highlight_text text-center" > Behavioral Event Statistics </h5>
 	            <div class="summary_metric">
 	                <div class="vcenter" id="event_report_stats" style="overflow-y:scroll;">
 	                    <!--  Event Summary Report -->
