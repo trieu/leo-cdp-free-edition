@@ -182,8 +182,8 @@
 			
 			<li >
 				<div class="panel panel-default">
-				    <div class="panel-body" style="font-size: 11px;" >
-				    	<div title="Build ID" data-container="body" data-toggle="popover" data-placement="top" style="color:#3300ff!important; font-size: 10px" >
+				    <div class="panel-body" style="font-size: 9px;" >
+				    	<div data-container="body" data-toggle="popover" data-placement="top" style="color:#3300ff!important" >
 				    		<b>Build ID: <span id="system_build_id" ></span></b>
 				    	</div>
 				    </div>
@@ -327,7 +327,7 @@
 			navigationSetup();
 			$('#main_admin_navigation').show();
 			
-			$('#system_build_id').text(leoCdpBuildVersion);
+			$('#system_build_id').text(leoCdpBuildVersion).parent().attr('title',leoCdpBuildVersion);
 			
 			// search bar handler
 			$('#main_search_profile').on('keyup', function (e) {
