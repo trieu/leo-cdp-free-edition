@@ -183,17 +183,8 @@
 			<li >
 				<div class="panel panel-default">
 				    <div class="panel-body" style="font-size: 11px;" >
-				    	<div title="CDP Version" data-container="body" data-toggle="popover" data-placement="top" data-content="The version of CDP" >
-				    		<b> 
-				    			Version: <span id="leo_product_type" ></span>
-				    			<span id="leocdp_version_type" ></span>  
-				    		</b> 
-				    		<br>
-				    		<b>ID: <span id="leocdp_version_number" ></span></b>
-				    	</div>
-				    	<div id="promo_panel" style="visibility:visible; display: none;" >
-				    		<b> Powered by </b> <br>
-				    		<img id="uspa_logo" style="margin:auto" src="/public/images/uspa-tech-logo.png" alt="USPA Technology" title="Go to USPA Technology website" >
+				    	<div title="Build ID" data-container="body" data-toggle="popover" data-placement="top" >
+				    		<b>Build ID: <span id="system_build_id" ></span></b>
 				    	</div>
 				    </div>
 				</div>
@@ -327,8 +318,7 @@
 			var msg ='<div class="alert alert-info"> <strong> The Admin Portal </strong> is currently not supported on mobile browsers! </div>';
 			$('#page-main-notification').show().html(msg);
 		} else {
-			$('#promo_panel').css("visibility",promoVisibility);
-			$('#uspa_logo').click(function(){ window.open('https://uspa.tech','_blank') });
+			
 			$(window).resize(pageWrapperResize);
 			$('#logo-img').attr('src',window.pageHeaderLogo).show();
 			
@@ -337,9 +327,7 @@
 			navigationSetup();
 			$('#main_admin_navigation').show();
 			
-			$('#leo_product_type').text(leoProductType);
-			$('#leocdp_version_type').text(leoCdpEdition.toUpperCase());
-			$('#leocdp_version_number').text(leoCdpBuildVersion);
+			$('#system_build_id').text(leoCdpBuildVersion);
 			
 			// search bar handler
 			$('#main_search_profile').on('keyup', function (e) {
