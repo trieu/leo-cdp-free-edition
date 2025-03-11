@@ -96,11 +96,21 @@ Set Linux configs to scale on high load
 
 [ArangoDB on Ubuntu](https://www.arangodb.com/download-major/ubuntu)
 
-	curl -OL https://download.arangodb.com/arangodb311/DEBIAN/Release.key
-	sudo apt-key add - < Release.key
-	echo 'deb https://download.arangodb.com/arangodb311/DEBIAN/ /' | sudo tee /etc/apt/sources.list.d/arangodb.list
-	sudo apt-get install apt-transport-https; sudo apt-get update; sudo apt-get install arangodb3=3.11.11-1
+	set -e
+
+	# Download and add the ArangoDB GPG key securely
+	curl -fsSL https://download.arangodb.com/arangodb311/DEBIAN/Release.key | sudo gpg --dearmor -o /usr/share/keyrings/arangodb-archive-keyring.gpg
+
+	# Add ArangoDB repository
+	echo 'deb [signed-by=/usr/share/keyrings/arangodb-archive-keyring.gpg] https://download.arangodb.com/arangodb311/DEBIAN/ /' | sudo tee /etc/apt/sources.list.d/arangodb.list
+
+	# Update and install ArangoDB
+	sudo apt-get update
+	sudo apt-get install -y apt-transport-https arangodb3=3.11.13-1
+
+	# Allow UFW rule for ArangoDB observer access
 	sudo ufw allow from [IP_Observer] to any port 8600
+
 	
 [ArangoDB on CentOS or Rocky Linux](https://idroot.us/install-arangodb-centos-8/)
 	
