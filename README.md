@@ -2,114 +2,145 @@
 	<img src="https://gcore.jsdelivr.net/gh/USPA-Technology/leo-cdp-static-files@latest//images/leo-cdp-logo.png" alt="LEO CDP framework" style="width:640px;margin:auto;"/>
 </div>
 
-# What is LEO CDP framework?
+# LEO CDP – The Open Source AI-first Customer Data Platform
 
-LEO CDP is a free Customer Data Platform (CDP) framework designed to help businesses centralize, unify, and manage their customer data from various sources. 
-This allows for a holistic understanding of customers, leading to enhanced marketing and personalization. 
-The framework provides the building blocks for developers to customize their CDP according to specific business needs.
+**LEO CDP** is an **Open Source AI-first Customer Data Platform (CDP)** framework that empowers organizations to build and operate their own fully customizable CDP infrastructure — with **machine learning and big data** at its core.
 
-# Core ideas
-
-The philosophy of Dataism => USPA as Big Data framework => LEO CDP framework
-
-# Core features
-
-1. <b> Data collection and unification </b>: LEO CDP framework allows businesses to collect customer data from various sources, such as websites, mobile apps, and offline interactions. It then unifies this data into a single customer profile, which can include demographic information, behavioral data, and more.
-2. <b> Segmentation and audience creation </b>: LEO CDP framework provides UI tools for businesses to segment their customer data and create custom audiences based on criteria such as lead scoring, CLV scoring, customer behavior, demographics, or preferences.
-3. <b> Personalization and targeting </b>: With LEO CDP framework, businesses can use customer data to personalize and target their marketing efforts, such as by sending targeted email campaigns or displaying personalized website content.
-4. <b> Analytics and reporting </b>: LEO CDP framework provides real-time analytics and reporting capabilities, allowing businesses to measure the effectiveness of their marketing efforts and gain insights into customer behavior.
-5. <b> Integration with other systems </b>: LEO CDP framework can integrate with other systems such as CRM, marketing automation, email marketing service and advertising platforms to create a seamless and holistic view of customer data across the organization.
-
-# LEO CDP framework data flow
-
-[![LEO CDP framework Data Flow](leo-cdp-how-it-works.png)](https://knowledge.leocdp.net/2021/09/why-is-leo-cdp-important-for-digital.html)	
-
-# Why is LEO CDP framework ?
-
-1. It allows businesses to unify customer data from various sources such as websites, mobile apps, and offline interactions into a single customer profile. This can help businesses better understand their customers and provide a more consistent experience across channels.
-2. It offers ease of use: LEO CDP framework has a user-friendly interface and can be easily integrated with other marketing technologies. This makes it easy for businesses to use and implement without requiring extensive technical knowledge.
-3. LEO CDP framework is the on-premises software solution, so you can deploy in your private cloud servers or even your PC
-4. You can custom and build your own Customer Data Platform (CDP) for your digital business and digital transformation
-
-# System Demo
-
-* Login URL: https://dcdp.bigdatavietnam.org
-* Username: demo
-* Password: 123456 
-
-# Documents
-
-* [Document bằng tiếng Việt](https://datahub4uspa.leocdp.net/ct/6iSPHWPFzywadKBpq3YJ6n)
-* [Customer Data Platforms - The Ultimate Handbook 2023](https://datahub4uspa.leocdp.net/ct/2HtlqyYdyBjmEPJ4pkZwHZ)
-* [Data Model and Customer Journey Map Sample](https://docs.google.com/spreadsheets/d/1hzSvkmTE8WuvUFqnpWNfsPMzpjF8gYOSJfkc9eJIjWk/edit?usp=sharing)
-* [Core Functions for Analytics CDP](https://docs.google.com/document/d/1cavhFAs_uX-98qUvtXJI3v859I6h3knl0m_tSQ4235M/edit?usp=sharing)
-* [Data strategy with LEO CDP framework](https://docs.google.com/document/d/1la6mP21gfd2bHlpwj4hBTRQlxaPfhnpQRL6fV223Es0/edit?usp=sharing)
-
-# Technology Architecture
-
-## System Overview
-![alt technology-architecture-leo-cdp](leo-cdp-version-1.0.png)
-
-* https://docs.google.com/document/d/15tqxA9uMOi5uyIIAr4bq_sZpBWEkGWw17e3fVNap9Uw/edit?usp=sharing
-
-## Software Requirements
-
-1. Linux Ubuntu Server 22 LTS
-2. Redis 6
-3. Amazon Java 11 Corretto
-4. Python 3.10
-5. ArangoDB 3.11  (Community Edition / Enterprise Edition / Cloud Oasis)
-6. Jupyter Notebook / Google Colab for advanced data analytics and machine learning services
-7. Apache Airflow for ETL job scheduling and data connector
-8. Prometheus 2 for System Monitoring
-9. Grafana 8 for System Monitoring
-
-## Proposal solutions for digital marketing services / data activation services
-
-1. Mailchimp / Brevo for Email Marketing
-2. OneSignal / SendPulse / Firebase Cloud Messaging for push notification
-3. Facebook for Business Marketing 
-4. Google Ads for Search Engine Marketing
-5. Zalo Cloud for marketing (if you want to run marketing automation in Vietnam) 
-7. Blogger API and YouTube API for SEO
-8. Google BigQuery to analyse Big Data in the Cloud
-
-## Proposal cloud server vendors
-
-1. Google Cloud
-2. VNG Cloud 
-3. AWS Cloud
-4. Any your own cloud server !
-
-## How to install
-
-[Please check this LEO CDP framework Installation Guide](NOTES-FOR-NEW-SETUP.md)
+Designed for developers, data scientists, marketers, and enterprises, LEO CDP enables unified data collection, real-time customer analytics, audience segmentation, and personalized marketing — all while remaining **self-hosted and privacy-friendly**.
 
 ---
 
-# Author and copyright owner
+# 🚀 Vision & Philosophy
 
-<a href="https://www.facebook.com/dataism.one" target="_blank"> Trieu Nguyen (Thomas) </a>
+- **The philosophy of Dataism → USPA → LEO CDP**
+- Democratize AI-powered data platforms for **digital transformation**
+- Promote **data sovereignty**, **on-premise intelligence**, and **open collaboration**
 
-# Software license
+---
 
-* Free to develop and use in your own servers
-* Just respect my work
-* You can develop and use your own brand CDP (white label CDP solution)
+# 🔥 Key Features
 
-# Community Support 
+1. **Omnichannel Data Collection & Unification**  
+   Collect data from web, mobile, CRM, IoT, POS, social media, and APIs. Unify into rich customer profiles.
 
-* This is the beta software, so if you get any bug or issue in operation, just send me a message: trieu@leocdp.com
-* Please join this group to learn more about big data and CDP: <a href="https://www.facebook.com/groups/bigdatavietnam.org" target="_blank">  BigdataVietnam.org Community </a>
+2. **Real-Time Customer 360**  
+   Build a complete view of every customer using behavioral, transactional, and third-party data.
 
-# Documents 
+3. **AI-based Segmentation & Scoring**  
+   Use clustering, RFM, CLV prediction, churn scoring, and dynamic audiences using ML models.
 
-* Video tutorials are still under development 
-* <a href="https://www.youtube.com/@bigdatavn" target="_blank" > YouTube playlist for training </a>
-* More information will be updated at <a href="https://knowledge.leocdp.net/" target="_blank"> LEO CDP framework Blog </a>
+4. **Behavioral Tracking & Journey Mapping**  
+   Track individual actions and interactions in real time. Map customer journeys across channels.
 
-## Bằng chứng về bản quyền mô hình và phát minh LEO CDP framework
+5. **Predictive Analytics & Insights**  
+   Leverage machine learning pipelines with Jupyter/Colab for real-time insights.
 
-* Đây là bằng chứng ý tưởng cho LEO CDP đã có từ 2014 <a href="https://www.facebook.com/photo/?fbid=10158746916044506" target="_blank"> Link ý tưởng </a> 
-* USPA framework cho code CDP đã được phát triển từ tháng 10 năm 2019 <a href="https://www.youtube.com/watch?v=tyASsGaE8jg" target="_blank"> Link video </a> 
-* <a href="https://www.brandsvietnam.com/congdong/topic/23444-Digital-Transformation-15-Datadriven-Marketing-Tan-dung-du-lieu-de-toi-uu-tiep-thi-Phan-2" target="_blank"> Digital Transformation #15: Data-driven Marketing – Tận dụng dữ liệu để tối ưu tiếp thị </a>
+6. **Personalization & Activation**  
+   Using Agentic AI to deliver personalized experiences via email, push, SMS, and content based on customer intent.
+
+7. **Event-Driven Architecture with ETL/ELT**  
+   Built-in Apache Airflow integration to manage data ingestion, transformation, and orchestration.
+
+8. **Plug-in Ecosystem & API-First Design**  
+   Easy to extend, integrate, and automate via REST APIs and modular services.
+
+9. **Data Governance & Privacy**  
+   Built-in consent tracking, GDPR compliance, and on-prem hosting for full control over customer data.
+
+10. **DevOps Ready**  
+   Docker-based deployment, Prometheus + Grafana monitoring, scalable microservice architecture.
+
+---
+
+# 🌍 Why Open Source?
+
+- Break away from SaaS lock-in. Full **customization** and **ownership** of your CDP.
+- Ideal for **agencies**, **startups**, **enterprises**, and **researchers** building AI-powered marketing stacks.
+- Open source encourages **transparency**, **innovation**, and **community-driven evolution**.
+
+---
+
+# 📈 Roadmap 2025+
+
+| Feature | Status |
+|--------|--------|
+| ✅ Core CDP Platform (Profiles, Events, Segmentation) | Complete |
+| ✅ CDP SDKs (JavaScript, Python) | Complete |
+| 🔄 Identity Resolution with Graph + Vector Matching | In Progress |
+| 🔄 AI Assistant (Chatbot for Audience Insights & Suggestions) | In Progress |
+| 🔄 Agentic AI: Personalizing the Customer Experience | In Progress |
+| 🔄 Embedding Model for Customer Vector Search (via Qdrant) | In Progress |
+| 🆕 CDP Mobile SDKs (Android, iOS, React Native) | Planned |
+| 🆕 Open Source Campaign Management UI | Planned |
+| 🆕 Integration Marketplace for Martech Tools | Planned |
+| 🆕 Webhook + Event Bus Support (Kafka / RabbitMQ / SQS) | Planned |
+| 🆕 Federated Identity Graph using OpenID & OAuth | Planned |
+
+Want to contribute? [Join the community](https://www.facebook.com/groups/bigdatavietnam.org)!
+
+---
+
+# 🧪 System Demo
+
+- **URL**: https://dcdp.bigdatavietnam.org  
+- **Username**: `demo`  
+- **Password**: `123456`  
+
+---
+
+# 📚 Documents
+
+- [🇻🇳 Document bằng tiếng Việt](https://datahub4uspa.leocdp.net/ct/6iSPHWPFzywadKBpq3YJ6n)
+- [🧠 CDP Handbook 2023](https://datahub4uspa.leocdp.net/ct/2HtlqyYdyBjmEPJ4pkZwHZ)
+- [📊 Data Model & Journey Map](https://docs.google.com/spreadsheets/d/1hzSvkmTE8WuvUFqnpWNfsPMzpjF8gYOSJfkc9eJIjWk/edit?usp=sharing)
+- [⚙️ Analytics Core Functions](https://docs.google.com/document/d/1cavhFAs_uX-98qUvtXJI3v859I6h3knl0m_tSQ4235M/edit?usp=sharing)
+- [💡 Data Strategy with LEO CDP](https://docs.google.com/document/d/1la6mP21gfd2bHlpwj4hBTRQlxaPfhnpQRL6fV223Es0/edit?usp=sharing)
+
+---
+
+# 🛠️ Tech Stack
+
+- **Backend**: Java 11 (Amazon Corretto), Python 3.10
+- **Database**: ArangoDB 3.11 (Multi-model: Document + Graph + Search)
+- **Monitoring**: Prometheus 2 + Grafana 8
+- **Data Pipeline**: Apache Airflow
+- **Analytics & ML**: Jupyter Notebook / Google Colab
+- **Messaging**: Redis 6, OneSignal, Firebase
+- **Deployment**: Ubuntu 22 LTS, Docker, On-Prem / Cloud
+
+---
+
+# ☁️ Cloud Options
+
+- Google Cloud, AWS, VNG Cloud, or **your own private infrastructure**
+
+---
+
+# 🔧 Installation
+
+See: [Installation Guide](core-leo-cdp/NOTES-FOR-NEW-SETUP.md)
+
+---
+
+# 🧑‍💻 Author & License
+
+Created by: [Trieu Nguyen (Thomas)](https://www.facebook.com/dataism.one)  
+**License**: Open Source - MIT-style.  
+Use freely. Customize. Brand your own white-label CDP. Just respect the original creator 🙏.
+
+---
+
+# 💬 Community & Support
+
+- Bugs or ideas? Email: **trieu@leocdp.com**
+- Join our learning group: [BigDataVietnam.org](https://www.facebook.com/groups/bigdatavietnam.org)
+- YouTube: [@bigdatavn](https://www.youtube.com/@bigdatavn)
+- Blog: [knowledge.leocdp.net](https://knowledge.leocdp.net/)
+
+---
+
+# 📜 Historical Proof of Innovation
+
+- [2014 Concept](https://www.facebook.com/photo/?fbid=10158746916044506)
+- [2019 Code Launch](https://www.youtube.com/watch?v=tyASsGaE8jg)
+- [Data-Driven Marketing in Vietnam (2020)](https://www.brandsvietnam.com/congdong/topic/23444)
