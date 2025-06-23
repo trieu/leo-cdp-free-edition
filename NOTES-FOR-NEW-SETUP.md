@@ -106,7 +106,7 @@ Set Linux configs to scale on high load
 
 	# Update and install ArangoDB
 	sudo apt-get update
-	sudo apt-get install -y apt-transport-https arangodb3=3.11.13-1
+	sudo apt-get install -y apt-transport-https arangodb3=3.11.14-1
 
 	# Allow UFW rule for ArangoDB observer access
 	sudo ufw allow from [IP_Observer] to any port 8600
