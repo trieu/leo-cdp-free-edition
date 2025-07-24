@@ -1,31 +1,5 @@
 [
 	{
-		"id": "brevo",
-		"name": "Brevo Data Service",
-		"description": "Marketing Automation Platform",
-		"forSynchronization": true,
-		"status": 0,
-		"configs": {
-			"service_provider": "https://brevo.com",
-			"service_api_url": "https://api.brevo.com/v3",
-			"service_api_key": ""
-		},
-		"serviceUri": "javaclass:leotech.cdp.data.service.BrevoDataService"
-	},
-	{
-		"id": "mailchimp",
-		"name": "MailChimp Data Service",
-		"description": "Marketing Automation Platform",
-		"forSynchronization": true,
-		"status": 0,
-		"configs": {
-			"service_provider": "https://mailchimp.com",
-			"service_api_url": "https://mailchimp.com",
-			"service_api_key": ""
-		},
-		"serviceUri": "javaclass:leotech.cdp.data.service.MailchimpDataService"
-	},
-	{
 		"id": "kafka_producer",
 		"name": "Apache Kafka Producer",
 		"description": "The service is used to export profiles in the segment into Apache Kafka, please set bootstrap_servers and topic",
