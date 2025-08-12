@@ -123,26 +123,26 @@
        <!--  Main Tabs of Profile Info -->
        <ul id="profile_info_tabs" class="nav nav-tabs" data-tab-content="profile_ext_data_tabs" style="margin-top:20px" >
          <li class="active" onclick="handleProfileTabBehavioralInfo()">
-          	<a href="javascript:" data-target-tab="panel_behavioral_Data" title="Customer Behavioral Insights"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Behavioral Insights </a>
+          	<a href="javascript:" data-target-tab="panel_behavioral_Data" title="Customer Behavioral Insights"> <i class="fa fa-heartbeat" aria-hidden="true"></i> Behavioral Data </a>
          </li>
          
          <li onclick="handleProfileTabExtInfo()" >
-          	<a href="javascript:" data-target-tab="panel_profile_information" title="Profile Information" > <i class="fa fa-info-circle" aria-hidden="true"></i> Profile Information </a>
+          	<a href="javascript:" data-target-tab="panel_profile_information" title="Profile Information" > <i class="fa fa-info-circle" aria-hidden="true"></i> Basic Information </a>
          </li>
          
-         <li style="display: none;">
-         	<a href="javascript:" data-target-tab="panel_customer_experience" title="Customer Feedback Data" > <i class="fa fa-commenting-o" aria-hidden="true"></i> Experience Insights </a>
+         <li >
+         	<a href="javascript:" data-target-tab="panel_customer_experience" title="Customer Feedback Data" > <i class="fa fa-commenting-o" aria-hidden="true"></i> Feedback Data </a>
          </li>
          
-         <li data-industry="MEDIA" style="display: none;" >
+         <li data-industry="RETAIL" style="display: none;" >
           	<a href="javascript: loadRecommendedContentsOfProfile(viewProfileId, true)" data-target-tab="panel_content_suggestions" title="Recommended contents for direct marketing" > <i class="fa fa-list-ol" aria-hidden="true"></i> Recommended Contents </a>
          </li>
          
-         <li data-industry="COMMERCE" style="display: none;"  >
+         <li data-industry="RETAIL" style="display: none;"  >
          	<a href="javascript: loadRecommendedProductsOfProfile(viewProfileId, true)" data-target-tab="panel_recommended_products"  title="Recommended products for direct marketing" > <i class="fa fa-list-ol" aria-hidden="true"></i> Recommended Products </a>
          </li>
          
-         <li data-industry="FINANCE" style="display: none"  onclick="loadFinancialEventList()" >
+         <li data-industry="FINANCE" style="display: none;" onclick="loadFinance360Profile()" >
          	<a href="javascript:" data-target-tab="panel_financial_information"  > <i class="fa fa-usd" aria-hidden="true"></i> Financial Data </a>
          </li>
          
@@ -238,12 +238,6 @@
 		                    <!-- vertical tab: Time Series Report -->
 		                    <div class="tab-pane" id="panel_events_in_time" >
 		                    
-		                    	<!-- Event Summary Report -->
-	               				<div class="col-lg-12">
-									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Summary Report </h4> 
-									<div id="profileEventStatsChart" class="col-lg-12"> </div>
-								</div>
-								
 		                    	<!-- Event Time Series -->
 		                   		<div class="col-lg-12">
 									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Daily Report </h4> 
@@ -282,6 +276,12 @@
 										<canvas id="timeseriesProfileEventChart" ></canvas>
 									</div>
 					      		</div>
+					      		
+					      		<!-- Event Summary Report -->
+	               				<div class="col-lg-12">
+									<h4 class="highlight_text" > <i class="fa fa-info-circle" aria-hidden="true"></i> Event Summary Report </h4> 
+									<div id="profileEventStatsChart" class="col-lg-12"> </div>
+								</div>
 					      		
 		                    </div>  
 		                  
@@ -751,7 +751,41 @@
 			<!-- tab 6 financial event -->
 			<div class="tab-pane" id="panel_financial_information"  >
 				<!-- tab 8 content  -->
-		     	<h4 class="highlight_text" > <i class="fa fa-list-ul" aria-hidden="true"></i> Financial Data Event </h4>
+		     	<h4 class="highlight_text" > <i class="fa fa-list-ul" aria-hidden="true"></i> Financial 360 Analytics </h4>
+		     	
+			      <!-- Customer Info -->
+			      <div class="panel panel-default">
+			        <div class="panel-heading"><h4>Financial Profile</h4></div>
+			        <div class="panel-body">
+			          <p>
+			            <strong>Risk Appetite:</strong> <span id="customer_risk"></span>
+			          </p>
+			          <p>
+			            <strong>Preferred Assets:</strong>
+			            <span id="preferred_assets"></span>
+			          </p>
+			        </div>
+			      </div>
+
+			      <!-- Investment Summary Chart -->
+			      <div class="panel panel-default">
+			        <div class="panel-heading"><h4>Investment Summary</h4></div>
+			        <div class="panel-body text-center">
+			          <div style="display: inline-block">
+			            <canvas id="investmentChart" height="400" width="300"></canvas>
+			          </div>
+			        </div>
+			      </div>
+			
+			      <!-- Activity Log -->
+			      <div class="panel panel-default">
+			        <div class="panel-heading"><h4>Recent Activities</h4></div>
+			        <div class="panel-body">
+			          <ul class="list-group" id="activity_logs"></ul>
+			        </div>
+			      </div>
+			    
+		     	
 		     	<div id="financial_event_list" class="list-group col">
 		     		<div class="list-group-item" > No data available </div>
 				</div>

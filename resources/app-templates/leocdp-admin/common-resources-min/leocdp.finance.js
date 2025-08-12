@@ -1,0 +1,6 @@
+'use strict';function loadFinance360Profile(){var c=["VN30 Stocks","Government Bonds","Real Estate Funds"],b={stocks:65E3,bonds:3E4,cash:5E3},d=[{timestamp:"2025-08-06T09:15:00+07:00",action:"Buy",asset:"FPT",amount:"50 shares @ 112,000 VND"},{timestamp:"2025-08-06T10:45:00+07:00",action:"Sell",asset:"HPG",amount:"100 shares @ 27,500 VND"},{timestamp:"2025-08-06T11:30:00+07:00",action:"Dividend Received",asset:"VNM",amount:"300,000 VND"},{timestamp:"2025-08-06T13:00:00+07:00",action:"Add to Watchlist",
+asset:"SSI",amount:""},{timestamp:"2025-08-06T14:15:00+07:00",action:"Cancel Order",asset:"MWG",amount:"Pending sell order (30 shares)"}];$(document).ready(function(){$("#customer_risk").text("Moderate");$("#preferred_assets").text(c.join(", "));const e=document.getElementById("investmentChart").getContext("2d");Chart.register(ChartDataLabels);new Chart(e,{type:"doughnut",data:{labels:Object.keys(b),datasets:[{data:Object.values(b),backgroundColor:["#94FFD1","#A3C8FF","#F4FFA3"]}]},options:{responsive:!0,
+plugins:{title:{display:!0,text:"Portfolio Allocation"},datalabels:{color:"#000"}}},plugins:[ChartDataLabels]});d.forEach(a=>{a=`<li class="list-group-item">
+      <strong>${a.action}:</strong> ${a.asset} – ${a.amount}
+      <em class="text-muted pull-right">${(new Date(a.timestamp)).toLocaleString()}</em>
+    </li>`;$("#activity_logs").append(a)})})};
