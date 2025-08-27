@@ -1,18 +1,28 @@
-version: '3.7'
+version: "3.7"
 
 services:
-  arangodb_db_container:
-    image: arangodb:latest
+
+# arangodb for core database
+  arangodb:
+    image: arangodb:3.11.14
     restart: unless-stopped
     container_name: arangodb
     environment:
-      ARANGO_ROOT_PASSWORD: FormulaLeo#2020
+      ARANGO_ROOT_PASSWORD: ${ARANGO_ROOT_PASSWORD}
     ports:
-      - 8601:8529
+      - "8601:8529"
     volumes:
-      - arangodb_data_container:/var/lib/arangodb3
-      - arangodb_apps_data_container:/var/lib/arangodb3-apps
+      - ./arangodb_data:/var/lib/arangodb3
+      - ./arangodb_apps:/var/lib/arangodb3-apps
 
-volumes:
-  arangodb_data_container:
-  arangodb_apps_data_container:
+# redis for cache
+  redis:
+    image: redis:7.4
+    restart: unless-stopped
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis_data:/data
+    command: ["redis-server", "--appendonly", "yes"]  # ensures persistence
+
