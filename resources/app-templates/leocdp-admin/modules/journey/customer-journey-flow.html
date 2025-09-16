@@ -189,7 +189,7 @@
 
 <!-- /////// JavaScript /////// -->
 <script>
-	var currentJourneyMapId = "id_default_journey";
+	
 	var eventMetrics = false;
 	var cxFeedbackTemplates = false, landingPageTemplates = false;
 	
@@ -197,35 +197,45 @@
 	var flowNetworkGraph = false;
 	
 	var initJourneyMap = function(id) {
-		if(typeof id === 'string') {
-			currentJourneyMapId = id;
-		}
-		if(currentJourneyMapId === "id_default_journey"){
-			$('#default_journey_map_check').show();
-			$('button.data-control-delete').attr('disabled','disabled');
-		}
+		if(typeof id === 'string' && id !== "") {
+			window.currentJourneyMapId = id;
+		}				
 		
 		var role = currentUserProfile.role;
    		if( role >=5 ) {
    			$("#tab_journey_data_authorization").show();
+   			
+   			if(window.currentJourneyMapId === ''){
+   				window.currentJourneyMapId = 'id_default_journey';
+   			}   			
    		}
+   		else if(window.currentJourneyMapId === ''){
+			window.currentJourneyMapId = currentUserProfile.viewableJourneyMapIds[0] || '_';
+		}  
+   		
+   		if(window.currentJourneyMapId === "id_default_journey"){
+			$('#default_journey_map_check').show();
+			$('button.data-control-delete').attr('disabled','disabled');
+		}
     	
     	// panel tabs 
     	setupTabPanels();
     	
     	// the journey map selection
-    	loadJourneyMapList();
+    	loadJourneyMapList(false, false ,false, function(){
+    		// name editor
+    		initJourneyMapNameEditor();
+        	
+        	// event metrics for observer JS
+        	loadEventMetrics();
+        	
+        	// init data observer UI
+       		initDataObserverList();
+        	
+        	// the flow
+       		initJourneyMapAndTouchpointHubs();
+    	});
     	
-    	// name editor
-		initJourneyMapNameEditor();
     	
-    	// event metrics for observer JS
-    	loadEventMetrics();
-    	
-    	// init data observer UI
-   		initDataObserverList();
-    	
-    	// the flow
-   		initJourneyMapAndTouchpointHubs();
 	}
 </script>

@@ -886,9 +886,28 @@ AQL_FIND_KEY_BY_USERLOGIN =>
 ;
 
 AQL_GET_USER_BY_USERLOGIN => 
-	FOR u in system_user 
-	FILTER u.userLogin == @userLogin  
-	RETURN u
+	LET user = FIRST(
+	  FOR u IN system_user
+	    FILTER u.userLogin == @userLogin
+	    RETURN u
+	)
+
+	LET viewableJourneyMapIds = (
+	  FOR j IN cdp_journeymap
+	    FILTER (user.role IN [5, 6]) OR (@userLogin IN j.authorizedViewers)
+	    RETURN j._key
+	)
+
+	LET editableJourneyMapIds = (
+	  FOR j IN cdp_journeymap
+	    FILTER (user.role IN [5, 6]) OR (@userLogin IN j.authorizedEditors)
+	    RETURN j._key
+	)
+
+	RETURN MERGE(user, {
+	  viewableJourneyMapIds: viewableJourneyMapIds,
+	  editableJourneyMapIds: editableJourneyMapIds
+	})
 ;
 
 AQL_GET_USERLOGIN_BY_EMAIL => 

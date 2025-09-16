@@ -92,7 +92,7 @@
 							<i class="fa fa-fw fa-user-circle-o"></i> Customer Persona </a>
 					</li>
 					<li >
-						<a id="Data_Journey_Map" href="#calljs-leoCdpRouter('Data_Journey_Map','id_default_journey')" 
+						<a id="Data_Journey_Map" href="#calljs-leoCdpRouter('Data_Journey_Map','')" 
 							title="Data Journey Map Management" data-container="body" data-toggle="popover" data-placement="right" data-content="Manage all customer data journey maps and touchpoint data hubs" > 
 							<i class="fa fa-fw fa-exchange"></i> Data Journey Map </a>
 					</li>		
@@ -204,6 +204,9 @@
 
 <script>
 	
+	// default
+	window.currentJourneyMapId = '';
+	
 	function loadUserInfoWidget() {
 	    var urlStr = baseLeoAdminUrl + '/user/get';
 	    LeoAdminApiUtil.callPostAdminApi(urlStr, {}, function (json) {
@@ -215,7 +218,16 @@
 	                var dn = textTruncate(systemUser.displayName,15);
 	                var tt = 'Click to view the login information of ' + systemUser.displayName;
 	                $('#userDisplayName').text(dn).attr('title', tt);
+	                
+	                // set current system user
 	                window.currentUserProfile = systemUser;
+	                
+	                if(role < 5) {
+	                	window.currentJourneyMapId = currentUserProfile.viewableJourneyMapIds[0] || '_';
+	                }
+	                else {
+	                	window.currentJourneyMapId = '';
+	                }
 	                
 	                // websocket
 	                LeoCdpAdmin.initSystemNotifications(systemUser)
@@ -223,8 +235,8 @@
 	                if(role === 6) {
 	                	// hasSuperAdminRole === true
 	                	$("#nav_system_management").show();
-	                	$('#main-navbar').find("li[data-system-user-roles]").show();
-	                } 
+	                	$('#main-navbar').find("li[data-system-user-roles]").show();	                	
+	                }
 	                else {
 	                	$('#main-navbar').find("li[data-system-user-roles]").each(function(){
 	                		var roles = $(this).data("system-user-roles") + "";
@@ -232,7 +244,7 @@
 	                		if(roles.indexOf(role)>=0){
 	                			$(this).show()
 	                		}
-	                	});
+	                	});	                	
 	                }	
 	                // tracking user and save events to profile
 	                loadLeoObserverForAdmin();

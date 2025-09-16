@@ -102,7 +102,7 @@
 
 
 <script>
-	var currentJourneyMapId = ""; 
+	
     var intEventDataDashboard =  function() {
     	// init tabs
     	setupTabPanels();
@@ -110,7 +110,7 @@
     	initDateFilterComponent(false, null, null, 30);
     	
 		loadJourneyMapList(false, function(id){
-			currentJourneyMapId = id;
+			window.currentJourneyMapId = id;
 			// load event reports
 			loadEventDailyReportUnit(true);
         },true);

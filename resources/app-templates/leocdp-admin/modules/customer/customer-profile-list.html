@@ -232,7 +232,7 @@
     
 <script>
 	var selectedProfileIdMap = {};
-	var currentJourneyMapId = "", profileListTable = false;
+	var profileListTable = false;
 	
 	function doProfileListing() {
 		var keywords = $('#main_search_profile').val().trim();
@@ -264,6 +264,8 @@
 			location.hash = "calljs-leoCdpRouter('Profile_Management')";
 		} 
 		else {
+			window.currentJourneyMapId = currentUserProfile.viewableJourneyMapIds[0] || '_';
+			
 			$('#showVisitorProfile').prop('checked', true);
 			$('#showLeadAndProspectProfile').prop('checked', true);
 			$('#showCustomerProfile').prop('checked', true);
@@ -274,7 +276,7 @@
 			
 			$('#filterProfileListByStatus').val('');
 			$('#keywordsToSearchProfiles').val('');
-			$('#journeyMapList').val("").change().trigger("chosen:updated");
+			$('#journeyMapList').val(window.currentJourneyMapId).change().trigger("chosen:updated");
 			
 			$('#main_search_profile').val('');			
 			$('#filter_profile_by_dates').prop('checked', false);
@@ -358,108 +360,115 @@
     	});
     	
     	// journey map
-    	loadJourneyMapList(false, function(id){
-    		currentJourneyMapId = id;
-        },true);
+    	loadJourneyMapList(false, function(id, name){
+    		currentJourneyMapId = id;    		
+        },true, function(){
+        	// load profiles
+        	
+    		// profileType
+        	if(profileType === "visitor"){
+        		$('#showVisitorProfile').prop('checked', true);
+    			$('#showLeadAndProspectProfile').prop('checked', false);
+    			$('#showCustomerProfile').prop('checked', false);
+        	}
+        	else if(profileType === "lead"){
+        		$('#showVisitorProfile').prop('checked', false);
+    			$('#showLeadAndProspectProfile').prop('checked', true);
+    			$('#showCustomerProfile').prop('checked', false);
+        	}
+        	else if(profileType === "customer"){
+        		$('#showVisitorProfile').prop('checked', false);
+    			$('#showLeadAndProspectProfile').prop('checked', false);
+    			$('#showCustomerProfile').prop('checked', true);
+        	}
+        	else {
+        		$('#showVisitorProfile').prop('checked', true);
+    			$('#showLeadAndProspectProfile').prop('checked', true);
+    			$('#showCustomerProfile').prop('checked', true);
+        	}
+        	
+        	// search profiles by keywords
+        	if(typeof encodedKeywords === 'string' ) {
+        		var keywordsToSearch = Base64.decode(encodedKeywords);
+        		document.title = "Customer Data Hub - Search profiles by keywords: " + keywordsToSearch;
+        		$('#keywordsToSearchProfiles').val(keywordsToSearch);
+        		$('#main_search_profile').val(keywordsToSearch);
+        		$('#filterProfileListByStatus').val('');
+        	} 
+        	else {
+        		$('#profile_filter_inputs > input:first').show();
+        	}
+        	
+        	var tableDomSel = "#profile_list_table";
+        	var loaderDomSel = "#profile_list_loader";
+        	var containerDomSel = "#profile_list";
+        	var searchKeywords =  $('#keywordsToSearchProfiles').val();
+        	
+        	var profileFilterParams = function(d) {
+        		var filterByDates = $('#filter_profile_by_dates').prop('checked');
+                if( filterByDates ) {
+                 	var datetimeFilter = getDateFilterValues();
+                    d.beginFilterDate = datetimeFilter.beginFilterDate;
+         			d.endFilterDate = datetimeFilter.endFilterDate;
+                }
+        			
+                d.journeyMapId = currentJourneyMapId;
+        		d.showVisitor = $('#showVisitorProfile:checked').length > 0;
+        		d.showLeadAndProspect = $('#showLeadAndProspectProfile:checked').length > 0;
+        		d.showCustomer = $('#showCustomerProfile:checked').length > 0;
+        		
+        		d.emails = $('#filterEmail').val().trim();
+        		d.phones = $('#filterPhone').val().trim();
+        		d.visitorId = $('#filterByVisitorId').val().trim();
+        		d.profileId = $('#filterByProfileId').val().trim();
+        		d.crmRefId = $('#filterByCrmRefId').val().trim();
+        		d.fingerprintId = $('#filterByFingerprintId').val().trim();
+        		
+        		d.lastTouchpointName = $('#filterByLastTouchpoint').val().trim();
+        		d.segmentName = $('#filterBySegmentName').val().trim();
+        		d.dataLabel = $('#filterByDataLabel').val().trim();
+        		d.mediaChannel = $('#filterByMediaChannel').val().trim();
+        		
+        		d.authorizedViewer = $('#filterByAuthorizedViewer').val().trim();
+        		d.authorizedEditor = $('#filterByAuthorizedEditor').val().trim();
+        		
+        		var statusStr = $('#filterProfileListByStatus').val().trim();
+        		d.status = parseInt(statusStr === "" ? 1 : statusStr);
+        		
+        		if(searchKeywords.length >= 2 ){
+        			d.searchKeywords = searchKeywords;
+        		}
+        		else {
+        			d.searchkeywords = "";
+        		}
+        		return d;
+        	}
+        	
+        	var loadDataCallback = function(json) {
+         		if( ! $(tableDomSel).data('canInsertData') ){
+     				$('button.data-control-insert').attr('disabled','disabled').attr("title","You do not have authorization to create profile");
+     			}
+         		if( ! $(tableDomSel).data('canEditData') ){
+     				$('button.data-control-update').attr('disabled','disabled').attr("title","You do not have authorization to update profile");
+     			}
+         		if( ! $(tableDomSel).data('canDeleteData') ){
+     				$('button.data-control-delete').attr('disabled','disabled').attr("title","You do not have authorization to delete profile");
+     			}
+        	}
+        	profileListTable = loadProfileListByFilter('profileListRowHandler', containerDomSel, loaderDomSel, tableDomSel, profileFilterParams, loadDataCallback);
+        	
+        	 // mark seach keywords in table
+            if(searchKeywords.length >= 2 ) {
+            	profileListTable.on( 'draw', function () {
+    				$('#profile_list_table .datatable_text').mark(searchKeywords);
+    			});
+    		} 
+        	
+        	
+        	
+        });
     	
-    	// profileType
-    	if(profileType === "visitor"){
-    		$('#showVisitorProfile').prop('checked', true);
-			$('#showLeadAndProspectProfile').prop('checked', false);
-			$('#showCustomerProfile').prop('checked', false);
-    	}
-    	else if(profileType === "lead"){
-    		$('#showVisitorProfile').prop('checked', false);
-			$('#showLeadAndProspectProfile').prop('checked', true);
-			$('#showCustomerProfile').prop('checked', false);
-    	}
-    	else if(profileType === "customer"){
-    		$('#showVisitorProfile').prop('checked', false);
-			$('#showLeadAndProspectProfile').prop('checked', false);
-			$('#showCustomerProfile').prop('checked', true);
-    	}
-    	else {
-    		$('#showVisitorProfile').prop('checked', true);
-			$('#showLeadAndProspectProfile').prop('checked', true);
-			$('#showCustomerProfile').prop('checked', true);
-    	}
     	
-    	// search profiles by keywords
-    	if(typeof encodedKeywords === 'string' ) {
-    		var keywordsToSearch = Base64.decode(encodedKeywords);
-    		document.title = "Customer Data Hub - Search profiles by keywords: " + keywordsToSearch;
-    		$('#keywordsToSearchProfiles').val(keywordsToSearch);
-    		$('#main_search_profile').val(keywordsToSearch);
-    		$('#filterProfileListByStatus').val('');
-    	} 
-    	else {
-    		$('#profile_filter_inputs > input:first').show();
-    	}
-    	
-    	var tableDomSel = "#profile_list_table";
-    	var loaderDomSel = "#profile_list_loader";
-    	var containerDomSel = "#profile_list";
-    	var searchKeywords =  $('#keywordsToSearchProfiles').val();
-    	
-    	var profileFilterParams = function(d) {
-    		var filterByDates = $('#filter_profile_by_dates').prop('checked');
-            if( filterByDates ) {
-             	var datetimeFilter = getDateFilterValues();
-                d.beginFilterDate = datetimeFilter.beginFilterDate;
-     			d.endFilterDate = datetimeFilter.endFilterDate;
-            }
-    			
-            d.journeyMapId = currentJourneyMapId;
-    		d.showVisitor = $('#showVisitorProfile:checked').length > 0;
-    		d.showLeadAndProspect = $('#showLeadAndProspectProfile:checked').length > 0;
-    		d.showCustomer = $('#showCustomerProfile:checked').length > 0;
-    		
-    		d.emails = $('#filterEmail').val().trim();
-    		d.phones = $('#filterPhone').val().trim();
-    		d.visitorId = $('#filterByVisitorId').val().trim();
-    		d.profileId = $('#filterByProfileId').val().trim();
-    		d.crmRefId = $('#filterByCrmRefId').val().trim();
-    		d.fingerprintId = $('#filterByFingerprintId').val().trim();
-    		
-    		d.lastTouchpointName = $('#filterByLastTouchpoint').val().trim();
-    		d.segmentName = $('#filterBySegmentName').val().trim();
-    		d.dataLabel = $('#filterByDataLabel').val().trim();
-    		d.mediaChannel = $('#filterByMediaChannel').val().trim();
-    		
-    		d.authorizedViewer = $('#filterByAuthorizedViewer').val().trim();
-    		d.authorizedEditor = $('#filterByAuthorizedEditor').val().trim();
-    		
-    		var statusStr = $('#filterProfileListByStatus').val().trim();
-    		d.status = parseInt(statusStr === "" ? 1 : statusStr);
-    		
-    		if(searchKeywords.length >= 2 ){
-    			d.searchKeywords = searchKeywords;
-    		}
-    		else {
-    			d.searchkeywords = "";
-    		}
-    		return d;
-    	}
-    	
-    	var loadDataCallback = function(json) {
-     		if( ! $(tableDomSel).data('canInsertData') ){
- 				$('button.data-control-insert').attr('disabled','disabled').attr("title","You do not have authorization to create profile");
- 			}
-     		if( ! $(tableDomSel).data('canEditData') ){
- 				$('button.data-control-update').attr('disabled','disabled').attr("title","You do not have authorization to update profile");
- 			}
-     		if( ! $(tableDomSel).data('canDeleteData') ){
- 				$('button.data-control-delete').attr('disabled','disabled').attr("title","You do not have authorization to delete profile");
- 			}
-    	}
-    	profileListTable = loadProfileListByFilter('profileListRowHandler', containerDomSel, loaderDomSel, tableDomSel, profileFilterParams, loadDataCallback);
-    	
-    	 // mark seach keywords in table
-        if(searchKeywords.length >= 2 ) {
-        	profileListTable.on( 'draw', function () {
-				$('#profile_list_table .datatable_text').mark(searchKeywords);
-			});
-		}        
     }   
     
     function clearAllSelectedProfiles(){
