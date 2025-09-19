@@ -65,8 +65,9 @@
         	try {
         		json = JSON.parse(e.data)
         	}
-        	catch(e){}
-        	
+        	catch(e){
+        		console.error(e)
+        	}        	
         	if(typeof json.call ==='string') {
         		proxyCallHandler(json)
         	}
