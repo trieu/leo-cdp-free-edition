@@ -1,22 +1,5 @@
 [
 	{
-		"id": "kafka_producer",
-		"name": "Apache Kafka Producer",
-		"description": "The service is used to export profiles in the segment into Apache Kafka, please set bootstrap_servers and topic",
-		"forDataEnrichment": true,
-		"forSynchronization": true,
-		"forPersonalization": true,
-		"status": 0,
-		"configs": {
-			"service_provider": "https://leocdp.com",
-			"service_api_url": "",
-			"service_api_key": "",
-			"kafka_bootstrap_servers":"",
-			"kafka_topic":""
-		},
-		"serviceUri": "javaclass:leotech.cdp.data.service.KafkaProducerService"
-	},
-	{
 		"id": "leo_personalization_service",
 		"name": "Personalization Engine",
 		"description": "The default personalization engine of CDP",
@@ -27,7 +10,7 @@
 			"service_api_url": "local-data-service",
 			"service_api_key": "default"
 		},
-		"serviceUri": "javaclass:leotech.cdp.data.service.PersonalizationDataService"
+		"serviceUri": "javaclass:leotech.cdp.data.service.InternalAgentActivation"
 	},
 	{
 		"id": "leo_compute_clv_service",
@@ -40,7 +23,7 @@
 			"service_api_url": "local-data-service",		
 			"service_api_key": "default"
 		},
-		"serviceUri": "javaclass:leotech.cdp.data.service.ComputeCLVServiceService"
+		"serviceUri": "javaclass:leotech.cdp.data.service.InternalAgentActivation"
 	},
 	{
 		"id": "leo_email_marketing",
@@ -58,6 +41,6 @@
 			"smtp_host": "",
 			"smtp_port": 587
 		},
-		"serviceUri": "javaclass:leotech.cdp.data.service.EmailMarketingService"
+		"serviceUri": "javaclass:leotech.cdp.data.service.InternalAgentActivation"
 	}
 ]
