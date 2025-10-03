@@ -1271,9 +1271,20 @@ AQL_REVENUE_STATS_COLLECTOR =>
 
 AQL_PROFILE_COLLECTOR_IN_DATE_RANGE =>
 	FOR d IN cdp_profile
-	    FILTER (@journeyMapId == "" OR @journeyMapId IN d.inJourneyMaps[*].id) AND d.status > 0 AND (d.updatedAt >= @beginFilterDate AND d.updatedAt <= @endFilterDate)
-	    COLLECT funnelStage = d.funnelStage WITH COUNT INTO length
-	    RETURN { "collectorKey" : funnelStage, "collectorCount" : length }
+  		FILTER d.status > 0 AND d.updatedAt >= @beginFilterDate AND d.updatedAt <= @endFilterDate
+	  	FOR jm IN d.inJourneyMaps
+	    	FILTER @journeyMapId == "" OR jm.id == @journeyMapId
+		    LET stage = FIRST(
+		      FOR s IN cdp_dataflowstage
+		        FILTER s.orderIndex == jm.funnelIndex
+		        RETURN s
+		    )
+	    	FILTER stage != null
+	    	COLLECT collectorKey = stage._key WITH COUNT INTO collectorCount
+		    RETURN {
+		      collectorKey,
+		      collectorCount
+		    }
 ;
 
 AQL_PROFILE_TIMESERIES_COLLECTOR => 
