@@ -5,7 +5,7 @@
 		"period": 	600
 	},
 	{
-		"classpath": "leotech.cdp.job.scheduled.RefreshSegmentJob",
+		"classpath": "leotech.cdp.job.scheduled.RefreshAllSegmentsJob",
 		"delay": 	60,
 		"period": 	3600
 	}	
